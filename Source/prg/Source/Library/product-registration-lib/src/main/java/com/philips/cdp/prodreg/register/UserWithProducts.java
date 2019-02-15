@@ -109,7 +109,9 @@ public class UserWithProducts {
      */
     public void registerCachedProducts(final List<RegisteredProduct> registeredProducts) {
         for (RegisteredProduct registeredProduct : registeredProducts) {
-            initRegistration(registeredProduct);
+            if (null != registeredProduct) {
+                initRegistration(registeredProduct);
+            }
         }
     }
 
@@ -266,9 +268,11 @@ public class UserWithProducts {
     }
 
     public RegisteredProduct isCtnRegistered(final List<RegisteredProduct> registeredProducts, final RegisteredProduct registeredProduct) {
-        for (RegisteredProduct result : registeredProducts) {
-            if (registeredProduct.getCtn().equalsIgnoreCase(result.getCtn()) && registeredProduct.getSerialNumber().equals(result.getSerialNumber()) && result.getRegistrationState() == RegistrationState.REGISTERED) {
-                return result;
+        if (null != registeredProduct) {
+            for (RegisteredProduct result : registeredProducts) {
+                if (registeredProduct.getCtn().equalsIgnoreCase(result.getCtn()) && registeredProduct.getSerialNumber().equals(result.getSerialNumber()) && result.getRegistrationState() == RegistrationState.REGISTERED) {
+                    return result;
+                }
             }
         }
         return registeredProduct;
