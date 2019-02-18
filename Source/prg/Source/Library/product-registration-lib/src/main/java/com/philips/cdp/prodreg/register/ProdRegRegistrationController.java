@@ -38,7 +38,7 @@ public class ProdRegRegistrationController {
 
     public static final String TAG = ProdRegRegistrationController.class.getSimpleName();
 
-    public static final int NETWORK_ERROR = 511;
+    public static final int UNKNOWN = -1;
 
     public interface RegisterControllerCallBacks {
         void isValidDate(boolean validDate);
@@ -185,7 +185,7 @@ public class ProdRegRegistrationController {
             prodRegHelper.getSignedInUserWithProducts(fragmentActivity).registerProduct(getRegisteredProduct());
         } else {
             registerControllerCallBacks.hideProgress();
-            registerControllerCallBacks.showAlertOnError(NETWORK_ERROR);
+            registerControllerCallBacks.showAlertOnError(UNKNOWN);
         }
 
     }

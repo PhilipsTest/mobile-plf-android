@@ -26,6 +26,7 @@ android {
         psraRelease {
             minifyEnabled true
             shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable false
             proguardFile 'proguard-rules.pro'
             signingConfig signingConfigs.release
