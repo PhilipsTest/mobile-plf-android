@@ -187,7 +187,8 @@ abstract class ProdRegBaseFragment extends Fragment implements BackEventListener
                     ft.remove(prev);
                     ft.commitAllowingStateLoss();
                 }
-                if (ProdRegError.NETWORK_ERROR.getCode() == statusCode) {
+                if (ProdRegError.NO_INTERNET_AVAILABLE.getCode() == statusCode ||
+                        ProdRegError.NETWORK_ERROR.getCode() == statusCode) {
                     showNetworkDialog(prodRegErrorMap.getTitle(), prodRegErrorMap.getDescription(),
                             "error_dialog");
                 } else {
