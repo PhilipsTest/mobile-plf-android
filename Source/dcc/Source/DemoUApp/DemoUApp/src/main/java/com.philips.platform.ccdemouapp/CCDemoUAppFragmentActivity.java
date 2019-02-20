@@ -70,6 +70,10 @@ public class CCDemoUAppFragmentActivity extends UIDActivity implements View.OnCl
         }
     };
 
+    public CCDemoUAppFragmentActivity() {
+        setLanguagePackNeeded(false);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -45,6 +45,10 @@ public abstract class DigitalCareBaseActivity extends UIDActivity implements Act
     protected DigitalCareConfigManager mDigitalCareConfigManager = null;
     private Toolbar toolbar;
 
+    public DigitalCareBaseActivity() {
+        setLanguagePackNeeded(false);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
