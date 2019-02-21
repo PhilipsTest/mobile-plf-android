@@ -11,6 +11,7 @@ package com.philips.cdp.registration;
 import android.app.Activity;
 import android.content.Context;
 
+import com.facebook.login.LoginManager;
 import com.janrain.android.Jump;
 import com.janrain.android.capture.CaptureRecord;
 import com.janrain.android.engage.session.JRSession;
@@ -64,6 +65,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -770,6 +772,13 @@ public class User {
                 logoutHandler.onLogoutSuccess();
             }
         }
+
+        if (getProviders(RegistrationHelper.getInstance().getCountryCode()).contains("facebook"))
+            LoginManager.getInstance().logOut();
+    }
+
+    private List<String> getProviders(String countryCode) {
+        return RegistrationConfiguration.getInstance().getProvidersForCountry(countryCode);
     }
 
     /**
