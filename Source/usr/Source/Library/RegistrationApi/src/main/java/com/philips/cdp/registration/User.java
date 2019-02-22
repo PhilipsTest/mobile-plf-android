@@ -773,12 +773,9 @@ public class User {
             }
         }
 
-        if (getProviders(RegistrationHelper.getInstance().getCountryCode()).contains("facebook"))
+        String countryCode = RegistrationHelper.getInstance().getCountryCode();
+        if (RegistrationConfiguration.getInstance().getProvidersForCountry(countryCode).contains(RegConstants.SOCIAL_PROVIDER_FACEBOOK))
             LoginManager.getInstance().logOut();
-    }
-
-    private List<String> getProviders(String countryCode) {
-        return RegistrationConfiguration.getInstance().getProvidersForCountry(countryCode);
     }
 
     /**
