@@ -966,7 +966,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
     public void onNetWorkStateReceived(boolean isOnline) {
         RLog.d("Hide", "isOnline : " + isOnline);
         handleBtnClickableStates(isOnline);
-        if (!getRegistrationFragment().isHomeFragment()) {
+        if (!getRegistrationFragment().isHomeFragment() || !isVisible()) {
             return;
         }
         if (!isOnline) {
