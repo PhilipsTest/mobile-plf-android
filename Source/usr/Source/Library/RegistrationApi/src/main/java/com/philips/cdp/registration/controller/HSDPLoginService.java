@@ -3,8 +3,6 @@ package com.philips.cdp.registration.controller;
 import android.content.Context;
 
 import com.philips.cdp.registration.User;
-import com.philips.cdp.registration.app.tagging.AppTaggingErrors;
-import com.philips.cdp.registration.app.tagging.AppTagingConstants;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.dao.UserRegistrationFailureInfo;
 import com.philips.cdp.registration.events.UserRegistrationHelper;
@@ -52,7 +50,6 @@ public class HSDPLoginService {
 
             @Override
             public void onLoginFailedWithError(UserRegistrationFailureInfo userRegistrationFailureInfo) {
-                AppTaggingErrors.trackActionRegisterError(userRegistrationFailureInfo, AppTagingConstants.HSDP);
                 if (RegistrationConfiguration.getInstance().isHSDPSkipLoginConfigurationAvailable())
                     hsdpAuthenticationListener.onHSDPLoginFailure(userRegistrationFailureInfo.getErrorCode(), userRegistrationFailureInfo.getErrorDescription());
                 UserRegistrationHelper.getInstance().notifyOnHSDPLoginFailure(userRegistrationFailureInfo.getErrorCode(), userRegistrationFailureInfo.getErrorDescription());
@@ -81,7 +78,6 @@ public class HSDPLoginService {
 
             @Override
             public void onLoginFailedWithError(UserRegistrationFailureInfo userRegistrationFailureInfo) {
-                AppTaggingErrors.trackActionRegisterError(userRegistrationFailureInfo, AppTagingConstants.HSDP);
                 if (loginHandler instanceof SocialLoginProviderHandler) {
                     ThreadUtils.postInMainThread(mContext, () ->
                             loginHandler.onLoginFailedWithError(userRegistrationFailureInfo));
