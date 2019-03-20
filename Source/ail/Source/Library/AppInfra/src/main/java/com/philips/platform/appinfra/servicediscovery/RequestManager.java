@@ -72,7 +72,7 @@ public class RequestManager {
 
         final ServiceDiscovery result = new ServiceDiscovery(mAppInfra);
         try {
-            final JSONObject response = future.get(10, TimeUnit.SECONDS);
+            final JSONObject response = future.get(30, TimeUnit.SECONDS);
             cacheServiceDiscovery(response, url, urlType);
             return parseResponse(response);
         } catch (InterruptedException | TimeoutException e) {
