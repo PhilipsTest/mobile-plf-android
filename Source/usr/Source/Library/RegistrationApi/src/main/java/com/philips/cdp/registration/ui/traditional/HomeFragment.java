@@ -734,7 +734,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
                 //instead initializing facebook in oncreate , do it if we get provider name as facebook
                 initFacebookLogIn();
             } else if (provider.equals(SOCIAL_PROVIDER_GOOGLEPLUS)) {
-                drawableId = R.drawable.uid_social_media_googleplus_icon;
+                drawableId = R.drawable.uid_social_media_google_icon;
             } else if (provider.equals(SOCIAL_PROVIDER_WECHAT)) {
                 drawableId = R.drawable.uid_social_media_wechat_icon;
             }
