@@ -271,7 +271,7 @@ pipeline {
                     ./gradlew :referenceApp:printArtifactoryApkPath
                     apkname=`xargs < apkname.txt`
                     PSRA_APK_NAME=${apkname/.apk/_PSRA.apk}
-                    curl -L -u 320049003:#W3llc0m3 -X PUT ${PSRA_APK_NAME} -T Source/rap/Source/AppFramework/appFramework/build/outputs/apk/psraRelease/referenceApp-psraRelease.apk
+                    curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT ${PSRA_APK_NAME} -T Source/rap/Source/AppFramework/appFramework/build/outputs/apk/psraRelease/referenceApp-psraRelease.apk
                 '''
 
                 //archive referenceApp-psraRelease apk from below path
@@ -551,7 +551,7 @@ def DeployingLeakCanaryArtifacts() {
         if [ $PUBLISH_APK = true ]
         then
             mv referenceApp-leakCanary.apk $APK_NAME
-            curl -L -u 320049003:#W3llc0m3 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/referenceApp/LeakCanary/ -T $APK_NAME
+            curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/referenceApp/LeakCanary/ -T $APK_NAME
             echo "$ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/referenceApp/LeakCanary/$APK_NAME" > $BASE_PATH/Source/rap/Source/AppFramework/apkname.txt
         fi
 
@@ -600,7 +600,7 @@ def DeployingConnectedTestsLogs() {
 
         find . -name *logs.zip | while read LOGS;
         do
-            curl -L -u 320049003:#W3llc0m3 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/logs/ -T $LOGS
+            curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/logs/ -T $LOGS
         done
 
         if [ $? != 0 ]
@@ -647,14 +647,14 @@ def DeployingJavaDocs() {
         ./gradlew  :AppInfra:zipJavadoc :digitalCare:zipJavadoc :iap:zipJavadoc :jump:zipJavadoc :pif:zipJavadoc :product-registration-lib:zipJavadoc :productselection:zipJavadoc :prx:zipJavadoc  :referenceApp:zipJavadoc :registrationApi:zipJavadoc :referenceApp:printPlatformVersion
         platformVersion=`xargs < platformversion.txt`
  
-        curl -L -u 320049003:#W3llc0m3 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/AppInfra/$platformVersion/ -T ./Source/ail/Documents/External/AppInfra-api.zip
-        curl -L -u 320049003:#W3llc0m3 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/digitalCare/$platformVersion/ -T ./Source/dcc/Documents/External/digitalCare-api.zip
+        curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/AppInfra/$platformVersion/ -T ./Source/ail/Documents/External/AppInfra-api.zip
+        curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/digitalCare/$platformVersion/ -T ./Source/dcc/Documents/External/digitalCare-api.zip
         
-        curl -L -u 320049003:#W3llc0m3 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/iap/$platformVersion/ -T ./Source/iap/Documents/External/iap-api.zip
-        curl -L -u 320049003:#W3llc0m3 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/jump/$platformVersion/ -T ./Source/usr/Documents/External/jump-api.zip
+        curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/iap/$platformVersion/ -T ./Source/iap/Documents/External/iap-api.zip
+        curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/jump/$platformVersion/ -T ./Source/usr/Documents/External/jump-api.zip
         
-        curl -L -u 320049003:#W3llc0m3 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/product-registration-lib/$platformVersion/ -T ./Source/prg/Documents/External/product-registration-lib-api.zip
-        curl -L -u 320049003:#W3llc0m3 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/productselection/$platformVersion/ -T ./Source/pse/Documents/External/productselection-api.zip
+        curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/product-registration-lib/$platformVersion/ -T ./Source/prg/Documents/External/product-registration-lib-api.zip
+        curl -L -u 320049003:AP8vGdZe9YmJVf1t3np14Pai7hn -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/productselection/$platformVersion/ -T ./Source/pse/Documents/External/productselection-api.zip
         
         
 

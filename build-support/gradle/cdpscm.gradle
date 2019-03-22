@@ -64,7 +64,7 @@ artifactory {
             // iet-mobile-android-release-local for release branch
             repoKey = objcdp.getArtifactoryPublishRepoKey()
             username = "320049003"      //IET functional account user name
-            password = "#W3llc0m3"      //IET functional account password
+            password = "AP8vGdZe9YmJVf1t3np14Pai7hn"      //IET functional account password
 
             defaults {
                 publishPom = true
