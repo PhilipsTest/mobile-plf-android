@@ -408,7 +408,6 @@ def BuildAndUnitTest() {
             :iap:testReleaseUnitTest \
             :digitalCareUApp:cC \
             :digitalCareUApp:testRelease \
-            :digitalCare:cC \
             :digitalCare:testRelease \
             :mya:cC \
             :mya:testReleaseUnitTest \
@@ -432,7 +431,6 @@ def AcceptanceTest() {
             :securedblibrary:cC \
             :registrationApi:cC \
             :digitalCareUApp:cC \
-            :digitalCare:cC \
             :mya:cC
     '''
 }
