@@ -404,7 +404,6 @@ def BuildAndUnitTest() {
             :uAppFwLib:testReleaseUnitTest \
             :registrationApi:cC \
             :registrationApi:testReleaseUnitTest \
-            :productselection:cC \
             :product-registration-lib:testReleaseUnitTest \
             :iap:testReleaseUnitTest \
             :digitalCareUApp:cC \
@@ -432,7 +431,6 @@ def AcceptanceTest() {
         ./gradlew --refresh-dependencies --full-stacktrace assembleRelease \
             :securedblibrary:cC \
             :registrationApi:cC \
-            :productselection:cC \
             :digitalCareUApp:cC \
             :digitalCare:cC \
             :mya:cC
