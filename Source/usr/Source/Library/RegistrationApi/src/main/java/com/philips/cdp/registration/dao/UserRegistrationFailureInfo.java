@@ -12,7 +12,9 @@ package com.philips.cdp.registration.dao;
 import android.content.Context;
 
 import com.janrain.android.capture.CaptureApiError;
+import com.philips.cdp.registration.errors.ErrorCodes;
 import com.philips.cdp.registration.errors.ErrorType;
+import com.philips.cdp.registration.errors.NetworkErrorEnum;
 import com.philips.cdp.registration.errors.URError;
 import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.RegConstants;
@@ -81,21 +83,12 @@ public class UserRegistrationFailureInfo {
      * @since 1.0.0
      */
     public String getErrorDescription() {
-        if (null != error) {
-            JSONObject response = error.raw_response;
-            String message = getErrorMessageFromInvalidField(response);
-            if (message != null && !message.isEmpty()) {
-                RLog.e(TAG, "getErrorDescription : " + error.error_description);
-                return message;
-            } else {
-                final String localizedJanrainError = new URError(mContext).getLocalizedError(ErrorType.JANRAIN, error.code);
-                RLog.e(TAG, "getErrorDescription : " + localizedJanrainError);
-                return localizedJanrainError;
-            }
-        } else {
-            RLog.e(TAG, "getErrorDescription as error is null : " + errorDescription);
-            return errorDescription;
+        if (null != error && null != error.error_description) {
+            RLog.e(TAG, "getErrorDescription : " + error.error_description);
+            return error.error_description;
         }
+        String error = new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR);
+        return error;
     }
 
     /**
@@ -168,36 +161,6 @@ public class UserRegistrationFailureInfo {
             RLog.e(TAG, "getTaggingErrorDescription Exception: " + e.getMessage());
             return "";
         }
-    }
-
-    /**
-     * @param serverResponse
-     * @return error Message
-     * @since 1.0.0
-     */
-    private String getErrorMessageFromInvalidField(JSONObject serverResponse) {
-        try {
-            JSONObject jsonObject = (JSONObject) serverResponse.get(RegConstants.INVALID_FIELDS);
-            if (jsonObject != null) {
-                jsonObject.keys();
-                List<String> keys = new ArrayList<>();
-                Iterator<?> i = jsonObject.keys();
-                do {
-                    String k = i.next().toString();
-                    keys.add(k);
-                } while (i.hasNext());
-
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int j = 0; j < keys.size(); j++) {
-                    JSONArray jsonObject1 = (JSONArray) jsonObject.opt(keys.get(j));
-                    stringBuilder.append(jsonObject1.getString(0)).append("\n");
-                }
-                return stringBuilder.toString();
-            }
-        } catch (Exception e) {
-            //NOP
-        }
-        return null;
     }
 
 
