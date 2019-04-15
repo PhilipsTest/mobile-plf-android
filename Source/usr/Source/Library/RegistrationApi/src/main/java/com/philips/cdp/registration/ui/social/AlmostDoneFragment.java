@@ -30,6 +30,7 @@ import com.philips.cdp.registration.app.tagging.AppTaggingPages;
 import com.philips.cdp.registration.app.tagging.AppTagingConstants;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.dao.UserRegistrationFailureInfo;
+import com.philips.cdp.registration.errors.ErrorCodes;
 import com.philips.cdp.registration.settings.RegistrationHelper;
 import com.philips.cdp.registration.ui.customviews.OnUpdateListener;
 import com.philips.cdp.registration.ui.customviews.XRegError;
@@ -600,15 +601,23 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
 
     @Override
     public void emailErrorMessage(UserRegistrationFailureInfo userRegistrationFailureInfo) {
-        loginIdEditText.setErrorMessage(userRegistrationFailureInfo.getErrorDescription());
-        loginIdEditText.showError();
+        RLog.i(TAG, "handleLoginFailed 8:" + userRegistrationFailureInfo.getErrorCode());
+        if (userRegistrationFailureInfo.getErrorCode() == ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION) {
+            if (RegistrationHelper.getInstance().isMobileFlow()) {
+                phoneNumberAlreadyInuseError();
+            } else {
+                emailAlreadyInuseError();
+            }
+        } else {
+            loginIdEditText.setErrorMessage(userRegistrationFailureInfo.getErrorDescription());
+            loginIdEditText.showError();
+        }
     }
 
     @Override
     public void marketingOptCheckDisable() {
         marketingOptCheck.setOnCheckedChangeListener(null);
         marketingOptCheck.setChecked(!marketingOptCheck.isChecked());
-//        errorMessage.setError(getString(R.string.reg_NoNetworkConnection));
         showNotificationBarOnNetworkNotAvailable();
     }
 
