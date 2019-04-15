@@ -29,12 +29,6 @@ public class UserRegistrationFailureInfoTest extends TestCase {
     }
 
     @Test
-    public void testErrorDescription() {
-        userRegistrationFailureInfo.setErrorDescription("sampleError");
-        assertEquals("sampleError", userRegistrationFailureInfo.getErrorDescription());
-
-    }
-    @Test
     public void testErrorCode() {
         userRegistrationFailureInfo.setErrorCode(1);
         assertEquals(1, userRegistrationFailureInfo.getErrorCode());
