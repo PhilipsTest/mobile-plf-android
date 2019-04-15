@@ -601,7 +601,6 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
 
     @Override
     public void emailErrorMessage(UserRegistrationFailureInfo userRegistrationFailureInfo) {
-        RLog.i(TAG, "handleLoginFailed 8:" + userRegistrationFailureInfo.getErrorCode());
         if (userRegistrationFailureInfo.getErrorCode() == ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION) {
             if (RegistrationHelper.getInstance().isMobileFlow()) {
                 phoneNumberAlreadyInuseError();
