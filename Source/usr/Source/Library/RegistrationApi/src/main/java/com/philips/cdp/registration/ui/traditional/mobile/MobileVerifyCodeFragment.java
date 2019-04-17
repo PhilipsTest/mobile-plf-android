@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -102,6 +103,8 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
 
     boolean isVerified;
 
+    private String normalText;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -112,7 +115,7 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         RegistrationConfiguration.getInstance().getComponent().inject(this);
-        RLog.i(TAG,"Screen name is "+ TAG);
+        RLog.i(TAG, "Screen name is " + TAG);
 
 
         mobileVerifyCodePresenter = new MobileVerifyCodePresenter(this);
@@ -122,17 +125,22 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
         ButterKnife.bind(this, view);
         handleOrientation(view);
         getRegistrationFragment().startCountDownTimer();
-        setDescription();
+        normalText = getString(R.string.USR_DLS_VerifySMS_Description_Text);
+
+        SpannableString description = setDescription(normalText, user.getMobile());
+        regVerifyMobileDesc1.setText(description);
         handleVerificationCode();
         return view;
     }
 
-    private void setDescription() {
-        String userId = user.getMobile();
-        String normalText = getString(R.string.USR_DLS_VerifySMS_Description_Text);
-        SpannableString str = new SpannableString(String.format(normalText, userId));
-        str.setSpan(new StyleSpan(Typeface.BOLD), normalText.length() - 2, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        regVerifyMobileDesc1.setText(str);
+    @VisibleForTesting
+    protected SpannableString setDescription(String normalText, String mobileNumber) {
+        String formattedStr = String.format(normalText, mobileNumber);
+        StringBuilder fStringBuilder = new StringBuilder(formattedStr);
+        SpannableString str = new SpannableString(formattedStr);
+        str.setSpan(new StyleSpan(Typeface.BOLD), fStringBuilder.indexOf(mobileNumber), fStringBuilder.indexOf(mobileNumber) + mobileNumber.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return str;
     }
 
     private void handleVerificationCode() {
@@ -196,7 +204,7 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
         if (this.isVisible()) {
             RLog.d(TAG, "onRefreshUserSuccess");
             storePreference(user.getMobile());
-            setDescription();
+            setDescription(normalText, user.getMobile());
             hideProgressSpinner();
             if (isVerified)
                 getRegistrationFragment().addFragment(new AddSecureEmailFragment());
@@ -225,7 +233,7 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
 
     @OnClick(R2.id.btn_reg_Verify)
     public void verifyClicked() {
-        RLog.i(TAG,TAG + ".verifyClicked");
+        RLog.i(TAG, TAG + ".verifyClicked");
         verifyButton.showProgressIndicator();
         smsNotReceived.setEnabled(false);
         verificationCodeValidationEditText.setEnabled(false);
@@ -260,7 +268,7 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
 
     @OnClick(R2.id.btn_reg_resend_code)
     public void resendButtonClicked() {
-        RLog.i(TAG,TAG + ".resendButtonClicked");
+        RLog.i(TAG, TAG + ".resendButtonClicked");
         disableVerifyButton();
         verifyButton.hideProgressIndicator();
         getRegistrationFragment().addFragment(new MobileVerifyResendCodeFragment());
