@@ -18,39 +18,48 @@
             android:paddingRight="@dimen/view_padding">
 
             <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/detailed_screen_productname"
                 style="@style/UIDLabel"
+                fontPath="fonts/centralesansbold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dip"
-                android:textSize="20sp"
-                fontPath="fonts/centralesansbold.ttf"
-                android:id="@+id/detailed_screen_productname"/>
+                android:textSize="20sp" />
 
             <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/detailed_screen_productctn"
+                style="@style/UIDLabel.RecyclerViewItemDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_marginTop="4dip"
-                style="@style/UIDLabel.RecyclerViewItemDescriptionText"
-                android:id="@+id/detailed_screen_productctn"/>
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/detailed_screen_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/view_padding"
+                android:src="@drawable/product_placeholder"
+                android:visibility="gone" />
 
             <include layout="@layout/fragment_detailedscreen_image_navigation" />
 
             <com.philips.platform.uid.view.widget.Button
-                style="@style/UIDExtraWideButton.Center"
                 android:id="@+id/detailedscreen_select_button"
+                style="@style/UIDExtraWideButton.Center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
-                android:textAllCaps="false"
-                android:text="@string/Product_Details_Select" />
+                android:text="@string/Product_Details_Select"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/scroll_view_bottom"/>
+            android:layout_height="@dimen/scroll_view_bottom" />
 
     </LinearLayout>
 </ScrollView>
