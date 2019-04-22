@@ -165,6 +165,7 @@ public class NetworkController {
 
     boolean isMocked() {
         IAPMockInterface iapMockInterface = mIapSettings.getIapMockInterface();
+        if(iapMockInterface == null) return false; //This means , from proposition or demo APP thr mocking is not set or implemented .
         return iapMockInterface.isMockEnabled();
     }
 
