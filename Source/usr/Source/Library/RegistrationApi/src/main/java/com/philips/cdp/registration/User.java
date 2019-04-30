@@ -792,7 +792,7 @@ public class User {
                 logoutHandler.onLogoutSuccess();
             }
         }
-
+        if (RegistrationConfiguration.getInstance().isFacebookSDKSupport())
         LoginManager.getInstance().logOut();
     }
 

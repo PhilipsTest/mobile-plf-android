@@ -104,17 +104,19 @@ public class MergeSocialToSocialAccountFragment extends RegistrationBaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RegistrationConfiguration.getInstance().getComponent().inject(this);
-        RLog.i(TAG,"Screen name is"+ TAG);
+        RLog.i(TAG, "Screen name is" + TAG);
         View view = inflater.inflate(R.layout.reg_fragment_social_to_social_merge_account, container, false);
         registerInlineNotificationListener(this);
         ButterKnife.bind(this, view);
         initUI(view);
         networkChangeStatus(networkUtility.isNetworkAvailable());
         handleOrientation(view);
-        mURFaceBookUtility = new URFaceBookUtility(this);
-        mCallbackManager = mURFaceBookUtility.getCallBackManager();
+        if (RegistrationConfiguration.getInstance().isFacebookSDKSupport()) {
+            mURFaceBookUtility = new URFaceBookUtility(this);
+            mCallbackManager = mURFaceBookUtility.getCallBackManager();
+            initFacebookLogIn();
+        }
         mergeSocialToSocialAccountPresenter = new MergeSocialToSocialAccountPresenter(this, user);
-        initFacebookLogIn();
         return view;
     }
 
@@ -154,7 +156,7 @@ public class MergeSocialToSocialAccountFragment extends RegistrationBaseFragment
 
     @OnClick(R2.id.usr_mergeScreen_logout_button)
     void showLogoutAlert() {
-        RLog.i(TAG,TAG+".logoutAlert clicked");
+        RLog.i(TAG, TAG + ".logoutAlert clicked");
         trackActionStatus(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
                 AppTagingConstants.LOGOUT_BUTTON_SELECTED);
         final AlertDialogFragment.Builder builder = new AlertDialogFragment.Builder(getContext())
@@ -184,9 +186,9 @@ public class MergeSocialToSocialAccountFragment extends RegistrationBaseFragment
 
     @OnClick(R2.id.usr_mergeScreen_login_button)
     void mergeAccount() {
-        RLog.i(TAG,TAG+".mergeAccount clicked");
+        RLog.i(TAG, TAG + ".mergeAccount clicked");
         if (networkUtility.isNetworkAvailable()) {
-            if (mConflictProvider.equalsIgnoreCase(RegConstants.SOCIAL_PROVIDER_FACEBOOK)) {
+            if (RegistrationConfiguration.getInstance().isFacebookSDKSupport() && mConflictProvider.equalsIgnoreCase(RegConstants.SOCIAL_PROVIDER_FACEBOOK)) {
                 startFaceBookLogin();
             } else {
                 mergeSocialToSocialAccountPresenter.loginUserUsingSocialProvider(mConflictProvider, mMergeToken);

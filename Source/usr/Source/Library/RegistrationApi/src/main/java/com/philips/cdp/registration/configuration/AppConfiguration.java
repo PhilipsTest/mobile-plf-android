@@ -37,7 +37,7 @@ public class AppConfiguration extends BaseConfiguration {
 
     public String getWeChatAppId() {
         Object weChatAppIdObject = appInfraWrapper.getURProperty(WE_CHAT_APP_ID_KEY);
-        String  configPropertyValue= getConfigPropertyValue(weChatAppIdObject);
+        String configPropertyValue = getConfigPropertyValue(weChatAppIdObject);
         RLog.d(TAG, "getWeChatAppId: " + configPropertyValue);
         RLog.i(TAG, "hasWeChatAppId: " + (configPropertyValue != null));
         return configPropertyValue;
@@ -45,7 +45,7 @@ public class AppConfiguration extends BaseConfiguration {
 
     public String getWeChatAppSecret() {
         Object weChatAppSecretObject = appInfraWrapper.getURProperty(WE_CHAT_APP_SECRET_KEY);
-        String  configPropertyValue= getConfigPropertyValue(weChatAppSecretObject);
+        String configPropertyValue = getConfigPropertyValue(weChatAppSecretObject);
         RLog.d(TAG, "getWeChatAppSecret: " + configPropertyValue);
         RLog.i(TAG, "hasWeChatAppSecret: " + (configPropertyValue != null));
         return configPropertyValue;
@@ -54,7 +54,7 @@ public class AppConfiguration extends BaseConfiguration {
 
     public String getMicrositeId() {
         Object micrositeIdObject = appInfraWrapper.getAppIdentity().getMicrositeId();
-        String  configPropertyValue= getConfigPropertyValue(micrositeIdObject);
+        String configPropertyValue = getConfigPropertyValue(micrositeIdObject);
         RLog.d(TAG, "getmicrositeIdObject: " + configPropertyValue);
         RLog.i(TAG, "hasmicrositeIdObject: " + (configPropertyValue != null));
         return configPropertyValue;
@@ -80,7 +80,7 @@ public class AppConfiguration extends BaseConfiguration {
 
     public String getClientId(String environment) {
         Object clientIdObject = appInfraWrapper.getURProperty(CLIENT_ID_KEY + environment);
-        String  configPropertyValue= getConfigPropertyValue(clientIdObject);
+        String configPropertyValue = getConfigPropertyValue(clientIdObject);
         RLog.d(TAG, "getclientId: " + configPropertyValue);
         RLog.i(TAG, "hasclientId : " + (configPropertyValue != null));
         return configPropertyValue;
@@ -88,7 +88,7 @@ public class AppConfiguration extends BaseConfiguration {
 
     public String getCampaignId() {
         Object campaignIdObject = appInfraWrapper.getURProperty(PIL_CONFIGURATION_CAMPAIGN_ID);
-        String  configPropertyValue= getConfigPropertyValue(campaignIdObject);
+        String configPropertyValue = getConfigPropertyValue(campaignIdObject);
         RLog.d(TAG, "getCampaignId : " + configPropertyValue);
         RLog.i(TAG, "hasCampaignId : " + (configPropertyValue != null));
         return configPropertyValue;
@@ -158,4 +158,7 @@ public class AppConfiguration extends BaseConfiguration {
         return appInfraWrapper.getURProperty(HSDP_SKIP_LOGIN);
     }
 
+    public Object getFAcebookSDKSupportStatus() {
+        return appInfraWrapper.getURProperty(FACEBOOK_SDK_SUPPORT);
+    }
 }
