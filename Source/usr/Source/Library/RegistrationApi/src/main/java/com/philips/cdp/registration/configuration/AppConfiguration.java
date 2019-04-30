@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.philips.cdp.registration.configuration.URConfigurationConstants.DEFAULT;
+import static com.philips.cdp.registration.configuration.URConfigurationConstants.FACEBOOK_SDK_SUPPORT;
 import static com.philips.cdp.registration.configuration.URConfigurationConstants.FALLBACK_HOME_COUNTRY;
 import static com.philips.cdp.registration.configuration.URConfigurationConstants.FLOW_EMAIL_VERIFICATION_REQUIRED;
 import static com.philips.cdp.registration.configuration.URConfigurationConstants.FLOW_MINIMUM_AGE_LIMIT;
