@@ -402,14 +402,11 @@ def BuildAndUnitTest() {
         ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
             :AppInfra:testReleaseUnitTest \
             :uAppFwLib:testReleaseUnitTest \
-            :registrationApi:cC \
             :registrationApi:testReleaseUnitTest \
             :product-registration-lib:testReleaseUnitTest \
             :iap:testReleaseUnitTest \
-            :digitalCareUApp:cC \
             :digitalCareUApp:testRelease \
             :digitalCare:testRelease \
-            :mya:cC \
             :mya:testReleaseUnitTest \
             :pif:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest 
@@ -428,10 +425,6 @@ def AcceptanceTest() {
         set -e
         chmod -R 755 .
         ./gradlew --refresh-dependencies --full-stacktrace assembleRelease \
-            :securedblibrary:cC \
-            :registrationApi:cC \
-            :digitalCareUApp:cC \
-            :mya:cC
     '''
 }
 
