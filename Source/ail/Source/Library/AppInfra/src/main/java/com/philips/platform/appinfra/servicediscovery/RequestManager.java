@@ -240,7 +240,7 @@ public class RequestManager {
         mPrefEditor = mSharedPreference.edit();
         mPrefEditor.clear();
         mPrefEditor.apply();
-        appInfraTaggingAction.trackSuccessAction(SERVICE_DISCOVERY, SD_CLEAR_DATA);
+        ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY,  SD_CLEAR_DATA);
     }
 
     SharedPreferences getServiceDiscoverySharedPreferences() {
