@@ -455,7 +455,7 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
                 ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY,
                 SET_HOME_COUNTRY_SUCCESS.concat(countryCode));
                 serviceDiscovery = null;  // if there is no internet then also old SD value must be cleared.
-                mRequestItemManager.clearCacheServiceDiscovery(appInfraTaggingAction); // clear SD cache
+                mRequestItemManager.clearCacheServiceDiscovery(); // clear SD cache
                 queueResultListener(true, new AbstractDownloadItemListener() {
                     @Override
                     public void onDownloadDone(AISDResponse result) {
@@ -667,13 +667,13 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
     }
 
     private void getServiceDiscoveryData(final AISDListener listener, SD_REQUEST_TYPE requestType) {
-        final AISDResponse cachedData = mRequestItemManager.getCachedData(appInfraTaggingAction);
+        final AISDResponse cachedData = mRequestItemManager.getCachedData();
         if (cachedData != null && !cachedURLsExpired()) {
             ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY,
             SD_LOCAL_CACHE_DATA_SUCCESS);
             listener.ondataReceived(cachedData);
         } else {
-            mRequestItemManager.clearCacheServiceDiscovery(appInfraTaggingAction);
+            mRequestItemManager.clearCacheServiceDiscovery();
 
             queueResultListener(false, new AbstractDownloadItemListener() {
                 @Override
