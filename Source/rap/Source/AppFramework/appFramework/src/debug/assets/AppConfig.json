@@ -23,8 +23,7 @@
     ],
     "weChatAppId": "wx5b3bfa4e2970475e",
     "weChatAppSecret": "b2f6437ea42bacca704493bce8226125",
-    "ShowCountrySelection": "true",
-    "SkipFacebookSDK": "true"
+    "ShowCountrySelection": "true"
   },
   "IAP": {
     "propositionid": "Tuscany2016",
