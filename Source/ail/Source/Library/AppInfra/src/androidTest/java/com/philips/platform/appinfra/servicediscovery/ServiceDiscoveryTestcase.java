@@ -154,7 +154,6 @@ public class ServiceDiscoveryTestcase {
         verify(appInfraTaggingUtil).trackErrorAction(SERVICE_DISCOVERY, " error while fetching ".concat(ServiceDiscoveryManager.SD_REQUEST_TYPE.refresh.name().concat(" due to ").concat(serviceDiscovery.getError().getErrorvalue().name())));
         when(restInterfaceMock.isInternetReachable()).thenReturn(true);
         mServiceDiscoveryManager.processRequest(url, serviceDiscovery, ServiceDiscoveryManager.AISDURLType.AISDURLTypePlatform, ServiceDiscoveryManager.SD_REQUEST_TYPE.refresh);
-        verify(appInfraTaggingUtil).trackSuccessAction(SERVICE_DISCOVERY, SD_SUCCESS);
         serviceDiscovery.setSuccess(false);
         ServiceDiscovery.Error error = new ServiceDiscovery.Error(ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES.CONNECTION_TIMEOUT, " connection time out");
         serviceDiscovery.setError(error);
@@ -200,7 +199,6 @@ public class ServiceDiscoveryTestcase {
         };
         String en = "gb";
         mServiceDiscoveryManager.setHomeCountry(en);
-        verify(appInfraTaggingUtil).trackSuccessAction(SERVICE_DISCOVERY, SET_HOME_COUNTRY_SUCCESS.concat(en));
 
         Context context = mock(Context.class);
         TelephonyManager telephonyManagerMock = mock(TelephonyManager.class);
@@ -227,7 +225,6 @@ public class ServiceDiscoveryTestcase {
             }
         };
         mServiceDiscoveryManager.getHomeCountry(listenerMock);
-        verify(appInfraTaggingUtil).trackSuccessAction(SERVICE_DISCOVERY, GET_HOME_COUNTRY_SIM_SUCCESS.concat(homeCountryCode[0]));
     }
 
     @Test
@@ -240,9 +237,7 @@ public class ServiceDiscoveryTestcase {
             }
         };
         ServiceDiscoveryInterface.OnRefreshListener onRefreshListenerMock = mock(ServiceDiscoveryInterface.OnRefreshListener.class);
-        appInfraTaggingUtil.trackSuccessAction(SERVICE_DISCOVERY, SD_FORCE_REFRESH_CALLED);
         mServiceDiscoveryManager.refresh(onRefreshListenerMock,false);
-        verify(appInfraTaggingUtil).trackSuccessAction(SERVICE_DISCOVERY, SD_FORCE_REFRESH_CALLED);
     }
 
     @Test
@@ -256,11 +251,9 @@ public class ServiceDiscoveryTestcase {
         };
         mServiceDiscoveryManager.downloadPlatformService(ServiceDiscoveryManager.SD_REQUEST_TYPE.refresh);
         String sdurlForType = mServiceDiscoveryManager.getSDURLForType(ServiceDiscoveryManager.AISDURLType.AISDURLTypePlatform);
-        verify(appInfraTaggingUtil).trackSuccessAction(SERVICE_DISCOVERY, DOWNLOAD_PLATFORM_SERVICES_INVOKED.concat(sdurlForType));
 
         sdurlForType = mServiceDiscoveryManager.getSDURLForType(ServiceDiscoveryManager.AISDURLType.AISDURLTypeProposition);
         mServiceDiscoveryManager.downloadPropositionService(ServiceDiscoveryManager.SD_REQUEST_TYPE.refresh);
-        verify(appInfraTaggingUtil).trackSuccessAction(SERVICE_DISCOVERY, DOWNLOAD_PREPOSITION_SERVICES_INVOKED.concat(sdurlForType));
     }
 
 
