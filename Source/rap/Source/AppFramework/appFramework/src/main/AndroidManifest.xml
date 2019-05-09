@@ -54,6 +54,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.janrain.android.engage.ui.JRFragmentHostActivity$Fullscreen"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.Janrain.Light"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            />
+        <activity
             android:name=".homescreen.HamburgerActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|locale|layoutDirection"
             android:theme="@style/Theme.DLS.GroupBlue.UltraLight" />
@@ -112,7 +118,6 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.janrain.android.engage.OpenIDAppAuthTokenActivity"
             android:label="SimpleDemoApplication"
