@@ -65,10 +65,12 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
+import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_FACEBOOK;
 import static com.philips.cdp.registration.ui.utils.RegPreferenceUtility.getPreferenceValue;
 
 /**
@@ -792,8 +794,11 @@ public class User {
                 logoutHandler.onLogoutSuccess();
             }
         }
-        if (RegistrationConfiguration.getInstance().isFacebookSDKSupport())
-        LoginManager.getInstance().logOut();
+        List<String> providersForCountry = RegistrationConfiguration.getInstance().getProvidersForCountry(getCountryCode());
+
+        if (RegistrationConfiguration.getInstance().isFacebookSDKSupport()
+                && providersForCountry != null && providersForCountry.contains(SOCIAL_PROVIDER_FACEBOOK))
+            LoginManager.getInstance().logOut();
     }
 
     /**
