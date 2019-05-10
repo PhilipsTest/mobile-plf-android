@@ -23,6 +23,6 @@ public class URConfigurationConstants {
     public static final String SHOW_COUNTRY_SELECTION = "ShowCountrySelection";
     public static final String HSDP_UUID_UPLOAD_IN_ANALYTICS = "hsdpUUIDUpload";
     public static final String HSDP_SKIP_LOGIN = "skipHSDPLogin";
-    public static final String SKIP_FACEBOOK_SDK_SUPPORT = "SkipFacebookSDK";
+    public static final String IS_FACEBOOK_SDK_SUPPORTED = "isFacebookSDKSupported";
 
 }

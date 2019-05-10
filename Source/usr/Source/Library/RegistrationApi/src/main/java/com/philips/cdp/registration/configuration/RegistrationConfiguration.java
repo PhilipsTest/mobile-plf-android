@@ -242,13 +242,13 @@ public class RegistrationConfiguration {
      * @return boolean
      */
     public boolean isFacebookSDKSupport() {
-        Object obj = appConfiguration.getFAcebookSDKSupportStatus();
+        Object obj = appConfiguration.getFacebookSDKSupportStatus();
         if (obj != null) {
             RLog.d(TAG, "isFacebookSDKSupport : " + Boolean.parseBoolean((String) obj));
             return Boolean.parseBoolean((String) obj);
         }
         RLog.d(TAG, "isFacebookSDKSupport : false");
-        return false;
+        return true;
     }
 
     /**
