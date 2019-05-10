@@ -130,7 +130,7 @@ public class RequestManagerTestCase {
         };
         when(sharedPreferencesMock.getString("SDPLATFORM", null)).thenThrow(new NullPointerException());
         AppInfraTaggingUtil appInfraTaggingAction = mock(AppInfraTaggingUtil.class);
-        assertNull(mRequestItemManager.getCachedData(appInfraTaggingAction));
+        assertNull(mRequestItemManager.getCachedData());
     }
 
     @Test
@@ -152,9 +152,7 @@ public class RequestManagerTestCase {
 
     @Test
     public void testclearCacheServiceDiscovery() {
-        AppInfraTaggingUtil appInfraTaggingAction = mock(AppInfraTaggingUtil.class);
-        mRequestItemManager.clearCacheServiceDiscovery(appInfraTaggingAction);
-        verify(appInfraTaggingAction).trackSuccessAction(SERVICE_DISCOVERY, SD_CLEAR_DATA);
+        mRequestItemManager.clearCacheServiceDiscovery();
     }
 
     private JSONObject makJsonObject(boolean isSuccess, int resultJsonArraySize) {

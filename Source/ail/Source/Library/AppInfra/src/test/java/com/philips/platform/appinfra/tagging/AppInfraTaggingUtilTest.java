@@ -35,14 +35,6 @@ public class AppInfraTaggingUtilTest {
     }
 
     @Test
-    public void testSuccessAction() throws Exception {
-        String message = " some message";
-        appInfraTaggingUtil.trackSuccessAction(AppInfraTaggingUtil.SERVICE_DISCOVERY, message);
-        verify(appTaggingInterface).trackActionWithInfo(SEND_DATA, SUCCESS_MESSAGE,AppInfraTaggingUtil.SERVICE_DISCOVERY.concat(":").concat(message));
-        verify(loggingInterface).log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, AppInfraTaggingUtil.SERVICE_DISCOVERY.concat(":").concat(message));
-    }
-
-    @Test
     public void testErrorAction() throws Exception {
         String message = " some message";
         appInfraTaggingUtil.trackErrorAction(AppInfraTaggingUtil.SERVICE_DISCOVERY, message);

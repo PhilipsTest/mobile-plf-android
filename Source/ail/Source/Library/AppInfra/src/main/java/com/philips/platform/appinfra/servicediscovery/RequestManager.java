@@ -164,7 +164,7 @@ public class RequestManager {
 
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    AISDResponse getCachedData(AppInfraTaggingUtil appInfraTaggingAction) {
+    AISDResponse getCachedData() {
         AISDResponse cachedResponse = null;
         mSharedPreference = getServiceDiscoverySharedPreferences();
         if (mSharedPreference != null) {
@@ -235,12 +235,12 @@ public class RequestManager {
     }
 
 
-    void clearCacheServiceDiscovery(AppInfraTaggingUtil appInfraTaggingAction) {
+    void clearCacheServiceDiscovery() {
         mSharedPreference = getServiceDiscoverySharedPreferences();
         mPrefEditor = mSharedPreference.edit();
         mPrefEditor.clear();
         mPrefEditor.apply();
-        appInfraTaggingAction.trackSuccessAction(SERVICE_DISCOVERY, SD_CLEAR_DATA);
+        ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY,  SD_CLEAR_DATA);
     }
 
     SharedPreferences getServiceDiscoverySharedPreferences() {

@@ -57,13 +57,6 @@ public class AppInfraTaggingUtil implements Serializable {
         this.appInfraLogging = appInfraLogInstance;
     }
 
-    public void trackSuccessAction(String category, String message) {
-        if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
-            appTagging.trackActionWithInfo(SEND_DATA, SUCCESS_MESSAGE, category.concat(":").concat(message));
-            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, category.concat(":").concat(message));
-        }
-    }
-
     public void trackErrorAction(String category, String message) {
         if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
             appTagging.trackActionWithInfo(SEND_DATA, TECHNICAL_ERROR, "AIL:".concat(category).concat(":").concat(message));
