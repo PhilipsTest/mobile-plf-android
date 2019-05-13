@@ -237,6 +237,21 @@ public class RegistrationConfiguration {
     }
 
     /**
+     * get status of Facebook SDK true or false
+     *
+     * @return boolean
+     */
+    public boolean isFacebookSDKSupport() {
+        Object obj = appConfiguration.getFacebookSDKSupportStatus();
+        if (obj != null) {
+            RLog.d(TAG, "isFacebookSDKSupport : " + Boolean.parseBoolean((String) obj));
+            return Boolean.parseBoolean((String) obj);
+        }
+        RLog.d(TAG, "isFacebookSDKSupport : true");
+        return true;
+    }
+
+    /**
      * Get minimium age for country
      *
      * @param countryCode Country code

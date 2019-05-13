@@ -389,7 +389,7 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
                     } else {
                         homeContract.switchToControlView();
                     }
-                } else if (provider.equalsIgnoreCase(SOCIAL_PROVIDER_FACEBOOK)) {
+                } else if (RegistrationConfiguration.getInstance().isFacebookSDKSupport() && provider.equalsIgnoreCase(SOCIAL_PROVIDER_FACEBOOK)) {
                     homeContract.startFaceBookLogin();
                 } else {
                     homeContract.socialProviderLogin();
