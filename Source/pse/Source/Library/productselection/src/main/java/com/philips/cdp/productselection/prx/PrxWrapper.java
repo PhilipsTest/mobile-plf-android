@@ -76,6 +76,7 @@ public class PrxWrapper {
                     listener.onSuccess(summaryModel);
                 } else
                     ProductSelectionLogger.e(TAG, "Response Failed  for the CTN as \"isSuccess\" false: " + mCtn);
+                    listener.onFail("Response Failed  for the CTN as \"isSuccess\" false: " + mCtn);
             }
 
             @Override
@@ -111,6 +112,7 @@ public class PrxWrapper {
 
                 } else
                     ProductSelectionLogger.e(TAG, "Response Failed  for the CTN as \"isSuccess\" false: " + mCtn);
+                    listener.onFail("Response Failed  for the CTN as \"isSuccess\" false: " + mCtn);
 
             }
 
@@ -139,7 +141,7 @@ public class PrxWrapper {
             @Override
             public void onResponseSuccess(ResponseData responseData) {
 
-                getSummaryModels(responseData, listener);
+                getSummaryModels(responseData, listener ,ctnList);
 
             }
 
@@ -155,17 +157,29 @@ public class PrxWrapper {
 
     }
 
-    private void getSummaryModels(ResponseData responseData, SummaryDataListener listener) {
+    private void getSummaryModels(ResponseData responseData, SummaryDataListener listener, String[] ctnList) {
         PRXSummaryListResponse summaryListResponse = (PRXSummaryListResponse) responseData;
         List<SummaryModel> summaryModels = new ArrayList<>();
+        List<String> responseCtns = new ArrayList<>();
 
-        for (Data data : summaryListResponse.getData()) {
-            SummaryModel summaryModel = new SummaryModel();
-            summaryModel.setData(data);
-            summaryModels.add(summaryModel);
+        if (summaryListResponse.isSuccess()) {
+            for (Data data : summaryListResponse.getData()) {
+                SummaryModel summaryModel = new SummaryModel();
+                summaryModel.setData(data);
+                summaryModels.add(summaryModel);
+                responseCtns.add(data.getCtn());
+            }
         }
-
+        //log the error if , we do not get information for all the ctns ,we asked for .
+        if(responseCtns.size() != ctnList.length) {
+            for (int i = 0; i < ctnList.length; i++) {
+                if (!responseCtns.contains(ctnList[i])) {
+                    ProductSelectionLogger.e(TAG, "Response Failed  for the CTN as \"isSuccess\" false: " + ctnList[i]);
+                }
+            }
+        }
         listener.onSuccess(summaryModels);
+
     }
 
 }
