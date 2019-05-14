@@ -163,7 +163,7 @@
   <string name="USR_DLS_VerifySMS_Title_Text">Confirma tu número de teléfono</string>
   <string name="USR_DLS_VerifySMS_VerifyCode_Button_Title">Verificar código</string>
   <string name="USR_DLS_Verify_Email_Explainary_Txt">Comprueba tu correo electrónico y activa tu cuenta.</string>
-  <string name="USR_DLS_Verify_Email_Resend_Btn_Title_Txt">No he recibido un mensaje de correo electrónico</string>
+  <string name="USR_DLS_Verify_Email_Resend_Btn_Title_Txt">No recibí ningún correo</string>
   <string name="USR_DLS_Verify_Email_Security_Txt">Realizamos este proceso por motivos de seguridad.</string>
   <string name="USR_DLS_Verify_Email_Sent_Txt">Te acabamos de enviar un correo electrónico a %s.</string>
   <string name="USR_DLS_Verify_Email_Title_Txt">Confirma tu correo electrónico</string>
