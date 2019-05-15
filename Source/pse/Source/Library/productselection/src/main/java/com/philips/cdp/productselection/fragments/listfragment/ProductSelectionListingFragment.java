@@ -49,7 +49,7 @@ public class ProductSelectionListingFragment extends ProductSelectionBaseFragmen
     private LinearLayout noresult = null;
     private TextView tvNoResult = null;
     private AppCompatAutoCompleteTextView mSearchTextView;
-    private String mSearchText;
+    private String mSearchText = "";
 
 
     public ProductSelectionListingFragment() {
