@@ -6,9 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.view.MotionEvent;
 import android.widget.TextView;
 
 import com.philips.cdp.productselection.ProductModelSelectionHelper;
@@ -26,14 +23,12 @@ import com.philips.cdp.productselection.R;
 import com.philips.cdp.productselection.fragments.detailedscreen.DetailedScreenFragmentSelection;
 import com.philips.cdp.productselection.fragments.homefragment.ProductSelectionBaseFragment;
 import com.philips.cdp.productselection.utils.Constants;
-import com.philips.cdp.productselection.utils.CustomSearchView;
 import com.philips.cdp.productselection.utils.ProductSelectionLogger;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.platform.uid.view.widget.SearchBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -52,7 +47,9 @@ public class ProductSelectionListingFragment extends ProductSelectionBaseFragmen
     private SearchBox mSearchBox = null;
 
     private LinearLayout noresult = null;
+    private TextView tvNoResult = null;
     private AppCompatAutoCompleteTextView mSearchTextView;
+    private String mSearchText = "";
 
 
     public ProductSelectionListingFragment() {
@@ -73,6 +70,7 @@ public class ProductSelectionListingFragment extends ProductSelectionBaseFragmen
 
         setUpSearch();
         noresult = (LinearLayout) view.findViewById(R.id.ll_no_result_found);
+        tvNoResult = view.findViewById(R.id.product_zero_results);
 
     }
 
@@ -93,6 +91,7 @@ public class ProductSelectionListingFragment extends ProductSelectionBaseFragmen
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Do nothing
+                mSearchText = String.valueOf(s);
             }
 
             @Override
@@ -208,6 +207,7 @@ public class ProductSelectionListingFragment extends ProductSelectionBaseFragmen
 
                             if(count ==0 ){
                                 noresult.setVisibility(View.VISIBLE);
+                                tvNoResult.setText(getContext().getResources().getString(R.string.pse_No_Result) + " "+mSearchText);
                                 mProductListView.setVisibility(View.GONE);
                             }
                         }
