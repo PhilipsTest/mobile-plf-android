@@ -748,7 +748,7 @@ public class User {
 
 
     private boolean getUserNotLoggedInState() {
-        return getUserLoginState().ordinal() < UserLoginState.PENDING_HSDP_LOGIN.ordinal();
+        return getUserLoginState().ordinal() < UserLoginState.PENDING_VERIFICATION.ordinal();
     }
 
 
