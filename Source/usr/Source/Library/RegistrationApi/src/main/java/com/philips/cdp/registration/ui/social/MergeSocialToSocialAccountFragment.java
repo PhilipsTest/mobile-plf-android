@@ -111,12 +111,12 @@ public class MergeSocialToSocialAccountFragment extends RegistrationBaseFragment
         initUI(view);
         networkChangeStatus(networkUtility.isNetworkAvailable());
         handleOrientation(view);
+        mergeSocialToSocialAccountPresenter = new MergeSocialToSocialAccountPresenter(this, user);
         if (RegistrationConfiguration.getInstance().isFacebookSDKSupport()) {
             mURFaceBookUtility = new URFaceBookUtility(this);
             mCallbackManager = mURFaceBookUtility.getCallBackManager();
             initFacebookLogIn();
         }
-        mergeSocialToSocialAccountPresenter = new MergeSocialToSocialAccountPresenter(this, user);
         return view;
     }
 
