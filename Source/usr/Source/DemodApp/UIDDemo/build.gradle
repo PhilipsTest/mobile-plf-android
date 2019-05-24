@@ -20,8 +20,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'http://artifactory-ehv.ta.philips.com:8082/artifactory/platform-pkgs-android-snapshot'}
-        maven {url 'http://artifactory-ehv.ta.philips.com:8082/artifactory/platform-jcenter-remote'}
+        maven { url 'https://artifactory-ehv.ta.philips.com:8082/artifactory/platform-pkgs-android-snapshot'}
+        maven {url 'https://artifactory-ehv.ta.philips.com:8082/artifactory/platform-jcenter-remote'}
     }
 }
 

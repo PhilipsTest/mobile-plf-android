@@ -10,8 +10,8 @@
   "maturity"           : "production",
   "contact"            : "",
   "release format"     : "maven",
-  "release url"        : "http://artifactory-ehv.ta.philips.com:8081/artifactory/libs-release-local-android:com/philips/cdp/pif/1.0.0",
+  "release url"        : "https://artifactory-ehv.ta.philips.com:8081/artifactory/libs-release-local-android:com/philips/cdp/pif/1.0.0",
   "version"            : "1.0.0",
   "source url"         : "http://tfsemea1.ta.philips.com:8080/tfs/TPC_Region24/CDP2/_git/plf",
-  "documentation url"  : "http://artifactory-ehv.ta.philips.com:8081/artifactory/libs-release-local-android:com/philips/cdp/pif/1.0.0",
+  "documentation url"  : "https://artifactory-ehv.ta.philips.com:8081/artifactory/libs-release-local-android:com/philips/cdp/pif/1.0.0",
 }
