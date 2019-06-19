@@ -75,7 +75,7 @@ public class PIMInterfaceTest extends TestCase {
     @Test
     public void testInit_NotNull() {
         PIMInterface pimInterface = new PIMInterface();
-        pimInterface.init(mockUappDependencies, mockUappSettings);
+       // pimInterface.init(mockUappDependencies, mockUappSettings);
 
         assertNotNull(mockContext);
         assertNotNull(mockUappDependencies);

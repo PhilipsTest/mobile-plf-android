@@ -16,11 +16,14 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -80,6 +83,7 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
     private ViewProductDetailsModel mViewProductDetailsModel = null;
     private PrxWrapper mPrxWrapper = null;
     private CommonRecyclerViewAdapter<MenuItem> mAdapter;
+    private static final String TAG ="ProductDetailsFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -265,7 +269,9 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
                     mVideoScrollView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            mVideoScrollView.smoothScrollTo((mScrollPosition - 400), 0);
+
+                            Log.d(TAG,"getWidthOfScreen"+mScrollPosition+" "+getDisplayWidth());
+                            mVideoScrollView.smoothScrollTo((mScrollPosition - getDisplayWidth()), 0);
                         }
                     }, 5);
                 }
@@ -278,13 +284,16 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
                 mVideoScrollView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mVideoScrollView.smoothScrollTo((mScrollPosition + 400), 0);
+                        Log.d(TAG,"getWidthOfScreen"+mScrollPosition+" "+getDisplayWidth());
+                        mVideoScrollView.smoothScrollTo((mScrollPosition + getDisplayWidth()), 0);
                     }
                 }, 5);
             }
         });
         mProdVideoContainer.addView(child);
     }
+
+
 
     private void createProductDetailsMenu() {
         final ProductDetailsFragment context = this;

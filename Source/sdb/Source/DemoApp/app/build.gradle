@@ -25,7 +25,7 @@ artifactory {
     contextUrl = objcdp.getArtifactoryContextUrl()
     publish {
         repository {
-            repoKey = objcdp.getArtifactoryPublishRepoKey()
+            repoKey = objcdp.getArtifactoryResolveRepoKey()
             username = objcdp.getArtifactoryUploadUser()
             password = objcdp.getArtifactoryUploadPwd()
             defaults {

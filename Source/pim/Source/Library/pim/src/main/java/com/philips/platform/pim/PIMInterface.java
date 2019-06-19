@@ -6,10 +6,17 @@
 
 package com.philips.platform.pim;
 
+import android.app.Activity;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
@@ -17,6 +24,8 @@ import com.philips.platform.pim.fragment.PIMFragment;
 import com.philips.platform.pim.manager.PIMConfigManager;
 import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.pim.manager.PIMUserManager;
+import com.philips.platform.pim.models.PIMInitViewModel;
+import com.philips.platform.pim.utilities.PIMInitState;
 import com.philips.platform.uappframework.UappInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
@@ -38,6 +47,7 @@ public class PIMInterface implements UappInterface {
     private LoggingInterface mLoggingInterface;
 
     private Context context;
+    private PIMInitViewModel pimInitViewModel;
 
     /**
      * API to initialize PIM. Please make sure no propositions are being used before PIMInterface$init.
@@ -50,6 +60,12 @@ public class PIMInterface implements UappInterface {
     public void init(@NonNull UappDependencies uappDependencies, @NonNull UappSettings uappSettings) {
         context = uappSettings.getContext();
 
+        pimInitViewModel = ViewModelProviders.of((FragmentActivity)context).get(PIMInitViewModel.class);
+
+        MutableLiveData<PIMInitState> livedata = pimInitViewModel.getMuatbleInitLiveData();
+        livedata.setValue(PIMInitState.INIT_IN_PROGRESS);
+
+        PIMSettingManager.getInstance().setPIMInitLiveData(livedata);
         PIMSettingManager.getInstance().init(uappDependencies);
         PIMUserManager pimUserManager = new PIMUserManager();
         PIMSettingManager.getInstance().setPimUserManager(pimUserManager);
@@ -59,8 +75,6 @@ public class PIMInterface implements UappInterface {
 
         mLoggingInterface = PIMSettingManager.getInstance().getLoggingInterface();
         mLoggingInterface.log(DEBUG, TAG, "PIMInterface init called.");
-
-
     }
 
     /**

@@ -15,6 +15,8 @@ import com.philips.cdp.di.iap.analytics.IAPAnalyticsConstant;
 import com.philips.cdp.di.iap.container.CartModelContainer;
 import com.philips.cdp.di.iap.session.NetworkConstants;
 import com.philips.cdp.di.iap.utils.AlertListener;
+import com.philips.cdp.di.iap.utils.IAPConstant;
+import com.philips.cdp.di.iap.utils.IAPLog;
 import com.philips.cdp.di.iap.utils.ModelConstants;
 import com.philips.cdp.di.iap.utils.NetworkUtility;
 import com.philips.cdp.di.iap.utils.Utility;
@@ -67,7 +69,7 @@ public class WebPaymentFragment extends WebFragment implements AlertListener {
     protected String getWebUrl() {
         Bundle arguments = getArguments();
         if (arguments == null || !arguments.containsKey(ModelConstants.WEB_PAY_URL)) {
-            throw new RuntimeException("URL must be provided");
+            IAPLog.d(TAG,"URL must be provided");
         }
         StringBuilder builder = new StringBuilder();
         builder.append(arguments.getString(ModelConstants.WEB_PAY_URL));
@@ -85,8 +87,7 @@ public class WebPaymentFragment extends WebFragment implements AlertListener {
         return bundle;
     }
 
-    private Bundle createErrorBundle() {
-        Bundle bundle = new Bundle();
+    private Bundle createErrorBundle(Bundle bundle) {
         bundle.putBoolean(ModelConstants.PAYMENT_SUCCESS_STATUS, false);
         return bundle;
     }
@@ -106,7 +107,8 @@ public class WebPaymentFragment extends WebFragment implements AlertListener {
         if (url.startsWith(PAYMENT_SUCCESS_CALLBACK_URL)) {
             launchConfirmationScreen(createSuccessBundle());
         } else if (url.startsWith(PAYMENT_PENDING_CALLBACK_URL)) {
-            launchConfirmationScreen(createErrorBundle());
+            Bundle bundle = new Bundle();
+            launchConfirmationScreen(createErrorBundle(bundle));
         } else if (url.startsWith(PAYMENT_FAILURE_CALLBACK_URL)) {
             mIsPaymentFailed = true;
             IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
@@ -115,7 +117,9 @@ public class WebPaymentFragment extends WebFragment implements AlertListener {
         } else if (url.startsWith(PAYMENT_CANCEL_CALLBACK_URL)) {
             IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
                     IAPAnalyticsConstant.PAYMENT_STATUS, IAPAnalyticsConstant.CANCELLED);
-            moveToPreviousFragment();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(ModelConstants.PAYMENT_CANCELLED,true);
+            launchConfirmationScreen(createErrorBundle(bundle));
         } else {
             match = false;
         }

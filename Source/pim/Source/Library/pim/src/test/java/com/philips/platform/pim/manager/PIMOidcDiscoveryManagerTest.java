@@ -1,10 +1,13 @@
 package com.philips.platform.pim.manager;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pim.listeners.PIMAuthServiceConfigListener;
+import com.philips.platform.pim.models.PIMInitViewModel;
+import com.philips.platform.pim.utilities.PIMInitState;
 
 import junit.framework.TestCase;
 
@@ -44,6 +47,8 @@ public class PIMOidcDiscoveryManagerTest extends TestCase {
     private PIMAuthServiceConfigListener mockServiceConfigurationListener;
     @Mock
     private PIMSettingManager mockPimSettingManager;
+    @Mock
+    private MutableLiveData<PIMInitState> mockPimInitViewModel;
     @Captor
     private ArgumentCaptor<PIMAuthServiceConfigListener> captorListener;
     private String baseurl = "https://stg.accounts.philips.com/c2a48310-9715-3beb-895e-000000000000/login";
@@ -56,6 +61,7 @@ public class PIMOidcDiscoveryManagerTest extends TestCase {
         mockStatic(PIMSettingManager.class);
         when(PIMSettingManager.getInstance()).thenReturn(mockPimSettingManager);
         when(mockPimSettingManager.getLoggingInterface()).thenReturn(mockLoggingInterface);
+        when(mockPimSettingManager.getPimInitLiveData()).thenReturn(mockPimInitViewModel);
         PowerMockito.whenNew(PIMAuthManager.class).withNoArguments().thenReturn(mockPimAuthManager);
 
         mockStatic(Uri.class);

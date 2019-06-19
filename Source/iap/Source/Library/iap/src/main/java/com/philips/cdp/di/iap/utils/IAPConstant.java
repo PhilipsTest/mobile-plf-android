@@ -17,6 +17,7 @@ public class IAPConstant {
     public static final int IAP_ERROR_SERVER_ERROR = 5;
     public static final int IAP_ERROR_INSUFFICIENT_STOCK_ERROR = 6;
     public static final int IAP_ERROR_UNKNOWN = 7;
+    public static final int IAP_ERROR_INVALID_CTN = 8;
 
     //Cart
     public static final String IAP_DELETE_PRODUCT = "IAP_DELETE_PRODUCT";

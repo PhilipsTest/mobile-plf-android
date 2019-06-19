@@ -6,11 +6,10 @@ buildscript {
     apply from: projectDir.absolutePath + '/build-support/gradle/versions.gradle'
 
     repositories {
-        maven { url repos.mavengoogle }
-        maven { url repos.jcenter }
         maven { url repos.ietsnapshot }
         maven { url repos.ietrelease }
-
+        maven { url repos.mavengoogle }
+        maven { url repos.jcenter }
         maven { url repos.pluginsgradle }
         maven {
             url repos.plugin
@@ -61,6 +60,8 @@ subprojects {
         apply from: project.rootDir.absolutePath + '/build-support/gradle/versions.gradle'
 
         repositories {
+            maven { url repos.ietsnapshot }
+            maven { url repos.ietrelease }
             maven {
                 url repos.mavengoogle
                 credentials {
@@ -69,8 +70,6 @@ subprojects {
                 }
             }
             maven { url repos.jcenter }
-            maven { url repos.ietsnapshot }
-            maven { url repos.ietrelease }
             maven { url repos.hsdprelease }
 
             maven {
@@ -84,6 +83,8 @@ subprojects {
     }
 
     repositories {
+        maven { url repos.ietsnapshot }
+        maven { url repos.ietrelease }
         maven {
             url repos.mavengoogle
             credentials {
@@ -94,8 +95,6 @@ subprojects {
         maven {
             url repos.jcenter
         }
-        maven { url repos.ietsnapshot }
-        maven { url repos.ietrelease }
         maven { url repos.hsdprelease }
 
         maven {

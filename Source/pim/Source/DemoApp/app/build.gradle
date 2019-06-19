@@ -29,7 +29,7 @@ android {
         versionName version + "(" + commitHash + ")"
         versionCode 1
         manifestPlaceholders = [
-                appAuthRedirectScheme: 'com.philips.apps.pimdemoapp'
+                appAuthRedirectScheme: 'com.philips.apps.94e28300-565d-4110-8919-42dc4f817393'
         ]
     }
 

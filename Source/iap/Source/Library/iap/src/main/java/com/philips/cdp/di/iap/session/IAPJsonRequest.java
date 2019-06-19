@@ -47,8 +47,8 @@ public class IAPJsonRequest extends Request<JSONObject> {
     public Request<?> setRetryPolicy(final RetryPolicy retryPolicy) {
         return super.setRetryPolicy(new DefaultRetryPolicy(
                 NetworkConstants.DEFAULT_TIMEOUT_MS,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                0,
+                0.0f));
     }
 
     @Override
@@ -81,7 +81,7 @@ public class IAPJsonRequest extends Request<JSONObject> {
     @Override
     public void deliverError(VolleyError error) {
         final RequestQueue requestQueue = HybrisDelegate.getInstance().controller.mRequestQueue;
-        IAPUrlRedirectionHandler iapUrlRedirectionHandler = new IAPUrlRedirectionHandler(this,error);
+        IAPUrlRedirectionHandler iapUrlRedirectionHandler = new IAPUrlRedirectionHandler(this, error);
 
         // Handle 30x
         if (iapUrlRedirectionHandler.isRedirectionRequired()) {

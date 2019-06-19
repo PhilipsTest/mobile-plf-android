@@ -20,9 +20,6 @@ public class WebTrackUrl extends WebFragment {
     @Override
     protected String getWebUrl() {
         Bundle bundle = getArguments();
-        if(getArguments() == null){
-            throw new RuntimeException("URL must be provided");
-        }
         return bundle.getString(IAPConstant.ORDER_TRACK_URL);
     }
 

@@ -320,6 +320,8 @@ public class IAPActivity extends UIDActivity implements ActionBarListener, IAPLi
             errorText = "Authentication failure";
         } else if (IAPConstant.IAP_ERROR_INSUFFICIENT_STOCK_ERROR == errorCode) {
             errorText = "Product out of stock";
+        } else if (IAPConstant.IAP_ERROR_INVALID_CTN == errorCode) {
+            errorText = "Invalid ctn";
         }
         if (errorText != null) {
             Toast toast = Toast.makeText(this, errorText, Toast.LENGTH_SHORT);

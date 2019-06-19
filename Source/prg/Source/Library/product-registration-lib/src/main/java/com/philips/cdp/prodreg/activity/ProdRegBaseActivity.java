@@ -39,6 +39,8 @@ import java.util.ArrayList;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_FIRST_REG_BTN_TEXT;
+
 public class ProdRegBaseActivity extends UIDActivity {
     private static final String TAG = ProdRegBaseActivity.class.getSimpleName();
     private final int DEFAULT_THEME = R.style.Theme_DLS_GroupBlue_UltraLight;
@@ -109,6 +111,8 @@ public class ProdRegBaseActivity extends UIDActivity {
     protected void showFragment() {
         try {
             boolean isFirstLaunch = false;
+            boolean isWarrantyMandatory = false;
+            String  warrantyMandatoryBtnTxt="";
             int imageResID = 0;
             ArrayList<Product> regProdList = null;
             final Bundle extras = getIntent().getExtras();
@@ -116,6 +120,9 @@ public class ProdRegBaseActivity extends UIDActivity {
                 isFirstLaunch = extras.getBoolean(ProdRegConstants.PROD_REG_IS_FIRST_LAUNCH);
                 regProdList = (ArrayList<Product>) extras.getSerializable(ProdRegConstants.MUL_PROD_REG_CONSTANT);
                 imageResID = extras.getInt(ProdRegConstants.PROD_REG_FIRST_IMAGE_ID);
+                isWarrantyMandatory = extras.getBoolean(ProdRegConstants.PROD_REG_FIRST_NO_THANKS_BTN_VISIBLE);
+                warrantyMandatoryBtnTxt= extras.getString(PROD_REG_FIRST_REG_BTN_TEXT);
+
             }
             FragmentLauncher fragLauncher = new FragmentLauncher(
                     this, R.id.mainContainer, new ActionBarListener() {
@@ -134,6 +141,8 @@ public class ProdRegBaseActivity extends UIDActivity {
             final PRLaunchInput prLaunchInput = new PRLaunchInput(regProdList, isFirstLaunch);
             prLaunchInput.setProdRegUiListener(prUiHelper.getProdRegUiListener());
             prLaunchInput.setBackgroundImageResourceId(imageResID);
+            prLaunchInput.setMandatoryProductRegistration(isWarrantyMandatory);
+            prLaunchInput.setMandatoryRegisterButtonText(warrantyMandatoryBtnTxt);
             new PRInterface().launch(fragLauncher, prLaunchInput);
         } catch (IllegalStateException e) {
             ProdRegLogger.e(TAG, e.getMessage());

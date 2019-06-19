@@ -34,7 +34,7 @@
                 android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Sample title"/>
+                />
 
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/iap_available_time"
@@ -44,7 +44,7 @@
                 android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                 android:layout_marginTop="4dp"
                 android:textSize="@dimen/iap_retailers_store_name_size_12sp"
-                android:text="Sample title"/>
+                />
 
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/iap_delivery_parcel_amount"
@@ -54,7 +54,7 @@
                 android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                 android:layout_marginTop="4dp"
                 android:textSize="@dimen/title"
-                android:text="Sample title"/>
+                />
 
         </LinearLayout>
 

@@ -258,6 +258,10 @@ public class ProductDetailFragment extends InAppBaseFragment implements
                 }
             }
             mImageAdapter = new ImageAdapter(mContext, mAsset);
+            //This clause is added to populate the viewpager at least once , So that default image can be loaded .
+            if(mAsset.size() == 0){
+                mAsset.add("default image");
+            }
             if (mAsset == null) {
                 trackErrorTag(IAPAnalyticsConstant.PRX + mCTNValue + "_" + IAPAnalyticsConstant.No_IMAGES_FOUND);
             }
@@ -469,6 +473,9 @@ public class ProductDetailFragment extends InAppBaseFragment implements
         IAPLog.d(IAPConstant.PRODUCT_DETAIL_FRAGMENT, "Success");
         mAsset = (ArrayList<String>) msg.obj;
         CartModelContainer.getInstance().addProductAsset(mCTNValue, mAsset);
+        if(mAsset.size() == 0){
+            mAsset.add("default image");
+        }
         mImageAdapter = new ImageAdapter(mContext, mAsset);
         mViewPager.setAdapter(mImageAdapter);
         mImageAdapter.notifyDataSetChanged();

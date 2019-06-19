@@ -77,7 +77,7 @@
             android:layout_marginRight="@dimen/border16_margin_left_right"
             android:layout_marginTop="@dimen/border16_margin_left_right"
             android:gravity="center_vertical"
-            android:text="@string/iap_order_status_msg"
+            android:text="@string/iap_contact_consumer_care_for_support"
             android:textSize="@dimen/title" />
 
         <com.philips.platform.uid.view.widget.Label

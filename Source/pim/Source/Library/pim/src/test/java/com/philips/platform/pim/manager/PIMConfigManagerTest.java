@@ -1,5 +1,6 @@
 package com.philips.platform.pim.manager;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
@@ -7,6 +8,7 @@ import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscovery;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
+import com.philips.platform.pim.utilities.PIMInitState;
 
 import junit.framework.TestCase;
 
@@ -58,6 +60,8 @@ public class PIMConfigManagerTest extends TestCase {
     private ServiceDiscoveryService mockServiceDiscoveryService;
     @Mock
     private PIMUserManager mockPimUserManager;
+    @Mock
+    private MutableLiveData<PIMInitState> mockPimInitViewModel;
 
 
     @Before
@@ -68,6 +72,7 @@ public class PIMConfigManagerTest extends TestCase {
         mockStatic(PIMSettingManager.class);
         when(PIMSettingManager.getInstance()).thenReturn(mockPimSettingManager);
         when(mockPimSettingManager.getLoggingInterface()).thenReturn(mockLoggingInterface);
+        when(mockPimSettingManager.getPimInitLiveData()).thenReturn(mockPimInitViewModel);
         runnables = ArgumentCaptor.forClass(Runnable.class);
         whenNew(Thread.class).withParameterTypes(Runnable.class).withArguments(runnables.capture()).thenReturn(mockThread);
         mockStatic(Uri.class);

@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name" translatable="false">PIM Test App</string>
-    <string name="redirectURL" translatable="false">com.philips.apps.referenceapp://oauthredirect</string>
+    <string name="redirectURL" translatable="false">com.philips.apps.09737ff2-23b9-4eb9-af72-c19c25413f02://oauthredirect</string>
 </resources>

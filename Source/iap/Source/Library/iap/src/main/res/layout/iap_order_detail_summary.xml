@@ -5,14 +5,13 @@
     android:layout_height="wrap_content"
     android:background="?attr/uidContentPrimaryBackgroundColor">
 
-    <TableLayout
+    <LinearLayout
         android:id="@+id/tl_product_detail_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:shrinkColumns="*"
-        android:stretchColumns="*"
+        android:orientation="vertical"
         >
-    </TableLayout>
+    </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"

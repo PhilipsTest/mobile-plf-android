@@ -35,8 +35,9 @@ public class PaymentConfirmationFragment extends InAppBaseFragment
 
     private TextView mConfirmationText;
     private TextView mConfirmWithEmail;
-    private TextView mOrderNumber;
+    private TextView mOrderNumber,mOrderNumberText;
     private boolean isOrderSuccess =false;
+    private boolean isCancelled = false;
 
     //private TwoButtonDialogFragment mDialog;
 
@@ -53,6 +54,7 @@ public class PaymentConfirmationFragment extends InAppBaseFragment
         mConfirmationText = viewGroup.findViewById(R.id.tv_thank_you_title);
         mConfirmWithEmail = viewGroup.findViewById(R.id.tv_confirmation_email_shortly);
         mOrderNumber = viewGroup.findViewById(R.id.tv_order_number_val);
+        mOrderNumberText = viewGroup.findViewById(R.id.tv_order_number);
         final Button mOKButton = viewGroup.findViewById(R.id.ok_btn);
         mOKButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,7 @@ public class PaymentConfirmationFragment extends InAppBaseFragment
     private void updatePaymentUI() {
         Bundle arguments = getArguments();
         boolean isPaymentSuccessful = arguments.getBoolean(ModelConstants.PAYMENT_SUCCESS_STATUS, false);
+        isCancelled = arguments.getBoolean(ModelConstants.PAYMENT_CANCELLED,false);
         if (isPaymentSuccessful) {
             updatePaymentSuccessUI(arguments);
             isOrderSuccess =true;
@@ -93,13 +96,20 @@ public class PaymentConfirmationFragment extends InAppBaseFragment
         IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
                 IAPAnalyticsConstant.PAYMENT_STATUS, IAPAnalyticsConstant.FAILED);
 
-        setPaymentTitle(R.string.iap_payment_failed);
+        setPaymentTitle(getFailureTitle());
         mConfirmWithEmail.setVisibility(View.INVISIBLE);
+    }
+
+    private int getFailureTitle() {
+        if(isCancelled) return R.string.iap_payment_cancelled;
+       return R.string.iap_payment_failed;
     }
 
     private void updatePaymentSuccessUI(final Bundle arguments) {
         if (arguments != null) {
             if (arguments.containsKey(ModelConstants.ORDER_NUMBER)) {
+                mOrderNumber.setVisibility(View.VISIBLE);
+                mOrderNumberText.setVisibility(View.VISIBLE);
                 mOrderNumber.setText(arguments.getString(ModelConstants.ORDER_NUMBER));
                 HashMap<String, String> contextData = new HashMap<>();
                 contextData.put(IAPAnalyticsConstant.PURCHASE_ID, mOrderNumber.getText().toString());

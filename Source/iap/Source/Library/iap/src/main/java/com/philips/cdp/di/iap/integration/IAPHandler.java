@@ -96,7 +96,7 @@ class IAPHandler {
     }
 
     void launchIAP(UiLauncher uiLauncher, IAPLaunchInput pLaunchInput) {
-        verifyInput(pLaunchInput.mLandingView, pLaunchInput.mIAPFlowInput);
+        if(!verifyInput(pLaunchInput, pLaunchInput.mIAPFlowInput))return;
         Utility.setVoucherCode(pLaunchInput.getVoucher());
         if (uiLauncher instanceof ActivityLauncher) {
             launchAsActivity(mIAPSetting.getContext(), pLaunchInput, (ActivityLauncher) uiLauncher);
@@ -105,18 +105,24 @@ class IAPHandler {
         }
     }
 
-    protected void verifyInput(int landingScreen, IAPFlowInput input) {
+    protected boolean verifyInput(IAPLaunchInput launchInput, IAPFlowInput input) {
+
+        int landingScreen = launchInput.mLandingView;
         if (landingScreen == IAPLaunchInput.IAPFlows.IAP_BUY_DIRECT_VIEW
                 || landingScreen == IAPLaunchInput.IAPFlows.IAP_PRODUCT_DETAIL_VIEW) {
             if (input.getProductCTN() == null
                     || input.getProductCTN().equalsIgnoreCase("")) {
-                throw new RuntimeException("Invalid CTN");
+
+                launchInput.getIapListener().onFailure(IAPConstant.IAP_ERROR_INVALID_CTN);
+                return false;
             }
         } else if (landingScreen == IAPLaunchInput.IAPFlows.IAP_PRODUCT_CATALOG_VIEW
                 && (input == null || input.getProductCTNs() == null ||
                 (input.getProductCTNs() != null && input.getProductCTNs().size() == 0))) {
-            throw new RuntimeException("Invalid CTN");
+            launchInput.getIapListener().onFailure(IAPConstant.IAP_ERROR_INVALID_CTN);
+            return false;
         }
+        return true;
     }
 
     protected void launchAsActivity(Context pContext, IAPLaunchInput pLaunchInput,

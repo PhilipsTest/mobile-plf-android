@@ -41,13 +41,10 @@ public class PIMUserManager {
     private PIMAuthManager pimAuthManager;
     private String uuid;
 
-    public PIMUserManager() {
-       pimAuthManager = new PIMAuthManager();
-    }
-
     public void init(@NonNull Context context, @NonNull AppInfraInterface appInfraInterface) {
         this.context = context;
         this.appInfraInterface = appInfraInterface;
+        pimAuthManager = new PIMAuthManager(context); //Context is required to inject from PIMUserManager. Don't call default constructor.
         mLoggingInterface = PIMSettingManager.getInstance().getLoggingInterface();
         uuid = getUUIDFromPref();
         if (isUUIDAvailable()) {

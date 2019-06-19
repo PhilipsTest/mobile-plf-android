@@ -24,8 +24,7 @@
     "ShowCountrySelection": "true"
   },
   "IAP": {
-    "propositionid": "Tuscany2016",
-    "voucherCode.enable": true
+    "propositionid": "Tuscany2016"
   },
   "appinfra": {
     "appidentity.micrositeId": "77000",

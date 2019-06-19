@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_weight="2"
+    android:orientation="horizontal"
+    android:layout_marginBottom="@dimen/iap_margin_4dp"
     android:background="?attr/uidContentPrimaryBackgroundColor">
 
     <com.philips.platform.uid.view.widget.Label
         android:id="@+id/tv_product_quantity_name"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
         android:gravity="left"
         android:layout_marginBottom="@dimen/iap_margin_4dp"
         android:textSize="@dimen/iap_text_size_12"
@@ -16,12 +21,13 @@
 
     <com.philips.platform.uid.view.widget.Label
         android:id="@+id/tv_price_product"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
         android:gravity="right"
-        android:layout_marginBottom="@dimen/iap_margin_4dp"
         style="@style/iapCentralesansMediumFont"
         android:textSize="@dimen/iap_text_size_12"
         android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
         />
 
-</TableRow>
+</LinearLayout>

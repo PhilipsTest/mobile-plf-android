@@ -68,6 +68,7 @@ public class IAPInterface implements UappInterface, IAPExposedAPI {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mIAPSettings.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (!NetworkUtility.getInstance().isNetworkAvailable(connectivityManager)) {
+            ((IAPLaunchInput) uappLaunchInput).getIapListener().onFailure(IAPConstant.IAP_ERROR_NO_CONNECTION);
             throw new RuntimeException(mIAPSettings.getContext().getString(R.string.iap_no_internet));// Confirm the behaviour on error Callback
         }
         mIapServiceDiscoveryWrapper.getLocaleFromServiceDiscovery(uiLauncher, mIAPHandler, (IAPLaunchInput) uappLaunchInput, null, null);

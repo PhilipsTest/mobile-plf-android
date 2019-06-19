@@ -18,7 +18,7 @@ public class IAPLaunchInput extends UappLaunchInput {
     private String voucherCode;
     private IAPOrderFlowCompletion mIapOrderFlowCompletion;
     private int maxCartCount;
-    private boolean isHybrisSupported;
+    private boolean isHybrisSupported = true;
     private IAPBannerEnabler iapBannerEnabler;
     /**
      * IAPLaunchInput setIAPFlow method to set the flow of uApp with required inputs

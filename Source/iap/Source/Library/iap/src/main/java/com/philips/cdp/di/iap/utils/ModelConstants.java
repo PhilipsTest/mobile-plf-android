@@ -39,6 +39,7 @@ public class ModelConstants {
     public static final String CATEGORY = "category";
     public static final String VOUCHER_ID = "voucherId";
     public static final String HOUSE_NO = "houseNumber";
+    public static final String PAYMENT_CANCELLED = "PAYMENT_CANCELLED";
 
     // public static final String HOUSE_NUMBER = "houseNumber";
 }

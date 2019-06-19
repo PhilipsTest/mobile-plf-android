@@ -61,6 +61,10 @@ public class PIMLoginManager implements PIMUserProfileDownloadListener {
             }
         });
     }
+    public void disposeAuthorizationService(){
+        if(mPimAuthManager != null)
+            mPimAuthManager.dispose();
+    }
 
     @Override
     public void onUserProfileDownloadSuccess() {

@@ -34,8 +34,8 @@ public class PimDemoActivity extends UIDActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pim_demo);
         uAppInterface = new PIMDemoUAppInterface();
-        Button changeTheme = findViewById(R.id.launch);
-        changeTheme.setOnClickListener(v -> {
+        Button launchUApp = findViewById(R.id.launch);
+        launchUApp.setOnClickListener(v -> {
             Intent intent = new Intent(PimDemoActivity.this, PIMDemoUAppActivity.class);
             startActivity(intent);
         });
@@ -65,10 +65,6 @@ public class PimDemoActivity extends UIDActivity {
         });
 
         uAppInterface.init(new PIMDemoUAppDependencies(appInfraInterface), new PIMDemoUAppSettings(getApplicationContext()));
-    }
-
-    public void launch(View v) {
-        uAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), new PIMDemoUAppLaunchInput());
     }
 
     public String getCountryCode(String countryName) {

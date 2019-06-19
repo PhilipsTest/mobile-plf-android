@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import static com.philips.cdp.di.iap.utils.IAPConstant.IAP_ERROR_AUTHENTICATION_FAILURE;
 import static com.philips.cdp.di.iap.utils.IAPConstant.IAP_ERROR_CONNECTION_TIME_OUT;
+import static com.philips.cdp.di.iap.utils.IAPConstant.IAP_ERROR_INVALID_CTN;
 import static com.philips.cdp.di.iap.utils.IAPConstant.IAP_ERROR_NO_CONNECTION;
 
 /**

@@ -276,7 +276,7 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
       //  ["HD9745/90","HD9630/90","HD9240/90","HD9621/90","HD9651/90","HD9650/90R1","HD9652/90","HD9910/20","HD9654/90",
         //  "HD9216/80","HD9630/20","HD9220/20","HD9621/80","HD9750/90","HD9750/20","HD9762/90","HD9216/80R1","HD9621/70","HD9741/10"]
 
-        mCategorizedProductList.add("HD9745/90000");
+       /* mCategorizedProductList.add("HD9745/90000");
         mCategorizedProductList.add("HD9630/90");
         mCategorizedProductList.add("HD9240/90");
         mCategorizedProductList.add("HD9621/90");
@@ -291,7 +291,7 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
         mCategorizedProductList.add("HD9750/20");
         mCategorizedProductList.add("HD9216/80R1");
         mCategorizedProductList.add("HD9621/70");
-        mCategorizedProductList.add("HD9741/10");
+        mCategorizedProductList.add("HD9741/10");*/
 
         mUserDataInterface = urInterface.getUserDataInterface();
 
@@ -648,6 +648,8 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
             errorText = "Authentication failure";
         } else if (IAPConstant.IAP_ERROR_INSUFFICIENT_STOCK_ERROR == errorCode) {
             errorText = "Product out of stock";
+        } else if (IAPConstant.IAP_ERROR_INVALID_CTN == errorCode) {
+            errorText = "Invalid ctn";
         }
         if (errorText != null) {
             Toast toast = Toast.makeText(this, errorText, Toast.LENGTH_SHORT);

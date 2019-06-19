@@ -34,6 +34,7 @@
             style="@style/iapCentralesansMediumFont"
             android:textColor="?attr/uidContentItemSecondaryDisabledTextColor"
             android:text="@string/iap_your_order_number_is"
+            android:visibility="gone"
             android:textSize="@dimen/iap_text_size_16sp"/>
 
         <com.philips.platform.uid.view.widget.Label
@@ -41,9 +42,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:visibility="gone"
             style="@style/iapCentralesansBoldFont"
             android:textColor="?attr/uidContentItemSecondaryDisabledTextColor"
-            android:text="3085120132"
             android:textSize="@dimen/iap_text_size_16sp"/>
 
         <com.philips.platform.uid.view.widget.Label

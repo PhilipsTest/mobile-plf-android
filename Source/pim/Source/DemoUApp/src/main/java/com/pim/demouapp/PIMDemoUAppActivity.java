@@ -33,10 +33,6 @@ import com.philips.platform.uid.view.widget.Button;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.Switch;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = PIMDemoUAppActivity.class.getSimpleName();
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
@@ -113,8 +109,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is already login!");
             }
         } else if (v == btnRegistration) {
-                FragmentLauncher fragmentLauncher = new FragmentLauncher(this, R.id.pimDemoU_mainFragmentContainer, null);
-                pimInterface.launch(fragmentLauncher, launchInput);
+            FragmentLauncher fragmentLauncher = new FragmentLauncher(this, R.id.pimDemoU_mainFragmentContainer, null);
+            pimInterface.launch(fragmentLauncher, launchInput);
         } else if (v == btnLogout) {
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 userDataInterface.logoutSession(new LogoutSessionListener() {
@@ -133,7 +129,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btnRefreshSession) {
-            if(userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN){
+            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 userDataInterface.refreshSession(new RefreshSessionListener() {
                     @Override
                     public void refreshSessionSuccess() {
@@ -150,7 +146,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     }
                 });
-            }else {
+            } else {
                 showToast("User is not loged-in, Please login!");
             }
         }

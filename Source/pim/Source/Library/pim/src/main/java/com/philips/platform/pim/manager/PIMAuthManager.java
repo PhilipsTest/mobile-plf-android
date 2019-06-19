@@ -48,6 +48,7 @@ public class PIMAuthManager {
 
     /**
      * Use this constructor whenever context is required for OIDC's api call
+     *
      * @param context
      */
     public PIMAuthManager(Context context) {
@@ -59,7 +60,7 @@ public class PIMAuthManager {
     /**
      * Fetch AuthorizationServiceConfiguration from OIDC discovery URI
      *
-     * @param baseUrl OIDC discovery URI
+     * @param baseUrl  OIDC discovery URI
      * @param listener A callback to invoke upon completion
      */
     void fetchAuthWellKnownConfiguration(String baseUrl, PIMAuthServiceConfigListener listener) {
@@ -83,8 +84,8 @@ public class PIMAuthManager {
      * Fetch an intent from OIDC for launching CLP page
      *
      * @param authServiceConfiguration configuration downloaded using OIDC discovery URI
-     * @param clientID to create authorizaton request
-     * @param parameter contains additional parameters
+     * @param clientID                 to create authorizaton request
+     * @param parameter                contains additional parameters
      * @return intent
      * @throws ActivityNotFoundException
      */
@@ -108,7 +109,8 @@ public class PIMAuthManager {
 
     /**
      * Perform token request
-     * @param dataIntent to create authorization response and exception
+     *
+     * @param dataIntent              to create authorization response and exception
      * @param pimTokenRequestListener A callback to invoke upon completion
      */
     void performTokenRequest(@NonNull Intent dataIntent, @NonNull PIMTokenRequestListener pimTokenRequestListener) {
@@ -141,15 +143,15 @@ public class PIMAuthManager {
     /**
      * Perform refresh token
      *
-     * @param authState Pass authstate to refresh its token
+     * @param authState            Pass authstate to refresh its token
      * @param tokenRequestListener A callback to invoke upon completion
      */
     void refreshToken(@NonNull AuthState authState, PIMTokenRequestListener tokenRequestListener) {
-        mLoggingInterface.log(DEBUG,TAG,"Old Access Token : "+authState.getAccessToken()+" Refresh Token : "+authState.getRefreshToken());
+        mLoggingInterface.log(DEBUG, TAG, "Old Access Token : " + authState.getAccessToken() + " Refresh Token : " + authState.getRefreshToken());
         authState.setNeedsTokenRefresh(true);
         authState.performActionWithFreshTokens(mAuthorizationService, (accessToken, idToken, ex) -> {
             if (ex == null) {
-                mLoggingInterface.log(DEBUG, TAG, "rereshToken success, New  accessToken : " + authState.getAccessToken() +" Refresh Token : "+authState.getRefreshToken());
+                mLoggingInterface.log(DEBUG, TAG, "rereshToken success, New  accessToken : " + authState.getAccessToken() + " Refresh Token : " + authState.getRefreshToken());
                 tokenRequestListener.onTokenRequestSuccess();
             } else {
                 mLoggingInterface.log(DEBUG, TAG, "rereshToken failed : " + ex.getMessage());
@@ -178,7 +180,10 @@ public class PIMAuthManager {
         return mAuthState;
     }
 
-    void dispose(){
-        mAuthorizationService.dispose();
+    void dispose() {
+        if(mAuthorizationService != null) {
+            mAuthorizationService.dispose();
+            mAuthorizationService = null;
+        }
     }
 }

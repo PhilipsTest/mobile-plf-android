@@ -4,6 +4,7 @@ import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
 import com.philips.platform.pim.listeners.PIMAuthServiceConfigListener;
+import com.philips.platform.pim.utilities.PIMInitState;
 
 import net.openid.appauth.AuthorizationServiceConfiguration;
 
@@ -30,10 +31,12 @@ public  class PIMOidcDiscoveryManager implements PIMAuthServiceConfigListener {
         mLoggingInterface.log(DEBUG,TAG,"fetchAuthWellKnownConfiguration : onAuthServiceConfigSuccess : "+ authServiceConfig);
         PIMOIDCConfigration pimoidcConfigration = new PIMOIDCConfigration(authServiceConfig);
         PIMSettingManager.getInstance().setPimOidcConfigration(pimoidcConfigration);
+        PIMSettingManager.getInstance().getPimInitLiveData().postValue(PIMInitState.INIT_SUCCESS);
     }
 
     @Override
     public void onAuthServiceConfigFailed(Error error) {
         mLoggingInterface.log(DEBUG,TAG,"fetchAuthWellKnownConfiguration : onAuthServiceConfigFailed :  "+error.getErrDesc());
+        PIMSettingManager.getInstance().getPimInitLiveData().postValue(PIMInitState.INIT_FAILED);
     }
 }
