@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +24,11 @@ import com.philips.platform.pim.manager.PIMConfigManager;
 import com.philips.platform.pim.manager.PIMLoginManager;
 import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.pim.manager.PIMUserManager;
-import com.philips.platform.pim.models.PIMInitViewModel;
 import com.philips.platform.pim.utilities.PIMInitState;
 
 import java.util.Formatter;
 
-import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 
 /**
@@ -155,10 +152,14 @@ public class PIMFragment extends Fragment implements PIMLoginListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         mLoggingInterface.log(DEBUG, TAG, "onActivityResult : " + requestCode);
-        if (resultCode == RESULT_CANCELED) {
+        if(resultCode == RESULT_OK){
+            if (requestCode == 100 && pimLoginManager.isAuthorizationSuccess(data)) {
+                pimLoginManager.exchangeAuthorizationCode(data);
+            }else{
+                disableProgressBar();
+            }
+        }else{
             disableProgressBar();
-        } else if (requestCode == 100) {
-            pimLoginManager.exchangeAuthorizationCode(data);
         }
     }
 

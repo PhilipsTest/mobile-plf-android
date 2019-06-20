@@ -348,6 +348,9 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
         if (detail.getDeliveryMode() != null && detail.getDeliveryCost() != null) {
             tvDeliveryMode.setText(String.format(getResources().getString(R.string.iap_delivery_ups_parcel), detail.getDeliveryMode().getCode().toLowerCase()));
             tvDeliveryModePrice.setText(detail.getDeliveryCost().getFormattedValue());
+        }else{
+            tvDeliveryMode.setVisibility(View.GONE);
+            tvDeliveryModePrice.setVisibility(View.GONE);
         }
 
         if (detail.getTotalTax() != null) {

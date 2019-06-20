@@ -107,6 +107,18 @@ public class PIMAuthManager {
         return mAuthorizationService.getAuthorizationRequestIntent(authRequest);
     }
 
+    boolean isAuthorizationSuccess(Intent dataIntent) {
+        AuthorizationResponse response = AuthorizationResponse.fromIntent(dataIntent);
+        AuthorizationException exception = AuthorizationException.fromIntent(dataIntent);
+        if (response != null) {
+            return true;
+        } else if (exception != null) {
+            mLoggingInterface.log(DEBUG, TAG, "Authorization failed with error : " + exception.errorDescription);
+            return false;
+        } else
+            return false;
+    }
+
     /**
      * Perform token request
      *
@@ -118,9 +130,7 @@ public class PIMAuthManager {
         AuthorizationResponse response = AuthorizationResponse.fromIntent(dataIntent);
         AuthorizationException exception = AuthorizationException.fromIntent(dataIntent);
 
-        if (exception != null || response != null) {
-            mAuthState = new AuthState(response, exception);
-        }
+        mAuthState = new AuthState(response, exception);
 
         TokenRequest tokenRequest = response.createTokenExchangeRequest();
         mAuthorizationService.performTokenRequest(tokenRequest, new AuthorizationService.TokenResponseCallback() {
@@ -181,7 +191,7 @@ public class PIMAuthManager {
     }
 
     void dispose() {
-        if(mAuthorizationService != null) {
+        if (mAuthorizationService != null) {
             mAuthorizationService.dispose();
             mAuthorizationService = null;
         }

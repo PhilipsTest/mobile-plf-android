@@ -46,6 +46,11 @@ public class PIMLoginManager implements PIMUserProfileDownloadListener {
         return mPimAuthManager.getAuthorizationRequestIntent(mPimoidcConfigration.getAuthorizationServiceConfiguration(), clientID, createAdditionalParameterForLogin());
     }
 
+    public boolean isAuthorizationSuccess(Intent intentData){
+        return mPimAuthManager.isAuthorizationSuccess(intentData);
+    }
+
+
     public void exchangeAuthorizationCode(@NonNull Intent dataIntent) {
         mPimAuthManager.performTokenRequest(dataIntent, new PIMTokenRequestListener() {
             @Override

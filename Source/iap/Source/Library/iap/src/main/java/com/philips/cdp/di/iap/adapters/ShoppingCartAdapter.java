@@ -229,6 +229,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         String freeDeliverySpendOn = mContext.getResources().getString(R.string.iap_delivery_ups_parcel);
                         freeDeliverySpendOn = String.format(freeDeliverySpendOn, deliveryMethod);
                         shoppingCartFooter.mDeliveryTitle.setText(freeDeliverySpendOn);
+                    } else {
+                        shoppingCartFooter.mDeliveryTitle.setVisibility(View.GONE);
                     }
                     shoppingCartFooter.mDeliveryModeDescription.setText(deliveryModeDescription);
                     shoppingCartFooter.mDeliveryVia.setVisibility(View.VISIBLE);
