@@ -29,9 +29,9 @@ artifactory {
     contextUrl = objcdp.getArtifactoryContextUrl()
     publish {
         repository {
-            repoKey = objcdp.getArtifactoryPublishRepoKey()
+            repoKey = objcdp.getArtifactoryResolveRepoKey()
             username = "320049003"
-            password = "AP8vGdZe9YmJVf1t3np14Pai7hn"
+            password = "#W3llc4m3"
             defaults {
                 publishPom = true
                 publishIvy = false
@@ -50,6 +50,7 @@ artifactory {
     clientConfig.timeout = 600
     // Artifactory connection timeout (in seconds). The default timeout is 300 seconds.
 }
+
 
 //=======To zip and upload "Documents/External" ==STARTS=============
 def zipDoc = file(buildDir.name + "/distributions/$project.name-$version-docs" + '.zip')
@@ -288,7 +289,7 @@ task('printArtifactoryApkPath') {
         }
         File apkname = new File('apkname.txt')
         apkname.append(objcdp.getArtifactoryContextUrl() +      \
-             "/" + objcdp.getArtifactoryPublishRepoKey() +      \
+             "/" + objcdp.getArtifactoryResolveRepoKey() +      \
              "/" + project.group.replace('.', '/') + "/" +      \
              archivesBaseName + "/" + version +      \
              "/" + archivesBaseName + "-" + version + ".apk")

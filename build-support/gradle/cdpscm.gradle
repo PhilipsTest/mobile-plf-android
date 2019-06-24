@@ -62,9 +62,10 @@ artifactory {
             //return publish repo key that will append with context url
             // iet-mobile-android-snapshot-local for develop branch
             // iet-mobile-android-release-local for release branch
-            repoKey = objcdp.getArtifactoryPublishRepoKey()
+
+            repoKey = objcdp.getArtifactoryResolveRepoKey()
             username = "320049003"      //IET functional account user name
-            password = "AP8vGdZe9YmJVf1t3np14Pai7hn"      //IET functional account password
+            password = "#W3llc4m3"      //IET functional account password
 
             defaults {
                 publishPom = true
