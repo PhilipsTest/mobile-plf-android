@@ -44,7 +44,7 @@ ext.versions = [
 ext.builddeps = [
         bintrayplugin      : 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4',
         buildinfoextractor : 'org.jfrog.buildinfo:build-info-extractor-gradle:4.7.5',
-        cdpSCM             : [group: 'com.philips.platform', name: 'scmPlugin', version: '4.3.0', changing: false],
+        cdpSCM             : [group: 'com.philips.platform', name: 'scmPlugin', version: '4.3.1', changing: false],
         googleservices     : 'com.google.gms:google-services:4.0.1', // Version 4.1.0 causes the build to fail in creating the dependency tree
         gradle             : 'com.android.tools.build:gradle:3.1.4',
         hockeyapp          : 'de.felixschulze.gradle:gradle-hockeyapp-plugin:3.6',
