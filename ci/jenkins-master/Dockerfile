@@ -8,7 +8,7 @@ ENV LDAP_GROUP_NAME_ADMIN=ggNLVEHVRES2-CDPP_Eindhoven
 
 # fetch custom TICs plugin from artifactory
 USER root
-RUN curl http://artifactory-ehv.ta.philips.com:8082/artifactory/platform-plugins-release-local/com/tiobe/tics-jenkins/tics-jenkins-1.0.9.tgz -o ./tics.tgz
+RUN curl https://artifactory-ehv.ta.philips.com/artifactory/platform-plugins-release-local/com/tiobe/tics-jenkins/tics-jenkins-1.0.9.tgz -o ./tics.tgz
 RUN tar -xvzf ./tics.tgz && cp *.jpi /usr/share/jenkins/ref/plugins
 
 USER jenkins
