@@ -31,7 +31,7 @@ artifactory {
         repository {
             repoKey = objcdp.getArtifactoryResolveRepoKey()
             username = "320049003"
-            password = "AP8vGdZe9YmJVf1t3np14Pai7hn"
+            password = "#W3llc4m3"
             defaults {
                 publishPom = true
                 publishIvy = false
