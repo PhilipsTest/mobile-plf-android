@@ -18,6 +18,8 @@ import com.philips.platform.uappframework.uappinput.UappDependencies;
 import com.philips.platform.uappframework.uappinput.UappLaunchInput;
 import com.philips.platform.uappframework.uappinput.UappSettings;
 
+import static com.philips.cdp.di.iap.integration.IAPLaunchInput.IAPFlows.IAP_SHOPPING_CART_VIEW;
+
 /**
  * IAPInterface is the public class for any proposition to consume InAppPurchase micro app. Its the starting initialization point.
  * @since 1.0.0
@@ -62,7 +64,9 @@ public class IAPInterface implements UappInterface, IAPExposedAPI {
     public void launch(UiLauncher uiLauncher, UappLaunchInput uappLaunchInput) throws RuntimeException {
 
         //This is added to clear pagination data from app memory . This should be taken in tech debt .
-        CartModelContainer.getInstance().clearProductList();
+        if( ((IAPLaunchInput) uappLaunchInput).mLandingView!=IAP_SHOPPING_CART_VIEW) {
+            CartModelContainer.getInstance().clearProductList();
+        }
         IAPUtility.getInstance().resetPegination();
 
         ConnectivityManager connectivityManager
