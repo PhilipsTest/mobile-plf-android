@@ -62,7 +62,9 @@ public class IAPInterface implements UappInterface, IAPExposedAPI {
     public void launch(UiLauncher uiLauncher, UappLaunchInput uappLaunchInput) throws RuntimeException {
 
         //This is added to clear pagination data from app memory . This should be taken in tech debt .
-        CartModelContainer.getInstance().clearProductList();
+        if( ((IAPLaunchInput) uappLaunchInput).mLandingView!=1) {
+            CartModelContainer.getInstance().clearProductList();
+        }
         IAPUtility.getInstance().resetPegination();
 
         ConnectivityManager connectivityManager
