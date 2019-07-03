@@ -162,8 +162,10 @@ public class WebBuyFromRetailers extends InAppBaseFragment {
 
         try {
             URL urlString  = new URL(url);
-            return urlString.getQuery() != null || urlString.getQuery().length()!=0;
+            return urlString.getQuery() != null;
         } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (Exception e){
             e.printStackTrace();
         }
         return false;
