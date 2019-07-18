@@ -34,7 +34,7 @@ public class HsdpAuthenticationManagementClientTest extends TestCase {
         Mockito.when(hsdpConfiguration.getHsdpAppName()).thenReturn("dhpApplicationName");
         Mockito.when(hsdpConfiguration.getHsdpSecretId()).thenReturn("signingKey");
         Mockito.when(hsdpConfiguration.getHsdpSharedId()).thenReturn("signingSecret");
-        hsdpAuthenticationManagementClient = new HsdpAuthenticationManagementClient(hsdpConfiguration);
+        hsdpAuthenticationManagementClient = new HsdpAuthenticationManagementClient(hsdpConfiguration, hsdpConfiguration.getHsdpAppName());
 
     }
 
