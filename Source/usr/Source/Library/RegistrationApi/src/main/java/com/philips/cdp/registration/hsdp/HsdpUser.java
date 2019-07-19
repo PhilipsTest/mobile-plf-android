@@ -98,9 +98,12 @@ public class HsdpUser {
     public void logOut(final LogoutHandler logoutHandler) {
         if (networkUtility.isNetworkAvailable()) {
             final Handler handler = new Handler(Looper.getMainLooper());
+
+            String name = hsdpConfiguration.getHsdpAppName();
+
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient
-                        = new HsdpAuthenticationManagementClient(hsdpConfiguration, hsdpConfiguration.getHsdpAppName());
+                        = new HsdpAuthenticationManagementClient(hsdpConfiguration, name);
 
                 Map<String, Object> dhpResponse = null;
                 if (null != getHsdpUserRecord() && null != getHsdpUserRecord().getAccessCredential()) {
