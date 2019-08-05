@@ -201,7 +201,7 @@ public class CheckOutHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     shoppingCartFooter.mDeliveryDescriprion.setText(deliveryModeDescription);
                     shoppingCartFooter.mDeliveryVia.setVisibility(View.VISIBLE);
                     shoppingCartFooter.mDeliveryUpsVal.setVisibility(View.VISIBLE);
-
+                    shoppingCartFooter.mVatValue.setVisibility(View.VISIBLE);
 
                 } else {
                     shoppingCartFooter.mExtraOption.setVisibility(View.GONE);
