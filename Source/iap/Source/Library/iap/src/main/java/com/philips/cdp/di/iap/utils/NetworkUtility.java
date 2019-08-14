@@ -91,7 +91,7 @@ public class NetworkUtility {
 
             showErrorDialog(context, pFragmentManager, context.getString(R.string.iap_ok),
                     "Successful",
-                    "Vouchers Applied Successfully");
+                    context.getString(R.string.iap_voucher_applied_success));
     }
 
     public void showVoucherErrorMessage(final Message msg, FragmentManager pFragmentManager, Context context) {
@@ -99,7 +99,7 @@ public class NetworkUtility {
         if (msg.obj instanceof IAPNetworkError) {
             IAPNetworkError error = (IAPNetworkError) msg.obj;
             showErrorDialog(context, pFragmentManager, context.getString(R.string.iap_ok),
-                    "Unsuccessful",
+                    context.getString(R.string.iap_voucher_applied_unsuccess),
                     getErrorDescriptionMessageFromErrorCode(context, error));
         }
     }

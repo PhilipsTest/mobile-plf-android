@@ -44,7 +44,7 @@ public class VoucherFragment extends InAppBaseFragment implements View.OnClickLi
     RelativeLayout voucherLayout,voucherBottomLayout;
     public AppliedVoucherAdapter mAppliedVoucherAdapter;
     private RecyclerView mRecyclerView;
-    Label acceptedCodeLabel,totalCost;
+    Label acceptedCodeLabel;
     ScrollView headerParent;
     View line;
     List<Vouchers> getAppliedValueList;
@@ -71,8 +71,6 @@ public class VoucherFragment extends InAppBaseFragment implements View.OnClickLi
         acceptedCodeLabel=(Label) rootView.findViewById(R.id.iap_accepted_code);
         headerParent=(ScrollView)rootView.findViewById(R.id.sv_header_parent);
         line=(View) rootView.findViewById(R.id.line);
-        voucherBottomLayout=(RelativeLayout)rootView.findViewById(R.id.voucher_bottom_layout);
-        totalCost=(Label) rootView.findViewById(R.id.total_cost_val);
         mVoucherController.getAppliedVoucherCode();
 
 
@@ -150,14 +148,6 @@ public class VoucherFragment extends InAppBaseFragment implements View.OnClickLi
               acceptedCodeLabel.setVisibility(View.GONE);
               headerParent.setVisibility(View.GONE);
           }
-          for(int i=0; i<getAppliedValueList.size();i++){
-              count=count+Double.parseDouble(getAppliedValueList.get(i).getAppliedValue().getValue());
-
-          }
-
-            String sValue = (String) String.format("%.2f", count);
-            Double totalValue = Double.parseDouble(sValue);
-            totalCost.setText("$ "+sValue);
             mAppliedVoucherAdapter.notifyDataSetChanged();
         }else {
             acceptedCodeLabel.setVisibility(View.GONE);

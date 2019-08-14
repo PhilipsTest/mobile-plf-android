@@ -64,18 +64,14 @@ public class NetworkController {
 
 
         if (mStoreListener == null && requestListener != null) {
-            Message message = new Message();
-            message.obj = IAPConstant.IAP_ERROR;
-            requestListener.onError(message);
+
+            new IAPNetworkError(new VolleyError("Store Listener is null"),requestCode,requestListener);
             return;
         }
 
         if (model == null || model.getUrl() == null) {
+            new IAPNetworkError(new VolleyError("URL is null"),requestCode,requestListener);
 
-
-            Message message = new Message();
-            message.obj = IAPConstant.IAP_ERROR;
-            requestListener.onError(message);
             return;
         } else {
             if (isMocked()) {
