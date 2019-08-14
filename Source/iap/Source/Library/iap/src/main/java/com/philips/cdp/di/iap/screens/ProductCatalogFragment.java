@@ -390,7 +390,6 @@ public class ProductCatalogFragment extends InAppBaseFragment
                 dataFetched = handleCategorizedFlow();
             }
 
-
             updateProductCatalogList(dataFetched);
             mAdapter.notifyDataSetChanged();
             mAdapter.tagProducts();
@@ -422,6 +421,9 @@ public class ProductCatalogFragment extends InAppBaseFragment
 
             if (isCategorizedFlow() && shouldLoadMore()) {
                 loadMoreItems();
+            } else if(isCategorizedFlow() && dataFetched.size() == 0) {
+                onLoadError(NetworkUtility.getInstance().createIAPErrorMessage
+                        ("", mContext.getString(R.string.iap_no_product_available)));
             }
 
         } else {
