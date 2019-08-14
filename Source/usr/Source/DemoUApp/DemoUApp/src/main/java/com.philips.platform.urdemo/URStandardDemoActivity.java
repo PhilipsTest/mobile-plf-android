@@ -92,7 +92,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     private User mUser;
     private Button mBtnRegistrationWithAccountSettings;
     private CoppaExtension coppaExtension;
-    private Switch mSkipHSDPSwitch, hsdpUuidUpload, consentConfirmationStatus, updateCoppaConsentStatus,mEnablePersonalConsentSwitch;
+    private Switch mSkipHSDPSwitch, hsdpUuidUpload, consentConfirmationStatus, updateCoppaConsentStatus, mEnablePersonalConsentSwitch;
 
     private Label btn_registration_with_hsdp_status_lbl;
 
@@ -747,7 +747,8 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     @Override
     public void onUserRegistrationComplete(Activity activity) {
         RLog.d(TAG, " : onUserRegistrationComplete");
-        activity.finish();
+        if (activity != null)
+            activity.finish();
         showToast("HSDP Skip login status : " + RegistrationConfiguration.getInstance().isHSDPSkipLoginConfigurationAvailable());
     }
 
