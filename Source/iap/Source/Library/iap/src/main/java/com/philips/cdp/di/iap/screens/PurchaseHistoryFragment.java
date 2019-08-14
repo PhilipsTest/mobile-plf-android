@@ -20,6 +20,8 @@ import com.philips.cdp.di.iap.activity.IAPActivity;
 import com.philips.cdp.di.iap.adapters.OrderHistoryAdapter;
 import com.philips.cdp.di.iap.analytics.IAPAnalytics;
 import com.philips.cdp.di.iap.analytics.IAPAnalyticsConstant;
+import com.philips.cdp.di.iap.container.CartModelContainer;
+import com.philips.cdp.di.iap.controller.ControllerFactory;
 import com.philips.cdp.di.iap.controller.OrderController;
 import com.philips.cdp.di.iap.eventhelper.EventHelper;
 import com.philips.cdp.di.iap.eventhelper.EventListener;
@@ -38,6 +40,7 @@ import com.philips.cdp.di.iap.utils.IAPUtility;
 import com.philips.cdp.di.iap.utils.NetworkUtility;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
+import com.philips.platform.uid.view.widget.AlertDialogFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +49,7 @@ import java.util.List;
 public class PurchaseHistoryFragment extends InAppBaseFragment implements OrderController.OrderListener, EventListener, AbstractModel.DataLoadListener {
 
     public static final String TAG = PurchaseHistoryFragment.class.getName();
+    public static final String ALERT_DIALOG_TAG = "ALERT_DIALOG_TAG";
     private OrderHistoryAdapter mAdapter;
     private Context mContext;
     private RecyclerView mOrderHistoryView;
@@ -60,6 +64,7 @@ public class PurchaseHistoryFragment extends InAppBaseFragment implements OrderC
     private RelativeLayout mParentLayout;
     ArrayList<OrderDetail> mOrderDetails = new ArrayList<>();
     ArrayList<ProductData> mProducts = new ArrayList<>();
+    AlertDialogFragment alertDialogFragment =null ;
 
 
     @Override
@@ -118,9 +123,28 @@ public class PurchaseHistoryFragment extends InAppBaseFragment implements OrderC
 
     private void updateHistoryListOnResume() {
         if(isUserLoggedIn()){
-            createCustomProgressBar(mParentLayout,BIG);
-            mController = new OrderController(mContext, this);
-            mController.getOrderList(mPageNo);
+            if(ControllerFactory.getInstance().isPlanB()) {
+                final AlertDialogFragment.Builder builder = new AlertDialogFragment.Builder(getActivity())
+                        .setMessage(R.string.iap_no_checkout).
+                                setPositiveButton(R.string.iap_ok, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                         if(alertDialogFragment!=null){
+                                             alertDialogFragment.dismiss();
+                                         }
+                                        //pop from stack
+                                        moveToVerticalAppByClearingStack();
+                                    }
+                                });
+
+                alertDialogFragment = builder.create();
+                alertDialogFragment.setCancelable(false);
+                alertDialogFragment.show(getFragmentManager(),ALERT_DIALOG_TAG);
+            }else{
+                createCustomProgressBar(mParentLayout, BIG);
+                mController = new OrderController(mContext, this);
+                mController.getOrderList(mPageNo);
+            }
         }else{
             if(mIapListener!=null){
                 mIapListener.onFailure(IAPConstant.IAP_ERROR_AUTHENTICATION_FAILURE);
@@ -132,8 +156,8 @@ public class PurchaseHistoryFragment extends InAppBaseFragment implements OrderC
     @Override
     public void onGetOrderList(Message msg) {
         if (msg.obj instanceof IAPNetworkError) {
-            hideProgressBar();
             NetworkUtility.getInstance().showErrorMessage(msg, getFragmentManager(), mContext);
+            hideProgressBar();
         } else {
             if (msg.what == RequestCode.GET_ORDERS) {
                 if (msg.obj instanceof OrdersData) {
