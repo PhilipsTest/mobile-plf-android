@@ -43,7 +43,7 @@
     <string name="can_we_help_you"> 是否能帮助您？ </string>
     <string name="chat_now"> 立即开始聊天 </string>
     <string name="no_thanks"> 不，谢谢 </string>
-    <string name="chat_desc"> 与产品专员开始实时聊天。提供全天候英语聊天 </string>
+    <string name="chat_desc"> 与我们的产品专家进行全天候英语实时聊天。 </string>
 
     <!-- View Product Details Screen   null -->
     <string name="product_view_videos"> 产品视频 </string>
