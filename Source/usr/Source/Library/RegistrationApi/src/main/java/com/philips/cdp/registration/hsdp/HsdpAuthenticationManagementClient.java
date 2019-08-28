@@ -19,15 +19,17 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
 
     private String TAG = HsdpAuthenticationManagementClient.class.getSimpleName();
     private HSDPConfiguration hsdpConfiguration;
+    String  appName = "";
 
-    HsdpAuthenticationManagementClient(HSDPConfiguration hsdpConfiguration) {
+    HsdpAuthenticationManagementClient(HSDPConfiguration hsdpConfiguration, String hsdpAppName) {
         super(hsdpConfiguration);
         this.hsdpConfiguration = hsdpConfiguration;
+        appName = hsdpAppName;
     }
 
     Map<String, Object> loginSocialProviders(String email, String socialAccessToken, String secret) {
         String apiEndpoint = "/authentication/login/social";
-        String queryParams = "applicationName=" + hsdpConfiguration.getHsdpAppName();
+        String queryParams = "applicationName=" + appName;
         Map<String, String> headers = new LinkedHashMap<String, String>();
         headers.put("accessToken", socialAccessToken);
         headers.put("refreshSecret", secret);
@@ -39,7 +41,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
 
     Map<String, Object> logout(String userId, String accessToken) {
         String apiEndpoint = "/authentication/users/" + userId + "/logout";
-        String queryParams = "applicationName=" + hsdpConfiguration.getHsdpAppName();
+        String queryParams = "applicationName=" + appName;
         Map<String, String> headers = new LinkedHashMap<String, String>();
         headers.put("accessToken", accessToken);
         return sendRestRequest(apiEndpoint, queryParams, headers, null);
@@ -47,7 +49,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
 
     Map<String, Object> refreshSecret(String userUUID, String accessToken, String refreshSecret) {
         String apiEndpoint = "/authentication/users/" + userUUID + "/refreshAccessToken";
-        String queryParams = "applicationName=" + hsdpConfiguration.getHsdpAppName();
+        String queryParams = "applicationName=" + appName;
         Map<String, String> headers = new LinkedHashMap<String, String>();
 
         String date = getUTCdatetimeAsString();

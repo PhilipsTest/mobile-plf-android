@@ -98,9 +98,12 @@ public class HsdpUser {
     public void logOut(final LogoutHandler logoutHandler) {
         if (networkUtility.isNetworkAvailable()) {
             final Handler handler = new Handler(Looper.getMainLooper());
+
+            String name = hsdpConfiguration.getHsdpAppName();
+
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient
-                        = new HsdpAuthenticationManagementClient(hsdpConfiguration);
+                        = new HsdpAuthenticationManagementClient(hsdpConfiguration, name);
 
                 Map<String, Object> dhpResponse = null;
                 if (null != getHsdpUserRecord() && null != getHsdpUserRecord().getAccessCredential()) {
@@ -177,7 +180,7 @@ public class HsdpUser {
             new Thread(() -> {
 
                 HsdpAuthenticationManagementClient authenticationManagementClient =
-                        new HsdpAuthenticationManagementClient(hsdpConfiguration);
+                        new HsdpAuthenticationManagementClient(hsdpConfiguration,hsdpConfiguration.getHsdpAppName());
                 Map<String, Object> dhpAuthenticationResponse = null;
                 if (getHsdpUserRecord() != null &&
                         null != getHsdpUserRecord().getUserUUID() &&
@@ -380,7 +383,7 @@ public class HsdpUser {
             final Handler handler = new Handler(Looper.getMainLooper());
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient =
-                        new HsdpAuthenticationManagementClient(hsdpConfiguration);
+                        new HsdpAuthenticationManagementClient(hsdpConfiguration, hsdpConfiguration.getHsdpAppName());
                 final Map<String, Object> dhpAuthenticationResponse1 =
                         authenticationManagementClient.loginSocialProviders(email,
                                 accessToken, Jump.getRefreshSecret());
