@@ -590,7 +590,9 @@ public class ProductDetailFragment extends InAppBaseFragment implements
                 trackErrorTag(ECSAnalyticsConstant.PRX + mCTNValue + "_" + ECSAnalyticsConstant.PRODUCT_DESCRIPTION_MISSING);
                 if (product != null) {
                     actualPrice = product.getPrice().getFormattedValue();
-                    discountedPrice = product.getDiscountPrice().getFormattedValue();
+                    if(null!=product.getDiscountPrice() && null!= product.getDiscountPrice().getFormattedValue()) {
+                        discountedPrice = product.getDiscountPrice().getFormattedValue();
+                    }
                     setPrice(actualPrice, discountedPrice);
                     setStockInfo(product.getStock().getStockLevelStatus(), product.getStock().getStockLevel());
                 } else {
