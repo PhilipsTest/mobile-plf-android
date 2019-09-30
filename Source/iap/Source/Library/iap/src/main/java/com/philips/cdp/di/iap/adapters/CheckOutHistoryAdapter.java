@@ -209,15 +209,17 @@ public class CheckOutHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     mIsFreeDelivery = true;
                 }
 
+                mBillingAddress = CartModelContainer.getInstance().getBillingAddress();
                 if (data.getDeliveryAddressEntity() != null) {
                     final AddressFields shippingAddressFields = CartModelContainer.getInstance().getShippingAddressFields();
+                    mBillingAddress.setCountry(shippingAddressFields.getCountry());
                     shoppingCartFooter.mShippingName.setText(data.getDeliveryAddressEntity().getFirstName() + " " + data.getDeliveryAddressEntity().getLastName());
                     if(shippingAddressFields!=null) {
                         shoppingCartFooter.mShippingAddress.setText(Utility.getAddressToDisplay(shippingAddressFields));
                     }
                 }
 
-                mBillingAddress = CartModelContainer.getInstance().getBillingAddress();
+
                 if (null != mBillingAddress) {
                     String billingName = mBillingAddress.getFirstName() + " " + mBillingAddress.getLastName();
                     shoppingCartFooter.mBillingName.setText(billingName);
