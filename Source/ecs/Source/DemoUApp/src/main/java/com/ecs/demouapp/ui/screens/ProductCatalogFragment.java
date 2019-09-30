@@ -6,6 +6,7 @@ package com.ecs.demouapp.ui.screens;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,7 @@ import com.ecs.demouapp.ui.analytics.ECSAnalytics;
 import com.ecs.demouapp.ui.analytics.ECSAnalyticsConstant;
 import com.ecs.demouapp.ui.cart.ShoppingCartAPI;
 import com.ecs.demouapp.ui.cart.ShoppingCartPresenter;
+import com.ecs.demouapp.ui.container.CartModelContainer;
 import com.ecs.demouapp.ui.controller.ControllerFactory;
 import com.ecs.demouapp.ui.eventhelper.EventHelper;
 import com.ecs.demouapp.ui.eventhelper.EventListener;
@@ -402,10 +404,33 @@ public class ProductCatalogFragment extends InAppBaseFragment
     @Override
     public void onResponse(ECSProducts result) {
 
+
+
         PaginationEntity paginationEntity = result.getPagination();
         ECSUtility.getInstance().setPaginationEntity(paginationEntity);
-        if (result.getProducts().size() > 0) {
-            mProduct.addAll(result.getProducts());
+        List<ECSProduct> products = result.getProducts();
+
+        List<ECSProduct> cataGorizedList = new ArrayList<>();
+        ArrayList<String> categorizedCTNs = getCategorizedCTNs();
+
+
+        if (products.size() > 0) {
+
+            if (isCategorizedFlow()) {
+
+                for(ECSProduct product:products){
+
+                    if(categorizedCTNs.contains(product.getCode())){
+
+                        cataGorizedList.add(product);
+
+                    }
+
+                }
+                products = cataGorizedList;
+            }
+
+            mProduct.addAll(products);
             mAdapter = new ProductCatalogAdapter(getActivity(),mProduct);
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
@@ -435,13 +460,18 @@ public class ProductCatalogFragment extends InAppBaseFragment
 
             if (isCategorizedFlow() && shouldLoadMore()) {
                 loadMoreItems();
+            } else if(isCategorizedFlow() && mProduct.size() == 0) {
+                onLoadError(NetworkUtility.getInstance().createIAPErrorMessage
+                        ("", mContext.getString(R.string.iap_no_product_available)));
             }
+
 
         } else {
             onLoadError(NetworkUtility.getInstance().createIAPErrorMessage
                     ("", mContext.getString(R.string.iap_no_product_available)));
         }
     }
+
 
     @Override
     public void onFailure(Exception error, ECSError ecsError) {
