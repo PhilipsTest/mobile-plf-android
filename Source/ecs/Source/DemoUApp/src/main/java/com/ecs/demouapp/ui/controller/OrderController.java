@@ -7,9 +7,15 @@ package com.ecs.demouapp.ui.controller;
 import android.content.Context;
 import android.os.Message;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.ecs.demouapp.ui.integration.ECSConfigure;
+import com.ecs.demouapp.ui.model.Contact.ContactsResponse;
 import com.ecs.demouapp.ui.response.orders.ProductData;
 import com.ecs.demouapp.ui.session.RequestCode;
 import com.ecs.demouapp.ui.utils.ECSUtility;
+import com.google.gson.Gson;
 import com.philips.cdp.di.ecs.error.ECSError;
 import com.philips.cdp.di.ecs.integration.ECSCallback;
 import com.philips.cdp.di.ecs.model.orders.Consignment;
@@ -18,6 +24,10 @@ import com.philips.cdp.di.ecs.model.orders.ECSOrderHistory;
 import com.philips.cdp.di.ecs.model.orders.Entries;
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail;
 import com.philips.cdp.di.ecs.model.summary.Data;
+import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.appinfra.rest.request.JsonObjectRequest;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +108,39 @@ public class OrderController {
 
         ContactCallRequest request = new ContactCallRequest(getStore(), query, this);
         getHybrisDelegate().sendRequest(RequestCode.GET_PHONE_CONTACT, request, request);*/
+
+       String SUFFIX_CONTACT_PHONE_URL = subCategory + ".querytype.(fallback)";
+
+       String url =  "https://www.philips.com/prx/cdls/B2C/" +
+               ECSConfiguration.INSTANCE.getLocale() + "/CARE/".concat(SUFFIX_CONTACT_PHONE_URL);
+
+       //JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, appUpdateUrl, null,
+        //				getJsonResponseListener(refreshListener), getJsonErrorListener(refreshListener), null, null, null);
+
+
+       new JsonObjectRequest(Request.Method.GET,url,null, new Response.Listener<JSONObject>() {
+           @Override
+           public void onResponse(JSONObject response) {
+
+               ContactsResponse contactsResponse = new Gson().fromJson(response.toString(), ContactsResponse.class);
+
+              // mOrderListener.onGetPhoneContact(msg);
+
+           }
+       }, new Response.ErrorListener() {
+           @Override
+           public void onErrorResponse(VolleyError error) {
+
+
+
+           }
+       },null,null,null);
+
+       /* new JsonObjectRequest(appInfraJSONRequest.getMethod(), appInfraJSONRequest.getURL(), appInfraJSONRequest.getJSONRequest()
+                , appInfraJSONRequest.getJSONSuccessResponseListener(), appInfraJSONRequest.getJSONFailureResponseListener(),
+                appInfraJSONRequest.getHeader(), appInfraJSONRequest.getParams(), appInfraJSONRequest.getTokenProviderInterface());*/
+
+
     }
 
 

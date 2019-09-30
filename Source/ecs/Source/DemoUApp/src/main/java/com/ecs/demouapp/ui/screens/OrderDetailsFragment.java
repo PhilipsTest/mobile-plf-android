@@ -20,6 +20,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.ecs.demouapp.R;
@@ -28,6 +31,7 @@ import com.ecs.demouapp.ui.address.AddressFields;
 import com.ecs.demouapp.ui.analytics.ECSAnalytics;
 import com.ecs.demouapp.ui.analytics.ECSAnalyticsConstant;
 import com.ecs.demouapp.ui.controller.OrderController;
+import com.ecs.demouapp.ui.model.Contact.ContactsResponse;
 import com.ecs.demouapp.ui.response.orders.ProductData;
 import com.ecs.demouapp.ui.session.IAPNetworkError;
 import com.ecs.demouapp.ui.session.NetworkConstants;
@@ -37,11 +41,15 @@ import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
 import com.ecs.demouapp.ui.utils.Utility;
+import com.google.gson.Gson;
 import com.philips.cdp.di.ecs.model.orders.ConsignmentEntries;
 import com.philips.cdp.di.ecs.model.orders.Entries;
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail;
 import com.philips.cdp.di.ecs.util.ECSConfiguration;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
+import com.philips.platform.appinfra.rest.request.JsonObjectRequest;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,8 +153,10 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
                 if (mOrderDetail != null) {
                     ECSAnalytics.trackAction(ECSAnalyticsConstant.SEND_DATA, ECSAnalyticsConstant.PURCHASE_ID,
                             mOrderDetail.getCode());
+                    updateUIwithDetails(mOrderDetail);
+                    getPhoneContact(mOrderDetail.getEntries().get(0).getProduct().getSummary().getSubcategory());
                 }
-                updateUIwithDetails(mOrderDetail);
+
             }
         }
 
@@ -264,7 +274,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
         if (mOrderDetail.getEntries().size() > 0) {
 
             //TODO
-            mController.getPhoneContact(mOrderDetail.getEntries().get(0).getProduct().getSummary().getSubcategory());
+            getPhoneContact(mOrderDetail.getEntries().get(0).getProduct().getSummary().getSubcategory());
         }
 
         for (final Entries entries : mOrderDetail.getEntries()) {
@@ -324,7 +334,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
     public void onGetPhoneContact(Message msg) {
         hideProgressBar();
         //TODO
-        /*if (msg.obj instanceof ContactsResponse) {
+        if (msg.obj instanceof ContactsResponse) {
             ContactsResponse contactsResponse = (ContactsResponse) msg.obj;
             if (contactsResponse.getData() != null && contactsResponse.getData().getPhone()!=null) {
                 mPhoneContact = contactsResponse.getData().getPhone().get(0).getPhoneNumber();
@@ -334,7 +344,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
                 setCallTimings();
                 btncall.setEnabled(true);
             }
-        }*/
+        }
     }
 
     private void getNetworkImage(final NetworkImageView networkImage, final String imageURL) {
@@ -440,6 +450,8 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
         if (detail.getStatusDisplay() != null && detail.getStatusDisplay().equalsIgnoreCase(ECSConstant.ORDER_COMPLETED)) {
             mShippingStatus.setText(getString(R.string.iap_order_completed_text_default));
         }
+
+
     }
 
 
@@ -482,5 +494,37 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
                 ECSConfiguration.INSTANCE.getCountry());
         i.setData(Uri.parse(p));
         startActivity(i);
+    }
+
+    public void getPhoneContact(String subCategory){
+
+        String SUFFIX_CONTACT_PHONE_URL = subCategory + ".querytype.(fallback)";
+
+        String url =  "https://www.philips.com/prx/cdls/B2C/" +
+                ECSConfiguration.INSTANCE.getLocale() + "/CARE/".concat(SUFFIX_CONTACT_PHONE_URL);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                ContactsResponse contactsResponse = new Gson().fromJson(response.toString(), ContactsResponse.class);
+
+                Message message = new Message();
+                message.obj = contactsResponse;
+                onGetPhoneContact(message);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                ECSUtility.showECSAlertDialog(mContext, "Error", error.getMessage());
+                hideProgressBar();
+
+            }
+        }, null, null, null);
+
+        ECSConfiguration.INSTANCE.getAppInfra().getRestClient().getRequestQueue().add(jsonObjectRequest);
+
     }
 }
