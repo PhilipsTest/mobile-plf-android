@@ -5,8 +5,8 @@
  */
 package com.philips.cdp.prodreg.prxrequest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.google.gson.Gson;
 import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.launcher.PRUiHelper;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
@@ -56,7 +56,7 @@ public class RegistrationRequest extends PrxRequest {
     private static int MAX_REQUEST_TIME_OUT = 30000;
     private boolean receiveMarketingEmail;
     private String shouldSendEmailAfterRegistration = "true";
-    private String apiKey  ;
+    private String apiKey;
     private String apiVersion;
     private String contentType;
     private String authorizationProvider;
@@ -319,14 +319,9 @@ public class RegistrationRequest extends PrxRequest {
         registrationRequestBody.setData(data);
         registrationRequestBody.setMeta(meta);
 
-        String mapp= "";
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapp = mapper.writeValueAsString(registrationRequestBody);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
+        String mapp = "";
+        Gson gson = new Gson();
+        mapp = gson.toJson(registrationRequestBody);
         return mapp;
     }
 

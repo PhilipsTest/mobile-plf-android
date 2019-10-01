@@ -325,7 +325,7 @@ public class UserWithProducts {
             String accessToken = userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN).toString();
             registrationRequest.setAccessToken(accessToken);
             registrationRequest.setReceiveMarketEmail(isRcvMrktEmail);
-            registrationRequest.setApiKey(RegistrationConfiguration.getInstance().getPRAPIKey());
+            registrationRequest.setApiKey(new ProdRegUtil().getAPIKey());
             registrationRequest.setApiVersion(PROD_REG_APIVERSION_VALUE);
             registrationRequest.setContentType(PROD_REG_CONTENTTYYPE_VALUE);
 
@@ -441,7 +441,7 @@ public class UserWithProducts {
         setRequestType(PRODUCT_REGISTRATION);
         RegistrationRequest registrationRequest = getRegistrationRequest(mContext, registeredProduct);
         RequestManager mRequestManager = getRequestManager(mContext);
-        mRequestManager.executeRequest2(registrationRequest, getPrxResponseListener(registeredProduct));
+        mRequestManager.executeRequest(registrationRequest, getPrxResponseListener(registeredProduct));
     }
 
     protected RegisteredProductsListener getRegisteredProductsListener() {

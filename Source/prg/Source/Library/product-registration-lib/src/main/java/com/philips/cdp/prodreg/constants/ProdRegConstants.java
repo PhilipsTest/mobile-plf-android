@@ -38,8 +38,8 @@ public class ProdRegConstants {
     public static String PRODUCT_REGISTRATION_KEY = "prod_reg";
     public static String PRODUCTMETADATAREQUEST_SERVICE_ID = "prxclient.productmetadatarequest";
     public static String PRODUCTSUMMERYREQUEST_SERVICE_ID = "prxclient.summary";
-    public static String REGISTEREDPRODUCTSREQUEST_SERVICE_ID="prxclient.registeredProductsRequest";
-    public static String REGISTRATIONREQUEST_SERVICE_ID="prxclient.productregistrationrequest";
+    public static String REGISTEREDPRODUCTSREQUEST_SERVICE_ID="prxclient.registeredProductsRequestOIDC";
+    public static String REGISTRATIONREQUEST_SERVICE_ID="prxclient.registeredProductsRequestOIDC";
 
     public static final String PATH_PARAM_PRODUCT = "/prx/product";
     public static final String PATH_PARAM_REGISTRATION = "/prx/registration";

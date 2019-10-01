@@ -72,27 +72,6 @@ public class RequestManager {
         }
     }
 
-    public void executeRequest3(PrxRequest prxRequest, ResponseListener listener) {
-        try {
-            mPrxDependencies.mAppInfraLogging.log(LoggingInterface.LogLevel.INFO, PrxConstants.PRX_REQUEST_MANAGER, "execute prx request");
-            new NetworkWrapper(mPrxDependencies).executeCustomJsonRequestGetRegistered(prxRequest, listener);
-        } catch (Exception e) {
-            mPrxDependencies.mAppInfraLogging.log(LoggingInterface.LogLevel.ERROR, PrxConstants.PRX_REQUEST_MANAGER, "Error in execute prx request");
-            listener.onResponseError(new PrxError(PrxError.PrxErrorType.UNKNOWN_EXCEPTION.getDescription(), PrxError.PrxErrorType.UNKNOWN_EXCEPTION.getId()));
-        }
-    }
-
-    public void executeRequest2(PrxRequest prxRequest, ResponseListener listener) {
-        try {
-            mPrxDependencies.mAppInfraLogging.log(LoggingInterface.LogLevel.INFO, PrxConstants.PRX_REQUEST_MANAGER, "execute prx request");
-            new NetworkWrapper(mPrxDependencies).executeCustomJsonRequestRegistration(prxRequest, listener);
-        } catch (Exception e) {
-            mPrxDependencies.mAppInfraLogging.log(LoggingInterface.LogLevel.ERROR, PrxConstants.PRX_REQUEST_MANAGER, "Error in execute prx request");
-            listener.onResponseError(new PrxError(PrxError.PrxErrorType.UNKNOWN_EXCEPTION.getDescription(), PrxError.PrxErrorType.UNKNOWN_EXCEPTION.getId()));
-        }
-    }
-
-
     private String getLibVersion() {
         String mAppVersion = null;
         try {
