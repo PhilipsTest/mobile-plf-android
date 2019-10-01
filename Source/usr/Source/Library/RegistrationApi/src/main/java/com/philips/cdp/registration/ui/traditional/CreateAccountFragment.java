@@ -363,10 +363,11 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
             usrCreatescreenPersonalConsentCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 TextView tv = (TextView) buttonView;
                 usrCreatescreenPersonalConsentalertView.hideError();
-                if (!isChecked) {
-                    usrCreatescreenPersonalConsentalertView.setError(context.getResources().getString(getRegistrationFragment().getContentConfiguration().getPersonalConsentContentErrorResId()));
-                }
-                if (!(tv.getSelectionStart() == -1 && tv.getSelectionEnd() == -1)) {
+                if(tv.getSelectionStart() == -1 && tv.getSelectionEnd() == -1) {
+                    if (!isChecked) {
+                        usrCreatescreenPersonalConsentalertView.setError(context.getResources().getString(getRegistrationFragment().getContentConfiguration().getPersonalConsentContentErrorResId()));
+                    }
+                }else {
                     usrCreatescreenPersonalConsentCheckbox.setChecked(!isChecked);
                     getRegistrationFragment().addPersonalConsentFragment();
                 }
