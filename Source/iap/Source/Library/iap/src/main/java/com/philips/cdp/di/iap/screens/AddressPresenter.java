@@ -350,7 +350,7 @@ public class AddressPresenter implements AddressController.AddressListener, Paym
     private String getAddressFieldEnablerJson() throws IOException {
 
         AssetManager manager = addressContractor.getActivityContext().getAssets();
-        InputStream file = manager.open("addressFieldConfiguration.json");
+        InputStream file = manager.open("iap_address_config.json");
         byte[] formArray = new byte[file.available()];
         file.read(formArray);
         file.close();

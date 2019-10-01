@@ -69,6 +69,10 @@
     "NO" :[
       "address2",
       "state"
+    ],
+    "SG" :[
+      "address2",
+      "state"
     ]
   }
 }
