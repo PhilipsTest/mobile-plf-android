@@ -385,52 +385,48 @@ public class ECSServices implements ECSServiceProvider {
     /**
      * @since 1905.0.0
      * Update address.
-     *
-     * @param isDefaultAddress the is default address boolean value
-     * @param address          the ECSAddress object
+     *@param address          the ECSAddress object
      * @param ecsCallback      the ecs callback containing boolean response
      */
     @Override
-    public void updateAddress(boolean isDefaultAddress, @NonNull ECSAddress address, @NonNull ECSCallback<Boolean, Exception> ecsCallback) {
-        address.setDefaultAddress(isDefaultAddress);
+    public void updateAddress(@NonNull ECSAddress address, @NonNull ECSCallback<Boolean, Exception> ecsCallback) {
         ecsCallValidator.updateAddress(address,ecsCallback);
     }
 
     /**
      * @since 1905.0.0
      * Update and fetch address.
-     *
-     * @param isDefaultAddress the is default address boolean value
-     * @param address          the ECSAddress object
+     *@param address          the ECSAddress object
      * @param ecsCallback      the ecs callback containing list of ECSAddress object
      */
     @Override
-    public void updateAndFetchAddress(boolean isDefaultAddress, @NonNull ECSAddress address, @NonNull ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
-        address.setDefaultAddress(isDefaultAddress);
+    public void updateAndFetchAddress(@NonNull ECSAddress address, @NonNull ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
         ecsCallValidator.updateAndFetchAddress(address,ecsCallback);
     }
 
     /**
      * @since 1905.0.0
      * Sets delivery address.
-     *
-     * @param address     the ECSAddress object
+     *@param isDefault
      * @param ecsCallback the ecs callback containing boolean response
+     * @param address     the ECSAddress object
      */
     @Override
-    public void setDeliveryAddress(@NonNull ECSAddress address, @NonNull ECSCallback<Boolean, Exception> ecsCallback) {
+    public void setDeliveryAddress(boolean isDefault, @NonNull ECSCallback<Boolean, Exception> ecsCallback, @NonNull ECSAddress address) {
+        address.setDefaultAddress(isDefault);
         ecsCallValidator.setDeliveryAddress(address,ecsCallback);
     }
 
     /**
      * @since 1905.0.0
      * Sets and fetch delivery address.
-     *
-     * @param address     the ECSAddress object
+     *@param isDefault
      * @param ecsCallback the ecs callback containing list of ECSAddress object
+     * @param address     the ECSAddress object
      */
     @Override
-    public void setAndFetchDeliveryAddress( @NonNull ECSAddress address,@NonNull  ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
+    public void setAndFetchDeliveryAddress(boolean isDefault, @NonNull ECSCallback<List<ECSAddress>, Exception> ecsCallback, @NonNull ECSAddress address) {
+        address.setDefaultAddress(isDefault);
         ecsCallValidator.setAndFetchDeliveryAddress(address,ecsCallback);
     }
 

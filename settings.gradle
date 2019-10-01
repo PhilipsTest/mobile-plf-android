@@ -100,8 +100,8 @@ project(ext.strings.ecs.projectName).projectDir = new File('./Source/ecs/Source/
 //project(':securedblibraryApp').projectDir = new File('./Source/sdb/Source/DemoApp/app')
 //include ':launchDigitalCare'
 //project(':launchDigitalCare').projectDir = new File('./Source/dcc/Source/DemoApp/launchDigitalCare')
-//include(':iapApp')
-//project(':iapApp').projectDir = new File('./Source/iap/Source/DemoApp/app')
+include(':iapApp')
+project(':iapApp').projectDir = new File('./Source/iap/Source/DemoApp/app')
 //include(':ecsApp')
 //project(':ecsApp').projectDir = new File('./Source/ecs/Source/DemoApp/app')
 //include(':ecsUApp')

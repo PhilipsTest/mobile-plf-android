@@ -98,7 +98,7 @@ public class UpdateAddressTest {
     public void UpdateAddressSuccess() {
         mockInputValidator.setJsonFileName("EmptyString.json");
         ECSAddress address = new ECSAddress();
-        mockECSServices.updateAddress(false, address, new ECSCallback<Boolean, Exception>() {
+        mockECSServices.updateAddress(address, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 assertTrue(result);
@@ -119,7 +119,7 @@ public class UpdateAddressTest {
     public void UpdateDefeaultAddressSuccess() {
         mockInputValidator.setJsonFileName("EmptyString.json");
         ECSAddress address = new ECSAddress();
-        mockECSServices.updateAddress(true,address, new ECSCallback<Boolean, Exception>() {
+        mockECSServices.updateAddress(address, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 assertTrue(result);
@@ -139,7 +139,7 @@ public class UpdateAddressTest {
     public void UpdateAddressFailure() {
         mockInputValidator.setJsonFileName("UpdateAddressFailureInvalidAddress.json");
         ECSAddress address = new ECSAddress();
-        mockECSServices.updateAddress(false, address, new ECSCallback<Boolean, Exception>() {
+        mockECSServices.updateAddress(address, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 assertFalse(false);
@@ -159,7 +159,7 @@ public class UpdateAddressTest {
     public void UpdateDefeaultFailure() {
         mockInputValidator.setJsonFileName("UpdateAddressFailureInvalidAddress.json");
         ECSAddress address = new ECSAddress();
-        mockECSServices.updateAddress(true,address, new ECSCallback<Boolean, Exception>() {
+        mockECSServices.updateAddress(address, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 assertFalse(false);
