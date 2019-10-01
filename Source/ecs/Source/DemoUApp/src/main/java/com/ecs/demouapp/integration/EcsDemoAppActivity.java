@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.ecs.demouapp.R;
 
 import com.ecs.demouapp.ui.integration.ECSBannerEnabler;
@@ -480,7 +481,14 @@ public class EcsDemoAppActivity extends AppCompatActivity implements View.OnClic
 
         ECSServices ecsServices = new ECSServices(mEtPropositionId.getText().toString().trim(), new AppInfra.Builder().build(getApplicationContext()));
 
+        DefaultRetryPolicy defaultRetryPolicy = new DefaultRetryPolicy(
+                10000,
+                0,
+                0);
+
+        ecsServices.setVolleyTimeoutAndRetryCount(defaultRetryPolicy);
         ECSUtility.getInstance().setEcsService(ecsServices);
+
 
         ecsServices.configureECS(new ECSCallback<Boolean, Exception>() {
             @Override

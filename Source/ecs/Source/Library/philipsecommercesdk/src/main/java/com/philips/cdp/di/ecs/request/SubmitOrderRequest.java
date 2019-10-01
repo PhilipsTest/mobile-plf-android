@@ -30,7 +30,7 @@ public class SubmitOrderRequest extends OAuthAppInfraAbstractRequest implements 
     String cvv;
 
     public SubmitOrderRequest(String cvv,ECSCallback<ECSOrderDetail, Exception> exceptionECSCallback) {
-        this.cvv=cvv; // todo   reproduce returning user with saved payment method
+        this.cvv=cvv;
         this.exceptionECSCallback = exceptionECSCallback;
     }
 
@@ -63,9 +63,12 @@ public class SubmitOrderRequest extends OAuthAppInfraAbstractRequest implements 
 
     @Override
     public Map<String, String> getParams() {
-        HashMap<String, String> cartId = new HashMap<>();
-        cartId.put(ModelConstants.CART_ID,"current");
-        return  cartId;
+        Map<String, String> params = new HashMap<>();
+        if (cvv != null) {
+            params.put(ModelConstants.SECURITY_CODE, cvv);
+        }
+             params.put(ModelConstants.CART_ID,"current");
+             return  params;
     }
 
     /**

@@ -210,8 +210,7 @@ public class OrderSummaryFragment extends InAppBaseFragment
     }
 
     private void placeOrder(String pSecurityCode) {
-        ECSAnalytics.trackAction(ECSAnalyticsConstant.SEND_DATA, ECSAnalyticsConstant.DELIVERY_METHOD,
-                ECSAnalyticsConstant.DELIVERY_UPS_PARCEL);
+
         createCustomProgressBar(mParentLayout, BIG);
         mPaymentController.placeOrder(pSecurityCode);
 
@@ -493,7 +492,7 @@ public class OrderSummaryFragment extends InAppBaseFragment
             CartModelContainer.getInstance().setOrderNumber(orderID);
             if (paymentMethodAvailable()) {
                 hideProgressBar();
-                launchConfirmationScreen((PlaceOrder) msg.obj);
+                launchConfirmationScreen((ECSOrderDetail) msg.obj);
             } else {
 
                 mPaymentController.makPayment(order);
@@ -521,13 +520,13 @@ public class OrderSummaryFragment extends InAppBaseFragment
                     ECSConstant.CVV_KEY_BUNDLE);
             ECSLog.d(ECSLog.LOG, "CVV =" + securityCode);
             placeOrder(securityCode);
-            mAddressController.getDeliveryModes();
+           // mAddressController.getDeliveryModes();
 
         }
     }
 
 
-    private void launchConfirmationScreen(PlaceOrder details) {
+    private void launchConfirmationScreen(ECSOrderDetail details) {
         Bundle bundle = new Bundle();
         bundle.putString(ModelConstants.ORDER_NUMBER, details.getCode());
         bundle.putBoolean(ModelConstants.PAYMENT_SUCCESS_STATUS, Boolean.TRUE);
