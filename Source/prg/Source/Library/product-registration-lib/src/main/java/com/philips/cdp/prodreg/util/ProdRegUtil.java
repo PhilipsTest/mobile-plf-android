@@ -14,6 +14,7 @@ import android.text.style.StyleSpan;
 import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.launcher.PRUiHelper;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
+import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
 import com.philips.platform.appinfra.timesync.TimeInterface;
 
 import java.text.ParseException;
@@ -118,5 +119,19 @@ public class ProdRegUtil {
         SpannableString str = new SpannableString(normal +bold);
         str.setSpan(new StyleSpan(Typeface.BOLD), normal.length(),length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return str;
+    }
+
+    public String getAPIKey() {
+        Object obj = getProperty("ApiKey", "ProductRegistration");
+        if (obj != null) {
+            return (String) obj;
+        }
+        return null;
+    }
+
+    private Object getProperty(String key, String group) {
+        AppConfigurationInterface appConfigurationInterface = PRUiHelper.getInstance().getAppInfraInstance().getConfigInterface();
+        Object obj = appConfigurationInterface.getPropertyForKey(key, group, new AppConfigurationInterface.AppConfigurationError());
+        return obj;
     }
 }

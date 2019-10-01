@@ -68,7 +68,7 @@ public class RemoteRegisteredProducts {
     public void getRegisteredProducts(final Context mContext, final UserWithProducts userWithProducts, UserDataInterface userDataInterface, final RegisteredProductsListener registeredProductsListener) {
         RegisteredProductsRequest registeredProductsRequest = getRegisteredProductsRequest(userDataInterface);
         final RequestManager mRequestManager = getRequestManager(mContext);
-        mRequestManager.executeRequest3(registeredProductsRequest, getPrxResponseListenerForRegisteredProducts(userWithProducts, new LocalRegisteredProducts(userDataInterface), registeredProductsListener));
+        mRequestManager.executeRequest(registeredProductsRequest, getPrxResponseListenerForRegisteredProducts(userWithProducts, new LocalRegisteredProducts(userDataInterface), registeredProductsListener));
     }
 
     @NonNull

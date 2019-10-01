@@ -10,6 +10,7 @@ import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.launcher.PRUiHelper;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
 import com.philips.cdp.prodreg.model.registeredproducts.RegisteredResponse;
+import com.philips.cdp.prodreg.util.ProdRegUtil;
 import com.philips.cdp.prxclient.PrxConstants;
 import com.philips.cdp.prxclient.request.PrxRequest;
 import com.philips.cdp.prxclient.request.RequestType;
@@ -65,7 +66,7 @@ public class RegisteredProductsRequest extends PrxRequest {
         final Map<String, String> headers = new HashMap<>();
        // headers.put(ProdRegConstants.ACCESS_TOKEN_KEY, getAccessToken());
 
-        headers.put(PROD_REG_APIKEY_KEY, RegistrationConfiguration.getInstance().getPRAPIKey());
+        headers.put(PROD_REG_APIKEY_KEY, new ProdRegUtil().getAPIKey());
         headers.put(PROD_REG_APIVERSION_KEY, "1");
         headers.put(PROD_REG_AUTHORIZATION_KEY, PROD_REG_AUTHORIZATION_VALUE + getAccessToken());
 

@@ -103,10 +103,6 @@ dependencies {
     implementation deps.libphonenumber
     implementation deps.support.appcompatv7
     implementation deps.volley
-    implementation deps.jackson_annotations           
-    implementation deps.jackson_core
-    implementation deps.jackson_databind
-
     implementation(philipsdeps.uid) {
         exclude group: 'com.android.support'
     }

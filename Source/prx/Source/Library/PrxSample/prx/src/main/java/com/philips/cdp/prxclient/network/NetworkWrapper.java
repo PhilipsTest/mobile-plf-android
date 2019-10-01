@@ -54,52 +54,6 @@ public class NetworkWrapper {
      * @param listener   Response listener
      * @since 1.0.0
      */
-    public void executeCustomJsonRequestRegistration(final PrxRequest prxRequest, final ResponseListener listener) {
-
-
-        if (listener == null) {
-            mPrxLogging.log(LoggingInterface.LogLevel.ERROR, PrxConstants.PRX_NETWORK_WRAPPER, "ResponseListener is null");
-        } else {
-            final Response.Listener<JSONObject> responseListener = getVolleyResponseListener(prxRequest, listener);
-            final Response.ErrorListener errorListener = getVolleyErrorListener(listener);
-            if (mPrxDependencies != null && mPrxDependencies.getAppInfra() != null) {
-                excuteRequest("https://stg.api.eu-west-1.philips.com/productRegistrations?ajnasfnasif", prxRequest, responseListener, errorListener, listener);
-            } else {
-                listener.onResponseError(new PrxError(PrxError.PrxErrorType.INJECT_APPINFRA.getDescription(), PrxError.PrxErrorType.INJECT_APPINFRA.getId()));
-            }
-        }
-    }
-
-    /**
-     * Execute custom JSON request.
-     *
-     * @param prxRequest PRX Request
-     * @param listener   Response listener
-     * @since 1.0.0
-     */
-    public void executeCustomJsonRequestGetRegistered(final PrxRequest prxRequest, final ResponseListener listener) {
-
-
-        if (listener == null) {
-            mPrxLogging.log(LoggingInterface.LogLevel.ERROR, PrxConstants.PRX_NETWORK_WRAPPER, "ResponseListener is null");
-        } else {
-            final Response.Listener<JSONObject> responseListener = getVolleyResponseListener(prxRequest, listener);
-            final Response.ErrorListener errorListener = getVolleyErrorListener(listener);
-            if (mPrxDependencies != null && mPrxDependencies.getAppInfra() != null) {
-                excuteRequest("https://stg.api.eu-west-1.philips.com/productRegistrations?nocache", prxRequest, responseListener, errorListener, listener);
-            } else {
-                listener.onResponseError(new PrxError(PrxError.PrxErrorType.INJECT_APPINFRA.getDescription(), PrxError.PrxErrorType.INJECT_APPINFRA.getId()));
-            }
-        }
-    }
-
-    /**
-     * Execute custom JSON request.
-     *
-     * @param prxRequest PRX Request
-     * @param listener   Response listener
-     * @since 1.0.0
-     */
     public void executeCustomJsonRequest(final PrxRequest prxRequest, final ResponseListener listener) {
 
 
