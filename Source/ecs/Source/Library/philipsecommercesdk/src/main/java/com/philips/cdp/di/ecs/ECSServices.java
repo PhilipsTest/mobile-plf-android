@@ -407,12 +407,12 @@ public class ECSServices implements ECSServiceProvider {
     /**
      * @since 1905.0.0
      * Sets delivery address.
-     *@param isDefault
-     * @param ecsCallback the ecs callback containing boolean response
+     *
+     * @param isDefault
      * @param address     the ECSAddress object
-     */
+     * @param ecsCallback the ecs callback containing boolean response  */
     @Override
-    public void setDeliveryAddress(boolean isDefault, @NonNull ECSCallback<Boolean, Exception> ecsCallback, @NonNull ECSAddress address) {
+    public void setDeliveryAddress(boolean isDefault, @NonNull ECSAddress address, @NonNull ECSCallback<Boolean, Exception> ecsCallback) {
         address.setDefaultAddress(isDefault);
         ecsCallValidator.setDeliveryAddress(address,ecsCallback);
     }
@@ -420,12 +420,12 @@ public class ECSServices implements ECSServiceProvider {
     /**
      * @since 1905.0.0
      * Sets and fetch delivery address.
-     *@param isDefault
-     * @param ecsCallback the ecs callback containing list of ECSAddress object
+     *
+     * @param isDefault
      * @param address     the ECSAddress object
-     */
+     * @param ecsCallback the ecs callback containing list of ECSAddress object  */
     @Override
-    public void setAndFetchDeliveryAddress(boolean isDefault, @NonNull ECSCallback<List<ECSAddress>, Exception> ecsCallback, @NonNull ECSAddress address) {
+    public void setAndFetchDeliveryAddress(boolean isDefault, @NonNull ECSAddress address, @NonNull ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
         address.setDefaultAddress(isDefault);
         ecsCallValidator.setAndFetchDeliveryAddress(address,ecsCallback);
     }

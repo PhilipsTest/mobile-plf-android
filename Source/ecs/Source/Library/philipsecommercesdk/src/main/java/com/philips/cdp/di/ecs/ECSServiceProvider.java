@@ -200,21 +200,19 @@ import java.util.List;
 
     /**
      * Sets delivery address.
-     *
-     * @param isDefault
-     * @param ecsCallback the ecs callback containing boolean response
+     *  @param isDefault
      * @param address     the ECSAddress object
+     * @param ecsCallback the ecs callback containing boolean response
      */
-    void setDeliveryAddress(boolean isDefault, ECSCallback<Boolean, Exception> ecsCallback, ECSAddress address);
+    void setDeliveryAddress(boolean isDefault, ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback);
 
     /**
      * Sets and fetch delivery address.
-     *
-     * @param isDefault
-     * @param ecsCallback the ecs callback containing list of ECSAddress object
+     *  @param isDefault
      * @param address     the ECSAddress object
+     * @param ecsCallback the ecs callback containing list of ECSAddress object
      */
-    void setAndFetchDeliveryAddress(boolean isDefault, ECSCallback<List<ECSAddress>, Exception> ecsCallback, ECSAddress address);
+    void setAndFetchDeliveryAddress(boolean isDefault, ECSAddress address, ECSCallback<List<ECSAddress>, Exception> ecsCallback);
 
     /**
      * Update address.
