@@ -70,7 +70,7 @@ public class SetAndFetchDeliveryAddressFragment extends BaseFragment {
 
         ECSAddress ecsAddress = getECSAddress(selectedItem);
 
-        ECSDataHolder.INSTANCE.getEcsServices().setAndFetchDeliveryAddress(ecsAddress, new ECSCallback<List<ECSAddress>, Exception>() {
+        ECSDataHolder.INSTANCE.getEcsServices().setAndFetchDeliveryAddress(true,ecsAddress, new ECSCallback<List<ECSAddress>, Exception>() {
             @Override
             public void onResponse(List<ECSAddress> ecsAddresses) {
 
@@ -87,21 +87,6 @@ public class SetAndFetchDeliveryAddressFragment extends BaseFragment {
             }
         });
 
-        ECSDataHolder.INSTANCE.getEcsServices().setDeliveryAddress(ecsAddress, new ECSCallback<Boolean, Exception>() {
-            @Override
-            public void onResponse(Boolean aBoolean) {
-                gotoResultActivity(aBoolean+"");
-                progressBar.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFailure(Exception e, ECSError ecsError) {
-
-                String errorString = getFailureString(e, ecsError);
-                gotoResultActivity(errorString);
-                progressBar.setVisibility(View.GONE);
-            }
-        });
 
     }
 

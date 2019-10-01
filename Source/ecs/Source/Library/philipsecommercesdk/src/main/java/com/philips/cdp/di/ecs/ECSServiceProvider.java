@@ -200,37 +200,33 @@ import java.util.List;
 
     /**
      * Sets delivery address.
-     *
+     *  @param isDefault
      * @param address     the ECSAddress object
      * @param ecsCallback the ecs callback containing boolean response
      */
-    void setDeliveryAddress(ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback);
+    void setDeliveryAddress(boolean isDefault, ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback);
 
     /**
      * Sets and fetch delivery address.
-     *
+     *  @param isDefault
      * @param address     the ECSAddress object
      * @param ecsCallback the ecs callback containing list of ECSAddress object
      */
-    void setAndFetchDeliveryAddress(ECSAddress address, ECSCallback<List<ECSAddress>, Exception> ecsCallback);
+    void setAndFetchDeliveryAddress(boolean isDefault, ECSAddress address, ECSCallback<List<ECSAddress>, Exception> ecsCallback);
 
     /**
      * Update address.
-     *
-     * @param isDefaultAddress the is default address boolean value
-     * @param address          the ECSAddress object
+     *  @param address          the ECSAddress object
      * @param ecsCallback      the ecs callback containing boolean response
      */
-    void updateAddress(boolean isDefaultAddress, ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback);
+    void updateAddress(ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback);
 
     /**
      * Update and fetch address.
-     *
-     * @param isDefaultAddress the is default address boolean value
-     * @param address          the ECSAddress object
+     *  @param address          the ECSAddress object
      * @param ecsCallback      the ecs callback containing list of ECSAddress object
      */
-    void updateAndFetchAddress(boolean isDefaultAddress, ECSAddress address, ECSCallback<List<ECSAddress>, Exception> ecsCallback);
+    void updateAndFetchAddress(ECSAddress address, ECSCallback<List<ECSAddress>, Exception> ecsCallback);
 
     /**
      * Delete address.
