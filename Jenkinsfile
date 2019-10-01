@@ -409,7 +409,7 @@ def BuildAndUnitTest() {
     sh '''#!/bin/bash -l
         set -e
         /bin/chmod -R 755 .
-        ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
+        ./gradlew clean assembleRelease \
             :AppInfra:testReleaseUnitTest \
             :uAppFwLib:testReleaseUnitTest \
             :registrationApi:testReleaseUnitTest \
