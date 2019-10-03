@@ -1,6 +1,8 @@
 package com.ecs.demouapp.ui.model.Contact;
 
-public class ContactPhone {
+import java.io.Serializable;
+
+public class ContactPhone implements Serializable {
     private String phoneNumber;
     private String openingHoursWeekdays;
     private String openingHoursSaturday;

@@ -1,6 +1,8 @@
 package com.ecs.demouapp.ui.model.Contact;
 
-public class ContactsResponse {
+import java.io.Serializable;
+
+public class ContactsResponse implements Serializable {
 
     private ContactData data;
     private boolean success;
