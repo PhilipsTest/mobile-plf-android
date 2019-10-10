@@ -35,6 +35,9 @@ public abstract class WebFragment extends InAppBaseFragment {
         mParentContainer = (RelativeLayout) viewGroup.findViewById(R.id.iap_web_container);
         mWebView = (WebView) viewGroup.findViewById(R.id.wv_payment);
         mWebView.setWebViewClient(new IAPWebViewClient());
+        mWebView.getSettings().setUserAgentString("Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E233 Safari/601.1");
+        mWebView.getSettings().setLoadsImagesAutomatically(true);
+        mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setJavaScriptEnabled(isJavaScriptEnable());
         mWebView.getSettings().setSaveFormData(false);
         createCustomProgressBar(mParentContainer,BIG);
@@ -82,12 +85,14 @@ public abstract class WebFragment extends InAppBaseFragment {
         @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
+            view.loadUrl(url);
             return WebFragment.this.shouldOverrideUrlLoading(url);
         }
 
         @TargetApi(Build.VERSION_CODES.N)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            view.loadUrl(request.getUrl().toString());
             return WebFragment.this.shouldOverrideUrlLoading(request.getUrl().toString());
         }
 
