@@ -34,12 +34,14 @@ public abstract class WebFragment extends InAppBaseFragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.iap_web_payment, container, false);
         mParentContainer = (RelativeLayout) viewGroup.findViewById(R.id.iap_web_container);
         mWebView = (WebView) viewGroup.findViewById(R.id.wv_payment);
-        mWebView.setWebViewClient(new IAPWebViewClient());
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setSaveFormData(false);
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.getSettings().setUserAgentString("Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E233 Safari/601.1");
+        mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.getSettings().setAppCacheEnabled(true);
         mWebView.getSettings().setLoadsImagesAutomatically(true);
         mWebView.getSettings().setUseWideViewPort(true);
-        mWebView.getSettings().setJavaScriptEnabled(isJavaScriptEnable());
-        mWebView.getSettings().setSaveFormData(false);
         createCustomProgressBar(mParentContainer,BIG);
 
         mUrl = getWebUrl();
