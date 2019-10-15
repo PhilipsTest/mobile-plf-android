@@ -127,7 +127,11 @@
   <string name="iap_last_name_hint">Ange efternamn</string>
   <string name="iap_less_review">visa mindre</string>
   <string name="iap_mastercard">Master Card</string>
-  <string name="iap_more_info">för mer info</string>
+  <string name="iap_more_info">för mer information</string>
+  <string name="iap_questions">Frågor? Besök vår </string>
+  <string name="iap_faq">FAQ</string>
+  <string name="iap_accept_terms">Genom att beställa, accepterar jag Philips</string>
+  <string name="iap_page"> -sida</string>
   <string name="iap_more_review">visa fler</string>
   <string name="iap_mr">Herr</string>
   <string name="iap_mrs">Fr.</string>
@@ -210,7 +214,7 @@
   <string name="iap_rate_it">Hiss eller diss – berätta vad du tycker!</string>
   <string name="iap_read">Läs vårt</string>
   <string name="iap_read_full_review">Läs den fullständiga recensionen</string>
-  <string name="iap_read_privacy">Jag har läst gällande</string>
+  <string name="iap_read_privacy">Jag har läst </string>
   <string name="iap_recommend_this_product">kunder som skulle rekommendera den här produkten.</string>
   <string name="iap_redeem_voucher">Lös in kupong</string>
   <string name="iap_remove">Ta bort</string>
@@ -248,7 +252,7 @@
   <string name="iap_state">Delstat</string>
   <string name="iap_stock_left">kvar i lager</string>
   <string name="iap_success">Lyckat</string>
-  <string name="iap_terms_conditions">Villkor</string>
+  <string name="iap_terms_conditions">Villkoren</string>
   <string name="iap_thank_for_order">Tack för din beställning</string>
   <string name="iap_time_out">Tidsgräns</string>
   <string name="iap_time_out_error">Tidsgräns för nätverk har nåtts!</string>

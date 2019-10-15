@@ -34,6 +34,7 @@ public abstract class WebFragment extends InAppBaseFragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.iap_web_payment, container, false);
         mParentContainer = (RelativeLayout) viewGroup.findViewById(R.id.iap_web_container);
         mWebView = (WebView) viewGroup.findViewById(R.id.wv_payment);
+        mWebView.setWebViewClient(new IAPWebViewClient());
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setSaveFormData(false);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
@@ -87,14 +88,12 @@ public abstract class WebFragment extends InAppBaseFragment {
         @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
-            view.loadUrl(url);
             return WebFragment.this.shouldOverrideUrlLoading(url);
         }
 
         @TargetApi(Build.VERSION_CODES.N)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            view.loadUrl(request.getUrl().toString());
             return WebFragment.this.shouldOverrideUrlLoading(request.getUrl().toString());
         }
 
