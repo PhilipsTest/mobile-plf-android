@@ -128,6 +128,10 @@
   <string name="iap_less_review">Weniger anzeigen</string>
   <string name="iap_mastercard">Mastercard</string>
   <string name="iap_more_info">für weitere Informationen</string>
+  <string name="iap_faq">FAQ</string>
+  <string name="iap_accept_terms">Mit der Bestellung akzeptiere ich die Philips</string>
+  <string name="iap_page">-Seite</string>
+  <string name="iap_questions">Fragen? Bitte besuchen Sie unsere </string>
   <string name="iap_more_review">Mehr anzeigen</string>
   <string name="iap_mr">Herr</string>
   <string name="iap_mrs">Frau</string>
@@ -248,7 +252,7 @@
   <string name="iap_state">Bundesl.</string>
   <string name="iap_stock_left">[de]left in stock</string>
   <string name="iap_success">Erfolgreich</string>
-  <string name="iap_terms_conditions">Allgemeinen Nutzungsbedingungen</string>
+  <string name="iap_terms_conditions">Nutzungsbedingungen</string>
   <string name="iap_thank_for_order">Vielen Dank für Ihre Bestellung.</string>
   <string name="iap_time_out">Zeitlimit überschritten</string>
   <string name="iap_time_out_error">Das Zeitlimit des Netzwerks wurde überschritten!</string>
