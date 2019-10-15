@@ -88,14 +88,12 @@ public abstract class WebFragment extends InAppBaseFragment {
         @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
-            view.loadUrl(url);
             return WebFragment.this.shouldOverrideUrlLoading(url);
         }
 
         @TargetApi(Build.VERSION_CODES.N)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            view.loadUrl(request.getUrl().toString());
             return WebFragment.this.shouldOverrideUrlLoading(request.getUrl().toString());
         }
 

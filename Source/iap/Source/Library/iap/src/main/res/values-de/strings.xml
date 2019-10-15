@@ -214,7 +214,8 @@
   <string name="iap_rate_it">Positives oder negatives Feedback? Ihre Meinung zählt!</string>
   <string name="iap_read">Lesen Sie unsere</string>
   <string name="iap_read_full_review">Gesamte Bewertung lesen</string>
-  <string name="iap_read_privacy">Ich habe Folgendes gelesen:</string>
+  <string name="iap_read_privacy">Ich habe Folgendes</string>
+  <string name="iap_just_read">gelesen</string>
   <string name="iap_recommend_this_product">Kunden würden dieses Produkt weiterempfehlen.</string>
   <string name="iap_redeem_voucher">Gutschein einlösen</string>
   <string name="iap_remove">Entfernen</string>

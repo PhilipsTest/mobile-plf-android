@@ -146,6 +146,7 @@
   <string name="iap_faq">FAQ</string>
   <string name="iap_page">page</string>
   <string name="iap_read_privacy">I have read the</string>
+  <string name="iap_just_read"></string>
   <string name="iap_accept_terms">By placing the order, I accept Philips’</string>
   <string name="iap_terms_privacy">I have read the <u>Privacy Notice</u></string>
   <string name="iap_no_result">0 results found for</string>

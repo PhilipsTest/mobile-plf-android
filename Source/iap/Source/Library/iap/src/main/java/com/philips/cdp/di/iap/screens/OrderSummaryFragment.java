@@ -186,6 +186,8 @@ public class OrderSummaryFragment extends InAppBaseFragment
                 ds.setColor(R.attr.uidHyperlinkDefaultPressedTextColor);
             }
         }, spanTxt.length() - mContext.getString(R.string.iap_privacy).length(), spanTxt.length(), 0);
+        spanTxt.append(" ");
+        spanTxt.append(mContext.getString(R.string.iap_just_read));
         spanTxt.append(".");
         view.setMovementMethod(LinkMovementMethod.getInstance());
         view.setText(spanTxt, TextView.BufferType.SPANNABLE);
