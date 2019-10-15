@@ -199,7 +199,7 @@
   <string name="iap_postal_code">Postadress</string>
   <string name="iap_postal_code_error">Ange ett giltigt postnummer</string>
   <string name="iap_postal_code_hint">Ange postnummer</string>
-  <string name="iap_privacy">Sekretessmeddelande</string>
+  <string name="iap_privacy">sekretessmeddelande</string>
   <string name="iap_proceed">Fortsätt</string>
   <string name="iap_product">Produkt</string>
   <string name="iap_product_added">Produkt tillagd i kundvagnen</string>
@@ -252,7 +252,7 @@
   <string name="iap_state">Delstat</string>
   <string name="iap_stock_left">kvar i lager</string>
   <string name="iap_success">Lyckat</string>
-  <string name="iap_terms_conditions">Villkoren</string>
+  <string name="iap_terms_conditions">villkoren</string>
   <string name="iap_thank_for_order">Tack för din beställning</string>
   <string name="iap_time_out">Tidsgräns</string>
   <string name="iap_time_out_error">Tidsgräns för nätverk har nåtts!</string>
