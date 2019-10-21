@@ -73,7 +73,7 @@ public class AddressSelectionAdapter extends RecyclerView.Adapter<RecyclerView.V
             //addressSelectionHolder.address.setText(Utility.formatAddress(address.getFormattedAddress() + "\n" + address.getCountry().getName()));
 
             AddressFields selectedAddress = Utility.prepareAddressFields(address, mJanRainEmail);
-            addressSelectionHolder.address.setText(Utility.getAddressToDisplay(selectedAddress));
+            addressSelectionHolder.address.setText(Utility.getAddressToDisplayForOrderSummary(selectedAddress));
             updatePaymentButtonsVisibility(addressSelectionHolder.paymentOptions, addressSelectionHolder.delete, position);
             setToggleStatus(addressSelectionHolder.toggle, position);
             bindToggleButton(addressSelectionHolder, addressSelectionHolder.toggle);

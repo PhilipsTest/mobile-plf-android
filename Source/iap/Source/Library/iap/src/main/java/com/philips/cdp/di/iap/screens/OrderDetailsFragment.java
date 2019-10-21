@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -362,7 +361,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
             // mDeliveryAddress.setText(Utility.formatAddress(detail.getDeliveryAddress().getFormattedAddress()) + "\n" + detail.getDeliveryAddress().getCountry().getName());
 
             AddressFields selectedAddress = Utility.prepareOrderAddressFields(detail.getDeliveryAddress());
-            mDeliveryAddress.setText(Utility.getAddressToDisplay(selectedAddress));
+            mDeliveryAddress.setText(Utility.getAddressToDisplayForOrderDetail(selectedAddress));
         }
 
         if (detail.getPaymentInfo() != null) {
@@ -371,7 +370,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
                 //   mBillingAddress.setText(Utility.formatAddress(detail.getPaymentInfo().getBillingAddress().getFormattedAddress()) + "\n" + detail.getDeliveryAddress().getCountry().getName());
 
                 AddressFields selectedAddress = Utility.prepareOrderAddressFields(detail.getPaymentInfo().getBillingAddress());
-                mBillingAddress.setText(Utility.getAddressToDisplay(selectedAddress));
+                mBillingAddress.setText(Utility.getAddressToDisplayForOrderDetail(selectedAddress));
             }
             if (detail.getPaymentInfo().getCardType() != null) {
                 mPaymentCardType.setText(detail.getPaymentInfo().getCardType().getCode());

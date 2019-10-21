@@ -96,7 +96,7 @@ public class UtilityTest {
 
     @Test
     public void shouldGetAddressToDisplay() throws Exception {
-        Utility.getAddressToDisplay(addressFieldsMock);
+        Utility.getAddressToDisplayForOrderDetail(addressFieldsMock);
     }
 
     @Test
