@@ -209,8 +209,9 @@ public class CheckOutHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     mIsFreeDelivery = true;
                 }
 
+                final AddressFields shippingAddressFields = CartModelContainer.getInstance().getShippingAddressFields();
                 if (data.getDeliveryAddressEntity() != null) {
-                    final AddressFields shippingAddressFields = CartModelContainer.getInstance().getShippingAddressFields();
+
                     shoppingCartFooter.mShippingName.setText(data.getDeliveryAddressEntity().getFirstName() + " " + data.getDeliveryAddressEntity().getLastName());
                     if(shippingAddressFields!=null) {
                         shoppingCartFooter.mShippingAddress.setText(Utility.getAddressToDisplayForOrderSummary(shippingAddressFields));
@@ -218,6 +219,7 @@ public class CheckOutHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 }
 
                 mBillingAddress = CartModelContainer.getInstance().getBillingAddress();
+                mBillingAddress.setCountry(shippingAddressFields.getCountry());
                 if (null != mBillingAddress) {
                     String billingName = mBillingAddress.getFirstName() + " " + mBillingAddress.getLastName();
                     shoppingCartFooter.mBillingName.setText(billingName);
