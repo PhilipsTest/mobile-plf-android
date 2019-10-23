@@ -112,12 +112,35 @@ public class Utility {
         }
     }
 
-    public static String getAddressToDisplay(final AddressFields address) {
+    protected static void appendAddressWithCommaIfNotNull(StringBuilder sb, String code) {
+        String addressLine1ReplacingNullValue = null;
+        if (!TextUtils.isEmpty(code)) {
+            if (code != null) {
+                addressLine1ReplacingNullValue = code.replaceAll("null", " ");
+            }
+            sb.append(addressLine1ReplacingNullValue).append(", ");
+        }
+    }
+
+    public static String getAddressToDisplayForOrderDetail(final AddressFields address) {
         StringBuilder sb = new StringBuilder();
 
         final String line1 = address.getLine1();
         final String houseNo = address.getHouseNumber();
         appendAddressWithNewLineIfNotNull(sb, houseNo);
+        appendAddressWithNewLineIfNotNull(sb, line1);
+        appendAddressWithNewLineIfNotNull(sb, address.getTown());
+        appendAddressWithNewLineIfNotNull(sb, address.getRegionName()+" "+address.getPostalCode());
+        appendAddressWithNewLineIfNotNull(sb, address.getCountry());
+        return sb.toString();
+    }
+
+    public static String getAddressToDisplayForOrderSummary(final AddressFields address) {
+        StringBuilder sb = new StringBuilder();
+
+        final String line1 = address.getLine1();
+        final String houseNo = address.getHouseNumber();
+        appendAddressWithCommaIfNotNull(sb, houseNo);
         appendAddressWithNewLineIfNotNull(sb, line1);
         appendAddressWithNewLineIfNotNull(sb, address.getTown());
         appendAddressWithNewLineIfNotNull(sb, address.getRegionName()+" "+address.getPostalCode());
@@ -175,6 +198,11 @@ public class Utility {
         if (isNotNullNorEmpty(addresses.getPhone1())) {
             fields.setPhone1(addresses.getPhone1());
         }
+
+        if (isNotNullNorEmpty(addresses.getHouseNumber())) {
+            fields.setHouseNumber(addresses.getHouseNumber());
+        }
+
 
         if (addresses.getRegion() != null) {
             fields.setRegionName(addresses.getRegion().getIsocodeShort());

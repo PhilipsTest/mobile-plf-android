@@ -113,6 +113,7 @@ public class AddressPresenter implements AddressController.AddressListener, Paym
             //Track new address creation
             IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
                     IAPAnalyticsConstant.SPECIAL_EVENTS, IAPAnalyticsConstant.NEW_SHIPPING_ADDRESS_ADDED);
+            addressContractor.setShippingAddressFields(Utility.prepareAddressFields(mAddresses, HybrisDelegate.getInstance(addressContractor.getActivityContext()).getStore().getJanRainEmail()));
         } else if (msg.obj instanceof IAPNetworkError) {
             addressContractor.hideProgressbar();
             addressContractor.showErrorMessage(msg);
