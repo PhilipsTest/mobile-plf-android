@@ -393,7 +393,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
         }
 
         mProgressDialog.setCancelable(false);
-        if (!(getActivity().isFinishing())) {
+        if (!(getActivity().isFinishing()) && isVisible()) {
             mProgressDialog.show();
         }
 
@@ -442,7 +442,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
                 (getActivity(), R.style.loaderTheme);
 
         mProgressDialog.setCancelable(false);
-        if (!(getActivity().isFinishing())) {
+        if (!(getActivity().isFinishing()) && isVisible()) {
             mProgressDialog.show();
         }
 
@@ -600,7 +600,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
                     (getActivity(), R.style.loaderTheme);
 
             mProgressDialog.setCancelable(false);
-            if (!(getActivity().isFinishing())) {
+            if (!(getActivity().isFinishing()) && isVisible()) {
                 mProgressDialog.show();
             }
             subCategoryRequest.execute();
