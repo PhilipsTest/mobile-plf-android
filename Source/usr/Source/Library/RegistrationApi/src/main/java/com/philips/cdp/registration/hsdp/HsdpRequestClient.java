@@ -73,6 +73,8 @@ class HsdpRequestClient {
             rawResponse = establishConnection(uri, httpMethod, headers, body);
         } catch (IOException e) {
             RLog.e(TAG, "sendRestRequest : Exception Occured :" + e.getMessage());
+        } catch (IllegalArgumentException e){
+            RLog.e(TAG, "sendRestRequest : Exception Occured :" + e.getMessage());
         }
 
         return rawResponse;
