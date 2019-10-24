@@ -167,6 +167,11 @@ public class UserRegistrationFailureInfo {
     public String getLocalizedValidationErrorMessages() {
 
         Map<String, List<String>> localizedErrorMsg = error.getLocalizedValidationErrorMessages();
+
+        if(null == localizedErrorMsg){
+            return "";
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Map.Entry<String, List<String>> entry : localizedErrorMsg.entrySet()) {

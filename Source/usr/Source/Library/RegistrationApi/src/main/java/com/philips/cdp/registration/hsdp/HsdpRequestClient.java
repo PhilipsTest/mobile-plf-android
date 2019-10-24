@@ -71,15 +71,16 @@ class HsdpRequestClient {
         Map<String, Object> rawResponse = null;
         try {
             rawResponse = establishConnection(uri, httpMethod, headers, body);
-        } catch (IOException e) {
+        } catch (Exception e){
             RLog.e(TAG, "sendRestRequest : Exception Occured :" + e.getMessage());
+
         }
 
         return rawResponse;
 
     }
 
-    private Map<String, Object> establishConnection(URI uri, String httpMethod, Map<String, String> headers, String body) throws IOException {
+    private Map<String, Object> establishConnection(URI uri, String httpMethod, Map<String, String> headers, String body) throws Exception {
         HttpURLConnection urlConnection = openHttpURLConnection(uri);
         try {
             urlConnection.setRequestMethod(httpMethod);
@@ -108,7 +109,7 @@ class HsdpRequestClient {
         return JSON_MAPPER.readValue(responseStrBuilder.toString(), Map.class);
     }
 
-    private HttpURLConnection openHttpURLConnection(URI uri) throws IOException {
+    private HttpURLConnection openHttpURLConnection(URI uri) throws Exception {
         return (HttpURLConnection) uri.toURL().openConnection();
     }
 
