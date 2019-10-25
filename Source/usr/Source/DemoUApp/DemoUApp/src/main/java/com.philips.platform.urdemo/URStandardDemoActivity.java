@@ -777,7 +777,8 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     public void onPersonalConsentClick(Activity activity) {
 
         RLog.d(TAG, " : onPersonalConsentClick");
-
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.philips.com"));
+        activity.startActivity(browserIntent);
     }
 
     @Override
