@@ -79,7 +79,7 @@ pipeline {
             steps {
                 echo "Node labels: ${nodes}"    //print node labels to console output
                 sh 'printenv'
-                //deleteDir()     //Recursively delete current directory from workspace.
+                deleteDir()     //Recursively delete current directory from workspace.
                 sh """
                     if [ -d ~/workspace/master ]; then
                         git clone ~/workspace/master ${WORKSPACE}
