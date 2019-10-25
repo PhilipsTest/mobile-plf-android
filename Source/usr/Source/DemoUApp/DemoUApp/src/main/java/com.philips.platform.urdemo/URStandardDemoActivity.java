@@ -774,6 +774,13 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     }
 
     @Override
+    public void onPersonalConsentClick(Activity activity) {
+
+        RLog.d(TAG, " : onPersonalConsentClick");
+
+    }
+
+    @Override
     public void onUserLogoutSuccess() {
         RLog.d(TAG, " : onUserLogoutSuccess");
     }

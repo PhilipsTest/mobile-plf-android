@@ -369,7 +369,12 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
                     }
                 }else {
                     usrCreatescreenPersonalConsentCheckbox.setChecked(!isChecked);
-                    getRegistrationFragment().addPersonalConsentFragment();
+                    if (RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener() != null) {
+                        RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener().
+                                onPersonalConsentClick(getRegistrationFragment().getParentActivity());
+                    } else {
+                        RegUtility.showErrorMessage(getRegistrationFragment().getParentActivity());
+                    }
                 }
             });
 

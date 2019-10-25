@@ -41,4 +41,13 @@ public interface UserRegistrationUIEventListener {
      */
     void onTermsAndConditionClick(Activity activity);
 
+    /**
+     * On terms and condition clicked callback.
+     *
+     * @param activity launching activity as callback
+     *                 @since 1.0.0
+     */
+    void onPersonalConsentClick(Activity activity);
+
+
 }
