@@ -869,6 +869,11 @@ public class EcsDemoAppActivity extends AppCompatActivity implements View.OnClic
     public void onTermsAndConditionClick(Activity activity) {
     }
 
+    @Override
+    public void onPersonalConsentClick(Activity activity) {
+
+    }
+
     void showScreenSizeInDp() {
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();

@@ -251,7 +251,12 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                             }
                         }else {
                             acceptPersonalConsentCheck.setChecked(!isChecked);
-                            getRegistrationFragment().addPersonalConsentFragment();
+                            if (RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener() != null) {
+                                RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener()
+                                        .onPersonalConsentClick(getRegistrationFragment().getParentActivity());
+                            } else {
+                                RegUtility.showErrorMessage(getRegistrationFragment().getParentActivity());
+                            }
                         }
                     }
                 }

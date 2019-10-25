@@ -175,6 +175,11 @@ public class EcsDemoTestActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
+    public void onPersonalConsentClick(Activity activity) {
+
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
