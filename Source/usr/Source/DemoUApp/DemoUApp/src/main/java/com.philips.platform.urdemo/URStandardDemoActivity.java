@@ -327,20 +327,16 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
 
                     if (mEnablePersonalConsentSwitch.isChecked()) {
                         editor.putBoolean("reg_personal_consent_configuration", true).apply();
-                        InitHsdp init = new InitHsdp();
-                        init.initHSDP(RegUtility.getConfiguration(restoredText), getApplicationContext(), URDemouAppInterface.appInfra);
                         urInterface.init(new URDemouAppDependencies(URDemouAppInterface.appInfra), new URDemouAppSettings(getApplicationContext()));
 
-                    } else {
-                        editor.remove("reg_delay_hsdp_configuration").apply();
-
                     }
+
+
                     updateSkipHsdpStatus(mSkipHSDPSwitch.isChecked());
                     SharedPreferences prefs = getSharedPreferences("reg_dynamic_config", MODE_PRIVATE);
                     String restoredText = prefs.getString("reg_hsdp_environment", null);
                     RLog.d("Restored teest", "" + restoredText);
                 }
-
 
             }
         });
