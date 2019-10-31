@@ -72,7 +72,6 @@
         android:orientation="horizontal"
         android:background="?attr/uidContentPrimaryBackgroundColor"
         android:padding="15dp"
-        android:gravity="end"
         android:layout_alignParentBottom="true">
 
     <com.philips.platform.uid.view.widget.Label
