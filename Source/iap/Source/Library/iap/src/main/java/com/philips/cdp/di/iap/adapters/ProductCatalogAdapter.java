@@ -250,7 +250,7 @@ public class ProductCatalogAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             mProductName = itemView.findViewById(R.id.iap_retailerItem_productName_lebel);
             mProductOutOfStock = itemView.findViewById(R.id.iap_retaileritem_product_outOfStock_label);
             mPrice = itemView.findViewById(R.id.iap_retailerItem_price_lebel);
-            mArrow = itemView.findViewById(R.id.arrow);
+            mArrow = itemView.findViewById(R.id.iap_product_catalog_arrow);
             mDiscountedPrice = itemView.findViewById(R.id.iap_productCatalogItem_discountedPrice_lebel);
             itemView.setOnClickListener(this);
         }

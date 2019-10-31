@@ -59,7 +59,7 @@
     </LinearLayout>
 
     <com.philips.platform.uid.view.widget.Label
-        android:id="@+id/arrow"
+        android:id="@+id/iap_product_catalog_arrow"
         style="@style/iap_right_arrow_product_catalog"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true" />

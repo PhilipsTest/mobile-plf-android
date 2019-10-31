@@ -23,8 +23,7 @@ public class IAPStockAvailabilityHelper {
             return false;
         }
 
-        if (stockLevelStatus.equalsIgnoreCase(IN_STOCK) ||
-                stockLevelStatus.equalsIgnoreCase(LOW_STOCK) || stockLevel > 0) {
+        if ((stockLevelStatus.equalsIgnoreCase(IN_STOCK) || stockLevelStatus.equalsIgnoreCase(LOW_STOCK)) && stockLevel > 0) {
             return true;
         }
 
