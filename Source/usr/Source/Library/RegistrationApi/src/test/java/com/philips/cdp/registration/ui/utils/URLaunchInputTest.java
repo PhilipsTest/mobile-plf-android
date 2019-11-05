@@ -112,6 +112,11 @@ public class URLaunchInputTest {
             public void onTermsAndConditionClick(Activity activity) {
 
             }
+
+            @Override
+            public void onPersonalConsentClick(Activity activity) {
+
+            }
         };
         urLaunchInput.setUserRegistrationUIEventListener(mUserRegistrationUIEventListener);
         assertNotNull(urLaunchInput.getUserRegistrationUIEventListener());
