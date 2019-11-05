@@ -326,8 +326,11 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
                     }
 
                     if (mEnablePersonalConsentSwitch.isChecked()) {
-                        editor.putBoolean("reg_personal_consent_configuration", true).apply();
+                        editor.putBoolean("reg_personal_consent_configuration", mEnablePersonalConsentSwitch.isChecked()).apply();
                         urInterface.init(new URDemouAppDependencies(URDemouAppInterface.appInfra), new URDemouAppSettings(getApplicationContext()));
+
+                    } else{
+                        editor.remove("reg_personal_consent_configuration").apply();
 
                     }
 
