@@ -63,7 +63,8 @@
     "enableAdobeLogs": true,
     "servicediscovery.countryMapping": {
       "LU": "BE",
-      "MO": "HK"
+      "MO": "HK",
+      "BY": "RU"
     },
     "logging.releaseConfig": {
       "fileName": "AppInfraLog",
