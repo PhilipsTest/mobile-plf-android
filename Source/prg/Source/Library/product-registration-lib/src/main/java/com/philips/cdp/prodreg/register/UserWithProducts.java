@@ -21,8 +21,8 @@ import com.philips.cdp.prodreg.logging.ProdRegLogger;
 import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponse;
 import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponseData;
 import com.philips.cdp.prodreg.model.registeredproducts.RegisteredResponseData;
-import com.philips.cdp.prodreg.model.registerproduct.RegistrationResponse;
-import com.philips.cdp.prodreg.model.registerproduct.RegistrationResponseData;
+import com.philips.cdp.prodreg.model.registeredproducts.model.ProductRegistrationsItem;
+import com.philips.cdp.prodreg.model.registeredproducts.model.Attributes;
 import com.philips.cdp.prodreg.model.registerproduct.RegistrationResponseNewData;
 import com.philips.cdp.prodreg.prxrequest.RegistrationRequest;
 import com.philips.cdp.prodreg.util.ProdRegUtil;
@@ -31,7 +31,6 @@ import com.philips.cdp.prxclient.RequestManager;
 import com.philips.cdp.prxclient.error.PrxError;
 import com.philips.cdp.prxclient.response.ResponseData;
 import com.philips.cdp.prxclient.response.ResponseListener;
-import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
@@ -170,7 +169,7 @@ public class UserWithProducts {
      * @param registeredProductsListener - callback listener to get list of products
      */
     public void getRegisteredProducts(final RegisteredProductsListener registeredProductsListener) {
-        if (mUserDataInterface != null && mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+        if (mUserDataInterface != null && mUserDataInterface.getUserLoggedInState().ordinal() >= UserLoggedInState.PENDING_HSDP_LOGIN.ordinal()) {
             setRequestType(FETCH_REGISTERED_PRODUCTS);
             this.registeredProductsListener = registeredProductsListener;
             final RemoteRegisteredProducts remoteRegisteredProducts = new RemoteRegisteredProducts();
@@ -207,7 +206,7 @@ public class UserWithProducts {
     }
 
     protected boolean isUserSignedIn(final Context context) {
-        return (mUserDataInterface != null && (mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN));
+        return (mUserDataInterface != null && (mUserDataInterface.getUserLoggedInState().ordinal() >= UserLoggedInState.PENDING_HSDP_LOGIN.ordinal()));
     }
 
     @NonNull
@@ -245,6 +244,19 @@ public class UserWithProducts {
     protected RegisteredProduct[] getRegisteredProductsFromResponse(final RegisteredResponseData[] results, final Gson gson) {
         return gson.fromJson(gson.toJson(results), RegisteredProduct[].class);
     }
+
+    protected Attributes[] getRegisteredProductsFromResponse(final List<ProductRegistrationsItem> results, final Gson gson) {
+
+        ProductRegistrationsItem[] pri = gson.fromJson(gson.toJson(results), ProductRegistrationsItem[].class);
+
+        Attributes[] attributes = new Attributes[pri.length];
+        for(int i =0;i< pri.length;i++){
+            attributes[i] = pri[i].getData().getAttributes();
+        }
+
+        return attributes;
+    }
+
 
     @NonNull
     MetadataListener getMetadataListener(final RegisteredProduct registeredProduct) {

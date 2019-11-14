@@ -12,6 +12,7 @@ import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.constants.RegistrationState;
 import com.philips.cdp.prodreg.localcache.ProdRegCache;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
+import com.philips.cdp.prodreg.model.registeredproducts.model.Attributes;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
@@ -76,7 +77,8 @@ public class LocalRegisteredProducts {
         Gson gson = getGSon();
         String data = getProdRegCache().getStringData(ProdRegConstants.PRODUCT_REGISTRATION_KEY);
         RegisteredProduct[] products = getRegisteredProducts(gson, data);
-        if (userDataInterface != null && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN && products != null) {
+        if (userDataInterface != null && userDataInterface.getUserLoggedInState().ordinal() >= UserLoggedInState.PENDING_HSDP_LOGIN.ordinal() && products != null) {
+
             ArrayList<RegisteredProduct> registeredProducts = new ArrayList<>();
             for (RegisteredProduct registeredProduct : products) {
                 if (registeredProduct.getUserUUid().length() == 0 || registeredProduct.getUserUUid().equals(uuid)) {
@@ -103,17 +105,40 @@ public class LocalRegisteredProducts {
         getProdRegCache().storeStringData(ProdRegConstants.PRODUCT_REGISTRATION_KEY, gson.toJson(registeredProducts));
     }
 
-    protected void migrateLegacyCache(final RegisteredProduct[] products) {
+//    protected void migrateLegacyCache(final RegisteredProduct[] products) {
+//        Set<RegisteredProduct> localRegisteredProducts = getUniqueRegisteredProducts();
+//        for (RegisteredProduct registeredProduct : products) {
+//            registeredProduct.setRegistrationState(RegistrationState.REGISTERED);
+//            registeredProduct.setUserUUid(uuid);
+//            if (localRegisteredProducts.contains(registeredProduct)) {
+//                localRegisteredProducts.remove(registeredProduct);
+//            }
+//            localRegisteredProducts.add(registeredProduct);
+//        }
+//        removeCachedRegisteredProducts(Arrays.asList(products), localRegisteredProducts);
+//        getProdRegCache().storeStringData(ProdRegConstants.PRODUCT_REGISTRATION_KEY, getGSon().toJson(localRegisteredProducts));
+//    }
+
+    protected void migrateLegacyCache(final Attributes[] products) {
         Set<RegisteredProduct> localRegisteredProducts = getUniqueRegisteredProducts();
-        for (RegisteredProduct registeredProduct : products) {
-            registeredProduct.setRegistrationState(RegistrationState.REGISTERED);
-            registeredProduct.setUserUUid(uuid);
+        Set<RegisteredProduct> localRegisteredProducts2 = localRegisteredProducts;;
+        localRegisteredProducts2.clear();
+
+        for (Attributes registeredProduct : products) {
+            RegisteredProduct registeredProduct1 = new RegisteredProduct(registeredProduct.getProductId(), null, null);
+            registeredProduct1.setRegistrationState(RegistrationState.REGISTERED);
+            registeredProduct1.setUserUUid(uuid);
+            registeredProduct1.setSerialNumber(registeredProduct.getSerialNumber());
             if (localRegisteredProducts.contains(registeredProduct)) {
                 localRegisteredProducts.remove(registeredProduct);
             }
-            localRegisteredProducts.add(registeredProduct);
+            localRegisteredProducts.add(registeredProduct1);
+            localRegisteredProducts2.add(registeredProduct1);
         }
-        removeCachedRegisteredProducts(Arrays.asList(products), localRegisteredProducts);
+
+        ArrayList<RegisteredProduct> dt = new ArrayList<>();
+        dt.addAll(localRegisteredProducts2);
+        removeCachedRegisteredProducts(dt, localRegisteredProducts);
         getProdRegCache().storeStringData(ProdRegConstants.PRODUCT_REGISTRATION_KEY, getGSon().toJson(localRegisteredProducts));
     }
 
