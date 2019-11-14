@@ -85,6 +85,15 @@
                     android:text="Refresh user"
                     android:visibility="visible" />
 
+
+                <com.philips.platform.uid.view.widget.Button
+                    android:id="@+id/btn_refresh_user_hsdp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Refresh hsdp Session"
+                    android:visibility="visible" />
+
                 <com.philips.platform.uid.view.widget.Button
                     android:id="@+id/btn_update_date_of_birth"
                     android:layout_width="fill_parent"

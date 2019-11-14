@@ -360,6 +360,31 @@ public class User {
 
 
     /**
+     * {@code refreshLoginSession} method refreshes the session of an already logged in user.
+     *
+     * @param refreshLoginSessionHandler instance of RefreshLoginSessionHandler
+     * @since 1.0.0
+     */
+    public void refreshHSDPLoginSession(final RefreshLoginSessionHandler refreshLoginSessionHandler) {
+        RLog.d(TAG, "refreshHSDPLoginSession");
+        if (getUserLoginState().ordinal() < UserLoginState.USER_LOGGED_IN.ordinal()) {
+            refreshLoginSessionHandler.onRefreshLoginSessionFailedWithError(getUserLoginState().ordinal());
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (new NetworkUtility(mContext).isInternetAvailable()) {
+                    RefreshUserSession refreshUserSession = new RefreshUserSession(refreshLoginSessionHandler, mContext);
+                    refreshUserSession.refreshHsdpSession();
+                } else {
+                    ThreadUtils.postInMainThread(mContext, () -> refreshLoginSessionHandler.onRefreshLoginSessionFailedWithError(ErrorCodes.NO_NETWORK));
+                }
+            }
+        }).start();
+    }
+
+
+    /**
      * {@code resendVerificationEmail} method sends a verification mail in case an already sent mail is not received.
      *
      * @param emailAddress            email Address of User

@@ -146,6 +146,11 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         Button mBtnRefresh = findViewById(R.id.btn_refresh_user);
         mBtnRefresh.setOnClickListener(this);
 
+
+        Button btn_refresh_user_hsdp = findViewById(R.id.btn_refresh_user_hsdp);
+        btn_refresh_user_hsdp.setOnClickListener(this);
+
+
         Button mBtnUpdateDOB = findViewById(R.id.btn_update_date_of_birth);
         mBtnUpdateDOB.setOnClickListener(this);
         Button mBtnUpdateGender = findViewById(R.id.btn_update_gender);
@@ -513,7 +518,12 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
             RLog.d(TAG, " : Refresh User ");
             handleRefreshAccessToken();
 
-        } else if (i == R.id.btn_refresh_token) {
+        } else if (i == R.id.btn_refresh_user_hsdp) {
+            RLog.d(TAG, " : Refresh Hsdp User ");
+            handleHSDPRefreshAccessToken();
+
+        }
+        else if (i == R.id.btn_refresh_token) {
             if (RegistrationConfiguration.getInstance().isHsdpFlow()) {
                 User user = new User(mContext);
                 if (user.getUserLoginState() != UserLoginState.USER_LOGGED_IN) {
@@ -728,7 +738,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     }
 
     private void handleRefreshAccessToken() {
-        if (mUser.getUserLoginState() == UserLoginState.USER_LOGGED_IN) {
+        if (mUser.getUserLoginState().ordinal() >= UserLoginState.PENDING_HSDP_LOGIN.ordinal()) {
             mUser.refreshLoginSession(new RefreshLoginSessionHandler() {
                 @Override
                 public void onRefreshLoginSessionSuccess() {
@@ -749,6 +759,31 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
             showToast("Please login");
         }
     }
+
+    private void handleHSDPRefreshAccessToken() {
+        if (mUser.getUserLoginState() == UserLoginState.USER_LOGGED_IN) {
+            mUser.refreshHSDPLoginSession(new RefreshLoginSessionHandler() {
+                @Override
+                public void onRefreshLoginSessionSuccess() {
+                    showToast("Success to refresh access token" + mUser.getAccessToken());
+                }
+
+                @Override
+                public void onRefreshLoginSessionFailedWithError(int error) {
+                    showToast("Failed to refresh access token");
+                }
+
+                @Override
+                public void forcedLogout() {
+                    showToast("Forced Logout");
+                }
+            });
+        } else {
+            showToast("Please login");
+        }
+    }
+
+
 
     @Override
     public void onUserRegistrationComplete(Activity activity) {
