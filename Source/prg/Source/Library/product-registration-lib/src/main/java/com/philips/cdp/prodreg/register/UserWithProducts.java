@@ -22,7 +22,7 @@ import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponse;
 import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponseData;
 import com.philips.cdp.prodreg.model.registeredproducts.RegisteredResponseData;
 import com.philips.cdp.prodreg.model.registeredproducts.model.ProductRegistrationsItem;
-import com.philips.cdp.prodreg.model.registeredproducts.model.Attributes;
+import com.philips.cdp.prodreg.model.registerproduct.Attributes;
 import com.philips.cdp.prodreg.model.registerproduct.RegistrationResponseNewData;
 import com.philips.cdp.prodreg.prxrequest.RegistrationRequest;
 import com.philips.cdp.prodreg.util.ProdRegUtil;

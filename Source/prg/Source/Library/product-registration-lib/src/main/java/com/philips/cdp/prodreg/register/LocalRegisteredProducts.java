@@ -12,7 +12,7 @@ import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.constants.RegistrationState;
 import com.philips.cdp.prodreg.localcache.ProdRegCache;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
-import com.philips.cdp.prodreg.model.registeredproducts.model.Attributes;
+import com.philips.cdp.prodreg.model.registerproduct.Attributes;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;

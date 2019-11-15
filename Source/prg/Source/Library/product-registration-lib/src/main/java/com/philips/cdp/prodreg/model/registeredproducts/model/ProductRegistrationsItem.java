@@ -8,13 +8,13 @@ import java.io.Serializable;
 public class ProductRegistrationsItem implements Serializable {
 
 	@SerializedName("data")
-	private com.philips.cdp.prodreg.model.registerproduct.Data.Data data;
+	private com.philips.cdp.prodreg.model.registerproduct.Data data;
 
-	public void setData(com.philips.cdp.prodreg.model.registerproduct.Data.Data data){
+	public void setData(com.philips.cdp.prodreg.model.registerproduct.Data data){
 		this.data = data;
 	}
 
-	public Data.Data getData(){
+	public Data getData(){
 		return data;
 	}
 
