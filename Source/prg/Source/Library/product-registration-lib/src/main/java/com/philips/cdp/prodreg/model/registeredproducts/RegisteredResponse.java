@@ -46,6 +46,8 @@ public class RegisteredResponse extends ResponseData {
     public ResponseData parseJsonResponseData(JSONObject response) {
         RegisteredResponse registeredData;
         registeredData = new Gson().fromJson(response.toString(), RegisteredResponse.class);
+
         return registeredData;
     }
 }
+

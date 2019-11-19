@@ -10,6 +10,8 @@ import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.launcher.PRUiHelper;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
 import com.philips.cdp.prodreg.model.registeredproducts.RegisteredResponse;
+import com.philips.cdp.prodreg.model.registerproduct.RegisteredProductsData;
+import com.philips.cdp.prodreg.model.registerproduct.RegistrationResponseNewData;
 import com.philips.cdp.prodreg.util.ProdRegUtil;
 import com.philips.cdp.prxclient.PrxConstants;
 import com.philips.cdp.prxclient.request.PrxRequest;
@@ -25,10 +27,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_ACCEPT_KEY;
 import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_APIKEY_KEY;
 import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_APIVERSION_KEY;
 import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_AUTHORIZATION_KEY;
 import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_AUTHORIZATION_VALUE;
+import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_CONTENTTYYPE_KEY;
 
 public class RegisteredProductsRequest extends PrxRequest {
 
@@ -52,7 +56,7 @@ public class RegisteredProductsRequest extends PrxRequest {
 
     @Override
     public ResponseData getResponseData(JSONObject jsonObject) {
-        return new RegisteredResponse().parseJsonResponseData(jsonObject);
+        return new RegisteredProductsData().parseJsonResponseData(jsonObject);
     }
 
 
@@ -60,6 +64,18 @@ public class RegisteredProductsRequest extends PrxRequest {
     public int getRequestType() {
         return RequestType.GET.getValue();
     }
+
+
+    private String contentType;
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
 
     @Override
     public Map<String, String> getHeaders() {
@@ -69,7 +85,8 @@ public class RegisteredProductsRequest extends PrxRequest {
         headers.put(PROD_REG_APIKEY_KEY, new ProdRegUtil().getAPIKey());
         headers.put(PROD_REG_APIVERSION_KEY, "1");
         headers.put(PROD_REG_AUTHORIZATION_KEY, PROD_REG_AUTHORIZATION_VALUE + getAccessToken());
-
+        headers.put(PROD_REG_CONTENTTYYPE_KEY, getContentType());
+        headers.put(PROD_REG_ACCEPT_KEY,getContentType());
 
 
         ArrayList<String> serviceIDList = new ArrayList<>();

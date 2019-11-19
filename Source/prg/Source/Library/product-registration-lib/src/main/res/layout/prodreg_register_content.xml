@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <com.philips.platform.uid.view.widget.Label
         android:id="@+id/prg_registerScreen_productTitle_label"
         style="@style/UIDLabel.ProductRegistrationHeaderTitleTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/pr_a_value_sm"
         android:layout_marginTop="@dimen/pr_margintop"
-        android:visibility="gone"/>
+        android:layout_marginBottom="@dimen/pr_a_value_sm"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/prg_registerScreen_ctn_label_relativelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/prg_registerScreen_productTitle_label">
+
         <com.philips.platform.uid.view.widget.Label
             android:id="@+id/prg_registerScreen_ctn_label"
             style="@style/UIDLabel.ProductRegistrationCtnTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/prg_registerScreen_product_image_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/prg_registerScreen_ctn_label_relativelayout"
-        android:layout_marginBottom="@dimen/pr_c_value_sm"
-        android:layout_marginTop="@dimen/pr_margintop">
+        android:layout_marginTop="@dimen/pr_margintop"
+        android:layout_marginBottom="@dimen/pr_c_value_sm">
 
         <ImageView
             android:id="@+id/prg_registerScreen_product_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="0dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
             android:src="@drawable/product_placeholder"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
@@ -66,8 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/pr_a_value_sm"
-            android:text="@string/PRG_SerialNum_Lbltxt"
-            />
+            android:text="@string/PRG_SerialNum_Lbltxt" />
 
 
         <com.philips.platform.uid.view.widget.InputValidationLayout
@@ -86,7 +88,7 @@
                 android:hint="@string/PRG_Please_Enter_SerialNum_Txtfldtxt"
                 android:maxLines="1"
                 app:uidInputTextBorderWidth="@dimen/uid_edittext_stroke_width"
-                app:uidInputTextWithClearButton="true"/>
+                app:uidInputTextWithClearButton="true" />
         </com.philips.platform.uid.view.widget.InputValidationLayout>
 
         <com.philips.platform.uid.view.widget.Label
@@ -95,11 +97,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:drawablePadding="2dp"
             android:drawableStart="@drawable/questionmark"
+            android:drawablePadding="2dp"
             android:gravity="center"
-            android:text="@string/PRG_Find_Serial_Number"
-            />
+            android:text="@string/PRG_Find_Serial_Number" />
     </LinearLayout>
 
 
@@ -117,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/pr_a_value_sm"
-            android:text="@string/PRG_Date_Of_Purchase_Lbltxt"/>
+            android:text="@string/PRG_Date_Of_Purchase_Lbltxt" />
 
         <com.philips.platform.uid.view.widget.InputValidationLayout
             android:id="@+id/prg_registerScreen_dateOfPurchase_validationLayout"
@@ -132,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/calendar"
                 android:hint="@string/PRG_Please_Select"
-                app:uidInputTextBorderWidth="@dimen/uid_edittext_stroke_width"/>
+                app:uidInputTextBorderWidth="@dimen/uid_edittext_stroke_width" />
         </com.philips.platform.uid.view.widget.InputValidationLayout>
     </LinearLayout>
 
@@ -151,11 +152,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/prg_registerScreen_dateOfPurchase_Layout"
-        android:layout_marginBottom="@dimen/pr_marginbottom"
         android:layout_marginTop="@dimen/pr_margintop"
-        android:textAllCaps="false"
+        android:layout_marginBottom="@dimen/pr_marginbottom"
         android:clickable="false"
+        android:textAllCaps="false"
         app:uidIsIndeterminateProgressIndicator="true"
         app:uidProgressIndicatorButtonProgressText="@string/PRG_Registering_Products_Lbltxt"
-        app:uidProgressIndicatorButtonText="@string/PRG_Register_Btntxt"/>
+        app:uidProgressIndicatorButtonText="@string/PRG_Register_Btntxt" />
 </RelativeLayout>

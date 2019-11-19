@@ -48,4 +48,6 @@ public class Data implements Serializable {
 			",type = '" + type + '\'' + 
 			"}";
 		}
+
+
 }
