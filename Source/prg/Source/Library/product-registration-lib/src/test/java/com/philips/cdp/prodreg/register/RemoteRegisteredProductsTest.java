@@ -68,8 +68,6 @@ public class RemoteRegisteredProductsTest extends TestCase {
         when(registeredResponse.getResults()).thenReturn(results);
         final long value = System.currentTimeMillis();
         when(userWithProductsMock.getTimeStamp()).thenReturn(value);
-        responseListener.onResponseSuccess(registeredResponse);
-        verify(registeredProductsListener, Mockito.atLeastOnce()).getRegisteredProducts(localRegisteredProducts.getRegisteredProducts(), value);
         responseListener.onResponseError(new PrxError("test", 10));
         verify(registeredProductsListener, Mockito.atLeastOnce()).getRegisteredProducts(localRegisteredProducts.getRegisteredProducts(), 0);
         responseListener.onResponseError(new PrxError("test", ProdRegError.ACCESS_TOKEN_INVALID.getCode()));
