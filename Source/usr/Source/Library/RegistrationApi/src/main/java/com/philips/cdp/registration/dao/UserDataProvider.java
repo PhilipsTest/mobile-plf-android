@@ -165,6 +165,13 @@ public class UserDataProvider extends User implements UserDataInterface {
     }
 
     @Override
+    public void refreshHSDPSession(RefreshSessionListener refreshSessionListener) {
+        RLog.d(TAG, "refreshLoginSession");
+        refreshHSDPLoginSession(getRefreshHandler(refreshSessionListener));
+    }
+
+
+    @Override
     public boolean isOIDCToken() {
         return false;
     }

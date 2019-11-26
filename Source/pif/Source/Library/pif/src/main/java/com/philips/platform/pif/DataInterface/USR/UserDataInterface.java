@@ -83,6 +83,15 @@ public interface UserDataInterface extends Serializable {
     void refreshSession(RefreshSessionListener refreshSessionListener);
 
     /**
+     * To refesh the user
+     *
+     * @param refreshSessionListener listener for user refresh
+     * @since 1903
+     */
+    void refreshHSDPSession(RefreshSessionListener refreshSessionListener);
+
+
+    /**
      * To check whether current access token is OIDC token or not
      *
      * @return true if the current access token is from OIDC else return false
