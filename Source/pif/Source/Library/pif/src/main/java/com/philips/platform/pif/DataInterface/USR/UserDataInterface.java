@@ -88,7 +88,7 @@ public interface UserDataInterface extends Serializable {
      * @param refreshSessionListener listener for user refresh
      * @since 1903
      */
-    void refreshSessionHSDP(RefreshSessionListener refreshSessionListener);
+    void refreshHSDPSession(RefreshSessionListener refreshSessionListener);
 
 
     /**

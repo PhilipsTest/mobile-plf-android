@@ -165,7 +165,7 @@ public class UserDataProvider extends User implements UserDataInterface {
     }
 
     @Override
-    public void refreshSessionHSDP(RefreshSessionListener refreshSessionListener) {
+    public void refreshHSDPSession(RefreshSessionListener refreshSessionListener) {
         RLog.d(TAG, "refreshLoginSession");
         refreshHSDPLoginSession(getRefreshHandler(refreshSessionListener));
     }

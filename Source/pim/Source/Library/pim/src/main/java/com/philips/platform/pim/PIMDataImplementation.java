@@ -95,7 +95,7 @@ public class PIMDataImplementation implements UserDataInterface {
     }
 
     @Override
-    public void refreshSessionHSDP(RefreshSessionListener refreshSessionListener) {
+    public void refreshHSDPSession(RefreshSessionListener refreshSessionListener) {
 
     }
 
