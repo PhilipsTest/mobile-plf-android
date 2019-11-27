@@ -1,3 +1,3 @@
 [submodule "mobile-plf-common"]
 	path = mobile-plf-common
-	url = git@ssh.dev.azure.com:v3/PhilipsAgile/8.0%20DC%20Innovations%20%28IET%29/mobile-plf-common
+	url = ssh://tfsemea1.ta.philips.com:22/tfs/TPC_Region02/Innersource/_git/mobile-plf-common
