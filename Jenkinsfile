@@ -88,7 +88,7 @@ pipeline {
 
                 //checkout current branch where git repo URL is specified
                 // TODO: Please check what is credentials id
-                checkout([$class: 'GitSCM', branches: [[name: '*/' + env.BRANCH_NAME]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 0, honorRefspec: true, noTags: false, reference: '', shallow: false, timeout: 20]], userRemoteConfigs: [[credentialsId: 'd51576c2-35b7-4136-a1fa-5a638fa03b01', url: 'git@ssh.dev.azure.com:v3/PhilipsAgile/8.0%20DC%20Innovations%20%28IET%29/mobile-plf-android', refspec: '+refs/heads/' + env.BRANCH_NAME + ':refs/remotes/origin/' + env.BRANCH_NAME]]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/' + env.BRANCH_NAME]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 0, honorRefspec: true, noTags: false, reference: '', shallow: false, timeout: 20]], userRemoteConfigs: [[credentialsId: 'dd4dd876-0d1a-4af0-bbea-9f726ff85d9a', url: 'ssh://tfsemea1.ta.philips.com:22/tfs/TPC_Region02/Innersource/_git/mobile-plf-android', refspec: '+refs/heads/' + env.BRANCH_NAME + ':refs/remotes/origin/' + env.BRANCH_NAME]]])
                 sh 'git checkout ${BRANCHNAME}'
                 sh 'printenv'
                 InitialiseBuild()
