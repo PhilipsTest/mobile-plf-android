@@ -539,7 +539,7 @@ public class ECSServices implements ECSServiceProvider {
      */
     @Override
     public void fetchOrderHistory(int pageNumber, int pageSize, @NonNull ECSCallback<ECSOrderHistory, Exception> ecsCallback) {
-        ecsCallValidator.getOrderHistory(pageNumber,ecsCallback);
+        ecsCallValidator.getOrderHistory(pageNumber,pageSize,ecsCallback);
     }
 
     /**

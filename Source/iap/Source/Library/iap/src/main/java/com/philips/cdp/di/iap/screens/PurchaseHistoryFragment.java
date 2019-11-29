@@ -20,6 +20,7 @@ import com.philips.cdp.di.iap.activity.IAPActivity;
 import com.philips.cdp.di.iap.adapters.OrderHistoryAdapter;
 import com.philips.cdp.di.iap.analytics.IAPAnalytics;
 import com.philips.cdp.di.iap.analytics.IAPAnalyticsConstant;
+import com.philips.cdp.di.iap.controller.ControllerFactory;
 import com.philips.cdp.di.iap.controller.OrderController;
 import com.philips.cdp.di.iap.eventhelper.EventHelper;
 import com.philips.cdp.di.iap.eventhelper.EventListener;
@@ -117,13 +118,15 @@ public class PurchaseHistoryFragment extends InAppBaseFragment implements OrderC
     }
 
     private void updateHistoryListOnResume() {
-        if(isUserLoggedIn()){
+        if(isUserLoggedIn() && ! ControllerFactory.getInstance().isPlanB()){
             createCustomProgressBar(mParentLayout,BIG);
             mController = new OrderController(mContext, this);
             mController.getOrderList(mPageNo);
         }else{
-            if(mIapListener!=null){
+            if(mIapListener!=null && !isUserLoggedIn()){
                 mIapListener.onFailure(IAPConstant.IAP_ERROR_AUTHENTICATION_FAILURE);
+            }else if(mIapListener!=null){
+                mIapListener.onFailure(IAPConstant.IAP_ERROR_SERVER_ERROR);
             }
             moveToVerticalAppByClearingStack();
         }

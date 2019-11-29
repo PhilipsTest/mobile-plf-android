@@ -86,6 +86,7 @@ public class ApplyVoucherFragment  extends BaseFragment{
 
                 String errorString = getFailureString(e, ecsError);
                 gotoResultActivity(errorString);
+                progressBar.setVisibility(View.GONE);
             }
         });
 

@@ -9,7 +9,6 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +33,12 @@ import com.philips.cdp.di.iap.eventhelper.EventHelper;
 import com.philips.cdp.di.iap.eventhelper.EventListener;
 import com.philips.cdp.di.iap.response.State.RegionsList;
 import com.philips.cdp.di.iap.response.addresses.Addresses;
+import com.philips.cdp.di.iap.response.addresses.DeliveryCost;
 import com.philips.cdp.di.iap.response.addresses.DeliveryModes;
 import com.philips.cdp.di.iap.response.addresses.GetDeliveryModes;
 import com.philips.cdp.di.iap.response.addresses.GetShippingAddressData;
+import com.philips.cdp.di.iap.response.carts.DeliveryCostEntity;
+import com.philips.cdp.di.iap.response.carts.DeliveryModeEntity;
 import com.philips.cdp.di.iap.session.IAPNetworkError;
 import com.philips.cdp.di.iap.session.NetworkConstants;
 import com.philips.cdp.di.iap.utils.AlertListener;
@@ -218,7 +220,9 @@ public class ShoppingCartFragment extends InAppBaseFragment
             showProductCatalogFragment(ShoppingCartFragment.TAG);
         } else if (event.equalsIgnoreCase(IAPConstant.IAP_DELETE_PRODUCT)) {
             createCustomProgressBar(mParentLayout, BIG);
-            mShoppingCartAPI.deleteProduct(mData.get(mAdapter.getSelectedItemPosition()));
+            if(mAdapter.getSelectedItemPosition()>0) {
+                mShoppingCartAPI.deleteProduct(mData.get(mAdapter.getSelectedItemPosition()));
+            }
 
         } else if (event.equalsIgnoreCase(IAPConstant.IAP_UPDATE_PRODUCT_COUNT)) {
             createCustomProgressBar(mParentLayout, BIG);
@@ -309,7 +313,11 @@ public class ShoppingCartFragment extends InAppBaseFragment
         }
         if (getActivity() == null) return;
         
-        if(mData!=null && mData.get(0)!=null && mData.get(0).getDeliveryMode()!=null) {
+        if(mData!=null && mData.get(0)!=null) {
+
+            if(mData.get(0).getDeliveryMode()!=null){
+                mSelectedDeliveryMode =  getDeliveryMethodFromDeliveryModeEntity(mData.get(0).getDeliveryMode());
+            }
 
             onOutOfStock(false);
             mAdapter = new ShoppingCartAdapter(getActivity(), mData, this);
@@ -443,6 +451,27 @@ public class ShoppingCartFragment extends InAppBaseFragment
     @Override
     public void onFailure(Message msg) {
         hideProgressBar();
+    }
+
+    private DeliveryModes getDeliveryMethodFromDeliveryModeEntity(DeliveryModeEntity deliveryModeEntity){
+
+        DeliveryModes deliveryMode = new DeliveryModes();
+        DeliveryCost deliveryCost = new DeliveryCost();
+
+        deliveryMode.setCode(deliveryModeEntity.getCode());
+        deliveryMode.setDescription(deliveryModeEntity.getDescription());
+        deliveryMode.setName(deliveryModeEntity.getName());
+
+        DeliveryCostEntity deliveryCostEntity = deliveryModeEntity.getDeliveryCost();
+
+        deliveryCost.setCurrencyIso(deliveryCostEntity.getCurrencyIso());
+        deliveryCost.setFormattedValue(deliveryCostEntity.getFormattedValue());
+        deliveryCost.setPriceType(deliveryCostEntity.getPriceType());
+        deliveryCost.setValue(deliveryCostEntity.getValue());
+
+        deliveryMode.setDeliveryCost(deliveryCost);
+
+        return deliveryMode;
     }
 
 }

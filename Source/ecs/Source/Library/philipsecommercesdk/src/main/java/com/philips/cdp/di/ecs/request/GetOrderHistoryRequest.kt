@@ -9,6 +9,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.google.gson.Gson
+import com.philips.cdp.di.ecs.constants.ModelConstants
 import com.philips.cdp.di.ecs.error.ECSErrorEnum
 import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.store.ECSURLBuilder
@@ -19,19 +20,26 @@ import org.json.JSONObject
 import java.util.HashMap
 import kotlin.Exception
 
-open class GetOrderHistoryRequest (currentPage: Int, ecsCallback: ECSCallback<ECSOrderHistory,Exception>) :OAuthAppInfraAbstractRequest() , Response.Listener<JSONObject> {
+open class GetOrderHistoryRequest(currentPage: Int,val pageSize: Int, ecsCallback: ECSCallback<ECSOrderHistory, java.lang.Exception>) :OAuthAppInfraAbstractRequest() , Response.Listener<JSONObject> {
 
     private val ecsCallback = ecsCallback
     private val currentPage = currentPage
 
     override fun getURL(): String {
-       return ECSURLBuilder().getOrderHistoryUrl(currentPage.toString())
+       return ECSURLBuilder().getOrderHistoryUrl(currentPage.toString(),pageSize.toString())
     }
 
     override fun getHeader(): Map<String, String>? {
         val authMap = HashMap<String, String>()
         authMap["Authorization"] = "Bearer " + ECSConfiguration.INSTANCE.accessToken
         return authMap
+    }
+
+    override fun getParams(): Map<String, String>? {
+        val query = HashMap<String, String>()
+        query[ModelConstants.CURRENT_PAGE] = currentPage.toString()
+        query[ModelConstants.PAGE_SIZE] = pageSize.toString()
+        return query
     }
 
     override fun getMethod(): Int {
