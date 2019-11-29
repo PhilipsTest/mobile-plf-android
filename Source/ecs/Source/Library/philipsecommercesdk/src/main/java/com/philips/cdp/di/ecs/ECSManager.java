@@ -404,10 +404,7 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
         ECSCallback ecsCallback1 =  new ECSCallback<ECSShoppingCart, Exception>() {
             @Override
             public void onResponse(ECSShoppingCart ecsShoppingCart) {
-                if (null == ecsShoppingCart.getEntries()) {
-                    // if no product is added to cart
-                    ecsCallback.onResponse(ecsShoppingCart);
-                } else {
+                if (ecsShoppingCart.getEntries()!=null && ecsShoppingCart.getEntries().size()!=0) {
                     //Preparing products to get summary Data
                     List<ECSProduct> productList = new ArrayList<>();
 
@@ -429,6 +426,9 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
                         }
                     };
                     prepareProductSummaryURL(products, ecsCallbackProduct);
+
+                } else {
+                    ecsCallback.onResponse(ecsShoppingCart);
                 }
             }
 
@@ -669,8 +669,8 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
         }).executeRequest();
     }
 
-     void getOrderHistory(int pageNumber, ECSCallback<ECSOrderHistory, Exception> ecsCallback) {
-        new GetOrderHistoryRequest(pageNumber, ecsCallback).executeRequest();
+     void getOrderHistory(int pageNumber, int pageSize, ECSCallback<ECSOrderHistory, Exception> ecsCallback) {
+        new GetOrderHistoryRequest(pageNumber,pageSize, ecsCallback).executeRequest();
     }
 
 

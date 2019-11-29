@@ -346,11 +346,11 @@ import java.util.List;
         }
     }
 
-    public void getOrderHistory(int pageNumber, ECSCallback<ECSOrderHistory, Exception> ecsCallback) {
+    public void getOrderHistory(int pageNumber, int pageSize, ECSCallback<ECSOrderHistory, Exception> ecsCallback) {
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getOrderHistoryError(pageNumber);
         if (ecsErrorWrapper == null) {
-            ecsManager.getOrderHistory(pageNumber,ecsCallback);
+            ecsManager.getOrderHistory(pageNumber,pageSize,ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }

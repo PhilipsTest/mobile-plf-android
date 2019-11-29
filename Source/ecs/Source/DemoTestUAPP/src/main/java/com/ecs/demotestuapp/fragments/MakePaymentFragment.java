@@ -61,6 +61,7 @@ public class MakePaymentFragment extends BaseAPIFragment {
 
         if(ECSDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder() == null){
             Toast.makeText(getActivity(),"Order Detail can not be null",Toast.LENGTH_SHORT).show();
+            getProgressBar().setVisibility(View.GONE);
             return;
         }
 
@@ -103,6 +104,8 @@ public class MakePaymentFragment extends BaseAPIFragment {
         ECSAddress ecsAddress = new ECSAddress() ;
 
         List<ECSAddress> ecsAddressList = ECSDataHolder.INSTANCE.getEcsAddressList();
+        if(ecsAddressList == null) return null;
+
         for(ECSAddress ecsAddress1:ecsAddressList){
             if(ecsAddress1.getId().equalsIgnoreCase(addressID)){
                 return ecsAddress1;

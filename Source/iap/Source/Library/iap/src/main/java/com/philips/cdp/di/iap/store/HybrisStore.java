@@ -76,7 +76,7 @@ public class HybrisStore extends AbstractStore {
     private String mAddToCartUrl;
     private String mDeleteCartUrl;
 
-    private String mOrderHistoryUrl;
+    private static String mOrderHistoryUrl;
     private String mOrderDetailUrl;
     private String mGetPhoneContactUrl;
 

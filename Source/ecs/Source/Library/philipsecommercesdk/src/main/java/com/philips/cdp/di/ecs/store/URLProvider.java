@@ -67,7 +67,7 @@ public interface URLProvider {
     String getPlaceOrderUrl();
 
     //Orders
-    String getOrderHistoryUrl(String pageNumber);
+    String getOrderHistoryUrl(String pageNumber,String pageSize);
 
     String getOrderDetailUrl(String orderID);
 

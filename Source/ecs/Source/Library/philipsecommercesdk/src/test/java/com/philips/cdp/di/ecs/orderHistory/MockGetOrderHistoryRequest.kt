@@ -8,7 +8,7 @@ import com.philips.cdp.di.ecs.request.GetOrderHistoryRequest
 import org.json.JSONException
 import org.json.JSONObject
 
-class MockGetOrderHistoryRequest(jsonFile: String, currentPage: Int, ecsCallback: ECSCallback<ECSOrderHistory, Exception>) : GetOrderHistoryRequest(currentPage, ecsCallback) {
+class MockGetOrderHistoryRequest(jsonFile: String, currentPage: Int, ecsCallback: ECSCallback<ECSOrderHistory, Exception>) : GetOrderHistoryRequest(currentPage,2, ecsCallback) {
 
 
     internal var jsonFile: String = jsonFile

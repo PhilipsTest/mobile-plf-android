@@ -328,7 +328,9 @@ public class ECSURLBuilder implements URLProvider {
 
     //Orders
     @Override
-    public String getOrderHistoryUrl(String pageNumber) {
+    public String getOrderHistoryUrl(String pageNumber,String pageSize) {
+
+        // mGetProductCatalogUrl = baseURlForProductCatalog.concat(SUFFIX_PRODUCT_CATALOG).concat(ECSConfiguration.INSTANCE.getLocale()).concat("&currentPage=%s&pageSize=%s");
 
         ///pilcommercewebservices/v2/US_Pub/users/current/orders
       return   ECSConfiguration.INSTANCE.getBaseURL()+ WEBROOT + SEPERATOR + V2 + SEPERATOR+
@@ -336,7 +338,7 @@ public class ECSURLBuilder implements URLProvider {
                 USER+SEPERATOR+
                 SUFFIX_CURRENT+SEPERATOR+
                 SUFFIX_ORDERS+
-                FIELDS_FULL_LANG + ECSConfiguration.INSTANCE.getLocale()+ SUFFIX_CURRENT_PAGE+pageNumber;
+                FIELDS_FULL_LANG + ECSConfiguration.INSTANCE.getLocale()+ SUFFIX_CURRENT_PAGE+pageNumber +"&pageSize="+pageSize;
 
     }
 

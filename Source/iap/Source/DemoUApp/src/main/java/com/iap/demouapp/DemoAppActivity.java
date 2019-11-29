@@ -650,6 +650,8 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
             errorText = "Product out of stock";
         } else if (IAPConstant.IAP_ERROR_INVALID_CTN == errorCode) {
             errorText = "Invalid ctn";
+        }else if (IAPConstant.IAP_ERROR_SERVER_ERROR == errorCode) {
+            errorText = "Hybris is not available";
         }
         if (errorText != null) {
             Toast toast = Toast.makeText(this, errorText, Toast.LENGTH_SHORT);

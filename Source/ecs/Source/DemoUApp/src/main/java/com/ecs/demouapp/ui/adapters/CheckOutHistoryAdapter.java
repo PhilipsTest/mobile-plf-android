@@ -233,27 +233,29 @@ public class CheckOutHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
             if(mData.getAppliedOrderPromotions()!=null) {
                 for (int i = 0; i < mData.getAppliedOrderPromotions().size(); i++) {
+                    if(null!=mData.getAppliedOrderPromotions().get(i) && null!=mData.getAppliedOrderPromotions().get(i).getPromotion() && null!=mData.getAppliedOrderPromotions().get(i).getPromotion().getPromotionDiscount()) {
+                        View discountInfo = View.inflate(mContext, R.layout.item_discount, null);
+                        TextView tvDiscountText = discountInfo.findViewById(R.id.tv_discount_text);
+                        TextView tvDiscountValue = discountInfo.findViewById(R.id.tv_discount_value);
 
-                    View discountInfo = View.inflate(mContext, R.layout.item_discount, null);
-                    TextView tvDiscountText = discountInfo.findViewById(R.id.tv_discount_text);
-                    TextView tvDiscountValue = discountInfo.findViewById(R.id.tv_discount_value);
-
-                    tvDiscountText.setText(mData.getAppliedOrderPromotions().get(i).getPromotion().getDescription());
-                    tvDiscountValue.setText("- " + mData.getAppliedOrderPromotions().get(i).getPromotion().getPromotionDiscount().getFormattedValue());
-                    shoppingCartFooter.llDiscount.addView(discountInfo);
+                        tvDiscountText.setText(mData.getAppliedOrderPromotions().get(i).getPromotion().getDescription());
+                        tvDiscountValue.setText("- " + mData.getAppliedOrderPromotions().get(i).getPromotion().getPromotionDiscount().getFormattedValue());
+                        shoppingCartFooter.llDiscount.addView(discountInfo);
+                    }
                 }
             }
 
             if(mData.getAppliedVouchers()!=null)
             for(int i=0;i< mData.getAppliedVouchers().size();i++){
+                if(null!=mData.getAppliedVouchers().get(i)  && null!=mData.getAppliedVouchers().get(i).getName() &&  null!=mData.getAppliedVouchers().get(i).getAppliedValue()) {
+                    View discountInfo = View.inflate(mContext, R.layout.item_discount, null);
+                    TextView tvDiscountText = discountInfo.findViewById(R.id.tv_discount_text);
+                    TextView tvDiscountValue = discountInfo.findViewById(R.id.tv_discount_value);
 
-                View discountInfo = View.inflate(mContext, R.layout.item_discount, null);
-                TextView tvDiscountText = discountInfo.findViewById(R.id.tv_discount_text);
-                TextView tvDiscountValue = discountInfo.findViewById(R.id.tv_discount_value);
-
-                tvDiscountText.setText(mData.getAppliedVouchers().get(i).getDescription());
-                tvDiscountValue.setText("- " + mData.getAppliedVouchers().get(i).getAppliedValue().getFormattedValue());
-                shoppingCartFooter.llDiscount.addView(discountInfo);
+                    tvDiscountText.setText(mData.getAppliedVouchers().get(i).getName());
+                    tvDiscountValue.setText("- " + mData.getAppliedVouchers().get(i).getAppliedValue().getFormattedValue());
+                    shoppingCartFooter.llDiscount.addView(discountInfo);
+                }
             }
 
         }

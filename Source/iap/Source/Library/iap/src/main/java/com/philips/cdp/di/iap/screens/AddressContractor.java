@@ -63,11 +63,9 @@ public interface AddressContractor extends AddressFieldDecider{
     boolean isShippingAddressFilled();
     boolean isBillingAddressFilled();
     boolean isAddressFilledFromDeliveryAddress();
-    boolean isDeliveryFirstTimeUser();
 
     void setShippingAddressFilledStatus(boolean status);
     void setBillingAddressFilledStatus(boolean status);
     void setAddressFilledFromDeliveryAddressStatus(boolean status);
-    void setDeliveryFirstTimeUserStatus(boolean status);
 
 }

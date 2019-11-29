@@ -28,6 +28,7 @@ import com.philips.cdp.di.iap.eventhelper.EventHelper;
 import com.philips.cdp.di.iap.eventhelper.EventListener;
 import com.philips.cdp.di.iap.response.addresses.Addresses;
 import com.philips.cdp.di.iap.response.addresses.DeliveryModes;
+import com.philips.cdp.di.iap.response.addresses.GetDeliveryModes;
 import com.philips.cdp.di.iap.response.addresses.GetShippingAddressData;
 import com.philips.cdp.di.iap.response.payment.PaymentMethod;
 import com.philips.cdp.di.iap.response.payment.PaymentMethods;
@@ -172,14 +173,15 @@ public class AddressSelectionFragment extends InAppBaseFragment implements Addre
 
     @Override
     public void onSetDeliveryAddress(final Message msg) {
+
         if (msg.obj.equals(IAPConstant.IAP_SUCCESS)) {
-            Addresses selectedAddress = retrieveSelectedAddress();
-            mIsAddressUpdateAfterDelivery = true;
-            mAddressController.setDefaultAddress(selectedAddress);
-            /*if (mDeliveryMode == null)
+
+            if (mDeliveryMode == null) {
                 mAddressController.getDeliveryModes();
-            else*/
+            } else{
+                mIsAddressUpdateAfterDelivery = true;
                 checkPaymentDetails();
+            }
         } else {
             NetworkUtility.getInstance().showErrorMessage(msg, getFragmentManager(), mContext);
             hideProgressBar();
@@ -188,12 +190,27 @@ public class AddressSelectionFragment extends InAppBaseFragment implements Addre
 
     @Override
     public void onGetDeliveryModes(Message msg) {
-        handleDeliveryMode(msg, mAddressController);
+
+        if ((msg.obj).equals(NetworkConstants.EMPTY_RESPONSE)) {
+            hideProgressBar();
+        } else if ((msg.obj instanceof IAPNetworkError)) {
+            NetworkUtility.getInstance().showErrorMessage(msg, getFragmentManager(), mContext);
+            hideProgressBar();
+        } else if ((msg.obj instanceof GetDeliveryModes)) {
+            GetDeliveryModes deliveryModes = (GetDeliveryModes) msg.obj;
+            List<DeliveryModes> deliveryModeList = deliveryModes.getDeliveryModes();
+            if (deliveryModeList.size() > 0) {
+                CartModelContainer.getInstance().setDeliveryModes(deliveryModeList);
+                 mAddressController.setDeliveryMode(deliveryModeList.get(0).getCode());
+            }
+        }
+
     }
 
     @Override
     public void onSetDeliveryMode(final Message msg) {
         if (msg.obj.equals(IAPConstant.IAP_SUCCESS)) {
+            mIsAddressUpdateAfterDelivery = true;
             checkPaymentDetails();
         } else {
             NetworkUtility.getInstance().showErrorMessage(msg, getFragmentManager(), mContext);
@@ -207,15 +224,7 @@ public class AddressSelectionFragment extends InAppBaseFragment implements Addre
         hideProgressBar();
         if ((msg.obj).equals(NetworkConstants.EMPTY_RESPONSE)) {
 
-            AddressFields selectedAddress = Utility.prepareAddressFields(address, mJanRainEmail);
-            CartModelContainer.getInstance().setShippingAddressFields(selectedAddress);
-
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(IAPConstant.ADD_BILLING_ADDRESS, true);
-            bundle.putSerializable(IAPConstant.UPDATE_BILLING_ADDRESS_KEY, updateAddress(address));
-
-            addFragment(AddressFragment.createInstance(bundle, AnimationType.NONE),
-                    AddressFragment.TAG,true);
+            goToAddressFragment(address);
         } else if ((msg.obj instanceof IAPNetworkError)) {
             NetworkUtility.getInstance().showErrorMessage(msg, getFragmentManager(), mContext);
         } else if ((msg.obj instanceof PaymentMethods)) {
@@ -224,11 +233,28 @@ public class AddressSelectionFragment extends InAppBaseFragment implements Addre
             PaymentMethods mPaymentMethods = (PaymentMethods) msg.obj;
             List<PaymentMethod> mPaymentMethodsList = mPaymentMethods.getPayments();
 
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(IAPConstant.UPDATE_BILLING_ADDRESS_KEY, updateAddress(address));
-            bundle.putSerializable(IAPConstant.PAYMENT_METHOD_LIST, (Serializable) mPaymentMethodsList);
-            addFragment(PaymentSelectionFragment.createInstance(bundle, AnimationType.NONE), PaymentSelectionFragment.TAG,true);
+            if(mPaymentMethodsList == null || mPaymentMethodsList.isEmpty()){
+                goToAddressFragment(address);
+            }else {
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(IAPConstant.UPDATE_BILLING_ADDRESS_KEY, updateAddress(address));
+                bundle.putSerializable(IAPConstant.PAYMENT_METHOD_LIST, (Serializable) mPaymentMethodsList);
+                addFragment(PaymentSelectionFragment.createInstance(bundle, AnimationType.NONE), PaymentSelectionFragment.TAG, true);
+            }
         }
+    }
+
+    private void goToAddressFragment(Addresses address) {
+        AddressFields selectedAddress = Utility.prepareAddressFields(address, mJanRainEmail);
+        CartModelContainer.getInstance().setShippingAddressFields(selectedAddress);
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IAPConstant.ADD_BILLING_ADDRESS, true);
+        bundle.putSerializable(IAPConstant.UPDATE_BILLING_ADDRESS_KEY, updateAddress(address));
+
+        addFragment(AddressFragment.createInstance(bundle, AnimationType.NONE),
+                AddressFragment.TAG,true);
     }
 
     @Override

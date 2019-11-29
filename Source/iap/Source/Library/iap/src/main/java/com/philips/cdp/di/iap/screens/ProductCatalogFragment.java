@@ -284,8 +284,8 @@ public class ProductCatalogFragment extends InAppBaseFragment
                 mShoppingCartAPI.getProductCartCount(mContext, mProductCountListener);
         }
 
-        if(!(ControllerFactory.getInstance().isPlanB()) && (IAPUtility.getInstance().getPrivacyUrl() != null)) {
-            mPrivacyLayout.setVisibility(View.VISIBLE);
+        if(setPrivacyVisibility()){
+           mPrivacyLayout.setVisibility(View.VISIBLE);
             mView.setVisibility(View.VISIBLE);
         } else {
             mPrivacyLayout.setVisibility(View.GONE);
@@ -305,6 +305,11 @@ public class ProductCatalogFragment extends InAppBaseFragment
             onLoadError(NetworkUtility.getInstance().createIAPErrorMessage
                     ("", mContext.getString(R.string.iap_no_product_available)));
         }
+    }
+
+    private boolean setPrivacyVisibility(){
+        return !(ControllerFactory.getInstance().isPlanB()) && (IAPUtility.getInstance().getPrivacyUrl() != null) &&
+                ((CartModelContainer.getInstance().getCountry().equals("DE")) || (CartModelContainer.getInstance().getCountry().equals("CH")) || (CartModelContainer.getInstance().getCountry().equals("AT")) || (CartModelContainer.getInstance().getCountry().equals("SE")));
     }
 
     private void launchProductDetailFragment() {
@@ -453,6 +458,7 @@ public class ProductCatalogFragment extends InAppBaseFragment
             if (mRecyclerView != null && mEmptyCatalogText != null) {
                 mRecyclerView.setVisibility(View.GONE);
                 mEmptyCatalogText.setVisibility(View.VISIBLE);
+                mPrivacyLayout.setVisibility(View.GONE);
                 mSearchBox.setVisibility(View.GONE);
             }
         } else {

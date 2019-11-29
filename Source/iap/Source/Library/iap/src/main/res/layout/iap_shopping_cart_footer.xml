@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/border16_margin_left_right"
             android:paddingRight="@dimen/border16_margin_left_right"
+            android:visibility="gone"
             android:text="@string/iap_extra_option"
             />
 
@@ -74,6 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/iap_delivery_ups_parcel"
+                    android:visibility="gone"
                     android:textSize="@dimen/iap_text_size_16sp"
                     android:textStyle="bold" />
 
@@ -84,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/iap_margin_10dp"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                    android:visibility="gone"
                     android:textSize="@dimen/iap_text_size_12"
                     />
 
@@ -93,6 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/iap_margin_10dp"
+                    android:visibility="gone"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                     android:textSize="@dimen/iap_text_size_12"
                     />
