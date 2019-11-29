@@ -344,6 +344,7 @@ public class User {
         RLog.d(TAG, "refreshLoginSession");
         if (getUserLoginState().ordinal() < UserLoginState.PENDING_HSDP_LOGIN.ordinal()) {
             refreshLoginSessionHandler.onRefreshLoginSessionFailedWithError(getUserLoginState().ordinal());
+            return;
         }
         new Thread(new Runnable() {
             @Override

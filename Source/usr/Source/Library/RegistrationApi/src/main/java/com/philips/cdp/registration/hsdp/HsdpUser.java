@@ -213,16 +213,16 @@ public class HsdpUser {
                                 (newRefreshToken);
                         getHsdpUserRecord().getAccessCredential().setAccessToken
                                 (newAccessToken);
-                    }
-                    saveToDisk(new UserFileWriteListener() {
-                        @Override
-                        public void onFileWriteSuccess() {
-                        }
+                        saveToDisk(new UserFileWriteListener() {
+                            @Override
+                            public void onFileWriteSuccess() {
+                            }
 
-                        @Override
-                        public void onFileWriteFailure() {
-                        }
-                    });
+                            @Override
+                            public void onFileWriteFailure() {
+                            }
+                        });
+                    }
                     handler.post(() -> {
                         RLog.d(TAG, "onHsdpRefreshSuccess : response :");
                         ThreadUtils.postInMainThread(mContext, refreshHandler::onRefreshLoginSessionSuccess);
