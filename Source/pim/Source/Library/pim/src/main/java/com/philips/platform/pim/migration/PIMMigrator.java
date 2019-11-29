@@ -63,7 +63,7 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
 
     @Override
     public void onUserMigrationFailed(Error error) {
-        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError","migration","technicalError");
+        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError","technicalError","migration");
         mLoggingInterface.log(DEBUG, TAG, "User migration failed! " + error.getErrDesc());
         if (userMigrationListener != null)
             userMigrationListener.onUserMigrationFailed(error);

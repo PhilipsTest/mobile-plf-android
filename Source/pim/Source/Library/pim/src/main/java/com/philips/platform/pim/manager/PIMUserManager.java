@@ -107,7 +107,7 @@ public class PIMUserManager {
 
             @Override
             public void onTokenRequestFailed(Error error) {
-                PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError","refresh_session","technicalError");
+                PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError","technicalError","refresh_session");
                 refreshSessionListener.refreshSessionFailed(error);
             }
         });
@@ -129,7 +129,7 @@ public class PIMUserManager {
             pimoidcUserProfile = null;
             logoutSessionListener.logoutSessionSuccess();
         }, error -> {
-            PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError","logout","technicalError");
+            PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError","technicalError","logout");
             mLoggingInterface.log(DEBUG, TAG, "error : " + error.getMessage());
             logoutSessionListener.logoutSessionFailed(new Error(PIMErrorEnums.NETWORK_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.NETWORK_ERROR.errorCode)));
         });
