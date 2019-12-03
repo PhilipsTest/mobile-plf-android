@@ -247,9 +247,9 @@ public class CheckOutHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                             && null != mData.get(i).getAppliedOrderPromotionEntityList().get(i)
                             && null != mData.get(i).getAppliedOrderPromotionEntityList().get(i).getPromotion()
                             && null != mData.get(i).getAppliedOrderPromotionEntityList().get(i).getPromotion().getPromotionDiscount()) {
-                        View discountInfo = View.inflate(mContext, R.layout.item_discount, null);
-                        TextView tvDiscountText = discountInfo.findViewById(R.id.tv_discount_text);
-                        TextView tvDiscountValue = discountInfo.findViewById(R.id.tv_discount_value);
+                        View discountInfo = View.inflate(mContext, R.layout.iap_item_discount, null);
+                        TextView tvDiscountText = discountInfo.findViewById(R.id.iap_tv_discount_text);
+                        TextView tvDiscountValue = discountInfo.findViewById(R.id.iap_tv_discount_value);
 
                         tvDiscountText.setText(mData.get(i).getAppliedOrderPromotionEntityList().get(i).getPromotion().getDescription());
                         tvDiscountValue.setText("- " + mData.get(i).getAppliedOrderPromotionEntityList().get(i).getPromotion().getPromotionDiscount().getFormattedValue());
@@ -261,9 +261,9 @@ public class CheckOutHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 for (int i = 0; i < mData.get(0).getAppliedVouchers().size(); i++) {
                     if (i<mData.size() && null != mData.get(i) && null != mData.get(i).getAppliedVouchers() && null != mData.get(i).getAppliedVouchers().get(i)
                             && null != mData.get(i).getAppliedVouchers().get(i).getAppliedValue()) {
-                        View discountInfo = View.inflate(mContext, R.layout.item_discount, null);
-                        TextView tvDiscountText = discountInfo.findViewById(R.id.tv_discount_text);
-                        TextView tvDiscountValue = discountInfo.findViewById(R.id.tv_discount_value);
+                        View discountInfo = View.inflate(mContext, R.layout.iap_item_discount, null);
+                        TextView tvDiscountText = discountInfo.findViewById(R.id.iap_tv_discount_text);
+                        TextView tvDiscountValue = discountInfo.findViewById(R.id.iap_tv_discount_value);
 
                         tvDiscountText.setText(mData.get(i).getAppliedVouchers().get(i).getName());
                         tvDiscountValue.setText("- " + mData.get(i).getAppliedVouchers().get(i).getAppliedValue().getFormattedValue());

@@ -229,7 +229,11 @@ public abstract class BaseFragment extends Fragment {
 
     private void fillSpinnerDataForSalutation(Spinner spinner,ECSAddress ecsAddress) {
 
+        if(ecsAddress==null) return;
+
         String salutation = ecsAddress.getTitleCode();
+
+        if(salutation == null) return;
 
         List<String> list = new ArrayList<>();
         list.add("Mr.");
@@ -250,6 +254,9 @@ public abstract class BaseFragment extends Fragment {
     private void fillSpinnerDataForState(Spinner spinner,ECSAddress ecsAddress) {
 
         List<ECSRegion> ecsRegions = ECSDataHolder.INSTANCE.getEcsRegions();
+
+        if(ecsRegions==null || ecsAddress ==null) return;
+
         List<String> list = new ArrayList<String>();
         Region region = ecsAddress.getRegion();
 
@@ -258,7 +265,7 @@ public abstract class BaseFragment extends Fragment {
         for (int i=0;i< ecsRegions.size();i++){
 
             list.add(ecsRegions.get(i).getName());
-            if(region!=null && region.getIsocode().equalsIgnoreCase(ecsRegions.get(i).getIsocode())){
+            if(region!=null && region.getIsocode()!=null && region.getIsocode().equalsIgnoreCase(ecsRegions.get(i).getIsocode())){
 
                 position = i;
             }
@@ -269,6 +276,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private Region getRegionFromName(String stateName) {
+
+        if(stateName == null || ECSDataHolder.INSTANCE.getEcsRegions()==null) return null;
 
         for(ECSRegion ecsRegion: ECSDataHolder.INSTANCE.getEcsRegions()){
 

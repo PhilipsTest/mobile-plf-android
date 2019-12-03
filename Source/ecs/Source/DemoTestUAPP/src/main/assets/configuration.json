@@ -384,7 +384,7 @@
             {
               "tag": "et_address_two",
               "text": "secret",
-              "hint": "enter house number"
+              "hint": "enter Address line two"
             },
             {
               "tag": "et_postal_code",
@@ -461,7 +461,7 @@
             {
               "tag": "et_address_two",
               "text": "secret",
-              "hint": "enter house number"
+              "hint": "enter Address line two"
             },
             {
               "tag": "et_postal_code",
@@ -538,7 +538,7 @@
             {
               "tag": "et_address_two",
               "text": "secret",
-              "hint": "enter house number"
+              "hint": "enter Address line two"
             },
             {
               "tag": "et_postal_code",
@@ -620,7 +620,7 @@
             {
               "tag": "et_address_two",
               "text": "secret",
-              "hint": "enter house number"
+              "hint": "enter Address line two"
             },
             {
               "tag": "et_postal_code",

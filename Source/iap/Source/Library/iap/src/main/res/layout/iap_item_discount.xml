@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    >
 
     <com.philips.platform.uid.view.widget.Label
-        android:id="@+id/tv_discount_value"
+        android:id="@+id/iap_tv_discount_value"
         style="@style/iapCentralesansMediumFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,12 +13,12 @@
         android:textSize="@dimen/iap_retailers_store_name_size_12sp" />
     <com.philips.platform.uid.view.widget.Label
 
-        android:id="@+id/tv_discount_text"
+        android:id="@+id/iap_tv_discount_text"
         style="@style/iapCentralesansBookFont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@id/tv_discount_value"
+        android:layout_toStartOf="@id/iap_tv_discount_value"
         android:paddingEnd="15dp"
         android:textSize="@dimen/iap_retailers_store_name_size_12sp" />
 
