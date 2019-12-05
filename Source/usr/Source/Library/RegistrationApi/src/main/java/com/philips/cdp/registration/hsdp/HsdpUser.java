@@ -9,7 +9,6 @@
 package com.philips.cdp.registration.hsdp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcel;
@@ -106,12 +105,14 @@ public class HsdpUser {
                 HsdpAuthenticationManagementClient authenticationManagementClient
                         = new HsdpAuthenticationManagementClient(hsdpConfiguration, name);
 
+                HsdpUserRecordV2 hsdpUserRecord = getHsdpUserRecord();
+
                 Map<String, Object> dhpResponse = null;
-                if (null != getHsdpUserRecord() && null != getHsdpUserRecord().getAccessCredential()) {
+                if (null != hsdpUserRecord && null != hsdpUserRecord.getAccessCredential()) {
                     RLog.d(TAG, "logOut: is called from DhpAuthenticationManagementClient ");
                     dhpResponse = authenticationManagementClient.
-                            logout(getHsdpUserRecord().getUserUUID(),
-                                    getHsdpUserRecord().getAccessCredential().getAccessToken());
+                            logout(hsdpUserRecord.getUserUUID(),
+                                    hsdpUserRecord.getAccessCredential().getAccessToken());
                 }
                 if (dhpResponse == null) {
                     RLog.e(TAG, "logOut:  dhpResponse is NULL");
@@ -187,13 +188,16 @@ public class HsdpUser {
                 HsdpAuthenticationManagementClient authenticationManagementClient =
                         new HsdpAuthenticationManagementClient(hsdpConfiguration, hsdpConfiguration.getHsdpAppName());
                 Map<String, Object> dhpAuthenticationResponse = null;
-                if (getHsdpUserRecord() != null &&
-                        null != getHsdpUserRecord().getUserUUID() &&
-                        null != getHsdpUserRecord().getAccessCredential()) {
+
+                HsdpUserRecordV2 hsdpUserRecord = getHsdpUserRecord();
+
+                if (hsdpUserRecord != null &&
+                        null != hsdpUserRecord.getUserUUID() &&
+                        null != hsdpUserRecord.getAccessCredential()) {
                     dhpAuthenticationResponse = authenticationManagementClient.
-                            refreshSecret(getHsdpUserRecord().getUserUUID(),
-                                    getHsdpUserRecord().getAccessCredential().
-                                            getAccessToken(), getHsdpUserRecord().
+                            refreshSecret(hsdpUserRecord.getUserUUID(),
+                                    hsdpUserRecord.getAccessCredential().
+                                            getAccessToken(), hsdpUserRecord.
                                             getRefreshSecret());
                 }
                 String responseCode = MapUtils.extract(dhpAuthenticationResponse, "responseCode");
@@ -208,11 +212,15 @@ public class HsdpUser {
                                             (ErrorCodes.NETWORK_ERROR)));
                 } else if (null != responseCode &&
                         responseCode.equals(SUCCESS_CODE)) {
-                    if (null != getHsdpUserRecord() && null != getHsdpUserRecord().getAccessCredential()) {
-                        getHsdpUserRecord().getAccessCredential().setRefreshToken
+
+                    if (null != hsdpUserRecord && null != hsdpUserRecord.getAccessCredential()) {
+
+                        hsdpUserRecord.getAccessCredential().setRefreshToken
                                 (newRefreshToken);
-                        getHsdpUserRecord().getAccessCredential().setAccessToken
+                        hsdpUserRecord.getAccessCredential().setAccessToken
                                 (newAccessToken);
+                         HsdpUserInstance.getInstance().setHsdpUserRecordV2(hsdpUserRecord);
+
                         saveToDisk(new UserFileWriteListener() {
                             @Override
                             public void onFileWriteSuccess() {
