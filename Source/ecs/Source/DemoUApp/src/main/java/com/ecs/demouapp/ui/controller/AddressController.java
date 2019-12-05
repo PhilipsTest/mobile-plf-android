@@ -197,7 +197,7 @@ public class AddressController {
     }
 
     public void updateAddress(ECSAddress addresses){
-        ECSUtility.getInstance().getEcsServices().updateAddress(addresses.isDefaultAddress(), addresses, new ECSCallback<Boolean, Exception>() {
+        ECSUtility.getInstance().getEcsServices().updateAddress(addresses, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
 
@@ -230,7 +230,7 @@ public class AddressController {
             getHybrisDelegate().sendRequest(RequestCode.SET_DELIVERY_ADDRESS, model, model);
         }*/
 
-        ECSUtility.getInstance().getEcsServices().setDeliveryAddress(addresses, new ECSCallback<Boolean, Exception>() {
+        ECSUtility.getInstance().getEcsServices().setDeliveryAddress(true,addresses, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 Message message = new Message() ;

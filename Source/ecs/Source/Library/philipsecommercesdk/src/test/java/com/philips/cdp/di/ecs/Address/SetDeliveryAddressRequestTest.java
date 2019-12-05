@@ -87,7 +87,7 @@ public class SetDeliveryAddressRequestTest {
     public void GetResponseSuccess() {
         mockInputValidator.setJsonFileName("EmptyString.json");
         ECSAddress addresses = new ECSAddress();
-        mockECSServices.setDeliveryAddress(addresses, new ECSCallback<Boolean, Exception>() {
+        mockECSServices.setDeliveryAddress(true, addresses, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 assertTrue(result);
@@ -109,7 +109,7 @@ public class SetDeliveryAddressRequestTest {
     public void GetListSavedAddressTestFailue() {
         mockInputValidator.setJsonFileName("EmptyJson.json");
         ECSAddress addresses = new ECSAddress();
-        mockECSServices.setDeliveryAddress(addresses, new ECSCallback<Boolean, Exception>() {
+        mockECSServices.setDeliveryAddress(true, addresses, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 assertTrue(true);

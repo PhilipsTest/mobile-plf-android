@@ -102,6 +102,11 @@ public class LaunchFragment extends BaseFragment implements View.OnClickListener
             public void onTermsAndConditionClick(final Activity activity) {
 
             }
+
+            @Override
+            public void onPersonalConsentClick(Activity activity) {
+
+            }
         });
         activityLauncher = new ActivityLauncher(getActivity(), ActivityLauncher.
         ActivityOrientation.SCREEN_ORIENTATION_SENSOR, ((MainActivity) getActivity()).getThemeConfig(),

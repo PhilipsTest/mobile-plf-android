@@ -102,6 +102,27 @@ public class RefreshUserSession implements RefreshLoginSessionHandler, JumpFlowD
         }
     }
 
+    public void refreshHsdpSession() {
+
+        if (!UserRegistrationInitializer.getInstance().isJumpInitializated()) {
+            UserRegistrationInitializer.getInstance().registerJumpFlowDownloadListener(this);
+        } else {
+            RLog.d(TAG, "refreshHsdpSession : Jump initialized");
+
+            if (RegistrationConfiguration.getInstance().isHsdpFlow()) {
+                refreshHsdpAccessToken();
+                RLog.d(TAG, "refreshHsdpSession : is HsdpFlow");
+                return;
+            }
+            return;
+        }
+
+        if (!UserRegistrationInitializer.getInstance().isRegInitializationInProgress()) {
+            RLog.d(TAG, "refreshHsdpSession jump initialization on progress");
+            RegistrationHelper.getInstance().initializeUserRegistration(mContext);
+        }
+    }
+
     @Override
     public void onFlowDownloadSuccess() {
         RLog.d(TAG, "onFlowDownloadSuccess : Jump  initialized now after coming to this screen,  was in progress earlier, now performing forgot password");

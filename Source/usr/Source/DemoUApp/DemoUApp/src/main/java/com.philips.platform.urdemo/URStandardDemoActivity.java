@@ -146,6 +146,11 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         Button mBtnRefresh = findViewById(R.id.btn_refresh_user);
         mBtnRefresh.setOnClickListener(this);
 
+
+        Button btn_refresh_user_hsdp = findViewById(R.id.btn_refresh_user_hsdp);
+        btn_refresh_user_hsdp.setOnClickListener(this);
+
+
         Button mBtnUpdateDOB = findViewById(R.id.btn_update_date_of_birth);
         mBtnUpdateDOB.setOnClickListener(this);
         Button mBtnUpdateGender = findViewById(R.id.btn_update_gender);
@@ -326,21 +331,20 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
                     }
 
                     if (mEnablePersonalConsentSwitch.isChecked()) {
-                        editor.putBoolean("reg_personal_consent_configuration", true).apply();
-                        InitHsdp init = new InitHsdp();
-                        init.initHSDP(RegUtility.getConfiguration(restoredText), getApplicationContext(), URDemouAppInterface.appInfra);
+                        editor.putBoolean("reg_personal_consent_configuration", mEnablePersonalConsentSwitch.isChecked()).apply();
                         urInterface.init(new URDemouAppDependencies(URDemouAppInterface.appInfra), new URDemouAppSettings(getApplicationContext()));
 
-                    } else {
-                        editor.remove("reg_delay_hsdp_configuration").apply();
+                    } else{
+                        editor.remove("reg_personal_consent_configuration").apply();
 
                     }
+
+
                     updateSkipHsdpStatus(mSkipHSDPSwitch.isChecked());
                     SharedPreferences prefs = getSharedPreferences("reg_dynamic_config", MODE_PRIVATE);
                     String restoredText = prefs.getString("reg_hsdp_environment", null);
                     RLog.d("Restored teest", "" + restoredText);
                 }
-
 
             }
         });
@@ -514,7 +518,12 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
             RLog.d(TAG, " : Refresh User ");
             handleRefreshAccessToken();
 
-        } else if (i == R.id.btn_refresh_token) {
+        } else if (i == R.id.btn_refresh_user_hsdp) {
+            RLog.d(TAG, " : Refresh Hsdp User ");
+            handleHSDPRefreshAccessToken();
+
+        }
+        else if (i == R.id.btn_refresh_token) {
             if (RegistrationConfiguration.getInstance().isHsdpFlow()) {
                 User user = new User(mContext);
                 if (user.getUserLoginState() != UserLoginState.USER_LOGGED_IN) {
@@ -729,7 +738,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     }
 
     private void handleRefreshAccessToken() {
-        if (mUser.getUserLoginState() == UserLoginState.USER_LOGGED_IN) {
+        if (mUser.getUserLoginState().ordinal() >= UserLoginState.PENDING_HSDP_LOGIN.ordinal()) {
             mUser.refreshLoginSession(new RefreshLoginSessionHandler() {
                 @Override
                 public void onRefreshLoginSessionSuccess() {
@@ -751,6 +760,31 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         }
     }
 
+    private void handleHSDPRefreshAccessToken() {
+        if (mUser.getUserLoginState() == UserLoginState.USER_LOGGED_IN) {
+            mUser.refreshHSDPLoginSession(new RefreshLoginSessionHandler() {
+                @Override
+                public void onRefreshLoginSessionSuccess() {
+                    showToast("Success to refresh access token" + mUser.getAccessToken());
+                }
+
+                @Override
+                public void onRefreshLoginSessionFailedWithError(int error) {
+                    showToast("Failed to refresh access token");
+                }
+
+                @Override
+                public void forcedLogout() {
+                    showToast("Forced Logout");
+                }
+            });
+        } else {
+            showToast("Please login");
+        }
+    }
+
+
+
     @Override
     public void onUserRegistrationComplete(Activity activity) {
         RLog.d(TAG, " : onUserRegistrationComplete");
@@ -769,6 +803,14 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     @Override
     public void onTermsAndConditionClick(Activity activity) {
         RLog.d(TAG, " : onTermsAndConditionClick");
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.philips.com"));
+        activity.startActivity(browserIntent);
+    }
+
+    @Override
+    public void onPersonalConsentClick(Activity activity) {
+
+        RLog.d(TAG, " : onPersonalConsentClick");
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.philips.com"));
         activity.startActivity(browserIntent);
     }

@@ -208,6 +208,11 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
         launchWebView(Constants.TERMS_AND_CONDITIONS, getApplicationContext().getString(R.string.USR_TermsAndConditionsText));
     }
 
+    @Override
+    public void onPersonalConsentClick(Activity activity) {
+
+    }
+
     public void launchWebView(String serviceId, String title) {
         BaseFlowManager targetFlowManager = getApplicationContext().getTargetFlowManager();
         BaseState baseState = null;

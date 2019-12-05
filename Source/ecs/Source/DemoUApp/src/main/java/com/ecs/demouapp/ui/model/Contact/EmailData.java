@@ -1,6 +1,8 @@
 package com.ecs.demouapp.ui.model.Contact;
 
-public class EmailData {
+import java.io.Serializable;
+
+public class EmailData implements Serializable {
     private String label;
     private String contentPath;
 

@@ -122,6 +122,8 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
     @BindView(R2.id.usr_createscreen_emailormobile_textfield)
     ValidationEditText usrCreatescreenEmailormobileTextfield;
 
+
+
     @BindView(R2.id.usr_createscreen_password_progressbar)
     ProgressBar usrCreatescreenPasswordProgressbar;
 
@@ -341,6 +343,7 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
 
         usrCreatescreenCreateButton.setEnabled(false);
         usrCreatescreenTermsandconditionsCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            removeFocus();
             TextView tv = (TextView) buttonView;
             usrCreatescreenTermsandconditionsalertView.hideError();
             if (tv.getSelectionStart() == -1 && tv.getSelectionEnd() == -1) {
@@ -361,14 +364,21 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
 
         if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive) {
             usrCreatescreenPersonalConsentCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                removeFocus();
                 TextView tv = (TextView) buttonView;
                 usrCreatescreenPersonalConsentalertView.hideError();
-                if (!isChecked) {
-                    usrCreatescreenPersonalConsentalertView.setError(context.getResources().getString(getRegistrationFragment().getContentConfiguration().getPersonalConsentContentErrorResId()));
-                }
-                if (!(tv.getSelectionStart() == -1 && tv.getSelectionEnd() == -1)) {
+                if(tv.getSelectionStart() == -1 && tv.getSelectionEnd() == -1) {
+                    if (!isChecked) {
+                        usrCreatescreenPersonalConsentalertView.setError(context.getResources().getString(getRegistrationFragment().getContentConfiguration().getPersonalConsentContentErrorResId()));
+                    }
+                }else {
                     usrCreatescreenPersonalConsentCheckbox.setChecked(!isChecked);
-                    getRegistrationFragment().addPersonalConsentFragment();
+                    if (RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener() != null) {
+                        RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener().
+                                onPersonalConsentClick(getRegistrationFragment().getParentActivity());
+                    } else {
+                        RegUtility.showErrorMessage(getRegistrationFragment().getParentActivity());
+                    }
                 }
             });
 
@@ -379,6 +389,7 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
         usrCreatescreenMarketingmailsCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                removeFocus();
                 TextView tv = (TextView) compoundButton;
                 if (!(tv.getSelectionStart() == -1 && tv.getSelectionEnd() == -1)) {
                     usrCreatescreenMarketingmailsCheckbox.setChecked(!isChecked);
@@ -388,6 +399,13 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
         });
     }
 
+
+    void removeFocus(){
+        usrCreateScreenLastNameTextField.clearFocus();
+        usrCreateScreenFirstNameTextField.clearFocus();
+        usrCreatescreenEmailormobileTextfield.clearFocus();
+        usrCreateScreenPasswordTextField.clearFocus();
+    }
     private void handleABTestingFlow() {
         final UIFlow abTestingUIFlow = RegUtility.getUiFlow();
         switch (abTestingUIFlow) {

@@ -16,7 +16,7 @@
     "weChatAppId" : "wxbdf2ab8822f6022f",
     "weChatAppSecret":"df749e21c43c65a042df6f3f4ebe18f1",
     "ShowCountrySelection":"true",
-    "supportedHomeCountries":["AE","BH","EG","KW","LB","OM","QA","EG","RW","BG","CZ","DK","AT","CH","DE","GR","AU","CA","GB","HK","ID","IE",
+    "supportedHomeCountries":["AE","BH","BY","EG","KW","LB","OM","QA","EG","RW","BG","CZ","DK","AT","CH","DE","GR","AU","CA","GB","HK","ID","IE",
       "IN","MY","NZ","PH","PK","SA","SG","US","ZA","AR","CL","CO","ES","MX","PE","EE","FI","BE","FR",
       "HR","HU","IT","JP","KR","LT","LV","NL","NO","PL","BR","PT","RO","RU","UA","SI","SK","SE","TH",
       "TR","VN","CN","TW"],
@@ -38,7 +38,8 @@
     "abtest.precache": ["DOT-ReceiveMarketingOptIn"],
     "servicediscovery.platformMicrositeId":"70000",
     "servicediscovery.platformEnvironment":"staging",
-    "servicediscovery.countryMapping": {"LU": "BE", "MO": "HK"},
+    "servicediscovery.countryMapping": {"LU": "BE", "MO": "HK",
+      "BY": "RU"},
     "logging.releaseConfig":{
       "fileName":"AppInfraLog",
       "numberOfFiles":5,

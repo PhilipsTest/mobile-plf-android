@@ -13,8 +13,9 @@ import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.launcher.PRUiHelper;
 import com.philips.cdp.prodreg.listener.RegisteredProductsListener;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
-import com.philips.cdp.prodreg.model.registeredproducts.RegisteredResponse;
-import com.philips.cdp.prodreg.model.registeredproducts.RegisteredResponseData;
+import com.philips.cdp.prodreg.model.registeredproducts.model.ProductRegistrationsItem;
+import com.philips.cdp.prodreg.model.registerproduct.Attributes;
+import com.philips.cdp.prodreg.model.registerproduct.RegisteredProductsData;
 import com.philips.cdp.prodreg.prxrequest.RegisteredProductsRequest;
 import com.philips.cdp.prxclient.PRXDependencies;
 import com.philips.cdp.prxclient.RequestManager;
@@ -27,6 +28,9 @@ import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_CONTENTTYYPE_VALUE;
 
 public class RemoteRegisteredProducts {
     private static final String TAG = RemoteRegisteredProducts.class.getSimpleName();
@@ -36,10 +40,10 @@ public class RemoteRegisteredProducts {
         return new ResponseListener() {
             @Override
             public void onResponseSuccess(final ResponseData responseData) {
-                RegisteredResponse registeredDataResponse = (RegisteredResponse) responseData;
-                RegisteredResponseData[] results = registeredDataResponse.getResults();
+                RegisteredProductsData registeredDataResponse = (RegisteredProductsData) responseData;
+                List<ProductRegistrationsItem> results = registeredDataResponse.getProductRegistrations();
                 Gson gson = getGson();
-                RegisteredProduct[] registeredProducts = userWithProducts.getRegisteredProductsFromResponse(results, gson);
+                Attributes[] registeredProducts = userWithProducts.getRegisteredProductsFromResponse(results, gson);
                 if (registeredProducts != null && registeredProducts.length > 0) {
                     localRegisteredProducts.migrateLegacyCache(registeredProducts);
                 }
@@ -81,6 +85,8 @@ public class RemoteRegisteredProducts {
             HashMap<String, Object> userDetailsMap = userDataInterface.getUserDetails(detailskey);
             String accessToken = userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN).toString();
             registeredProductsRequest.setAccessToken(accessToken);
+            registeredProductsRequest.setContentType(PROD_REG_CONTENTTYYPE_VALUE);
+
         } catch (Exception e) {
             ProdRegLogger.e(TAG, "Error in fetching accessToken :"+e.getMessage());
         }

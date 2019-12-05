@@ -20,8 +20,13 @@ public class ProgressAlertDialog extends AlertDialog {
         Context popUpContext = UIDHelper.getPopupThemedContext(context);
         LayoutInflater systemService = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (systemService != null) {
-            LayoutInflater inflater = systemService.cloneInContext(popUpContext);
-            setView(inflater.inflate(R.layout.consumercare_progress, null));
+            if(popUpContext!=null) {
+                LayoutInflater inflater = systemService.cloneInContext(popUpContext);
+                if(inflater!=null){
+                    setView(inflater.inflate(R.layout.consumercare_progress, null));
+                }
+            }
+
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.ecs.demouapp.ui.model.Contact;
 
-public class ChatData {
+import java.io.Serializable;
+
+public class ChatData implements Serializable {
     private String openingHoursWeekdays;
     private String openingHoursSaturday;
     private String content;

@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.constants.RegistrationState;
 import com.philips.cdp.prodreg.localcache.ProdRegCache;
+import com.philips.cdp.prodreg.model.registerproduct.Attributes;
 import com.philips.cdp.prxclient.PrxConstants;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
@@ -93,18 +94,6 @@ public class LocalRegisteredProductsTest extends TestCase {
         localRegisteredProducts.updateRegisteredProducts(product);
         assertEquals(registeredProducts.size(), 4);
         verify(prodRegCache).storeStringData(ProdRegConstants.PRODUCT_REGISTRATION_KEY, gson.toJson(registeredProducts));
-    }
-
-    @Test
-    public void testSyncLocalCache() {
-        RegisteredProduct product = new RegisteredProduct("ABC", PrxConstants.Sector.B2C, PrxConstants.Catalog.CONSUMER);
-        product.setRegistrationState(RegistrationState.REGISTERED);
-        when(prodRegCache.getStringData(ProdRegConstants.PRODUCT_REGISTRATION_KEY)).thenReturn("");
-        localRegisteredProducts.migrateLegacyCache(new RegisteredProduct[]{product});
-        assertEquals(registeredProducts.size(), 4);
-        RegisteredProduct registeredProduct = new RegisteredProduct("ctn", null, null);
-        localRegisteredProducts.migrateLegacyCache(new RegisteredProduct[]{registeredProduct});
-        assertEquals(registeredProducts.size(), 3);
     }
 
     @Test

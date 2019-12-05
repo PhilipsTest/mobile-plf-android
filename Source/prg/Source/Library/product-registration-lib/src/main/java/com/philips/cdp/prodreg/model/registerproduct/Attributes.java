@@ -3,121 +3,134 @@ package com.philips.cdp.prodreg.model.registerproduct;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Attributes implements Serializable {
 
-	@SerializedName("promotions")
-	private Promotions promotions;
+    @SerializedName("promotions")
+    private Promotions promotions;
 
-	@SerializedName("serialNumber")
-	private String serialNumber;
+    @SerializedName("serialNumber")
+    private String serialNumber;
 
-	@SerializedName("purchased")
-	private String purchased;
+    @SerializedName("purchased")
+    private String purchased;
 
-	@SerializedName("productId")
-	private String productId;
+    @SerializedName("productId")
+    private String productId;
 
-	@SerializedName("created")
-	private String created;
+    @SerializedName("documents")
+    private List<Object> documents;
 
-	@SerializedName("extendedWarrantyMonths")
-	private int extendedWarrantyMonths;
+    @SerializedName("created")
+    private String created;
 
-	@SerializedName("lastModified")
-	private String lastModified;
+    @SerializedName("extendedWarrantyMonths")
+    private int extendedWarrantyMonths;
 
-	@SerializedName("micrositeId")
-	private String micrositeId;
+    @SerializedName("lastModified")
+    private String lastModified;
 
-	public String getExtendedWarrantyExpires() {
-		return extendedWarrantyExpires;
-	}
+    @SerializedName("micrositeId")
+    private String micrositeId;
 
-	public void setExtendedWarrantyExpires(String extendedWarrantyExpires) {
-		this.extendedWarrantyExpires = extendedWarrantyExpires;
-	}
+    public String getExtendedWarrantyExpires() {
+        return extendedWarrantyExpires;
+    }
 
-	@SerializedName("extendedWarrantyExpires")
-	private String extendedWarrantyExpires;
+    public void setExtendedWarrantyExpires(String extendedWarrantyExpires) {
+        this.extendedWarrantyExpires = extendedWarrantyExpires;
+    }
 
-	public void setPromotions(Promotions promotions){
-		this.promotions = promotions;
-	}
+    @SerializedName("extendedWarrantyExpires")
+    private String extendedWarrantyExpires;
 
-	public Promotions getPromotions(){
-		return promotions;
-	}
+    public void setPromotions(Promotions promotions) {
+        this.promotions = promotions;
+    }
 
-	public void setSerialNumber(String serialNumber){
-		this.serialNumber = serialNumber;
-	}
+    public Promotions getPromotions() {
+        return promotions;
+    }
 
-	public String getSerialNumber(){
-		return serialNumber;
-	}
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
-	public void setPurchased(String purchased){
-		this.purchased = purchased;
-	}
+    public String getSerialNumber() {
+        return serialNumber;
+    }
 
-	public String getPurchased(){
-		return purchased;
-	}
+    public void setPurchased(String purchased) {
+        this.purchased = purchased;
+    }
 
-	public void setProductId(String productId){
-		this.productId = productId;
-	}
+    public String getPurchased() {
+        return purchased;
+    }
 
-	public String getProductId(){
-		return productId;
-	}
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 
-	public void setCreated(String created){
-		this.created = created;
-	}
+    public String getProductId() {
+        return productId;
+    }
 
-	public String getCreated(){
-		return created;
-	}
+    public void setDocuments(List<Object> documents) {
+        this.documents = documents;
+    }
 
-	public void setExtendedWarrantyMonths(int extendedWarrantyMonths){
-		this.extendedWarrantyMonths = extendedWarrantyMonths;
-	}
+    public List<Object> getDocuments() {
+        return documents;
+    }
 
-	public int getExtendedWarrantyMonths(){
-		return extendedWarrantyMonths;
-	}
+    public void setCreated(String created) {
+        this.created = created;
+    }
 
-	public void setLastModified(String lastModified){
-		this.lastModified = lastModified;
-	}
+    public String getCreated() {
+        return created;
+    }
 
-	public String getLastModified(){
-		return lastModified;
-	}
+    public void setExtendedWarrantyMonths(int extendedWarrantyMonths) {
+        this.extendedWarrantyMonths = extendedWarrantyMonths;
+    }
 
-	public void setMicrositeId(String micrositeId){
-		this.micrositeId = micrositeId;
-	}
+    public int getExtendedWarrantyMonths() {
+        return extendedWarrantyMonths;
+    }
 
-	public String getMicrositeId(){
-		return micrositeId;
-	}
+    public void setLastModified(String lastModified) {
+        this.lastModified = lastModified;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"Attributes{" + 
-			"promotions = '" + promotions + '\'' + 
-			",serialNumber = '" + serialNumber + '\'' + 
-			",purchased = '" + purchased + '\'' + 
-			",productId = '" + productId + '\'' + 
-			",created = '" + created + '\'' +
-			",extendedWarrantyExpires = '" + extendedWarrantyExpires + '\'' +
-			",extendedWarrantyMonths = '" + extendedWarrantyMonths + '\'' +
-			",lastModified = '" + lastModified + '\'' + 
-			",micrositeId = '" + micrositeId + '\'' + 
-			"}";
-		}
+    public String getLastModified() {
+        return lastModified;
+    }
+
+    public void setMicrositeId(String micrositeId) {
+        this.micrositeId = micrositeId;
+    }
+
+    public String getMicrositeId() {
+        return micrositeId;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Attributes{" +
+                        "promotions = '" + promotions + '\'' +
+                        ",serialNumber = '" + serialNumber + '\'' +
+                        ",purchased = '" + purchased + '\'' +
+                        ",productId = '" + productId + '\'' +
+                        ",documents = '" + documents + '\'' +
+                        ",created = '" + created + '\'' +
+                        ",extendedWarrantyExpires = '" + extendedWarrantyExpires + '\'' +
+                        ",extendedWarrantyMonths = '" + extendedWarrantyMonths + '\'' +
+                        ",lastModified = '" + lastModified + '\'' +
+                        ",micrositeId = '" + micrositeId + '\'' +
+                        "}";
+    }
 }

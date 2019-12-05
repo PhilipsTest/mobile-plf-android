@@ -124,7 +124,8 @@ public class ProdRegFirstLaunchFragment extends ProdRegBaseFragment {
             public void onClick(final View v) {
                 final FragmentActivity activity = getActivity();
                 UserDataInterface userDataInterface = PRUiHelper.getInstance().getUserDataInstance();
-                if (userDataInterface != null && PRUiHelper.getInstance().getUserDataInstance().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+                if (userDataInterface != null && PRUiHelper.getInstance().getUserDataInstance().getUserLoggedInState().ordinal()
+                        >= UserLoggedInState.PENDING_HSDP_LOGIN.ordinal()) {
                     final  ProdRegRegistrationFragment processFragment = new ProdRegRegistrationFragment();
                     processFragment.setArguments(dependencies);
                     registerButton.setClickable(false);

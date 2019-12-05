@@ -90,4 +90,9 @@ public class MarketingOptin extends BaseState implements UserRegistrationUIEvent
     public void onTermsAndConditionClick(Activity activity) {
 
     }
+
+    @Override
+    public void onPersonalConsentClick(Activity activity) {
+
+    }
 }

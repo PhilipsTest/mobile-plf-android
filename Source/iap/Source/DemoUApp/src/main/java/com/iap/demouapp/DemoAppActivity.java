@@ -734,6 +734,11 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
     public void onTermsAndConditionClick(Activity activity) {
     }
 
+    @Override
+    public void onPersonalConsentClick(Activity activity) {
+
+    }
+
     void showScreenSizeInDp() {
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
