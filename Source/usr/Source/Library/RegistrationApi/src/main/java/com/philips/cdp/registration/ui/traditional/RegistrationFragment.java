@@ -36,8 +36,10 @@ import com.philips.cdp.registration.settings.UserRegistrationInitializer;
 import com.philips.cdp.registration.ui.social.AlmostDoneFragment;
 import com.philips.cdp.registration.ui.social.MergeAccountFragment;
 import com.philips.cdp.registration.ui.social.MergeSocialToSocialAccountFragment;
+import com.philips.cdp.registration.ui.traditional.mobile.MobileVerifyCodeFragment;
 import com.philips.cdp.registration.ui.traditional.mobile.ResetPasswordWebView;
 import com.philips.cdp.registration.ui.utils.CountDownEvent;
+import com.philips.cdp.registration.ui.utils.FieldsValidator;
 import com.philips.cdp.registration.ui.utils.NetworkStateReceiver;
 import com.philips.cdp.registration.ui.utils.NetworkUtility;
 import com.philips.cdp.registration.ui.utils.NotificationBarHandler;
@@ -273,7 +275,30 @@ public class RegistrationFragment extends Fragment implements NetworkStateListen
                 RLog.d(TAG, "handleUseRLoginStateFragments : launchMyAccountFragment");
             }
 
-        } else {
+        } else if (pUser.getUserLoginState().ordinal() == UserLoginState.PENDING_VERIFICATION.ordinal()) {
+
+            if (FieldsValidator.isValidEmail(pUser.getEmail())) {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(RegConstants.IS_SOCIAL_PROVIDER, true);
+                AccountActivationFragment marketingAccountFragment = new AccountActivationFragment();
+                marketingAccountFragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = pFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fl_reg_fragment_container, marketingAccountFragment);
+                fragmentTransaction.commitAllowingStateLoss();
+                fragment = marketingAccountFragment;
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(RegConstants.IS_SOCIAL_PROVIDER, true);
+                MobileVerifyCodeFragment marketingAccountFragment = new MobileVerifyCodeFragment();
+                marketingAccountFragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = pFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fl_reg_fragment_container, marketingAccountFragment);
+                fragmentTransaction.commitAllowingStateLoss();
+                fragment = marketingAccountFragment;
+            }
+
+
+        }else {
             RLog.d(TAG, "handleUseRLoginStateFragments : launchHomeFragment");
             AppTagging.trackFirstPage(AppTaggingPages.HOME);
             fragment = replaceWithHomeFragment(pFragmentManager);

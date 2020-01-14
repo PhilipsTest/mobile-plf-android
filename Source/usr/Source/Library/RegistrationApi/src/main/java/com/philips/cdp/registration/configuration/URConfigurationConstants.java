@@ -25,5 +25,6 @@ public class URConfigurationConstants {
     public static final String PERSONAL_CONSENT_REQUIRED = "personalConsentRequired";
     public static final String HSDP_SKIP_LOGIN = "skipHSDPLogin";
     public static final String IS_FACEBOOK_SDK_SUPPORTED = "isFacebookSDKSupported";
-
+    public static final String CUSTOMOPTIN = "customOptin";
+    public static final String SKIPOPTIN = "skipOptin";
 }
