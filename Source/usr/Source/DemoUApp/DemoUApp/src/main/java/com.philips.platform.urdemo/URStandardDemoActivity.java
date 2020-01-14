@@ -86,6 +86,8 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     private final String HSDP_UUID_SHOULD_UPLOAD = "hsdpUUIDUpload";
     private final String HSDP_SKIP_HSDP_LOGIN = "skipHSDPLogin";
     private final String PERSONAL_CONSENT = "personalConsentRequired";
+    private final String CUSTOMOPTIN = "customOptin";
+    private final String SKIPOPTIN = "skipOptin";
     private Context mContext;
     private ProgressDialog mProgressDialog;
     private String restoredText;
@@ -97,7 +99,8 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     private User mUser;
     private Button mBtnRegistrationWithAccountSettings;
     private CoppaExtension coppaExtension;
-    private Switch mSkipHSDPSwitch, hsdpUuidUpload, consentConfirmationStatus, updateCoppaConsentStatus, mEnablePersonalConsentSwitch;
+    private Switch mSkipHSDPSwitch, hsdpUuidUpload, consentConfirmationStatus, updateCoppaConsentStatus,mEnablePersonalConsentSwitch;
+    private Switch mSkipOptin,  customOptin;
 
     private Label btn_registration_with_hsdp_status_lbl;
 
@@ -163,6 +166,8 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         mRadioGroup = findViewById(R.id.myRadioGroup);
         mSkipHSDPSwitch = findViewById(R.id.skip_hsdp_switch);
         mEnablePersonalConsentSwitch = findViewById(R.id.enable_personal_consent_switch);
+        mSkipOptin = findViewById(R.id.enable_skip_optin);
+        customOptin = findViewById(R.id.enable_custom_optin);
         hsdpUuidUpload = findViewById(R.id.switch_hsdp_uuid_upload);
         consentConfirmationStatus = findViewById(R.id.updateCoppaConsentConfirmationStatus);
         updateCoppaConsentStatus = findViewById(R.id.updateCoppaConsentStatus);
@@ -170,6 +175,10 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         restoredText = prefs.getString("reg_environment", null);
         mSkipHSDPSwitch.setChecked(prefs.getBoolean("reg_delay_hsdp_configuration", false));
         mEnablePersonalConsentSwitch.setChecked(prefs.getBoolean("reg_personal_consent_configuration", false));
+        mSkipOptin.setChecked(prefs.getBoolean("reg_skipoptin_configuration", false));
+        customOptin.setChecked(prefs.getBoolean("reg_customoptin_configuration", false));
+
+
         final String restoredHSDPText = prefs.getString("reg_hsdp_environment", null);
         if (restoredText != null) {
 
@@ -230,6 +239,21 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
                 enablePersonalConsentSwitch(isChecked);
             }
         });
+        mSkipOptin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                updateSkipOptin(isChecked);
+            }
+        });
+
+        customOptin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                updateCustomOptin(isChecked);
+            }
+        });;
+
+
         Button fethContent = findViewById(R.id.fetchConcent);
         fethContent.setOnClickListener(this);
 
@@ -261,9 +285,17 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
             mSkipHSDPSwitch.setChecked(true);
         }
         updateHSDPUuidSwitch(false);
-        if (getSharedPreferences("reg_dynamic_config", MODE_PRIVATE).getBoolean("reg_personal_consent_configuration", false)) {
-            mEnablePersonalConsentSwitch.setChecked(true);
+        if (getSharedPreferences("reg_dynamic_config", MODE_PRIVATE).getBoolean("reg_skipoptin_configuration", false)) {
+            mSkipOptin.setChecked(true);
         }
+
+        if (getSharedPreferences("reg_dynamic_config", MODE_PRIVATE).getBoolean("reg_customoptin_configuration", false)) {
+            customOptin.setChecked(true);
+        }
+
+
+
+
         hsdpUuidUpload.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -339,6 +371,24 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
 
                     }
 
+                    if (mSkipOptin.isChecked()) {
+                        editor.putBoolean("reg_skipoptin_configuration", mSkipOptin.isChecked()).apply();
+                        urInterface.init(new URDemouAppDependencies(URDemouAppInterface.appInfra), new URDemouAppSettings(getApplicationContext()));
+
+                    } else{
+                        editor.remove("reg_skipoptin_configuration").apply();
+
+                    }
+
+                    if (customOptin.isChecked()) {
+                        editor.putBoolean("reg_customoptin_configuration", customOptin.isChecked()).apply();
+                        urInterface.init(new URDemouAppDependencies(URDemouAppInterface.appInfra), new URDemouAppSettings(getApplicationContext()));
+
+                    } else{
+                        editor.remove("reg_customoptin_configuration").apply();
+
+                    }
+
 
                     updateSkipHsdpStatus(mSkipHSDPSwitch.isChecked());
                     SharedPreferences prefs = getSharedPreferences("reg_dynamic_config", MODE_PRIVATE);
@@ -381,6 +431,23 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         }
     }
 
+    private void updateCustomOptin(boolean b) {
+        RLog.d("updateCustomOptin", " Going to set :" + b);
+        final AppInfraInterface appInfraInterface = URDemouAppInterface.appInfra;
+        appInfraInterface.getConfigInterface().setPropertyForKey(CUSTOMOPTIN, "UserRegistration", String.valueOf(b), configError);
+        customOptin.setChecked(b);
+    }
+
+
+    private void updateSkipOptin(boolean b) {
+        RLog.d("updateSkipOptin", " Going to set :" + b);
+        final AppInfraInterface appInfraInterface = URDemouAppInterface.appInfra;
+        appInfraInterface.getConfigInterface().setPropertyForKey(SKIPOPTIN, "UserRegistration", String.valueOf(b), configError);
+        mSkipOptin.setChecked(b);
+    }
+
+
+
     private void updateSkipHsdpStatus(boolean b) {
         RLog.d("updateSkipHsdpStatus", " Going to set :" + b);
         final AppInfraInterface appInfraInterface = URDemouAppInterface.appInfra;
@@ -406,10 +473,10 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     }
 
     private void registerationWithAccountSettingButtonEnableOnUserSignedIn() {
-        if (mUser.getUserLoginState() == UserLoginState.USER_LOGGED_IN || mUser.getUserLoginState() == UserLoginState.PENDING_HSDP_LOGIN)
+   //     if (mUser.getUserLoginState() == UserLoginState.USER_LOGGED_IN || mUser.getUserLoginState() == UserLoginState.PENDING_HSDP_LOGIN)
             mBtnRegistrationWithAccountSettings.setEnabled(true);
-        else
-            mBtnRegistrationWithAccountSettings.setEnabled(false);
+     //   else
+     //       mBtnRegistrationWithAccountSettings.setEnabled(false);
     }
 
     @Override

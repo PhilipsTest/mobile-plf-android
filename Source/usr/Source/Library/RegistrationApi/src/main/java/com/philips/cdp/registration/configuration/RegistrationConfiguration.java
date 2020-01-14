@@ -276,6 +276,43 @@ public class RegistrationConfiguration {
         return true;
     }
 
+
+    /**
+     * get status of Facebook SDK true or false
+     *
+     * @return boolean
+     */
+    public boolean isCustomOptoin() {
+        Object obj = appConfiguration.getCustomOptinStatus();
+        if (obj != null) {
+            RLog.d(TAG, "isCustomOptoin : " + Boolean.parseBoolean((String) obj));
+            return Boolean.parseBoolean((String) obj);
+        }
+        RLog.d(TAG, "isCustomOptoin : true");
+        return false;
+    }
+
+    /**
+     * get status of Facebook SDK true or false
+     *
+     * @return boolean
+     */
+    public boolean isSkipOptin() {
+        Object obj = appConfiguration.getSkipOptinStatus();
+        if (obj != null) {
+            RLog.d(TAG, "isSkipOptin : " + Boolean.parseBoolean((String) obj));
+            return Boolean.parseBoolean((String) obj);
+        }
+        RLog.d(TAG, "isSkipOptin : true");
+        return false;
+    }
+
+
+
+
+
+
+
     /**
      * Get minimium age for country
      *
