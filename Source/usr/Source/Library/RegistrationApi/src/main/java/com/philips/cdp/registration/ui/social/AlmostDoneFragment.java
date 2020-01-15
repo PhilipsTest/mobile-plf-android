@@ -12,6 +12,7 @@ package com.philips.cdp.registration.ui.social;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
@@ -654,10 +655,25 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
             case FLOW_B:
                 RLog.d(TAG, "UI Flow Type B");
                 if (!marketingOptCheck.isShown() && !mUser.getReceiveMarketingEmail()) {
-                    launchMarketingAccountFragment();
+                  //  launchMarketingAccountFragment();
                     trackActionStatus(AppTagingConstants.SEND_DATA,
                             AppTagingConstants.SPECIAL_EVENTS,
                             AppTagingConstants.SUCCESS_USER_REGISTRATION);
+
+                    if(RegistrationConfiguration.getInstance().isCustomOptoin()){
+                        completeRegistration();
+                    } else if(RegistrationConfiguration.getInstance().isSkipOptin()){
+                        if (FieldsValidator.isValidEmail(emailEditText.getText().toString())) {
+                            launchAccountActivateFragment();
+                        } else {
+                            launchMobileVerifyCodeFragment();
+                        }
+                    } else{
+                        addFragment(new MarketingAccountFragment());
+                        trackPage(AppTaggingPages.MARKETING_OPT_IN);
+
+                    }
+
                 } else {
                     completeRegistration();
                 }
@@ -666,6 +682,18 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                 break;
         }
     }
+
+
+    private void addFragment(Fragment fragment) {
+        getRegistrationFragment().addFragment(fragment);
+    }
+
+
+    public void launchMobileVerifyCodeFragment() {
+        addFragment(new MobileVerifyCodeFragment());
+        trackPage(AppTaggingPages.MOBILE_VERIFY_CODE);
+    }
+
 
     public void clearUserData() {
         if (null != acceptTermsCheck && !acceptTermsCheck.isChecked() && RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired()) {
