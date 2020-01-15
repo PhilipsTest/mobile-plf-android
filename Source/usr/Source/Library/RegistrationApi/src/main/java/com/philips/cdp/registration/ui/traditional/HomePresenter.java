@@ -355,7 +355,7 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
                 Log.v(getClass() + "", "Home country changed to " + countryCode);
                 RegistrationHelper.getInstance().setCountryCode(countryCode);
                 homeContract.countryChangeStarted();
-                getLocaleServiceDiscovery(countryName);
+                getLocaleServiceDiscoveryByCountry(countryName);
             }
         }
     }
