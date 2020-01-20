@@ -13,6 +13,7 @@ import com.philips.cdp.registration.errors.ErrorCodes;
 import com.philips.cdp.registration.events.NetworkStateListener;
 import com.philips.cdp.registration.handlers.SocialLoginProviderHandler;
 import com.philips.cdp.registration.settings.RegistrationHelper;
+import com.philips.cdp.registration.ui.traditional.RegistrationFragment;
 import com.philips.cdp.registration.ui.utils.FieldsValidator;
 import com.philips.cdp.registration.ui.utils.LoginFailureNotification;
 import com.philips.cdp.registration.ui.utils.RLog;
@@ -96,12 +97,15 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
         if (RegistrationConfiguration.getInstance().isEmailVerificationRequired()) {
             if (isEmailExist && almostDoneContract.getPreferenceStoredState((mEmail))) {
                 almostDoneContract.hideAcceptTermsView();
+                updateTermsAndReceiveMarketingOpt(false);
+
             } else if (mBundle != null && mBundle.getString(RegConstants.SOCIAL_TWO_STEP_ERROR) != null) {
                 almostDoneContract.updateABTestingUIFlow();
             }
         } else {
             almostDoneContract.hideAcceptTermsView();
         }
+
         updateTermsAndReceiveMarketingOpt(setMarketingOptinVisible());
     }
 
@@ -116,7 +120,7 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
 
         if (!mUser.getReceiveMarketingEmail() && optinState) {
             almostDoneContract.showMarketingOptCheck();
-        } else if (mUser.isEmailVerified() && !mUser.getReceiveMarketingEmail()) {
+        } else if (mUser.isEmailVerified() && !mUser.getReceiveMarketingEmail() && !RegistrationConfiguration.getInstance().isCustomOptoin() && !RegistrationConfiguration.getInstance().isSkipOptin()) {
             almostDoneContract.showMarketingOptCheck();
         } else {
             almostDoneContract.hideMarketingOptCheck();

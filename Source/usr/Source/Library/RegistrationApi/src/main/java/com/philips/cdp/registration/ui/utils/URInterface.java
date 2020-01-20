@@ -21,6 +21,7 @@ import com.philips.cdp.registration.injection.RegistrationComponent;
 import com.philips.cdp.registration.injection.RegistrationModule;
 import com.philips.cdp.registration.settings.RegistrationFunction;
 import com.philips.cdp.registration.settings.RegistrationHelper;
+import com.philips.cdp.registration.settings.UserRegistrationInitializer;
 import com.philips.cdp.registration.ui.traditional.RegistrationActivity;
 import com.philips.cdp.registration.ui.traditional.RegistrationFragment;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
@@ -203,7 +204,10 @@ public class URInterface implements UappInterface {
         AppTagging.init();
         RegistrationHelper.getInstance().setUrSettings(uappSettings);
         RegistrationHelper.getInstance().initializeJump(context);
-        RegistrationHelper.getInstance().initializeUserRegistration(uappSettings.getContext());
+        if(!UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
+            RegistrationHelper.getInstance().initializeUserRegistration(uappSettings.getContext());
+
+        }
         uappDependencies.getAppInfra().getConsentManager().deregisterHandler(Collections.singletonList(URConsentProvider.USR_MARKETING_CONSENT));
         uappDependencies.getAppInfra().getConsentManager().registerHandler(Collections.singletonList(URConsentProvider.USR_MARKETING_CONSENT), new MarketingConsentHandler(uappDependencies.getAppInfra(), context));
     }
