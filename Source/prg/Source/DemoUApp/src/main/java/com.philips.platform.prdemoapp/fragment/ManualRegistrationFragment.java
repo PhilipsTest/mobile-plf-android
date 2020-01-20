@@ -319,7 +319,7 @@ public class ManualRegistrationFragment extends BaseFragment implements View.OnC
         } else {
             ActivityLauncher activityLauncher = new ActivityLauncher(getActivity(), ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED,  ((MainActivity) getActivity()).getThemeConfig(), ((MainActivity) getActivity()).getThemeResourceId(), null);
 
-            if (type.equalsIgnoreCase("")) {
+            if (type.equalsIgnoreCase("app_flow")) {
                 prLaunchInput = new PRLaunchInput(products, true);
             } else {
                 prLaunchInput = new PRLaunchInput(products, false);
