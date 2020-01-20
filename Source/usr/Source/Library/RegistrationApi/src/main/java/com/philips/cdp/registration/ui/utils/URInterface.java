@@ -204,7 +204,7 @@ public class URInterface implements UappInterface {
         AppTagging.init();
         RegistrationHelper.getInstance().setUrSettings(uappSettings);
         RegistrationHelper.getInstance().initializeJump(context);
-        if(!UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
+        if(!UserRegistrationInitializer.getInstance().isJanrainIntialized()||!UserRegistrationInitializer.getInstance().isJumpInitializationInProgress()) {
             RegistrationHelper.getInstance().initializeUserRegistration(uappSettings.getContext());
 
         }
