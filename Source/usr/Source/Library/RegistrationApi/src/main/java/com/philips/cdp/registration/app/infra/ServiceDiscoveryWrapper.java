@@ -81,7 +81,7 @@ public class ServiceDiscoveryWrapper {
             ArrayList<String> serviceIDList = new ArrayList<>();
             serviceIDList.add(serviceId);
 
-            serviceDiscoveryInterface.getServicesWithLanguagePreference(serviceIDList,listener,null);
+            serviceDiscoveryInterface.getServicesWithCountryPreference(serviceIDList,listener,null);
         });
     }
 }
