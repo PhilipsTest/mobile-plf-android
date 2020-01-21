@@ -231,7 +231,7 @@ public class AccountActivationFragment extends RegistrationBaseFragment implemen
     public void handleUiState(boolean isNetworkAvailable) {
         if (isInstanceofCurrentFragment() && isVisible()) {
             if (isNetworkAvailable) {
-                if (UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
+                if (UserRegistrationInitializer.getInstance().isJanrainIntialized()||UserRegistrationInitializer.getInstance().isJumpInitializationInProgress()) {
                     mEMailVerifiedError.hideError();
                     activateButtonEnable(true);
                     mBtnResend.setEnabled(true);

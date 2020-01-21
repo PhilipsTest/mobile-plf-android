@@ -172,8 +172,8 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
         almostDoneDescriptionLabel.setVisibility(View.GONE);
         almostDonePresenter = new AlmostDonePresenter(this, mUser);
         initUI(view);
-        handleUiAcceptTerms();
         almostDonePresenter.parseRegistrationInfo(mBundle);
+        handleUiAcceptTerms();
         almostDonePresenter.updateUIControls();
         handleOrientation(view);
     }
@@ -660,7 +660,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                             AppTagingConstants.SPECIAL_EVENTS,
                             AppTagingConstants.SUCCESS_USER_REGISTRATION);
 
-                    if(RegistrationConfiguration.getInstance().isCustomOptoin()){
+                    if(RegistrationConfiguration.getInstance().isCustomOptoin()||RegistrationConfiguration.getInstance().isSkipOptin()){
                         completeRegistration();
                     } else if(RegistrationConfiguration.getInstance().isSkipOptin()){
                         if (FieldsValidator.isValidEmail(emailEditText.getText().toString())) {
@@ -788,6 +788,8 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
     }
 
     private void trackAbtesting() {
+
+
         RLog.d(TAG, "trackAbtesting : is called");
         final UIFlow abTestingFlow = RegUtility.getUiFlow();
 
