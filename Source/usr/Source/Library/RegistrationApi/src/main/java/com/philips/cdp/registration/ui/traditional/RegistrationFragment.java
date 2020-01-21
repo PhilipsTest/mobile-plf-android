@@ -95,7 +95,7 @@ public class RegistrationFragment extends Fragment implements NetworkStateListen
             registrationContentConfiguration = (RegistrationContentConfiguration) bundle.get(RegConstants.REGISTRATION_CONTENT_CONFIG);
             ConsentStates personalConsentStatus = (ConsentStates) bundle.get(RegConstants.PERSONAL_CONSENT);
 
-            RegistrationConfiguration.getInstance().setPersonalConsent(personalConsentStatus);
+                RegistrationConfiguration.getInstance().setPersonalConsent(personalConsentStatus);
         }
         myCountDownTimer = new MyCountDownTimer(60 * 1000, 1000);
     }

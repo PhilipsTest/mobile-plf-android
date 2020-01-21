@@ -39,6 +39,7 @@ import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserDataListener;
+import com.philips.platform.pif.chi.datamodel.ConsentStates;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
 import com.philips.platform.uappframework.listener.ActionBarListener;
@@ -183,6 +184,7 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
         }
         urLaunchInput.setRegistrationContentConfiguration(contentConfiguration);
         urLaunchInput.setUIFlow(UIFlow.FLOW_B);
+        urLaunchInput.setUserPersonalConsentStatus(ConsentStates.inactive);
         URInterface urInterface = new URInterface();
         urInterface.launch(fragmentLauncher, urLaunchInput);
     }
