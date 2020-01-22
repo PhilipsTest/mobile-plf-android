@@ -39,9 +39,13 @@ import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserDataListener;
+import com.philips.platform.pif.chi.datamodel.ConsentDefinition;
+import com.philips.platform.pif.chi.datamodel.ConsentStates;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
 import com.philips.platform.uappframework.listener.ActionBarListener;
+
+import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.philips.platform.baseapp.screens.Optin.MarketingOptin.AB_TEST_OPTIN_IMAGE_KEY;
@@ -141,7 +145,7 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
 
         return urInterface.getUserDataInterface();
     }
-
+    private static final String USR_PERSONAL_CONSENT = "USR_PERSONAL_CONSENT";
 
     /**
      * Launch registration fragment
@@ -181,8 +185,17 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
             urLaunchInput.setRegistrationFunction(RegistrationFunction.SignIn);
 
         }
+        contentConfiguration.setPersonalConsentContentErrorResId(com.philips.platform.urdemolibrary.R.string.personalConsentAcceptanceText_Error);
+        final ArrayList<String> types = new ArrayList<>();
+        types.add(USR_PERSONAL_CONSENT);
+        ConsentDefinition consentDefination = new ConsentDefinition(com.philips.platform.urdemolibrary.R.string.personalConsentText, com.philips.platform.urdemolibrary.R.string.personalConsentAcceptanceText,
+                types, 1);
+
+        contentConfiguration.setPersonalConsentDefinition(consentDefination);
         urLaunchInput.setRegistrationContentConfiguration(contentConfiguration);
+
         urLaunchInput.setUIFlow(UIFlow.FLOW_B);
+        urLaunchInput.setUserPersonalConsentStatus(ConsentStates.inactive);
         URInterface urInterface = new URInterface();
         urInterface.launch(fragmentLauncher, urLaunchInput);
     }

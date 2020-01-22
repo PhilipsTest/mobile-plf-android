@@ -118,7 +118,7 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
             almostDoneContract.updateTermsAndConditionView();
         }
 
-        if (!mUser.getReceiveMarketingEmail() && optinState) {
+        if (!mUser.getReceiveMarketingEmail() && optinState && !RegistrationConfiguration.getInstance().isCustomOptoin() && !RegistrationConfiguration.getInstance().isSkipOptin()) {
             almostDoneContract.showMarketingOptCheck();
         } else if (mUser.isEmailVerified() && !mUser.getReceiveMarketingEmail() && !RegistrationConfiguration.getInstance().isCustomOptoin() && !RegistrationConfiguration.getInstance().isSkipOptin()) {
             almostDoneContract.showMarketingOptCheck();
@@ -380,6 +380,7 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
                 almostDoneContract.showPersonalConsentError();
             }
         } else {
+            RLog.d(TAG, "trackAbtesting : is calledttttt");
             almostDoneContract.completeRegistration();
         }
     }

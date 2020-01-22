@@ -62,7 +62,8 @@
             android:layout_toEndOf="@id/success_background_image"
             android:textSize="@dimen/prg_serial_number_size"/>
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/prg_product_description"
@@ -83,12 +84,11 @@
                 style="@style/UIDLabel.ProductRegistrationCtnTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/team_member_icon"
                 android:paddingStart="@dimen/pr_b_value_sm"
                 android:text="@string/PRG_registered"
                 android:textSize="@dimen/pr_connect_title_textsize"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </RelativeLayout>

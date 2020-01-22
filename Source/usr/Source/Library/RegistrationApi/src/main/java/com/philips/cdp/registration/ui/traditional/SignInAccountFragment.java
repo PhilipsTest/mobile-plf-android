@@ -656,6 +656,7 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
                 ABTestClientInterface abTestClientInterface = RegistrationConfiguration.getInstance().getComponent().getAbTestClientInterface();
                 abTestClientInterface.tagEvent(FIREBASE_SUCCESSFUL_REGISTRATION_DONE, null); //No Almost Done Screen
             } if (RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, mEmailOrMobile) && !mUser.getReceiveMarketingEmail() &&
+                    (RegistrationConfiguration.getInstance().isCustomOptoin() || RegistrationConfiguration.getInstance().isSkipOptin()) &&
                     (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() || personalConsentStatus != ConsentStates.inactive)) {
                 RLog.d(TAG, "handleLoginSuccess : TERMS_N_CONDITIONS_ACCEPTED :getReceiveMarketingEmail : completeRegistration");
                 completeRegistration();
@@ -673,6 +674,10 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
                 clearInputFields();
                 getRegistrationFragment().addAlmostDoneFragmentforTermsAcceptance();
                 trackPage(AppTaggingPages.ALMOST_DONE); ////AlmostDOne Screen with PC and RM
+            } else if (((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() && RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, mEmailOrMobile)  ) && mUser.getReceiveMarketingEmail()) &&
+                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() || personalConsentStatus != ConsentStates.inactive)) {
+                clearInputFields();
+                completeRegistration(); //AlmostDOne Screen with RM
             } else if ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() || !mUser.getReceiveMarketingEmail()) &&
                     (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() || personalConsentStatus != ConsentStates.inactive)) {
                 clearInputFields();
