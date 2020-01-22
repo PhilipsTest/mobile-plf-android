@@ -540,6 +540,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
 
     @Override
     public void handleAcceptPersonalConsentTrue() {
+        RLog.d(TAG, "trackAbtesting : is calledtttt");
         completeRegistration();
         trackActionForAcceptTermsOption(AppTagingConstants.ACCEPT_PERSONAL_CONSENT_OPTION_IN);
     }
@@ -644,6 +645,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
             case FLOW_A:
                 RLog.d(TAG, "UI Flow Type A");
                 if (almostDonePresenter.isEmailVerificationStatus()) {
+                    RLog.d(TAG, "trackAbtesting : is calledttt");
                     completeRegistration();
                     trackActionStatus(AppTagingConstants.SEND_DATA,
                             AppTagingConstants.SPECIAL_EVENTS,
@@ -660,7 +662,8 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                             AppTagingConstants.SPECIAL_EVENTS,
                             AppTagingConstants.SUCCESS_USER_REGISTRATION);
 
-                    if(RegistrationConfiguration.getInstance().isCustomOptoin()||RegistrationConfiguration.getInstance().isSkipOptin()){
+                    if(RegistrationConfiguration.getInstance().isCustomOptoin()){
+                        RLog.d(TAG, "trackAbtesting : is calledtt");
                         completeRegistration();
                     } else if(RegistrationConfiguration.getInstance().isSkipOptin()){
                         if (FieldsValidator.isValidEmail(emailEditText.getText().toString())) {
@@ -675,6 +678,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                     }
 
                 } else {
+                    RLog.d(TAG, "trackAbtesting : is calledt");
                     completeRegistration();
                 }
                 break;

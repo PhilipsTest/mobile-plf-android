@@ -693,7 +693,17 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         urLaunchInput.setRegistrationContentConfiguration(getRegistrationContentConfiguration());
         urLaunchInput.setUIFlow(UIFlow.FLOW_B);
         urLaunchInput.setUserRegistrationUIEventListener(this);
+
         urLaunchInput.setUserPersonalConsentStatus(ConsentStates.inactive);
+        RegistrationContentConfiguration registrationContentConfiguration = getRegistrationContentConfiguration();
+        registrationContentConfiguration.setPersonalConsentContentErrorResId(R.string.personalConsentAcceptanceText_Error);
+        final ArrayList<String> types = new ArrayList<>();
+        types.add(USR_PERSONAL_CONSENT);
+        ConsentDefinition consentDefination = new ConsentDefinition(R.string.personalConsentText, R.string.personalConsentAcceptanceText,
+                types, 1);
+
+        registrationContentConfiguration.setPersonalConsentDefinition(consentDefination);
+        urLaunchInput.setRegistrationContentConfiguration(registrationContentConfiguration);
 
         urInterface.launch(activityLauncher, urLaunchInput);
         final UIFlow uiFlow = RegUtility.getUiFlow();
