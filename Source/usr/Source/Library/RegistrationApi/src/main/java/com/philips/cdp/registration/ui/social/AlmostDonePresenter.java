@@ -32,6 +32,7 @@ import javax.inject.Inject;
 
 import static com.philips.cdp.registration.app.tagging.AppTagingConstants.FIREBASE_SUCCESSFUL_REGISTRATION_DONE;
 import static com.philips.cdp.registration.app.tagging.AppTagingConstants.SUCCESS_LOGIN;
+import static com.philips.cdp.registration.ui.utils.UIFlow.FLOW_A;
 
 public class AlmostDonePresenter implements NetworkStateListener, SocialLoginProviderHandler, UpdateUserDetailsHandler {
 
@@ -119,6 +120,8 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
         }
 
         if (!mUser.getReceiveMarketingEmail() && optinState && !RegistrationConfiguration.getInstance().isCustomOptoin() && !RegistrationConfiguration.getInstance().isSkipOptin()) {
+            almostDoneContract.showMarketingOptCheck();
+        } else if (mUser.isEmailVerified() && !mUser.getReceiveMarketingEmail() && RegUtility.getUiFlow() == (FLOW_A)) {
             almostDoneContract.showMarketingOptCheck();
         } else if (mUser.isEmailVerified() && !mUser.getReceiveMarketingEmail() && !RegistrationConfiguration.getInstance().isCustomOptoin() && !RegistrationConfiguration.getInstance().isSkipOptin()) {
             almostDoneContract.showMarketingOptCheck();
