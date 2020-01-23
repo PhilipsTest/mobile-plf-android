@@ -9,6 +9,8 @@ public interface AlmostDoneContract {
 
     void hideAcceptTermsView();
 
+    void showAcceptTermsView();
+
     void updateTermsAndConditionView();
 
     void updateReceiveMarketingView();

@@ -360,6 +360,13 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
     }
 
     @Override
+    public void showAcceptTermsView() {
+        acceptTermsCheck.setVisibility(View.VISIBLE);
+    }
+
+
+
+    @Override
     public void updateTermsAndConditionView() {
         hideAcceptTermsAndConditionContainer();
     }
@@ -512,6 +519,11 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
 
     @Override
     public boolean isAcceptTermsChecked() {
+
+        if(acceptTermsCheck.getVisibility()==View.GONE || acceptTermsCheck.getVisibility()==View.INVISIBLE){
+            return true;
+        }
+
         return acceptTermsCheck.isChecked();
     }
 
@@ -540,7 +552,6 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
 
     @Override
     public void handleAcceptPersonalConsentTrue() {
-        RLog.d(TAG, "trackAbtesting : is calledtttt");
         completeRegistration();
         trackActionForAcceptTermsOption(AppTagingConstants.ACCEPT_PERSONAL_CONSENT_OPTION_IN);
     }
@@ -645,7 +656,6 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
             case FLOW_A:
                 RLog.d(TAG, "UI Flow Type A");
                 if (almostDonePresenter.isEmailVerificationStatus()) {
-                    RLog.d(TAG, "trackAbtesting : is calledttt");
                     completeRegistration();
                     trackActionStatus(AppTagingConstants.SEND_DATA,
                             AppTagingConstants.SPECIAL_EVENTS,
@@ -663,13 +673,14 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                             AppTagingConstants.SUCCESS_USER_REGISTRATION);
 
                     if(RegistrationConfiguration.getInstance().isCustomOptoin()){
-                        RLog.d(TAG, "trackAbtesting : is calledtt");
                         completeRegistration();
-                    } else if(RegistrationConfiguration.getInstance().isSkipOptin()){
+                    } else if(RegistrationConfiguration.getInstance().isSkipOptin() && almostDonePresenter.isEmailVerificationStatus()){
                         if (FieldsValidator.isValidEmail(emailEditText.getText().toString())) {
                             launchAccountActivateFragment();
-                        } else {
+                        } else if (FieldsValidator.isValidMobileNumber(emailEditText.getText().toString())){
                             launchMobileVerifyCodeFragment();
+                        } else {
+                            completeRegistration();
                         }
                     } else{
                         addFragment(new MarketingAccountFragment());
@@ -678,7 +689,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                     }
 
                 } else {
-                    RLog.d(TAG, "trackAbtesting : is calledt");
+                    RLog.d(TAG, "trackAbtesting : is called");
                     completeRegistration();
                 }
                 break;

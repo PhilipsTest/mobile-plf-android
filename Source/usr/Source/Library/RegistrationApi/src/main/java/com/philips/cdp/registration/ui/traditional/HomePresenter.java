@@ -322,14 +322,17 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
 
 
         if (emailorMobile != null
-                && ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() && RegPreferenceUtility.getPreferenceValue(homeContract.getActivityContext(), RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailorMobile) && !user.getReceiveMarketingEmail())
-                && (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() != null && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.active))
+                && ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() &&
+                RegPreferenceUtility.getPreferenceValue(homeContract.getActivityContext(), RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailorMobile) )
+                && (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == null
+                && RegistrationConfiguration.getInstance().getPersonalConsent() != ConsentStates.inactive))
                 && (RegistrationConfiguration.getInstance().isCustomOptoin() || RegistrationConfiguration.getInstance().isSkipOptin())) {
             homeContract.registrationCompleted();
             return;
         }else  if (emailorMobile != null && ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() &&
                 !RegPreferenceUtility.getPreferenceValue(homeContract.getActivityContext(), RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailorMobile) || !user.getReceiveMarketingEmail())
-                || (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() != null
+                ||
+                (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() != null
                 && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive))) {
             homeContract.navigateToAcceptTermsScreen();
             return;
