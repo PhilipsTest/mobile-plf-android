@@ -99,9 +99,10 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
             if (isEmailExist && almostDoneContract.getPreferenceStoredState((mEmail))) {
                 almostDoneContract.hideAcceptTermsView();
                 updateTermsAndReceiveMarketingOpt(false);
-
-            } else if (mBundle != null && mBundle.getString(RegConstants.SOCIAL_TWO_STEP_ERROR) != null) {
+            }
+            if (mBundle != null && mBundle.getString(RegConstants.SOCIAL_TWO_STEP_ERROR) != null) {
                 almostDoneContract.updateABTestingUIFlow();
+                almostDoneContract.showAcceptTermsView();
             }
         } else {
             almostDoneContract.hideAcceptTermsView();
@@ -383,7 +384,6 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
                 almostDoneContract.showPersonalConsentError();
             }
         } else {
-            RLog.d(TAG, "trackAbtesting : is calledttttt");
             almostDoneContract.completeRegistration();
         }
     }
