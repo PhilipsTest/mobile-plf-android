@@ -55,9 +55,7 @@ import com.philips.platform.uid.view.widget.InputValidationLayout;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.ProgressBarButton;
 import com.philips.platform.uid.view.widget.ValidationEditText;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -684,7 +682,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                         }
                     } else{
                         addFragment(new MarketingAccountFragment());
-                        trackPage(AppTaggingPages.MARKETING_OPT_IN);
+                        trackPage(AppTaggingPages.MARKETING_OPT_IN); //18512141824
 
                     }
 
