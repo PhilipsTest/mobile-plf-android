@@ -36,6 +36,7 @@ import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.RegConstants;
 import com.philips.cdp.registration.ui.utils.RegPreferenceUtility;
 import com.philips.cdp.registration.ui.utils.RegUtility;
+import com.philips.cdp.registration.ui.utils.UIFlow;
 import com.philips.cdp.registration.ui.utils.URFaceBookUtility;
 import com.philips.platform.pif.chi.datamodel.ConsentStates;
 import com.philips.platform.uid.utils.DialogConstants;
@@ -247,11 +248,20 @@ public class MergeSocialToSocialAccountFragment extends RegistrationBaseFragment
     private void completeRegistration() {
         String emailorMobile = mergeSocialToSocialAccountPresenter.getLoginWithDetails();
 
-        if (emailorMobile != null && ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired()
+        if (emailorMobile != null
+                && (RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() &&
+                RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailorMobile))
+                && (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired())
+                && (RegistrationConfiguration.getInstance().isCustomOptoin() || RegistrationConfiguration.getInstance().isSkipOptin())
+                && (RegUtility.getUiFlow() == UIFlow.FLOW_B)) {
+            getRegistrationFragment().userRegistrationComplete();
+            return;
+        } else  if (emailorMobile != null && ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired()
                 && !RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailorMobile) || !mergeSocialToSocialAccountPresenter.getReceiveMarketingEmail())
                 || (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() != null
                 && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive )))
         {
+
             launchAlmostDoneForTermsAcceptanceFragment();
             return;
         }
