@@ -684,7 +684,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                             completeRegistration();
                     }else{
                         addFragment(new MarketingAccountFragment());
-                        trackPage(AppTaggingPages.MARKETING_OPT_IN); //18512141824
+                        trackPage(AppTaggingPages.MARKETING_OPT_IN); 
 
                     }
 
