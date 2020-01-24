@@ -672,7 +672,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
 
                     if(RegistrationConfiguration.getInstance().isCustomOptoin()){
                         completeRegistration();
-                    } else if(RegistrationConfiguration.getInstance().isSkipOptin() && almostDonePresenter.isEmailVerificationStatus()){
+                    } else if(RegistrationConfiguration.getInstance().isSkipOptin() && !almostDonePresenter.isEmailVerificationStatus()){
                         if (FieldsValidator.isValidEmail(emailEditText.getText().toString())) {
                             launchAccountActivateFragment();
                         } else if (FieldsValidator.isValidMobileNumber(emailEditText.getText().toString())){
@@ -680,7 +680,9 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                         } else {
                             completeRegistration();
                         }
-                    } else{
+                    } else if(RegistrationConfiguration.getInstance().isSkipOptin() && almostDonePresenter.isEmailVerificationStatus()){
+                            completeRegistration();
+                    }else{
                         addFragment(new MarketingAccountFragment());
                         trackPage(AppTaggingPages.MARKETING_OPT_IN); //18512141824
 
