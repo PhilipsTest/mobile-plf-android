@@ -401,6 +401,7 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
 
 
     void removeFocus(){
+        ((RegistrationFragment) getParentFragment()).hideKeyBoard();
         usrCreateScreenLastNameTextField.clearFocus();
         usrCreateScreenFirstNameTextField.clearFocus();
         usrCreatescreenEmailormobileTextfield.clearFocus();
