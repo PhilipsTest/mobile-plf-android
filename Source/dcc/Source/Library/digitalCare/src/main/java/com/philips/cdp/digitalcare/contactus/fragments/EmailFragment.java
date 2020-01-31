@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -61,10 +62,12 @@ public class EmailFragment extends DigitalCareBaseFragment {
 
     private void initView() {
         mWebView = (WebView) mView.findViewById(R.id.webView);
+        mWebView.getSettings().setSaveFormData(false);
         mProgressBar = (ProgressBar) mView
                 .findViewById(R.id.common_webview_progress);
         mProgressBar.setVisibility(View.GONE);
     }
+
 
 
     public void loadEmail(String emailUrl) {
@@ -100,6 +103,11 @@ public class EmailFragment extends DigitalCareBaseFragment {
     @Override
     public void onClick(View view) {
 
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        CookieManager.getInstance().removeSessionCookies(null);
     }
 
     @Override

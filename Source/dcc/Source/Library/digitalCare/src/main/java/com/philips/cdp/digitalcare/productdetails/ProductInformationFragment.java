@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -64,6 +65,7 @@ public class ProductInformationFragment extends DigitalCareBaseFragment {
 
     private void initView(View view) {
         mWebView = (WebView) view.findViewById(R.id.webView);
+        mWebView.getSettings().setSaveFormData(false);
         mProgressBar = (ProgressBar) view
                 .findViewById(R.id.common_webview_progress);
         mProgressBar.setVisibility(View.GONE);
@@ -86,6 +88,11 @@ public class ProductInformationFragment extends DigitalCareBaseFragment {
 
     @Override
     public void onClick(View v) {
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        CookieManager.getInstance().removeSessionCookies(null);
     }
 
     @Override

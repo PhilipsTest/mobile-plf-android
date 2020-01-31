@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -136,6 +137,7 @@ public class FaqDetailedFragment extends DigitalCareBaseFragment {
                 mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
                 mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
                 mWebView.getSettings().setDomStorageEnabled(true);
+                mWebView.getSettings().setSaveFormData(false);
                 mWebView.getSettings().setBuiltInZoomControls(true);
             }
             mWebView.setWebChromeClient(new WebChromeClient() {
@@ -247,6 +249,12 @@ public class FaqDetailedFragment extends DigitalCareBaseFragment {
         if (mWebView != null) {
             mWebView = null;
         }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        CookieManager.getInstance().removeSessionCookies(null);
+
     }
 
     private class myJavaScriptInterface {
