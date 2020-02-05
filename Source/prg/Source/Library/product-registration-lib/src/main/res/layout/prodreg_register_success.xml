@@ -40,7 +40,14 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:orientation="horizontal">
 
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
             <ImageView
+                android:gravity="center_vertical"
                 android:id="@+id/success_background_image"
                 android:layout_width="@dimen/prg_success_image_width"
                 android:layout_height="@dimen/prg_success_image_height"
@@ -48,8 +55,9 @@
                 android:layout_marginEnd="@dimen/fab_margin"
                 android:scaleType="fitCenter"
                 android:src="@drawable/product_placeholder" />
-
+            </LinearLayout>
             <LinearLayout
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
