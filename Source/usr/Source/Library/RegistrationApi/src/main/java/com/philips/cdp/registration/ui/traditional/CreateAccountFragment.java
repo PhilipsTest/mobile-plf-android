@@ -401,6 +401,7 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
 
 
     void removeFocus(){
+        ((RegistrationFragment) getParentFragment()).hideKeyBoard();
         usrCreateScreenLastNameTextField.clearFocus();
         usrCreateScreenFirstNameTextField.clearFocus();
         usrCreatescreenEmailormobileTextfield.clearFocus();
@@ -716,6 +717,9 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
 
     @OnClick(R2.id.usr_createscreen_create_button)
     public void createButtonWithProgressBar() {
+
+        ((RegistrationFragment) getParentFragment()).hideKeyBoard();
+
         RLog.d(TAG, "createButtonWithProgressBar: Create Account");
         if (RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() &&
                 (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive)) {
