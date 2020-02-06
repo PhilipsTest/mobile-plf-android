@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -123,6 +124,7 @@ public class ChatNowFragment extends DigitalCareBaseFragment {
             mProgressBar.setVisibility(View.VISIBLE);
         } else {
             mWebView.setWebChromeClient(new CustomWebChromeClient());
+            mWebView.getSettings().setSaveFormData(false);
             loadWebPageContent(getChatEndPoint(), mWebView, mProgressBar);
         }
     }
@@ -200,6 +202,8 @@ public class ChatNowFragment extends DigitalCareBaseFragment {
     public void onStop() {
         super.onStop();
         clearWebViewData();
+        CookieManager.getInstance().removeSessionCookies(null);
+
     }
 
     private void clearWebViewData() {
