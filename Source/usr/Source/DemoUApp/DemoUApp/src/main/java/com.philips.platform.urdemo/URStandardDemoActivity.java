@@ -88,6 +88,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     private final String PERSONAL_CONSENT = "personalConsentRequired";
     private final String CUSTOMOPTIN = "customOptin";
     private final String SKIPOPTIN = "skipOptin";
+    private final String COUNTY_SELECTION = "ShowCountrySelection";
     private Context mContext;
     private ProgressDialog mProgressDialog;
     private String restoredText;
@@ -99,7 +100,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     private User mUser;
     private Button mBtnRegistrationWithAccountSettings;
     private CoppaExtension coppaExtension;
-    private Switch mSkipHSDPSwitch, hsdpUuidUpload, consentConfirmationStatus, updateCoppaConsentStatus,mEnablePersonalConsentSwitch;
+    private Switch mSkipHSDPSwitch, hsdpUuidUpload, consentConfirmationStatus, updateCoppaConsentStatus,mEnablePersonalConsentSwitch, countryShowSwitch;
     private Switch mSkipOptin,  customOptin;
 
     private Label btn_registration_with_hsdp_status_lbl;
@@ -166,6 +167,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         mRadioGroup = findViewById(R.id.myRadioGroup);
         mSkipHSDPSwitch = findViewById(R.id.skip_hsdp_switch);
         mEnablePersonalConsentSwitch = findViewById(R.id.enable_personal_consent_switch);
+        countryShowSwitch = findViewById(R.id.showCountrySelection);
         mSkipOptin = findViewById(R.id.enable_skip_optin);
         customOptin = findViewById(R.id.enable_custom_optin);
         hsdpUuidUpload = findViewById(R.id.switch_hsdp_uuid_upload);
@@ -175,6 +177,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         restoredText = prefs.getString("reg_environment", null);
         mSkipHSDPSwitch.setChecked(prefs.getBoolean("reg_delay_hsdp_configuration", false));
         mEnablePersonalConsentSwitch.setChecked(prefs.getBoolean("reg_personal_consent_configuration", false));
+        countryShowSwitch.setChecked(prefs.getBoolean("reg_country_selection", false));
         mSkipOptin.setChecked(prefs.getBoolean("reg_skipoptin_configuration", false));
         customOptin.setChecked(prefs.getBoolean("reg_customoptin_configuration", false));
 
@@ -230,6 +233,13 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 updateSkipHsdpStatus(b);
+            }
+        });
+
+        countryShowSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                showCountry(isChecked);
             }
         });
 
@@ -362,6 +372,18 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
 
                     }
 
+
+
+                    if (countryShowSwitch.isChecked()) {
+                        editor.putBoolean("reg_country_selection", countryShowSwitch.isChecked()).apply();
+                        urInterface.init(new URDemouAppDependencies(URDemouAppInterface.appInfra), new URDemouAppSettings(getApplicationContext()));
+
+                    } else{
+                        editor.remove("reg_country_selection").apply();
+
+                    }
+
+
                     if (mEnablePersonalConsentSwitch.isChecked()) {
                         editor.putBoolean("reg_personal_consent_configuration", mEnablePersonalConsentSwitch.isChecked()).apply();
                         urInterface.init(new URDemouAppDependencies(URDemouAppInterface.appInfra), new URDemouAppSettings(getApplicationContext()));
@@ -418,6 +440,15 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         final AppInfraInterface appInfraInterface = URDemouAppInterface.appInfra;
         appInfraInterface.getConfigInterface().setPropertyForKey(PERSONAL_CONSENT, "UserRegistration", String.valueOf(isChecked), configError);
         mEnablePersonalConsentSwitch.setChecked(isChecked);
+    }
+
+    private void showCountry(boolean isChecked){
+        RLog.d("reg_country_selection","reg_country_selection"+ isChecked);
+        final AppInfraInterface appInfraInterface = URDemouAppInterface.appInfra;
+        appInfraInterface.getConfigInterface().setPropertyForKey(COUNTY_SELECTION, "UserRegistration", String.valueOf(isChecked), configError);
+        countryShowSwitch.setChecked(isChecked);
+
+
     }
 
     private void updateAuthoriseHSDP() {

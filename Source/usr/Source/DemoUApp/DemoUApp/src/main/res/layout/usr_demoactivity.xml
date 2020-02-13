@@ -192,6 +192,14 @@
                     android:text="HSDP" />
 
                 <com.philips.platform.uid.view.widget.Switch
+                    android:id="@+id/showCountrySelection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dip"
+                    android:layout_marginTop="15dip"
+                    android:text="Show Country" />
+
+                <com.philips.platform.uid.view.widget.Switch
                     android:id="@+id/enable_personal_consent_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
