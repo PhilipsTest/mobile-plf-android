@@ -23,7 +23,7 @@
   <string name="mec_invalid_landing_view">Palun esitage kehtiv sihtvaade</string>
   <string name="mec_invalid_product_ctn">Esitage mittetühja toote jälgimisnumber (CTN)</string>
   <string name="mec_loading">Laadimine ...</string>
-  <string name="mec_more_info">.</string>
+  <string name="mec_more_info">lisateabe saamiseks</string>
   <string name="mec_no_product_available">Poest ei leitud ühtegi toodet.</string>
   <string name="mec_no_result">0 tulemust leitud otsingule</string>
   <string name="mec_no_review_available">Arvustusi ei leitud</string>
