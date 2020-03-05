@@ -264,7 +264,7 @@ class AddressViewModel : CommonViewModel() {
 
             if (dropDownData.isNullOrEmpty()) return
 
-            validationEditText.setCompoundDrawables(null, null, getImageArrow(validationEditText.context), null)
+            validationEditText.setCompoundDrawables(null, null, MECutility.getImageArrow(validationEditText.context), null)
             val salutationDropDown = MECDropDown(validationEditText,dropDownData)
 
             salutationDropDown.createPopUp()
@@ -273,15 +273,6 @@ class AddressViewModel : CommonViewModel() {
                 return false
             })
         }
-
-        private fun getImageArrow(mContext: Context): Drawable {
-            val width = mContext.resources.getDimension(R.dimen.mec_drop_down_icon_width_size).toInt()
-            val height = mContext.resources.getDimension(R.dimen.mec_drop_down_icon_height_size).toInt()
-            val imageArrow = VectorDrawableCompat.create(mContext.resources, R.drawable.mec_product_count_drop_down, mContext.theme)
-            imageArrow!!.setBounds(0, 0, width, height)
-            return imageArrow
-        }
-
 
         @JvmStatic
         @BindingAdapter("firstName")
