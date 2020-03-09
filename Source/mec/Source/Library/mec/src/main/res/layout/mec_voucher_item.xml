@@ -84,7 +84,7 @@
             style="@style/mec_right_arrow_product_catalog"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="5dp"
+            android:padding="@dimen/iap_margin_10dp"
             android:textSize="@dimen/iap_text_size_16sp"
             fontPath="fonts/iconfont.ttf"
             android:clickable="true"
