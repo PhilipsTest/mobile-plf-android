@@ -361,6 +361,10 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         binding.mecContinueCheckoutBtn.isEnabled = false
     }
 
+    fun enableButton() {
+        binding.mecContinueCheckoutBtn.isEnabled = true
+    }
+
     override fun onStop() {
         super.onStop()
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
