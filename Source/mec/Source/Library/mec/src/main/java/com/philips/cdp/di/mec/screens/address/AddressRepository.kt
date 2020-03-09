@@ -3,14 +3,9 @@ package com.philips.cdp.di.mec.screens.address
 import com.philips.cdp.di.ecs.ECSServices
 import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode
-import com.philips.cdp.di.ecs.util.ECSConfiguration
 
 class AddressRepository(val ecsServices: ECSServices) {
 
-
-    fun getRegions(ecsRegionListCallback: ECSRegionListCallback){
-        ecsServices.fetchRegions(ECSConfiguration.INSTANCE.country,ecsRegionListCallback)
-    }
 
     fun fetchSavedAddresses( eCSFetchAddressesCallback: ECSFetchAddressesCallback) {
         ecsServices.fetchSavedAddresses(eCSFetchAddressesCallback)

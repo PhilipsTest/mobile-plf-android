@@ -21,6 +21,7 @@ import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.cdp.di.mec.R
 import com.philips.cdp.di.mec.common.MecError
 import com.philips.cdp.di.mec.databinding.MecAddressEditBinding
+import com.philips.cdp.di.mec.screens.address.region.RegionViewModel
 import com.philips.cdp.di.mec.utils.MECConstant
 import kotlinx.android.synthetic.main.mec_main_activity.*
 import java.io.Serializable
@@ -32,6 +33,8 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
     }
 
 
+    private lateinit var regionViewModel: RegionViewModel
+
     private lateinit var ecsAddress: ECSAddress
     private var addressFieldEnabler: MECAddressFieldEnabler? = null
 
@@ -42,11 +45,13 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
     var isError = false
     var validationEditText : ValidationEditText ? =null
 
+    var mecRegions :MECRegions ? = null
+
     private val regionListObserver: Observer<List<ECSRegion>> = object : Observer<List<ECSRegion>> {
 
         override fun onChanged(regionList: List<ECSRegion>?) {
 
-            val mecRegions = MECRegions(regionList!!)
+            mecRegions = MECRegions(regionList!!)
             binding.mecRegions = mecRegions
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
@@ -85,9 +90,14 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
         ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as ECSAddress
         binding.ecsAddress = ecsAddress
 
-        addressViewModel.regionsList.observe(this, regionListObserver)
+
+        addressViewModel.ecsAddresses.observe(this,updateAndFetchAddressObserver)
         addressViewModel.mecError.observe(this, this)
-        activity?.let { addressViewModel.ecsAddresses.observe(it,updateAndFetchAddressObserver) }
+
+
+        regionViewModel = activity?.let { ViewModelProviders.of(it).get(RegionViewModel::class.java) }!!
+        regionViewModel.regionsList.observe(activity!!, regionListObserver)
+        regionViewModel.mecError.observe(this,this)
 
         addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(ECSConfiguration.INSTANCE.country, it) }
 
@@ -167,8 +177,8 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if(addressFieldEnabler?.isStateEnabled!!) {
-            addressViewModel.fetchRegions()
+        if(addressFieldEnabler?.isStateEnabled!! && mecRegions==null) {
+            regionViewModel.fetchRegions()
            showProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
     }

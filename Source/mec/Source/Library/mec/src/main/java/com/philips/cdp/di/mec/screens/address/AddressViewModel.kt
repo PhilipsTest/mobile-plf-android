@@ -38,7 +38,6 @@ import java.util.*
 class AddressViewModel : CommonViewModel() {
 
 
-    private var ecsRegionListCallback = ECSRegionListCallback(this)
 
     private var ecsCreateAddressCallBack = ECSCreateAddressCallBack(this)
 
@@ -52,7 +51,6 @@ class AddressViewModel : CommonViewModel() {
 
     var addressRepository = AddressRepository(ecsServices)
 
-    var regionsList = MutableLiveData<List<ECSRegion>>()
 
     var eCSAddress = MutableLiveData<ECSAddress>()
 
@@ -66,11 +64,6 @@ class AddressViewModel : CommonViewModel() {
 
     lateinit var paramEcsDeliveryMode: ECSDeliveryMode
 
-
-    fun fetchRegions() {
-        ecsRegionListCallback.mECRequestType=MECRequestType.MEC_FETCH_REGIONS
-        addressRepository.getRegions(ecsRegionListCallback)
-    }
 
     fun fetchAddresses(){
         ecsFetchAddressesCallback.mECRequestType=MECRequestType.MEC_FETCH_SAVED_ADDRESSES
@@ -128,7 +121,6 @@ class AddressViewModel : CommonViewModel() {
 
         lateinit  var APIcall: () -> Unit
         when(mecRequestType) {
-            MECRequestType.MEC_FETCH_REGIONS                     -> APIcall = { fetchRegions() }
             MECRequestType.MEC_FETCH_SAVED_ADDRESSES             -> APIcall = { fetchAddresses()}
             MECRequestType.MEC_CREATE_ADDRESS                    -> APIcall = { createAddress(paramEcsAddress) }
             MECRequestType.MEC_CREATE_AND_FETCH_ADDRESS          -> APIcall = { createAndFetchAddress(paramEcsAddress) }

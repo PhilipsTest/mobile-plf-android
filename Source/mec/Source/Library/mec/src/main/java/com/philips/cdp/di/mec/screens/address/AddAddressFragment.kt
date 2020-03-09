@@ -20,7 +20,7 @@ import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.cdp.di.mec.R
 import com.philips.cdp.di.mec.common.MecError
 import com.philips.cdp.di.mec.databinding.MecAddressCreateBinding
-import com.philips.cdp.di.mec.screens.shoppingCart.EcsShoppingCartViewModel
+import com.philips.cdp.di.mec.screens.address.region.RegionViewModel
 import com.philips.cdp.di.mec.utils.MECConstant
 import com.philips.cdp.di.mec.utils.MECDataHolder
 import kotlinx.android.synthetic.main.mec_main_activity.*
@@ -39,7 +39,8 @@ class AddAddressFragment : MecBaseFragment() {
 
     lateinit var addressViewModel: AddressViewModel
 
-    lateinit var shoppingCartViewModel: EcsShoppingCartViewModel
+    lateinit var regionViewModel: RegionViewModel
+
 
     var isError = false
     var validationEditText : ValidationEditText ? =null
@@ -50,22 +51,18 @@ class AddAddressFragment : MecBaseFragment() {
 
     var mAddressList: List<ECSAddress>? = null
 
+    var mecRegions : MECRegions? = null
+
 
     private val regionListObserver: Observer<List<ECSRegion>> = object : Observer<List<ECSRegion>> {
 
         override fun onChanged(regionList: List<ECSRegion>?) {
 
-            val mecRegions = MECRegions(regionList!!)
+            mecRegions = MECRegions(regionList!!)
             binding.mecRegions = mecRegions
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
 
-    }
-
-    private val cartObserver: Observer<ECSShoppingCart> = Observer<ECSShoppingCart> { ecsShoppingCart ->
-
-        gotoDeliveryAddress(mAddressList,ecsShoppingCart)
-        dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
     }
 
     private val createAddressObserver: Observer<ECSAddress> = object : Observer<ECSAddress> {
@@ -97,7 +94,8 @@ class AddAddressFragment : MecBaseFragment() {
         binding.pattern = MECSalutationHolder()
 
         addressViewModel = ViewModelProviders.of(this).get(AddressViewModel::class.java)
-        shoppingCartViewModel = ViewModelProviders.of(this).get(EcsShoppingCartViewModel::class.java)
+        regionViewModel = activity?.let { ViewModelProviders.of(it).get(RegionViewModel::class.java) }!!
+
 
         //Set Country before binding
         eCSAddressShipping.country =addressViewModel.getCountry()
@@ -124,11 +122,13 @@ class AddAddressFragment : MecBaseFragment() {
 
 
 
-        addressViewModel.regionsList.observe(this, regionListObserver)
+        regionViewModel.regionsList.observe(activity!!, regionListObserver)
+        regionViewModel.mecError.observe(this,this)
+
         addressViewModel.mecError.observe(this, this)
         addressViewModel.eCSAddress.observe(this,createAddressObserver)
         addressViewModel.ecsAddresses.observe(this,addressObserver)
-        shoppingCartViewModel.ecsShoppingCart.observe(this,cartObserver)
+
 
         addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(ECSConfiguration.INSTANCE.country, it) }
 
@@ -211,8 +211,8 @@ class AddAddressFragment : MecBaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if(addressFieldEnabler?.isStateEnabled!!) {
-            addressViewModel.fetchRegions()
+        if(addressFieldEnabler?.isStateEnabled!! && mecRegions==null) {
+            regionViewModel.fetchRegions()
             showProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
     }
