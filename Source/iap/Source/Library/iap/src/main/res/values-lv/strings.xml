@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Maksājuma atcelšana</string>
   <string name="iap_Payment_failure">Maksājuma kļūda</string>
+  <string name="iap_accept_terms">[lv]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Pieņemtie kodi</string>
   <string name="iap_access_token_notfound">Piekļuves pilnvara nav atrasta</string>
   <string name="iap_add_new_address">Jaunas adreses pievienošana</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Ekspertu atsauksmes</string>
   <string name="iap_extra_option">Papildu opcijas</string>
   <string name="iap_failed">Neizdevās</string>
+  <string name="iap_faq">[lv]FAQ</string>
   <string name="iap_fetching_payment">Nolasa maksājuma informāciju...</string>
   <string name="iap_filter_productlist">Mūsu produktu saraksts tiek filtrēts. Lūdzu, pārbaudiet, vai filtrējamais termins ir uzrakstīts pareizi</string>
   <string name="iap_first_name">Vārds</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Ja veicāt pasūtījumu, izmantojot cita mazumtirgotāja pakalpojumus, jūsu pasūtījums, iespējams, šeit neparādīsies.</string>
   <string name="iap_out_of_stock">Nav krājumā</string>
   <string name="iap_overall_rating">Kopējais novērtējums</string>
+  <string name="iap_page">[lv]page</string>
   <string name="iap_pay_now">Apmaksāt tagad</string>
   <string name="iap_payment">Apmaksa</string>
   <string name="iap_payment_by">Maksātājs</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Nav pieejams neviens produkts</string>
   <string name="iap_promotional_gift">Reklāmas vai dāvanu kods</string>
   <string name="iap_quantity">Daudzums: %s</string>
+  <string name="iap_product_item_quantity">Daudzums:</string>
+  <string name="iap_questions">[lv]Questions? Please visit our</string>
   <string name="iap_rate_it">Labu vai sliktu, gaidām jūsu vērtējumu!</string>
   <string name="iap_read">Izlasiet mūsu</string>
   <string name="iap_read_full_review">Lasīt pilnu pārskatu</string>

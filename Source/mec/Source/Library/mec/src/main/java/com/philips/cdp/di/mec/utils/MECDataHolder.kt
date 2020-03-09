@@ -21,8 +21,8 @@ enum class MECDataHolder {
 
     lateinit var appinfra: AppInfraInterface
     lateinit var actionbarUpdateListener: ActionBarListener
-    lateinit var mecListener: MECListener
-    lateinit var mecBannerEnabler: MECBannerConfigurator
+    var mecListener: MECListener? = null
+    var mecBannerEnabler: MECBannerConfigurator ? = null
     lateinit var locale:String
     lateinit var propositionId:String
     lateinit var voucherCode:String

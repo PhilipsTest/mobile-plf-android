@@ -15,20 +15,20 @@ import com.philips.cdp.di.ecs.model.address.ECSAddress;
 import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
 import com.philips.cdp.di.ecs.model.address.ECSUserProfile;
 import com.philips.cdp.di.ecs.model.asset.Assets;
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
 import com.philips.cdp.di.ecs.model.cart.ECSEntries;
+import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
+import com.philips.cdp.di.ecs.model.config.ECSConfig;
 import com.philips.cdp.di.ecs.model.disclaimer.Disclaimers;
+import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData;
+import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail;
 import com.philips.cdp.di.ecs.model.orders.ECSOrderHistory;
 import com.philips.cdp.di.ecs.model.orders.ECSOrders;
 import com.philips.cdp.di.ecs.model.orders.Entries;
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail;
 import com.philips.cdp.di.ecs.model.payment.ECSPayment;
 import com.philips.cdp.di.ecs.model.payment.ECSPaymentProvider;
 import com.philips.cdp.di.ecs.model.products.ECSProduct;
 import com.philips.cdp.di.ecs.model.products.ECSProducts;
 import com.philips.cdp.di.ecs.model.region.ECSRegion;
-import com.philips.cdp.di.ecs.model.config.ECSConfig;
-import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData;
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList;
 import com.philips.cdp.di.ecs.model.summary.Data;
 import com.philips.cdp.di.ecs.model.summary.ECSProductSummary;
@@ -37,18 +37,28 @@ import com.philips.cdp.di.ecs.prx.serviceDiscovery.AssetServiceDiscoveryRequest;
 import com.philips.cdp.di.ecs.prx.serviceDiscovery.DisclaimerServiceDiscoveryRequest;
 import com.philips.cdp.di.ecs.prx.serviceDiscovery.ProductSummaryListServiceDiscoveryRequest;
 import com.philips.cdp.di.ecs.prx.serviceDiscovery.ServiceDiscoveryRequest;
+import com.philips.cdp.di.ecs.request.AddProductToECSShoppingCartRequest;
 import com.philips.cdp.di.ecs.request.CreateAddressRequest;
+import com.philips.cdp.di.ecs.request.CreateECSShoppingCartRequest;
 import com.philips.cdp.di.ecs.request.DeleteAddressRequest;
 import com.philips.cdp.di.ecs.request.GetAddressRequest;
+import com.philips.cdp.di.ecs.request.GetConfigurationRequest;
 import com.philips.cdp.di.ecs.request.GetDeliveryModesRequest;
+import com.philips.cdp.di.ecs.request.GetECSShoppingCartsRequest;
 import com.philips.cdp.di.ecs.request.GetOrderDetailRequest;
 import com.philips.cdp.di.ecs.request.GetOrderHistoryRequest;
 import com.philips.cdp.di.ecs.request.GetPaymentsRequest;
+import com.philips.cdp.di.ecs.request.GetProductAssetRequest;
+import com.philips.cdp.di.ecs.request.GetProductDisclaimerRequest;
+import com.philips.cdp.di.ecs.request.GetProductForRequest;
+import com.philips.cdp.di.ecs.request.GetProductListRequest;
+import com.philips.cdp.di.ecs.request.GetProductSummaryListRequest;
 import com.philips.cdp.di.ecs.request.GetRegionsRequest;
 import com.philips.cdp.di.ecs.request.GetRetailersInfoRequest;
 import com.philips.cdp.di.ecs.request.GetUserProfileRequest;
 import com.philips.cdp.di.ecs.request.GetVouchersRequest;
 import com.philips.cdp.di.ecs.request.MakePaymentRequest;
+import com.philips.cdp.di.ecs.request.OAuthRequest;
 import com.philips.cdp.di.ecs.request.RemoveVoucherRequest;
 import com.philips.cdp.di.ecs.request.SetDeliveryAddressRequest;
 import com.philips.cdp.di.ecs.request.SetDeliveryModesRequest;
@@ -57,16 +67,6 @@ import com.philips.cdp.di.ecs.request.SetVoucherRequest;
 import com.philips.cdp.di.ecs.request.SubmitOrderRequest;
 import com.philips.cdp.di.ecs.request.UpdateAddressRequest;
 import com.philips.cdp.di.ecs.request.UpdateECSShoppingCartQuantityRequest;
-import com.philips.cdp.di.ecs.request.CreateECSShoppingCartRequest;
-import com.philips.cdp.di.ecs.request.AddProductToECSShoppingCartRequest;
-import com.philips.cdp.di.ecs.request.GetConfigurationRequest;
-import com.philips.cdp.di.ecs.request.GetECSShoppingCartsRequest;
-import com.philips.cdp.di.ecs.request.GetProductAssetRequest;
-import com.philips.cdp.di.ecs.request.GetProductDisclaimerRequest;
-import com.philips.cdp.di.ecs.request.GetProductListRequest;
-import com.philips.cdp.di.ecs.request.GetProductForRequest;
-import com.philips.cdp.di.ecs.request.GetProductSummaryListRequest;
-import com.philips.cdp.di.ecs.request.OAuthRequest;
 import com.philips.cdp.di.ecs.util.ECSConfiguration;
 
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ import java.util.List;
 import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErrorMessage;
 
 
- class ECSManager {
+class ECSManager {
 
     static int threadCount = 0;
 
@@ -101,7 +101,7 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
     void getHybrisConfigResponse(ECSCallback<ECSConfig, Exception> ecsCallback) {
 
-        ECSCallback ecsCallback1 =  new ECSCallback<ECSConfig, Exception>() {
+        ECSCallback ecsCallback1 = new ECSCallback<ECSConfig, Exception>() {
             @Override
             public void onResponse(ECSConfig result) {
                 ECSConfiguration.INSTANCE.setSiteId(result.getSiteId());
@@ -123,30 +123,30 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
         getConfigurationRequest.executeRequest();
     }
 
-    GetConfigurationRequest getConfigurationRequestObject(ECSCallback<ECSConfig, Exception> eCSCallback){
+    GetConfigurationRequest getConfigurationRequestObject(ECSCallback<ECSConfig, Exception> eCSCallback) {
         return new GetConfigurationRequest(eCSCallback);
     }
 
 
-     void getOAuth(ECSOAuthProvider oAuthInput, ECSCallback<ECSOAuthData, Exception> ecsCallback) {
-        new OAuthRequest(GrantType.JANRAIN,oAuthInput, ecsCallback).executeRequest();
+    void getOAuth(ECSOAuthProvider oAuthInput, ECSCallback<ECSOAuthData, Exception> ecsCallback) {
+        new OAuthRequest(oAuthInput.getGrantType(), oAuthInput, ecsCallback).executeRequest();
     }
 
     void refreshOAuth(ECSOAuthProvider oAuthInput, ECSCallback<ECSOAuthData, Exception> ecsCallback) {
-        new OAuthRequest(GrantType.REFRESH_TOKEN,oAuthInput, ecsCallback).executeRequest();
+        new OAuthRequest(GrantType.REFRESH_TOKEN, oAuthInput, ecsCallback).executeRequest();
     }
 
     //========================================= Start of PRX Product List, Product Detail & Product for CTN =======================================
 
-     void getProductList(int currentPage, int pageSize, final ECSCallback<ECSProducts, Exception> finalEcsCallback) {
+    void getProductList(int currentPage, int pageSize, final ECSCallback<ECSProducts, Exception> finalEcsCallback) {
 
         GetProductListRequest getProductListRequest = new GetProductListRequest(currentPage, pageSize, new ECSCallback<ECSProducts, Exception>() {
             @Override
             public void onResponse(ECSProducts result) {
 
-                if(result.getProducts()!=null && result.getProducts().size()!=0) {
+                if (result.getProducts() != null && result.getProducts().size() != 0) {
                     prepareProductSummaryURL(result, finalEcsCallback);
-                }else{
+                } else {
                     finalEcsCallback.onResponse(result);
                 }
 
@@ -161,9 +161,9 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
     }
 
-     void getProductFor(String ctn, ECSCallback<ECSProduct, Exception> eCSCallback) {
+    void getProductFor(String ctn, ECSCallback<ECSProduct, Exception> eCSCallback) {
         if (null != ECSConfiguration.INSTANCE.getSiteId()) { // hybris flow
-            ECSCallback ecsCallback1 =  new ECSCallback<ECSProduct, Exception>() {
+            ECSCallback ecsCallback1 = new ECSCallback<ECSProduct, Exception>() {
                 @Override
                 public void onResponse(ECSProduct result) {
                     getSummaryForCTN(ctn, result, eCSCallback);
@@ -175,7 +175,7 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
                 }
             };
-            GetProductForRequest getProductForRequest = getProductForRequestObject(ctn,ecsCallback1);
+            GetProductForRequest getProductForRequest = getProductForRequestObject(ctn, ecsCallback1);
             getProductForRequest.executeRequest();
         } else { // Retailer flow
             getSummaryForCTN(ctn, null, eCSCallback);
@@ -183,8 +183,9 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
 
     }
-    GetProductForRequest getProductForRequestObject(String ctn, ECSCallback<ECSProduct, Exception> ecsCallback){
-        return new GetProductForRequest(ctn,  ecsCallback);
+
+    GetProductForRequest getProductForRequestObject(String ctn, ECSCallback<ECSProduct, Exception> ecsCallback) {
+        return new GetProductForRequest(ctn, ecsCallback);
     }
 
 
@@ -192,11 +193,11 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
         threadCount++;
         if (threadCount == 2) {
             ecsCallback.onResponse(product);
-            threadCount =0;
+            threadCount = 0;
         }
     }
 
-     void getProductDetail(ECSProduct product, ECSCallback<ECSProduct, Exception> ecsCallback) {
+    void getProductDetail(ECSProduct product, ECSCallback<ECSProduct, Exception> ecsCallback) {
         Thread assets = new Thread() {
 
             @Override
@@ -212,7 +213,7 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
                                     System.out.println("getProductAsset Success");
                                     productDetail(product, ecsCallback);
                                 } else {
-                                    ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong,null,null);
+                                    ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong, null, null);
                                     ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
                                 }
                             }
@@ -227,7 +228,7 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
                     @Override
                     public void onError(ERRORVALUES errorvalues, String s) {
-                          ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong,null,s);
+                        ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong, null, s);
                         ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
                     }
                 });
@@ -373,7 +374,7 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
     }
 
-     void getSummary(List<String> ctns, ECSCallback<List<ECSProduct>, Exception> ecsCallback) {
+    void getSummary(List<String> ctns, ECSCallback<List<ECSProduct>, Exception> ecsCallback) {
 
         ECSProducts products = new ECSProducts();
         ArrayList<ECSProduct> productArrayList = new ArrayList<>();
@@ -401,10 +402,10 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
     //=====================================================Start of Shopping Cart ===========================================================
 
     void getECSShoppingCart(ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
-        ECSCallback ecsCallback1 =  new ECSCallback<ECSShoppingCart, Exception>() {
+        ECSCallback ecsCallback1 = new ECSCallback<ECSShoppingCart, Exception>() {
             @Override
             public void onResponse(ECSShoppingCart ecsShoppingCart) {
-                if (ecsShoppingCart.getEntries()!=null && ecsShoppingCart.getEntries().size()!=0) {
+                if (ecsShoppingCart.getEntries() != null && ecsShoppingCart.getEntries().size() != 0) {
                     //Preparing products to get summary Data
                     List<ECSProduct> productList = new ArrayList<>();
 
@@ -438,14 +439,14 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
             }
         };
 
-        GetECSShoppingCartsRequest  getECSShoppingCartsRequest = getShoppingCartsRequestObject(ecsCallback1);
+        GetECSShoppingCartsRequest getECSShoppingCartsRequest = getShoppingCartsRequestObject(ecsCallback1);
 
         getECSShoppingCartsRequest.executeRequest();
 
     }
 
-      GetECSShoppingCartsRequest getShoppingCartsRequestObject( ECSCallback<ECSShoppingCart, Exception> ecsCallback1 ){
-         return  new GetECSShoppingCartsRequest(ecsCallback1);
+    GetECSShoppingCartsRequest getShoppingCartsRequestObject(ECSCallback<ECSShoppingCart, Exception> ecsCallback1) {
+        return new GetECSShoppingCartsRequest(ecsCallback1);
 
 
     }
@@ -466,12 +467,13 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
     }
 
-    CreateECSShoppingCartRequest createECSShoppingCartRequestObject(ECSCallback<ECSShoppingCart, Exception> ecsCallback){
+    CreateECSShoppingCartRequest createECSShoppingCartRequestObject(ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
         return new CreateECSShoppingCartRequest(ecsCallback);
     }
+
     // AddProduct to Cart
-     void addProductToShoppingCart(ECSProduct product, ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
-         ECSCallback<Boolean, Exception> ecsCallback1= new ECSCallback<Boolean, Exception>() {
+    void addProductToShoppingCart(ECSProduct product, ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
+        ECSCallback<Boolean, Exception> ecsCallback1 = new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 getECSShoppingCart(ecsCallback);
@@ -484,14 +486,15 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
             }
         };
 
-         addProductToECSShoppingCartRequestObject(product.getCode(),ecsCallback1).executeRequest();
+        addProductToECSShoppingCartRequestObject(product.getCode(), ecsCallback1).executeRequest();
     }
-    AddProductToECSShoppingCartRequest addProductToECSShoppingCartRequestObject(String code, ECSCallback<Boolean, Exception> ecsCallback ){
+
+    AddProductToECSShoppingCartRequest addProductToECSShoppingCartRequestObject(String code, ECSCallback<Boolean, Exception> ecsCallback) {
         return new AddProductToECSShoppingCartRequest(code, ecsCallback);
     }
 
-     void updateQuantity(int quantity, ECSEntries entriesEntity, ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
-         ECSCallback<Boolean, Exception> ecsCallback1 = new ECSCallback<Boolean, Exception>() {
+    void updateQuantity(int quantity, ECSEntries entriesEntity, ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
+        ECSCallback<Boolean, Exception> ecsCallback1 = new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 getECSShoppingCart(ecsCallback);
@@ -502,16 +505,16 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
                 ecsCallback.onFailure(error, ecsError);
             }
         };
-         updateECSShoppingCartQuantityRequestObject(ecsCallback1,entriesEntity,quantity).executeRequest();
+        updateECSShoppingCartQuantityRequestObject(ecsCallback1, entriesEntity, quantity).executeRequest();
     }
 
-    UpdateECSShoppingCartQuantityRequest updateECSShoppingCartQuantityRequestObject(ECSCallback<Boolean, Exception> ecsCallback, ECSEntries entriesEntity, int quantity){
-        return new UpdateECSShoppingCartQuantityRequest (ecsCallback,entriesEntity,quantity);
+    UpdateECSShoppingCartQuantityRequest updateECSShoppingCartQuantityRequestObject(ECSCallback<Boolean, Exception> ecsCallback, ECSEntries entriesEntity, int quantity) {
+        return new UpdateECSShoppingCartQuantityRequest(ecsCallback, entriesEntity, quantity);
     }
 
 
-     void setVoucher(String voucherCode, ECSCallback<List<ECSVoucher>, Exception> ecsCallback) {
-         ECSCallback<Boolean, Exception> ecsCallback1= new  ECSCallback<Boolean, Exception>() {
+    void setVoucher(String voucherCode, ECSCallback<List<ECSVoucher>, Exception> ecsCallback) {
+        ECSCallback<Boolean, Exception> ecsCallback1 = new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
                 getVoucher(ecsCallback);
@@ -522,18 +525,19 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
                 ecsCallback.onFailure(error, ecsError);
             }
         };
-         new SetVoucherRequest(voucherCode,ecsCallback1).executeRequest();
+        new SetVoucherRequest(voucherCode, ecsCallback1).executeRequest();
     }
 
 
-     void getVoucher(ECSCallback<List<ECSVoucher>, Exception> ecsCallback) {
-         getVouchersRequestObject(ecsCallback).executeRequest();
+    void getVoucher(ECSCallback<List<ECSVoucher>, Exception> ecsCallback) {
+        getVouchersRequestObject(ecsCallback).executeRequest();
     }
-    GetVouchersRequest getVouchersRequestObject(ECSCallback<List<ECSVoucher>, Exception> ecsCallback){
+
+    GetVouchersRequest getVouchersRequestObject(ECSCallback<List<ECSVoucher>, Exception> ecsCallback) {
         return new GetVouchersRequest(ecsCallback);
     }
 
-     void removeVoucher(String voucherCode, ECSCallback<List<ECSVoucher>, Exception> ecsCallback) {
+    void removeVoucher(String voucherCode, ECSCallback<List<ECSVoucher>, Exception> ecsCallback) {
 
         new RemoveVoucherRequest(voucherCode, new ECSCallback<Boolean, Exception>() {
             @Override
@@ -551,32 +555,32 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
 
     //===================================================== start of Delivery Mode ====================================================
-     void getDeliveryModes(ECSCallback<List<ECSDeliveryMode>, Exception> ecsCallback) {
+    void getDeliveryModes(ECSCallback<List<ECSDeliveryMode>, Exception> ecsCallback) {
         new GetDeliveryModesRequest(ecsCallback).executeRequest();
     }
 
-     void setDeliveryMode(String deliveryModeID, ECSCallback<Boolean, Exception> ecsCallback) {
+    void setDeliveryMode(String deliveryModeID, ECSCallback<Boolean, Exception> ecsCallback) {
         new SetDeliveryModesRequest(deliveryModeID, ecsCallback).executeRequest();
     }
 
-     void getRegions(String countryISO, ECSCallback<List<ECSRegion>, Exception> ecsCallback) {
-        new GetRegionsRequest(countryISO,ecsCallback).executeRequest();
+    void getRegions(String countryISO, ECSCallback<List<ECSRegion>, Exception> ecsCallback) {
+        new GetRegionsRequest(countryISO, ecsCallback).executeRequest();
     }
     //===================================================== End of Delivery Mode ====================================================
 
 
     //===================================================== Start of Address ====================================================
-     void getListSavedAddress(ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
+    void getListSavedAddress(ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
         new GetAddressRequest(ecsCallback).executeRequest();
     }
 
-     void setDeliveryAddress(ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback) {
+    void setDeliveryAddress(ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback) {
         new SetDeliveryAddressRequest(address.getId(), ecsCallback).executeRequest();
     }
     //===================================================== End of Delivery Mode ====================================================
 
-     void createNewAddress(ECSAddress address, ECSCallback<ECSAddress, Exception> ecsCallback, boolean singleAddress) {
-         ECSCallback<ECSAddress, Exception> ecsCallback1= new  ECSCallback<ECSAddress, Exception>() {
+    void createNewAddress(ECSAddress address, ECSCallback<ECSAddress, Exception> ecsCallback, boolean singleAddress) {
+        ECSCallback<ECSAddress, Exception> ecsCallback1 = new ECSCallback<ECSAddress, Exception>() {
             @Override
             public void onResponse(ECSAddress result) {
                 // Address is created and now Address list needs to be called
@@ -589,14 +593,14 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
                 ecsCallback.onFailure(error, ecsError);
             }
         };
-         createAddressRequestObject(address,ecsCallback1).executeRequest();
+        createAddressRequestObject(address, ecsCallback1).executeRequest();
     }
 
-    CreateAddressRequest createAddressRequestObject(ECSAddress address, ECSCallback<ECSAddress, Exception> ecsCallback){
-        return new CreateAddressRequest(address,ecsCallback);
+    CreateAddressRequest createAddressRequestObject(ECSAddress address, ECSCallback<ECSAddress, Exception> ecsCallback) {
+        return new CreateAddressRequest(address, ecsCallback);
     }
 
-     void createNewAddress(ECSAddress address, ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
+    void createNewAddress(ECSAddress address, ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
         new CreateAddressRequest(address, new ECSCallback<ECSAddress, Exception>() {
             @Override
             public void onResponse(ECSAddress result) {
@@ -611,11 +615,11 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
         }).executeRequest();
     }
 
-     void updateAddress(ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback) {
+    void updateAddress(ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback) {
         new UpdateAddressRequest(address, ecsCallback).executeRequest();
     }
 
-     void deleteAddress(ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback) {
+    void deleteAddress(ECSAddress address, ECSCallback<Boolean, Exception> ecsCallback) {
         new DeleteAddressRequest(address, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
@@ -643,7 +647,7 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
         });
     }
 
-     void getRetailers(String productID, ECSCallback<ECSRetailerList, Exception> ecsCallback) {
+    void getRetailers(String productID, ECSCallback<ECSRetailerList, Exception> ecsCallback) {
         new GetRetailersInfoRequest(ecsCallback, productID).executeRequest();
     }
     //===================================================== End of Address ====================================================
@@ -651,11 +655,11 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
 
     //===================================================== Start of Payment ====================================================
 
-     void getPayments(ECSCallback<List<ECSPayment>, Exception> ecsCallback) {
+    void getPayments(ECSCallback<List<ECSPayment>, Exception> ecsCallback) {
         new GetPaymentsRequest(ecsCallback).executeRequest();
     }
 
-     void setPaymentMethod(String paymentDetailsId, ECSCallback<Boolean, Exception> ecsCallback) {
+    void setPaymentMethod(String paymentDetailsId, ECSCallback<Boolean, Exception> ecsCallback) {
         new SetPaymentMethodRequest(paymentDetailsId, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
@@ -669,22 +673,22 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
         }).executeRequest();
     }
 
-     void getOrderHistory(int pageNumber, int pageSize, ECSCallback<ECSOrderHistory, Exception> ecsCallback) {
-        new GetOrderHistoryRequest(pageNumber,pageSize, ecsCallback).executeRequest();
+    void getOrderHistory(int pageNumber, int pageSize, ECSCallback<ECSOrderHistory, Exception> ecsCallback) {
+        new GetOrderHistoryRequest(pageNumber, pageSize, ecsCallback).executeRequest();
     }
 
 
-     void submitOrder(String cvv, ECSCallback<ECSOrderDetail, Exception> ecsCallback) {
+    void submitOrder(String cvv, ECSCallback<ECSOrderDetail, Exception> ecsCallback) {
         new SubmitOrderRequest(cvv, ecsCallback).executeRequest();
     }
 
 
-     void makePayment(ECSOrderDetail orderDetail, ECSAddress billingAddress, ECSCallback<ECSPaymentProvider, Exception> ecsCallback) {
+    void makePayment(ECSOrderDetail orderDetail, ECSAddress billingAddress, ECSCallback<ECSPaymentProvider, Exception> ecsCallback) {
         new MakePaymentRequest(orderDetail, billingAddress, ecsCallback).executeRequest();
     }
 
 
-     void getOrderDetail(String orderId, ECSCallback<ECSOrderDetail, Exception> ecsCallback) {
+    void getOrderDetail(String orderId, ECSCallback<ECSOrderDetail, Exception> ecsCallback) {
 
         new GetOrderDetailRequest(orderId, new ECSCallback<ECSOrderDetail, Exception>() {
             @Override
@@ -763,11 +767,11 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
         }
     }
 
-     void getUserProfile(ECSCallback<ECSUserProfile, Exception> ecsCallback) {
+    void getUserProfile(ECSCallback<ECSUserProfile, Exception> ecsCallback) {
         new GetUserProfileRequest(ecsCallback).executeRequest();
     }
 
-     void getOrderDetail(ECSOrders orders, ECSCallback<ECSOrders, Exception> ecsCallback) {
+    void getOrderDetail(ECSOrders orders, ECSCallback<ECSOrders, Exception> ecsCallback) {
         getOrderDetail(orders.getCode(), new ECSCallback<ECSOrderDetail, Exception>() {
             @Override
             public void onResponse(ECSOrderDetail result) {
@@ -783,21 +787,21 @@ import static com.philips.cdp.di.ecs.error.ECSNetworkError.getErrorLocalizedErro
     }
 
     public void refreshAuth(ECSOAuthProvider oAuthInput, ECSCallback<ECSOAuthData, Exception> ecsListener) {
-        new OAuthRequest(GrantType.REFRESH_TOKEN,oAuthInput,ecsListener).executeRequest();
+        new OAuthRequest(GrantType.REFRESH_TOKEN, oAuthInput, ecsListener).executeRequest();
     }
 
     public void updateAndFetchAddress(ECSAddress address, ECSCallback<List<ECSAddress>, Exception> ecsCallback) {
-       updateAddress(address, new ECSCallback<Boolean, Exception>() {
-           @Override
-           public void onResponse(Boolean result) {
-               getListSavedAddress(ecsCallback);
-           }
+        updateAddress(address, new ECSCallback<Boolean, Exception>() {
+            @Override
+            public void onResponse(Boolean result) {
+                getListSavedAddress(ecsCallback);
+            }
 
-           @Override
-           public void onFailure(Exception error, ECSError ecsError) {
-               ecsCallback.onFailure(error, ecsError);
-           }
-       });
+            @Override
+            public void onFailure(Exception error, ECSError ecsError) {
+                ecsCallback.onFailure(error, ecsError);
+            }
+        });
 
     }
 

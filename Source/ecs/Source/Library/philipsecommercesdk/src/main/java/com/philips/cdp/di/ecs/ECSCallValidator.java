@@ -13,8 +13,8 @@ import com.philips.cdp.di.ecs.integration.ECSOAuthProvider;
 import com.philips.cdp.di.ecs.model.address.ECSAddress;
 import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
 import com.philips.cdp.di.ecs.model.address.ECSUserProfile;
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
 import com.philips.cdp.di.ecs.model.cart.ECSEntries;
+import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
 import com.philips.cdp.di.ecs.model.config.ECSConfig;
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData;
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail;
@@ -30,7 +30,7 @@ import com.philips.cdp.di.ecs.model.voucher.ECSVoucher;
 
 import java.util.List;
 
- class ECSCallValidator {
+class ECSCallValidator {
 
     ECSManager ecsManager;
 
@@ -56,7 +56,7 @@ import java.util.List;
 
         ECSErrorWrapper configAPIValidateError = new ApiInputValidator().getProductSummaryAPIValidateError(ctns);
         if (configAPIValidateError == null) {
-            ecsManager.getSummary(ctns,ecsCallback);
+            ecsManager.getSummary(ctns, ecsCallback);
         } else {
             ecsCallback.onFailure(configAPIValidateError.getException(), configAPIValidateError.getEcsError());
         }
@@ -86,7 +86,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getHybrisOathAuthenticationAPIValidateError(oAuthInput);
         if (ecsErrorWrapper == null) {
-            ecsManager.getOAuth(oAuthInput,ecsCallback);
+            ecsManager.getOAuth(oAuthInput, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -96,7 +96,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getProductListAPIValidateError();
         if (ecsErrorWrapper == null) {
-            ecsManager.getProductList(currentPage,pageSize,ecsCallback);
+            ecsManager.getProductList(currentPage, pageSize, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -106,7 +106,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getProductForAPIValidateError(ctn);
         if (ecsErrorWrapper == null) {
-            ecsManager.getProductFor(ctn,ecsCallback);
+            ecsManager.getProductFor(ctn, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -115,7 +115,7 @@ import java.util.List;
     public void getProductDetail(ECSProduct product, ECSCallback<ECSProduct, Exception> ecsCallback) {
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getPRXProductDetailAPIValidateError(product);
         if (ecsErrorWrapper == null) {
-            ecsManager.getProductDetail(product,ecsCallback);
+            ecsManager.getProductDetail(product, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -124,7 +124,7 @@ import java.util.List;
     public void addProductToShoppingCart(ECSProduct product, ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getAddProductToShoppingCartError(product);
         if (ecsErrorWrapper == null) {
-            ecsManager.addProductToShoppingCart(product,ecsCallback);
+            ecsManager.addProductToShoppingCart(product, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -134,7 +134,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getUpdateQuantityError(quantity);
         if (ecsErrorWrapper == null) {
-            ecsManager.updateQuantity(quantity,entriesEntity,ecsCallback);
+            ecsManager.updateQuantity(quantity, entriesEntity, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -144,7 +144,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getSetVoucherError(voucherCode);
         if (ecsErrorWrapper == null) {
-            ecsManager.setVoucher(voucherCode,ecsCallback);
+            ecsManager.setVoucher(voucherCode, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -165,7 +165,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getRemoveVoucherError(voucherCode);
         if (ecsErrorWrapper == null) {
-            ecsManager.removeVoucher(voucherCode,ecsCallback);
+            ecsManager.removeVoucher(voucherCode, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -185,7 +185,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getSetDeliveryModeError(deliveryModeID);
         if (ecsErrorWrapper == null) {
-            ecsManager.setDeliveryMode(deliveryModeID,ecsCallback);
+            ecsManager.setDeliveryMode(deliveryModeID, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -196,7 +196,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getRegionsError();
         if (ecsErrorWrapper == null) {
-            ecsManager.getRegions(countryISO,ecsCallback);
+            ecsManager.getRegions(countryISO, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -217,7 +217,7 @@ import java.util.List;
         ECSErrorWrapper hybrisOathAuthenticationAPIValidateError = new ApiInputValidator().getCreateNewAddressError(ecsAddress);
 
         if (hybrisOathAuthenticationAPIValidateError == null) {
-            ecsManager.createNewAddress(ecsAddress,ecsCallback);
+            ecsManager.createNewAddress(ecsAddress, ecsCallback);
         } else {
             ecsCallback.onFailure(hybrisOathAuthenticationAPIValidateError.getException(), hybrisOathAuthenticationAPIValidateError.getEcsError());
         }
@@ -228,7 +228,7 @@ import java.util.List;
         ECSErrorWrapper hybrisOathAuthenticationAPIValidateError = new ApiInputValidator().getCreateNewAddressError(address);
 
         if (hybrisOathAuthenticationAPIValidateError == null) {
-            ecsManager.createNewAddress(address,ecsCallback,b);
+            ecsManager.createNewAddress(address, ecsCallback, b);
         } else {
             ecsCallback.onFailure(hybrisOathAuthenticationAPIValidateError.getException(), hybrisOathAuthenticationAPIValidateError.getEcsError());
         }
@@ -239,7 +239,7 @@ import java.util.List;
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getSetDeliveryAddressError(address);
 
         if (ecsErrorWrapper == null) {
-            ecsManager.setDeliveryAddress(address,ecsCallback);
+            ecsManager.setDeliveryAddress(address, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -250,7 +250,7 @@ import java.util.List;
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getSetDeliveryAddressError(address);
 
         if (ecsErrorWrapper == null) {
-            ecsManager.setAndFetchDeliveryAddress(address,ecsCallback);
+            ecsManager.setAndFetchDeliveryAddress(address, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -260,7 +260,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getUpdateAddressError(address);
         if (ecsErrorWrapper == null) {
-            ecsManager.updateAddress(address,ecsCallback);
+            ecsManager.updateAddress(address, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -270,7 +270,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getUpdateAddressError(address);
         if (ecsErrorWrapper == null) {
-            ecsManager.updateAndFetchAddress(address,ecsCallback);
+            ecsManager.updateAndFetchAddress(address, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -280,7 +280,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getDeleteAddressError(address);
         if (ecsErrorWrapper == null) {
-            ecsManager.deleteAddress(address,ecsCallback);
+            ecsManager.deleteAddress(address, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -290,7 +290,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getDeleteAddressError(address);
         if (ecsErrorWrapper == null) {
-            ecsManager.deleteAndFetchAddress(address,ecsCallback);
+            ecsManager.deleteAndFetchAddress(address, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -310,7 +310,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getSetPaymentMethodError(paymentDetailsId);
         if (ecsErrorWrapper == null) {
-            ecsManager.setPaymentMethod(paymentDetailsId,ecsCallback);
+            ecsManager.setPaymentMethod(paymentDetailsId, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -320,7 +320,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getRetailersError(productID);
         if (ecsErrorWrapper == null) {
-            ecsManager.getRetailers(productID,ecsCallback);
+            ecsManager.getRetailers(productID, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -330,7 +330,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getSubmitOrderError(cvv);
         if (ecsErrorWrapper == null) {
-            ecsManager.submitOrder(cvv,ecsCallback);
+            ecsManager.submitOrder(cvv, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -338,9 +338,9 @@ import java.util.List;
 
     public void makePayment(ECSOrderDetail orderDetail, ECSAddress billingAddress, ECSCallback<ECSPaymentProvider, Exception> ecsCallback) {
 
-        ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getMakePaymentError(orderDetail,billingAddress);
+        ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getMakePaymentError(orderDetail, billingAddress);
         if (ecsErrorWrapper == null) {
-            ecsManager.makePayment(orderDetail,billingAddress,ecsCallback);
+            ecsManager.makePayment(orderDetail, billingAddress, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -350,7 +350,7 @@ import java.util.List;
 
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getOrderHistoryError(pageNumber);
         if (ecsErrorWrapper == null) {
-            ecsManager.getOrderHistory(pageNumber,pageSize,ecsCallback);
+            ecsManager.getOrderHistory(pageNumber, pageSize, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -360,7 +360,7 @@ import java.util.List;
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getOrderDetailError(orderId);
 
         if (ecsErrorWrapper == null) {
-            ecsManager.getOrderDetail(orderId,ecsCallback);
+            ecsManager.getOrderDetail(orderId, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -370,7 +370,7 @@ import java.util.List;
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getOrderDetailError(orders.getCode());
 
         if (ecsErrorWrapper == null) {
-            ecsManager.getOrderDetail(orders,ecsCallback);
+            ecsManager.getOrderDetail(orders, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }
@@ -390,7 +390,7 @@ import java.util.List;
         ECSErrorWrapper ecsErrorWrapper = new ApiInputValidator().getHybrisOathAuthenticationAPIValidateError(oAuthInput);
 
         if (ecsErrorWrapper == null) {
-            ecsManager.refreshAuth(oAuthInput,ecsCallback);
+            ecsManager.refreshAuth(oAuthInput, ecsCallback);
         } else {
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
         }

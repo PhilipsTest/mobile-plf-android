@@ -154,7 +154,7 @@
     <string name="dcc_send_email">E-pasts</string>
     <string name="dcc_call_number">Piezvaniet mums</string>
     <string name="dcc_chat_to_us">Tērzējiet ar mums</string>
-    <string name="dcc_chat_desc">Tērzējiet visu diennakti katru dienu ar kādu no mūsu produktu speciālistiem (angļu valodā). </string>
+    <string name="dcc_chat_desc">Sāciet tērzēšanu ar mūsu produktu speciālistu. </string>
     <string name="dcc_remove_photo">Noņemt fotoattēlu</string>
     <string name="dcc_continue">Turpināt</string>
     <string name="dcc_characters_left">rakstzīmes atlikušas</string>

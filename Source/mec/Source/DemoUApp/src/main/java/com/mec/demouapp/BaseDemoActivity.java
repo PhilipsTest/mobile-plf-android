@@ -38,9 +38,9 @@ public class BaseDemoActivity extends AppCompatActivity implements ActionBarList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initTheme();
         super.onCreate(savedInstanceState);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        initTheme();
         setContentView(R.layout.base_demo_activity);
         showAppVersion();
         fragment=new BaseDemoFragment();

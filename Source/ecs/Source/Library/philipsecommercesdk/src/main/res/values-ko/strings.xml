@@ -5,43 +5,43 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="ECSAppInfraNotFound">[ko]Please provide app infra object</string>
-  <string name="ECSBaseURLNotFound">[ko]Base URL not found</string>
-  <string name="ECSCartEntryError">[ko]The Product is not added in Cart</string>
-  <string name="ECSCartError">[ko]No cart created yet</string>
-  <string name="ECSCommerceCartModificationError">[ko]Quantity must not be less than zero</string>
-  <string name="ECSCtnNotProvided">[ko]Please provide the CTN</string>
-  <string name="ECSHybrisNotAvailable">[ko]Philips shop is not available for the selected country, only retailer mode is available</string>
-  <string name="ECSIllegalArgumentError">[ko]Please provide valid input data</string>
-  <string name="ECSInsufficientStockError">[ko]Product cannot be shipped as it is out of stock</string>
-  <string name="ECSInvalidPaymentInfoError">[ko]Please provide valid payment details</string>
-  <string name="ECSInvalidTokenError">[ko]We have encountered technical glitch (Invalid access token). Please do Hybris Re-Auth</string>
-  <string name="ECSLocaleNotFound">[ko]Please set the locale</string>
-  <string name="ECSNoSuchElementError">[ko]An error occurred while fetching the data from the server</string>
-  <string name="ECSOAuthDetailError">[ko]Please provide complete OAuth detials</string>
-  <string name="ECSOAuthNotCalled">[ko]User authorization is required for this action</string>
-  <string name="ECSPaymentAuthorizationError">[ko]Payment authorization was not successful</string>
-  <string name="ECSPropositionIdNotFound">[ko]Please set a valid Proposition ID</string>
-  <string name="ECSSiteIdNotFound">[ko]Philips shop is not available for the selected country, only retailer mode is available</string>
-  <string name="ECSUnknownIdentifierError">[ko]Requested resource is not available</string>
-  <string name="ECSUnsupportedDeliveryModeError">[ko]Selected delivery mode is not supported</string>
-  <string name="ECSUnsupportedVoucherError">[ko]Sorry, this voucher can\'t be redeemed</string>
-  <string name="ECSValidationError">[ko]Data validation failed</string>
-  <string name="ECSVoucherOperationError">[ko]Sorry, this voucher can\'t be redeemed</string>
-  <string name="ECSaddressId">[ko]Given address doesn\'t exist or belong to another user</string>
-  <string name="ECScountryCodeNotGiven">[ko]Please provide valid country code</string>
-  <string name="ECScountryisocode">[ko]Country selected is invalid</string>
-  <string name="ECSfirstName">[ko]Please notice that the following characters are not allowed: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
-  <string name="ECSinvalid_client">[ko]We have encountered technical glitch (Bad client credentials). Please re-login</string>
-  <string name="ECSinvalid_grant">[ko]We have encountered technical glitch (Invalid Janrain Token). Please re-login</string>
-  <string name="ECSlastName">[ko]Please notice that the following characters are not allowed: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
-  <string name="ECSorderIdNil">[ko]Please provide valid order</string>
-  <string name="ECSphone1">[ko]Phone number selected is invalid</string>
-  <string name="ECSphone2">[ko]Phone number selected is invalid</string>
-  <string name="ECSpostUrl">[ko]Order is already in a paid/completed state</string>
-  <string name="ECSpostalCode">[ko]ZIP code selected is invalid</string>
-  <string name="ECSregionisocode">[ko]Region selected is invalid</string>
-  <string name="ECSsessionCart">[ko]Please select your delivery address, delivery mode and payment method before submitting an order</string>
-  <string name="ECSsomethingWentWrong">[ko]We have encountered technical glitch. Please try after some time</string>
-  <string name="ECSunsupported_grant_type">[ko]We have encountered technical glitch (Unsupported grant type). Please re-login</string>
+  <string name="ECSAppInfraNotFound">앱 인프라 개체를 입력하십시오</string>
+  <string name="ECSBaseURLNotFound">기본 URL을 찾을 수 없습니다</string>
+  <string name="ECSCartEntryError">제품이 장바구니에 추가되지 않습니다</string>
+  <string name="ECSCartError">생성된 장바구니가 없습니다</string>
+  <string name="ECSCommerceCartModificationError">수량은 0보다 작을 수 없습니다</string>
+  <string name="ECSCtnNotProvided">CTN을 입력하십시오</string>
+  <string name="ECSHybrisNotAvailable">선택한 국가에서는 필립스 매장을 사용할 수 없으며, 소매점 모드로만 이용할 수 있습니다</string>
+  <string name="ECSIllegalArgumentError">올바른 입력 데이터를 입력하십시오</string>
+  <string name="ECSInsufficientStockError">재고가 없어 제품을 배송할 수 없습니다</string>
+  <string name="ECSInvalidPaymentInfoError">올바른 결제 세부 정보를 입력하십시오</string>
+  <string name="ECSInvalidTokenError">기술적인 결함이 발생했습니다(유효하지 않은 액세스 토큰). Hybris 재승인을 수행하십시오</string>
+  <string name="ECSLocaleNotFound">로케일을 설정하십시오</string>
+  <string name="ECSNoSuchElementError">서버에서 데이터를 가져오는 동안 오류가 발생했습니다</string>
+  <string name="ECSOAuthDetailError">전체 OAuth 세부 정보를 제공하십시오</string>
+  <string name="ECSOAuthNotCalled">이 작업을 위해서는 사용자 승인이 필요합니다</string>
+  <string name="ECSPaymentAuthorizationError">결제 승인이 실패했습니다</string>
+  <string name="ECSPropositionIdNotFound">올바른 제안 ID를 설정하십시오</string>
+  <string name="ECSSiteIdNotFound">선택한 국가에서는 필립스 매장을 사용할 수 없으며, 소매점 모드로만 이용할 수 있습니다</string>
+  <string name="ECSUnknownIdentifierError">요청한 자원을 사용할 수 없습니다</string>
+  <string name="ECSUnsupportedDeliveryModeError">선택한 배송 모드는 지원되지 않습니다</string>
+  <string name="ECSUnsupportedVoucherError">죄송합니다. 이 바우처는 사용할 수 없습니다</string>
+  <string name="ECSValidationError">데이터 유효성 검사에 실패했습니다</string>
+  <string name="ECSVoucherOperationError">죄송합니다. 이 바우처는 사용할 수 없습니다</string>
+  <string name="ECSaddressId">해당 주소가 존재하지 않거나 다른 사용자에게 속해 있습니다</string>
+  <string name="ECScountryCodeNotGiven">유효한 국가 코드를 입력하십시오</string>
+  <string name="ECScountryisocode">선택한 국가가 올바르지 않습니다</string>
+  <string name="ECSfirstName">다음 특수 문자는 허용되지 않습니다. \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
+  <string name="ECSinvalid_client">기술적인 결함이 발생했습니다(잘못된 클라이언트 자격 증명). 다시 로그인하십시오</string>
+  <string name="ECSinvalid_grant">기술적인 결함이 발생했습니다(유효하지 않은 Janrain 토큰). 다시 로그인하십시오</string>
+  <string name="ECSlastName">다음 특수 문자는 허용되지 않습니다. \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
+  <string name="ECSorderIdNil">올바른 주문을 입력하십시오</string>
+  <string name="ECSphone1">선택한 전화번호가 올바르지 않습니다</string>
+  <string name="ECSphone2">선택한 전화번호가 올바르지 않습니다</string>
+  <string name="ECSpostUrl">주문이 이미 지급/완료됨 상태입니다</string>
+  <string name="ECSpostalCode">선택한 우편번호가 올바르지 않습니다</string>
+  <string name="ECSregionisocode">선택한 지역이 올바르지 않습니다</string>
+  <string name="ECSsessionCart">주문을 제출하기 전에 배송 주소, 배송 모드 및 결제 방법을 선택하십시오</string>
+  <string name="ECSsomethingWentWrong">기술적인 결함이 발생했습니다. 잠시 후에 다시 시도하십시오</string>
+  <string name="ECSunsupported_grant_type">기술적인 결함이 발생했습니다(지원되지 않는 권한 부여 유형). 다시 로그인하십시오</string>
 </resources>

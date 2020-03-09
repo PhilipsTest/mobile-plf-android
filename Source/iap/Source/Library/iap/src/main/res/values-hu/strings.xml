@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">A fizetés megszakítva</string>
   <string name="iap_Payment_failure">A fizetés sikertelen</string>
+  <string name="iap_accept_terms">[hu]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Elfogadott kódok</string>
   <string name="iap_access_token_notfound">Nem található a hozzáférési kulcs</string>
   <string name="iap_add_new_address">Új cím hozzáadása</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Szakértői értékelések</string>
   <string name="iap_extra_option">Extra opciók</string>
   <string name="iap_failed">Sikertelen</string>
+  <string name="iap_faq">[hu]FAQ</string>
   <string name="iap_fetching_payment">Fizetési adatok betöltése...</string>
   <string name="iap_filter_productlist">Ez szűri a terméklistát. Kérjük, ellenőrizze, hogy helyesen írta-e be a szűrőkifejezést.</string>
   <string name="iap_first_name">Keresztnév</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Ha rendelését egy másik kereskedőnél adta le, lehetséges, hogy nem jelenik meg itt.</string>
   <string name="iap_out_of_stock">Kifogyott</string>
   <string name="iap_overall_rating">Általános értékelés</string>
+  <string name="iap_page">[hu]page</string>
   <string name="iap_pay_now">Fizetés</string>
   <string name="iap_payment">Fizetés</string>
   <string name="iap_payment_by">Fizette:</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Nincsenek elérhető termékek</string>
   <string name="iap_promotional_gift">Promóciós vagy ajándékkód</string>
   <string name="iap_quantity">Mennyiség: %s</string>
+  <string name="iap_product_item_quantity">Mennyiség:</string>
+  <string name="iap_questions">[hu]Questions? Please visit our</string>
   <string name="iap_rate_it">Szereti, nem szereti, mi arra kérjük, értékelje!</string>
   <string name="iap_read">Olvassa el a következőt:</string>
   <string name="iap_read_full_review">a teljes értékelés megtekintése</string>

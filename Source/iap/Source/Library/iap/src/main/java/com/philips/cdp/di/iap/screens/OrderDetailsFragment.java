@@ -243,7 +243,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
         for (ProductData data : productList) {
             totalQuantity += data.getQuantity();
         }
-        mTvQuantity.setText(String.format(mContext.getString(R.string.iap_no_of_products), totalQuantity + ""));
+        mTvQuantity.setText(String.format(mContext.getString(R.string.iap_number_of_products), totalQuantity + ""));
 
         setProductSummary(productList);
     }
@@ -345,7 +345,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
             tvPriceTotal.setText(detail.getTotalPriceWithTax().getFormattedValue());
         }
         if (detail.getDeliveryMode() != null && detail.getDeliveryCost() != null) {
-            tvDeliveryMode.setText(String.format(getResources().getString(R.string.iap_delivery_ups_parcel), detail.getDeliveryMode().getCode().toLowerCase()));
+            tvDeliveryMode.setText(String.format(getResources().getString(R.string.iap_delevery_via), detail.getDeliveryMode().getCode().toLowerCase()));
             tvDeliveryModePrice.setText(detail.getDeliveryCost().getFormattedValue());
         }else{
             tvDeliveryMode.setVisibility(View.GONE);

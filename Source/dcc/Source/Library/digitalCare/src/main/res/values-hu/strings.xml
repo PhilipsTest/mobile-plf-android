@@ -154,7 +154,7 @@
     <string name="dcc_send_email">E-mail</string>
     <string name="dcc_call_number">Hívjon minket</string>
     <string name="dcc_chat_to_us">Cseteljen velünk</string>
-    <string name="dcc_chat_desc">A hét minden napján, napi 24 órában csetelhet angolul termékszakértőnkkel. </string>
+    <string name="dcc_chat_desc">Kezdeményezzen élő csevegést termékszakértőnkkel. </string>
     <string name="dcc_remove_photo">Fénykép eltávolítása</string>
     <string name="dcc_continue">Folytatás</string>
     <string name="dcc_characters_left">hátralévő karakter</string>

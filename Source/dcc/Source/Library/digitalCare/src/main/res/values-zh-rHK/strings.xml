@@ -156,7 +156,7 @@
     <string name="dcc_send_email">電郵</string>
     <string name="dcc_call_number">致電我們</string>
     <string name="dcc_chat_to_us">與我們即時通訊</string>
-    <string name="dcc_chat_desc">以英文與我們的產品專家即時通訊，全天候為您服務。 </string>
+    <string name="dcc_chat_desc">開始諮詢我們的產品專家。 </string>
     <string name="dcc_remove_photo">移除相片</string>
     <string name="dcc_continue">繼續</string>
     <string name="dcc_characters_left">剩餘字元</string>

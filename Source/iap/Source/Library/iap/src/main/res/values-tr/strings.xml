@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Ödeme iptal edildi</string>
   <string name="iap_Payment_failure">Ödeme hatası</string>
+  <string name="iap_accept_terms">[tr]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Kabul edilen kodlar</string>
   <string name="iap_access_token_notfound">Erişim Belirteci bulunamadı</string>
   <string name="iap_add_new_address">Yeni adres ekle</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Uzman Görüşleri</string>
   <string name="iap_extra_option">Ek seçenekler</string>
   <string name="iap_failed">Başarısız</string>
+  <string name="iap_faq">[tr]FAQ</string>
   <string name="iap_fetching_payment">Ödeme Ayrıntıları Alınıyor...</string>
   <string name="iap_filter_productlist">Bu, ürün listemizi filtreler. Lütfen filtre teriminizde yazım hatası olmamasına dikkat edin</string>
   <string name="iap_first_name">Adı</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Farklı bir satış kanalından verdiğiniz siparişler burada görünmeyebilir.</string>
   <string name="iap_out_of_stock">Stokta yok</string>
   <string name="iap_overall_rating">Genel puan</string>
+  <string name="iap_page">[tr]page</string>
   <string name="iap_pay_now">Şimdi Öde</string>
   <string name="iap_payment">Ödeme</string>
   <string name="iap_payment_by">Ödemeyi yapan kişi:</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Ürün mevcut değil</string>
   <string name="iap_promotional_gift">Promosyon veya hediye kodu</string>
   <string name="iap_quantity">Adet: %s</string>
+  <string name="iap_product_item_quantity">Adet:</string>
+  <string name="iap_questions">[tr]Questions? Please visit our</string>
   <string name="iap_rate_it">Beğenin veya beğenmeyin, değerlendirmenizi istiyoruz!</string>
   <string name="iap_read">Daha fazla bilgi için</string>
   <string name="iap_read_full_review">Değerlendirmenin tam metnini okuyun</string>

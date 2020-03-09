@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Cancelamento do pagamento</string>
   <string name="iap_Payment_failure">Falha no pagamento</string>
+  <string name="iap_accept_terms">[pt]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Códigos aceites</string>
   <string name="iap_access_token_notfound">Token de acesso não encontrado</string>
   <string name="iap_add_new_address">Adicionar uma nova morada</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Avaliações de peritos</string>
   <string name="iap_extra_option">Opções extra</string>
   <string name="iap_failed">Falhou</string>
+  <string name="iap_faq">[pt]FAQ</string>
   <string name="iap_fetching_payment">A obter detalhes de pagamento...</string>
   <string name="iap_filter_productlist">Esta opção filtra a nossa lista de produtos. Certifique-se de que não existem erros no termo que introduziu como filtro.</string>
   <string name="iap_first_name">Nome</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Se efetuou a sua encomenda através de outro revendedor, esta pode não ser apresentada aqui.</string>
   <string name="iap_out_of_stock">Sem stock</string>
   <string name="iap_overall_rating">Classificação geral</string>
+  <string name="iap_page">[pt]page</string>
   <string name="iap_pay_now">Pagar agora</string>
   <string name="iap_payment">Pagamento</string>
   <string name="iap_payment_by">Pago por</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Nenhum produto disponível</string>
   <string name="iap_promotional_gift">Código promocional ou de oferta</string>
   <string name="iap_quantity">Quantidade: %s</string>
+  <string name="iap_product_item_quantity">Quantidade:</string>
+  <string name="iap_questions">[pt]Questions? Please visit our</string>
   <string name="iap_rate_it">Quer o adore ou o deteste, queremos saber a sua opinião!</string>
   <string name="iap_read">Leia a nossa</string>
   <string name="iap_read_full_review">Ler a crítica completa</string>

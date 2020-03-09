@@ -154,7 +154,7 @@
     <string name="dcc_send_email">メールでのお問い合わせ</string>
     <string name="dcc_call_number">電話でのお問い合わせ</string>
     <string name="dcc_chat_to_us">チャットでのお問い合わせ</string>
-    <string name="dcc_chat_desc">製品担当者が 24 時間いつでもライブチャットでお答えいたします（英語のみ）。 </string>
+    <string name="dcc_chat_desc">製品担当者とライブチャットを開始します。 </string>
     <string name="dcc_remove_photo">写真の削除</string>
     <string name="dcc_continue">続行</string>
     <string name="dcc_characters_left">入力可能文字数</string>

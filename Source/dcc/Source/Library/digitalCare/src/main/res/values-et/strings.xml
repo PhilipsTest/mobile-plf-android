@@ -153,7 +153,7 @@
     <string name="dcc_send_email">E-post</string>
     <string name="dcc_call_number">Helistage meile</string>
     <string name="dcc_chat_to_us">Vestelge meiega</string>
-    <string name="dcc_chat_desc">Reaalajas vestlus 24/7 inglise keeles ühe meie tootespetsialistiga. </string>
+    <string name="dcc_chat_desc">Alustage otsevestlust meie tootespetsialistiga. </string>
     <string name="dcc_remove_photo">Eemalda foto</string>
     <string name="dcc_continue">Jätka</string>
     <string name="dcc_characters_left">järelejäänud tähemärki</string>

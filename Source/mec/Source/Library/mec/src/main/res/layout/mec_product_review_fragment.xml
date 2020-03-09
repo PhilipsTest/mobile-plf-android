@@ -35,13 +35,16 @@
                 android:src="@drawable/mec_bv_trustmark" />
 
             <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/mec_bazaarvoice_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:padding="@dimen/iap_margin_10dp"
-                android:autoLink="web"
-                android:text="@{@string/mec_bazaarVoice_Terms_And_Condition + @string/mec_bazaarVoice_Detail_at + @string/mec_bazaarVoice_link}" />
+                android:textColor="?attr/uidLabelRegularNormalTextColor"
+                android:linksClickable="true"
+                android:text="link" />
+
 
         </LinearLayout>
 

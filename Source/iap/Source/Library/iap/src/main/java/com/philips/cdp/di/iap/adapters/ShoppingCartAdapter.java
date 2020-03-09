@@ -252,7 +252,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
                     shoppingCartFooter.mDeliveryVia.setVisibility(View.VISIBLE);
-                    String freeDeliverySpendOn = mContext.getResources().getString(R.string.iap_delivery_ups_parcel);
+                    String freeDeliverySpendOn = mContext.getResources().getString(R.string.iap_delevery_via);
                     freeDeliverySpendOn = String.format(freeDeliverySpendOn, deliveryMethod);
                     shoppingCartFooter.mDeliveryTitle.setText(freeDeliverySpendOn);
                     shoppingCartFooter.mDeliveryTitle.setVisibility(View.VISIBLE);

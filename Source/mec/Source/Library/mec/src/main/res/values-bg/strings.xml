@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[bg]Add</string>
-  <string name="mec_add_gift_Card">[bg]Add gift code</string>
+  <string name="mec_add">Добави</string>
+  <string name="mec_add_gift_Card">Добавете код за подарък</string>
   <string name="mec_add_to_cart">Добавяне към количката</string>
-  <string name="mec_anonymous">[bg]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[bg]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[bg]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">Анонимен</string>
+  <string name="mec_bazaarVoice_Detail_at">Подробности в</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">Тези отзиви се управляват от Bazaarvoice и са в съответствие с Политиката за автентичност на Bazaarvoice, която се поддържа от технология за борба с измамите и човешкия анализ.</string>
   <string name="mec_buy_from_retailers">Купуване от търговец на дребно</string>
   <string name="mec_cancel">Отказ</string>
-  <string name="mec_cart_login_error_message">[bg]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[bg]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">Моля, регистрирайте се или се впишете за лесна поръчка на вашите продукти</string>
+  <string name="mec_continue_checkout">Продължаване към финализиране</string>
   <string name="mec_continue_shopping">Продължете пазаруването</string>
-  <string name="mec_features">[bg]Features</string>
-  <string name="mec_has_used_this_product_for">[bg]Has used this product for</string>
+  <string name="mec_features">Функции</string>
+  <string name="mec_has_used_this_product_for">Е използвал този продукт за</string>
   <string name="mec_in_stock">в наличност</string>
   <string name="mec_info">Информация</string>
-  <string name="mec_invalid_landing_view">[bg]Please provide a valid Landing View</string>
+  <string name="mec_invalid_landing_view">Моля, предоставете валиден целеви изглед</string>
   <string name="mec_invalid_product_ctn">Въведете CTN на продукт, който да не е празен</string>
-  <string name="mec_loading">[bg]Loading..</string>
+  <string name="mec_loading">Зареждане...</string>
   <string name="mec_more_info">за повече информация</string>
   <string name="mec_no_product_available">Няма намерен продукт във вашия магазин.</string>
   <string name="mec_no_result">Открити са 0 резултата за</string>
-  <string name="mec_no_review_available">[bg]No Reviews Found</string>
-  <string name="mec_ok">[bg]OK</string>
-  <string name="mec_online_retailers">[bg]Online Retailers</string>
+  <string name="mec_no_review_available">Не са намерени отзиви</string>
+  <string name="mec_ok">OK</string>
+  <string name="mec_online_retailers">Онлайн търговци на дребно</string>
   <string name="mec_out_of_stock">Няма наличност</string>
   <string name="mec_privacy">Бележка за поверителност</string>
   <string name="mec_product_detail_title"> Данни за продукта</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">Прочете нашата</string>
   <string name="mec_reviews">Отзиви</string>
   <string name="mec_shopping_cart">Количка за пазаруване</string>
-  <string name="mec_specs">[bg]Specs</string>
-  <string name="mec_threshold_message">[bg]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[bg]Request threshold reached</string>
+  <string name="mec_specs">Спецификации</string>
+  <string name="mec_threshold_message">Това може да отнеме повече време. Желаете ли да продължите?</string>
+  <string name="mec_threshold_title">Достигнат е прагът за заявки</string>
   <string name="mec_zero_results_message"> Така се филтрира нашият продуктов списък. Моля, проверете дали няма правописна грешка в термина, който сте задали за филтриране</string>
 </resources>

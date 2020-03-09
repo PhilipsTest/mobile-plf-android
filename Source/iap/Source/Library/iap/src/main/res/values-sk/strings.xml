@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Zrušenie platby</string>
   <string name="iap_Payment_failure">Zlyhanie platby</string>
+  <string name="iap_accept_terms">[sk]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Prijaté kódy</string>
   <string name="iap_access_token_notfound">Prístupový token nebol nájdený</string>
   <string name="iap_add_new_address">Pridať novú adresu</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Odborné recenzie</string>
   <string name="iap_extra_option">Ďalšie možnosti</string>
   <string name="iap_failed">Neúspešné</string>
+  <string name="iap_faq">[sk]FAQ</string>
   <string name="iap_fetching_payment">Načítavajú sa podrobnosti o platbe...</string>
   <string name="iap_filter_productlist">Táto funkcia filtruje náš zoznam výrobkov. Skontrolujte, či vo výraze vo filtri nie sú chyby.</string>
   <string name="iap_first_name">Krstné meno</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Ak ste objednávku vykonali prostredníctvom iného predajcu, vaša objednávka sa tu nemusí zobrazovať.</string>
   <string name="iap_out_of_stock">Nie je na sklade</string>
   <string name="iap_overall_rating">Celkové hodnotenie</string>
+  <string name="iap_page">[sk]page</string>
   <string name="iap_pay_now">Zaplatiť</string>
   <string name="iap_payment">Úhrada</string>
   <string name="iap_payment_by">Platca</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Žiadne dostupné produkty</string>
   <string name="iap_promotional_gift">Propagačný alebo darčekový kód</string>
   <string name="iap_quantity">Množstvo: %s</string>
+  <string name="iap_product_item_quantity">Množstvo:</string>
+  <string name="iap_questions">[sk]Questions? Please visit our</string>
   <string name="iap_rate_it">Páči? Nepáči? Podeľte sa s nami o vaše hodnotenie!</string>
   <string name="iap_read">Prečítajte</string>
   <string name="iap_read_full_review">Prečítať celú recenziu</string>

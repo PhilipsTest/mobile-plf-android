@@ -158,7 +158,7 @@
     <string name="dcc_send_email">E-mail</string>
     <string name="dcc_call_number">Chiamaci</string>
     <string name="dcc_chat_to_us">Chatta con noi</string>
-    <string name="dcc_chat_desc">Live chat in lingua inglese 24 ore su 24, 7 giorni su 7 con i nostri specialisti di prodotto. </string>
+    <string name="dcc_chat_desc">Avvia una sessione di chat live con il nostro specialista di prodotto. </string>
     <string name="dcc_remove_photo">Rimuovi foto</string>
     <string name="dcc_continue">Continua</string>
     <string name="dcc_characters_left">caratteri rimanenti</string>

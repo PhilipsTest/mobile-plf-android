@@ -1,27 +1,20 @@
+
 package com.philips.cdp.prodreg.model_request;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+@SuppressWarnings("unused")
+public class Meta {
 
-public class Meta implements Serializable {
+    @SerializedName("sendEmail")
+    private Boolean mSendEmail;
 
-	@SerializedName("sendEmail")
-	private boolean sendEmail;
+    public Boolean getSendEmail() {
+        return mSendEmail;
+    }
 
-	public void setSendEmail(boolean sendEmail){
-		this.sendEmail = sendEmail;
-	}
+    public void setSendEmail(Boolean sendEmail) {
+        mSendEmail = sendEmail;
+    }
 
-	public boolean isSendEmail(){
-		return sendEmail;
-	}
-
-	@Override
- 	public String toString(){
-		return 
-			"Meta{" + 
-			"sendEmail = '" + sendEmail + '\'' + 
-			"}";
-		}
 }

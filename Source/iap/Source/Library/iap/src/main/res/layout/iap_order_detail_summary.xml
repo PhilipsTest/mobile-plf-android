@@ -31,7 +31,7 @@
                 android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="@string/iap_delivery_ups_parcel"/>
+                android:text="@string/iap_delevery_via"/>
 
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/tv_price_deliverymode"

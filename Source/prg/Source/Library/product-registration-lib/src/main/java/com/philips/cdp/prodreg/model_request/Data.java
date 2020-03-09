@@ -1,39 +1,30 @@
+
 package com.philips.cdp.prodreg.model_request;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+@SuppressWarnings("unused")
+public class Data {
 
-public class Data implements Serializable {
+    @SerializedName("attributes")
+    private Attributes mAttributes;
+    @SerializedName("type")
+    private String mType;
 
-	@SerializedName("attributes")
-	private Attributes attributes;
+    public Attributes getAttributes() {
+        return mAttributes;
+    }
 
-	@SerializedName("type")
-	private String type;
+    public void setAttributes(Attributes attributes) {
+        mAttributes = attributes;
+    }
 
-	public void setAttributes(Attributes attributes){
-		this.attributes = attributes;
-	}
+    public String getType() {
+        return mType;
+    }
 
-	public Attributes getAttributes(){
-		return attributes;
-	}
+    public void setType(String type) {
+        mType = type;
+    }
 
-	public void setType(String type){
-		this.type = type;
-	}
-
-	public String getType(){
-		return type;
-	}
-
-	@Override
- 	public String toString(){
-		return 
-			"Data{" + 
-			"attributes = '" + attributes + '\'' + 
-			",type = '" + type + '\'' + 
-			"}";
-		}
 }

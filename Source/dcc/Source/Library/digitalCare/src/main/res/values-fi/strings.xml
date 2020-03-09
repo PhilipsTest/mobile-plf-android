@@ -155,7 +155,7 @@
     <string name="dcc_send_email">Sähköposti</string>
     <string name="dcc_call_number">Soita meille</string>
     <string name="dcc_chat_to_us">Lähetä meille chat-viesti</string>
-    <string name="dcc_chat_desc">Live chat -tuki asiantuntijamme kanssa englanniksi vuorokauden ympäri. </string>
+    <string name="dcc_chat_desc">Aloita livekeskustelu tuoteasiantuntijamme kanssa. </string>
     <string name="dcc_remove_photo">Poista kuva</string>
     <string name="dcc_continue">Jatka</string>
     <string name="dcc_characters_left">merkkiä jäljellä</string>

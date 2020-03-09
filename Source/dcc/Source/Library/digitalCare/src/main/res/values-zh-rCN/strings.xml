@@ -155,7 +155,7 @@
     <string name="dcc_send_email">电子邮件</string>
     <string name="dcc_call_number">致电我们</string>
     <string name="dcc_chat_to_us">与我们聊天</string>
-    <string name="dcc_chat_desc">与我们的产品专家进行全天候英语实时聊天。 </string>
+    <string name="dcc_chat_desc">与产品专员开始实时聊天。 </string>
     <string name="dcc_remove_photo">删除照片</string>
     <string name="dcc_continue">继续</string>
     <string name="dcc_characters_left">个字符可使用</string>

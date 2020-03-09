@@ -207,6 +207,7 @@
     <string name="iap_products_unavailable">No products available</string>
     <string name="iap_promotional_gift">Promotional or gift code</string>
     <string name="iap_quantity">Quantity: %s</string>
+    <string name="iap_product_item_quantity">Quantity:</string>
     <string name="iap_rate_it">Love it or hate it, we want you to rate it!</string>
     <string name="iap_read">Read our</string>
     <string name="iap_read_full_review">Read full review</string>

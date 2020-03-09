@@ -157,7 +157,7 @@
     <string name="dcc_send_email">Е-поща</string>
     <string name="dcc_call_number">Обадете ни се</string>
     <string name="dcc_chat_to_us">Разговаряйте в чат с нас</string>
-    <string name="dcc_chat_desc">Чат на живо 24/7 на английски език с нашите продуктови специалисти. </string>
+    <string name="dcc_chat_desc">Започнете чат на живо с продуктовия специалист. </string>
     <string name="dcc_remove_photo">Премахване на снимка</string>
     <string name="dcc_continue">Продължи</string>
     <string name="dcc_characters_left">символа остават</string>

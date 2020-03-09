@@ -10,6 +10,7 @@ import com.philips.cdp.di.mec.common.CommonViewModel
 import com.philips.cdp.di.mec.common.ItemClickListener
 import com.philips.cdp.di.mec.utils.MECDataHolder
 import com.philips.platform.uid.view.widget.Label
+import java.util.*
 
 class ECSRetailerViewModel : CommonViewModel() {
 
@@ -39,6 +40,15 @@ class ECSRetailerViewModel : CommonViewModel() {
             } else {
                 stockLabel.setText(R.string.mec_out_of_stock)
                 stockLabel.setTextColor(ContextCompat.getColor(stockLabel.context, R.color.uid_signal_red_level_60))
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("rotation")
+        fun setRotation(stockLabel: Label, rotation: String?) { // roation text is not of anny use , can be removed
+
+            if (Locale.getDefault().language.contentEquals("ar") || Locale.getDefault().language.contentEquals("fa") || Locale.getDefault().language.contentEquals("he")) {
+                stockLabel.rotation = 180f
             }
         }
     }

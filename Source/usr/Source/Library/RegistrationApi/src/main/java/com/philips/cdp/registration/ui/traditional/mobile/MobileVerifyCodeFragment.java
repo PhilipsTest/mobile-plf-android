@@ -37,6 +37,7 @@ import com.philips.cdp.registration.handlers.RefreshUserHandler;
 import com.philips.cdp.registration.settings.RegistrationHelper;
 import com.philips.cdp.registration.ui.customviews.OnUpdateListener;
 import com.philips.cdp.registration.ui.customviews.XRegError;
+import com.philips.cdp.registration.ui.traditional.HomeFragment;
 import com.philips.cdp.registration.ui.traditional.RegistrationBaseFragment;
 import com.philips.cdp.registration.ui.utils.NetworkUtility;
 import com.philips.cdp.registration.ui.utils.RLog;
@@ -201,16 +202,21 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
 
     @Override
     public void onRefreshUserSuccess() {
-      try{
+      try {
+
+          if (getRegistrationFragment().getCurrentFragment() instanceof MobileVerifyCodeFragment) {
           if (this.isVisible()) {
               RLog.d(TAG, "onRefreshUserSuccess");
               storePreference(user.getMobile());
               SpannableString description = setDescription(normalText, user.getMobile());
               regVerifyMobileDesc1.setText(description);
               hideProgressSpinner();
-              if (isVerified)
+              if (isVerified) {
+                  EventBus.getDefault().unregister(this);
                   getRegistrationFragment().addFragment(new AddSecureEmailFragment());
+              }
           }
+      }
       } catch (Exception e){
 
       }

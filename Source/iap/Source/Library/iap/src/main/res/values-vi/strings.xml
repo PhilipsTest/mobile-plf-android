@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Hủy thanh toán</string>
   <string name="iap_Payment_failure">Không thanh toán được</string>
+  <string name="iap_accept_terms">[vi]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Mã được chấp nhận</string>
   <string name="iap_access_token_notfound">Không tìm thấy Mã xác thực</string>
   <string name="iap_add_new_address">Thêm địa chỉ mới</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Đánh giá của chuyên gia</string>
   <string name="iap_extra_option">Tùy chọn bổ sung</string>
   <string name="iap_failed">Không thành công</string>
+  <string name="iap_faq">[vi]FAQ</string>
   <string name="iap_fetching_payment">Đang truy xuất chi tiết thanh toán...</string>
   <string name="iap_filter_productlist">Từ khóa này sẽ lọc danh sách sản phẩm của chúng tôi. Vui lòng kiểm tra để đảm bảo không có lỗi chính tả nào trong từ khóa lọc của bạn</string>
   <string name="iap_first_name">Tên</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Nếu bạn đã đặt đơn hàng thông qua nhà bán lẻ khác thì đơn hàng của bạn sẽ không thể xuất hiện ở đây.</string>
   <string name="iap_out_of_stock">Hết hàng</string>
   <string name="iap_overall_rating">Xếp hạng tổng thể</string>
+  <string name="iap_page">[vi]page</string>
   <string name="iap_pay_now">Thanh toán ngay</string>
   <string name="iap_payment">Thanh toán</string>
   <string name="iap_payment_by">Đã thanh toán bằng</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Không có sẵn sản phẩm</string>
   <string name="iap_promotional_gift">Mã khuyến mãi hoặc mã quà tặng</string>
   <string name="iap_quantity">Số lượng: %s</string>
+  <string name="iap_product_item_quantity">Số lượng:</string>
+  <string name="iap_questions">[vi]Questions? Please visit our</string>
   <string name="iap_rate_it">Thích hoặc không thích, hãy xếp hạng!</string>
   <string name="iap_read">Đọc</string>
   <string name="iap_read_full_review">Đọc toàn bộ đánh giá</string>

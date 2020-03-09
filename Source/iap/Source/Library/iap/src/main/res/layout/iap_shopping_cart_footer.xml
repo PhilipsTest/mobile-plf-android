@@ -74,7 +74,7 @@
                     style="@style/UIDLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/iap_delivery_ups_parcel"
+                    android:text="@string/iap_delevery_via"
                     android:visibility="gone"
                     android:textSize="@dimen/iap_text_size_16sp"
                     android:textStyle="bold" />

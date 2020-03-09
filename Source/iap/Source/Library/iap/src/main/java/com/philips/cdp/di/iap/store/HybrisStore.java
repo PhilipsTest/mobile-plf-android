@@ -14,6 +14,7 @@ import com.philips.cdp.di.iap.session.RequestListener;
 public class HybrisStore extends AbstractStore {
 
     public static final String WEBROOT = "pilcommercewebservices";
+    public static final String WEBROOT_OAUTH = "authorizationserver";
     public static final String V2 = "v2";
     public static final String SEPERATOR = "/";
     private static final String USER = "users";
@@ -185,7 +186,7 @@ public class HybrisStore extends AbstractStore {
 
     private void createOauthUrl() {
         StringBuilder builder = new StringBuilder(mStoreConfig.getHostPort());
-        builder.append(WEBROOT).append(SEPERATOR).append(SUFFIX_OAUTH);
+        builder.append(WEBROOT_OAUTH).append(SEPERATOR).append(SUFFIX_OAUTH);
         mOauthUrl = String.format(builder.toString(), mIAPUser.getJanRainID());
     }
 

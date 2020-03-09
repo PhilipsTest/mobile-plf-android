@@ -5,43 +5,43 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="ECSAppInfraNotFound">[zh-TW]Please provide app infra object</string>
-  <string name="ECSBaseURLNotFound">[zh-TW]Base URL not found</string>
-  <string name="ECSCartEntryError">[zh-TW]The Product is not added in Cart</string>
-  <string name="ECSCartError">[zh-TW]No cart created yet</string>
-  <string name="ECSCommerceCartModificationError">[zh-TW]Quantity must not be less than zero</string>
-  <string name="ECSCtnNotProvided">[zh-TW]Please provide the CTN</string>
-  <string name="ECSHybrisNotAvailable">[zh-TW]Philips shop is not available for the selected country, only retailer mode is available</string>
-  <string name="ECSIllegalArgumentError">[zh-TW]Please provide valid input data</string>
-  <string name="ECSInsufficientStockError">[zh-TW]Product cannot be shipped as it is out of stock</string>
-  <string name="ECSInvalidPaymentInfoError">[zh-TW]Please provide valid payment details</string>
-  <string name="ECSInvalidTokenError">[zh-TW]We have encountered technical glitch (Invalid access token). Please do Hybris Re-Auth</string>
-  <string name="ECSLocaleNotFound">[zh-TW]Please set the locale</string>
-  <string name="ECSNoSuchElementError">[zh-TW]An error occurred while fetching the data from the server</string>
-  <string name="ECSOAuthDetailError">[zh-TW]Please provide complete OAuth detials</string>
-  <string name="ECSOAuthNotCalled">[zh-TW]User authorization is required for this action</string>
-  <string name="ECSPaymentAuthorizationError">[zh-TW]Payment authorization was not successful</string>
-  <string name="ECSPropositionIdNotFound">[zh-TW]Please set a valid Proposition ID</string>
-  <string name="ECSSiteIdNotFound">[zh-TW]Philips shop is not available for the selected country, only retailer mode is available</string>
-  <string name="ECSUnknownIdentifierError">[zh-TW]Requested resource is not available</string>
-  <string name="ECSUnsupportedDeliveryModeError">[zh-TW]Selected delivery mode is not supported</string>
-  <string name="ECSUnsupportedVoucherError">[zh-TW]Sorry, this voucher can\'t be redeemed</string>
-  <string name="ECSValidationError">[zh-TW]Data validation failed</string>
-  <string name="ECSVoucherOperationError">[zh-TW]Sorry, this voucher can\'t be redeemed</string>
-  <string name="ECSaddressId">[zh-TW]Given address doesn\'t exist or belong to another user</string>
-  <string name="ECScountryCodeNotGiven">[zh-TW]Please provide valid country code</string>
-  <string name="ECScountryisocode">[zh-TW]Country selected is invalid</string>
-  <string name="ECSfirstName">[zh-TW]Please notice that the following characters are not allowed: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
-  <string name="ECSinvalid_client">[zh-TW]We have encountered technical glitch (Bad client credentials). Please re-login</string>
-  <string name="ECSinvalid_grant">[zh-TW]We have encountered technical glitch (Invalid Janrain Token). Please re-login</string>
-  <string name="ECSlastName">[zh-TW]Please notice that the following characters are not allowed: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
-  <string name="ECSorderIdNil">[zh-TW]Please provide valid order</string>
-  <string name="ECSphone1">[zh-TW]Phone number selected is invalid</string>
-  <string name="ECSphone2">[zh-TW]Phone number selected is invalid</string>
-  <string name="ECSpostUrl">[zh-TW]Order is already in a paid/completed state</string>
-  <string name="ECSpostalCode">[zh-TW]ZIP code selected is invalid</string>
-  <string name="ECSregionisocode">[zh-TW]Region selected is invalid</string>
-  <string name="ECSsessionCart">[zh-TW]Please select your delivery address, delivery mode and payment method before submitting an order</string>
-  <string name="ECSsomethingWentWrong">[zh-TW]We have encountered technical glitch. Please try after some time</string>
-  <string name="ECSunsupported_grant_type">[zh-TW]We have encountered technical glitch (Unsupported grant type). Please re-login</string>
+  <string name="ECSAppInfraNotFound">請提供 app infra object</string>
+  <string name="ECSBaseURLNotFound">找不到基底 URL</string>
+  <string name="ECSCartEntryError">產品未放入購物車</string>
+  <string name="ECSCartError">尚未建立購物車</string>
+  <string name="ECSCommerceCartModificationError">數量不得小於零</string>
+  <string name="ECSCtnNotProvided">請提供 CTN</string>
+  <string name="ECSHybrisNotAvailable">所選國家/地區不提供飛利浦商店，僅提供零售商模式</string>
+  <string name="ECSIllegalArgumentError">請提供有效的輸入資料</string>
+  <string name="ECSInsufficientStockError">產品缺貨，因此無法運送</string>
+  <string name="ECSInvalidPaymentInfoError">請提供有效的付款詳細資料</string>
+  <string name="ECSInvalidTokenError">我們遇到技術問題 (存取權杖無效)。請執行 Hybris Re-Auth</string>
+  <string name="ECSLocaleNotFound">請設定地區</string>
+  <string name="ECSNoSuchElementError">從伺服器擷取資料時發生錯誤</string>
+  <string name="ECSOAuthDetailError">請提供完整的 OAuth 詳細資料</string>
+  <string name="ECSOAuthNotCalled">此動作需要使用者授權</string>
+  <string name="ECSPaymentAuthorizationError">付款授權失敗</string>
+  <string name="ECSPropositionIdNotFound">請設定有效的 Proposition ID</string>
+  <string name="ECSSiteIdNotFound">所選國家/地區不提供飛利浦商店，僅提供零售商模式</string>
+  <string name="ECSUnknownIdentifierError">要求的資源無法使用</string>
+  <string name="ECSUnsupportedDeliveryModeError">不支援所選的遞送模式</string>
+  <string name="ECSUnsupportedVoucherError">很抱歉，此優惠券無法兌換</string>
+  <string name="ECSValidationError">資料驗證失敗</string>
+  <string name="ECSVoucherOperationError">很抱歉，此優惠券無法兌換</string>
+  <string name="ECSaddressId">指定的地址不存在或屬於其他使用者</string>
+  <string name="ECScountryCodeNotGiven">請提供有效的國碼</string>
+  <string name="ECScountryisocode">選取的國家/地區無效</string>
+  <string name="ECSfirstName">請注意，不允許使用下列字元：\\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
+  <string name="ECSinvalid_client">我們遇到技術問題 (用戶端認證不佳)。請重新登入</string>
+  <string name="ECSinvalid_grant">我們遇到技術問題 (Janrain 權杖無效)。請重新登入</string>
+  <string name="ECSlastName">請注意，不允許使用下列字元：\\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
+  <string name="ECSorderIdNil">請提供有效的訂單</string>
+  <string name="ECSphone1">選取的電話號碼無效</string>
+  <string name="ECSphone2">選取的電話號碼無效</string>
+  <string name="ECSpostUrl">訂單已在已付款/已完成狀態</string>
+  <string name="ECSpostalCode">選取的郵遞區號無效</string>
+  <string name="ECSregionisocode">選取的地區無效</string>
+  <string name="ECSsessionCart">提交訂單前，請先選擇您的遞送地址、遞送模式及付款方式</string>
+  <string name="ECSsomethingWentWrong">我們遇到技術問題。請稍後再試</string>
+  <string name="ECSunsupported_grant_type">我們遇到技術問題 (不支援的授與類型)。請重新登入</string>
 </resources>

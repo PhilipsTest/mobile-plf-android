@@ -1,23 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (c) Koninklijke Philips N.V., 2019
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="iap_free_Delivery">Delivery is free for this order</string>
-  <string name="iap_apply_gift">Apply gift code</string>
-  <string name="iap_voucher_applied_success">Voucher Applied Successfully</string>
-  <string name="iap_voucher_applied_unsuccess">Unsuccessful</string>
-  <string name="iap_promotional_gift">Promotional or gift code</string>
-  <string name="iap_no_checkout">Philips checkout functionality not available for this country.</string>
-  <string name="iap_enter_gift_code">Enter your promotion or gift code</string>
-  <string name="iap_delevery_via">Delivery via %s</string>
-  <string name="iap_agree_privacy">and by placing the order, I accept and agree to be bound by Philips</string>
-  <string name="iap_accepted_codes">Accepted codes</string>
-  <string name="iap_access_token_notfound">Access token not found</string>
-  <string name="iap_1x_daily_collection">1x daily collection Miniblender</string>
   <string name="iap_Payment_cancel">Payment cancel</string>
   <string name="iap_Payment_failure">Payment failure</string>
+  <string name="iap_accept_terms">By placing the order, I accept Philips’</string>
+  <string name="iap_accepted_codes">Accepted codes</string>
+  <string name="iap_access_token_notfound">Access Token not found</string>
   <string name="iap_add_new_address">Add a new address</string>
   <string name="iap_add_new_payment_method">Add new payment method</string>
   <string name="iap_add_payment_method">Add a new payment method</string>
@@ -28,8 +20,10 @@
   <string name="iap_address_line_one_hint">Enter address line 1</string>
   <string name="iap_address_line_two">Address line 2</string>
   <string name="iap_address_line_two_hint">(optional)</string>
+  <string name="iap_agree_privacy">and by placing the order, I accept and agree to be bound by Philips</string>
   <string name="iap_app_name">InAppPurchase</string>
   <string name="iap_apply">Apply</string>
+  <string name="iap_apply_gift">Apply gift code</string>
   <string name="iap_authentication_failure">Authentication failed</string>
   <string name="iap_billing_address">Billing address</string>
   <string name="iap_billing_address_is_same">Same as shipping address</string>
@@ -55,6 +49,7 @@
   <string name="iap_checkout">Checkout</string>
   <string name="iap_checkout_payment_method">Select payment method</string>
   <string name="iap_checkout_steps">Step %s of 3: Address</string>
+  <string name="iap_checkout_steps_overview">Steps %s of 3: Overview</string>
   <string name="iap_checkoutsummary_steps_overview">Step 3 of 3: Overview</string>
   <string name="iap_claim_voucher">Claim voucher</string>
   <string name="iap_confirm">Confirm</string>
@@ -75,13 +70,14 @@
   <string name="iap_cvv_code">Please enter the CVV/CVC for </string>
   <string name="iap_cvv_cvc">CVV/CVC</string>
   <string name="iap_cvvpopup_info">This is the 3 digit code on the back of your credit or debit card. Alternatively, if you have an American Express, it is the 4 digit number on the front of the card.</string>
+  <string name="iap_daily_selling_product">Daily Collection Miniblender</string>
   <string name="iap_delete">Delete</string>
   <string name="iap_delete_address">Deleting Shipping Address</string>
   <string name="iap_delete_item_alert_message">Are you sure you want to delete the item?</string>
   <string name="iap_delete_item_alert_title">Delete Item</string>
   <string name="iap_delete_voucher">Delete voucher</string>
   <string name="iap_delete_voucher_sure">Are you sure you want to delete the voucher?</string>
-  <string name="iap_delivery_ups_parcel">Delivery via %s</string>
+  <string name="iap_delevery_via">Delivery via %s</string>
   <string name="iap_deliver_to_this_address">Deliver to this address</string>
   <string name="iap_delivery_description">Delivery is FREE when you spend $100 or more</string>
   <string name="iap_delivery_method">Delivery Method</string>
@@ -95,20 +91,24 @@
   <string name="iap_empty_cart">Your shopping cart is currently empty.</string>
   <string name="iap_empty_purchase_history">If you placed an order using this app, Please check your mail for the confirmation e-mail.</string>
   <string name="iap_empty_purchase_history_dls">If you placed your order using this app, please check that you have received an order confirmation email.</string>
+  <string name="iap_enter_gift_code">Enter your promotion or gift code</string>
   <string name="iap_enter_promo_code">Enter promo or gift code</string>
   <string name="iap_enter_promotional_voucher">Please enter your promotional voucher</string>
   <string name="iap_expert_reviews">Expert Reviews</string>
   <string name="iap_extra_option">Extra options</string>
   <string name="iap_failed">Failed</string>
+  <string name="iap_faq">FAQ</string>
   <string name="iap_fetching_payment">Fetching Payment Details...</string>
   <string name="iap_filter_productlist">This filters our productlist. Please check that there are no typos in your filter term</string>
   <string name="iap_first_name">First name</string>
   <string name="iap_first_name_error">Please enter a valid first name</string>
   <string name="iap_first_name_hint">Enter first name</string>
+  <string name="iap_free_Delivery">Delivery is free for this order</string>
   <string name="iap_go_to_checkout">Go to checkout</string>
   <string name="iap_handed_to_courier">Handed over to the carrier</string>
   <string name="iap_help_other_by_reviewing">Write a review and help other people make the right choice for them!</string>
   <string name="iap_houseNumber_error">Please enter house number</string>
+  <string name="iap_house_no_error">Wrong house number</string>
   <string name="iap_house_number">House number</string>
   <string name="iap_house_number_hint">Enter house number</string>
   <string name="iap_in_stock">In stock</string>
@@ -129,26 +129,16 @@
   <string name="iap_last_name_hint">Enter last name</string>
   <string name="iap_less_review">show less</string>
   <string name="iap_mastercard">Master card</string>
+  <string name="iap_more_info">for more info</string>
   <string name="iap_more_review">show more</string>
   <string name="iap_mr">Mr</string>
   <string name="iap_mrs">Ms</string>
   <string name="iap_my_orders">My orders</string>
+  <string name="iap_no_checkout">Philips checkout functionality not available for this country. </string>
   <string name="iap_no_do_not_delete">No, don’t delete</string>
   <string name="iap_no_internet">Your internet connection does not seem to be working. Please check and try again</string>
   <string name="iap_no_items">No items here yet…</string>
   <string name="iap_no_product_available">No product found in your Store.</string>
-  <string name="iap_notice_of_privacy">Read our <u><b>Privacy Notice</b></u> for more info</string>
-  <string name="iap_terms_conditions">Terms and Conditions</string>
-  <string name="iap_read">Read our</string>
-  <string name="iap_privacy">Privacy Notice</string>
-  <string name="iap_more_info">for more info</string>
-  <string name="iap_questions">Questions? Please visit our</string>
-  <string name="iap_faq">FAQ</string>
-  <string name="iap_page">page</string>
-  <string name="iap_read_privacy">I have read the</string>
-  <string name="iap_just_read"></string>
-  <string name="iap_accept_terms">By placing the order, I accept Philips’</string>
-  <string name="iap_terms_privacy">I have read the <u>Privacy Notice</u></string>
   <string name="iap_no_result">0 results found for</string>
   <string name="iap_no_retailer_message">There are no online retailers currently available for this product.</string>
   <string name="iap_not_now">Not now</string>
@@ -156,6 +146,7 @@
   <string name="iap_not_yet_shipped">Not yet shipped</string>
   <string name="iap_nothing_in_cart">Nothing in your cart</string>
   <string name="iap_number_of_product">%s Product</string>
+  <string name="iap_number_of_products">%s Products</string>
   <string name="iap_ok">OK</string>
   <string name="iap_one_click_buy">Buy again with 1-click</string>
   <string name="iap_opening_hours">Call center opening hours:\n</string>
@@ -171,6 +162,7 @@
   <string name="iap_order_history">Order history</string>
   <string name="iap_order_not_received_items">Order not received</string>
   <string name="iap_order_number">Order number: </string>
+  <string name="iap_order_number_msg">Order number: %s</string>
   <string name="iap_order_pending">Your order is pending</string>
   <string name="iap_order_picked">Your order was picked up by FedEx on</string>
   <string name="iap_order_processing">Processing</string>
@@ -183,6 +175,7 @@
   <string name="iap_other_channel_dls">If you placed your order using another retailer then your order may not show up here.</string>
   <string name="iap_out_of_stock">Out of stock</string>
   <string name="iap_overall_rating">Overall rating</string>
+  <string name="iap_page">page</string>
   <string name="iap_pay_now">Pay now</string>
   <string name="iap_payment">Payment</string>
   <string name="iap_payment_by">Paid by</string>
@@ -205,16 +198,23 @@
   <string name="iap_postal_code">Postal code</string>
   <string name="iap_postal_code_error">Please enter a valid Zip Code</string>
   <string name="iap_postal_code_hint">Enter ZIP/Postal code</string>
+  <string name="iap_privacy">Privacy Notice</string>
   <string name="iap_proceed">Proceed</string>
+  <string name="iap_product">Product</string>
   <string name="iap_product_added">Product added to your shopping cart</string>
   <string name="iap_product_catalog">Products</string>
   <string name="iap_product_detail_title">Product details</string>
   <string name="iap_product_not_found">We did not find any products for</string>
+  <string name="iap_product_remove_address">Your address will be deleted forever. Are you sure?</string>
   <string name="iap_product_remove_description">Your product will be removed from your shopping cart. Are you sure?</string>
   <string name="iap_products_unavailable">No products available</string>
+  <string name="iap_promotional_gift">Promotional or gift code</string>
   <string name="iap_quantity">Quantity: %s</string>
+  <string name="iap_questions">Questions? Please visit our</string>
   <string name="iap_rate_it">Love it or hate it, we want you to rate it!</string>
+  <string name="iap_read">Read our</string>
   <string name="iap_read_full_review">Read full review</string>
+  <string name="iap_read_privacy">I have read the</string>
   <string name="iap_recommend_this_product">customers would recommend this product</string>
   <string name="iap_redeem_voucher">Redeem voucher</string>
   <string name="iap_remove">Remove</string>
@@ -240,6 +240,7 @@
   <string name="iap_shipped">Shipped</string>
   <string name="iap_shipped_to">Shipped To:</string>
   <string name="iap_shipping_address">Shipping address</string>
+  <string name="iap_shipping_cost">Shipping cost</string>
   <string name="iap_shipping_to">Shipping to</string>
   <string name="iap_shopping_cart">Shopping cart</string>
   <string name="iap_shopping_cart_dls">Shopping cart</string>
@@ -251,11 +252,13 @@
   <string name="iap_state">State</string>
   <string name="iap_stock_left">left in stock</string>
   <string name="iap_success">Success</string>
+  <string name="iap_terms_conditions">Terms and Conditions</string>
   <string name="iap_thank_for_order">Thank you for your order</string>
   <string name="iap_time_out">Time-out</string>
   <string name="iap_time_out_error">Network timeout reached!</string>
   <string name="iap_title">Title</string>
   <string name="iap_total">Total</string>
+  <string name="iap_total_discount">Total Discount</string>
   <string name="iap_total_val">Total(0 Items)</string>
   <string name="iap_town">Town/City</string>
   <string name="iap_town_error">Please enter a valid town</string>
@@ -282,6 +285,9 @@
   <string name="iap_vat">VAT</string>
   <string name="iap_view_invoice">View invoice</string>
   <string name="iap_voucher">Voucher</string>
+  <string name="iap_voucher_applied_success">Voucher Applied Successfully</string>
+  <string name="iap_voucher_applied_unsuccess">Unsuccessful</string>
+  <string name="iap_voucher_code">Voucher code:</string>
   <string name="iap_warranty">For all products we provide at least one year warranty. Our consumer care team is pleased to help you.</string>
   <string name="iap_write_review">Write a review</string>
   <string name="iap_yes_delete">Yes, delete</string>
@@ -291,28 +297,9 @@
   <string name="iap_your_order_number">Your order number is</string>
   <string name="iap_zero_results_found">0 results found for %s</string>
   <string name="iap_zero_results_message">This filters our product list. Please check that there are no typos in your filter term</string>
-  <string name="iap_voucher_code">Voucher Code:</string>
-  <string name="iap_house_no_error">Wrong house number</string>
-  <string name="iap_product">Product</string>
-  <string name="iap_checkout_steps_overview">Steps %s of 3: Overview</string>
-  <string name="iap_daily_selling_product">Daily Collection Miniblender</string>
-  <string name="iap_number_of_products">%s Products</string>
-  <string name="iap_order_number_msg">Order number: %s</string>
-  <string name="iap_product_remove_address">Your address will be deleted forever. Are you sure?</string>
-  <string name="iap_total_discount">Total Discount</string>
-  <string name="iap_shipping_cost">Delivery cost</string>
-
-  <!--Translation to be done for below strings-->
   <string name="iap_product_item_quantity">Quantity:</string>
-  <string name="iap_cvv_code_hint_description">The 3-digit number can be found on the back of your card.</string>
-  <string name="iap_cvvpopup_3digit_info">The CVV number is the last 3 digits on the back of your card. For Amex cards, the CVV is a 4 digit number on the front of the card.</string>
-  <string name="iap_no_of_products">%s product(s)</string>
-  <string name="iap_your_order_number_is">Your order number is:</string>
-
-  <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="iap_just_read"></string>
 
 
-  <!--Translation to be done for above strings-->
 
 </resources>

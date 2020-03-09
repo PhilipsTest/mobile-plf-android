@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">|お支払いはキャンセルされました|</string>
   <string name="iap_Payment_failure">|Zahlung fehlgeschlagen|</string>
+  <string name="iap_accept_terms">|En passant la commande, j\'accepte les conditions de vente de Philips|</string>
   <string name="iap_accepted_codes">|コードが承諾されました|</string>
   <string name="iap_access_token_notfound">|لم يتم العثور على الرمز المميّز للوصول|</string>
   <string name="iap_add_new_address">|Jaunas adreses pievienošana|</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">|Opiniones de los especialistas|</string>
   <string name="iap_extra_option">|Дополнительные параметры|</string>
   <string name="iap_failed">|Operazione non riuscita|</string>
+  <string name="iap_faq">|Ofte stillede spørgsmål|</string>
   <string name="iap_fetching_payment">|Разглеждане на информацията за плащане...|</string>
   <string name="iap_filter_productlist">|Това филтрира нашият продуктов списък. Моля, проверете за правописни грешки в термина, който сте задали за филтриране|</string>
   <string name="iap_first_name">|Собствено име|</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">|Якщо Ви розмістили своє замовлення через іншого продавця, тоді Ваше замовлення тут може не відображатися.|</string>
   <string name="iap_out_of_stock">|Loppunut varastosta|</string>
   <string name="iap_overall_rating">|Algemene waardering|</string>
+  <string name="iap_page">|veelgestelde vragen|</string>
   <string name="iap_pay_now">|Оплатить сейчас|</string>
   <string name="iap_payment">|Поставщики платежных услуг|</string>
   <string name="iap_payment_by">|Ödemeyi yapan kişi:|</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">|Δεν υπάρχουν διαθέσιμα προϊόντα|</string>
   <string name="iap_promotional_gift">|Промоционален код или код за подарък|</string>
   <string name="iap_quantity">|Количество: %s|</string>
+  <string name="iap_product_item_quantity">|Количество:|</string>
+  <string name="iap_questions">|[zh-TW]Questions? Please visit our|</string>
   <string name="iap_rate_it">|Chcemy poznać Twoją opinię bez względu na to, czy go uwielbiasz, czy nienawidzisz!|</string>
   <string name="iap_read">|Ознакомьтесь с нашим|</string>
   <string name="iap_read_full_review">|Değerlendirmenin tam metnini okuyun|</string>

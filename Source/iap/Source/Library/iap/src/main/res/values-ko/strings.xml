@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">결제 취소</string>
   <string name="iap_Payment_failure">결제 실패</string>
+  <string name="iap_accept_terms">[ko]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">승인된 코드</string>
   <string name="iap_access_token_notfound">액세스 토큰을 찾을 수 없음</string>
   <string name="iap_add_new_address">새 주소 추가</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">전문가 리뷰</string>
   <string name="iap_extra_option">추가 옵션</string>
   <string name="iap_failed">실패</string>
+  <string name="iap_faq">[ko]FAQ</string>
   <string name="iap_fetching_payment">결제 세부 정보를 보내는 중...</string>
   <string name="iap_filter_productlist">제품 목록을 필터링합니다. 필터 용어에 오타가 없는지 확인하십시오.</string>
   <string name="iap_first_name">이름</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">다른 소매점을 통해 주문한 경우 주문이 여기에 표시되지 않을 수 있습니다.</string>
   <string name="iap_out_of_stock">품절</string>
   <string name="iap_overall_rating">전체 평가</string>
+  <string name="iap_page">[ko]page</string>
   <string name="iap_pay_now">지금 결제</string>
   <string name="iap_payment">지불</string>
   <string name="iap_payment_by">결제자</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">사용 가능한 제품 없음</string>
   <string name="iap_promotional_gift">프로모션 코드 또는 기프트 코드</string>
   <string name="iap_quantity">수량: %s</string>
+  <string name="iap_product_item_quantity">수량:</string>
+  <string name="iap_questions">[ko]Questions? Please visit our</string>
   <string name="iap_rate_it">필립스 제품에 대한 고객님의 의견을 기대합니다!</string>
   <string name="iap_read">자세한 내용은</string>
   <string name="iap_read_full_review">전체 리뷰 보기</string>

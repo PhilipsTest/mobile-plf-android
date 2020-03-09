@@ -2,13 +2,10 @@ package com.philips.platform.pim;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
@@ -23,6 +20,8 @@ import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
 import com.philips.platform.uid.utils.UIDActivity;
+
+import java.util.HashMap;
 
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 
@@ -41,7 +40,11 @@ public class PIMActivity extends UIDActivity implements ActionBarListener, UserL
 
         mUserLoginListener = PIMSettingManager.getInstance().getPimUserLoginListener();
         mLoggingInterface = PIMSettingManager.getInstance().getLoggingInterface();
-        launchASFragment();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            bundle.get(PIMInterface.PIM_KEY_CONSENTS);
+            launchASFragment(bundle);
+        }
     }
 
     @Override
@@ -63,10 +66,12 @@ public class PIMActivity extends UIDActivity implements ActionBarListener, UserL
         UIDHelper.init(new ThemeConfiguration(this, ContentColor.ULTRA_LIGHT, NavigationColor.BRIGHT, AccentRange.ORANGE));
     }
 
-    private void launchASFragment() {
+    private void launchASFragment(Bundle bundle) {
         PIMFragment pimFragment = new PIMFragment();
         pimFragment.setActionbarListener(this, this);
-
+        HashMap consentParameterMap = (HashMap) bundle.get(PIMInterface.PIM_KEY_CONSENTS);
+        bundle.putSerializable(PIMInterface.PIM_KEY_CONSENTS, consentParameterMap);
+        pimFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fl_mainFragmentContainer,
                         pimFragment, PIMFragment.class.getSimpleName()).addToBackStack(null).commitAllowingStateLoss();

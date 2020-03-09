@@ -5,20 +5,19 @@
  */
 package com.philips.cdp.di.ecs.integration;
 
-public enum GrantType {
+public enum ClientType {
+    JANRAIN("mobile_android"),
+    OIDC("onesite_client");
 
-    JANRAIN("janrain"),
-    OIDC("oidc"),
-    REFRESH_TOKEN("refresh_token");
 
+    String type;
 
     public String getType() {
         return type;
     }
 
-    String type;
 
-    GrantType(String type) {
+    ClientType(String type) {
         this.type = type;
     }
 }

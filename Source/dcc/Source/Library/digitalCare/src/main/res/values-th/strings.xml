@@ -155,7 +155,7 @@
     <string name="dcc_send_email">อีเมล์</string>
     <string name="dcc_call_number">ติดต่อเรา</string>
     <string name="dcc_chat_to_us">พูดคุยกับเรา</string>
-    <string name="dcc_chat_desc">สนทนา Live chat 24/7 ด้วยภาษาอังกฤษกับผู้เชี่ยวชาญผลิตภัณฑ์ของเรา </string>
+    <string name="dcc_chat_desc">เริ่มการสนทนาสดกับผู้เชี่ยวชาญผลิตภัณฑ์ของเรา </string>
     <string name="dcc_remove_photo">ลบรูปถ่าย</string>
     <string name="dcc_continue">ดำเนินการต่อ</string>
     <string name="dcc_characters_left">ตัวอักษรที่เหลือ</string>

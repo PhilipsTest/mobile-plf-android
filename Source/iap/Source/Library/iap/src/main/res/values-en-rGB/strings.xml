@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Payment Cancel</string>
   <string name="iap_Payment_failure">Payment Failure</string>
+  <string name="iap_accept_terms">[en-GB]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Accepted codes</string>
   <string name="iap_access_token_notfound">Access token not found</string>
   <string name="iap_add_new_address">Add a new address</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Expert Reviews</string>
   <string name="iap_extra_option">Extra options</string>
   <string name="iap_failed">Failed</string>
+  <string name="iap_faq">[en-GB]FAQ</string>
   <string name="iap_fetching_payment">Fetching Payment Details...</string>
   <string name="iap_filter_productlist">This filters our productlist. Please check that there are no typos in your filter term</string>
   <string name="iap_first_name">First name</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">If you placed your order using another retailer then your order may not show up here.</string>
   <string name="iap_out_of_stock">Out of stock</string>
   <string name="iap_overall_rating">Overall rating</string>
+  <string name="iap_page">[en-GB]page</string>
   <string name="iap_pay_now">Pay now</string>
   <string name="iap_payment">Payment</string>
   <string name="iap_payment_by">Paid by</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">No products available</string>
   <string name="iap_promotional_gift">Promotional or gift code</string>
   <string name="iap_quantity">Quantity: %s</string>
+  <string name="iap_product_item_quantity">Quantity:</string>
+  <string name="iap_questions">[en-GB]Questions? Please visit our</string>
   <string name="iap_rate_it">Love it or hate it, we want you to rate it!</string>
   <string name="iap_read">Read our</string>
   <string name="iap_read_full_review">Read full review</string>

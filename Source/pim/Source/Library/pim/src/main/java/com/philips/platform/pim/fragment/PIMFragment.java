@@ -2,13 +2,16 @@ package com.philips.platform.pim.fragment;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,8 @@ import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
 import com.philips.platform.pim.PIMInterface;
 import com.philips.platform.pim.R;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
+import com.philips.platform.pim.errors.PIMErrorCodes;
+import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.manager.PIMConfigManager;
 import com.philips.platform.pim.manager.PIMLoginManager;
@@ -35,6 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 
@@ -54,6 +60,7 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
     private UserLoginListener mUserLoginListener;
     private final String USER_PROFILE_URL = "userreg.janrainoidc.userprofile";
     private HashMap consentParameterMap;
+    private boolean isTokenReqInProcess;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -158,7 +165,7 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
         mLoggingInterface.log(DEBUG, TAG, "External URL with Adobe_mc : " + urlStringWithVisitorId[1]);
 
         try {
-            String[] userprofileBaseString = userProfileUrl.split("\\?"); //TODO: Shashi, Need to remove later, once correct url will be uploaded to Service Discovery
+            String[] userprofileBaseString = userProfileUrl.split("\\?");
             Uri userrofileURI = Uri.parse(userprofileBaseString[0]).buildUpon().appendQueryParameter("client_id", clientId).build();
             String locale = pimSettingManager.getLocale();
             userrofileURI = Uri.parse(userrofileURI.toString()).buildUpon().appendQueryParameter("ui_locales", locale != null ? locale : "en-US").build();
@@ -185,24 +192,30 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
     @Override
     public void onLoginSuccess() {
         disableProgressBar();
+        isTokenReqInProcess = false;
         mUserLoginListener.onLoginSuccess();
     }
 
     @Override
     public void onLoginFailed(Error error) {
         disableProgressBar();
+        isTokenReqInProcess = false;
         mUserLoginListener.onLoginFailed(error);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mLoggingInterface.log(DEBUG, TAG, "onActivityResult : " + requestCode);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 100 && pimLoginManager.isAuthorizationSuccess(data)) {
-                pimLoginManager.exchangeAuthorizationCode(data);
-            } else {
-                disableProgressBar();
-            }
+        mLoggingInterface.log(DEBUG, TAG, "onActivityResult => requestCode : " + requestCode + "  resultCode : " + resultCode + "    isTokenReqInProcess : " + isTokenReqInProcess);
+        if (isTokenReqInProcess)
+            return;
+
+        if (requestCode == 100 && resultCode == RESULT_OK && pimLoginManager.isAuthorizationSuccess(data)) {
+            isTokenReqInProcess = true;
+            pimLoginManager.exchangeAuthorizationCode(data);
+        } else if (requestCode == 100 && resultCode == RESULT_CANCELED) {
+            disableProgressBar();
+            Error error = new Error(PIMErrorCodes.USER_CANCELED_AUTH_FLOW, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorCodes.USER_CANCELED_AUTH_FLOW));
+            mUserLoginListener.onLoginFailed(error);
         } else {
             disableProgressBar();
         }

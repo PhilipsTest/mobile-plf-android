@@ -6,8 +6,10 @@ package com.philips.cdp.di.iap.store;
 
 import android.content.Context;
 
+import com.philips.cdp.di.iap.container.CartModelContainer;
 import com.philips.cdp.di.iap.integration.IAPDependencies;
 import com.philips.cdp.di.iap.utils.IAPLog;
+import com.philips.platform.appinfra.appidentity.AppIdentityInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
@@ -45,17 +47,23 @@ public class IAPUser implements UserDataListener {
      * */
     public Map<String, String> getJanrainOAuth() {
         Map<String, String> map = new HashMap<>();
+        AppIdentityInterface.AppState appState = CartModelContainer.getInstance().getAppInfraInstance().getAppIdentity().getAppState();
+        if (getJanRainID() != null) {
+            if (mUserDataInterface.isOIDCToken()) {
+                map.put("grant_type", "oidc");
+                map.put("oidc", getJanRainID());
+            } else {
+                map.put("grant_type", "janrain");
+                map.put("janrain", getJanRainID());
+            }
 
-        if (mUserDataInterface.isOIDCToken()) {
-            map.put("grant_type", "oidc");
-        } else {
-            map.put("grant_type", "janrain");
+            if (appState == AppIdentityInterface.AppState.PRODUCTION) {
+                map.put("client_secret", "prod_inapp_54321");
+            } else {
+                map.put("client_secret", "acc_inapp_12345");
+            }
+            map.put("client_id", "inApp_client");
         }
-        if(getJanRainID()!=null) {
-            map.put("janrain", getJanRainID());
-        }
-        map.put("client_id", "mobile_android");
-        map.put("client_secret", "secret");
         return map;
     }
 

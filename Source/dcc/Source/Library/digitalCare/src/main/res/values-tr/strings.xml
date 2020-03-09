@@ -155,7 +155,7 @@
     <string name="dcc_send_email">E-posta</string>
     <string name="dcc_call_number">Bizi arayın</string>
     <string name="dcc_chat_to_us">Bizimle sohbet edin</string>
-    <string name="dcc_chat_desc">Ürün uzmanlarımızdan biriyle 7/24, İngilizce dilinde canlı sohbet gerçekleştirebilirsiniz. </string>
+    <string name="dcc_chat_desc">Ürün uzmanımızla canlı sohbet başlatın. </string>
     <string name="dcc_remove_photo">Fotoğrafı kaldır</string>
     <string name="dcc_continue">Devam et</string>
     <string name="dcc_characters_left">karakter kaldı</string>

@@ -2,18 +2,82 @@ package com.ecs.demotestuapp.fragments;
 
 
 import android.view.View;
+import android.widget.EditText;
+
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.philips.cdp.di.ecs.error.ECSError;
+import com.philips.cdp.di.ecs.integration.ClientType;
 import com.philips.cdp.di.ecs.integration.ECSCallback;
+import com.philips.cdp.di.ecs.integration.ECSOAuthProvider;
+import com.philips.cdp.di.ecs.integration.GrantType;
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData;
 
-public class HybrisRefreshOAuthFragment extends HybrisOAthAuthenticationFragment {
+public class HybrisRefreshOAuthFragment extends BaseAPIFragment {
 
+    String refreshToken = "refreshToken";
+
+    EditText etSecret, etClient, etOAuthID;
+
+    String secret, client;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (ECSDataHolder.INSTANCE.getEcsoAuthData() != null) {
+            refreshToken = ECSDataHolder.INSTANCE.getEcsoAuthData().getRefreshToken();
+        }
+
+        etSecret = getLinearLayout().findViewWithTag("et_one");
+        etSecret.setText("secret");
+
+        etClient = getLinearLayout().findViewWithTag("et_two");
+        if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
+            etClient.setText(ClientType.OIDC.getType());
+        else
+            etClient.setText(ClientType.JANRAIN.getType());
+        etOAuthID = getLinearLayout().findViewWithTag("et_three");
+        etOAuthID.setText(refreshToken);
+    }
+
+    public String getAuthID() {
+
+        if (ECSDataHolder.INSTANCE.getEcsoAuthData() != null) {
+            refreshToken = ECSDataHolder.INSTANCE.getEcsoAuthData().getRefreshToken();
+        }
+        return refreshToken;
+    }
 
 
     public void executeRequest() {
+        secret = getTextFromEditText(etSecret);
+        client = getTextFromEditText(etClient);
+        ECSOAuthProvider ecsoAuthProvider = new ECSOAuthProvider() {
 
-        ECSDataHolder.INSTANCE.getEcsServices().hybrisRefreshOAuth(getECSOAuthProvider(), new ECSCallback<ECSOAuthData, Exception>() {
+            @Override
+            public String getOAuthID() {
+                return getAuthID();
+            }
+
+            @Override
+            public ClientType getClientID() {
+                if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
+                    return ClientType.OIDC;
+                return ClientType.JANRAIN;
+            }
+
+            @Override
+            public String getClientSecret() {
+                return secret;
+            }
+
+            @Override
+            public GrantType getGrantType() {
+                return GrantType.REFRESH_TOKEN;
+            }
+        };
+
+        ECSDataHolder.INSTANCE.getEcsServices().hybrisRefreshOAuth(ecsoAuthProvider, new ECSCallback<ECSOAuthData, Exception>() {
             @Override
             public void onResponse(ECSOAuthData ecsoAuthData) {
 
@@ -32,14 +96,10 @@ public class HybrisRefreshOAuthFragment extends HybrisOAthAuthenticationFragment
         });
     }
 
+
     @Override
-    public  String getAuthID(){
-
-        if(ECSDataHolder.INSTANCE.getEcsoAuthData()!=null){
-            refreshToken = ECSDataHolder.INSTANCE.getEcsoAuthData().getRefreshToken();
-        }
-        return refreshToken;
+    public void clearData() {
+        ECSDataHolder.INSTANCE.setEcsoAuthData(null);
     }
-
 }
 

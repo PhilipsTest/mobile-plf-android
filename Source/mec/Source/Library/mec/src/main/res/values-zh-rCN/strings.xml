@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[zh-CN]Add</string>
-  <string name="mec_add_gift_Card">[zh-CN]Add gift code</string>
+  <string name="mec_add">添加</string>
+  <string name="mec_add_gift_Card">添加礼品码</string>
   <string name="mec_add_to_cart">添加至购物车</string>
-  <string name="mec_anonymous">[zh-CN]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[zh-CN]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[zh-CN]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">匿名</string>
+  <string name="mec_bazaarVoice_Detail_at">详细信息</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">这些评论由 Bazaarvoice 管理并遵守 Bazaarvoice 真实性政策（由反欺诈技术和人工分析提供支持）。</string>
   <string name="mec_buy_from_retailers">从零售商处购买</string>
   <string name="mec_cancel">取消</string>
-  <string name="mec_cart_login_error_message">[zh-CN]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[zh-CN]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">请注册或登录，以便于订购产品</string>
+  <string name="mec_continue_checkout">继续结账</string>
   <string name="mec_continue_shopping">继续购物</string>
-  <string name="mec_features">[zh-CN]Features</string>
-  <string name="mec_has_used_this_product_for">[zh-CN]Has used this product for</string>
+  <string name="mec_features">功能</string>
+  <string name="mec_has_used_this_product_for">已将该产品用于</string>
   <string name="mec_in_stock">有货</string>
   <string name="mec_info">信息</string>
-  <string name="mec_invalid_landing_view">[zh-CN]Please provide a valid Landing View</string>
-  <string name="mec_invalid_product_ctn">[zh-CN]Please provide a non empty product CTN</string>
-  <string name="mec_loading">[zh-CN]Loading..</string>
+  <string name="mec_invalid_landing_view">请提供有效的登录视图</string>
+  <string name="mec_invalid_product_ctn">请提供非空产品 CTN</string>
+  <string name="mec_loading">正在加载...</string>
   <string name="mec_more_info">了解更多信息</string>
   <string name="mec_no_product_available">未在您的商店内找到产品。</string>
   <string name="mec_no_result">找到以下搜索词的 0 个结果：</string>
-  <string name="mec_no_review_available">[zh-CN]No Reviews Found</string>
+  <string name="mec_no_review_available">未找到评论</string>
   <string name="mec_ok">确定</string>
-  <string name="mec_online_retailers">[zh-CN]Online Retailers</string>
+  <string name="mec_online_retailers">在线零售商</string>
   <string name="mec_out_of_stock">缺货</string>
   <string name="mec_privacy">隐私声明</string>
   <string name="mec_product_detail_title"> 产品详细信息</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">阅读我们的</string>
   <string name="mec_reviews">评论</string>
   <string name="mec_shopping_cart">购物车</string>
-  <string name="mec_specs">[zh-CN]Specs</string>
-  <string name="mec_threshold_message">[zh-CN]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[zh-CN]Request threshold reached</string>
+  <string name="mec_specs">规格</string>
+  <string name="mec_threshold_message">这可能需要更多时间。是否要继续？</string>
+  <string name="mec_threshold_title">达到请求阈值</string>
   <string name="mec_zero_results_message"> 这会对我们的产品列表进行筛选。请检查以确保您的筛选术语没有拼写错误</string>
 </resources>

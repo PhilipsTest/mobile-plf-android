@@ -159,7 +159,7 @@
     <string name="dcc_send_email">Электронная почта</string>
     <string name="dcc_call_number">Позвонить нам</string>
     <string name="dcc_chat_to_us">Напишите нам</string>
-    <string name="dcc_chat_desc">Круглосуточный чат со специалистом по продукции доступен ежедневно на английском языке. </string>
+    <string name="dcc_chat_desc">Пообщайтесь со специалистом по продукции. </string>
     <string name="dcc_remove_photo">Удалить фотографию</string>
     <string name="dcc_continue">Продолжить</string>
     <string name="dcc_characters_left">символов осталось</string>

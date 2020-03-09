@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[sl]Add</string>
-  <string name="mec_add_gift_Card">[sl]Add gift code</string>
+  <string name="mec_add">Dodaj</string>
+  <string name="mec_add_gift_Card">Dodaj darilno kodo</string>
   <string name="mec_add_to_cart">Dodaj v košarico</string>
-  <string name="mec_anonymous">[sl]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[sl]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[sl]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">Anonimno</string>
+  <string name="mec_bazaarVoice_Detail_at">Podrobnosti na</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">Ocene upravlja Bazaarvoice in so v skladu s pravilnikom družbe Bazaarvoice o pristnosti, ki je podprt s tehnologijo za preprečevanja prevar in človeško analizo.</string>
   <string name="mec_buy_from_retailers">Kupite pri prodajalcu</string>
   <string name="mec_cancel">Prekliči</string>
-  <string name="mec_cart_login_error_message">[sl]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[sl]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">Registrirajte ali prijavite se za enostavno naročilo želenih izdelkov</string>
+  <string name="mec_continue_checkout">Nadaljuj na blagajno</string>
   <string name="mec_continue_shopping">Nadaljuj z nakupovanjem</string>
-  <string name="mec_features">[sl]Features</string>
-  <string name="mec_has_used_this_product_for">[sl]Has used this product for</string>
+  <string name="mec_features">Značilnosti</string>
+  <string name="mec_has_used_this_product_for">Je ta izdelek uporabil za</string>
   <string name="mec_in_stock">na zalogi</string>
   <string name="mec_info">Informacije</string>
-  <string name="mec_invalid_landing_view">[sl]Please provide a valid Landing View</string>
+  <string name="mec_invalid_landing_view">Zagotovite veljaven ciljni pogled</string>
   <string name="mec_invalid_product_ctn">Navedite CTN izdelka, ki ni prazen</string>
-  <string name="mec_loading">[sl]Loading..</string>
+  <string name="mec_loading">Nalaganje ...</string>
   <string name="mec_more_info">za dodatne inf.</string>
   <string name="mec_no_product_available">V trgovini ni bil najden noben izdelek.</string>
   <string name="mec_no_result">0 rezultatov za</string>
-  <string name="mec_no_review_available">[sl]No Reviews Found</string>
+  <string name="mec_no_review_available">Najdena ni bila nobena ocena</string>
   <string name="mec_ok">V redu</string>
-  <string name="mec_online_retailers">[sl]Online Retailers</string>
+  <string name="mec_online_retailers">Spletni trgovci</string>
   <string name="mec_out_of_stock">Ni na zalogi</string>
   <string name="mec_privacy">Obv. o zasebnosti</string>
   <string name="mec_product_detail_title"> Podrobnosti izdelka</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">Preberite</string>
   <string name="mec_reviews">Ocene</string>
   <string name="mec_shopping_cart">Nakupovalna košarica</string>
-  <string name="mec_specs">[sl]Specs</string>
-  <string name="mec_threshold_message">[sl]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[sl]Request threshold reached</string>
+  <string name="mec_specs">Specifikacije</string>
+  <string name="mec_threshold_message">To lahko traja še nekaj časa. Želite nadaljevati?</string>
+  <string name="mec_threshold_title">Dosežen je bil prag zahtev</string>
   <string name="mec_zero_results_message"> S tem boste filtrirali naš seznam izdelkov. Zagotovite, da v izrazu za filtriranje ni napak</string>
 </resources>

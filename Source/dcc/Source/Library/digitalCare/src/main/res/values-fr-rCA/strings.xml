@@ -154,7 +154,7 @@
     <string name="dcc_send_email">E-mail</string>
     <string name="dcc_call_number">Contactez-nous</string>
     <string name="dcc_chat_to_us">Discuter avec nous</string>
-    <string name="dcc_chat_desc">Dialoguez en direct 24 h/24 et 7 j/7 en anglais avec un de nos spécialistes produit. </string>
+    <string name="dcc_chat_desc">Commencer à clavarder avec un de nos spécialistes. </string>
     <string name="dcc_remove_photo">Supprimer la photo</string>
     <string name="dcc_continue">Continuer</string>
     <string name="dcc_characters_left">caractères restants</string>

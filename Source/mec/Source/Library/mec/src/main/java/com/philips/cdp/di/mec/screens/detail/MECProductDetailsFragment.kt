@@ -380,12 +380,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         binding.detailsParentLayout.visibility = View.GONE
         binding.mecProductDetailsEmptyTextLabel.visibility = View.VISIBLE
-
-    }
-
-
-    override fun onChanged(mecError: MecError?) {
-        binding.mecProductDetailsEmptyTextLabel.visibility = View.VISIBLE
+        super.processError(mecError)
 
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Plačilo preklicano</string>
   <string name="iap_Payment_failure">Plačilo neuspešno</string>
+  <string name="iap_accept_terms">[sl]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Sprejete kode</string>
   <string name="iap_access_token_notfound">Ni žetona za dostop</string>
   <string name="iap_add_new_address">Dodajanje novega naslova</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Strokovne ocene</string>
   <string name="iap_extra_option">Dodatne možnosti</string>
   <string name="iap_failed">Ni uspelo</string>
+  <string name="iap_faq">[sl]FAQ</string>
   <string name="iap_fetching_payment">Pridobivanje podatkov o plačilu ...</string>
   <string name="iap_filter_productlist">S tem boste filtrirali naš seznam izdelkov. Zagotovite, da v izrazu za filtriranje ni napak</string>
   <string name="iap_first_name">Ime</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Če za oddajo naročila uporabili drugega prodajalca, se vaše naročilo tukaj morda ne prikaže.</string>
   <string name="iap_out_of_stock">Ni na zalogi</string>
   <string name="iap_overall_rating">Skupna ocena</string>
+  <string name="iap_page">[sl]page</string>
   <string name="iap_pay_now">Plačajte zdaj</string>
   <string name="iap_payment">Plačilo</string>
   <string name="iap_payment_by">Plačal</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Na voljo ni noben izdelek</string>
   <string name="iap_promotional_gift">Promocijska ali darilna koda</string>
   <string name="iap_quantity">Količina: %s</string>
+  <string name="iap_product_item_quantity">Količina:</string>
+  <string name="iap_questions">[sl]Questions? Please visit our</string>
   <string name="iap_rate_it">Če vas je navdušil ali razočaral, ocenite ga!</string>
   <string name="iap_read">Preberite</string>
   <string name="iap_read_full_review">Preberite celotno oceno</string>

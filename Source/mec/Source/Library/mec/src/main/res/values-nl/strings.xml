@@ -19,7 +19,7 @@
   <string name="mec_features">Kenmerken</string>
   <string name="mec_has_used_this_product_for">Heeft dit product gebruikt voor</string>
   <string name="mec_in_stock">op voorraad</string>
-  <string name="mec_info">[nl]Info</string>
+  <string name="mec_info">Info</string>
   <string name="mec_invalid_landing_view">Definieer een geldige landingspagina</string>
   <string name="mec_invalid_product_ctn">Geef een niet-leeg producttypenummer op</string>
   <string name="mec_loading">Bezig met laden..</string>
@@ -27,7 +27,7 @@
   <string name="mec_no_product_available">Er werd geen product gevonden in uw winkel.</string>
   <string name="mec_no_result">0 resultaten gevonden voor</string>
   <string name="mec_no_review_available">Geen beoordelingen gevonden</string>
-  <string name="mec_ok">[nl]OK</string>
+  <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Online retailers</string>
   <string name="mec_out_of_stock">Niet op voorraad</string>
   <string name="mec_privacy">Privacyverklaring</string>

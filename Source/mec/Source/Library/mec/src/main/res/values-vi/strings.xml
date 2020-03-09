@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[vi]Add</string>
-  <string name="mec_add_gift_Card">[vi]Add gift code</string>
+  <string name="mec_add">Thêm</string>
+  <string name="mec_add_gift_Card">Thêm mã quà tặng</string>
   <string name="mec_add_to_cart">Thêm vào giỏ hàng</string>
-  <string name="mec_anonymous">[vi]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[vi]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[vi]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">Ẩn danh</string>
+  <string name="mec_bazaarVoice_Detail_at">Chi tiết tại</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">Các bài đánh giá này chịu sự quản lý của Bazaarvoice và tuân theo Chính sách xác thực của Bazaarvoice. Chính sách này được hỗ trợ bởi công nghệ chống gian lận và phân tích con người.</string>
   <string name="mec_buy_from_retailers">Mua từ cửa hàng bán lẻ</string>
   <string name="mec_cancel">Hủy</string>
-  <string name="mec_cart_login_error_message">[vi]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[vi]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">Vui lòng chọn Đăng ký hoặc Đăng nhập để dễ dàng đặt hàng hơn</string>
+  <string name="mec_continue_checkout">Tiếp tục bước thanh toán</string>
   <string name="mec_continue_shopping">Tiếp tục mua sắm</string>
-  <string name="mec_features">[vi]Features</string>
-  <string name="mec_has_used_this_product_for">[vi]Has used this product for</string>
+  <string name="mec_features">Đặc điểm</string>
+  <string name="mec_has_used_this_product_for">Đã sử dụng sản phẩm này cho</string>
   <string name="mec_in_stock">còn hàng</string>
   <string name="mec_info">Thông tin</string>
-  <string name="mec_invalid_landing_view">[vi]Please provide a valid Landing View</string>
+  <string name="mec_invalid_landing_view">Vui lòng cung cấp Dạng xem trang đích hợp lệ</string>
   <string name="mec_invalid_product_ctn">Vui lòng cung cấp CTN của sản phẩm không rỗng</string>
-  <string name="mec_loading">[vi]Loading..</string>
+  <string name="mec_loading">Đang tải...</string>
   <string name="mec_more_info">của chúng tôi để biết thêm thông tin</string>
   <string name="mec_no_product_available">Không tìm thấy sản phẩm trong Cửa hàng của bạn.</string>
   <string name="mec_no_result">Tìm thấy 0 kết quả cho</string>
-  <string name="mec_no_review_available">[vi]No Reviews Found</string>
-  <string name="mec_ok">[vi]OK</string>
-  <string name="mec_online_retailers">[vi]Online Retailers</string>
+  <string name="mec_no_review_available">Không tìm thấy bài đánh giá nào</string>
+  <string name="mec_ok">OK</string>
+  <string name="mec_online_retailers">Đại lý bán lẻ trực tuyến</string>
   <string name="mec_out_of_stock">Hết hàng</string>
   <string name="mec_privacy">Thông báo về quyền riêng tư</string>
   <string name="mec_product_detail_title"> Chi tiết sản phẩm</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">Đọc</string>
   <string name="mec_reviews">Đánh giá</string>
   <string name="mec_shopping_cart">Giỏ hàng</string>
-  <string name="mec_specs">[vi]Specs</string>
-  <string name="mec_threshold_message">[vi]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[vi]Request threshold reached</string>
+  <string name="mec_specs">Quy cách</string>
+  <string name="mec_threshold_message">Thao tác này có thể nhiều thời gian. Bạn có muốn tiếp tục không?</string>
+  <string name="mec_threshold_title">Đã đạt ngưỡng yêu cầu</string>
   <string name="mec_zero_results_message"> Từ khóa này sẽ lọc danh sách sản phẩm của chúng tôi. Vui lòng kiểm tra để đảm bảo không có lỗi chính tả nào trong từ khóa lọc của bạn</string>
 </resources>

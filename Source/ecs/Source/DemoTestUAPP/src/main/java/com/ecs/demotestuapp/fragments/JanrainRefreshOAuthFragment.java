@@ -5,17 +5,19 @@ import android.widget.EditText;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.philips.cdp.di.ecs.error.ECSError;
+import com.philips.cdp.di.ecs.integration.ClientType;
 import com.philips.cdp.di.ecs.integration.ECSCallback;
 import com.philips.cdp.di.ecs.integration.ECSOAuthProvider;
+import com.philips.cdp.di.ecs.integration.GrantType;
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData;
 
 public class JanrainRefreshOAuthFragment extends BaseAPIFragment {
 
     String refreshToken = "refreshToken";
 
-    EditText etSecret,etClient,etOAuthID;
+    EditText etSecret, etClient, etOAuthID;
 
-    String secret,client;
+    String secret, client;
 
     @Override
     public void onResume() {
@@ -24,7 +26,7 @@ public class JanrainRefreshOAuthFragment extends BaseAPIFragment {
         ECSDataHolder.INSTANCE.refreshJanRainID();
 
 
-        if(ECSDataHolder.INSTANCE.getJanrainID()!=null){
+        if (ECSDataHolder.INSTANCE.getJanrainID() != null) {
             refreshToken = ECSDataHolder.INSTANCE.getJanrainID();
         }
 
@@ -32,8 +34,10 @@ public class JanrainRefreshOAuthFragment extends BaseAPIFragment {
         etSecret.setText("secret");
 
         etClient = getLinearLayout().findViewWithTag("et_two");
-        etClient.setText("mobile_android");
-
+        if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
+            etClient.setText(ClientType.OIDC.getType());
+        else
+            etClient.setText(ClientType.JANRAIN.getType());
         etOAuthID = getLinearLayout().findViewWithTag("et_three");
         etOAuthID.setText(refreshToken);
     }
@@ -61,14 +65,14 @@ public class JanrainRefreshOAuthFragment extends BaseAPIFragment {
 
     }
 
-    public String getAuthID(){
-        return   getTextFromEditText(etOAuthID);
+    public String getAuthID() {
+        return getTextFromEditText(etOAuthID);
     }
 
-    public ECSOAuthProvider getECSOAuthProvider(){
+    public ECSOAuthProvider getECSOAuthProvider() {
 
-        secret =getTextFromEditText(etSecret);
-        client  = getTextFromEditText(etClient);
+        secret = getTextFromEditText(etSecret);
+        client = getTextFromEditText(etClient);
 
         ECSOAuthProvider ecsoAuthProvider = new ECSOAuthProvider() {
             @Override
@@ -77,13 +81,22 @@ public class JanrainRefreshOAuthFragment extends BaseAPIFragment {
             }
 
             @Override
-            public String getClientID() {
-                return client;
+            public ClientType getClientID() {
+                if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
+                    return ClientType.OIDC;
+                return ClientType.JANRAIN;
             }
 
             @Override
             public String getClientSecret() {
                 return secret;
+            }
+
+            @Override
+            public GrantType getGrantType() {
+                if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
+                    return GrantType.OIDC;
+                return GrantType.JANRAIN;
             }
         };
 

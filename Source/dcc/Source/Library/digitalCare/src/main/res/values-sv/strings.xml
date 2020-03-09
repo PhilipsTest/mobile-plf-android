@@ -154,7 +154,7 @@
     <string name="dcc_send_email">E-post</string>
     <string name="dcc_call_number">Ring oss</string>
     <string name="dcc_chat_to_us">Chatta med oss</string>
-    <string name="dcc_chat_desc">Livechatt dygnet runt på engelska med en av våra produktspecialister. </string>
+    <string name="dcc_chat_desc">Starta en livechatt med vår produktspecialist. </string>
     <string name="dcc_remove_photo">Ta bort foto</string>
     <string name="dcc_continue">Fortsätt</string>
     <string name="dcc_characters_left">tecken kvar</string>

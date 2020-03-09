@@ -1,145 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
+   - All rights are reserved. Reproduction or dissemination
+   - in whole or in part is prohibited without the prior written
+   - consent of the copyright holder. -->
+
 <resources>
-    <string name="mec_app_name">Mobile Ecommerce</string>
-    <string name="mec_please_wait">Please Wait</string>
-    <string name="mec_something_went_wrong">Our apologies. Something unexpected happened and we are not able to do what you asked. Please try again, or if the problem persists: contact Philips Consumer Care</string>
-    <string name="mec_you_are_offline">You are offline</string>
-    <string name="mec_server_error">Server Error</string>
-    <string name="mec_ok">OK</string>
-    <string name="mec_cancel">Cancel</string>
-    <string name="mec_no_internet">Your internet connection does not seem to be working. Please check and try again</string>
-    <string name="mec_time_out_error">Network timeout reached!</string>
-    <string name="mec_authentication_failure">Authentication failed</string>
-    <string name="mec_redeem_voucher">Redeem voucher</string>
-    <string name="mec_delivery_via">Delivery via FedEx</string>
-    <string name="mec_delivery_description">Delivery is FREE when you spend $100 or more</string>
-    <string name="mec_product_title">Products</string>
-    <string name="mec_product_detail_title">Product details</string>
-    <string name="mec_no_product_available">No product found in your Store.</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="mec_error">Error</string>
-    <string name="mec_info">Info</string>
-    <string name="mec_reviews">Reviews</string>
-    <string name="mec_add_to_cart">Add to cart</string>
-    <string name="mec_in_stock">In stock</string>
-    <string name="mec_out_of_stock">Out of stock </string>
-    <string name="mec_zero_results_message">This filters our product list. Please check that there are no typos in your filter term</string>
-    <string name="mec_no_result">0 results found for %s</string>
-    <string name="mec_pros_plus">\uFF0B</string>
-    <string name="mec_pros_minus">\uFF0D</string>
-    <string name="mec_read">Read our</string>
-    <string name="mec_privacy">Privacy Notice</string>
-    <string name="mec_more_info">for more info</string>
-    <string name="mec_currency">\u00A4</string>
-    <string name="mec_buy_from_retailers">Buy From Retailer</string>
-    <string name="mec_no_info_available">No info found</string>
-
-
-    <!--- String match -->
-
-    <string name="mec_no_review_available">No reviews found</string>
-    <string name="mec_anonymous">Anonymous</string>
-    <string name="mec_has_used_this_product_for">Has used this product for </string>
-    <string name="mec_add_gift_Card">Add gift code</string>
-    <string name="mec_add">Apply</string>
-    <string name="mec_online_retailers">Online Retailers</string>
-    <string name="mec_continue_checkout">Continue to checkout</string>
-    <string name="mec_bazaarVoice_Terms_And_Condition">These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
-    <string name="mec_bazaarVoice_Detail_at">\nDetails at</string>
-    <string name="mec_bazaarVoice_link">    <font color="?attr/uidHyperlinkDefaultNormalTextColor"><u>"http://www.bazaarvoice.com/trustmark" </u></font></string>
-    <string name="mec_specs">Specs</string>
-    <string name="mec_features">Features</string>
-    <string name="mec_invalid_landing_view">Please provide a valid Landing View</string>
-    <string name="mec_cart_login_error_message">Please Register or Login to easily order your products</string>
-    <string name="mec_loading">Loading..</string>
-    <string name="mec_threshold_title">Request threshold reached</string>
-    <string name="mec_threshold_message">This might take more time. Do you wish to continue?</string>
-    <string name="mec_shopping_cart">Shopping cart</string>
-    <string name="mec_continue_shopping">Continue shopping</string>
-    <string name="mec_invalid_product_ctn">Please provide a non empty product CTN</string>
-    <string name="mec_add_gift_codes">Add gift codes</string>
-    <string name="mec_add_gift_code">Enter gift code</string>
-    <string name="mec_cart_summary">Cart summary</string>
-    <string name="mec_order_summary">Order summary</string>
-    <string name="mec_accepted_codes">Accepted codes</string>
-    <string name="mec_remove_product">Remove product</string>
-    <string name="mec_remove_voucher">Remove voucher</string>
-    <string name="mec_delete_item">Delete Item</string>
-    <string name="mec_delete_voucher">Delete Voucher</string>
-    <string name="mec_nothing_in_cart">Nothing in your cart yet</string>
-    <string name="mec_empty_cart">Your shopping cart is currently empty.</string>
-    <string name="mec_delete_item_description">Your product will be removed from your shopping cart. Are you sure?</string>
-    <string name="mec_delete_voucher_description">Your voucher will be removed from your shopping cart. Are you sure?</string>
-
-    <!--Address screen strings-->
-
-    <string name="mec_first_name">First name</string>
-    <string name="mec_first_name_error">Please enter a valid first name</string>
-    <string name="mec_first_name_hint">Enter first name</string>
-
-    <string name="mec_last_name">Last name</string>
-    <string name="mec_last_name_error">Please enter a valid last name</string>
-    <string name="mec_last_name_hint">Enter last name</string>
-
-    <string name="mec_salutation">Salutation</string>
-    <string name="mec_title">Title</string>
-
-    <string name="mec_town">Town/City</string>
-    <string name="mec_town_error">Please enter a valid town</string>
-    <string name="mec_town_hint">Enter your town or city</string>
-
-    <string name="mec_phone">Phone</string>
-    <string name="mec_phone_error">Please enter a valid phone number</string>
-    <string name="mec_phone_hint">Enter phone number</string>
-
-    <string name="mec_postal_code">Postal code</string>
-    <string name="mec_postal_code_error">Please enter a valid Zip Code</string>
-    <string name="mec_postal_code_hint">Enter ZIP/Postal code</string>
-
-    <string name="mec_houseNumber_error">Please enter house number</string>
-    <string name="mec_house_number">House number</string>
-    <string name="mec_house_number_hint">Enter house number</string>
-
-    <string name="mec_address">Address</string>
-    <string name="mec_address_error">Address must have characters with a mix of letters (A-Z, a-z), digits (0-9), symbols (\",\" ,\"-\", “.”)</string>
-    <string name="mec_address_line_one">Address line 1</string>
-    <string name="mec_address_line_one_hint">Enter address line 1</string>
-
-    <string name="mec_address_line_two">Address line 2</string>
-
-    <string name="mec_country">Country</string>
-
-    <string name="mec_state">State</string>
-
-    <string name="mec_personal_details">Personal details</string>
-
-    <string name="mec_contact_details">Contact details</string>
-
-    <string name="mec_shipping_address">Shipping address</string>
-
-    <string name="mec_billing_address">Billing address</string>
-
-    <string name="mec_invalid_voucher_error">Sorry, this voucher can\'t be redeemed</string>
-    <string name="mec_checkout">Checkout</string>
-    <string name="mec_delivery">Delivery</string>
-    <string name="mec_exceed_cart_limit">Exceed Cart limit</string>
-    <string name="mec_cannot_add">You can not add more than </string>
-    <string name="mec_product_in_cart"> products in your cart</string>
-    <string name="mec_delivery_ups_parcel">Delivery via %s</string>
-    <string name="mec_shipping_cost">Delivery cost</string>
-    <string name="mec_delivery_method">Delivery method</string>
-    <string name="mec_seperator">&#160;|&#160;</string>
-    <string name="mec_empty_space">&#160;</string>
-    <string name="mec_delivery_cost">Delivery cost</string>
-    <string name="mec_discount">discount</string>
-    <string name="mec_total">Total</string>
-    <string name="mec_products">Product(s)</string>
-    <string name="mec_pice_including">Price including</string>
-    <string name="mec_vat">vat</string>
-    <string name="mec_only">Only</string>
-    <string name="mec_left">left</string>
-    <string name="mec_save_and_continue">Save and Continue</string>
+  <string name="mec_add">Add</string>
+  <string name="mec_add_gift_Card">Add gift code</string>
+  <string name="mec_add_to_cart">Add to cart</string>
+  <string name="mec_anonymous">Anonymous</string>
+  <string name="mec_bazaarVoice_Detail_at">Details at</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_buy_from_retailers">Buy From Retailer</string>
+  <string name="mec_cancel">Cancel</string>
+  <string name="mec_cart_login_error_message">Please Register or Login to easily order your products</string>
+  <string name="mec_continue_checkout">Continue to checkout</string>
+  <string name="mec_continue_shopping">Continue shopping</string>
+  <string name="mec_features">Features</string>
+  <string name="mec_has_used_this_product_for">Has used this product for</string>
+  <string name="mec_in_stock">In stock</string>
+  <string name="mec_info">Info</string>
+  <string name="mec_invalid_landing_view">Please provide a valid Landing View</string>
+  <string name="mec_invalid_product_ctn">Please provide a non empty product CTN</string>
+  <string name="mec_loading">Loading..</string>
+  <string name="mec_more_info">for more info</string>
+  <string name="mec_no_product_available">No product found in your Store.</string>
+  <string name="mec_no_result">0 results found for</string>
+  <string name="mec_no_review_available">No Reviews Found</string>
+  <string name="mec_ok">OK</string>
+  <string name="mec_online_retailers">Online Retailers</string>
+  <string name="mec_out_of_stock">Out of stock</string>
+  <string name="mec_privacy">Privacy Notice</string>
+  <string name="mec_product_detail_title">Product details</string>
+  <string name="mec_product_title">Products</string>
+  <string name="mec_read">Read our</string>
+  <string name="mec_reviews">Reviews</string>
+  <string name="mec_shopping_cart">Shopping Cart</string>
+  <string name="mec_specs">Specs</string>
+  <string name="mec_threshold_message">This might take more time. Do you wish to continue?</string>
+  <string name="mec_threshold_title">Request threshold reached</string>
+  <string name="mec_zero_results_message">This filters our product list. Please check that there are no typos in your filter term</string>
+  <string name="mec_currency">\u00A4</string>
+  <string name="mec_pros_plus">\uFF0B</string>
+  <string name="mec_pros_minus">\uFF0D</string>
+  <string name="mec_app_name">Mobile Ecommerce</string>
+  <string name="mec_bazaarVoice_link">http://www.bazaarvoice.com/trustmark</string>
+  <string name="mec_empty_space">&#160;</string>
+  <string name="mec_new_line">\n</string>
 
 
 </resources>

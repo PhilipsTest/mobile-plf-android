@@ -16,6 +16,7 @@ import com.philips.cdp.registration.app.tagging.AppTagingConstants;
 import com.philips.cdp.registration.ui.customviews.XRegError;
 import com.philips.cdp.registration.ui.traditional.AccountActivationFragment;
 import com.philips.cdp.registration.ui.traditional.RegistrationBaseFragment;
+import com.philips.cdp.registration.ui.traditional.RegistrationFragment;
 import com.philips.cdp.registration.ui.utils.LoginIdValidator;
 import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.RegConstants;
@@ -151,6 +152,8 @@ public class AddSecureEmailFragment extends RegistrationBaseFragment implements 
 
     @Override
     public void onAddRecoveryEmailSuccess() {
+        ((RegistrationFragment) getParentFragment()).hideKeyBoard();
+
         getRegistrationFragment().addFragment(new AccountActivationFragment());
     }
 
@@ -194,6 +197,8 @@ public class AddSecureEmailFragment extends RegistrationBaseFragment implements 
         super.onResume();
         addRecoveryEmailButton.setEnabled(false);
         addSecureEmailPresenter.registerNetworkListener();
+        ((RegistrationFragment) getParentFragment()).hideKeyBoard();
+        recoveryEmail.clearFocus();
     }
 
     @Override

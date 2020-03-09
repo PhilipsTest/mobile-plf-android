@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[he]Add</string>
-  <string name="mec_add_gift_Card">[he]Add gift code</string>
+  <string name="mec_add">הוסף</string>
+  <string name="mec_add_gift_Card">הוסף קוד שובר שי</string>
   <string name="mec_add_to_cart">הוסף לעגלה</string>
-  <string name="mec_anonymous">[he]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[he]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[he]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">אנונימי</string>
+  <string name="mec_bazaarVoice_Detail_at">פרטים בכתובת</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">ביקורות אלה מנוהלות על ידי Bazaarvoice והן ממלאות אחר מדיניות האמינות של Bazaarvoice הנעזרת בטכנולוגיה למניעת הונאות וניתוח אנושי.</string>
   <string name="mec_buy_from_retailers">רכישה מקמעונאי</string>
   <string name="mec_cancel">ביטול</string>
-  <string name="mec_cart_login_error_message">[he]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[he]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">נא להירשם או להתחבר כדי להזמין מוצרים בקלות</string>
+  <string name="mec_continue_checkout">המשך לקופה</string>
   <string name="mec_continue_shopping">המשך בקנייה</string>
-  <string name="mec_features">[he]Features</string>
-  <string name="mec_has_used_this_product_for">[he]Has used this product for</string>
+  <string name="mec_features">מאפיינים</string>
+  <string name="mec_has_used_this_product_for">השתמש במוצר זה למטרת</string>
   <string name="mec_in_stock">במלאי</string>
   <string name="mec_info">מידע</string>
-  <string name="mec_invalid_landing_view">[he]Please provide a valid Landing View</string>
+  <string name="mec_invalid_landing_view">ספק תצוגת נחיתה תקפה בבקשה</string>
   <string name="mec_invalid_product_ctn">ספק CTN לא ריק של המוצר</string>
-  <string name="mec_loading">[he]Loading..</string>
+  <string name="mec_loading">טוען...</string>
   <string name="mec_more_info">מידע נוסף</string>
   <string name="mec_no_product_available">לא נמצאו מוצרים בחנות שלך.</string>
   <string name="mec_no_result">נמצאו 0 תוצאות עבור</string>
-  <string name="mec_no_review_available">[he]No Reviews Found</string>
+  <string name="mec_no_review_available">לא נמצאו ביקורות</string>
   <string name="mec_ok">אישור</string>
-  <string name="mec_online_retailers">[he]Online Retailers</string>
+  <string name="mec_online_retailers">קמעונאים מקוונים</string>
   <string name="mec_out_of_stock">אזל מהמלאי</string>
   <string name="mec_privacy">הודעת הפרטיות</string>
   <string name="mec_product_detail_title"> פרטי המוצר</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">קרא את</string>
   <string name="mec_reviews">חוות דעת</string>
   <string name="mec_shopping_cart">עגלת קניות</string>
-  <string name="mec_specs">[he]Specs</string>
-  <string name="mec_threshold_message">[he]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[he]Request threshold reached</string>
+  <string name="mec_specs">מפרטים</string>
+  <string name="mec_threshold_message">נדרש זמן נוסף לביצוע הפעולה. האם להמשיך?</string>
+  <string name="mec_threshold_title">סף בקשה הושג</string>
   <string name="mec_zero_results_message"> פעולה זו מסננת את רשימת המוצרים שלנו; ודא כי אין שגיאות הקלדה בפריט שבמסנן</string>
 </resources>

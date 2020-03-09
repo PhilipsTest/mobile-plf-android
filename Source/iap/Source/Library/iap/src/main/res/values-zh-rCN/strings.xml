@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">付款取消</string>
   <string name="iap_Payment_failure">付款失败</string>
+  <string name="iap_accept_terms">[zh-CN]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">已接受的代码</string>
   <string name="iap_access_token_notfound">未找到访问令牌</string>
   <string name="iap_add_new_address">添加新地址</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">专家评论</string>
   <string name="iap_extra_option">其他选项</string>
   <string name="iap_failed">失败</string>
+  <string name="iap_faq">[zh-CN]FAQ</string>
   <string name="iap_fetching_payment">[zh-CN]Fetching Payment Details...</string>
   <string name="iap_filter_productlist">这会对我们的产品列表进行筛选。请检查以确保您的筛选术语没有拼写错误</string>
   <string name="iap_first_name">名字</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">如果您通过其他零售商下单，则您的订单可能不会显示在此处。</string>
   <string name="iap_out_of_stock">缺货</string>
   <string name="iap_overall_rating">总体评级</string>
+  <string name="iap_page">[zh-CN]page</string>
   <string name="iap_pay_now">立即支付</string>
   <string name="iap_payment">支付</string>
   <string name="iap_payment_by">付款方</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">无可用产品</string>
   <string name="iap_promotional_gift">促销或礼品码</string>
   <string name="iap_quantity">数量：%s</string>
+  <string name="iap_product_item_quantity">数量：</string>
+  <string name="iap_questions">[zh-CN]Questions? Please visit our</string>
   <string name="iap_rate_it">无论喜欢还是讨厌，我们希望您能进行评分！</string>
   <string name="iap_read">阅读我们的</string>
   <string name="iap_read_full_review">查看评论全文</string>

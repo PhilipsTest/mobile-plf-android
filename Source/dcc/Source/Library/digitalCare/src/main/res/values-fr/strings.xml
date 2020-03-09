@@ -159,7 +159,7 @@
     <string name="dcc_send_email">Courriel</string>
     <string name="dcc_call_number">Nous appeler</string>
     <string name="dcc_chat_to_us">Clavardez avec nous</string>
-    <string name="dcc_chat_desc">Clavardage en direct et en tout temps en anglais avec un de nos experts des produits. </string>
+    <string name="dcc_chat_desc">Commencez un chat en direct avec notre spécialiste produit. </string>
     <string name="dcc_remove_photo">Supprimer la photo</string>
     <string name="dcc_continue">Continuer</string>
     <string name="dcc_characters_left">caractères restants</string>

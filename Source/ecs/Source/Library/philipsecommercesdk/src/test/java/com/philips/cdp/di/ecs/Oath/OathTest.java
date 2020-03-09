@@ -256,7 +256,7 @@ public class OathTest {
         Map<String, String> expectedMap = new HashMap<String, String>();
         expectedMap.put("janrain","mock Jainrain ID");
         expectedMap.put("grant_type",GrantType.JANRAIN.getType());
-        expectedMap.put("client_id",oAuthInput.getClientID());
+        expectedMap.put("client_id",oAuthInput.getClientID().getType());
         expectedMap.put("client_secret",oAuthInput.getClientSecret());
 
         Map<String, String> actual = mockOAuthRequest.getHeader();

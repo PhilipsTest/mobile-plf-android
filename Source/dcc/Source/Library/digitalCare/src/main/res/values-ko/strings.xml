@@ -155,7 +155,7 @@
     <string name="dcc_send_email">이메일</string>
     <string name="dcc_call_number">전화하기</string>
     <string name="dcc_chat_to_us">채팅하기</string>
-    <string name="dcc_chat_desc">제품 전문가와 연중무휴 라이브챗(영어)이 가능합니다. </string>
+    <string name="dcc_chat_desc">제품 전문가와 실시간 채팅을 시작하세요. </string>
     <string name="dcc_remove_photo">사진 제거</string>
     <string name="dcc_continue">계속</string>
     <string name="dcc_characters_left">자 남음</string>

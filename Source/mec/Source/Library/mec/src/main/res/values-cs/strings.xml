@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[cs]Add</string>
-  <string name="mec_add_gift_Card">[cs]Add gift code</string>
+  <string name="mec_add">Přidat</string>
+  <string name="mec_add_gift_Card">Přidat dárkový kód</string>
   <string name="mec_add_to_cart">Přidat do vozíku</string>
-  <string name="mec_anonymous">[cs]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[cs]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[cs]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">Anonymní</string>
+  <string name="mec_bazaarVoice_Detail_at">Podrobnosti naleznete na</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">Tyto recenze spravuje společnost Bazaarvoice a dodržují zásady autenticity Bazaarvoice, které jsou podporovány technologií proti podvodům a analýzou lidských práv.</string>
   <string name="mec_buy_from_retailers">Zakupte u maloobchodníka</string>
   <string name="mec_cancel">Zrušit</string>
-  <string name="mec_cart_login_error_message">[cs]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[cs]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">Pro snadnou objednávku výrobků se zaregistrujte nebo přihlaste</string>
+  <string name="mec_continue_checkout">Pokračovat k pokladně</string>
   <string name="mec_continue_shopping">Pokračovat v nákupu</string>
-  <string name="mec_features">[cs]Features</string>
-  <string name="mec_has_used_this_product_for">[cs]Has used this product for</string>
+  <string name="mec_features">Funkce</string>
+  <string name="mec_has_used_this_product_for">Výrobek používám na</string>
   <string name="mec_in_stock">na skladě</string>
-  <string name="mec_info">[cs]Info</string>
-  <string name="mec_invalid_landing_view">[cs]Please provide a valid Landing View</string>
+  <string name="mec_info">Info</string>
+  <string name="mec_invalid_landing_view">Zadejte platnou cílovou projekci</string>
   <string name="mec_invalid_product_ctn">Zadejte neprázdný kód CTN výrobku</string>
-  <string name="mec_loading">[cs]Loading..</string>
+  <string name="mec_loading">Načítání...</string>
   <string name="mec_more_info">– bližší info</string>
   <string name="mec_no_product_available">V obchodě nebyl nalezen žádný výrobek.</string>
   <string name="mec_no_result">0 výsledků pro:</string>
-  <string name="mec_no_review_available">[cs]No Reviews Found</string>
-  <string name="mec_ok">[cs]OK</string>
-  <string name="mec_online_retailers">[cs]Online Retailers</string>
+  <string name="mec_no_review_available">Nebyly nalezeny žádné recenze</string>
+  <string name="mec_ok">OK</string>
+  <string name="mec_online_retailers">Online prodejci</string>
   <string name="mec_out_of_stock">Není skladem</string>
   <string name="mec_privacy">Oznámení o ochraně osobních údajů</string>
   <string name="mec_product_detail_title"> Podrobnosti o výrobku</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">Čtěte naše</string>
   <string name="mec_reviews">Přehledy</string>
   <string name="mec_shopping_cart">Nákupní vozík</string>
-  <string name="mec_specs">[cs]Specs</string>
-  <string name="mec_threshold_message">[cs]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[cs]Request threshold reached</string>
+  <string name="mec_specs">Specifikace</string>
+  <string name="mec_threshold_message">To může trvat déle. Chcete pokračovat?</string>
+  <string name="mec_threshold_title">Bylo dosaženo prahové hodnoty požadavku</string>
   <string name="mec_zero_results_message"> Zde se filtruje seznamu výrobků. Zkontrolujte, že vámi zadaný výraz neobsahuje žádné překlepy.</string>
 </resources>

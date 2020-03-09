@@ -10,8 +10,6 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -27,9 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.ecs.demouapp.R;
-
 import com.ecs.demouapp.ui.integration.ECSBannerEnabler;
 import com.ecs.demouapp.ui.integration.ECSDependencies;
 import com.ecs.demouapp.ui.integration.ECSFlowInput;
@@ -119,6 +119,7 @@ public class EcsDemoAppActivity extends AppCompatActivity implements View.OnClic
     private ArrayList<String> ignorelistedRetailer;
     private View mLL_propositionId;
     URInterface urInterface;
+
     private long mLastClickTime = 0;
     private ToggleButton toggleMock;
     private boolean enableMock = false;

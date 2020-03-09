@@ -156,7 +156,6 @@ public class VoucherFragment extends InAppBaseFragment implements View.OnClickLi
           }
 
             String sValue = (String) String.format("%.2f", count);
-            Double totalValue = Double.parseDouble(sValue);
             totalCost.setText("$ "+sValue);
             mAppliedVoucherAdapter.notifyDataSetChanged();
         }else {

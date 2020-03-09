@@ -16,6 +16,7 @@ import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -23,6 +24,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -146,16 +149,26 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
                 }
             }
 
+            @Nullable
             @Override
             public Bitmap getDefaultVideoPoster() {
-                if (Build.VERSION.SDK_INT >= 26) {
-                    return videoPoster;
+                if (super.getDefaultVideoPoster() == null) {
+                    try {
+                        return BitmapFactory.decodeResource(getCustomResources(), R.drawable.ic_media_video_poster);
+                    } catch (Exception e) {
+                        return super.getDefaultVideoPoster();
+                    }
+                } else {
+                    return super.getDefaultVideoPoster();
                 }
-                return super.getDefaultVideoPoster();
             }
 
         });
         webView.loadUrl(url);
+    }
+
+    private Resources getCustomResources() {
+        return getActivity().getResources();
     }
 
     public abstract void setViewParams(Configuration config);

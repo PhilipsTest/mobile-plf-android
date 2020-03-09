@@ -19,9 +19,9 @@
   <string name="mec_features">Funktionsweisen</string>
   <string name="mec_has_used_this_product_for">Hat dieses Produkt verwendet für</string>
   <string name="mec_in_stock">Auf Lager</string>
-  <string name="mec_info">[de]Info</string>
+  <string name="mec_info">Info</string>
   <string name="mec_invalid_landing_view">Bitte geben Sie eine gültige Zielanzeige an</string>
-  <string name="mec_invalid_product_ctn">[de]Please provide a non empty product CTN</string>
+  <string name="mec_invalid_product_ctn">Bitte geben Sie eine Artikelnummer an.</string>
   <string name="mec_loading">Wird geladen...</string>
   <string name="mec_more_info">für weitere Informationen</string>
   <string name="mec_no_product_available">In Ihrem Store wurde kein Produkt gefunden.</string>

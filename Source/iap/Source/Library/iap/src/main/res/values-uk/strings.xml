@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Скасування оплати</string>
   <string name="iap_Payment_failure">Помилка оплати</string>
+  <string name="iap_accept_terms">[uk]By placing the order, I accept Philips’</string>
   <string name="iap_accepted_codes">Прийняті коди</string>
   <string name="iap_access_token_notfound">Маркера доступу не знайдено</string>
   <string name="iap_add_new_address">Додати нову адресу</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Відгуки експертів</string>
   <string name="iap_extra_option">Додаткові параметри</string>
   <string name="iap_failed">Помилка</string>
+  <string name="iap_faq">[uk]FAQ</string>
   <string name="iap_fetching_payment">Отримання реквізитів для оплати...</string>
   <string name="iap_filter_productlist">Це фільтрує наш список виробів. Перевірте, чи термін фільтра не містить помилок.</string>
   <string name="iap_first_name">Ім\'я</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Якщо Ви розмістили своє замовлення через іншого продавця, тоді Ваше замовлення тут може не відображатися.</string>
   <string name="iap_out_of_stock">Немає в наявності</string>
   <string name="iap_overall_rating">Загальна оцінка</string>
+  <string name="iap_page">[uk]page</string>
   <string name="iap_pay_now">Оплатити зараз</string>
   <string name="iap_payment">Оплата</string>
   <string name="iap_payment_by">Оплачено</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Немає виробів</string>
   <string name="iap_promotional_gift">Акційний або подарунковий код</string>
   <string name="iap_quantity">Кількість: %s</string>
+  <string name="iap_product_item_quantity">Кількість:</string>
+  <string name="iap_questions">[uk]Questions? Please visit our</string>
   <string name="iap_rate_it">Подобається Вам цей виріб чи ні, ми хочемо дізнатися Вашу оцінку!</string>
   <string name="iap_read">Читайте наше</string>
   <string name="iap_read_full_review">Прочитати весь відгук</string>

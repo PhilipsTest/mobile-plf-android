@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Zahlung stornieren</string>
   <string name="iap_Payment_failure">Zahlung fehlgeschlagen</string>
+  <string name="iap_accept_terms">Mit der Bestellung akzeptiere ich Philips</string>
   <string name="iap_accepted_codes">Akzeptierte Codes</string>
   <string name="iap_access_token_notfound">Zugriffstoken nicht gefunden</string>
   <string name="iap_add_new_address">Neue Adresse hinzufügen</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Bewertung von Experten</string>
   <string name="iap_extra_option">Zusätzliche Optionen</string>
   <string name="iap_failed">Fehlgeschlagen</string>
+  <string name="iap_faq">FAQ</string>
   <string name="iap_fetching_payment">[de]Fetching Payment Details...</string>
   <string name="iap_filter_productlist">Diese Funktion filtert unsere Produktliste. Stellen Sie sicher, dass sich keine Rechtschreibfehler im Suchbegriff befinden.</string>
   <string name="iap_first_name">Vorname</string>
@@ -128,10 +130,6 @@
   <string name="iap_less_review">Weniger anzeigen</string>
   <string name="iap_mastercard">Mastercard</string>
   <string name="iap_more_info">für weitere Informationen</string>
-  <string name="iap_faq">FAQ</string>
-  <string name="iap_accept_terms">Mit der Bestellung akzeptiere ich die Philips</string>
-  <string name="iap_page">-Seite</string>
-  <string name="iap_questions">Fragen? Bitte besuchen Sie unsere </string>
   <string name="iap_more_review">Mehr anzeigen</string>
   <string name="iap_mr">Herr</string>
   <string name="iap_mrs">Frau</string>
@@ -177,6 +175,7 @@
   <string name="iap_other_channel_dls">Wenn Sie Ihre Bestellung bei einem anderen Händler aufgegeben haben, wird sie hier möglicherweise nicht angezeigt.</string>
   <string name="iap_out_of_stock">Nicht auf Lager</string>
   <string name="iap_overall_rating">Bewertung insgesamt</string>
+  <string name="iap_page">Seite</string>
   <string name="iap_pay_now">Jetzt zahlen</string>
   <string name="iap_payment">Zahlung</string>
   <string name="iap_payment_by">Bezahlt per</string>
@@ -211,11 +210,12 @@
   <string name="iap_products_unavailable">Keine Produkte verfügbar</string>
   <string name="iap_promotional_gift">Aktions- oder Geschenkcode</string>
   <string name="iap_quantity">Menge: %s</string>
+  <string name="iap_product_item_quantity">Menge:</string>
+  <string name="iap_questions">Fragen? Bitte besuchen Sie unsere</string>
   <string name="iap_rate_it">Positives oder negatives Feedback? Ihre Meinung zählt!</string>
   <string name="iap_read">Lesen Sie unsere</string>
   <string name="iap_read_full_review">Gesamte Bewertung lesen</string>
-  <string name="iap_read_privacy">Ich habe die</string>
-  <string name="iap_just_read">gelesen</string>
+  <string name="iap_read_privacy">Ich habe Folgendes gelesen:</string>
   <string name="iap_recommend_this_product">Kunden würden dieses Produkt weiterempfehlen.</string>
   <string name="iap_redeem_voucher">Gutschein einlösen</string>
   <string name="iap_remove">Entfernen</string>
@@ -253,7 +253,7 @@
   <string name="iap_state">Bundesl.</string>
   <string name="iap_stock_left">[de]left in stock</string>
   <string name="iap_success">Erfolgreich</string>
-  <string name="iap_terms_conditions">Nutzungsbedingungen</string>
+  <string name="iap_terms_conditions">Allgemeinen Nutzungsbedingungen</string>
   <string name="iap_thank_for_order">Vielen Dank für Ihre Bestellung.</string>
   <string name="iap_time_out">Zeitlimit überschritten</string>
   <string name="iap_time_out_error">Das Zeitlimit des Netzwerks wurde überschritten!</string>

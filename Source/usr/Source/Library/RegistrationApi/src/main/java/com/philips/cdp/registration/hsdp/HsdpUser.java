@@ -68,6 +68,10 @@ public class HsdpUser {
 
     private final String HSDP_RECORD_FILE = "hsdpRecord";
 
+    //product registration secure storage key
+    private final String PRODUCT_REGISTRATION_KEY = "prod_reg"; // value should match with the key used in PRODUCT_REGISTRATION  (ProdRegConstants.java)
+
+
     /**
      * User file write listener interface
      */
@@ -392,6 +396,7 @@ public class HsdpUser {
         mContext.deleteFile(HSDP_RECORD_FILE);
         mSecureStorageInterface.removeValueForKey(HSDP_RECORD_FILE);
         mSecureStorageInterface.removeValueForKey(HsdpUserRecordV2.SS_KEY_FOR_SAVING_RECORD);
+        mSecureStorageInterface.removeValueForKey(PRODUCT_REGISTRATION_KEY);
         HsdpUserInstance.getInstance().setHsdpUserRecordV2(null);
     }
 

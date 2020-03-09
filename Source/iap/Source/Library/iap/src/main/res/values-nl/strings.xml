@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Betaling geannuleerd</string>
   <string name="iap_Payment_failure">Betaling mislukt</string>
+  <string name="iap_accept_terms">Door de bestelling te plaatsen, accepteer ik Philips\'</string>
   <string name="iap_accepted_codes">Geaccepteerde codes</string>
   <string name="iap_access_token_notfound">Toegangstoken niet gevonden</string>
   <string name="iap_add_new_address">Voeg een nieuw adres toe</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Beoordelingen van experts</string>
   <string name="iap_extra_option">Extra keuzen</string>
   <string name="iap_failed">Mislukt</string>
+  <string name="iap_faq">pagina met</string>
   <string name="iap_fetching_payment">Betalingsgegevens ophalen...</string>
   <string name="iap_filter_productlist">Hiermee wordt de productlijst gefilterd. Controleer of u geen typefouten hebt gemaakt</string>
   <string name="iap_first_name">Voornaam</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Als u uw bestelling hebt geplaatst bij een andere retailer, wordt uw bestelling mogelijk niet hier weergegeven.</string>
   <string name="iap_out_of_stock">Niet op voorraad</string>
   <string name="iap_overall_rating">Algemene waardering</string>
+  <string name="iap_page">veelgestelde vragen</string>
   <string name="iap_pay_now">Nu betalen</string>
   <string name="iap_payment">Betaling</string>
   <string name="iap_payment_by">Betaald via</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Geen producten beschikbaar</string>
   <string name="iap_promotional_gift">Promotie- of cadeaucode</string>
   <string name="iap_quantity">Aantal: %s</string>
+  <string name="iap_product_item_quantity">Aantal:</string>
+  <string name="iap_questions">Vragen? Lees onze</string>
   <string name="iap_rate_it">Tevreden of niet, we horen graag uw mening!</string>
   <string name="iap_read">Lees onze</string>
   <string name="iap_read_full_review">Volledige beoordeling lezen</string>

@@ -27,7 +27,7 @@
   <string name="mec_no_product_available">Tuotteita ei löydy kaupastasi.</string>
   <string name="mec_no_result">Ei tuloksia haulla</string>
   <string name="mec_no_review_available">Arvosteluja ei löytynyt</string>
-  <string name="mec_ok">[fi]OK</string>
+  <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Online-vähittäismyyjä</string>
   <string name="mec_out_of_stock">Loppunut varastosta</string>
   <string name="mec_privacy">tietosuojalausunto</string>

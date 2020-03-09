@@ -153,7 +153,7 @@
     <string name="dcc_send_email">Email</string>
     <string name="dcc_call_number">Call us</string>
     <string name="dcc_chat_to_us">Chat to us</string>
-    <string name="dcc_chat_desc">Live chat 24/7 in English with one of our product specialists. </string>
+    <string name="dcc_chat_desc">Start a live chat with our product specialist.</string>
     <string name="dcc_remove_photo">Remove photo</string>
     <string name="dcc_continue">Continue</string>
     <string name="dcc_characters_left">characters left</string>

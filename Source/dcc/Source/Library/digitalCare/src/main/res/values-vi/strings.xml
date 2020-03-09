@@ -155,7 +155,7 @@
     <string name="dcc_send_email">Email</string>
     <string name="dcc_call_number">Gọi cho chúng tôi</string>
     <string name="dcc_chat_to_us">Trò chuyện với chúng tôi</string>
-    <string name="dcc_chat_desc">Trò chuyện trực tiếp 24h/7 ngày bằng tiếng Anh với một trong các chuyên gia sản phẩm của chúng tôi. </string>
+    <string name="dcc_chat_desc">Bắt đầu trò chuyện trực tiếp với chuyên gia sản phẩm của chúng tôi. </string>
     <string name="dcc_remove_photo">Xóa ảnh</string>
     <string name="dcc_continue">Tiếp tục</string>
     <string name="dcc_characters_left">ký tự còn lại</string>

@@ -119,7 +119,7 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/border16_margin_left_right"
             android:paddingRight="@dimen/border16_margin_left_right"
-            android:text="@string/iap_no_of_products" />
+            android:text="@string/iap_number_of_products" />
 
 
         <LinearLayout

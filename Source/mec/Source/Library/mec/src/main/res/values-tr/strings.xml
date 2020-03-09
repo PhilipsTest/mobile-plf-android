@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[tr]Add</string>
-  <string name="mec_add_gift_Card">[tr]Add gift code</string>
+  <string name="mec_add">Ekle</string>
+  <string name="mec_add_gift_Card">Hediye kodu ekle</string>
   <string name="mec_add_to_cart">Sepete ekle</string>
-  <string name="mec_anonymous">[tr]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[tr]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[tr]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">Anonim</string>
+  <string name="mec_bazaarVoice_Detail_at">Ayrıntılar:</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">Bu incelemeler Bazaarvoice tarafından yönetilir ve dolandırıcılıkla mücadele teknolojisi ve insan analizleri tarafından desteklenen Bazaarvoice Güvenilirlik Politikasıyla uyumludur.</string>
   <string name="mec_buy_from_retailers">Perakende Satış Mağazalarından Satın Alın</string>
   <string name="mec_cancel">İptal</string>
-  <string name="mec_cart_login_error_message">[tr]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[tr]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">Lütfen ürünlerinizi kolayca sipariş etmek için Kaydolun veya Oturum Açın</string>
+  <string name="mec_continue_checkout">Ödemeye devam et</string>
   <string name="mec_continue_shopping">Alışverişe devam et</string>
-  <string name="mec_features">[tr]Features</string>
-  <string name="mec_has_used_this_product_for">[tr]Has used this product for</string>
+  <string name="mec_features">Özellikler</string>
+  <string name="mec_has_used_this_product_for">Bu ürünü şunun için kullandı:</string>
   <string name="mec_in_stock">adet stokta var</string>
   <string name="mec_info">Bilgi</string>
-  <string name="mec_invalid_landing_view">[tr]Please provide a valid Landing View</string>
+  <string name="mec_invalid_landing_view">Lütfen geçerli bir Açılış Görünümü sağlayın</string>
   <string name="mec_invalid_product_ctn">Lütfen dolu bir ürün CTN\'si verin</string>
-  <string name="mec_loading">[tr]Loading..</string>
+  <string name="mec_loading">Yükleniyor...</string>
   <string name="mec_more_info">okuyun.</string>
   <string name="mec_no_product_available">Mağazanızda ürün bulunamadı.</string>
   <string name="mec_no_result">Şunun için 0 sonuç bulundu:</string>
-  <string name="mec_no_review_available">[tr]No Reviews Found</string>
-  <string name="mec_ok">[tr]OK</string>
-  <string name="mec_online_retailers">[tr]Online Retailers</string>
+  <string name="mec_no_review_available">Hiçbir İnceleme Bulunamadı</string>
+  <string name="mec_ok">Tamam</string>
+  <string name="mec_online_retailers">Çevrimiçi Perakende Satış Mağazaları</string>
   <string name="mec_out_of_stock">Stokta yok</string>
   <string name="mec_privacy">Gizlilik Bildirimimizi</string>
   <string name="mec_product_detail_title"> Ürün detayları</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">Daha fazla bilgi için</string>
   <string name="mec_reviews">İncelemeler</string>
   <string name="mec_shopping_cart">Alışveriş Sepeti</string>
-  <string name="mec_specs">[tr]Specs</string>
-  <string name="mec_threshold_message">[tr]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[tr]Request threshold reached</string>
+  <string name="mec_specs">Teknik Özellikler</string>
+  <string name="mec_threshold_message">Bu biraz zaman alabilir. Devam etmek istiyor musunuz?</string>
+  <string name="mec_threshold_title">Talep eşiğine erişildi</string>
   <string name="mec_zero_results_message"> Bu, ürün listemizi filtreler. Lütfen filtre teriminizde yazım hatası olmamasına dikkat edin</string>
 </resources>

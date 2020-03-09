@@ -19,7 +19,7 @@
   <string name="mec_features">Funktioner</string>
   <string name="mec_has_used_this_product_for">Har använt den här produkten för</string>
   <string name="mec_in_stock">i lager</string>
-  <string name="mec_info">[sv]Info</string>
+  <string name="mec_info">Info</string>
   <string name="mec_invalid_landing_view">Ange en giltig startsida</string>
   <string name="mec_invalid_product_ctn">Ange en icke-tomt-produkt CTN</string>
   <string name="mec_loading">Laddar ...</string>
@@ -27,7 +27,7 @@
   <string name="mec_no_product_available">Ingen produkt hittades i din butik.</string>
   <string name="mec_no_result">0 resultat hittades för</string>
   <string name="mec_no_review_available">Inga recensioner hittades</string>
-  <string name="mec_ok">[sv]OK</string>
+  <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Online-återförsäljare</string>
   <string name="mec_out_of_stock">Slut i lager</string>
   <string name="mec_privacy">Sekretessmeddelande</string>

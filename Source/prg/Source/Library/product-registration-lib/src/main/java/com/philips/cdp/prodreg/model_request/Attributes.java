@@ -1,99 +1,90 @@
+
 package com.philips.cdp.prodreg.model_request;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+@SuppressWarnings("unused")
+public class Attributes {
 
-public class Attributes implements Serializable {
+    @SerializedName("catalog")
+    private String mCatalog;
+    @SerializedName("locale")
+    private String mLocale;
+    @SerializedName("micrositeId")
+    private String mMicrositeId;
+    @SerializedName("productId")
+    private String mProductId;
+    @SerializedName("purchased")
+    private String mPurchased;
+    @SerializedName("sector")
+    private String mSector;
+    @SerializedName("serialNumber")
+    private String mSerialNumber;
+    @SerializedName("userProfile")
+    private UserProfile mUserProfile;
 
-	@SerializedName("serialNumber")
-	private String serialNumber;
+    public String getCatalog() {
+        return mCatalog;
+    }
 
-	@SerializedName("productId")
-	private String productId;
+    public void setCatalog(String catalog) {
+        mCatalog = catalog;
+    }
 
-	@SerializedName("purchased")
-	private String purchased;
+    public String getLocale() {
+        return mLocale;
+    }
 
-	@SerializedName("catalog")
-	private String catalog;
+    public void setLocale(String locale) {
+        mLocale = locale;
+    }
 
-	@SerializedName("locale")
-	private String locale;
+    public String getMicrositeId() {
+        return mMicrositeId;
+    }
 
-	@SerializedName("sector")
-	private String sector;
+    public void setMicrositeId(String micrositeId) {
+        mMicrositeId = micrositeId;
+    }
 
-	@SerializedName("micrositeId")
-	private int micrositeId;
+    public String getProductId() {
+        return mProductId;
+    }
 
-	public void setSerialNumber(String serialNumber){
-		this.serialNumber = serialNumber;
-	}
+    public void setProductId(String productId) {
+        mProductId = productId;
+    }
 
-	public String getSerialNumber(){
-		return serialNumber;
-	}
+    public String getPurchased() {
+        return mPurchased;
+    }
 
-	public void setProductId(String productId){
-		this.productId = productId;
-	}
+    public void setPurchased(String purchased) {
+        mPurchased = purchased;
+    }
 
-	public String getProductId(){
-		return productId;
-	}
+    public String getSector() {
+        return mSector;
+    }
 
-	public void setPurchased(String purchased){
-		this.purchased = purchased;
-	}
+    public void setSector(String sector) {
+        mSector = sector;
+    }
 
-	public String getPurchased(){
-		return purchased;
-	}
+    public String getSerialNumber() {
+        return mSerialNumber;
+    }
 
-	public void setCatalog(String catalog){
-		this.catalog = catalog;
-	}
+    public void setSerialNumber(String serialNumber) {
+        mSerialNumber = serialNumber;
+    }
 
-	public String getCatalog(){
-		return catalog;
-	}
+    public UserProfile getUserProfile() {
+        return mUserProfile;
+    }
 
-	public void setLocale(String locale){
-		this.locale = locale;
-	}
+    public void setUserProfile(UserProfile userProfile) {
+        mUserProfile = userProfile;
+    }
 
-	public String getLocale(){
-		return locale;
-	}
-
-	public void setSector(String sector){
-		this.sector = sector;
-	}
-
-	public String getSector(){
-		return sector;
-	}
-
-	public void setMicrositeId(int micrositeId){
-		this.micrositeId = micrositeId;
-	}
-
-	public int getMicrositeId(){
-		return micrositeId;
-	}
-
-	@Override
- 	public String toString(){
-		return 
-			"Attributes{" + 
-			"serialNumber = '" + serialNumber + '\'' + 
-			",productId = '" + productId + '\'' + 
-			",purchased = '" + purchased + '\'' + 
-			",catalog = '" + catalog + '\'' + 
-			",locale = '" + locale + '\'' + 
-			",sector = '" + sector + '\'' + 
-			",micrositeId = '" + micrositeId + '\'' + 
-			"}";
-		}
 }

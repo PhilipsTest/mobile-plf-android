@@ -33,7 +33,7 @@
             android:layout_marginTop="10dp"
             style="@style/iapCentralesansMediumFont"
             android:textColor="?attr/uidContentItemSecondaryDisabledTextColor"
-            android:text="@string/iap_your_order_number_is"
+            android:text="@string/iap_your_order_number"
             android:visibility="gone"
             android:textSize="@dimen/iap_text_size_16sp"/>
 

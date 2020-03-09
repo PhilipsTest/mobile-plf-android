@@ -5,43 +5,43 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="ECSAppInfraNotFound">[ro]Please provide app infra object</string>
-  <string name="ECSBaseURLNotFound">[ro]Base URL not found</string>
-  <string name="ECSCartEntryError">[ro]The Product is not added in Cart</string>
-  <string name="ECSCartError">[ro]No cart created yet</string>
-  <string name="ECSCommerceCartModificationError">[ro]Quantity must not be less than zero</string>
-  <string name="ECSCtnNotProvided">[ro]Please provide the CTN</string>
-  <string name="ECSHybrisNotAvailable">[ro]Philips shop is not available for the selected country, only retailer mode is available</string>
-  <string name="ECSIllegalArgumentError">[ro]Please provide valid input data</string>
-  <string name="ECSInsufficientStockError">[ro]Product cannot be shipped as it is out of stock</string>
-  <string name="ECSInvalidPaymentInfoError">[ro]Please provide valid payment details</string>
-  <string name="ECSInvalidTokenError">[ro]We have encountered technical glitch (Invalid access token). Please do Hybris Re-Auth</string>
-  <string name="ECSLocaleNotFound">[ro]Please set the locale</string>
-  <string name="ECSNoSuchElementError">[ro]An error occurred while fetching the data from the server</string>
-  <string name="ECSOAuthDetailError">[ro]Please provide complete OAuth detials</string>
-  <string name="ECSOAuthNotCalled">[ro]User authorization is required for this action</string>
-  <string name="ECSPaymentAuthorizationError">[ro]Payment authorization was not successful</string>
-  <string name="ECSPropositionIdNotFound">[ro]Please set a valid Proposition ID</string>
-  <string name="ECSSiteIdNotFound">[ro]Philips shop is not available for the selected country, only retailer mode is available</string>
-  <string name="ECSUnknownIdentifierError">[ro]Requested resource is not available</string>
-  <string name="ECSUnsupportedDeliveryModeError">[ro]Selected delivery mode is not supported</string>
-  <string name="ECSUnsupportedVoucherError">[ro]Sorry, this voucher can\'t be redeemed</string>
-  <string name="ECSValidationError">[ro]Data validation failed</string>
-  <string name="ECSVoucherOperationError">[ro]Sorry, this voucher can\'t be redeemed</string>
-  <string name="ECSaddressId">[ro]Given address doesn\'t exist or belong to another user</string>
-  <string name="ECScountryCodeNotGiven">[ro]Please provide valid country code</string>
-  <string name="ECScountryisocode">[ro]Country selected is invalid</string>
-  <string name="ECSfirstName">[ro]Please notice that the following characters are not allowed: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
-  <string name="ECSinvalid_client">[ro]We have encountered technical glitch (Bad client credentials). Please re-login</string>
-  <string name="ECSinvalid_grant">[ro]We have encountered technical glitch (Invalid Janrain Token). Please re-login</string>
-  <string name="ECSlastName">[ro]Please notice that the following characters are not allowed: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
-  <string name="ECSorderIdNil">[ro]Please provide valid order</string>
-  <string name="ECSphone1">[ro]Phone number selected is invalid</string>
-  <string name="ECSphone2">[ro]Phone number selected is invalid</string>
-  <string name="ECSpostUrl">[ro]Order is already in a paid/completed state</string>
-  <string name="ECSpostalCode">[ro]ZIP code selected is invalid</string>
-  <string name="ECSregionisocode">[ro]Region selected is invalid</string>
-  <string name="ECSsessionCart">[ro]Please select your delivery address, delivery mode and payment method before submitting an order</string>
-  <string name="ECSsomethingWentWrong">[ro]We have encountered technical glitch. Please try after some time</string>
-  <string name="ECSunsupported_grant_type">[ro]We have encountered technical glitch (Unsupported grant type). Please re-login</string>
+  <string name="ECSAppInfraNotFound">Furnizează app infra object</string>
+  <string name="ECSBaseURLNotFound">Adresa URL de bază nu a fost găsită</string>
+  <string name="ECSCartEntryError">Produsul nu este adăugat în coş</string>
+  <string name="ECSCartError">Nu a fost creat încă niciun coş</string>
+  <string name="ECSCommerceCartModificationError">Cantitatea nu trebuie să fie mai mică de zero</string>
+  <string name="ECSCtnNotProvided">Furnizează CTN</string>
+  <string name="ECSHybrisNotAvailable">Magazinul Philips nu este disponibil pentru ţara selectată; este disponibil numai modul de vânzare cu amănuntul</string>
+  <string name="ECSIllegalArgumentError">Furnizează date valide</string>
+  <string name="ECSInsufficientStockError">Produsul nu poate fi expediat deoarece nu este pe stoc</string>
+  <string name="ECSInvalidPaymentInfoError">Furnizează detalii de plată valide</string>
+  <string name="ECSInvalidTokenError">Am întâmpinat probleme tehnice (token de acces nevalid). Te rugăm să te reconectezi</string>
+  <string name="ECSLocaleNotFound">Setează locaţia</string>
+  <string name="ECSNoSuchElementError">A apărut o eroare la obţinerea datelor de la server</string>
+  <string name="ECSOAuthDetailError">Introdu detalii OAuth complete</string>
+  <string name="ECSOAuthNotCalled">Este necesară autorizarea utilizatorului pentru această acţiune</string>
+  <string name="ECSPaymentAuthorizationError">Autorizarea plăţii nu a reuşit</string>
+  <string name="ECSPropositionIdNotFound">Setează un Proposition ID valid</string>
+  <string name="ECSSiteIdNotFound">Magazinul Philips nu este disponibil pentru ţara selectată; este disponibil numai modul de vânzare cu amănuntul</string>
+  <string name="ECSUnknownIdentifierError">Resursa solicitată nu este disponibilă</string>
+  <string name="ECSUnsupportedDeliveryModeError">Modul de livrare selectat nu este acceptat</string>
+  <string name="ECSUnsupportedVoucherError">Ne pare rău, acest voucher nu poate fi valorificat</string>
+  <string name="ECSValidationError">Validarea datelor nu a reuşit</string>
+  <string name="ECSVoucherOperationError">Ne pare rău, acest voucher nu poate fi valorificat</string>
+  <string name="ECSaddressId">Adresa specificată nu există sau aparţine altui utilizator</string>
+  <string name="ECScountryCodeNotGiven">Introdu un cod de ţară valid</string>
+  <string name="ECScountryisocode">Ţara selectată este nu este validă</string>
+  <string name="ECSfirstName">Următoarele caractere nu sunt permise: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
+  <string name="ECSinvalid_client">Am întâmpinat probleme tehnice (date de conectare client incorecte). Te rugăm să te reconectezi</string>
+  <string name="ECSinvalid_grant">Am întâmpinat probleme tehnice (token Janrain nevalid). Te rugăm să te reconectezi</string>
+  <string name="ECSlastName">Următoarele caractere nu sunt permise: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
+  <string name="ECSorderIdNil">Furnizează o comandă validă</string>
+  <string name="ECSphone1">Numărul de telefon selectat nu este valid</string>
+  <string name="ECSphone2">Numărul de telefon selectat nu este valid</string>
+  <string name="ECSpostUrl">Comanda este deja într-o stare plătită/finalizată</string>
+  <string name="ECSpostalCode">Codul poştal selectat nu este valid</string>
+  <string name="ECSregionisocode">Regiunea selectată nu este validă</string>
+  <string name="ECSsessionCart">Selectează adresa de livrare, modul de livrare şi metoda de plată înainte de a trimite o comandă</string>
+  <string name="ECSsomethingWentWrong">Am întâmpinat probleme tehnice. Încearcă din nou mai târziu</string>
+  <string name="ECSunsupported_grant_type">Am întâmpinat probleme tehnice (tip neacceptat de alocare). Te rugăm să te reconectezi</string>
 </resources>

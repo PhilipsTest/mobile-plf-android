@@ -15,6 +15,7 @@
 
     <application
         android:theme="@style/AppBaseTheme"
+        android:requestLegacyExternalStorage="true"
         android:largeHeap="true">
         <activity
             android:name="com.philips.cdp.digitalcare.activity.DigitalCareActivity"

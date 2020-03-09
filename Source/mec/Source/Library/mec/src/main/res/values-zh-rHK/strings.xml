@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[zh-HK]Add</string>
-  <string name="mec_add_gift_Card">[zh-HK]Add gift code</string>
+  <string name="mec_add">新增</string>
+  <string name="mec_add_gift_Card">新增禮品代碼</string>
   <string name="mec_add_to_cart">加入至購物車</string>
-  <string name="mec_anonymous">[zh-HK]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[zh-HK]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[zh-HK]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">匿名</string>
+  <string name="mec_bazaarVoice_Detail_at">詳情請查閱</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">這些評論由 Bazaarvoice 管理並符合 Bazaarvoice 的真實性政策，此政策由反欺詐技術和人工分析支援。</string>
   <string name="mec_buy_from_retailers">透過零售商選購</string>
   <string name="mec_cancel">取消</string>
-  <string name="mec_cart_login_error_message">[zh-HK]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[zh-HK]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">請先註冊或登入，即可輕鬆訂購產品</string>
+  <string name="mec_continue_checkout">繼續前往結賬</string>
   <string name="mec_continue_shopping">繼續購物</string>
-  <string name="mec_features">[zh-HK]Features</string>
-  <string name="mec_has_used_this_product_for">[zh-HK]Has used this product for</string>
+  <string name="mec_features">功能特點</string>
+  <string name="mec_has_used_this_product_for">已經使用這款產品</string>
   <string name="mec_in_stock">有存貨</string>
   <string name="mec_info">資訊</string>
-  <string name="mec_invalid_landing_view">[zh-HK]Please provide a valid Landing View</string>
-  <string name="mec_invalid_product_ctn">[zh-HK]Please provide a non empty product CTN</string>
-  <string name="mec_loading">[zh-HK]Loading..</string>
+  <string name="mec_invalid_landing_view">請提供有效的連結頁面</string>
+  <string name="mec_invalid_product_ctn">請提供非空白的產品 CTN</string>
+  <string name="mec_loading">正在加載...</string>
   <string name="mec_more_info">了解更多資訊</string>
   <string name="mec_no_product_available">在您的商店內找不到相關產品。</string>
   <string name="mec_no_result">此條件找到 0 個結果：</string>
-  <string name="mec_no_review_available">[zh-HK]No Reviews Found</string>
+  <string name="mec_no_review_available">找不到評論</string>
   <string name="mec_ok">確定</string>
-  <string name="mec_online_retailers">[zh-HK]Online Retailers</string>
+  <string name="mec_online_retailers">網上零售商</string>
   <string name="mec_out_of_stock">缺貨</string>
   <string name="mec_privacy">私隱聲明</string>
   <string name="mec_product_detail_title"> 產品詳細資料</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">查閱</string>
   <string name="mec_reviews">評價</string>
   <string name="mec_shopping_cart">購物車</string>
-  <string name="mec_specs">[zh-HK]Specs</string>
-  <string name="mec_threshold_message">[zh-HK]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[zh-HK]Request threshold reached</string>
+  <string name="mec_specs">規格</string>
+  <string name="mec_threshold_message">可能需要更長時間。您需要繼續嗎？</string>
+  <string name="mec_threshold_title">請求已達閾值</string>
   <string name="mec_zero_results_message"> 系統將以此資料篩選產品清單，請檢查您要搜尋的字詞拼寫正確</string>
 </resources>

@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[en-GB]Add</string>
-  <string name="mec_add_gift_Card">[en-GB]Add gift code</string>
+  <string name="mec_add">Add</string>
+  <string name="mec_add_gift_Card">Add gift code</string>
   <string name="mec_add_to_cart">Add to cart</string>
-  <string name="mec_anonymous">[en-GB]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[en-GB]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[en-GB]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">Anonymous</string>
+  <string name="mec_bazaarVoice_Detail_at">Details at</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
   <string name="mec_buy_from_retailers">Buy From Retailer</string>
   <string name="mec_cancel">Cancel</string>
-  <string name="mec_cart_login_error_message">[en-GB]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[en-GB]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">Please Register or Log in to easily order your products</string>
+  <string name="mec_continue_checkout">Continue to checkout</string>
   <string name="mec_continue_shopping">Continue shopping</string>
-  <string name="mec_features">[en-GB]Features</string>
-  <string name="mec_has_used_this_product_for">[en-GB]Has used this product for</string>
+  <string name="mec_features">Features</string>
+  <string name="mec_has_used_this_product_for">Has used this product for</string>
   <string name="mec_in_stock">In stock</string>
   <string name="mec_info">Info</string>
-  <string name="mec_invalid_landing_view">[en-GB]Please provide a valid Landing View</string>
+  <string name="mec_invalid_landing_view">Please provide a valid Landing View</string>
   <string name="mec_invalid_product_ctn">Please provide a non empty product CTN</string>
-  <string name="mec_loading">[en-GB]Loading..</string>
+  <string name="mec_loading">Loading...</string>
   <string name="mec_more_info">for more info</string>
   <string name="mec_no_product_available">No product found in your Store.</string>
   <string name="mec_no_result">0 results found for</string>
-  <string name="mec_no_review_available">[en-GB]No Reviews Found</string>
+  <string name="mec_no_review_available">No Reviews Found</string>
   <string name="mec_ok">OK</string>
-  <string name="mec_online_retailers">[en-GB]Online Retailers</string>
+  <string name="mec_online_retailers">Online Retailers</string>
   <string name="mec_out_of_stock">Out of stock</string>
   <string name="mec_privacy">Privacy Notice</string>
   <string name="mec_product_detail_title">Product details</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">Read our</string>
   <string name="mec_reviews">Reviews</string>
   <string name="mec_shopping_cart">Shopping Cart</string>
-  <string name="mec_specs">[en-GB]Specs</string>
-  <string name="mec_threshold_message">[en-GB]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[en-GB]Request threshold reached</string>
+  <string name="mec_specs">Specs</string>
+  <string name="mec_threshold_message">This might take more time. Do you wish to continue?</string>
+  <string name="mec_threshold_title">Request threshold reached</string>
   <string name="mec_zero_results_message"> This filters our product list. Please check that there are no typos in your filter term</string>
 </resources>

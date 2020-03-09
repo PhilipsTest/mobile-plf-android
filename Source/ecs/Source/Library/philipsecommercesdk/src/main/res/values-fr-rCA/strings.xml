@@ -5,43 +5,43 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="ECSAppInfraNotFound">[fr-CA]Please provide app infra object</string>
-  <string name="ECSBaseURLNotFound">[fr-CA]Base URL not found</string>
-  <string name="ECSCartEntryError">[fr-CA]The Product is not added in Cart</string>
-  <string name="ECSCartError">[fr-CA]No cart created yet</string>
-  <string name="ECSCommerceCartModificationError">[fr-CA]Quantity must not be less than zero</string>
-  <string name="ECSCtnNotProvided">[fr-CA]Please provide the CTN</string>
-  <string name="ECSHybrisNotAvailable">[fr-CA]Philips shop is not available for the selected country, only retailer mode is available</string>
-  <string name="ECSIllegalArgumentError">[fr-CA]Please provide valid input data</string>
-  <string name="ECSInsufficientStockError">[fr-CA]Product cannot be shipped as it is out of stock</string>
-  <string name="ECSInvalidPaymentInfoError">[fr-CA]Please provide valid payment details</string>
-  <string name="ECSInvalidTokenError">[fr-CA]We have encountered technical glitch (Invalid access token). Please do Hybris Re-Auth</string>
-  <string name="ECSLocaleNotFound">[fr-CA]Please set the locale</string>
-  <string name="ECSNoSuchElementError">[fr-CA]An error occurred while fetching the data from the server</string>
-  <string name="ECSOAuthDetailError">[fr-CA]Please provide complete OAuth detials</string>
-  <string name="ECSOAuthNotCalled">[fr-CA]User authorization is required for this action</string>
-  <string name="ECSPaymentAuthorizationError">[fr-CA]Payment authorization was not successful</string>
-  <string name="ECSPropositionIdNotFound">[fr-CA]Please set a valid Proposition ID</string>
-  <string name="ECSSiteIdNotFound">[fr-CA]Philips shop is not available for the selected country, only retailer mode is available</string>
-  <string name="ECSUnknownIdentifierError">[fr-CA]Requested resource is not available</string>
-  <string name="ECSUnsupportedDeliveryModeError">[fr-CA]Selected delivery mode is not supported</string>
-  <string name="ECSUnsupportedVoucherError">[fr-CA]Sorry, this voucher can\'t be redeemed</string>
-  <string name="ECSValidationError">[fr-CA]Data validation failed</string>
-  <string name="ECSVoucherOperationError">[fr-CA]Sorry, this voucher can\'t be redeemed</string>
-  <string name="ECSaddressId">[fr-CA]Given address doesn\'t exist or belong to another user</string>
-  <string name="ECScountryCodeNotGiven">[fr-CA]Please provide valid country code</string>
-  <string name="ECScountryisocode">[fr-CA]Country selected is invalid</string>
-  <string name="ECSfirstName">[fr-CA]Please notice that the following characters are not allowed: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
-  <string name="ECSinvalid_client">[fr-CA]We have encountered technical glitch (Bad client credentials). Please re-login</string>
-  <string name="ECSinvalid_grant">[fr-CA]We have encountered technical glitch (Invalid Janrain Token). Please re-login</string>
-  <string name="ECSlastName">[fr-CA]Please notice that the following characters are not allowed: \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
-  <string name="ECSorderIdNil">[fr-CA]Please provide valid order</string>
-  <string name="ECSphone1">[fr-CA]Phone number selected is invalid</string>
-  <string name="ECSphone2">[fr-CA]Phone number selected is invalid</string>
-  <string name="ECSpostUrl">[fr-CA]Order is already in a paid/completed state</string>
-  <string name="ECSpostalCode">[fr-CA]ZIP code selected is invalid</string>
-  <string name="ECSregionisocode">[fr-CA]Region selected is invalid</string>
-  <string name="ECSsessionCart">[fr-CA]Please select your delivery address, delivery mode and payment method before submitting an order</string>
-  <string name="ECSsomethingWentWrong">[fr-CA]We have encountered technical glitch. Please try after some time</string>
-  <string name="ECSunsupported_grant_type">[fr-CA]We have encountered technical glitch (Unsupported grant type). Please re-login</string>
+  <string name="ECSAppInfraNotFound">Veuillez fournir le app infra object</string>
+  <string name="ECSBaseURLNotFound">URL de base introuvable</string>
+  <string name="ECSCartEntryError">Le produit n’a pas été ajouté au panier</string>
+  <string name="ECSCartError">Aucun panier créé pour l’instant</string>
+  <string name="ECSCommerceCartModificationError">La quantité ne doit pas être inférieure à zéro</string>
+  <string name="ECSCtnNotProvided">Veuillez fournir le CTN</string>
+  <string name="ECSHybrisNotAvailable">La boutique Philips n’est pas disponible pour le pays sélectionné; seul le mode revendeur est disponible</string>
+  <string name="ECSIllegalArgumentError">Veuillez saisir des données valides</string>
+  <string name="ECSInsufficientStockError">Le produit ne peut pas être expédié puisqu’il est en rupture de stock</string>
+  <string name="ECSInvalidPaymentInfoError">Veuillez saisir des détails de paiement valides</string>
+  <string name="ECSInvalidTokenError">Un problème technique est survenu (jeton d’accès non valide). Veuillez procéder à un Hybris Re-Auth</string>
+  <string name="ECSLocaleNotFound">Veuillez définir les paramètres régionaux</string>
+  <string name="ECSNoSuchElementError">Une erreur s’est produite lors de la récupération des données du serveur</string>
+  <string name="ECSOAuthDetailError">Veuillez fournir les informations OAuth complètes</string>
+  <string name="ECSOAuthNotCalled">L’autorisation de l’utilisateur est requise pour cette action</string>
+  <string name="ECSPaymentAuthorizationError">L’autorisation de paiement a échoué</string>
+  <string name="ECSPropositionIdNotFound">Veuillez définir un Proposition ID valide</string>
+  <string name="ECSSiteIdNotFound">La boutique Philips n’est pas disponible pour le pays sélectionné; seul le mode revendeur est disponible</string>
+  <string name="ECSUnknownIdentifierError">La ressource demandée n’est pas disponible</string>
+  <string name="ECSUnsupportedDeliveryModeError">Le mode de livraison sélectionné n’est pas pris en charge</string>
+  <string name="ECSUnsupportedVoucherError">Désolé, ce bon ne peut pas être utilisé</string>
+  <string name="ECSValidationError">La validation des données a échoué</string>
+  <string name="ECSVoucherOperationError">Désolé, ce bon ne peut pas être utilisé</string>
+  <string name="ECSaddressId">L’adresse indiquée n’existe pas ou appartient à un autre utilisateur</string>
+  <string name="ECScountryCodeNotGiven">Veuillez fournir un code de pays valide</string>
+  <string name="ECScountryisocode">Le pays sélectionné n’est pas valide</string>
+  <string name="ECSfirstName">Veuillez noter que les caractères suivants ne sont pas autorisés : \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
+  <string name="ECSinvalid_client">Un problème technique est survenu (informations d’identification du client incorrectes). Veuillez vous connecter de nouveau</string>
+  <string name="ECSinvalid_grant">Un problème technique est survenu (jeton Janrain non valide). Veuillez vous connecter de nouveau</string>
+  <string name="ECSlastName">Veuillez noter que les caractères suivants ne sont pas autorisés : \\\" &lt; &gt; ) ( * ^ % $ # @ ! &amp; + , . ? /  : ; { } [ ] ` ~ =</string>
+  <string name="ECSorderIdNil">Veuillez saisir une commande valide</string>
+  <string name="ECSphone1">Le numéro de téléphone sélectionné n’est pas valide</string>
+  <string name="ECSphone2">Le numéro de téléphone sélectionné n’est pas valide</string>
+  <string name="ECSpostUrl">La commande a déjà le statut payé/terminé</string>
+  <string name="ECSpostalCode">Le code postal sélectionné n’est pas valide</string>
+  <string name="ECSregionisocode">La région sélectionnée n’est pas valide</string>
+  <string name="ECSsessionCart">Veuillez sélectionner vos adresse de livraison, mode de livraison et méthode de paiement avant de soumettre une commande</string>
+  <string name="ECSsomethingWentWrong">Un problème technique est survenu. Veuillez réessayer plus tard</string>
+  <string name="ECSunsupported_grant_type">Un problème technique est survenu (type d’attribution non reconnu). Veuillez vous connecter de nouveau</string>
 </resources>

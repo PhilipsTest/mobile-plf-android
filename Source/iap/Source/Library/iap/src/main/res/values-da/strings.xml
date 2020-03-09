@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2019
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
    - All rights are reserved. Reproduction or dissemination
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
@@ -7,6 +7,7 @@
 <resources>
   <string name="iap_Payment_cancel">Annullering af betaling</string>
   <string name="iap_Payment_failure">Betaling mislykkedes</string>
+  <string name="iap_accept_terms">Ved at placere ordren accepterer jeg Philips\'</string>
   <string name="iap_accepted_codes">Accepterede koder</string>
   <string name="iap_access_token_notfound">Adgangs-token blev ikke fundet</string>
   <string name="iap_add_new_address">Tilføj ny adresse</string>
@@ -96,6 +97,7 @@
   <string name="iap_expert_reviews">Ekspertanmeldelser</string>
   <string name="iap_extra_option">Ekstra indstillinger</string>
   <string name="iap_failed">Mislykket</string>
+  <string name="iap_faq">Ofte stillede spørgsmål</string>
   <string name="iap_fetching_payment">Henter betalingsoplysninger...</string>
   <string name="iap_filter_productlist">Dette filtrerer vores produktliste. Kontroller, at der ikke er stavefejl i dit søgeord</string>
   <string name="iap_first_name">Fornavn</string>
@@ -173,6 +175,7 @@
   <string name="iap_other_channel_dls">Hvis du har afgivet din ordre via en anden forhandler, vil din ordre muligvis ikke blive vist her.</string>
   <string name="iap_out_of_stock">Ikke på lager</string>
   <string name="iap_overall_rating">Samlet vurdering</string>
+  <string name="iap_page">side</string>
   <string name="iap_pay_now">Betal nu</string>
   <string name="iap_payment">Betaling</string>
   <string name="iap_payment_by">Betalt den</string>
@@ -207,6 +210,8 @@
   <string name="iap_products_unavailable">Ingen tilgængelige produkter</string>
   <string name="iap_promotional_gift">Kampagne- eller gavekode</string>
   <string name="iap_quantity">Antal: %s</string>
+  <string name="iap_product_item_quantity">Antal:</string>
+  <string name="iap_questions">Har du spørgsmål? Besøg vores</string>
   <string name="iap_rate_it">Bedøm det, uanset om du elsker eller hader det!</string>
   <string name="iap_read">Læs vores</string>
   <string name="iap_read_full_review">Læs hele anmeldelsen</string>

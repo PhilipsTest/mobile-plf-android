@@ -37,14 +37,11 @@ import com.philips.cdp.di.mec.analytics.MECAnalyticsConstant.gridView
 import com.philips.cdp.di.mec.analytics.MECAnalyticsConstant.listView
 import com.philips.cdp.di.mec.common.ItemClickListener
 import com.philips.cdp.di.mec.common.MecError
-import com.philips.cdp.di.mec.integration.serviceDiscovery.MECManager
 import com.philips.cdp.di.mec.screens.detail.MECProductDetailsFragment
 import com.philips.cdp.di.mec.screens.MecBaseFragment
 import com.philips.cdp.di.mec.utils.MECConstant
 import com.philips.cdp.di.mec.utils.MECDataHolder
 import com.philips.platform.uid.view.widget.Label
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 /**
@@ -71,7 +68,7 @@ open class MECProductCatalogFragment : MecBaseFragment(),Pagination, ItemClickLi
         mecProductReviews?.let { productReviewList.addAll(it) }
         adapter.notifyDataSetChanged()
         binding.progressBar.visibility = View.GONE
-        binding.mecCatalogProgress.mecProgressBar.visibility = View.GONE
+        binding.CircularProgressBar.visibility = View.GONE
         isCallOnProgress = false
         hideProgressBar()
 
@@ -301,26 +298,16 @@ open class MECProductCatalogFragment : MecBaseFragment(),Pagination, ItemClickLi
             MECAnalytics.tagProductList(productList, listView)
             mRootView=binding.root
 
-            binding.mecCatalogProgress.mecProgressBar.visibility = View.VISIBLE
-            if(arguments!=null) {
-                categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
-                totalProductsTobeSearched = categorizedCtns.size
-            }
-            binding.progressBar.visibility = View.VISIBLE
+            binding.CircularProgressBar.visibility = View.VISIBLE
+            categorizedCtns = arguments!!.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
+            totalProductsTobeSearched = categorizedCtns.size
+
             executeRequest()
-            ////////////// start of update cart and login if required
-            if(isUserLoggedIn()) {
-                GlobalScope.launch {
-                    var mecManager: MECManager = MECManager()
-                    mecManager.getShoppingCartData(MECDataHolder.INSTANCE.mecListener)
-                }
-            }
-            ////////////// end of update cart and login if required
         }
         return binding.root
     }
 
-    private  fun getBackgroundColorOfFontIcon (label: Label):Int{
+   private  fun getBackgroundColorOfFontIcon (label: Label):Int{
         val cd: ColorDrawable = label.background as ColorDrawable;
         val colorCode: Int  = cd.color;
         return colorCode
@@ -335,7 +322,6 @@ open class MECProductCatalogFragment : MecBaseFragment(),Pagination, ItemClickLi
     override fun onResume() {
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_product_title, true)
-        setCartIconVisibility(true)
     }
 
     private fun privacyTextView(view: TextView) {
@@ -347,7 +333,7 @@ open class MECProductCatalogFragment : MecBaseFragment(),Pagination, ItemClickLi
             override fun onClick(widget: View) {
                 showPrivacyFragment()
                 binding.progressBar.visibility = View.GONE
-                // hideProgressBar()
+               // hideProgressBar()
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -397,7 +383,7 @@ open class MECProductCatalogFragment : MecBaseFragment(),Pagination, ItemClickLi
         if (isScrollDown(lay)) {
             if (currentPage != totalPages-1) {
                 ++currentPage
-                return true
+              return true
             }
         }
         return false
@@ -412,14 +398,11 @@ open class MECProductCatalogFragment : MecBaseFragment(),Pagination, ItemClickLi
         return colorCodeHighlighted
     }
 
-    override fun onStop() {
-        super.onStop()
-        binding.progressBar.visibility = View.GONE
-    }
-
-    override fun processError(mecError: MecError?, showDialog: Boolean) {
-        super.processError(mecError, showDialog)
-        binding.progressBar.visibility = View.GONE
+    override fun processError(mecError: MecError?) {
+        super.processError(mecError)
+        hideProgressBar()
     }
 
 }
+
+

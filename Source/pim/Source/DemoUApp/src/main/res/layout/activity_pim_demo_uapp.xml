@@ -93,6 +93,24 @@
                 android:text="Launch IAP" />
 
             <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/btn_ECS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_IAP"
+                android:layout_centerInParent="true"
+                android:layout_margin="2dp"
+                android:text="Launch ECS" />
+
+            <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/btn_MEC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_ECS"
+                android:layout_centerInParent="true"
+                android:layout_margin="2dp"
+                android:text="Launch MEC" />
+
+            <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_IsOIDCToken"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

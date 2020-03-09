@@ -5,30 +5,30 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_add">[th]Add</string>
-  <string name="mec_add_gift_Card">[th]Add gift code</string>
+  <string name="mec_add">เพิ่ม</string>
+  <string name="mec_add_gift_Card">ใส่รหัสของขวัญ</string>
   <string name="mec_add_to_cart">เพิ่มไปยังตะกร้า</string>
-  <string name="mec_anonymous">[th]Anonymous</string>
-  <string name="mec_bazaarVoice_Detail_at">[th]Details at</string>
-  <string name="mec_bazaarVoice_Terms_And_Condition">[th]These reviews are managed by Bazaarvoice and comply with the Bazaarvoice Authenticity Policy, which is supported by anti-fraud technology and human analysis.</string>
+  <string name="mec_anonymous">ไม่ระบุชื่อ</string>
+  <string name="mec_bazaarVoice_Detail_at">รายละเอียดด้าน</string>
+  <string name="mec_bazaarVoice_Terms_And_Condition">คำวิจารณ์เหล่านี้ได้รับการจัดการโดย Bazaarvoice และปฏิบัติตามนโยบายความถูกต้องของ Bazaarvoice ซึ่งได้รับการสนับสนุนโดยเทคโนโลยีการต่อต้านการฉ้อโกงและการวิเคราะห์โดยมนุษย์</string>
   <string name="mec_buy_from_retailers">ซื้อจากผู้ค้าปลีก</string>
   <string name="mec_cancel">ยกเลิก</string>
-  <string name="mec_cart_login_error_message">[th]Please Register or Login to easily order your products</string>
-  <string name="mec_continue_checkout">[th]Continue to checkout</string>
+  <string name="mec_cart_login_error_message">โปรดลงทะเบียนหรือล็อกอินเพื่อสั่งซื้อผลิตภัณฑ์ของคุณได้อย่างสะดวก</string>
+  <string name="mec_continue_checkout">ดำเนินการชำระสินค้าต่อ</string>
   <string name="mec_continue_shopping">เลือกซื้อสินค้าต่อ</string>
-  <string name="mec_features">[th]Features</string>
-  <string name="mec_has_used_this_product_for">[th]Has used this product for</string>
+  <string name="mec_features">คุณสมบัติ</string>
+  <string name="mec_has_used_this_product_for">ใช้ผลิตภัณฑ์นี้สำหรับ</string>
   <string name="mec_in_stock">มีสินค้า</string>
   <string name="mec_info">ข้อมูล</string>
-  <string name="mec_invalid_landing_view">[th]Please provide a valid Landing View</string>
+  <string name="mec_invalid_landing_view">โปรดระบุ Landing View ที่ถูกต้อง</string>
   <string name="mec_invalid_product_ctn">โปรดใส่ CTN ของสินค้าที่ไม่ว่าง</string>
-  <string name="mec_loading">[th]Loading..</string>
+  <string name="mec_loading">กำลังโหลด..</string>
   <string name="mec_more_info">สำหรับข้อมูลเพิ่มเติม</string>
   <string name="mec_no_product_available">ไม่พบสินค้าในร้านค้าของคุณ</string>
   <string name="mec_no_result">ไม่พบผลลัพธ์สำหรับ</string>
-  <string name="mec_no_review_available">[th]No Reviews Found</string>
+  <string name="mec_no_review_available">ไม่พบคำวิจารณ์</string>
   <string name="mec_ok">ตกลง</string>
-  <string name="mec_online_retailers">[th]Online Retailers</string>
+  <string name="mec_online_retailers">ผู้ค้าปลีกออนไลน์</string>
   <string name="mec_out_of_stock">สินค้าหมด</string>
   <string name="mec_privacy">ประกาศเกี่ยวกับการคุ้มครองข้อมูลส่วนบุคคล</string>
   <string name="mec_product_detail_title"> รายละเอียดผลิตภัณฑ์</string>
@@ -36,8 +36,8 @@
   <string name="mec_read">อ่าน</string>
   <string name="mec_reviews">ตรวจดู</string>
   <string name="mec_shopping_cart">ตะกร้าสินค้า</string>
-  <string name="mec_specs">[th]Specs</string>
-  <string name="mec_threshold_message">[th]This might take more time. Do you wish to continue?</string>
-  <string name="mec_threshold_title">[th]Request threshold reached</string>
+  <string name="mec_specs">ข้อมูลจำเพาะ</string>
+  <string name="mec_threshold_message">นี่อาจต้องใช้เวลามากขึ้น คุณต้องการดำเนินการต่อหรือไม่</string>
+  <string name="mec_threshold_title">ถึงเกณฑ์การร้องขอแล้ว</string>
   <string name="mec_zero_results_message"> นี่เป็นการกรองรายการผลิตภัณฑ์ของเรา โปรดตรวจทานให้ดีว่าคำกรองของคุณไม่มีการพิมพ์ผิด</string>
 </resources>

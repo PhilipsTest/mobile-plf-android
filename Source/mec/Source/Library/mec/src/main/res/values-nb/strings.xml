@@ -19,7 +19,7 @@
   <string name="mec_features">Egenskaper</string>
   <string name="mec_has_used_this_product_for">Har brukt dette produktet til</string>
   <string name="mec_in_stock">på lager</string>
-  <string name="mec_info">[nb]Info</string>
+  <string name="mec_info">Info</string>
   <string name="mec_invalid_landing_view">Oppgi et gyldig Landing View</string>
   <string name="mec_invalid_product_ctn">Oppgi en ikke-tom produkt-CTN</string>
   <string name="mec_loading">Laster inn..</string>
@@ -27,7 +27,7 @@
   <string name="mec_no_product_available">Fant ingen produkter i butikken.</string>
   <string name="mec_no_result">0 treff ble funnet for</string>
   <string name="mec_no_review_available">Fant ikke noen anmeldelser</string>
-  <string name="mec_ok">[nb]OK</string>
+  <string name="mec_ok">Ok</string>
   <string name="mec_online_retailers">Nettbutikker</string>
   <string name="mec_out_of_stock">Ikke på lager</string>
   <string name="mec_privacy">Merknad om personvern</string>

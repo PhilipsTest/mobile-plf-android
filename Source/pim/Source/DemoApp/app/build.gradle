@@ -130,7 +130,11 @@ android {
     /*
     This defined for signing the apk -- end
     */
+    dataBinding {
+        enabled = true
+    }
 }
+
 
 apply from: "../scripts/flavors.gradle"
 
