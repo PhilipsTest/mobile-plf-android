@@ -2,12 +2,15 @@ package com.philips.cdp.di.mec.utils
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import androidx.fragment.app.FragmentManager
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.philips.cdp.di.ecs.error.ECSError
 import com.philips.cdp.di.ecs.error.ECSErrorEnum
 import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.cdp.di.mec.R
 import com.philips.cdp.di.mec.analytics.MECAnalyticServer
 import com.philips.cdp.di.mec.analytics.MECAnalytics
 import com.philips.cdp.di.mec.analytics.MECAnalyticsConstant
@@ -257,6 +260,14 @@ class MECutility {
 
         }
 
+        fun getImageArrow(mContext: Context): Drawable {
+            val width = mContext.resources.getDimension(R.dimen.mec_drop_down_icon_width_size).toInt()
+            val height = mContext.resources.getDimension(R.dimen.mec_drop_down_icon_height_size).toInt()
+            val imageArrow = VectorDrawableCompat.create(mContext.resources, R.drawable.mec_product_count_drop_down, mContext.theme)
+            imageArrow!!.setBounds(0, 0, width, height)
+            return imageArrow
+        }
+
 
     }
 
@@ -282,8 +293,6 @@ class MECutility {
 
         return formattedAddress
     }
-
-
 
 
 

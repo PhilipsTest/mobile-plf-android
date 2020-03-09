@@ -81,6 +81,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             ecsShoppingCartViewModel.fetchProductReview(ecsShoppingCart.entries)
         } else if (ecsShoppingCart.entries.size == 0) {
             binding.mecEmptyResult.visibility = View.VISIBLE
+            dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
             binding.mecParentLayout.visibility = View.GONE
         }
 
@@ -151,11 +152,18 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             cartSummaryList.add(MECCartSummary(name, price))
         }
 
-        for (i in 0..shoppingCart.appliedOrderPromotions.size - 1) {
-            name = shoppingCart.appliedOrderPromotions.get(i).promotion.description
-            price = "-" + shoppingCart.appliedOrderPromotions.get(i).promotion.promotionDiscount.formattedValue
-            cartSummaryList.add(MECCartSummary(name, price))
+        if(shoppingCart.appliedOrderPromotions.size>0) {
+            for (i in 0..shoppingCart.appliedOrderPromotions.size - 1) {
+                if(shoppingCart.appliedOrderPromotions.get(i).promotion.description == null) {
+                    name = " "
+                } else {
+                    name = shoppingCart.appliedOrderPromotions.get(i).promotion.description
+                }
+                price = "-" + shoppingCart.appliedOrderPromotions.get(i).promotion.promotionDiscount.formattedValue
+                cartSummaryList.add(MECCartSummary(name, price))
+            }
         }
+
 
         /*for (i in 0..shoppingCart.appliedProductPromotions.size - 1) {
             name = shoppingCart.appliedProductPromotions.get(i).promotion.description
@@ -359,6 +367,10 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     fun disableButton() {
         binding.mecContinueCheckoutBtn.isEnabled = false
+    }
+
+    fun enableButton() {
+        binding.mecContinueCheckoutBtn.isEnabled = true
     }
 
     override fun onStop() {

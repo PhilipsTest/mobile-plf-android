@@ -4,10 +4,15 @@
  */
 package com.philips.cdp.di.mec.view
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.widget.AdapterView
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 
 
 import com.philips.cdp.di.mec.R
+import com.philips.cdp.di.mec.screens.address.AddressViewModel
+import com.philips.cdp.di.mec.utils.MECutility
 import com.philips.platform.uid.thememanager.UIDHelper
 import com.philips.platform.uid.view.widget.UIPicker
 import com.philips.platform.uid.view.widget.ValidationEditText
@@ -25,8 +30,10 @@ class MECDropDown(private val validationEditText: ValidationEditText, private va
 
         mSalutationListener?.onDropDownSelect(validationEditText,salutation)
 
+        validationEditText.setCompoundDrawables(null, null, MECutility.getImageArrow(validationEditText.context), null)
         dismiss()
     }
+
 
     private fun isShowing() = mPopUp!!.isShowing
 
