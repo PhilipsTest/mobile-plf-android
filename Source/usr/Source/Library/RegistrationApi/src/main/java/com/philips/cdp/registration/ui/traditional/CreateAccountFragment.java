@@ -331,7 +331,7 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
         setContentConfig();
         RegUtility.linkifyTermsandCondition(usrCreatescreenTermsandconditionsCheckbox, getRegistrationFragment().getParentActivity(), mTermsAndConditionClick);
         RegUtility.linkifyPhilipsNews(usrCreatescreenMarketingmailsCheckbox, getRegistrationFragment().getParentActivity(), mPhilipsNewsClick);
-        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive)
+        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired())
             RegUtility.linkifyPersonalConsent(usrCreatescreenPersonalConsentCheckbox, getRegistrationFragment().getParentActivity(), mPersonalConsentClick, getRegistrationFragment().getContentConfiguration());
         ((RegistrationFragment) getParentFragment()).showKeyBoard();
         usernameUihandle();
@@ -361,7 +361,7 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
             }
         });
 
-        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive) {
+        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired()) {
             usrCreatescreenPersonalConsentCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 removeFocus();
                 TextView tv = (TextView) buttonView;
@@ -515,8 +515,13 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
     }
 
     @Override
-    public void storeEMail() {
+    public void storeTermsAndConditons() {
         RegPreferenceUtility.storePreference(context, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailString);
+    }
+
+    @Override
+    public void storePersonalConsent(){
+        RegPreferenceUtility.storePreference(context, RegConstants.PERSONAL_CONSENT, emailString);
     }
 
     @Override
@@ -731,7 +736,7 @@ public class CreateAccountFragment extends RegistrationBaseFragment implements C
 
         RLog.d(TAG, "createButtonWithProgressBar: Create Account");
         if (RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() &&
-                (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive)) {
+                (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() )) {
             if (usrCreatescreenTermsandconditionsCheckbox.isChecked() && usrCreatescreenPersonalConsentCheckbox.isChecked()) {
                 registerUserInfo();
             } else if (!usrCreatescreenTermsandconditionsCheckbox.isChecked()) {

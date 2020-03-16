@@ -237,7 +237,6 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
             }
         });
 
-        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive) {
             acceptPersonalConsentCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -246,7 +245,8 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                         acceptPersonalConsenterrorMessage.hideError();
                         if(tv.getSelectionStart() == -1 && tv.getSelectionEnd() == -1) {
                             if (!isChecked) {
-                                acceptPersonalConsenterrorMessage.setError(mContext.getResources().getString(getRegistrationFragment().getContentConfiguration().getPersonalConsentContentErrorResId()));
+                                acceptPersonalConsenterrorMessage.setError(
+                                        mContext.getResources().getString(getRegistrationFragment().getContentConfiguration().getPersonalConsentContentErrorResId()));
                             }
                         }else {
                             acceptPersonalConsentCheck.setChecked(!isChecked);
@@ -260,10 +260,6 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                     }
                 }
             });
-        } else {
-            acceptPersonalConsentCheck.setVisibility(View.GONE);
-            acceptPersonalConsenterrorMessage.setVisibility(View.GONE);
-        }
 
         marketingOptCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -290,14 +286,19 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
                 marketingOptCheck.getPaddingRight(), marketingOptCheck.getPaddingBottom());
         RegUtility.linkifyTermsandCondition(acceptTermsCheck, getRegistrationFragment().getParentActivity(), mTermsAndConditionClick);
         updateReceiveMarketingViewStyle();
+        updatePersonalConsentViewStyle();
     }
 
     private void updateReceiveMarketingViewStyle() {
         RLog.d(TAG, "updateReceiveMarketingViewStyle : is  called");
         RegUtility.linkifyPhilipsNews(marketingOptCheck, getRegistrationFragment().getParentActivity(), mPhilipsNewsClick);
-        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive)
+     }
+    private void updatePersonalConsentViewStyle() {
+        RLog.d(TAG, "updatePersonalConsentViewStyle : is  called");
+        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() )
             RegUtility.linkifyPersonalConsent(acceptPersonalConsentCheck, getRegistrationFragment().getParentActivity(), mPersonalConsentClick, getRegistrationFragment().getContentConfiguration());
     }
+
 
     @Override
     public void emailFieldHide() {
@@ -362,13 +363,14 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
         acceptTermsCheck.setVisibility(View.VISIBLE);
     }
 
-
-
     @Override
     public void updateTermsAndConditionView() {
         hideAcceptTermsAndConditionContainer();
     }
-
+    @Override
+    public void updatePersonalConsentView() {
+        hidePersonalConsentOptCheck();
+    }
     @Override
     public void showMarketingOptCheck() {
         marketingOptCheck.setVisibility(View.VISIBLE);
@@ -393,6 +395,7 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
 
     @Override
     public void hidePersonalConsentOptCheck() {
+        acceptPersonalConsentCheck.setChecked(true);
         acceptPersonalConsentCheck.setVisibility(View.GONE);
     }
 
@@ -554,12 +557,15 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
 
     @Override
     public void handleAcceptPersonalConsentTrue() {
+        almostDonePresenter.storeEmailOrMobileInPreference();
         trackActionForAcceptTermsOption(AppTagingConstants.ACCEPT_PERSONAL_CONSENT_OPTION_IN);
     }
 
     @Override
     public void storePreference(String emailOrMobileNumber) {
         RegPreferenceUtility.storePreference(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailOrMobileNumber);
+        RegPreferenceUtility.storePreference(mContext, RegConstants.PERSONAL_CONSENT, emailOrMobileNumber);
+
     }
 
     private void trackMultipleActions() {
@@ -579,8 +585,8 @@ public class AlmostDoneFragment extends RegistrationBaseFragment implements Almo
     }
 
     private void trackPersonalConsentAccepted() {
-        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive) {
-            if (acceptTermsCheck.isChecked()) {
+        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() ) {
+            if (acceptPersonalConsentCheck.isChecked()) {
                 trackActionForAcceptTermsOption(AppTagingConstants.ACCEPT_PERSONAL_CONSENT_OPTION_IN);
             } else {
                 trackActionForAcceptTermsOption(AppTagingConstants.ACCEPT_PERSONAL_CONSENT_OPTION_OUT);

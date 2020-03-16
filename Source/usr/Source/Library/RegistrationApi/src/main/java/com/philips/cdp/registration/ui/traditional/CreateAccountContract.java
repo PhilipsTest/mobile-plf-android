@@ -48,10 +48,11 @@ public interface CreateAccountContract {
 
     void hideSpinner();
 
-    void storeEMail();
+    void storeTermsAndConditons();
 
     void userIdAlreadyUsedShowError();
 
     void registrtionFail();
 
+    void storePersonalConsent();
 }

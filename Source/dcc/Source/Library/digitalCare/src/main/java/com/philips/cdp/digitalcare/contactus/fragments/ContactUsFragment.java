@@ -19,8 +19,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -31,6 +29,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.philips.cdp.digitalcare.DigitalCareConfigManager;
 import com.philips.cdp.digitalcare.R;
@@ -155,7 +156,7 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
 
     private void setContactHours(String hours) {
         mFirstRowText.setVisibility(View.VISIBLE);
-        mFirstRowText.setText(hours);
+        mFirstRowText.setText(getSpannedText(hours));
     }
 
     @Override

@@ -243,8 +243,8 @@ public class MergeAccountFragment extends RegistrationBaseFragment implements Me
             return;
         } else  if (emailorMobile != null && ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() &&
                 !RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailorMobile) || !user.getReceiveMarketingEmail())
-                || (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() != null
-                && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive))) {
+                || (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() &&
+                !RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, emailorMobile)))) {
             launchAlmostDoneForTermsAcceptanceFragment();
             return;
         }

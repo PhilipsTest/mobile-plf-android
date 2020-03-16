@@ -349,6 +349,7 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
     @Override
     public void storePreference(String emailOrMobileNumber) {
         RegPreferenceUtility.storePreference(getRegistrationFragment().getContext(), RegConstants.TERMS_N_CONDITIONS_ACCEPTED, emailOrMobileNumber);
+        RegPreferenceUtility.storePreference(getRegistrationFragment().getContext(), RegConstants.PERSONAL_CONSENT, emailOrMobileNumber);
     }
 
     @Override

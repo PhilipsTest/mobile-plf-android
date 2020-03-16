@@ -41,8 +41,9 @@ public class PIMErrorCodes {
     public static final int REGISTRATION_REQUEST_CLIENT_ERROR = 7303;
     public static final int REGISTRATION_REQUEST_OTHERS = 7304;
 
-    //Migration Error
+    //CIM Error
     public static final int MIGRATION_FAILED = 7500;
+    public static final int MARKETING_OPTIN_ERROR = 7501;
 
     //Service Discovery Error
     public static final int SERVICE_DISCOVERY_ERROR = 7600;

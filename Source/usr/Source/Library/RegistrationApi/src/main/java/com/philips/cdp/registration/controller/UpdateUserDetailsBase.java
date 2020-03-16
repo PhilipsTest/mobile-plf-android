@@ -15,11 +15,14 @@ import com.janrain.android.Jump;
 import com.janrain.android.capture.CaptureRecord;
 import com.philips.cdp.registration.User;
 import com.philips.cdp.registration.errors.ErrorCodes;
+import com.philips.cdp.registration.errors.HSDPErrorEnum;
+import com.philips.cdp.registration.errors.JanrainErrorEnum;
 import com.philips.cdp.registration.handlers.RefreshLoginSessionHandler;
 import com.philips.cdp.registration.settings.JanrainInitializer;
 import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.ThreadUtils;
 import com.philips.cdp.registration.update.UpdateUser;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 
 import org.json.JSONException;
@@ -68,7 +71,7 @@ public class UpdateUserDetailsBase implements
             RLog.e(TAG, "onJanrainInitializeFailed : onUpdateFailedWithError");
         ThreadUtils.postInMainThread(mContext, () ->
                 mUpdateUserDetails
-                        .onUpdateFailedWithError(ErrorCodes.UNKNOWN_ERROR));
+                        .onUpdateFailedWithError(new Error(ErrorCodes.UPDATE_USER_DETAILS_ERROR, JanrainErrorEnum.getLocalizedError(mContext,ErrorCodes.UPDATE_USER_DETAILS_ERROR))));
 
     }
 
@@ -94,19 +97,19 @@ public class UpdateUserDetailsBase implements
             if (null != mUpdateUserDetails) {
                 ThreadUtils.postInMainThread(mContext, () ->
                         mUpdateUserDetails
-                                .onUpdateFailedWithError(ErrorCodes.UNKNOWN_ERROR));
+                                .onUpdateFailedWithError(new Error(ErrorCodes.UNKNOWN_ERROR,JanrainErrorEnum.getLocalizedError(mContext,ErrorCodes.UNKNOWN_ERROR))));
             }
             return;
         }
         //Session Expired and refresh during this case
-        if (error == 414) {
+        if (error == ErrorCodes.JANRAIN_ACCESS_TOKEN_EXPIRED) {
             User user = new User(mContext);
             user.refreshLoginSession(this);
             return;
         }
         ThreadUtils.postInMainThread(mContext, () ->
                 mUpdateUserDetails
-                        .onUpdateFailedWithError(error));
+                        .onUpdateFailedWithError(new Error(ErrorCodes.JANRAIN_ACCESS_TOKEN_EXPIRED,JanrainErrorEnum.getLocalizedError(mContext,ErrorCodes.JANRAIN_ACCESS_TOKEN_EXPIRED))));
 
     }
 
@@ -121,7 +124,7 @@ public class UpdateUserDetailsBase implements
             RLog.e(TAG, "onRefreshLoginSessionFailedWithError : Error onRefreshLoginSessionFailedWithError" + error);
             ThreadUtils.postInMainThread(mContext, () ->
                     mUpdateUserDetails
-                            .onUpdateFailedWithError(error));
+                            .onUpdateFailedWithError(new Error(ErrorCodes.UPDATE_USER_DETAILS_ERROR,JanrainErrorEnum.getLocalizedError(mContext,ErrorCodes.UPDATE_USER_DETAILS_ERROR))));
         }
     }
 
@@ -131,7 +134,7 @@ public class UpdateUserDetailsBase implements
             RLog.e(TAG, "forcedLogout");
             ThreadUtils.postInMainThread(mContext, () ->
                     mUpdateUserDetails
-                            .onUpdateFailedWithError(ErrorCodes.HSDP_INPUT_ERROR_1151));
+                            .onUpdateFailedWithError(new Error(ErrorCodes.HSDP_INPUT_ERROR_1151, HSDPErrorEnum.getLocalizedError(mContext,ErrorCodes.HSDP_INPUT_ERROR_1151))));
         }
     }
 

@@ -14,6 +14,8 @@ import com.janrain.android.capture.CaptureRecord;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.controller.UpdateDateOfBirth;
 import com.philips.cdp.registration.controller.UpdateGender;
+import com.philips.cdp.registration.errors.ErrorCodes;
+import com.philips.cdp.registration.errors.JanrainErrorEnum;
 import com.philips.cdp.registration.handlers.SocialLoginProviderHandler;
 import com.philips.cdp.registration.handlers.TraditionalRegistrationHandler;
 import com.philips.cdp.registration.injection.RegistrationComponent;
@@ -22,6 +24,7 @@ import com.philips.cdp.registration.listener.UserRegistrationListener;
 import com.philips.cdp.registration.ui.utils.Gender;
 import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.platform.appinfra.logging.LoggingInterface;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 
 import org.junit.Before;
@@ -37,11 +40,13 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
-@PrepareForTest({Jump.class, CaptureRecord.class, UpdateDateOfBirth.class, Log.class, User.class})
+@PrepareForTest({Jump.class, CaptureRecord.class, UpdateDateOfBirth.class, Log.class, User.class,JanrainErrorEnum.class})
 
 @RunWith(PowerMockRunner.class)
 public class UserTest {
@@ -244,8 +249,9 @@ public class UserTest {
     @Test
     public void updateDateOfBirth_UserNotLoggedIn() throws Exception {
         PowerMockito.doReturn(true).when(userspy, "getUserNotLoggedInState");
+        mockStatic(JanrainErrorEnum.class);
         userspy.updateDateOfBirth(mockUpdateUserDetailsHandler, mockDate);
-        Mockito.verify(mockUpdateUserDetailsHandler).onUpdateFailedWithError(userspy.getUserLoginState().ordinal());
+        Mockito.verify(mockUpdateUserDetailsHandler).onUpdateFailedWithError(Mockito.any(Error.class));
     }
 
     @Test
@@ -260,8 +266,9 @@ public class UserTest {
    @Test
     public void updateGender_UserNotLoggedIn() throws Exception {
         PowerMockito.doReturn(true).when(userspy, "getUserNotLoggedInState");
+        mockStatic(JanrainErrorEnum.class);
         userspy.updateGender(mockUpdateUserDetailsHandler, Gender.MALE);
-        Mockito.verify(mockUpdateUserDetailsHandler).onUpdateFailedWithError(userspy.getUserLoginState().ordinal());
+        Mockito.verify(mockUpdateUserDetailsHandler).onUpdateFailedWithError(Mockito.any(Error.class));
     }
 
     @Test

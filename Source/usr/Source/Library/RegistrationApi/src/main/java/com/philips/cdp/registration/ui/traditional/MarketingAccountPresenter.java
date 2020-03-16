@@ -4,6 +4,7 @@ import com.philips.cdp.registration.User;
 import com.philips.cdp.registration.events.NetworkStateListener;
 import com.philips.cdp.registration.settings.RegistrationHelper;
 import com.philips.cdp.registration.ui.utils.RLog;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 
 /**
@@ -34,7 +35,7 @@ public class MarketingAccountPresenter implements NetworkStateListener, UpdateUs
     }
 
     @Override
-    public void onUpdateFailedWithError(final int error) {
+    public void onUpdateFailedWithError(final Error error) {
         RLog.d(TAG, "onUpdateFailedWithError ");
         marketingAccountContract.hideRefreshProgress();
     }

@@ -9,13 +9,13 @@
 
 package com.philips.platform.pif.DataInterface.USR.listeners;
 
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
+
 /**
  * It is a callback class to proposition for updating user details
  * @since 1903
  *
- * @deprecated since 1903
  */
-@Deprecated
 public interface UpdateUserDetailsHandler {
 
 	/**
@@ -29,6 +29,6 @@ public interface UpdateUserDetailsHandler {
 	 * @param error  gives error code in integer when updating User fails
 	 * @since 1903
      */
-	public void onUpdateFailedWithError(int error);
+	public void onUpdateFailedWithError(Error error);
 
 }

@@ -218,5 +218,8 @@ public class ErrorCodes {
 
     public static final int HSDP_JANRAIN_NOT_SUCCESS_ERROR_7012 = 7012;
 
+    public static final int UPDATE_USER_DETAILS_ERROR = 7013;
+
     public static final int JANRAIN_FLOW_DOWNLOAD_ERROR = 2000;
+
 }

@@ -99,6 +99,14 @@ public class PIMOIDCConfigration {
         return null;
     }
 
+    public String getMarketingOptinAPIKey() {
+        Object obj = getProperty("marketingOptinApiKey", GROUP_PIM);
+        if (obj != null) {
+            return (String) obj;
+        }
+        return null;
+    }
+
     private Object getProperty(String key, String group) {
         AppConfigurationInterface appConfigurationInterface = appInfraInterface.getConfigInterface();
         Object obj = appConfigurationInterface.getPropertyForKey(key, group, new AppConfigurationInterface.AppConfigurationError());
@@ -111,6 +119,7 @@ public class PIMOIDCConfigration {
         customClaimObject.add(UserCustomClaims.RECEIVE_MARKETING_EMAIL_TIMESTAMP, null);
         customClaimObject.add(UserCustomClaims.SOCIAL_PROFILES, null);
         customClaimObject.add(UserCustomClaims.UUID, null);
+        customClaimObject.add(UserCustomClaims.RECEIVE_MARKETING_EMAIL_OPTED_IN, null);
 
         JsonObject userInfo = new JsonObject();
         userInfo.add("userinfo", customClaimObject);

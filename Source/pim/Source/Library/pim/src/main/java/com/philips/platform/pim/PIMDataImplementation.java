@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import android.content.Context;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterfaceException;
@@ -166,11 +165,11 @@ public class PIMDataImplementation implements UserDataInterface {
         isInitRequiredAgain = true;
         MutableLiveData<PIMInitState> pimInitLiveData = PIMSettingManager.getInstance().getPimInitLiveData();
         new PIMConfigManager(PIMSettingManager.getInstance().getPimUserManager()).init(mContext, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
-        pimInitLiveData.observeForever( new Observer<PIMInitState>() {
+        pimInitLiveData.observeForever(new Observer<PIMInitState>() {
             @Override
             public void onChanged(@Nullable PIMInitState pimInitState) {
                 if (pimInitState == PIMInitState.INIT_SUCCESS) {
-                    pimInitLiveData.removeObservers((FragmentActivity) mContext);
+                    pimInitLiveData.removeObserver( this);
                     PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
                     pimMigrator.migrateUSRToPIM();
                 } else if (pimInitState == PIMInitState.INIT_FAILED) {
@@ -178,7 +177,7 @@ public class PIMDataImplementation implements UserDataInterface {
                         new PIMConfigManager(PIMSettingManager.getInstance().getPimUserManager()).init(mContext, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
                         isInitRequiredAgain = false;
                     } else {
-                        pimInitLiveData.removeObservers((FragmentActivity) mContext);
+                        pimInitLiveData.removeObserver(this);
                         userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(mContext, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
                     }
                 }
@@ -188,11 +187,22 @@ public class PIMDataImplementation implements UserDataInterface {
 
     @Override
     public void refetchUserDetails(RefetchUserDetailsListener userDetailsListener) {
+        if (pimUserManager.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN) {
+            userDetailsListener.onRefetchFailure(new Error(Error.UserDetailError.NotLoggedIn));
+            return;
+        }
 
+        pimUserManager.refetchUserProfile(userDetailsListener);
     }
 
     @Override
     public void updateReceiveMarketingEmail(UpdateUserDetailsHandler updateUserDetailsHandler, boolean receiveMarketingEmail) {
+        if (pimUserManager.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN) {
+            updateUserDetailsHandler.onUpdateFailedWithError(new Error(Error.UserDetailError.NotLoggedIn));
+            return;
+        }
+
+        pimUserManager.updateMarketingOptIn(updateUserDetailsHandler, receiveMarketingEmail);
 
     }
 
@@ -208,12 +218,12 @@ public class PIMDataImplementation implements UserDataInterface {
             ArrayList<String> allValidKeys = getAllValidUserDetailsKeys();
             return pimoidcUserProfile.fetchUserDetails(allValidKeys);
         } else {
-            ArrayList<String> validDetailKey = fillOnlyReqestedValidKeyToKeyList(detailKeys);
+            ArrayList<String> validDetailKey = fillOnlyRequestedValidKeyToKeyList(detailKeys);
             return pimoidcUserProfile.fetchUserDetails(validDetailKey);
         }
     }
 
-    private ArrayList<String> fillOnlyReqestedValidKeyToKeyList(ArrayList<String> detailskey) throws UserDataInterfaceException {
+    private ArrayList<String> fillOnlyRequestedValidKeyToKeyList(ArrayList<String> detailskey) throws UserDataInterfaceException {
         ArrayList<String> allValidKeys = getAllValidUserDetailsKeys();
         ArrayList<String> validDetailsKey = new ArrayList<>();
         for (String key : detailskey) {

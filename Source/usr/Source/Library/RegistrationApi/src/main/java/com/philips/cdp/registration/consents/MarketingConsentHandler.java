@@ -9,6 +9,7 @@ import com.philips.cdp.registration.handlers.RefreshUserHandler;
 import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.utility.AIUtility;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 import com.philips.platform.pif.chi.ConsentError;
 import com.philips.platform.pif.chi.ConsentHandlerInterface;
@@ -136,9 +137,9 @@ public class MarketingConsentHandler implements ConsentHandlerInterface {
         }
 
         @Override
-        public void onUpdateFailedWithError(int i) {
+        public void onUpdateFailedWithError(Error error) {
             RLog.d("MarketingUpdateCallback", "onUpdateFailedWithError : Error updating Marketing Consent ");
-            callback.onPostConsentFailed(new ConsentError("Error updating Marketing Consent", i));
+            callback.onPostConsentFailed(new ConsentError("Error updating Marketing Consent", error.getErrCode()));
         }
     }
 

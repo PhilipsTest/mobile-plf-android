@@ -645,7 +645,6 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
         boolean isEmailAvailable = mUser.getEmail() != null && FieldsValidator.isValidEmail(mUser.getEmail());
         boolean isMobileNoAvailable = mUser.getMobile() != null && FieldsValidator.isValidMobileNumber(mUser.getMobile());
         RLog.d(TAG, "handleLoginSuccess: family name" + mUser.getFamilyName());
-        ConsentStates personalConsentStatus = RegistrationConfiguration.getInstance().getPersonalConsent();
 
         if (isEmailAvailable && isMobileNoAvailable && !mUser.isEmailVerified()) {
             UserRegistrationFailureInfo userRegistrationFailureInfo = new UserRegistrationFailureInfo(mContext);
@@ -657,7 +656,7 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
 
         if ((mUser.isEmailVerified() || mUser.isMobileVerified()) || !RegistrationConfiguration.getInstance().isEmailVerificationRequired()) {
             if (RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, mEmailOrMobile) && mUser.getReceiveMarketingEmail() &&
-                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() || personalConsentStatus != ConsentStates.inactive)) {
+                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired())) {
                 RLog.d(TAG, "handleLoginSuccess : TERMS_N_CONDITIONS_ACCEPTED :getReceiveMarketingEmail : completeRegistration");
                 completeRegistration();
                 trackActionStatus(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
@@ -669,7 +668,7 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
             }
             if (RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, mEmailOrMobile) && !mUser.getReceiveMarketingEmail() &&
                     (RegistrationConfiguration.getInstance().isCustomOptoin() || RegistrationConfiguration.getInstance().isSkipOptin()) &&
-                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() || personalConsentStatus != ConsentStates.inactive) &&
+                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired()) &&
                     RegUtility.getUiFlow() == (FLOW_B)) {
                 RLog.d(TAG, "handleLoginSuccess : TERMS_N_CONDITIONS_ACCEPTED :getReceiveMarketingEmail : completeRegistration");
                 completeRegistration();
@@ -680,21 +679,21 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
                 ABTestClientInterface abTestClientInterface = RegistrationConfiguration.getInstance().getComponent().getAbTestClientInterface();
                 abTestClientInterface.tagEvent(FIREBASE_SUCCESSFUL_REGISTRATION_DONE, null); //No Almost Done Screen
             } else if (RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, mEmailOrMobile) && mUser.getReceiveMarketingEmail() &&
-                    (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && personalConsentStatus == ConsentStates.inactive)) {
+                    (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && !RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, mEmailOrMobile) )) {
                 clearInputFields();
                 getRegistrationFragment().addAlmostDoneFragmentforTermsAcceptance();
                 trackPage(AppTaggingPages.ALMOST_DONE); //AlmostDOne Screen with PC
             } else if ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() || !mUser.getReceiveMarketingEmail()) &&
-                    (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && personalConsentStatus == ConsentStates.inactive)) {
+                    (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && !RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, mEmailOrMobile))) {
                 clearInputFields();
                 getRegistrationFragment().addAlmostDoneFragmentforTermsAcceptance();
                 trackPage(AppTaggingPages.ALMOST_DONE); ////AlmostDOne Screen with PC and RM
             } else if (((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() && RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, mEmailOrMobile)) && mUser.getReceiveMarketingEmail()) &&
-                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() || personalConsentStatus != ConsentStates.inactive)) {
+                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() )) {
                 clearInputFields();
                 completeRegistration(); //AlmostDOne Screen with RM
             } else if ((RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() || !mUser.getReceiveMarketingEmail()) &&
-                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() || personalConsentStatus != ConsentStates.inactive)) {
+                    (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired())) {
                 clearInputFields();
                 getRegistrationFragment().addAlmostDoneFragmentforTermsAcceptance(); //AlmostDOne Screen with RM
                 trackPage(AppTaggingPages.ALMOST_DONE);

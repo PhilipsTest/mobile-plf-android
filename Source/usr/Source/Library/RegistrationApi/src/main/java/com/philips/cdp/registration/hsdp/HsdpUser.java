@@ -34,6 +34,7 @@ import com.philips.cdp.registration.handlers.RefreshLoginSessionHandler;
 import com.philips.cdp.registration.ui.utils.MapUtils;
 import com.philips.cdp.registration.ui.utils.NetworkUtility;
 import com.philips.cdp.registration.ui.utils.RLog;
+import com.philips.cdp.registration.ui.utils.RegConstants;
 import com.philips.cdp.registration.ui.utils.ThreadUtils;
 import com.philips.platform.appinfra.logging.CloudLoggingInterface;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
@@ -70,6 +71,7 @@ public class HsdpUser {
 
     //product registration secure storage key
     private final String PRODUCT_REGISTRATION_KEY = "prod_reg"; // value should match with the key used in PRODUCT_REGISTRATION  (ProdRegConstants.java)
+
 
 
     /**
@@ -397,6 +399,7 @@ public class HsdpUser {
         mSecureStorageInterface.removeValueForKey(HSDP_RECORD_FILE);
         mSecureStorageInterface.removeValueForKey(HsdpUserRecordV2.SS_KEY_FOR_SAVING_RECORD);
         mSecureStorageInterface.removeValueForKey(PRODUCT_REGISTRATION_KEY);
+        mSecureStorageInterface.removeValueForKey(RegConstants.PERSONAL_CONSENT);
         HsdpUserInstance.getInstance().setHsdpUserRecordV2(null);
     }
 

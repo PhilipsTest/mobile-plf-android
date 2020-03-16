@@ -8,7 +8,6 @@ package com.philips.platform.pif.DataInterface.USR;
 /**
  * Constants to request/fetch user details
  *
- * TODO: Shashi, Address is reqiured or not, Discuss with Viswa
  */
 public class UserDetailConstants {
     public static final String GIVEN_NAME = "given_name";
@@ -17,11 +16,10 @@ public class UserDetailConstants {
     public static final String EMAIL = "email";
     public static final String MOBILE_NUMBER = "phone_number";
     public static final String BIRTHDAY = "birthdate";
-    public static final String RECEIVE_MARKETING_EMAIL = "consent_email_marketing.given";
+    public static final String RECEIVE_MARKETING_EMAIL = "consent_email_marketing.opted_in";
     public static final String UUID = "uuid";
     public static final String ACCESS_TOKEN = "access_token";
     public static final String EXPIRES_IN = "expires_in";
     public static final String TOKEN_TYPE = "token_type";
     public static final String ID_TOKEN = "id_token";
-
 }

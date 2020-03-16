@@ -129,13 +129,23 @@
                 android:text="Get User Detail" />
 
             <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/btn_RefetchUserDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_logout"
+                android:layout_centerInParent="true"
+                android:layout_margin="2dp"
+                android:text="Refetch User Details" />
+
+            <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_MigrateUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_GetUserDetail"
+                android:layout_below="@+id/btn_RefetchUserDetails"
                 android:layout_centerInParent="true"
                 android:layout_margin="2dp"
                 android:text="Migrate user to PIM" />
+
 
             <com.philips.platform.uid.view.widget.Switch
                 android:id="@+id/switch_cookies_consent"
@@ -153,6 +163,15 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:text="A/B Testing Consent"
+                app:switchPadding="30dp" />
+
+            <com.philips.platform.uid.view.widget.Switch
+                android:id="@+id/switch_marketing_optedin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="Marketing Opted In"
                 app:switchPadding="30dp" />
 
             <FrameLayout

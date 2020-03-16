@@ -96,7 +96,11 @@ public class CreateAccountPresenter implements NetworkStateListener, EventListen
     private void handleRegistrationSuccess() {
         RLog.d(TAG, "onRegisterSuccess");
         if (RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired()) {
-            createAccountContract.storeEMail();
+            createAccountContract.storeTermsAndConditons();
+        }
+
+        if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired()) {
+            createAccountContract.storePersonalConsent();
         }
         createAccountContract.hideSpinner();
         createAccountContract.trackCheckMarketing();

@@ -154,7 +154,6 @@ public class PIMAuthManager {
         }
         mAuthState = new AuthState(authorizationResponse, null);
 
-
         performTokenRequest(pimTokenRequestListener, authorizationResponse);
     }
 
@@ -209,6 +208,7 @@ public class PIMAuthManager {
         scopes.add(PIMScopes.PROFILE);
         scopes.add(PIMScopes.ADDRESS);
         scopes.add(PIMScopes.OPENID);
+        scopes.add(PIMScopes.MARKETING_EMAIL);
         StringBuilder stringBuilder = new StringBuilder();
         for (String scope : scopes) {
             stringBuilder = stringBuilder.append(scope + " ");

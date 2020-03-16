@@ -88,7 +88,8 @@
     "migrationClientId": "7602c06b-c547-4aae-8f7c-f89e8c887a21",
     "redirectUri": "com.philips.apps.94e28300-565d-4110-8919-42dc4f817393://oauthredirect",
     "rsids": "philipsmobileappsjanraindev",
-    "apiKey": "Euqjw7YWRa5pc7c6jKliv1odg5vLUT2m465k7FJ8"
+    "apiKey": "Euqjw7YWRa5pc7c6jKliv1odg5vLUT2m465k7FJ8",
+    "marketingOptinApiKey": "kwSyJKK3gg5NHSmjeq1OD5BBdyOCKtyK7XVIuq5I"
   },
   "IAP": {
     "propositionid": "Tuscany2016"

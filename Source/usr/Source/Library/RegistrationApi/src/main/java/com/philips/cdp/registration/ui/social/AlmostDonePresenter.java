@@ -20,6 +20,7 @@ import com.philips.cdp.registration.ui.utils.RegConstants;
 import com.philips.cdp.registration.ui.utils.RegUtility;
 import com.philips.cdp.registration.ui.utils.UIFlow;
 import com.philips.platform.appinfra.abtestclient.ABTestClientInterface;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 import com.philips.platform.pif.chi.datamodel.ConsentStates;
 
@@ -97,6 +98,7 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
         if (RegistrationConfiguration.getInstance().isEmailVerificationRequired()) {
             if (isEmailExist && almostDoneContract.getPreferenceStoredState((mEmail))) {
                 almostDoneContract.hideAcceptTermsView();
+
                 updateTermsAndReceiveMarketingOpt(false);
             }
             if (mBundle != null && mBundle.getString(RegConstants.SOCIAL_TWO_STEP_ERROR) != null) {
@@ -106,6 +108,10 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
         } else {
             almostDoneContract.hideAcceptTermsView();
         }
+        if(RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired())
+            almostDoneContract.showPersonalConsentOptCheck();
+        else
+            almostDoneContract.hidePersonalConsentOptCheck();
 
         updateTermsAndReceiveMarketingOpt(setMarketingOptinVisible());
     }
@@ -118,6 +124,10 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
         if (mUser.isTermsAndConditionAccepted()) {
             almostDoneContract.updateTermsAndConditionView();
         }
+        if (mUser.isPersonalConsentAccepted()) {
+            almostDoneContract.updatePersonalConsentView();
+        }
+
 
 
 
@@ -289,8 +299,8 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
     }
 
     @Override
-    public void onUpdateFailedWithError(final int error) {
-        handleUpdateReceiveMarket(error);
+    public void onUpdateFailedWithError(final Error error) {
+        handleUpdateReceiveMarket(error.getErrCode());
     }
 
     private void handleUpdateReceiveMarket(int error) {
@@ -362,16 +372,14 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
 
     public void handleTraditionalTermsAndCondition() {
         if (RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired()
-                && (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired()
-                || RegistrationConfiguration.getInstance().getPersonalConsent() != ConsentStates.inactive)) {
+                && (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired())) {
             if (almostDoneContract.isAcceptTermsChecked()) {
                 almostDoneContract.handleAcceptTermsTrue();
             } else {
                 almostDoneContract.showTermsAndConditionError();
             }
         } else if (RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired()
-                && (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired()
-                && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive)) {
+                && (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired())) {
             if (almostDoneContract.isAcceptTermsChecked() && almostDoneContract.isAcceptPersonalConsentChecked()) {
                 almostDoneContract.handleAcceptTermsTrue();
                 almostDoneContract.handleAcceptPersonalConsentTrue();
@@ -385,7 +393,7 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
                 almostDoneContract.showTermsAndConditionError();
                 almostDoneContract.showPersonalConsentError();
             }
-        } else if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive) {
+        } else if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired()) {
             if (almostDoneContract.isAcceptPersonalConsentChecked()) {
                 almostDoneContract.handleAcceptPersonalConsentTrue();
             } else {
@@ -398,13 +406,13 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
 
     void handleSocialTermsAndCondition() {
         if (RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() &&
-                (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() || RegistrationConfiguration.getInstance().getPersonalConsent() != ConsentStates.inactive)) {
+                (!RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() )) {
             if (almostDoneContract.isAcceptTermsChecked()) {
                 register(almostDoneContract.isMarketingOptChecked(), almostDoneContract.getEmailOrMobileNumber());
             } else {
                 almostDoneContract.showTermsAndConditionError();
             }
-        } else if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive
+        } else if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired()
                 && RegistrationConfiguration.getInstance().isTermsAndConditionsAcceptanceRequired() && almostDoneContract.isAcceptTermsContainerVisible()) {
             if (almostDoneContract.isAcceptTermsChecked() && almostDoneContract.isAcceptPersonalConsentChecked()) {
                 register(almostDoneContract.isMarketingOptChecked(), almostDoneContract.getEmailOrMobileNumber());
@@ -419,7 +427,7 @@ public class AlmostDonePresenter implements NetworkStateListener, SocialLoginPro
                 almostDoneContract.showPersonalConsentError();
             }
 
-        } else if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired() && RegistrationConfiguration.getInstance().getPersonalConsent() == ConsentStates.inactive) {
+        } else if (RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired()) {
             if (almostDoneContract.isAcceptPersonalConsentChecked()) {
                 almostDoneContract.handleAcceptPersonalConsentTrue();
             } else {

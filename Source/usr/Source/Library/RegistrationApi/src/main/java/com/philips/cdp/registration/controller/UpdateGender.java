@@ -12,11 +12,13 @@ import android.content.Context;
 
 import com.janrain.android.Jump;
 import com.philips.cdp.registration.errors.ErrorCodes;
+import com.philips.cdp.registration.errors.JanrainErrorEnum;
 import com.philips.cdp.registration.settings.JanrainInitializer;
 import com.philips.cdp.registration.ui.utils.Gender;
 import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.ThreadUtils;
 import com.philips.cdp.registration.update.UpdateUser;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 
 import org.json.JSONException;
@@ -64,7 +66,7 @@ public class UpdateGender extends UpdateUserDetailsBase {
             if (null != mUpdateUserDetails)
                 ThreadUtils.postInMainThread(mContext,()->
                 mUpdateUserDetails.
-                        onUpdateFailedWithError(ErrorCodes.UNKNOWN_ERROR));
+                        onUpdateFailedWithError(new Error(ErrorCodes.UPDATE_USER_DETAILS_ERROR, JanrainErrorEnum.getLocalizedError(mContext,ErrorCodes.UPDATE_USER_DETAILS_ERROR))));
         }
     }
 

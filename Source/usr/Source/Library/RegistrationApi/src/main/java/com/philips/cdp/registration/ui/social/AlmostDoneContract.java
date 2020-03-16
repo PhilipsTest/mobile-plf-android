@@ -13,6 +13,8 @@ public interface AlmostDoneContract {
 
     void updateTermsAndConditionView();
 
+    void updatePersonalConsentView();
+
     void updateReceiveMarketingView();
 
     void showMarketingOptSpinner();

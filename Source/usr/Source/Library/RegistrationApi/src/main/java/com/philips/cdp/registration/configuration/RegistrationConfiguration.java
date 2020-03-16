@@ -377,11 +377,11 @@ public class RegistrationConfiguration {
                 && hsdpConfiguration.getHsdpSharedId() != null;
     }
 
-    public void setPersonalConsent(ConsentStates personalConsent) {
-        this.personalConsent = personalConsent;
-    }
-
-    public ConsentStates getPersonalConsent() {
-        return personalConsent;
-    }
+//    public void setPersonalConsent(ConsentStates personalConsent) {
+//        this.personalConsent = personalConsent;
+//    }
+//
+//    public ConsentStates getPersonalConsent() {
+//        return personalConsent;
+//    }
 }

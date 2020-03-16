@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import com.philips.cdp.registration.User;
 import com.philips.cdp.registration.UserLoginState;
 import com.philips.cdp.registration.controller.UpdateReceiveMarketingEmail;
+import com.philips.cdp.registration.errors.ErrorCodes;
+import com.philips.cdp.registration.errors.JanrainErrorEnum;
 import com.philips.cdp.registration.handlers.LogoutHandler;
 import com.philips.cdp.registration.handlers.RefreshLoginSessionHandler;
 import com.philips.cdp.registration.handlers.RefreshUserHandler;
@@ -216,7 +218,7 @@ public class UserDataProvider extends User implements UserDataInterface {
     @Override
     public void updateReceiveMarketingEmail(UpdateUserDetailsHandler updateUserDetailsHandler, boolean receiveMarketingEmail) {
         if (getUserLoginState().ordinal() < UserLoginState.PENDING_VERIFICATION.ordinal()) {
-            updateUserDetailsHandler.onUpdateFailedWithError(getUserLoginState().ordinal());
+            updateUserDetailsHandler.onUpdateFailedWithError(new Error(ErrorCodes.UPDATE_USER_DETAILS_ERROR, JanrainErrorEnum.getLocalizedError(context, ErrorCodes.UPDATE_USER_DETAILS_ERROR)));
             return;
         }
         UpdateReceiveMarketingEmail updateReceiveMarketingEmailHandler = new

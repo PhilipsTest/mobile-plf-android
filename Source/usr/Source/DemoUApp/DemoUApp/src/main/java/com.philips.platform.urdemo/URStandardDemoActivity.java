@@ -55,6 +55,7 @@ import com.philips.cdp.registration.ui.utils.URInterface;
 import com.philips.cdp.registration.ui.utils.URLaunchInput;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 import com.philips.platform.pif.chi.datamodel.ConsentDefinition;
 import com.philips.platform.pif.chi.datamodel.ConsentStates;
@@ -794,9 +795,9 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
             }
 
             @Override
-            public void onUpdateFailedWithError(int error) {
+            public void onUpdateFailedWithError(Error error) {
                 mProgressDialog.hide();
-                showToast("onUpdateFailedWithError" + error);
+                showToast("onUpdateFailedWithError" + error.getErrCode());
             }
         }, gender);
 
@@ -834,9 +835,9 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
                             }
 
                             @Override
-                            public void onUpdateFailedWithError(int error) {
+                            public void onUpdateFailedWithError(Error error) {
                                 mProgressDialog.hide();
-                                showToast("onUpdateFailedWithError" + error);
+                                showToast("onUpdateFailedWithError" + error.getErrCode());
                             }
                         }, c.getTime());
                     }

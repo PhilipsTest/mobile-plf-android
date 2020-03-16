@@ -34,6 +34,7 @@ import com.philips.cdp.registration.dao.DIUserProfile;
 import com.philips.cdp.registration.dao.UserRegistrationFailureInfo;
 import com.philips.cdp.registration.errors.ErrorCodes;
 import com.philips.cdp.registration.errors.ErrorType;
+import com.philips.cdp.registration.errors.JanrainErrorEnum;
 import com.philips.cdp.registration.errors.URError;
 import com.philips.cdp.registration.events.UserRegistrationHelper;
 import com.philips.cdp.registration.handlers.ForgotPasswordHandler;
@@ -57,6 +58,7 @@ import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.RegConstants;
 import com.philips.cdp.registration.ui.utils.ThreadUtils;
 import com.philips.platform.appinfra.logging.CloudLoggingInterface;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 
 import org.json.JSONException;
@@ -598,6 +600,11 @@ public class User {
             RLog.i(TAG, "getUserLoginState PENDING_TERM_CONDITION");
             return UserLoginState.PENDING_TERM_CONDITION;
         }
+
+        if (!isSignedInOnPersonalConsent()) {
+            RLog.i(TAG, "getUserLoginState isSignedInOnPersonalConsent PENDING_TERM_CONDITION");
+            return UserLoginState.PENDING_TERM_CONDITION;
+        }
         if (isHsdpFlow && !isHSDPUserSignedIn()) {
             RLog.i(TAG, "getUserLoginState PENDING_HSDP_LOGIN");
             return UserLoginState.PENDING_HSDP_LOGIN;
@@ -687,6 +694,19 @@ public class User {
         return true;
     }
 
+    private boolean isSignedInOnPersonalConsent() {
+        boolean personalConsentAcceptanceRequired = RegistrationConfiguration.getInstance().isPersonalConsentAcceptanceRequired();
+        if (personalConsentAcceptanceRequired) {
+            RLog.d(TAG, "isUserSignIn personalConsentAcceptanceRequired : " + personalConsentAcceptanceRequired);
+
+            if (!isPersonalConsentAccepted()) {
+                RLog.d(TAG, "isSignedInOnPersonalConsent personalConsentAcceptanceRequired clear data on SignIn :" + false);
+                return false;
+            }
+        }
+        return true;
+    }
+
     private boolean isHSDPUserSignedIn() {
         HsdpUser hsdpUser = new HsdpUser(mContext);
         final boolean hsdpFlow = RegistrationConfiguration.getInstance().isHsdpFlow();
@@ -729,6 +749,26 @@ public class User {
     }
 
     /**
+     * {@code isTermsAndConditionAccepted} method checks if a user is accepted terms and condition or no
+     *
+     * @since 1.0.0
+     */
+    public boolean isPersonalConsentAccepted() {
+        String mobileNo = getMobile();
+        String email = getEmail();
+        boolean isValidMobileNo = FieldsValidator.isValidMobileNumber(mobileNo);
+        boolean isValidEmail = FieldsValidator.isValidEmail(email);
+        if (isValidMobileNo && isValidEmail) {
+            return getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, mobileNo) &&
+                    getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, email);
+        }
+        if (isValidMobileNo) {
+            return getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, mobileNo);
+        }
+        return isValidEmail && getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, email);
+    }
+
+    /**
      * Handle merge flow error
      *
      * @param existingProvider existing social logIn provider
@@ -752,7 +792,7 @@ public class User {
             final UpdateUserDetailsHandler updateUserDetailsHandler,
             final boolean receiveMarketingEmail) {
         if (getUserNotLoggedInState()) {
-            updateUserDetailsHandler.onUpdateFailedWithError(getUserLoginState().ordinal());
+            updateUserDetailsHandler.onUpdateFailedWithError(new Error(ErrorCodes.UPDATE_USER_DETAILS_ERROR,JanrainErrorEnum.getLocalizedError(mContext,ErrorCodes.UPDATE_USER_DETAILS_ERROR)));
             return;
         }
         UpdateReceiveMarketingEmail updateReceiveMarketingEmailHandler = new
@@ -774,7 +814,7 @@ public class User {
             final UpdateUserDetailsHandler updateUserDetailsHandler,
             final Date date) {
         if (getUserNotLoggedInState()) {
-            updateUserDetailsHandler.onUpdateFailedWithError(getUserLoginState().ordinal());
+            updateUserDetailsHandler.onUpdateFailedWithError(new Error(ErrorCodes.UPDATE_USER_DETAILS_ERROR,JanrainErrorEnum.getLocalizedError(mContext,ErrorCodes.UPDATE_USER_DETAILS_ERROR)));
             return;
         }
         UpdateDateOfBirth updateDateOfBirth = new UpdateDateOfBirth(mContext);
@@ -799,7 +839,7 @@ public class User {
             final UpdateUserDetailsHandler updateUserDetailsHandler,
             final Gender gender) {
         if (getUserNotLoggedInState()) {
-            updateUserDetailsHandler.onUpdateFailedWithError(getUserLoginState().ordinal());
+            updateUserDetailsHandler.onUpdateFailedWithError(new Error(ErrorCodes.UPDATE_USER_DETAILS_ERROR,JanrainErrorEnum.getLocalizedError(mContext,ErrorCodes.UPDATE_USER_DETAILS_ERROR)));
             return;
         }
         UpdateGender updateGender = new UpdateGender(mContext);

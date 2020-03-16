@@ -46,7 +46,10 @@ public enum PIMErrorEnums {
     REGISTRATION_REQUEST_CLIENT_ERROR(PIMErrorCodes.REGISTRATION_REQUEST_CLIENT_ERROR, AuthorizationException.RegistrationRequestErrors.CLIENT_ERROR.code, R.string.PIM_Error_Msg),
     REGISTRATION_REQUEST_OTHERS(PIMErrorCodes.REGISTRATION_REQUEST_OTHERS, AuthorizationException.RegistrationRequestErrors.OTHER.code, R.string.PIM_Error_Msg),
 
+    //CIM Error
     MIGRATION_FAILED(PIMErrorCodes.MIGRATION_FAILED, R.string.PIM_Error_Msg),
+    MARKETING_OPTIN_ERROR(PIMErrorCodes.MARKETING_OPTIN_ERROR, R.string.PIM_Error_Msg),
+
 
     //Service Discovery Error
     SERVICE_DISCOVERY_ERROR(PIMErrorCodes.SERVICE_DISCOVERY_ERROR, R.string.PIM_Error_Msg),
