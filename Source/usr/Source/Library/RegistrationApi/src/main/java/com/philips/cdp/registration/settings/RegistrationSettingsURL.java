@@ -159,13 +159,21 @@ public class RegistrationSettingsURL extends RegistrationSettings {
             public void onSuccess(Map<String, ServiceDiscoveryService> resultMap) {
 
                 setHSDPBaseUrl(resultMap);
+                RLog.i(TAG, " onSuccess  : userreg.janrain.api 88:" + resultMap.get("userreg.janrain.api.v2"));
 
                 ServiceDiscoveryService serviceDiscoveyService = resultMap.get("userreg.janrain.api.v2");
+                RLog.i(TAG, " onSuccess  : userreg.janrain.api 99A:" + (serviceDiscoveyService == null));
+                RLog.i(TAG, " onSuccess  : userreg.janrain.api 99B:" + (serviceDiscoveyService.getConfigUrls() ));
+
+
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
                     String urlLocal = serviceDiscoveyService.getConfigUrls();
                     String janrainURL = urlLocal.substring(8);//Please don't remove this line.\
-
+                    RLog.i(TAG, " onSuccess  : userreg.janrain.api 99C:" + serviceDiscoveyService.getConfigUrls());
+                    RLog.i(TAG, " onSuccess  : userreg.janrain.api 99D:" + countryCode);
                     ClientIDConfiguration clientIDConfiguration = new ClientIDConfiguration();
+                    RLog.i(TAG, " onSuccess  : userreg.janrain.api 99E:" +  clientIDConfiguration.getEngageId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()));
+
                     if (janrainURL.equalsIgnoreCase("philips.capture.cn.janrain.com")) {
                         jumpConfig.captureDomain = "philips-cn.capture.cn.janrain.com";
                         jumpConfig.engageAppId = clientIDConfiguration.getEngageId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+countryCode);
@@ -183,17 +191,17 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                         jumpConfig.engageAppId = clientIDConfiguration.getEngageId(RegistrationConfiguration.getInstance().getRegistrationEnvironment());
                         jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(RegistrationConfiguration.getInstance().getRegistrationEnvironment());
                     }
-                    RLog.d(TAG, " onSuccess  : userreg.janrain.api :" + urlLocal);
+                    RLog.i(TAG, " onSuccess  : userreg.janrain.api :" + urlLocal);
                     if (jumpConfig.engageAppId == null || jumpConfig.captureAppId == null) {
                         ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
                         return;
                     }
 
-                    RLog.d(TAG, " onSuccess  : userreg.engageid :" + clientIDConfiguration.getEngageId(urlLocal));
-                    RLog.d(TAG, " onSuccess  : userreg.captureid :" + clientIDConfiguration.getCaptureId(urlLocal));
+                    RLog.i(TAG, " onSuccess  : userreg.engageid :" + clientIDConfiguration.getEngageId(urlLocal));
+                    RLog.i(TAG, " onSuccess  : userreg.captureid :" + clientIDConfiguration.getCaptureId(urlLocal));
 
                 } else {
-                    RLog.e(TAG, " onError  : userreg.janrain.api");
+                    RLog.i(TAG, " onError  : userreg.janrain.api");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
                     return;
                 }
@@ -201,13 +209,13 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                 serviceDiscoveyService = resultMap.get("userreg.landing.emailverif");
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
                     jumpConfig.captureRedirectUri = serviceDiscoveyService.getConfigUrls();
-                    RLog.d(TAG, " onSuccess  : userreg.landing.emailverif :"
+                    RLog.i(TAG, " onSuccess  : userreg.landing.emailverif :"
                             + serviceDiscoveyService.getConfigUrls());
-                    RLog.d(TAG, " onSuccess  : userreg.landing.emailverif :"
+                    RLog.i(TAG, " onSuccess  : userreg.landing.emailverif :"
                             + jumpConfig.captureRedirectUri);
 
                 } else {
-                    RLog.d(TAG, " onError  : userreg.landing.emailverif :");
+                    RLog.i(TAG, " onError  : userreg.landing.emailverif :");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
                     return;
                 }
@@ -218,23 +226,23 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                             replaceAll("c-w", "myphilips");
                     //https://philips-cn.capture.cn.janrain.com/
                     jumpConfig.captureRecoverUri = modifiedUrl;
-                    RLog.d(TAG, " onSuccess  : userreg.landing.resetpass :"
+                    RLog.i(TAG, " onSuccess  : userreg.landing.resetpass :"
                             + modifiedUrl);
-                    RLog.d(TAG, " onSuccess  : userreg.landing.resetpass :"
+                    RLog.i(TAG, " onSuccess  : userreg.landing.resetpass :"
                             + jumpConfig.captureRecoverUri);
                 } else {
-                    RLog.d(TAG, " onError  : userreg.landing.resetpass : ");
+                    RLog.i(TAG, " onError  : userreg.landing.resetpass : ");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
                     return;
                 }
 
                 serviceDiscoveyService = resultMap.get("userreg.janrain.cdn.v2");
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
-                    RLog.d(TAG, " onSuccess  : userreg.janrain.cdn :" +
+                    RLog.i(TAG, " onSuccess  : userreg.janrain.cdn :" +
                             serviceDiscoveyService.getConfigUrls());
                     jumpConfig.downloadFlowUrl = serviceDiscoveyService.getConfigUrls();
                 } else {
-                    RLog.d(TAG, " onError  : userreg.janrain.cdn : ");
+                    RLog.i(TAG, " onError  : userreg.janrain.cdn : ");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
                     return;
                 }
@@ -243,13 +251,13 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
                     String smsSupport = serviceDiscoveyService.getConfigUrls();
                     setMobileFlow(true);
-                    RLog.d(TAG, " onSuccess  : userreg.smssupported :" +
+                    RLog.i(TAG, " onSuccess  : userreg.smssupported :" +
                             smsSupport);
                     jumpConfig.captureLocale = locale;
                     //Must for mobile create account
                     jumpConfig.captureTraditionalSignInFormName = "userInformationMobileForm";
                 } else {
-                    RLog.d(TAG, " onError  : userreg.smssupported :" +
+                    RLog.i(TAG, " onError  : userreg.smssupported :" +
                             "Service Deiscover inis at non China local");
                     setMobileFlow(false);
                     jumpConfig.captureLocale = locale;
@@ -261,15 +269,15 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
                 serviceDiscoveyService = resultMap.get("userreg.janrain.engage.v2");
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
-                    RLog.d(TAG, " onSuccess  : userreg.janrain.engage :" + serviceDiscoveyService.getConfigUrls());
+                    RLog.i(TAG, " onSuccess  : userreg.janrain.engage :" + serviceDiscoveyService.getConfigUrls());
                     jumpConfig.engageAppUrl = serviceDiscoveyService.getConfigUrls().substring(8);
 
                     mPreferredCountryCode = countryCode;
                     mPreferredLangCode = langCode;
                     initialize();
-                    RLog.d(TAG, " MobileFlow : " + isMobileFlow());
+                    RLog.i(TAG, " MobileFlow : " + isMobileFlow());
                 } else {
-                    RLog.d(TAG, " onError  : userreg.janrain.engage : ");
+                    RLog.i(TAG, " onError  : userreg.janrain.engage : ");
                     initialize();
                     return;
                 }
@@ -277,7 +285,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
             private void initialize() {
                 try {
-                    RLog.d(TAG, "jumpConfig : " + jumpConfig.toString());
+                    RLog.i(TAG, "jumpConfig : " + jumpConfig.toString());
                     String s = secureStorage.fetchValueForKey("jr_capture_flow", new SecureStorageInterface.SecureStorageError());
                     Jump.reinitialize(mContext, jumpConfig);
                 } catch (Exception e) {
@@ -291,7 +299,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
             @Override
             public void onError(ERRORVALUES errorvalues, String s) {
-                RLog.d(TAG, " onError  : RegistrationConfigurationFailed:ServiceDiscovery " + s);
+                RLog.i(TAG, " onError  : RegistrationConfigurationFailed:ServiceDiscovery " + s);
                 AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
                         AppTagingConstants.FAILURE_SERVICEDISCOVERY + s);
 
@@ -304,9 +312,9 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
     private void setHSDPBaseUrl(Map<String, ServiceDiscoveryService> resultMap) {
         ServiceDiscoveryService serviceDiscoveyService;
-        serviceDiscoveyService = resultMap.get(HSDP_BASE_URL_SERVICE_ID);
+        serviceDiscoveyService = resultMap.get("userreg.janrain.api.v2");
         if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
-            RLog.d(TAG, "setHSDPBaseUrl: serviceDiscovery " + serviceDiscoveyService.getConfigUrls() + " map " + resultMap);
+            RLog.i(TAG, "setHSDPBaseUrl: serviceDiscovery " + serviceDiscoveyService.getConfigUrls() + " map " + resultMap);
             hsdpConfiguration.setBaseUrlServiceDiscovery(serviceDiscoveyService.getConfigUrls());
         }
     }

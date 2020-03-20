@@ -50,7 +50,7 @@
       "DOT-ReceiveMarketingOptIn"
     ],
     "servicediscovery.platformMicrositeId": "70000",
-    "servicediscovery.platformEnvironment": "staging",
+    "servicediscovery.platformEnvironment": "STAGING",
     "timesync.ntp.hosts": [
       "0.pool.ntp.org",
       "1.pool.ntp.org",
@@ -70,8 +70,8 @@
       "fileName": "AppInfraLog",
       "numberOfFiles": 5,
       "fileSizeInBytes": 50000,
-      "logLevel": "Info",
-      "fileLogEnabled": false,
+      "logLevel": "All",
+      "fileLogEnabled": true,
       "consoleLogEnabled": true,
       "cloudLogEnabled":false,
       "cloudBatchLimit":5,
@@ -95,7 +95,7 @@
       "numberOfFiles": 5,
       "fileSizeInBytes": 50000,
       "logLevel": "All",
-      "fileLogEnabled": false,
+      "fileLogEnabled": true,
       "cloudLogEnabled": false,
       "cloudBatchLimit": 5,
       "consoleLogEnabled": true,
