@@ -18,17 +18,19 @@ public class ClientIDConfiguration {
 
     private final String PROD_CAPTURE_DOMAIN = "https://philips.janraincapture.com";
 
-    private final String DEV_CAPTURE_DOMAIN_CHINA = "https://philips-cn-dev.capture.cn.janrain.com";
 
-    private final String DEV_CAPTURE_DOMAIN_CHINA_EU = "https://philips-china-eu.eu-dev.janraincapture.com";
+    private final String DEV_CAPTURE_DOMAIN_CHINA = "https://philips-cn-dev.capture.cn.janrain.biz";
 
-    private final String TEST_CAPTURE_DOMAIN_CHINA = "https://philips-cn-test.capture.cn.janrain.com";
+    private final String DEV_CAPTURE_DOMAIN_CHINA_EU = "https://philips-china-eu.eu-dev.janraincapture.biz";
 
-    private final String TEST_CAPTURE_DOMAIN_CHINA_EU = "https://philips-china-test.eu-dev.janraincapture.com";
+    private final String TEST_CAPTURE_DOMAIN_CHINA = "https://philips-cn-test.capture.cn.janrain.biz";
 
-    private final String EVAL_CAPTURE_DOMAIN_CHINA = "https://philips-cn-staging.capture.cn.janrain.com";
+    private final String TEST_CAPTURE_DOMAIN_CHINA_EU = "https://philips-china-test.eu-dev.janraincapture.biz";
 
-    private final String PROD_CAPTURE_DOMAIN_CHINA = "https://philips-cn.capture.cn.janrain.com";
+    private final String EVAL_CAPTURE_DOMAIN_CHINA = "https://philips-cn-staging.capture.cn.janrain.biz";
+
+    private final String PROD_CAPTURE_DOMAIN_CHINA = "https://philips-cn.capture.cn.janrain.biz";
+
 
     private final String DEV_RUSSIA_CAPTURE_DOMAIN = "https://dev.philips.ru/localstorage";
 

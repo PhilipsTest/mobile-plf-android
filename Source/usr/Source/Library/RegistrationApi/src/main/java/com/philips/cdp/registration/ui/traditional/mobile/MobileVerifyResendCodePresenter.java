@@ -28,7 +28,7 @@ import javax.inject.Inject;
 public class MobileVerifyResendCodePresenter implements NetworkStateListener {
     private String TAG = "MobileVerifyResendCodePresenter";
     private static final String VERIFICATION_SMS_CODE_SERVICE_ID = "userreg.urx.verificationsmscode";
-    private static final String BASE_URL_CODE_SERVICE_ID = "userreg.janrain.api";
+    private static final String BASE_URL_CODE_SERVICE_ID = "userreg.janrain.api.v2";
     private static final int RESEND_OTP_REQUEST_CODE = 101;
     private static final int CHANGE_NUMBER_REQUEST_CODE = 102;
     private static final String ERROR_CODE = "errorCode";

@@ -61,9 +61,9 @@ public class ServiceDiscoveryTestcase {
     private AppInfraInterface mAppInfra;
     private ServiceDiscovery mserviceDiscovery = null;
     private MatchByCountryOrLanguage mMatchByCountryOrLanguage = null;
-    private String mServiceId = "userreg.janrain.cdn";
+    private String mServiceId = "userreg.janrain.cdn.v2";
     private ArrayList<String> mServicesId = new ArrayList<String>(
-            Arrays.asList("userreg.janrain.api", "userreg.janrain.cdn"));
+            Arrays.asList("userreg.janrain.api.v2", "userreg.janrain.cdn.v2"));
 
     private Context context;
 
@@ -361,7 +361,7 @@ public class ServiceDiscoveryTestcase {
 
     @Test
     public void testgetServicesWithCountryPreferencewithServiceIds() {
-        String[] serviceIds = {"prxclient.assets", "userreg.janrain.api"};
+        String[] serviceIds = {"prxclient.assets", "userreg.janrain.api.v2"};
         ArrayList<String> serviceId = new ArrayList<String>(Arrays.asList(serviceIds));
         Map<String, String> parameters = new HashMap<>();
         parameters.put("ctn", "HD9740");
@@ -411,7 +411,7 @@ public class ServiceDiscoveryTestcase {
 
     @Test
     public void testgetServicesWithLanguagePreferencewithServiceIds() {
-        String[] serviceIds = {"prxclient.assets", "userreg.janrain.api"};
+        String[] serviceIds = {"prxclient.assets", "userreg.janrain.api.v2"};
         ArrayList<String> serviceId = new ArrayList<String>(Arrays.asList(serviceIds));
         Map<String, String> parameters = new HashMap<>();
         parameters.put("ctn", "HD9740");
@@ -523,10 +523,10 @@ public class ServiceDiscoveryTestcase {
 
     @Test
     public void testgetServiceURL() {
-        URL url = aisdResponse.getServiceURL("userreg.janrain.api", AISDResponse.AISDPreference.AISDCountryPreference, null);
+        URL url = aisdResponse.getServiceURL("userreg.janrain.api.v2", AISDResponse.AISDPreference.AISDCountryPreference, null);
         assertEquals("https://philips.dev.janraincapture.com", url.toString());
 
-        URL urllang = aisdResponse.getServiceURL("userreg.janrain.api", AISDResponse.AISDPreference.AISDLanguagePreference, null);
+        URL urllang = aisdResponse.getServiceURL("userreg.janrain.api.v2", AISDResponse.AISDPreference.AISDLanguagePreference, null);
         assertEquals("https://philips.dev.janraincapture.com", urllang.toString());
 
         Map<String, String> parameters = new HashMap<>();
@@ -1107,10 +1107,10 @@ public class ServiceDiscoveryTestcase {
         mTagArray.add(mTag);
         HashMap<String, String> mMap = new HashMap<String, String>();
         if (isPossitivecase) {
-            mMap.put("userreg.janrain.cdn", "https://d1lqe9temigv1p.cloudfront.net");
-            mMap.put("userreg.janrain.api", "https://philips.eval.janraincapture.com");
+            mMap.put("userreg.janrain.cdn.v2", "https://d1lqe9temigv1p.cloudfront.net");
+            mMap.put("userreg.janrain.api.v2", "https://philips.eval.janraincapture.com");
         } else {
-            mMap.put("userreg.janrain.cdn", "TestCase");
+            mMap.put("userreg.janrain.cdn.v2", "TestCase");
             mMap.put("TestCase", "TestCase");
         }
 

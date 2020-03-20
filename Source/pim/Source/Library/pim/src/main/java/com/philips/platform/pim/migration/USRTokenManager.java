@@ -44,7 +44,7 @@ class USRTokenManager {
     private static final String JR_CAPTURE_SIGNED_IN_USER = "jr_capture_signed_in_user";
     private static final String JR_CAPTURE_FLOW = "jr_capture_flow";
     private String TAG = PIMMigrationManager.class.getSimpleName();
-    private final String USR_BASEURL = "userreg.janrain.api";
+    private final String USR_BASEURL = "userreg.janrain.api.v2";
     private String signedInUser;
     private LoggingInterface mLoggingInterface;
     private AppInfraInterface appInfraInterface;

@@ -220,7 +220,7 @@ public class UserRegistrationInitializer {
     }
 
     private void getLocaleServiceDiscovery(Context context, Configuration registrationType) {
-        serviceDiscoveryWrapper.getServiceLocaleWithLanguagePreferenceSingle("userreg.janrain.api")
+        serviceDiscoveryWrapper.getServiceLocaleWithLanguagePreferenceSingle("userreg.janrain.api.v2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<String>() {
@@ -244,7 +244,7 @@ public class UserRegistrationInitializer {
     }
 
     private void getLocaleServiceDiscoveryByCountry(Context context, Configuration registrationType) {
-        serviceDiscoveryWrapper.getServiceLocaleWithCountryPreferenceSingle("userreg.janrain.api")
+        serviceDiscoveryWrapper.getServiceLocaleWithCountryPreferenceSingle("userreg.janrain.api.v2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<String>() {

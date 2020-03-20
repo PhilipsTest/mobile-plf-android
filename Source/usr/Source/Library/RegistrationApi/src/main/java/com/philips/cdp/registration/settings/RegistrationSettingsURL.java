@@ -146,11 +146,11 @@ public class RegistrationSettingsURL extends RegistrationSettings {
     private void initServiceDiscovery(final String locale) {
 
         ArrayList<String> serviceIdList = new ArrayList<>();
-        serviceIdList.add("userreg.janrain.api");
+        serviceIdList.add("userreg.janrain.api.v2");
         serviceIdList.add("userreg.landing.emailverif");
         serviceIdList.add("userreg.landing.resetpass");
-        serviceIdList.add("userreg.janrain.cdn");
-        serviceIdList.add("userreg.janrain.engage");
+        serviceIdList.add("userreg.janrain.cdn.v2");
+        serviceIdList.add("userreg.janrain.engage.v2");
         serviceIdList.add("userreg.smssupported");
         serviceIdList.add(HSDP_BASE_URL_SERVICE_ID);
 
@@ -160,7 +160,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
                 setHSDPBaseUrl(resultMap);
 
-                ServiceDiscoveryService serviceDiscoveyService = resultMap.get("userreg.janrain.api");
+                ServiceDiscoveryService serviceDiscoveyService = resultMap.get("userreg.janrain.api.v2");
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
                     String urlLocal = serviceDiscoveyService.getConfigUrls();
                     String janrainURL = urlLocal.substring(8);//Please don't remove this line.\
@@ -220,7 +220,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     return;
                 }
 
-                serviceDiscoveyService = resultMap.get("userreg.janrain.cdn");
+                serviceDiscoveyService = resultMap.get("userreg.janrain.cdn.v2");
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
                     RLog.d(TAG, " onSuccess  : userreg.janrain.cdn :" +
                             serviceDiscoveyService.getConfigUrls());
@@ -251,7 +251,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     return;
                 }
 
-                serviceDiscoveyService = resultMap.get("userreg.janrain.engage");
+                serviceDiscoveyService = resultMap.get("userreg.janrain.engage.v2");
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
                     RLog.d(TAG, " onSuccess  : userreg.janrain.engage :" + serviceDiscoveyService.getConfigUrls());
                     jumpConfig.engageAppUrl = serviceDiscoveyService.getConfigUrls().substring(8);
