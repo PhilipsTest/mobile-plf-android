@@ -70,6 +70,9 @@ configurations.all {
 }
 
 dependencies {
+
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
     if (useprojectdependencies) {
 
         implementation project(strings.ufw.projectName)

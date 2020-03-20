@@ -17,7 +17,9 @@ import com.android.volley.Network;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.BaseHttpStack;
 import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.Volley;
 import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.AppInfraLogEventID;
@@ -28,11 +30,17 @@ import com.philips.platform.appinfra.rest.hpkp.HPKPManager;
 import com.philips.platform.appinfra.rest.request.RequestQueue;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
+import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.OkHttpClient;
 
 
 /**
@@ -67,10 +75,14 @@ public class RestManager implements RestInterface {
             final Network network = getNetwork();
             mRequestQueue = new RequestQueue(cache, network);
             mRequestQueue.start();
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new ChuckInterceptor(mAppInfra.getAppInfraContext()))
+                    .build();
             // mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
         return mRequestQueue;
     }
+    
 
     @Override
     public NetworkTypes  getNetworkReachabilityStatus() {
