@@ -9,53 +9,61 @@ public class ClientIDConfiguration {
 
     private final String TAG = "ClientIDConfiguration";
 
+    private final String DEV_CAPTURE_DOMAIN = "DEVELOPMENT";
 
-    private final String DEV_CAPTURE_DOMAIN = "https://philips.dev.janraincapture.com";
+    private final String TEST_CAPTURE_DOMAIN = "TESTING";
 
-    private final String TEST_CAPTURE_DOMAIN = "https://philips-test.dev.janraincapture.com";
+    private final String EVAL_CAPTURE_DOMAIN = "EVALUATION";
 
-    private final String EVAL_CAPTURE_DOMAIN = "https://philips.eval.janraincapture.com";
+    private final String PROD_CAPTURE_DOMAIN = "PRODUCTION";
 
-    private final String PROD_CAPTURE_DOMAIN = "https://philips.janraincapture.com";
+    private final String STAG_CAPTURE_DOMAIN = "STAGING";
 
 
-    private final String DEV_CAPTURE_DOMAIN_CHINA = "https://philips-cn-dev.capture.cn.janrain.biz";
+    private final String DEV_CAPTURE_DOMAIN_CHINA = "DEVELOPMENT_CN";
 
     private final String DEV_CAPTURE_DOMAIN_CHINA_EU = "https://philips-china-eu.eu-dev.janraincapture.biz";
 
-    private final String TEST_CAPTURE_DOMAIN_CHINA = "https://philips-cn-test.capture.cn.janrain.biz";
+    private final String TEST_CAPTURE_DOMAIN_CHINA = "TESTING_CN";
 
     private final String TEST_CAPTURE_DOMAIN_CHINA_EU = "https://philips-china-test.eu-dev.janraincapture.biz";
 
-    private final String EVAL_CAPTURE_DOMAIN_CHINA = "https://philips-cn-staging.capture.cn.janrain.biz";
+    private final String EVAL_CAPTURE_DOMAIN_CHINA = "EVALUATION_CN";
 
-    private final String PROD_CAPTURE_DOMAIN_CHINA = "https://philips-cn.capture.cn.janrain.biz";
+    private final String PROD_CAPTURE_DOMAIN_CHINA = "PRODUCTION_CN";
+
+    private final String STAG_CAPTURE_DOMAIN_CHINA = "STAGING_CN";
 
 
-    private final String DEV_RUSSIA_CAPTURE_DOMAIN = "https://dev.philips.ru/localstorage";
+    private final String DEV_RUSSIA_CAPTURE_DOMAIN = "DEVELOPMENT_RU";
 
-    private final String TEST_RUSSIA_CAPTURE_DOMAIN = "https://tst.philips.ru/localstorage";
+    private final String TEST_RUSSIA_CAPTURE_DOMAIN = "TESTING_RU";
 
-    private final String EVAL_RUSSIA_CAPTURE_DOMAIN = "https://stg.philips.ru/localstorage";
+    private final String EVAL_RUSSIA_CAPTURE_DOMAIN = "EVALUATION_RU";
 
-    private final String PROD_RUSSIA_CAPTURE_DOMAIN = "https://www.philips.ru/localstorage";
+    private final String PROD_RUSSIA_CAPTURE_DOMAIN = "PRODUCTION_RU";
+
+    private final String STAG_RUSSIA_CAPTURE_DOMAIN = "STAGING_RU";
 
 
     private  final String DEV_CAPTURE_DOMAIN_CAPTUE_ID = "eupac7ugz25x8dwahvrbpmndf8";
     private  final String TEST_CAPTURE_DOMAIN_CAPTUE_ID = "x7nftvwfz8e8vcutz49p8eknqp";
     private  final String EVAL_CAPTURE_DOMAIN_CAPTUE_ID = "nt5dqhp6uck5mcu57snuy8uk6c";
+    private  final String STAG_CAPTURE_DOMAIN_CAPTUE_ID = "nt5dqhp6uck5mcu57snuy8uk6c";
     private  final String PROD_CAPTURE_DOMAIN_CAPTUE_ID = "hffxcm638rna8wrxxggx2gykhc";
 
 
     private  final String DEV_CAPTURE_DOMAIN_ENAGAGE_ID = "bdbppnbjfcibijknnfkk";
     private  final String TEST_CAPTURE_DOMAIN_ENAGAGE_ID = "fhbmobeahciagddgfidm";
     private  final String EVAL_CAPTURE_DOMAIN_ENAGAGE_ID = "jgehpoggnhbagolnihge";
+    private  final String STAG_CAPTURE_DOMAIN_ENAGAGE_ID = "jgehpoggnhbagolnihge";
     private  final String PROD_CAPTURE_DOMAIN_ENAGAGE_ID = "ddjbpmgpeifijdlibdio";
 
 
     private static final String DEV_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID = "rj95w5ghxqthxxy8jpug5a63wrbeykzk";
     private static final String TEST_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID = "suxgtg52ej3srf683t7u5gqzw4824avg";
     private static final String EVAL_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID = "h27n93rjva8xuvzgpeb7jf9jxq6dnnzr";
+    private static final String STAG_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID = "h27n93rjva8xuvzgpeb7jf9jxq6dnnzr";
     private static final String PROD_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID = "h27n93rjva8xuvzgpeb7jf9jxq6dnnzr";
 
     private static final String DEV_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID = "xhrue999syb8g2csggp9acs6x87q8q3d";
@@ -63,6 +71,7 @@ public class ClientIDConfiguration {
     private static final String TEST_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID = "v2s8qajf9ncfzsyy6ghjpqvsrju9xgvt";
     private static final String TEST_CAPTURE_DOMAIN_CHINA_EU_RESET_PASS_CLIENT_ID = "fh5mfvjqzwhn5t9gdwqqjnbcw9atd7mv";
     private static final String EVAL_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID = "mfvjprjmgbrhfbtn6cq6q2yupzhxn977";
+    private static final String STAG_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID = "mfvjprjmgbrhfbtn6cq6q2yupzhxn977";
     private static final String PROD_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID = "65dzkyh48ux4vcguhvwsgvtk4bzyh2va";
 
 
@@ -81,6 +90,7 @@ public class ClientIDConfiguration {
         map.put(DEV_CAPTURE_DOMAIN, DEV_CAPTURE_DOMAIN_CAPTUE_ID);
         map.put(TEST_CAPTURE_DOMAIN, TEST_CAPTURE_DOMAIN_CAPTUE_ID);
         map.put(EVAL_CAPTURE_DOMAIN, EVAL_CAPTURE_DOMAIN_CAPTUE_ID);
+        map.put(STAG_CAPTURE_DOMAIN, STAG_CAPTURE_DOMAIN_CAPTUE_ID);
         map.put(PROD_CAPTURE_DOMAIN, PROD_CAPTURE_DOMAIN_CAPTUE_ID);
         return map;
     }
@@ -90,6 +100,7 @@ public class ClientIDConfiguration {
         map.put(DEV_RUSSIA_CAPTURE_DOMAIN, DEV_CAPTURE_DOMAIN_CAPTUE_ID);
         map.put(TEST_RUSSIA_CAPTURE_DOMAIN, TEST_CAPTURE_DOMAIN_CAPTUE_ID);
         map.put(EVAL_RUSSIA_CAPTURE_DOMAIN, EVAL_CAPTURE_DOMAIN_CAPTUE_ID);
+        map.put(STAG_RUSSIA_CAPTURE_DOMAIN, STAG_CAPTURE_DOMAIN_CAPTUE_ID);
         map.put(PROD_RUSSIA_CAPTURE_DOMAIN, PROD_CAPTURE_DOMAIN_CAPTUE_ID);
         return map;
     }
@@ -106,6 +117,8 @@ public class ClientIDConfiguration {
         map.put(TEST_CAPTURE_DOMAIN_CHINA_EU, TEST_CAPTURE_DOMAIN_CHINA_EU_CAPTUE_ID);
         String EVAL_CAPTURE_DOMAIN_CHINA_CAPTUE_ID = "czwfzs7xh23ukmpf4fzhnksjmd";
         map.put(EVAL_CAPTURE_DOMAIN_CHINA, EVAL_CAPTURE_DOMAIN_CHINA_CAPTUE_ID);
+        String STAG_CAPTURE_DOMAIN_CHINA_CAPTUE_ID = "czwfzs7xh23ukmpf4fzhnksjmd";
+        map.put(STAG_CAPTURE_DOMAIN_CHINA, STAG_CAPTURE_DOMAIN_CHINA_CAPTUE_ID);
         String PROD_CAPTURE_DOMAIN_CHINA_CAPTUE_ID = "zkr6yg4mdsnt7f8mvucx7qkja3";
         map.put(PROD_CAPTURE_DOMAIN_CHINA, PROD_CAPTURE_DOMAIN_CHINA_CAPTUE_ID);
         return map;
@@ -127,6 +140,7 @@ public class ClientIDConfiguration {
         map.put(DEV_CAPTURE_DOMAIN, DEV_CAPTURE_DOMAIN_ENAGAGE_ID);
         map.put(TEST_CAPTURE_DOMAIN, TEST_CAPTURE_DOMAIN_ENAGAGE_ID);
         map.put(EVAL_CAPTURE_DOMAIN, EVAL_CAPTURE_DOMAIN_ENAGAGE_ID);
+        map.put(STAG_CAPTURE_DOMAIN, STAG_CAPTURE_DOMAIN_ENAGAGE_ID);
         map.put(PROD_CAPTURE_DOMAIN, PROD_CAPTURE_DOMAIN_ENAGAGE_ID);
         return map;
     }
@@ -136,6 +150,7 @@ public class ClientIDConfiguration {
         map.put(DEV_RUSSIA_CAPTURE_DOMAIN, DEV_CAPTURE_DOMAIN_ENAGAGE_ID);
         map.put(TEST_RUSSIA_CAPTURE_DOMAIN, TEST_CAPTURE_DOMAIN_ENAGAGE_ID);
         map.put(EVAL_RUSSIA_CAPTURE_DOMAIN, EVAL_CAPTURE_DOMAIN_ENAGAGE_ID);
+        map.put(STAG_RUSSIA_CAPTURE_DOMAIN, STAG_CAPTURE_DOMAIN_ENAGAGE_ID);
         map.put(PROD_RUSSIA_CAPTURE_DOMAIN, PROD_CAPTURE_DOMAIN_ENAGAGE_ID);
         return map;
     }
@@ -152,6 +167,8 @@ public class ClientIDConfiguration {
         map.put(TEST_CAPTURE_DOMAIN_CHINA_EU, TEST_CAPTURE_DOMAIN_CHINA_EU_ENAGAGE_ID);
         String EVAL_CAPTURE_DOMAIN_CHINA_ENAGAGE_ID = "uyfpympodtnesxejzuic";
         map.put(EVAL_CAPTURE_DOMAIN_CHINA, EVAL_CAPTURE_DOMAIN_CHINA_ENAGAGE_ID);
+        String STAG_CAPTURE_DOMAIN_CHINA_ENAGAGE_ID = "uyfpympodtnesxejzuic";
+        map.put(STAG_CAPTURE_DOMAIN_CHINA, STAG_CAPTURE_DOMAIN_CHINA_ENAGAGE_ID);
         String PROD_CAPTURE_DOMAIN_CHINA_ENAGAGE_ID = "cfwaqwuwcwzlcozyyjpa";
         map.put(PROD_CAPTURE_DOMAIN_CHINA, PROD_CAPTURE_DOMAIN_CHINA_ENAGAGE_ID);
         return map;
@@ -174,6 +191,7 @@ public class ClientIDConfiguration {
         map.put(DEV_CAPTURE_DOMAIN, DEV_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
         map.put(TEST_CAPTURE_DOMAIN, TEST_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
         map.put(EVAL_CAPTURE_DOMAIN, EVAL_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
+        map.put(STAG_CAPTURE_DOMAIN, STAG_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
         map.put(PROD_CAPTURE_DOMAIN, PROD_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
         return map;
     }
@@ -183,6 +201,7 @@ public class ClientIDConfiguration {
         map.put(DEV_RUSSIA_CAPTURE_DOMAIN, DEV_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
         map.put(TEST_RUSSIA_CAPTURE_DOMAIN, TEST_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
         map.put(EVAL_RUSSIA_CAPTURE_DOMAIN, EVAL_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
+        map.put(STAG_RUSSIA_CAPTURE_DOMAIN, STAG_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
         map.put(PROD_RUSSIA_CAPTURE_DOMAIN, PROD_CAPTURE_DOMAIN_RESET_PASS_CLIENT_ID);
         return map;
     }
@@ -194,6 +213,7 @@ public class ClientIDConfiguration {
         map.put(TEST_CAPTURE_DOMAIN_CHINA, TEST_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID);
         map.put(TEST_CAPTURE_DOMAIN_CHINA_EU, TEST_CAPTURE_DOMAIN_CHINA_EU_RESET_PASS_CLIENT_ID);
         map.put(EVAL_CAPTURE_DOMAIN_CHINA, EVAL_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID);
+        map.put(STAG_CAPTURE_DOMAIN_CHINA, STAG_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID);
         map.put(PROD_CAPTURE_DOMAIN_CHINA, PROD_CAPTURE_DOMAIN_CHINA_RESET_PASS_CLIENT_ID);
         return map;
     }
