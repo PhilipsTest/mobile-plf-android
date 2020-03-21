@@ -35,7 +35,7 @@
   "appinfra": {
     "appidentity.micrositeId": "77000",
     "appidentity.sector": "b2c",
-    "appidentity.appState": "STAGING",
+    "appidentity.appState": "PRODUCTION",
     "appidentity.serviceDiscoveryEnvironment": "STAGING",
     "appUpdate.serviceID": "appinfra.testing.version",
     "appUpdate.autoRefresh": true,
