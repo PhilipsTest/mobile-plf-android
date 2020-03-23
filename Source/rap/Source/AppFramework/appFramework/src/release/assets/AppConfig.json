@@ -31,10 +31,10 @@
   "appinfra": {
     "appidentity.micrositeId": "77000",
     "appidentity.sector": "b2c",
-    "appidentity.appState": "PRODUCTION",
+    "appidentity.appState": "STAGING",
     "appUpdate.serviceID": "appinfra.testing.version",
     "appUpdate.autoRefresh": true,
-    "appidentity.serviceDiscoveryEnvironment": "STAGING",
+    "appidentity.serviceDiscoveryEnvironment": "PRODUCTION",
     "restclient.cacheSizeInKB": 51200,
     "tagging.sensitiveData": [
       "bundleId",
@@ -46,7 +46,7 @@
       "DOT-ReceiveMarketingOptIn"
     ],
     "servicediscovery.platformMicrositeId": "70000",
-    "servicediscovery.platformEnvironment": "STAGING",
+    "servicediscovery.platformEnvironment": "PRODUCTION",
     "timesync.ntp.hosts": [
       "0.pool.ntp.org",
       "1.pool.ntp.org",
