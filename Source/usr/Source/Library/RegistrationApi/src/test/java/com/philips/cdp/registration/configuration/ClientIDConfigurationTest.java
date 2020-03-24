@@ -189,7 +189,7 @@ public class ClientIDConfigurationTest extends TestCase{
     public void testRussiaProductResetPassword() {
         assertEquals("h27n93rjva8xuvzgpeb7jf9jxq6dnnzr", new ClientIDConfiguration().getResetPasswordClientId("STAGING_RU"));
     }
-    
+
     @Test
     public void testGlobalDevelopCaptureId() {
         assertEquals("eupac7ugz25x8dwahvrbpmndf8", new ClientIDConfiguration().getCaptureId("DEVELOPMENT"));
