@@ -353,6 +353,9 @@ public class RegistrationFragment extends Fragment implements NetworkStateListen
         }
         return false;
     }
+    public Fragment getCurrentFragment(){
+        return  currentFragment;
+    }
 
     Fragment currentFragment;
 
