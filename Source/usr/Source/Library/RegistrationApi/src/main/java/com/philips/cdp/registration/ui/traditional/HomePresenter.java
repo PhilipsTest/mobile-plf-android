@@ -492,7 +492,7 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
 
 
     private void getLocaleServiceDiscovery(final String countryName) {
-        serviceDiscoveryWrapper.getServiceLocaleWithLanguagePreferenceSingle("userreg.janrain.api")
+        serviceDiscoveryWrapper.getServiceLocaleWithLanguagePreferenceSingle("userreg.janrain.api.v2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<String>() {
@@ -513,7 +513,7 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
     }
 
     private void getLocaleServiceDiscoveryByCountry(String countryName) {
-        serviceDiscoveryWrapper.getServiceLocaleWithCountryPreferenceSingle("userreg.janrain.api")
+        serviceDiscoveryWrapper.getServiceLocaleWithCountryPreferenceSingle("userreg.janrain.api.v2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<String>() {

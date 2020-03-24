@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class PRGFragment extends Fragment implements View.OnClickListener {
     private Button fragment_btn_2;
-    private final String userRegServiceID = "userreg.janrain.api";
+    private final String userRegServiceID = "userreg.janrain.api.v2";
     private PRLaunchInput prLaunchInput;
     private PRInterface prInterface;
     private PIMInterface pimInterface;
