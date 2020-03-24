@@ -212,7 +212,7 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
               if (isVerified) {
                   if (getRegistrationFragment().getCurrentFragment() instanceof MobileVerifyCodeFragment) {
                       EventBus.getDefault().unregister(this);
-                      getRegistrationFragment().addFragment(new AddSecureEmailFragment());
+                    //  getRegistrationFragment().addFragment(new AddSecureEmailFragment());
                   }
               }
           }
