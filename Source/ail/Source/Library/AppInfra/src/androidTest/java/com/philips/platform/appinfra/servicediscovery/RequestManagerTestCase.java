@@ -157,8 +157,8 @@ public class RequestManagerTestCase {
     private JSONObject makJsonObject(boolean isSuccess, int resultJsonArraySize) {
         JSONObject urls = new JSONObject();
         try {
-            urls.put("userreg.janrain.cdn", "https://d1lqe9temigv1p.cloudfront.net");
-            urls.put("userreg.janrain.api", "https://philips.janraincapture.com");
+            urls.put("userreg.janrain.cdn.v2", "https://d1lqe9temigv1p.cloudfront.net");
+            urls.put("userreg.janrain.api.v2", "https://philips.janraincapture.com");
 
         } catch (JSONException ignored) {
         }
