@@ -70,7 +70,7 @@ public class ManualRegistrationFragment extends BaseFragment implements View.OnC
     private boolean mandatoryConfiguration = false;
     private FragmentActivity fragmentActivity;
     private LinearLayout mandatoryTextViewLayout;
-    private final String userRegServiceID = "userreg.janrain.api";
+    private final String userRegServiceID = "userreg.janrain.api.v2";
     private PRLaunchInput prLaunchInput;
 
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {

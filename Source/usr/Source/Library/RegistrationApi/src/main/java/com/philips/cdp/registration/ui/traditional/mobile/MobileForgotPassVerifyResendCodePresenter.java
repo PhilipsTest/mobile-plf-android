@@ -60,8 +60,7 @@ public class MobileForgotPassVerifyResendCodePresenter implements NetworkStateLi
 
     private String getClientId() {
         ClientIDConfiguration clientIDConfiguration = new ClientIDConfiguration();
-        return clientIDConfiguration.getResetPasswordClientId(RegConstants.HTTPS_CONST +
-                Jump.getCaptureDomain());
+        return clientIDConfiguration.getResetPasswordClientId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+RegistrationHelper.getInstance().getCountryCode());
     }
 
     private String getRedirectUri() {
