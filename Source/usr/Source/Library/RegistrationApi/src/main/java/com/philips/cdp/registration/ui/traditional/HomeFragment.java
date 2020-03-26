@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -138,6 +139,20 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
     private CallbackManager mCallbackManager;
     private URFaceBookUtility mURFaceBookUtility;
 
+    private long mLastClickTime = 0;
+
+
+    public boolean multiClickTimer() {
+        // mis-clicking prevention, using threshold of 1000 ms
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 1500){
+            return false;
+        }
+
+        mLastClickTime = SystemClock.elapsedRealtime();
+        return true;
+        // do your magic here
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -222,7 +237,8 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
             if (!getRegistrationFragment().isHomeFragment()) {
                 return;
             }
-            trackPage(AppTaggingPages.CREATE_ACCOUNT);
+            if(multiClickTimer()) {
+                trackPage(AppTaggingPages.CREATE_ACCOUNT);
             if (mRegError.isShown()) hideNotificationBarView();//mRegError.hideError();
             if (homePresenter.isNetworkAvailable()) {
                 homePresenter.setFlowDeligate(HomePresenter.FLOWDELIGATE.SOCIALPROVIDER);
@@ -241,6 +257,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
                 //updateErr1orMessage(mContext.getResources().getString(R.string.reg_NoNetworkConnection));
 //                showNotificationBarOnNetworkNotAvailable();
             }
+        }
         });
         return socialButton;
     }
@@ -627,33 +644,41 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
 
     @OnClick(R2.id.usr_startScreen_createAccount_Button)
     void createAccountButtonClick() {
-        RLog.i(TAG, TAG + ".createAccountButton Clicked");
-        if (mRegError.isShown()) hideNotificationBarView();//mRegError.hideError();
-        launchCreateAccountFragment();
+        if(multiClickTimer()){
+            RLog.i(TAG, TAG + ".createAccountButton Clicked");
+            if (mRegError.isShown()) hideNotificationBarView();//mRegError.hideError();
+            launchCreateAccountFragment();
+        }
+
     }
 
 
     @OnClick(R2.id.usr_startScreen_Login_Button)
     void myPhilipsButtonClick() {
-        RLog.i(TAG, TAG + ".myPhilipsButton Clicked ");
-        if (mRegError.isShown()) hideNotificationBarView();// mRegError.hideError();
-        trackMultipleActionsLogin(AppTagingConstants.MY_PHILIPS);
-        launchSignInFragment();
+        if(multiClickTimer()) {
+            RLog.i(TAG, TAG + ".myPhilipsButton Clicked ");
+            if (mRegError.isShown()) hideNotificationBarView();// mRegError.hideError();
+            trackMultipleActionsLogin(AppTagingConstants.MY_PHILIPS);
+            launchSignInFragment();
+        }
     }
 
     @OnClick(R2.id.usr_StartScreen_Skip_Button)
     void skipButtonClick() {
-        RLog.i(TAG, TAG + ".skipButton clicked");
-        if (mRegError.isShown()) hideNotificationBarView();//mRegError.hideError();
+        if(multiClickTimer()) {
 
-        if (RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener() != null) {
-            RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener().
-                    onUserRegistrationComplete(getRegistrationFragment().getParentActivity());
-            trackActionStatus(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
-                    AppTagingConstants.SKIP_REGISTRATION);
-            trackMultipleActionsLogin(AppTagingConstants.SKIP_REGISTRATION);
-        } else {
-            RegUtility.showErrorMessage(getRegistrationFragment().getParentActivity());
+            RLog.i(TAG, TAG + ".skipButton clicked");
+            if (mRegError.isShown()) hideNotificationBarView();//mRegError.hideError();
+
+            if (RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener() != null) {
+                RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener().
+                        onUserRegistrationComplete(getRegistrationFragment().getParentActivity());
+                trackActionStatus(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
+                        AppTagingConstants.SKIP_REGISTRATION);
+                trackMultipleActionsLogin(AppTagingConstants.SKIP_REGISTRATION);
+            } else {
+                RegUtility.showErrorMessage(getRegistrationFragment().getParentActivity());
+            }
         }
     }
 
