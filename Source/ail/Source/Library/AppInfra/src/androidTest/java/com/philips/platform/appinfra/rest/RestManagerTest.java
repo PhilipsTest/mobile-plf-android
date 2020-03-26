@@ -50,7 +50,7 @@ public class RestManagerTest {
     private Context context;
     private AppInfra mAppInfra;
     private String baseURL = "https://hashim.herokuapp.com";
-    private String serviceIdString = "userreg.janrain.api";
+    private String serviceIdString = "userreg.janrain.api.v2";
     private String accessToken;
 
     @Before
