@@ -15,7 +15,7 @@
         android:background="@android:color/transparent">
 
         <LinearLayout
-            android:id="@+id/ll_reg_root_container"
+            android:id="@+id/usr_reg_root_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/reg_dimen_24dp"

@@ -305,6 +305,8 @@ public class RegistrationFragment extends Fragment implements NetworkStateListen
             AppTagging.trackFirstPage(AppTaggingPages.HOME);
             fragment = replaceWithHomeFragment(pFragmentManager);
         }
+        currentFragment = fragment;
+
         return fragment;
     }
 
@@ -313,6 +315,8 @@ public class RegistrationFragment extends Fragment implements NetworkStateListen
         FragmentTransaction fragmentTransaction = pFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_reg_fragment_container, userDetailsFragment);
         fragmentTransaction.commitAllowingStateLoss();
+        currentFragment = userDetailsFragment;
+
         return userDetailsFragment;
     }
 
@@ -387,6 +391,7 @@ public class RegistrationFragment extends Fragment implements NetworkStateListen
         FragmentTransaction fragmentTransaction = pFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_reg_fragment_container, marketingAccountFragment);
         fragmentTransaction.commitAllowingStateLoss();
+        currentFragment = marketingAccountFragment;
         return marketingAccountFragment;
     }
 
