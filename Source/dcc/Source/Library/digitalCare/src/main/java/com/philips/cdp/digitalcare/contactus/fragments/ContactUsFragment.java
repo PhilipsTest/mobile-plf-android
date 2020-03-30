@@ -155,7 +155,7 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
 
     private void setContactHours(String hours) {
         mFirstRowText.setVisibility(View.VISIBLE);
-        mFirstRowText.setText(hours);
+        mFirstRowText.setText(getSpannedText(hours));
     }
 
     @Override
