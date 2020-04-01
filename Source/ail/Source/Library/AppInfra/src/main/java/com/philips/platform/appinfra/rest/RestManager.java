@@ -73,11 +73,11 @@ public class RestManager implements RestInterface {
 
             // Set up the network to use HttpURLConnection as the HTTP client.
             final Network network = getNetwork();
-            mRequestQueue = new RequestQueue(cache, network);
+            mRequestQueue = new RequestQueue(cache, network,mAppInfra.getAppInfraContext());
             mRequestQueue.start();
-            OkHttpClient client = new OkHttpClient.Builder()
+            /*OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(new ChuckInterceptor(mAppInfra.getAppInfraContext()))
-                    .build();
+                    .build();*/
             // mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
         return mRequestQueue;
