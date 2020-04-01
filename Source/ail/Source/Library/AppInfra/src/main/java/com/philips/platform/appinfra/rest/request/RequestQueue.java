@@ -42,7 +42,7 @@ public class RequestQueue extends com.android.volley.RequestQueue {
     @Override
     public <T> Request<T> add(Request<T> request) {
         final String url = request.getUrl();
-
+        addHttpClient(url);
         if (!url.trim().toLowerCase().startsWith("https://")) {
             if (url.trim().startsWith("serviceid://")) {
                 return super.add(request);
@@ -52,7 +52,10 @@ public class RequestQueue extends com.android.volley.RequestQueue {
                 return null;
             }
         }
+        return super.add(request);
+    }
 
+    private void addHttpClient(String url) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new ChuckInterceptor(context))
                 .build();
@@ -70,6 +73,5 @@ public class RequestQueue extends com.android.volley.RequestQueue {
         });
 
         thread.start();
-        return super.add(request);
     }
 }
