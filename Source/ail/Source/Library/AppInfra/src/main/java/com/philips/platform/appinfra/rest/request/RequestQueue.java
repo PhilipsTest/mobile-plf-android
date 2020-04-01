@@ -52,12 +52,11 @@ public class RequestQueue extends com.android.volley.RequestQueue {
                 return null;
             }
         }
-        okhttp3.Request.Builder okHttpRequestBuilder = new okhttp3.Request.Builder();
-        okHttpRequestBuilder.url(request.getUrl());
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new ChuckInterceptor(context))
                 .build();
-        Chuck.getLaunchIntent(context);
+        //Chuck.getLaunchIntent(context);
         Thread thread = new Thread(new Runnable() {
 
             @Override

@@ -75,9 +75,6 @@ public class RestManager implements RestInterface {
             final Network network = getNetwork();
             mRequestQueue = new RequestQueue(cache, network,mAppInfra.getAppInfraContext());
             mRequestQueue.start();
-            /*OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(new ChuckInterceptor(mAppInfra.getAppInfraContext()))
-                    .build();*/
             // mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
         return mRequestQueue;

@@ -78,8 +78,10 @@ android {
 apply from: project.rootDir.absolutePath + '/build-support/gradle/apidocs.gradle'
 
 dependencies {
-    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
+    debugImplementation deps.chuck_debug
+    releaseImplementation deps.chuck_release
+    implementation deps.okhttp3
     if (useprojectdependencies) {
         implementation project(strings.pif.projectName)
     } else {
