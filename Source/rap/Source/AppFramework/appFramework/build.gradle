@@ -7,6 +7,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'org.jetbrains.dokka'
+
 
 kapt {
     generateStubs = true
@@ -27,6 +29,8 @@ buildscript {
         classpath builddeps.buildinfoextractor
         classpath builddeps.cdpSCM
         classpath builddeps.bintrayplugin
+        classpath builddeps.kotlin_reflect
+        classpath builddeps.dokka
     }
 }
 

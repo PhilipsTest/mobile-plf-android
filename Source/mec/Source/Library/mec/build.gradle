@@ -7,6 +7,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'org.jetbrains.dokka'
 
 apply from: project.rootDir.absolutePath + '/build-support/gradle/cdpscm.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/projectnames.gradle'
@@ -20,7 +21,8 @@ buildscript {
     dependencies {
         classpath builddeps.gradle
         classpath builddeps.buildinfoextractor
-        //classpath builddeps.cdpSCM
+        classpath builddeps.kotlin_reflect
+        classpath builddeps.dokka
     }
 }
 
@@ -28,6 +30,17 @@ buildscript {
 def zipDoc = file(buildDir.name + "/distributions/$project.name-$version-docs" + '.zip')
 artifacts {
     archives zipDoc
+
+}
+
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = 'javadoc'
+    outputDirectory = "$buildDir/dokkaJavadoc"
+}
+
+task packageJavadoc(type: Jar, dependsOn: 'dokkaJavadoc') {
+    from "$buildDir/dokkaJavadoc"
+    classifier = 'javadoc'
 }
 
 task zipDocuments(type: Zip) {
@@ -108,6 +121,11 @@ android {
 
     configurations.all {
         resolutionStrategy.force deps.jsr305
+    }
+
+    dokka {
+        outputFormat = 'html'
+        outputDirectory = "$buildDir/javadoc"
     }
 
 }

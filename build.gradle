@@ -31,6 +31,8 @@ buildscript {
         classpath builddeps.use_latest_versions
         classpath builddeps.ben_manes_versions
         classpath builddeps.kotlin_plugin
+        classpath builddeps.kotlin_reflect
+        classpath builddeps.dokka
     }
 }
 

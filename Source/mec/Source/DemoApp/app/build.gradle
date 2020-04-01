@@ -7,18 +7,27 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'org.jetbrains.dokka-android'
+
+
 
 
 apply from: project.rootDir.absolutePath + '/build-support/gradle/cdpscm.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/projectnames.gradle'
 
+dokka {
+    configuration {
+        androidVariants = ["debug", "release"]
+    }
+}
 buildscript {
     apply from: project.rootDir.absolutePath + '/build-support/gradle/versions.gradle'
 
     dependencies {
         classpath builddeps.gradle
         classpath builddeps.buildinfoextractor
-        //classpath builddeps.cdpSCM
+        classpath builddeps.kotlin_reflect
+        classpath builddeps.dokka
     }
 }
 
