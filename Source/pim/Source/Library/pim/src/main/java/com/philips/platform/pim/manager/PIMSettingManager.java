@@ -104,6 +104,8 @@ public class PIMSettingManager {
         this.pimUserLoginListener = userLoginListener;
     }
 
+
+
     public UserLoginListener getPimUserLoginListener() {
         return pimUserLoginListener;
     }

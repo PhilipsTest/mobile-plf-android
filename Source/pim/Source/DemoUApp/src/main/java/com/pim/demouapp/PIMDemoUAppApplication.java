@@ -9,17 +9,19 @@ import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pim.PIMInterface;
+import com.philips.platform.pim.PIMLaunchInput;
 
 public class PIMDemoUAppApplication extends Application {
 
     @NonNull
     private AppInfraInterface appInfraInterface;
     private UserDataInterface userDataInterface;
+    private Boolean chuckEnabled;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        appInfraInterface = new AppInfra.Builder().build(this);
+        appInfraInterface = new AppInfra.Builder().setChuck(chuckEnabled).build(this);
     }
 
     public AppInfraInterface getAppInfra() {

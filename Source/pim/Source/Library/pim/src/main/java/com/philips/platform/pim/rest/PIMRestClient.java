@@ -17,7 +17,7 @@ public class PIMRestClient {
 
     public void invokeRequest(PIMRequestInterface pimRequestInterface, Response.Listener<String> successListener, Response.ErrorListener errorListener) {
         PIMRequest request = makePimRequest(pimRequestInterface, successListener, errorListener);
-        PIMSettingManager.getInstance().getRestClient().getRequestQueue().add(request);
+            PIMSettingManager.getInstance().getRestClient().getRequestQueue().add(request);
     }
 
     private PIMRequest makePimRequest(PIMRequestInterface pimRequestInterface, Response.Listener<String> successListener, Response.ErrorListener errorListener) {

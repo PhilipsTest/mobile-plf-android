@@ -113,6 +113,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private MECLaunchInput mMecLaunchInput;
     private MECBazaarVoiceInput mecBazaarVoiceInput;
     private PIMDemoUAppApplication uAppApplication;
+    private Object chuckEnabled;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,8 +125,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         Label appversion = findViewById(R.id.appversion);
         appversion.setText("Version : " + BuildConfig.VERSION_NAME);
 
+        chuckEnabled = getIntent().getExtras().get("chuckEnabled");
         uAppApplication = (PIMDemoUAppApplication) getApplicationContext();
         appInfraInterface = uAppApplication.getAppInfra();
+        //new PIMDemoUAppApplication((Boolean) chuckEnabled);
 
         btnGetUserDetail = findViewById(R.id.btn_GetUserDetail);
         btnGetUserDetail.setOnClickListener(this);
@@ -262,6 +265,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void viewInitlization(PIMDemoUAppDependencies pimDemoUAppDependencies, PIMDemoUAppSettings pimDemoUAppSettings) {
+
         if (getIntent().getExtras() != null && getIntent().getExtras().get("SelectedLib").equals("USR")) {
             isUSR = true;
             Log.i(TAG, "Selected Liberary : USR");

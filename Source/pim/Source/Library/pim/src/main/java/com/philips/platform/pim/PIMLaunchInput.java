@@ -21,6 +21,16 @@ public class PIMLaunchInput extends UappLaunchInput {
 
     private UserLoginListener userLoginListener;
 
+    private Boolean chuckEnabled;
+
+    public Boolean getChuckEnabled() {
+        return chuckEnabled;
+    }
+
+    public void setChuckEnabled(Boolean chuckEnabled) {
+        this.chuckEnabled = chuckEnabled;
+    }
+
     private HashMap<PIMParameterToLaunchEnum, Object> parameterToLaunch;
 
     UserLoginListener getUserLoginListener() {
