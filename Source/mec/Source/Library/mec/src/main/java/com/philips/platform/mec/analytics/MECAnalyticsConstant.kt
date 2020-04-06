@@ -32,6 +32,9 @@ object MECAnalyticsConstant {
     val mecProducts                  = "&&products"
     val technicalError               = "technicalError"
     val sendData                     = "sendData"
+    val voucherCode                  = "voucherCode"
+    val voucherCodeApplied           = "voucherCodeApplied"
+    val voucherCodeRevoked           = "voucherCodeRevoked"
 
 
 

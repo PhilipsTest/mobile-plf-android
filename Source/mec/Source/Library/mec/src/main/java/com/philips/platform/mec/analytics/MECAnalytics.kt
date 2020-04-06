@@ -11,7 +11,10 @@ package com.philips.platform.mec.analytics
 
 import android.app.Activity
 import android.util.Log
+import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.appinfra.BuildConfig
+import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.country
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.currency
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
@@ -19,8 +22,6 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.productListLayout
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.integration.MECDependencies
 import com.philips.platform.mec.utils.MECDataHolder
-import com.philips.platform.appinfra.BuildConfig
-import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -140,6 +141,24 @@ class MECAnalytics {
                 map.put(mecProducts, productListString);
             }
             com.philips.platform.mec.analytics.MECAnalytics.Companion.trackMultipleActions(sendData, map)
+        }
+
+        @JvmStatic
+        fun getCartProductsInfo(ecsShoppingCart: ECSShoppingCart?): Map<String, String>{
+            var map = HashMap<String, String>()
+            val entryList= ecsShoppingCart?.entries
+            if (entryList != null && entryList.size > 0) {
+                val mutableEntryIterator = entryList.iterator()
+                var productListString: String = ""
+                for(entry in mutableEntryIterator){
+                    productListString += "," + com.philips.platform.mec.analytics.MECAnalytics.Companion.getProductInfo(entry.product)
+                }
+                productListString = productListString.substring(1, productListString.length - 1)
+                Log.v("MEC_LOG", "Cart prodList : " + productListString)
+                map.put(mecProducts, productListString);
+            }
+            return map;
+
         }
 
         @JvmStatic

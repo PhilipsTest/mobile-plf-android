@@ -32,7 +32,7 @@ import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames.productDetails
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.productDetailsPage
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.outOfStock
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.prodView
@@ -188,7 +188,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
            // ecsProductDetailViewModel.ecsProduct.value = product
 
 
-            com.philips.platform.mec.analytics.MECAnalytics.trackPage(productDetails)
+            com.philips.platform.mec.analytics.MECAnalytics.trackPage(productDetailsPage)
             tagActions(product)
             mRootView=binding.root
             showData()
