@@ -22,6 +22,7 @@ import net.openid.appauth.AuthorizationService;
 import net.openid.appauth.AuthorizationServiceConfiguration;
 import net.openid.appauth.ResponseTypeValues;
 import net.openid.appauth.TokenRequest;
+import net.openid.appauth.internal.Logger;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -71,7 +72,7 @@ public class PIMAuthManager {
     }
 
     /**
-     * Fetch an intent from OIDC for launching CLP page
+     * Fetch authorization request from OIDC for launching CLP page
      *
      * @param authServiceConfiguration configuration downloaded using OIDC discovery URI
      * @param clientID                 to create authorizaton request
@@ -79,21 +80,25 @@ public class PIMAuthManager {
      * @return intent
      * @throws ActivityNotFoundException
      */
-    Intent getAuthorizationRequestIntent(@NonNull AuthorizationServiceConfiguration authServiceConfiguration, @NonNull String clientID, @NonNull String redirectUrl, Map<String, String> parameter) throws ActivityNotFoundException {
+    AuthorizationRequest createAuthorizationRequest(@NonNull PIMOIDCConfigration pimOidcConfigration, Map<String, String> parameter) throws ActivityNotFoundException {
         AuthorizationRequest.Builder authRequestBuilder =
                 new AuthorizationRequest.Builder(
-                        authServiceConfiguration,
-                        clientID,
+                        pimOidcConfigration.getAuthorizationServiceConfiguration(),
+                        pimOidcConfigration.getClientId(),
                         ResponseTypeValues.CODE,
-                        Uri.parse(redirectUrl));
+                        Uri.parse(pimOidcConfigration.getRedirectUrl()));
 
-        AuthorizationRequest authRequest = authRequestBuilder
+        AuthorizationRequest authorizationRequest = authRequestBuilder
                 .setScope(getScopes())
                 .setAdditionalParameters(parameter)
                 .build();
 
+        return authorizationRequest;
+    }
+
+    Intent getAuthorizationRequestIntent(AuthorizationRequest authorizationRequest) {
         AuthorizationService authorizationService = new AuthorizationService(mContext);
-        Intent authIntent = authorizationService.getAuthorizationRequestIntent(authRequest);
+        Intent authIntent = authorizationService.getAuthorizationRequestIntent(authorizationRequest);
         authorizationService.dispose();
         return authIntent;
     }
@@ -112,6 +117,8 @@ public class PIMAuthManager {
                 .setAdditionalParameters(additionalParameter)
                 .setPrompt("none")
                 .build();
+
+
         return authRequest;
     }
 
@@ -218,5 +225,29 @@ public class PIMAuthManager {
 
     AuthState getAuthState() {
         return mAuthState;
+    }
+
+    public Intent extractResponseData(String responseData, AuthorizationRequest authorizationRequest) {
+        Uri responseUri = Uri.parse(responseData);
+        if (responseUri.getQueryParameterNames().contains(AuthorizationException.PARAM_ERROR)) {
+            return AuthorizationException.fromOAuthRedirect(responseUri).toIntent();
+        } else {
+            AuthorizationResponse response = new AuthorizationResponse.Builder(authorizationRequest)
+                    .fromUri(responseUri)
+                    .build();
+
+            if (authorizationRequest.state == null && response.state != null
+                    || (authorizationRequest.state != null && !authorizationRequest.state.equals(response.state))) {
+
+                Logger.warn("State returned in authorization response (%s) does not match state "
+                                + "from request (%s) - discarding response",
+                        response.state,
+                        authorizationRequest.state);
+
+                return AuthorizationException.AuthorizationRequestErrors.STATE_MISMATCH.toIntent();
+            }
+
+            return response.toIntent();
+        }
     }
 }

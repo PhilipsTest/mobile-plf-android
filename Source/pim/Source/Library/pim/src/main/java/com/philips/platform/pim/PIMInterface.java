@@ -24,11 +24,13 @@ import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pim.fragment.PIMFragment;
 import com.philips.platform.pim.manager.PIMConfigManager;
+import com.philips.platform.pim.manager.PIMLoginManager;
 import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.pim.manager.PIMUserManager;
 import com.philips.platform.pim.migration.PIMMigrator;
 import com.philips.platform.pim.models.PIMInitViewModel;
 import com.philips.platform.pim.utilities.PIMInitState;
+import com.philips.platform.pim.utilities.PIMSecureStorageHelper;
 import com.philips.platform.uappframework.UappInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
@@ -80,12 +82,15 @@ public class PIMInterface implements UappInterface {
     private Observer<PIMInitState> observer = new Observer<PIMInitState>() {
         @Override
         public void onChanged(@Nullable PIMInitState pimInitState) {
+            PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(context, PIMSettingManager.getInstance().getAppInfraInterface());
             if (pimInitState == PIMInitState.INIT_SUCCESS) {
-                if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_NOT_LOGGED_IN) {
+                if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+                    PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "User is already logged in");
+                } else if (pimSecureStorageHelper.getAuthorizationResponse() != null) {
+                    new PIMLoginManager(context, PIMSettingManager.getInstance().getPimOidcConfigration(), null).exchangeCodeAfterAppKillBeforeEmailVerify();
+                } else {
                     PIMMigrator pimMigrator = new PIMMigrator(context);
                     pimMigrator.migrateUSRToPIM();
-                } else {
-                    PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "User is already logged in");
                 }
                 PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
             } else if (pimInitState == PIMInitState.INIT_FAILED) {
