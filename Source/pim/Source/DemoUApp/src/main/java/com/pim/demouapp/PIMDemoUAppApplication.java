@@ -21,6 +21,10 @@ public class PIMDemoUAppApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //appInfraInterface = new AppInfra.Builder().setChuck(chuckEnabled).build(this);
+    }
+
+    public void build(Boolean chuckEnabled) {
         appInfraInterface = new AppInfra.Builder().setChuck(chuckEnabled).build(this);
     }
 

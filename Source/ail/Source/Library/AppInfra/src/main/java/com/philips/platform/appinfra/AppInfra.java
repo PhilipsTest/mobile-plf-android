@@ -453,7 +453,7 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
             ai.setServiceDiscoveryInterface(mServiceDiscoveryInterface == null ?
                     new ServiceDiscoveryManager(ai) : mServiceDiscoveryInterface);
 
-            ai.setChuckEnabled((isChuckEnabled != null));
+            ai.setChuckEnabled((isChuckEnabled));
 
             ai.setRestInterface(mRestInterface == null ? new RestManager(ai) : mRestInterface);
 

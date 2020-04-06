@@ -127,6 +127,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
         chuckEnabled = getIntent().getExtras().get("chuckEnabled");
         uAppApplication = (PIMDemoUAppApplication) getApplicationContext();
+        uAppApplication.build((Boolean) chuckEnabled);
         appInfraInterface = uAppApplication.getAppInfra();
         //new PIMDemoUAppApplication((Boolean) chuckEnabled);
 
