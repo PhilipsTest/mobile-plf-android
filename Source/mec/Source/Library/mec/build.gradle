@@ -61,7 +61,7 @@ android {
     defaultConfig {
         versionCode 1
         versionName version + "(" + commitHash + ")"
-        testApplicationId "com.philips.cdp.di.mec.test"
+        testApplicationId "com.philips.platform.mec.test"
         multiDexEnabled true
         generatedDensities = []
         // replace the below string with your own Google client ID. Make sure this is consistent
@@ -73,7 +73,7 @@ android {
 
     buildTypes {
         release {
-           consumerProguardFiles 'proguard-rules-mec.pro'
+            consumerProguardFiles 'proguard-rules-mec.pro'
         }
         debug {
             debuggable true
@@ -132,7 +132,7 @@ dependencies {
     implementation deps.gson
     implementation deps.libphonenumber
     implementation deps.androidx.annotations
-
+    implementation deps.bazaarvoice
     // Philips components
     implementation philipsdeps.uid
     if (useprojectdependencies) {
@@ -150,9 +150,6 @@ dependencies {
     }
 
     // Tests
-    testImplementation 'org.mockito:mockito-inline:2.13.0' // to mock final class
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-    implementation 'com.bazaarvoice.bvandroidsdk:conversations:8.5.1'
     testImplementation deps.junit
     testImplementation deps.mockito
     testImplementation deps.powermock_api_mockito
@@ -183,12 +180,13 @@ dependencies {
 
     // add this for webview testing support
     androidTestImplementation deps.androidx.espresso_web
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    implementation deps.kotlin_stdlib_jdk7
+    implementation deps.kotlin_test
+    implementation deps.kotlinx_coroutines_core
     annotationProcessor deps.androidx.livedata_compiler
 
     //Kotlin test
-    kaptAndroidTest "android.databinding:databinding-compiler:$kotlin_version"
+    kaptAndroidTest deps.databinding_compiler
 }
 
 task findbugs(type: FindBugs, dependsOn: "assembleDebug") {

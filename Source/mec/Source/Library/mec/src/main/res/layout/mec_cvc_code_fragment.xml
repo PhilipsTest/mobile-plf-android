@@ -1,0 +1,103 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="fragment"
+            type="com.philips.platform.mec.screens.orderSummary.MECCVVFragment" />
+
+        <variable
+            name="paymentMethod"
+            type="com.philips.cdp.di.ecs.model.payment.ECSPayment" />
+
+    </data>
+<RelativeLayout
+    android:layout_width="@dimen/iap_match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical">
+
+    <LinearLayout
+        android:id="@+id/parent_id"
+        android:layout_width="@dimen/iap_match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/uid_alert_bg"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/extra_option_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/border16_margin_left_right"
+            android:paddingRight="@dimen/border16_margin_left_right">
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_cvv_title"
+                style="@style/iapCentralesansBoldFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/mec_cvv_code"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:textSize="@dimen/iap_text_size_16sp" />
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_cvv_card_number"
+                style="@style/iapCentralesansBoldFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:text="@{paymentMethod.cardNumber}"
+                android:textSize="@dimen/iap_text_size_20sp" />
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_cvv_code_hint"
+                style="@style/iapCentralesansMediumFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/mec_cvvpopup_info"
+                android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                android:textSize="12sp" />
+
+            <com.philips.platform.uid.view.widget.EditText
+                android:id="@+id/mec_cvv_digits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:freezesText="true"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:hint="000"
+                android:textSize="@dimen/iap_text_size_16sp"
+                android:inputType="numberPassword"
+                android:maxLength="4"
+                android:maxLines="1" />
+
+            <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/continue_btn"
+                style="@style/mecCentralesansBookFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:enabled="true"
+                android:text="@string/mec_continue"
+                android:onClick="@{()-> fragment.onClickContinue()}"
+                app:uidComponentType="Primary" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/reg_scroll_margin" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/mec_progress"
+        layout="@layout/mec_progress_bar"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+</RelativeLayout>
+</layout>

@@ -1,0 +1,205 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="cart"
+            type="com.philips.platform.mec.screens.shoppingCart.MECCartProductReview" />
+    </data>
+
+
+    <RelativeLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/uidColorWhite"
+        android:clickable="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:id="@+id/product_parent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/iap_text_size_16sp">
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="92dp"
+            android:layout_height="110dp"
+            android:layout_marginEnd="@dimen/border12_margin">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/iap_network_image_width_height"
+                android:layout_height="@dimen/iap_network_image_width_height"
+                android:layout_marginEnd="@dimen/border12_margin"
+                android:tooltipText="@{ cart.entries.product.name}"
+                app:image_url="@{ cart.entries.product.summary.imageURL}" />
+
+
+            <ImageView
+                android:id="@+id/iv_camera"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="top|start"
+                android:visibility="invisible"
+                android:background="@drawable/mec_circular_background"
+                android:src="@drawable/mec_wishlist"
+                android:tint="@color/colorAccent" />
+        </FrameLayout>
+
+
+            <LinearLayout
+            android:id="@+id/mec_product_layout"
+            android:layout_toEndOf="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/mec_productName_lebel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/mecCentralesansBookFont"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:text='@{cart.entries.product.summary.productTitle ?? ""}'
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_ctn_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/mecCentralesansBookFont"
+                    android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                    android:text='@{ cart.entries.product.code ?? ""}'
+                    android:textSize="@dimen/iap_product_original_price" />
+
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_rating_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textColor="?attr/uidContentItemSignalNormalTextWarningColor"
+                    android:text='@{ cart.overallRating ?? ""}'
+                    android:textSize="@dimen/iap_product_original_price" />
+
+                <com.philips.platform.uid.view.widget.RatingBar
+                    android:id="@+id/mec_rating_bar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:numStars="1"
+                    android:rating="1"
+                    style="?android:attr/ratingBarStyleSmall" />
+
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_review_lebel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/uidContentItemSignalNormalTextWarningColor"
+                    android:text='@{ cart.overallReview ?? ""}'
+                    android:textSize="@dimen/iap_product_original_price" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quantity_count_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/iap_margin_10dp">
+
+                <com.philips.platform.uid.view.widget.ValidationEditText
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/mec_quantity_val"
+                    fontPath="fonts/mec_iconfont.ttf"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:text='@{ cart.entries.quantity + "   "+ @string/dls_downarrow}'
+                    android:textColor="?attr/uidTextBoxQuietNormalTextColor"
+                    android:textSize="@dimen/iap_text_size_16sp" />
+
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_price_lebel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:layout_gravity="end"
+                    android:paddingTop="25dp"
+                    style="@style/mecCentralesansMediumFont"
+                    android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                    app:setPrice="@{ cart.entries.product}"
+                    app:totalPriceEntity="@{cart.entries.basePrice}"
+                    android:textSize="16sp" />
+
+                <!--<com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_price_lebel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                    app:setPriceInfo="@{ cart.entries.product}"
+                    android:textSize="16sp" />-->
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/iap_margin_10dp"
+                    android:layout_gravity="start"
+                    android:gravity="end">
+
+                    <com.philips.platform.uid.view.widget.Label
+                        android:id="@+id/mec_stock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/mecCentralesansBookFont"
+                        android:textSize="@dimen/mec_8_sp"
+                        android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                        app:setStock="@{ cart.entries.product}"
+                        app:setQuantity="@{cart.entries.quantity}"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+        </LinearLayout>
+        </RelativeLayout>
+
+        <com.philips.platform.uid.view.widget.Label
+            android:background="@drawable/mec_semi_circular_discount"
+            android:id="@+id/mec_discountPrice"
+            android:paddingEnd="10dp"
+            android:paddingStart="22dp"
+            android:gravity="end|center_vertical"
+            android:layout_width="wrap_content"
+            android:minWidth="50dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="-12dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="?attr/uidTokenDefaultNormalCircleTextColor"
+            android:textSize="12sp"
+            app:setDiscountPrice="@{ cart.entries.product}"
+            app:totalPriceEntity="@{cart.entries.basePrice}"
+            android:layout_above="@+id/price_button_view" />
+
+        <View
+            android:id="@+id/price_button_view"
+            android:layout_width="match_parent"
+            android:layout_height="0.05dp"
+            android:layout_below="@+id/product_parent_layout"
+            android:background="?attr/uidContentItemTertiaryNormalTextColor" />
+
+    </RelativeLayout>
+
+</layout>

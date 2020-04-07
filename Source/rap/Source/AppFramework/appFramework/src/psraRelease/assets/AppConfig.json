@@ -26,6 +26,11 @@
     "propositionid": "Tuscany2016",
     "voucherCode.enable": true
   },
+  "MEC": {
+    "propositionid": "Tuscany2016",
+    "voucherCode.enable": true
+
+  },
   "ProductRegistration": {
     "ApiKey":"Euqjw7YWRa5pc7c6jKliv1odg5vLUT2m465k7FJ8"
   },

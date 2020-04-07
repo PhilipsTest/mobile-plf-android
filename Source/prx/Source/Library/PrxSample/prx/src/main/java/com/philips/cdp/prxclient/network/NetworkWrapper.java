@@ -66,7 +66,11 @@ public class NetworkWrapper {
                 prxRequest.getRequestUrlFromAppInfra(mPrxDependencies.getAppInfra(), new PrxRequest.OnUrlReceived() {
                     @Override
                     public void onSuccess(String url) {
-                        excuteRequest(url, prxRequest, responseListener, errorListener, listener);
+                        if(url!=null) {
+                            excuteRequest(url, prxRequest, responseListener, errorListener, listener);
+                        } else {
+                            listener.onResponseError(new PrxError(PrxError.PrxErrorType.INJECT_APPINFRA.getDescription(), PrxError.PrxErrorType.INJECT_APPINFRA.getId()));
+                        }
                     }
                     @Override
                     public void onError(ERRORVALUES errorvalues, String s) {

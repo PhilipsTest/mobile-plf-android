@@ -9,7 +9,7 @@
 
         <variable
             name="itemClickListener"
-            type="com.philips.cdp.di.mec.common.ItemClickListener" />
+            type="com.philips.platform.mec.common.ItemClickListener" />
 
     </data>
 

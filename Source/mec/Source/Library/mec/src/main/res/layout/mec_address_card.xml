@@ -1,0 +1,66 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="ecsAddress"
+            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mec_address_card_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="@dimen/iap_margin_10dp"
+        android:clickable="true"
+        android:focusable="true"
+
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:id="@+id/ll_rl_address"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            >
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_name"
+                style="@style/mec_address_header"
+                android:layout_marginLeft="@dimen/border16_margin_left_right"
+                android:layout_marginRight="@dimen/border16_margin_left_right"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginTop="@dimen/border12_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/iap_margin_4dp"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:text="@{ecsAddress.firstName + @string/mec_empty_space  +ecsAddress.lastName}" />
+
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_address_text"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginLeft="@dimen/border16_margin_left_right"
+                android:layout_marginRight="@dimen/border16_margin_left_right"
+                android:layout_marginTop="@dimen/border12_margin"
+                android:layout_marginBottom="@dimen/border12_margin"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:gravity="start"
+                android:textSize="12sp"
+                app:shippingAddress="@{ecsAddress}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

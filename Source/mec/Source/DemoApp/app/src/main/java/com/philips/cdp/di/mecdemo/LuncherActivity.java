@@ -16,7 +16,7 @@ import com.philips.platform.uappframework.launcher.ActivityLauncher;
 
 public class LuncherActivity extends Activity {
 
-    private MecDemoUAppInterface iapDemoUAppInterface;
+    private MecDemoUAppInterface mecDemoUAppInterface;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,8 +27,8 @@ public class LuncherActivity extends Activity {
     public void launchMEC(View v) {
         DemoApplication demoApplication = (DemoApplication) getApplicationContext();
         AppInfra appInfra = demoApplication.getAppInfra();
-        iapDemoUAppInterface = new MecDemoUAppInterface();
-        iapDemoUAppInterface.init(new MecDemoUAppDependencies(appInfra), new MecDemoAppSettings(this));
-        iapDemoUAppInterface.launch(new ActivityLauncher(this,ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED,null, 0,null), new MecLaunchInput());
+        mecDemoUAppInterface = new MecDemoUAppInterface();
+        mecDemoUAppInterface.init(new MecDemoUAppDependencies(appInfra), new MecDemoAppSettings(this));
+        mecDemoUAppInterface.launch(new ActivityLauncher(this,ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED,null, 0,null), new MecLaunchInput());
     }
 }

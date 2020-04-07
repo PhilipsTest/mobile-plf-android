@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,15 +33,17 @@ import com.philips.cdp.di.iap.integration.IAPInterface;
 import com.philips.cdp.di.iap.integration.IAPLaunchInput;
 import com.philips.cdp.di.iap.integration.IAPListener;
 import com.philips.cdp.di.iap.integration.IAPSettings;
-import com.philips.cdp.di.mec.integration.MECBannerConfigurator;
-import com.philips.cdp.di.mec.integration.MECBazaarVoiceInput;
-import com.philips.cdp.di.mec.integration.MECDependencies;
-import com.philips.cdp.di.mec.integration.MECFlowConfigurator;
-import com.philips.cdp.di.mec.integration.MECInterface;
-import com.philips.cdp.di.mec.integration.MECLaunchInput;
-import com.philips.cdp.di.mec.integration.MECListener;
-import com.philips.cdp.di.mec.integration.MECSettings;
-import com.philips.cdp.di.mec.screens.reviews.MECBazaarVoiceEnvironment;
+import com.philips.platform.mec.integration.MECBannerConfigurator;
+import com.philips.platform.mec.integration.MECBazaarVoiceInput;
+import com.philips.platform.mec.integration.MECLaunchException;
+import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener;
+import com.philips.platform.mec.integration.MECDependencies;
+import com.philips.platform.mec.integration.MECFlowConfigurator;
+import com.philips.platform.mec.integration.MECInterface;
+import com.philips.platform.mec.integration.MECLaunchInput;
+import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener;
+import com.philips.platform.mec.integration.MECSettings;
+import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment;
 import com.philips.cdp.registration.configuration.RegistrationLaunchMode;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;
@@ -89,7 +90,7 @@ import java.util.Map;
 
 import utils.PIMNetworkUtility;
 
-public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnClickListener, UserRegistrationUIEventListener, UserLoginListener, IAPListener, MECListener, MECBannerConfigurator {
+public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnClickListener, UserRegistrationUIEventListener, UserLoginListener, IAPListener, MECFetchCartListener, MECCartUpdateListener, MECBannerConfigurator {
     private String TAG = PIMDemoUAppActivity.class.getSimpleName();
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
     //Theme
@@ -254,17 +255,17 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
         mMecInterface = new MECInterface();
 
-        MECDependencies mIapDependencies = new MECDependencies(appInfraInterface, userDataInterface);
+        MECDependencies mMecDependencies = new MECDependencies(appInfraInterface, userDataInterface);
 
-        mMecInterface.init(mIapDependencies, new MECSettings(mContext));
+        mMecInterface.init(mMecDependencies, new MECSettings(mContext));
 
         mMecLaunchInput = new MECLaunchInput();
-        mMecLaunchInput.setMecListener(this);
+        mMecLaunchInput.setMecCartUpdateListener(this);
 
 
         mMecLaunchInput.setMecBannerConfigurator(this);
         mMecLaunchInput.setSupportsHybris(true);
-        mMecLaunchInput.setSupportsRetailer(false);
+        mMecLaunchInput.setSupportsRetailer(true);
         mMecLaunchInput.setMecBazaarVoiceInput(mecBazaarVoiceInput);
     }
 
@@ -289,12 +290,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             btn_ECS.setVisibility(View.GONE);
             btnGetUserDetail.setVisibility(View.GONE);
             btnLaunchAsFragment.setText("Launch USR");
-            //uAppApplication.intialiseUR();
             userDataInterface = uAppApplication.getUserDataInterface();
         } else {
             isUSR = false;
             Log.i(TAG, "Selected Liberary : PIM");
-            //uAppApplication.initialisePim();
             userDataInterface = uAppApplication.getUserDataInterface();
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 btnLaunchAsActivity.setVisibility(View.GONE);
@@ -444,14 +443,13 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_MCS) {
-            showToast("Not implemented");
-//            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-//                MECFlowConfigurator pMecFlowConfigurator = new MECFlowConfigurator();
-//                pMecFlowConfigurator.setLandingView(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW);
-//                launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, pMecFlowConfigurator, null);
-//            } else {
-//                showToast("User is not loged-in, Please login!");
-//            }
+            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+                MECFlowConfigurator pMecFlowConfigurator = new MECFlowConfigurator();
+                pMecFlowConfigurator.setLandingView(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW);
+                launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, pMecFlowConfigurator, null);
+            } else {
+                showToast("User is not loged-in, Please login!");
+            }
         } else if (v == btnMigrator) {
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 userDataInterface.migrateUserToPIM(new UserMigrationListener() {
@@ -535,9 +533,13 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private void launchMECasFragment(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {
         pMecFlowConfigurator.setLandingView(mecLandingView);
         mMecLaunchInput.setFlowConfigurator(pMecFlowConfigurator);
-        mMecInterface.launch(new ActivityLauncher
-                        (mContext, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_PORTRAIT, null, 0, null),
-                mMecLaunchInput);
+        try {
+            mMecInterface.launch(new ActivityLauncher
+                            (mContext, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_PORTRAIT, null, 0, null),
+                    mMecLaunchInput);
+        } catch (MECLaunchException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -672,6 +674,11 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
+    public void shouldShowCart(Boolean shouldShow) {
+
+    }
+
+    @Override
     public void onGetCompleteProductList(ArrayList<String> productList) {
 
     }
@@ -797,6 +804,17 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         } else {
             return true;
         }
+    }
+
+
+    @Override
+    public void onFailure(@NotNull Exception exception) {
+
+    }
+
+    @Override
+    public void onUpdateCartCount(int count) {
+
     }
 
     private String getSavedCountry() {

@@ -5,7 +5,7 @@
 
         <variable
             name="product"
-            type="com.philips.cdp.di.mec.screens.catalog.MECProductReview" />
+            type="com.philips.platform.mec.screens.catalog.MECProductReview" />
 
 
     </data>

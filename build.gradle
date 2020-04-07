@@ -3,8 +3,6 @@
  * All rights reserved.
  */
 buildscript {
-    ext.kotlin_version = '1.3.50'
-    ext.kotlin_version = '1.3.41'
     apply from: projectDir.absolutePath + '/build-support/gradle/versions.gradle'
 
     repositories {
@@ -32,7 +30,7 @@ buildscript {
         classpath builddeps.pitest
         classpath builddeps.use_latest_versions
         classpath builddeps.ben_manes_versions
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath builddeps.kotlin_plugin
     }
 }
 
@@ -53,7 +51,7 @@ import com.philips.cdp.cdpSCM
 def objcdp = new cdpSCM()
 objcdp.setProjectDir(projectDir)
 objcdp.setEnv(platform: 'android', env: environment)
-ext.commitHash=objcdp.getCommitHash()
+ext.commitHash = objcdp.getCommitHash()
 
 println "Working branch: ${objcdp.getWorkingBranch()}"
 
@@ -132,12 +130,12 @@ subprojects {
                     // As per Robolectric documentation
                     includeAndroidResources true
 
-                        all {
-                            jvmArgs '-noverify'
-                            systemProperty 'robolectric.enabledSdks', '27'
-                        }
+                    all {
+                        jvmArgs '-noverify'
+                        systemProperty 'robolectric.enabledSdks', '27'
                     }
                 }
+            }
 
             packagingOptions {
                 exclude 'META-INF/proguard/androidx-annotations.pro'

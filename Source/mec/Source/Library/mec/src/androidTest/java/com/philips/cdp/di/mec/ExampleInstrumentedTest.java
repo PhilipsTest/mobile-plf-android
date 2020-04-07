@@ -1,4 +1,4 @@
-package com.philips.cdp.di.mec;
+package com.philips.platform.mec;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

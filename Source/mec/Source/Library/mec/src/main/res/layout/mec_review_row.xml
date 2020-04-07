@@ -5,7 +5,7 @@
 
         <variable
             name="mecReview"
-            type="com.philips.cdp.di.mec.screens.reviews.MECReview" />
+            type="com.philips.platform.mec.screens.reviews.MECReview" />
 
     </data>
 
@@ -37,7 +37,7 @@
                             android:textSize="@dimen/iap_product_original_price" />
 
                         <com.philips.platform.uid.view.widget.RatingBar
-                            android:id="@+id/mec_rating"
+                            android:id="@+id/mec_review_rating"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

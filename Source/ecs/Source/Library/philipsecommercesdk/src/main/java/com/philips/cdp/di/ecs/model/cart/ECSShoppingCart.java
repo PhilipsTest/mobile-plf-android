@@ -50,6 +50,8 @@ public class ECSShoppingCart implements Serializable {
 
     private List<AppliedOrderPromotionEntity> appliedOrderPromotions;
 
+    private List<AppliedProductPromotionEntity> appliedProductPromotions;
+
     public List<AppliedVoucherEntity> getAppliedVouchers() {
         return appliedVouchers;
     }
@@ -67,6 +69,14 @@ public class ECSShoppingCart implements Serializable {
 
     public void setAppliedOrderPromotions(List<AppliedOrderPromotionEntity> appliedOrderPromotions) {
         this.appliedOrderPromotions = appliedOrderPromotions;
+    }
+
+    public List<AppliedProductPromotionEntity> getAppliedProductPromotions() {
+        return appliedProductPromotions;
+    }
+
+    public void setAppliedProductPromotions(List<AppliedProductPromotionEntity> appliedProductPromotions) {
+        this.appliedProductPromotions = appliedProductPromotions;
     }
 
     private List<ECSEntries> entries;

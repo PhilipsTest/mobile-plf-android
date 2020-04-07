@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,17 +27,6 @@ import android.widget.ToggleButton;
 
 import androidx.fragment.app.Fragment;
 
-import com.philips.cdp.di.mec.integration.MECBannerConfigurator;
-import com.philips.cdp.di.mec.integration.MECBazaarVoiceInput;
-import com.philips.cdp.di.mec.integration.MECDependencies;
-import com.philips.cdp.di.mec.integration.MECFlowConfigurator;
-import com.philips.cdp.di.mec.integration.MECInterface;
-import com.philips.cdp.di.mec.integration.MECLaunchInput;
-import com.philips.cdp.di.mec.integration.MECListener;
-import com.philips.cdp.di.mec.integration.MECSettings;
-import com.philips.cdp.di.mec.screens.reviews.MECBazaarVoiceEnvironment;
-import com.philips.cdp.di.mec.utils.MECConstant;
-import com.philips.cdp.di.mec.utils.MECDataHolder;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;
@@ -45,6 +36,21 @@ import com.philips.cdp.registration.ui.utils.URLaunchInput;
 import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
+import com.philips.platform.mec.integration.MECBannerConfigurator;
+import com.philips.platform.mec.integration.MECBazaarVoiceInput;
+import com.philips.platform.mec.integration.MECDependencies;
+import com.philips.platform.mec.integration.MECFlowConfigurator;
+import com.philips.platform.mec.integration.MECInterface;
+import com.philips.platform.mec.integration.MECLaunchException;
+import com.philips.platform.mec.integration.MECLaunchInput;
+import com.philips.platform.mec.integration.MECSettings;
+import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment;
+import com.philips.platform.mec.utils.MECConstant;
+import com.philips.platform.pif.DataInterface.MEC.MECDataInterface;
+import com.philips.platform.pif.DataInterface.MEC.MECException;
+import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener;
+import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener;
+import com.philips.platform.pif.DataInterface.MEC.listeners.MECHybrisAvailabilityListener;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
@@ -67,28 +73,33 @@ import java.util.Locale;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class BaseDemoFragment extends Fragment implements View.OnClickListener, MECListener, BackEventListener,
+public class BaseDemoFragment extends Fragment implements View.OnClickListener, MECFetchCartListener, MECCartUpdateListener, MECHybrisAvailabilityListener, BackEventListener,
         UserRegistrationUIEventListener, MECBannerConfigurator, ActionBarListener, CompoundButton.OnCheckedChangeListener {
 
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
     private LinearLayout mAddCTNLl;
-    private EditText mEtCTN, mEtPropositionId;
+    private EditText mEtCTN, mEtPropositionId,mEtVoucherCode;
 
     private Button mRegister;
     private Button mShopNow;
     private Button mShopNowCategorized;
     private Button mLaunchProductDetail;
-    private Button mAddCtn, mBtnSetPropositionId;
+    private Button mAddCtn, mBtnSetPropositionId,mBtn_add_voucher,mbtnSetMaxCount;
     private Button mShopNowCategorizedWithRetailer;
     private ProgressDialog mProgressDialog = null;
     private ArrayList<String> mCategorizedProductList;
     private TextView mCountText;
     private ImageView mBackImage;
+    private FrameLayout mShoppingCartContainer;
     private TextView text;
 
     private MECInterface mMecInterface;
+    private MECDataInterface mMECDataInterface;
     private MECLaunchInput mMecLaunchInput;
     private MECSettings mMecSettings;
+    String voucherCode = "";
+    int maxCartCount = 0;
+    EditText mEtMaxCartCount;
 
     private UserDataInterface mUserDataInterface;
     ImageView mCartIcon;
@@ -98,13 +109,14 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     URInterface urInterface;
     private long mLastClickTime = 0;
 
-    private boolean isHybrisEnable = true,isBannerEnabled = true ,isRetailerEnabled = true;
-    private ToggleButton toggleBanner,toggleHybris,toggleRetailer;
+    private boolean isHybrisEnable = true,isBannerEnabled = true ,isRetailerEnabled = true, isVoucherEnabled = true;
+    private ToggleButton toggleBanner,toggleHybris,toggleRetailer,toggleVoucher;
 
     private CheckBox bvCheckBox;
     private MECBazaarVoiceInput mecBazaarVoiceInput;
     private TextView versionView;
     private View rootView;
+    private AppInfraInterface mAppInfraInterface;
 
 
     @Override
@@ -112,30 +124,55 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                              Bundle savedInstanceState) {
         if(null==rootView) {
             urInterface = new URInterface();
-            urInterface.init(new MecDemoUAppDependencies(new AppInfra.Builder().build(getContext())), new MecDemoAppSettings(getContext()));
+            mAppInfraInterface=new AppInfra.Builder().build(getContext());
+
 
             ignorelistedRetailer = new ArrayList<>();
             rootView = inflater.inflate(R.layout.base_demo_fragment, container, false);
             mEtCTN = rootView.findViewById(R.id.et_add_ctn);
             mAddCTNLl = rootView.findViewById(R.id.ll_ctn);
             bvCheckBox = rootView.findViewById(R.id.bv_checkbox);
+            mEtVoucherCode = rootView.findViewById(R.id.et_add_voucher);
+            mBtn_add_voucher = rootView.findViewById(R.id.btn_add_voucher);
+            mEtMaxCartCount = rootView.findViewById(R.id.et_max_cart_count);
+            mbtnSetMaxCount = rootView.findViewById(R.id.btn_set_max_Count);
+            mBtn_add_voucher.setOnClickListener(this);
+            mbtnSetMaxCount.setOnClickListener(this);
+
             bvCheckBox.setOnCheckedChangeListener(this);
 
             text = getActivity().findViewById(R.id.mec_demo_app_header_title);
             versionView = getActivity().findViewById(R.id.demoappversion);
             mBackImage = getActivity().findViewById(R.id.mec_demo_app_iv_header_back_button);
+            text = getActivity().findViewById(R.id.mec_demo_app_header_title);
+            versionView = getActivity().findViewById(R.id.demoappversion);
+            mBackImage = getActivity().findViewById(R.id.mec_demo_app_iv_header_back_button);
+            mShoppingCartContainer  = getActivity().findViewById(R.id.mec_demo_app_shopping_cart_icon);
+            mShoppingCartContainer.setOnClickListener(this);
+            mCountText =  getActivity().findViewById(R.id.mec_demo_app_item_count);
 
 
             mEtPropositionId = rootView.findViewById(R.id.et_add_proposition_id);
             mBtnSetPropositionId = rootView.findViewById(R.id.btn_set_proposition_id);
+            toggleVoucher = rootView.findViewById(R.id.toggleVoucher);
 
 
-            AppInfraInterface appInfra = new AppInfra.Builder().build(getContext());
-            AppConfigurationInterface configInterface = appInfra.getConfigInterface();
+
+            AppConfigurationInterface configInterface = mAppInfraInterface.getConfigInterface();
             AppConfigurationInterface.AppConfigurationError configError = new AppConfigurationInterface.AppConfigurationError();
 
             String propertyForKey = (String) configInterface.getPropertyForKey("propositionid", "MEC", configError);
+            Boolean propertyForKeyVoucher = (Boolean) configInterface.getPropertyForKey("voucher", "MEC", configError);
             mEtPropositionId.setText(propertyForKey);
+            try {
+                isVoucherEnabled = propertyForKeyVoucher;
+            } catch (RuntimeException ex) {
+                isVoucherEnabled = true;
+                configInterface.setPropertyForKey("voucher", "MEC", isVoucherEnabled, configError);
+            }
+
+            toggleVoucher.setChecked(isVoucherEnabled);
+
 
 
             mecBazaarVoiceInput = new MECBazaarVoiceInput();
@@ -146,8 +183,6 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                     configInterface.setPropertyForKey("propositionid", "MEC", mEtPropositionId.getText().toString(), configError);
 
                     Toast.makeText(getActivity(), "Proposition id is set", Toast.LENGTH_SHORT).show();
-                    getActivity().finishAffinity();
-                    System.exit(0);
                 }
             });
 
@@ -168,6 +203,11 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     isHybrisEnable = isChecked;
+                    if (isHybrisEnable && mUserDataInterface != null && mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+                        shouldShowCart(true);
+                    }else{
+                        shouldShowCart(false);
+                    }
                     initializeMECComponant();
                 }
             });
@@ -180,6 +220,16 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     isRetailerEnabled = isChecked;
+                    initializeMECComponant();
+                }
+            });
+
+
+            toggleVoucher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    isVoucherEnabled = isChecked;
+                    configInterface.setPropertyForKey("voucherCode.enable", "MEC", isVoucherEnabled, configError);
                     initializeMECComponant();
                 }
             });
@@ -210,17 +260,17 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             mShopNowCategorizedWithRetailer = rootView.findViewById(R.id.btn_categorized_shop_now_with_ignore_retailer);
             mShopNowCategorizedWithRetailer.setOnClickListener(this);
 
-            mCartIcon = rootView.findViewById(R.id.mec_demo_app_cart_iv);
-            mCountText = rootView.findViewById(R.id.mec_demo_app_item_count);
+
 
             mCategorizedProductList = new ArrayList<>();
+            //addCTNs(mCategorizedProductList);
 
-            mUserDataInterface = urInterface.getUserDataInterface();
 
 
             mMecInterface = new MECInterface();
             mMecSettings = new MECSettings(getActivity());
             //actionBar();
+
             initializeBazaarVoice();
             initializeMECComponant();
 
@@ -229,10 +279,38 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
     }
 
+    void  addCTNs( ArrayList<String> CTNlist){
+        CTNlist.add("HD9940/00");
+        CTNlist.add("HD9911/90");
+        CTNlist.add("HD9904/00");
+        CTNlist.add("HD9630/96");
+        CTNlist.add("HD9641/96");
+        CTNlist.add("HD9621/66");
+        CTNlist.add("QP2520/70");
+        CTNlist.add("HD9220/56");
+        CTNlist.add("HD9240/34");
+        CTNlist.add("HD9240/94");
+        CTNlist.add("HD9910/21");
+        CTNlist.add("HD9230/26");
+        CTNlist.add("HD9230/56");
+        CTNlist.add("S5370/81");
+        CTNlist.add("HD9925/00");
+        CTNlist.add("HD9980/50");
+        CTNlist.add("HD9980/20");
+        CTNlist.add("HD9650/96");
+        CTNlist.add("HD9905/00");
+        CTNlist.add("HR1895/74");
+        CTNlist.add("HD9951/01");
+        CTNlist.add("HD9950/01");
+        CTNlist.add("HD9952/01");
+
+    }
+
     private void initializeMECComponant() {
         toggleHybris.setVisibility(View.VISIBLE);
         initMEC();
 
+        mUserDataInterface = urInterface.getUserDataInterface();
         if (mUserDataInterface != null && mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
             mRegister.setText(this.getString(R.string.log_out));
         } else {
@@ -247,27 +325,48 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         ignorelistedRetailer.add("Amazon - US");
         ignorelistedRetailer.add("BestBuy.com");
 
-        UappDependencies uappDependencies = new UappDependencies(new AppInfra.Builder().build(getActivity()));
+        UappDependencies uappDependencies = new UappDependencies(mAppInfraInterface);
         UappSettings uappSettings = new UappSettings(getContext());
 
         urInterface.init(uappDependencies, uappSettings);
 
-        MECDependencies mIapDependencies = new MECDependencies(new AppInfra.Builder().build(getActivity()), urInterface.getUserDataInterface());
+        MECDependencies mecDependencies = new MECDependencies(mAppInfraInterface, urInterface.getUserDataInterface());
 
-        try {
-            mMecInterface.init(mIapDependencies, mMecSettings);
-        } catch (RuntimeException ex) {
-        }
+
+            mMecInterface.init(mecDependencies, mMecSettings);
+            mMECDataInterface = MECInterface.getMECDataInterface();
+
+            try {
+
+                //update shopping cart count if user logged in
+                if (null != mMecInterface) {
+
+                    mMECDataInterface.fetchCartCount(this);
+
+                    mMECDataInterface.isHybrisAvailable(this);
+
+                    mMECDataInterface.addCartUpdateListener(this);
+                }
+
+            }catch (MECException e){
+                Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                e.getErrorCode();
+            }
 
         mMecLaunchInput = new MECLaunchInput();
-        mMecLaunchInput.setMecListener(this);
+
 
 
         mMecLaunchInput.setMecBannerConfigurator(this);
         mMecLaunchInput.setSupportsHybris(isHybrisEnable);
         mMecLaunchInput.setSupportsRetailer(isRetailerEnabled);
         mMecLaunchInput.setMecBazaarVoiceInput(mecBazaarVoiceInput);
+        mMecLaunchInput.setMecCartUpdateListener(this); // required local for app to update cart count on action bar
+
+
+
     }
+
 
 
     private void displayFlowViews(boolean b) {
@@ -279,8 +378,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         mLaunchProductDetail.setEnabled(true);
 
 
-        mCartIcon.setVisibility(View.VISIBLE);
-        mCountText.setVisibility(View.VISIBLE);
+
         mShopNow.setVisibility(View.VISIBLE);
         mShopNow.setEnabled(true);
         dismissProgressDialog();
@@ -302,6 +400,8 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     private void launchMEC(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {
 
         pMecFlowConfigurator.setLandingView(mecLandingView);
+        mMecLaunchInput.setVoucherCode(voucherCode);
+        mMecLaunchInput.setMaxCartCount(maxCartCount);
         mMecLaunchInput.setFlowConfigurator(pMecFlowConfigurator);
 
 
@@ -313,6 +413,10 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
         } catch (RuntimeException exception) {
             Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (MECLaunchException e) {
+            e.printStackTrace();
+            e.getErrorCode();
+            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -320,21 +424,37 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     private void launchMECasFragment(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {
 
         pMecFlowConfigurator.setLandingView(mecLandingView);
+        mMecLaunchInput.setVoucherCode(voucherCode);
+        mMecLaunchInput.setMaxCartCount(maxCartCount);
         mMecLaunchInput.setFlowConfigurator(pMecFlowConfigurator);
-        mMecInterface.launch(new FragmentLauncher(getActivity(), R.id.container_base_demo, this),
-                mMecLaunchInput);
+        try {
+            mMecInterface.launch(new FragmentLauncher(getActivity(), R.id.container_base_demo, this),
+                    mMecLaunchInput);
+        } catch (MECLaunchException e) {
+            e.printStackTrace();
+
+            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     @Override
     public void onClick(final View view) {
         if (!isClickable()) return;
+        if(!mAppInfraInterface.getRestClient().isInternetReachable()){
+            Toast.makeText(getActivity(), "Internet Not Available", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (view == mShopNow) {
-            if (getActivity() instanceof LaunchAsActivity) {
-                launchMEC(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, new MECFlowConfigurator(), null);
-            } else if (getActivity() instanceof LaunchAsFragment) {
-                launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, new MECFlowConfigurator(), null);
+            if(mEtPropositionId.getText().toString().trim().length()>0 && isHybrisEnable) {
+                if (getActivity() instanceof LaunchAsActivity) {
+                    launchMEC(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, new MECFlowConfigurator(), null);
+                } else if (getActivity() instanceof LaunchAsFragment) {
+                    launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, new MECFlowConfigurator(), null);
+                }
+            }else{
+                Toast.makeText(getActivity(), "Please provide Proposition ID", Toast.LENGTH_SHORT).show();
             }
         } else if (view == mLaunchProductDetail) {
             if (null != mCategorizedProductList && mCategorizedProductList.size() > 0) {
@@ -393,6 +513,24 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             mEtCTN.setText("");
+        } else if (view ==mShoppingCartContainer){
+            if (getActivity() instanceof LaunchAsActivity) {
+                launchMEC(MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW, new MECFlowConfigurator(), null);
+            } else if (getActivity() instanceof LaunchAsFragment) {
+                launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW, new MECFlowConfigurator(), null);
+            }
+        }
+        else if (view == mBtn_add_voucher) {
+            if (mEtVoucherCode.getText().toString().length() > 0) {
+                voucherCode = mEtVoucherCode.getText().toString();
+            }
+            mEtVoucherCode.setText("");
+        }
+        else if (view == mbtnSetMaxCount) {
+            if (mEtMaxCartCount.getText().toString().length() > 0) {
+                maxCartCount = Integer.parseInt(mEtMaxCartCount.getText().toString());
+            }
+            mEtMaxCartCount.setText("");
         }
     }
 
@@ -404,6 +542,14 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
+
+       /* if (isHybrisEnable && urInterface.getUserDataInterface()!= null && urInterface.getUserDataInterface().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            //update shopping cart count if user logged in
+            shouldShowCart(true);
+            }else{
+            shouldShowCart(false);
+        }*/
+
     }
 
     private void gotoLogInScreen() {
@@ -447,39 +593,41 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     //In-App listener functions
     @Override
     public void onGetCartCount(int count) {
-
-
-    }
-
-    @Override
-    public void onUpdateCartCount() {
-        mMecInterface.getProductCartCount(this);
-    }
-
-    @Override
-    public void updateCartIconVisibility(boolean shouldShow) {
-
-    }
-
-    @Override
-    public void onGetCompleteProductList(ArrayList<String> productList) {
-        //mShoppingCart.setOnClickListener(this);
         dismissProgressDialog();
+        if (count > 0) {
+            mCountText.setText(String.valueOf(count));
+            mCountText.setVisibility(View.VISIBLE);
+        } else {
+            mCountText.setVisibility(View.GONE);
+        }
+
+    }
+    @Override
+    public void onUpdateCartCount(int count) {
+        if (count > 0) {
+            mCountText.setText(String.valueOf(count));
+            mCountText.setVisibility(View.VISIBLE);
+        } else {
+            mCountText.setVisibility(View.GONE);
+        }
     }
 
     @Override
-    public void onSuccess() {
-        dismissProgressDialog();
+    public void shouldShowCart(Boolean shouldShow) {
+        if (shouldShow) {
+            mShoppingCartContainer.setVisibility(View.VISIBLE);
+        } else {
+            mShoppingCartContainer.setVisibility(View.GONE);
+        }
     }
 
-    @Override
-    public void onSuccess(boolean bool) {
-        displayFlowViews(bool);
-    }
+
+
 
     @Override
-    public void onFailure(int errorCode) {
-        showToast(errorCode);
+    public void onFailure(Exception  exception) {
+        mShoppingCartContainer.setVisibility(View.GONE);
+
         dismissProgressDialog();
     }
 
@@ -563,7 +711,6 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         if (buttonView.isPressed()) {
             showDialog();
         }
-        initializeMECComponant();
     }
 
     private void showDialog() {
@@ -668,7 +815,9 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void updateActionBar(int resId, boolean enableBackKey) {
-        updateActionBar(getString(resId), enableBackKey);
+        if(getContext()!=null) {
+            updateActionBar(getString(resId), enableBackKey);
+        }
     }
 
     /**
@@ -696,6 +845,12 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     @Override
     public boolean handleBackEvent() {
         return false;
+    }
+
+
+    @Override
+    public void isHybrisAvailable(Boolean bool) {
+        Log.v("isHybrisAvailable: ",""+bool);
     }
 }
 

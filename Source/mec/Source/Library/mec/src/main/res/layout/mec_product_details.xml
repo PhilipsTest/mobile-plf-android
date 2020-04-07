@@ -5,7 +5,7 @@
 
         <variable
             name="fragment"
-            type="com.philips.cdp.di.mec.screens.detail.MECProductDetailsFragment" />
+            type="com.philips.platform.mec.screens.detail.MECProductDetailsFragment" />
 
 
         <variable
@@ -15,7 +15,7 @@
         <import type="android.view.View"/>
         <variable
             name="mecDataHolder"
-            type="com.philips.cdp.di.mec.utils.MECDataHolder" />
+            type="com.philips.platform.mec.utils.MECDataHolder" />
 
     </data>
 
@@ -54,15 +54,6 @@
                 android:layout_marginStart="@dimen/border16_margin_left_right"
                 android:layout_marginEnd="@dimen/border16_margin_left_right"
                 >
-
-                <com.philips.platform.uid.view.widget.ProgressBar
-                    android:id="@+id/progress_image"
-                    style="@style/UIDProgressBarCircularIndeterminateSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:visibility="gone" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/pager"
@@ -174,7 +165,7 @@
                         android:textSize="@dimen/iap_product_original_price" />
 
                     <com.philips.platform.uid.view.widget.RatingBar
-                        android:id="@+id/mec_rating"
+                        android:id="@+id/mec_detail_rating"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -305,6 +296,7 @@
             android:layout_weight="1"
             android:gravity="center|center_vertical"
             app:uidComponentType="Primary"
+            android:onClick="@{() -> fragment.addToCartClick()}"
             android:textAlignment="center"
             android:visibility="gone"
             fontPath="fonts/mec_iconfont.ttf"
@@ -314,7 +306,16 @@
 
     </LinearLayout>
 
+
+    <include
+        android:id="@+id/mec_progress"
+        layout="@layout/mec_progress_bar"
+        android:visibility="invisible"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
 </RelativeLayout>
+
 
        <com.philips.platform.uid.view.widget.Label
            android:id="@+id/mec_productDetails_emptyText_label"
@@ -322,7 +323,6 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:gravity="center"
-           android:layout_centerInParent="true"
            android:text="@string/mec_no_product_available"
            android:visibility="gone"
            android:textSize="@dimen/iap_product_ctn_12"/>

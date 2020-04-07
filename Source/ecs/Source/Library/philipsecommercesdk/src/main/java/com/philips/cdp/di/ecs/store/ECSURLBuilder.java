@@ -16,6 +16,7 @@ public class ECSURLBuilder implements URLProvider {
     private static final String SUFFIX_CONFIGURATION = "inAppConfig";
 
     public static final String WEBROOT = "pilcommercewebservices";
+    public static final String WEBROOT_OAUTH = "authorizationserver";
     public static final String V2 = "v2";
     public static final String SEPERATOR = "/";
     private static final String USER = "users";
@@ -74,9 +75,9 @@ public class ECSURLBuilder implements URLProvider {
     @Override
     public String getOauthUrl(ECSOAuthProvider oAuthInput, GrantType grantType) {
         StringBuilder builder = new StringBuilder(ECSConfiguration.INSTANCE.getBaseURL());
-        builder.append(WEBROOT).append(SEPERATOR).append(SUFFIX_OAUTH)
+        builder.append(WEBROOT_OAUTH).append(SEPERATOR).append(SUFFIX_OAUTH)
                 .append("?" + oAuthInput.getGrantType().getType() + "=").append(oAuthInput.getOAuthID())
-                .append("&grant_type=" + grantType.getType() + "&client_id=" + oAuthInput.getClientID().getType() + "&client_secret=" + oAuthInput.getClientSecret());
+                .append("&grant_type=" + grantType.getType() + "&client_id=" + oAuthInput.getClientType().getType() + "&client_secret=" + oAuthInput.getClientSecret());
         return builder.toString();
     }
 
@@ -85,7 +86,7 @@ public class ECSURLBuilder implements URLProvider {
         StringBuilder builder = new StringBuilder(ECSConfig.INSTANCE.getBaseURL());
         builder.append(WEBROOT).append(SEPERATOR).append(SUFFIX_OAUTH)
                 .append("?refresh_token=").append(oAuthInput.getOAuthID())
-                .append("&grant_type="+oAuthInput.getGrantType().getType()+"&client_id="+oAuthInput.getClientID()+"&client_secret="+oAuthInput.getClientSecret());
+                .append("&grant_type="+oAuthInput.getGrantType().getType()+"&client_id="+oAuthInput.getClientType()+"&client_secret="+oAuthInput.getClientSecret());
         return  builder.toString();
     }*/
 

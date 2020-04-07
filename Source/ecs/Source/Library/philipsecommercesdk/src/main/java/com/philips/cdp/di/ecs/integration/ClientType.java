@@ -6,8 +6,8 @@
 package com.philips.cdp.di.ecs.integration;
 
 public enum ClientType {
-    JANRAIN("mobile_android"),
-    OIDC("onesite_client");
+    JANRAIN("inApp_client"),
+    OIDC("inApp_client");
 
 
     String type;

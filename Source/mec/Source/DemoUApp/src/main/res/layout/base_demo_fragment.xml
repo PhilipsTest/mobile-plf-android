@@ -1,6 +1,6 @@
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/uidColorWhite"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
 
         <RelativeLayout
@@ -34,12 +34,39 @@
                     android:text="Add" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_voucher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_ctn"
+                android:weightSum="1"
+                android:layout_marginTop="@dimen/reg_dimen_8dp"
+                android:layout_marginLeft="@dimen/border8_margin"
+                android:layout_marginRight="@dimen/border8_margin"
+                >
+
+                <com.philips.platform.uid.view.widget.EditText
+                    android:layout_weight="0.75"
+                    android:id="@+id/et_add_voucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Voucher" />
+
+                <com.philips.platform.uid.view.widget.Button
+                    android:layout_weight="0.25"
+                    android:id="@+id/btn_add_voucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Voucher Add" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/ll_enter_proposition_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ll_ctn"
+                android:layout_below="@id/ll_voucher"
                 android:weightSum="1"
                 android:layout_marginTop="@dimen/reg_dimen_8dp"
                 android:layout_marginLeft="@dimen/border8_margin"
@@ -62,16 +89,47 @@
                     android:text="Set" />
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_below="@id/ll_enter_proposition_id"
+                android:id="@+id/ll_maxCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/reg_dimen_8dp"
+                android:layout_marginLeft="@dimen/border8_margin"
+                android:layout_marginRight="@dimen/border8_margin"
+                >
+
+                <com.philips.platform.uid.view.widget.EditText
+                    android:layout_weight="0.75"
+                    android:id="@+id/et_max_cart_count"
+                    android:layout_width="0dp"
+                    android:hint="enter max count"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    />
+                <com.philips.platform.uid.view.widget.Button
+                    android:layout_weight="0.25"
+                    android:id="@+id/btn_set_max_Count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Set" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:id="@+id/linear_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ll_enter_proposition_id"
+                android:layout_below="@id/ll_maxCount"
+                android:layout_marginTop="@dimen/reg_dimen_8dp"
                 android:layout_marginLeft="@dimen/border8_margin"
                 android:layout_marginRight="@dimen/border8_margin"
-                android:weightSum="3"
+                android:weightSum="4"
                 >
                 <ToggleButton
                     android:layout_weight="1"
@@ -84,21 +142,20 @@
                     android:checked="true"
                     android:textOff="Hybris OFF"
                     android:textOn="Hybris ON"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <ToggleButton
                     android:layout_weight="1"
                     android:id="@+id/toggleRetailer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_maxCount"
-                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
                     android:gravity="center"
                     android:enabled="true"
                     android:checked="true"
                     android:textOff="Retailer OFF"
                     android:textOn="Retailer ON"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <ToggleButton
                     android:layout_weight="1"
@@ -110,7 +167,20 @@
                     android:textOn="Banner ON"
                     android:textOff="Banner OFF"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
+                    />
+
+                <ToggleButton
+                    android:layout_weight="1"
+                    android:id="@+id/toggleVoucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:enabled="true"
+                    android:textOn="Voucher ON"
+                    android:textOff="Voucher OFF"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="12sp"
                     />
 
             </LinearLayout>

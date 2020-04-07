@@ -1,0 +1,51 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="ecsAddress"
+            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mec_address_card_view"
+        android:layout_width="180dp"
+        android:layout_height="200dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/iap_margin_10dp"
+        app:cardCornerRadius="@dimen/iap_margin_10dp"
+        app:cardElevation="@dimen/iap_margin_10dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="200dp"
+            android:orientation="vertical">
+
+            <com.philips.platform.uid.view.widget.Label
+                fontPath="fonts/centralesansbold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/border16_margin_left_right"
+                android:layout_marginTop="@dimen/iap_margin_10dp"
+                android:layout_marginEnd="@dimen/border16_margin_left_right"
+                android:text="@string/mec_pros_plus"
+                android:textSize="56sp" />
+
+            <com.philips.platform.uid.view.widget.Label
+                fontPath="fonts/centralesansbook.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/border16_margin_left_right"
+                android:layout_marginTop="@dimen/iap_margin_10dp"
+                android:layout_marginEnd="@dimen/border16_margin_left_right"
+                android:text="@string/mec_add_payment_method"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
