@@ -38,8 +38,8 @@ class MECAnalytics {
         @JvmStatic
         fun initMECAnalytics(dependencies: MECDependencies) {
             try {
-                com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface = dependencies.appInfra.tagging.createInstanceForComponent(com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME)
-                com.philips.platform.mec.analytics.MECAnalytics.Companion.countryCode = dependencies.appInfra.serviceDiscovery.homeCountry
+                mAppTaggingInterface = dependencies.appInfra.tagging.createInstanceForComponent(MECAnalyticsConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME)
+                countryCode = dependencies.appInfra.serviceDiscovery.homeCountry
             } catch (e: Exception) {
 
             }
@@ -48,12 +48,12 @@ class MECAnalytics {
 
         @JvmStatic
         fun trackPage(currentPage: String) {
-            if (com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface != null && currentPage != null) {
+            if (mAppTaggingInterface != null && currentPage != null) {
                 var map = HashMap<String, String>()
-                if (currentPage != com.philips.platform.mec.analytics.MECAnalytics.Companion.previousPageName) {
-                    com.philips.platform.mec.analytics.MECAnalytics.Companion.previousPageName = currentPage
+                if (currentPage != previousPageName) {
+                    previousPageName = currentPage
                     Log.v("MEC_LOG", "trackPage" + currentPage);
-                    com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface!!.trackPageWithInfo(currentPage, com.philips.platform.mec.analytics.MECAnalytics.Companion.addCountryAndCurrency(map))
+                    mAppTaggingInterface!!.trackPageWithInfo(currentPage, com.philips.platform.mec.analytics.MECAnalytics.Companion.addCountryAndCurrency(map))
                 }
             }
         }
@@ -63,36 +63,36 @@ class MECAnalytics {
         fun trackAction(state: String, key: String, value: Any) {
             val valueObject = value as String
             Log.v("MEC_LOG", "trackAction" + valueObject);
-            if (com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface != null)
-                com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface!!.trackActionWithInfo(state, key, valueObject)
+            if (mAppTaggingInterface != null)
+                mAppTaggingInterface!!.trackActionWithInfo(state, key, valueObject)
         }
 
         @JvmStatic
         fun trackMultipleActions(state: String, map: Map<String, String>) {
-            if (com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface != null)
+            if (mAppTaggingInterface != null)
                 Log.v("MEC_LOG", "trackMtlutipleAction ")
-            com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface!!.trackActionWithInfo(state, com.philips.platform.mec.analytics.MECAnalytics.Companion.addCountryAndCurrency(map))
+            mAppTaggingInterface!!.trackActionWithInfo(state, com.philips.platform.mec.analytics.MECAnalytics.Companion.addCountryAndCurrency(map))
         }
 
 
         @JvmStatic
         fun pauseCollectingLifecycleData() {
-            if (com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface != null)
-                com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface!!.pauseLifecycleInfo()
+            if (mAppTaggingInterface != null)
+               mAppTaggingInterface!!.pauseLifecycleInfo()
         }
 
 
         @JvmStatic
         fun collectLifecycleData(activity: Activity) {
-            if (com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface != null)
-                com.philips.platform.mec.analytics.MECAnalytics.Companion.mAppTaggingInterface!!.collectLifecycleInfo(activity)
+            if (mAppTaggingInterface != null)
+                mAppTaggingInterface!!.collectLifecycleInfo(activity)
         }
 
         private fun addCountryAndCurrency(map: Map<String, String>): Map<String, String> {
             //var newMap = map.toMap<String,>()
             var newMap = HashMap(map)
-            newMap.put(country, com.philips.platform.mec.analytics.MECAnalytics.Companion.countryCode)
-            newMap.put(currency, com.philips.platform.mec.analytics.MECAnalytics.Companion.currencyCode)
+            newMap.put(country, countryCode)
+            newMap.put(currency, currencyCode)
             return newMap;
 
         }
@@ -109,11 +109,11 @@ class MECAnalytics {
                 val mutableProductIterator = productList.iterator()
                 var productListString: String = ""
                 for (product in mutableProductIterator) {
-                    productListString += "," + com.philips.platform.mec.analytics.MECAnalytics.Companion.getProductInfo(product)
+                    productListString += "," + getProductInfo(product)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 Log.v("MEC_LOG", "prodList : " + productListString)
-                com.philips.platform.mec.analytics.MECAnalytics.Companion.trackAction(sendData, mecProducts, productListString)
+                trackAction(sendData, mecProducts, productListString)
             }
         }
 
@@ -121,6 +121,7 @@ class MECAnalytics {
         /*
         * To tag list or grid, during first launch list will be tagged and productList shall be empty
         * upon switch of grid and list top 10 products(or all available products with count less that 10) from product list will be tagged
+        * format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
         fun tagProductList(productList: MutableList<ECSProduct>, listOrGrid: String) {
@@ -131,7 +132,7 @@ class MECAnalytics {
                 var productListString: String = ""
                 var maxProductCount = 10
                 for (product in mutableProductIterator) {
-                    productListString += "," + com.philips.platform.mec.analytics.MECAnalytics.Companion.getProductInfo(product)
+                    productListString += "," + getProductInfo(product)
                     if (--maxProductCount == 0) {
                         break
                     }
@@ -140,9 +141,13 @@ class MECAnalytics {
                 Log.v("MEC_LOG", "prodList : " + productListString)
                 map.put(mecProducts, productListString);
             }
-            com.philips.platform.mec.analytics.MECAnalytics.Companion.trackMultipleActions(sendData, map)
+            trackMultipleActions(sendData, map)
         }
 
+
+        /*c
+        * This method return shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
+        * */
         @JvmStatic
         fun getCartProductsInfo(ecsShoppingCart: ECSShoppingCart?): Map<String, String>{
             var map = HashMap<String, String>()
@@ -151,7 +156,7 @@ class MECAnalytics {
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
                 for(entry in mutableEntryIterator){
-                    productListString += "," + com.philips.platform.mec.analytics.MECAnalytics.Companion.getProductInfo(entry.product)
+                    productListString += "," + getProductInfo(entry.product)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 Log.v("MEC_LOG", "Cart prodList : " + productListString)
@@ -161,6 +166,9 @@ class MECAnalytics {
 
         }
 
+        /*c
+       * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
+       * */
         @JvmStatic
         fun getProductInfo(product: ECSProduct): String {
             var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
@@ -175,7 +183,7 @@ class MECAnalytics {
                 val localeArray = localeString.split("_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 val locale = Locale(localeArray[0], localeArray[1])
                 val currency = Currency.getInstance(locale)
-                com.philips.platform.mec.analytics.MECAnalytics.Companion.currencyCode = currency.currencyCode
+                currencyCode = currency.currencyCode
             } catch (e: Exception) {
 
             }

@@ -21,6 +21,11 @@ import com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity
 import com.philips.cdp.di.ecs.model.cart.ECSEntries
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.shoppingCartPage
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.scView
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -326,6 +331,8 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     override fun onStart() {
         super.onStart()
+        MECAnalytics.trackPage(shoppingCartPage)
+        MECAnalytics.trackAction(sendData, specialEvents, scView)
         executeRequest()
     }
 

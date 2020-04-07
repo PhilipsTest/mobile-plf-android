@@ -23,6 +23,8 @@ import com.philips.cdp.di.ecs.error.ECSErrorEnum
 import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.utils.MECConstant.IN_STOCK
@@ -273,7 +275,7 @@ class MECutility {
                     errorString += errorMessage
                     errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
                     MECLog.e(javaClass.simpleName, errorString)
-                    com.philips.platform.mec.analytics.MECAnalytics.trackAction(com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData, com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError, errorString)
+                    MECAnalytics.trackAction(MECAnalyticsConstant.sendData, MECAnalyticsConstant.technicalError, errorString)
                 } catch (e: Exception) {
 
                 }

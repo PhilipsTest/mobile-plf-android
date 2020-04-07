@@ -20,13 +20,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecRetailersFragmentBinding
 import com.philips.platform.mec.utils.MECConstant
-import com.philips.platform.appinfra.AppInfra
 import java.util.*
 
 
@@ -85,10 +85,10 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
             retailerListString = retailerListString.substring(1, retailerListString.length - 1)
 
             val map = HashMap<String, String>()
-            map.put(com.philips.platform.mec.analytics.MECAnalyticsConstant.retailerList, retailerListString)
-            val productInfo: String = com.philips.platform.mec.analytics.MECAnalytics.getProductInfo(product)
-            map.put(com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts, productInfo)
-            com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(sendData, map)
+            map.put(MECAnalyticsConstant.retailerList, retailerListString)
+            val productInfo: String = MECAnalytics.getProductInfo(product)
+            map.put(MECAnalyticsConstant.mecProducts, productInfo)
+            MECAnalytics.trackMultipleActions(sendData, map)
 
         }
     }

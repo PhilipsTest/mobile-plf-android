@@ -58,7 +58,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
         mUrl = getArguments()!!.getString(MECConstant.MEC_BUY_URL)
         isPhilipsShop = arguments!!.getBoolean(MECConstant.MEC_IS_PHILIPS_SHOP)
         initializeWebView(group)
-        com.philips.platform.mec.analytics.MECAnalytics.trackPage(retailerListPage)
+        MECAnalytics.trackPage(retailerListPage)
         return group
     }
 
@@ -93,7 +93,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                 if (isPhilipsShop) {
                     tagUrl = getPhilipsFormattedUrl(url)
                 }
-                com.philips.platform.mec.analytics.MECAnalytics.trackAction(com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData, com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkNameKey, tagUrl)
+                MECAnalytics.trackAction(MECAnalyticsConstant.sendData, MECAnalyticsConstant.exitLinkNameKey, tagUrl)
                 super.onPageCommitVisible(view, url)
             }
 

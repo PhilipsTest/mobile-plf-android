@@ -14,7 +14,7 @@ object MECAnalyticsConstant {
     val COMPONENT_NAME = "mec"
 
     val exitLinkNameKey              = "exitLinkName"
-    val exitLinkParameter              = "15_global_%s_%s-app_%s-app"
+    val exitLinkParameter            = "15_global_%s_%s-app_%s-app"
     val retailerList                 = "retailerList"
     val retailerName                 = "retailerName"
     val stockStatus                  = "stockStatus"
@@ -32,6 +32,8 @@ object MECAnalyticsConstant {
     val mecProducts                  = "&&products"
     val technicalError               = "technicalError"
     val sendData                     = "sendData"
+    val scAdd                        = "scAdd"
+    val scView                       = "scView"
     val voucherCode                  = "voucherCode"
     val voucherCodeApplied           = "voucherCodeApplied"
     val voucherCodeRevoked           = "voucherCodeRevoked"

@@ -16,13 +16,14 @@ import android.util.Log
 import com.philips.cdp.di.ecs.error.ECSError
 import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.model.config.ECSConfig
+import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.MECLauncherActivity
 import com.philips.platform.mec.integration.serviceDiscovery.ServiceDiscoveryMapListener
 import com.philips.platform.mec.screens.reviews.BazaarVoiceHelper
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
-import com.philips.platform.appinfra.AppInfra
-import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
 import com.philips.platform.uappframework.launcher.ActivityLauncher
 import com.philips.platform.uappframework.launcher.FragmentLauncher
 import com.philips.platform.uappframework.launcher.UiLauncher
@@ -92,7 +93,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
                 }
 
                 MECDataHolder.INSTANCE.locale = config!!.locale
-                com.philips.platform.mec.analytics.MECAnalytics.setCurrencyString(MECDataHolder.INSTANCE.locale)
+                MECAnalytics.setCurrencyString(MECDataHolder.INSTANCE.locale)
                 if (null != config!!.rootCategory) {
                     MECDataHolder.INSTANCE.rootCategory = config!!.rootCategory
                 }
