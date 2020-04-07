@@ -227,10 +227,8 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
                 ecsPayment = ECSPayment()
                 ecsPayment.id = MECConstant.NEW_CARD_PAYMENT
                 ecsPayment.billingAddress = ecsBillingAddress
-                var mecPayment = MECPayment(ecsPayment)
-
+                val mecPayment = MECPayment(ecsPayment)
                 MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.add(mecPayment)
-                MECDataHolder.INSTANCE.PAYMENT_HOLDER.setSelection(mecPayment)
             }
         }
 
@@ -435,7 +433,6 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
                 val mecPaymentNew = MECPayment(ecsPayment)
 
                 MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.add(mecPaymentNew)
-                MECDataHolder.INSTANCE.PAYMENT_HOLDER.setSelection(mecPaymentNew)
             }
 
             showPaymentCardList()

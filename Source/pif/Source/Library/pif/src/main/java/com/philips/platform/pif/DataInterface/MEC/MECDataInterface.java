@@ -24,17 +24,20 @@ public interface MECDataInterface {
      * @param mecFetchCartListener the  fetch cart listener for product count callback
      *  @since 2002.0
      */
-    void fetchCartCount(MECFetchCartListener mecFetchCartListener);
+
+
+    void fetchCartCount(MECFetchCartListener mecFetchCartListener)throws MECException;
 
 
 
     /**
      * This API is called to explicitly check if Hybris server is available .
      *
-     * @param mECHybrisAvailabilityListener the Hybris server availability listener for product count callback
+     *  @param mECHybrisAvailabilityListener the Hybris server availability listener for product count callback
+     *  @throws MECException : It can through user not logged in or no internet exception
      *  @since 2002.0
      */
-    void isHybrisAvailable(  MECHybrisAvailabilityListener mECHybrisAvailabilityListener );
+    void isHybrisAvailable(  MECHybrisAvailabilityListener mECHybrisAvailabilityListener) throws MECException;
 
 
 
@@ -42,7 +45,8 @@ public interface MECDataInterface {
      * This API is called to add a MECCartUpdateListener which will give shopping cart product count update and should show cart boolean
      *
      *
-     * @param mecCartUpdateListener the listener for cart product count update and should show cart callbacks
+     *  @param mecCartUpdateListener the listener for cart product count update and should show cart callbacks
+     *  @throws MECException : It can through user not logged in or no internet exception
      *  @since 2002.0
      */
     void addCartUpdateListener(MECCartUpdateListener mecCartUpdateListener ) ;

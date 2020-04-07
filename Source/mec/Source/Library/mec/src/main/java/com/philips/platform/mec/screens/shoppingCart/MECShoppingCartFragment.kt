@@ -148,22 +148,6 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             cartSummaryList.add(MECCartSummary(name, price))
         }
 
-        if (shoppingCart.deliveryCost != null) {
-            name = getString(R.string.mec_shipping_cost)
-            price = shoppingCart.deliveryCost.formattedValue
-            cartSummaryList.add(MECCartSummary(name, price))
-        }
-
-        for (i in 0..shoppingCart.appliedVouchers.size - 1) {
-            if (shoppingCart.appliedVouchers.get(i).name == null) {
-                name = " "
-            } else {
-                name = shoppingCart.appliedVouchers.get(i).name
-            }
-            price = "-" + shoppingCart.appliedVouchers?.get(i)?.appliedValue?.formattedValue
-            cartSummaryList.add(MECCartSummary(name, price))
-        }
-
         if (shoppingCart.appliedOrderPromotions.size > 0) {
             for (i in 0 until shoppingCart.appliedOrderPromotions.size) {
                 name = if (shoppingCart.appliedOrderPromotions.get(i).promotion.name == null) {
@@ -176,6 +160,20 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             }
         }
 
+        for (i in 0..shoppingCart.appliedVouchers.size - 1) {
+            if (shoppingCart.appliedVouchers.get(i).name == null) {
+                name = " "
+            } else {
+                name = shoppingCart.appliedVouchers.get(i).name
+            }
+            cartSummaryList.add(MECCartSummary(name, price))
+        }
+
+        if (shoppingCart.deliveryCost != null) {
+            name = getString(R.string.mec_shipping_cost)
+            price = shoppingCart.deliveryCost.formattedValue
+            cartSummaryList.add(MECCartSummary(name, price))
+        }
 
         /*for (i in 0..shoppingCart.appliedProductPromotions.size - 1) {
             name = shoppingCart.appliedProductPromotions.get(i).promotion.description
@@ -351,7 +349,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     }
 
     fun onClickAddVoucher() {
-        if(voucherCode.isNotEmpty()) {
+        if (voucherCode.isNotEmpty()) {
             showProgressBar(binding.mecProgress.mecProgressBarContainer)
             ecsShoppingCartViewModel.addVoucher(voucherCode, MECRequestType.MEC_APPLY_VOUCHER)
         }

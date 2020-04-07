@@ -35,6 +35,7 @@ import com.philips.cdp.di.iap.integration.IAPListener;
 import com.philips.cdp.di.iap.integration.IAPSettings;
 import com.philips.platform.mec.integration.MECBannerConfigurator;
 import com.philips.platform.mec.integration.MECBazaarVoiceInput;
+import com.philips.platform.mec.integration.MECLaunchException;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener;
 import com.philips.platform.mec.integration.MECDependencies;
 import com.philips.platform.mec.integration.MECFlowConfigurator;
@@ -535,9 +536,13 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private void launchMECasFragment(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {
         pMecFlowConfigurator.setLandingView(mecLandingView);
         mMecLaunchInput.setFlowConfigurator(pMecFlowConfigurator);
-        mMecInterface.launch(new ActivityLauncher
-                        (mContext, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_PORTRAIT, null, 0, null),
-                mMecLaunchInput);
+        try {
+            mMecInterface.launch(new ActivityLauncher
+                            (mContext, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_PORTRAIT, null, 0, null),
+                    mMecLaunchInput);
+        } catch (MECLaunchException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -11,9 +11,11 @@
 package com.philips.platform.mec.integration
 
 
+import com.philips.platform.mec.R
 import com.philips.platform.mec.integration.serviceDiscovery.MECManager
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface
+import com.philips.platform.pif.DataInterface.MEC.MECException
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECHybrisAvailabilityListener
@@ -32,22 +34,37 @@ class MECDataProvider : MECDataInterface {
     override fun removeCartUpdateListener(mecCartUpdateListener: MECCartUpdateListener?) {
        //  TODO("not implemented")
     }
-    
 
 
-    override fun fetchCartCount(mECFetchCartListener: MECFetchCartListener) {
-        GlobalScope.launch {
-            var  mecManager: MECManager = MECManager()
-            mecManager.getProductCartCountWorker(mECFetchCartListener)
+
+
+    @Throws(MECException::class)
+    override fun fetchCartCount(mECFetchCartListener: MECFetchCartListener)  {
+        MECDataHolder.INSTANCE.initECSSDK()
+        if(MECDataHolder.INSTANCE.isInternetActive()) {
+            if(MECDataHolder.INSTANCE.isUserLoggedIn()) {
+                GlobalScope.launch {
+                    var mecManager: MECManager = MECManager()
+                    mecManager.getProductCartCountWorker(mECFetchCartListener)
+                }
+            }else{
+                throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
+            }
+        }else{
+            throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
 
+    @Throws(MECException::class)
     override fun isHybrisAvailable(mECHybrisAvailabilityListener: MECHybrisAvailabilityListener) {
-        GlobalScope.launch {
-            var  mecManager: MECManager = MECManager()
-            mecManager.ishybrisavailableWorker(mECHybrisAvailabilityListener)
+        if(MECDataHolder.INSTANCE.isInternetActive()) {
+            GlobalScope.launch {
+                var mecManager: MECManager = MECManager()
+                mecManager.ishybrisavailableWorker(mECHybrisAvailabilityListener)
+            }
+        }else{
+            throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
-
 
 }

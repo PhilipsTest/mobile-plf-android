@@ -9,20 +9,43 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingOptions
 import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest
 import com.bazaarvoice.bvandroidsdk.EqualityOperator
 import com.philips.cdp.di.ecs.ECSServices
+import com.philips.cdp.di.ecs.error.ECSError
 import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.model.cart.ECSEntries
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
+import com.philips.cdp.di.ecs.util.ECSConfiguration
+import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECRequestType
+import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECutility
 
 class ECSShoppingCartRepository(ecsShoppingCartViewModel: EcsShoppingCartViewModel, val ecsServices: ECSServices)
 {
     private var ecsShoppingCartCallback= ECSShoppingCartCallback(ecsShoppingCartViewModel)
 
+    var authCallBack = object : ECSCallback<ECSOAuthData, Exception> {
+
+        override fun onResponse(result: ECSOAuthData?) {
+            fetchShoppingCart()
+        }
+
+        override fun onFailure(error: Exception, ecsError: ECSError) {
+            val mecError = MecError(error, ecsError,MECRequestType.MEC_HYBRIS_AUTH)
+            ecsShoppingCartViewModel.mecError.value = mecError
+        }
+    }
+
      fun fetchShoppingCart() {
-         ecsShoppingCartCallback.mECRequestType=MECRequestType.MEC_FETCH_SHOPPING_CART
-         this.ecsServices.fetchShoppingCart(ecsShoppingCartCallback)
+
+         if(!MECutility.isExistingUser() || ECSConfiguration.INSTANCE.accessToken == null) {
+             HybrisAuth.hybrisAuthentication(authCallBack)
+         }else{
+             this.ecsServices.fetchShoppingCart(ecsShoppingCartCallback)
+         }
+
     }
 
     fun updateShoppingCart(entries: ECSEntries, quantity: Int) {

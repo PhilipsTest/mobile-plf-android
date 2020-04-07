@@ -85,7 +85,7 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
             }
 
             @Override
-            public ClientType getClientID() {
+            public ClientType getClientType() {
                 if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()){
                     return ClientType.OIDC;
                 }

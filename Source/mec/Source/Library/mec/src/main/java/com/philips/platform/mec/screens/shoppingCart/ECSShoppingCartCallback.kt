@@ -14,7 +14,7 @@ import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
 class ECSShoppingCartCallback(private val ecsShoppingCartViewModel: EcsShoppingCartViewModel) : ECSCallback<ECSShoppingCart, Exception> {
-    lateinit var mECRequestType : MECRequestType
+    var mECRequestType = MECRequestType.MEC_FETCH_SHOPPING_CART
     override fun onResponse(ecsShoppingCart: ECSShoppingCart?) {
         ecsShoppingCartViewModel.ecsShoppingCart.value = ecsShoppingCart
     }

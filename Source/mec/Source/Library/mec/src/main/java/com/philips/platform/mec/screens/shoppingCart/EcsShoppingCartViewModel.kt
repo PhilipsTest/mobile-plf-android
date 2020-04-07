@@ -54,7 +54,6 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
      var updateQuantityNumber:Int = 0
      lateinit  var addVoucherString :String
      lateinit var deleteVoucherString :String
-     var mEcsShoppingCart :ECSShoppingCart? =null // for Analytics
 
     private var ecsShoppingCartRepository = ECSShoppingCartRepository(this,ecsServices)
 
@@ -65,10 +64,6 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     fun getShoppingCart(){
         ecsShoppingCartRepository.fetchShoppingCart()
     }
-
-
-
-
 
     fun createShoppingCart(request: String){
         val createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, Exception> {

@@ -26,7 +26,6 @@ import com.philips.platform.mec.screens.catalog.MECProductCatalogCategorizedFrag
 import com.philips.platform.mec.screens.catalog.MECProductCatalogFragment
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
-import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState
 import com.philips.platform.uappframework.listener.BackEventListener
 import com.philips.platform.uid.view.widget.ProgressBar
 import com.philips.platform.uid.view.widget.ProgressBarWithLabel
@@ -135,7 +134,7 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     }
 
     protected fun isUserLoggedIn(): Boolean {
-        return (MECDataHolder.INSTANCE.userDataInterface != null && MECDataHolder.INSTANCE.userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN)
+        return MECDataHolder.INSTANCE.isUserLoggedIn()
 
     }
 

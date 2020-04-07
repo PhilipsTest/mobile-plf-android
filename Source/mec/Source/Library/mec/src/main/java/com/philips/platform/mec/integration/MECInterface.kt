@@ -9,13 +9,10 @@
  */
 package com.philips.platform.mec.integration
 
-import com.android.volley.DefaultRetryPolicy
-import com.philips.cdp.di.ecs.ECSServices
+import com.philips.platform.appinfra.BuildConfig
+import com.philips.platform.mec.R
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
-import com.philips.platform.appinfra.AppInfra
-import com.philips.platform.appinfra.BuildConfig
-import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.uappframework.UappInterface
@@ -59,49 +56,50 @@ import com.philips.platform.uappframework.uappinput.UappSettings
         MECLog.appInfraLoggingInterface = MECDependencies.appInfra.logging.createInstanceForComponent(MEC_NOTATION, BuildConfig.VERSION_NAME)
 
         MECDataHolder.INSTANCE.userDataInterface = MECDependencies.userDataInterface
-        val configError = AppConfigurationInterface.AppConfigurationError()
-        val propositionID = MECDependencies.appInfra.configInterface.getPropertyForKey("propositionid", "MEC", configError)
-        var propertyForKey = ""
-        if (propositionID != null) {
-            propertyForKey = propositionID as String
-        }
-
-        var voucher :Boolean = true // if voucher key is not mentioned Appconfig then by default it will be considered True
-        try {
-            voucher = MECDependencies.appInfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
-        }catch(e: Exception){
-
-        }
-
-        MECDataHolder.INSTANCE.propositionId = propertyForKey
-        MECDataHolder.INSTANCE.voucherEnabled = voucher
-        val ecsServices = ECSServices(propertyForKey, MECDependencies.appInfra as AppInfra)
-
-        MECDataHolder.INSTANCE.eCSServices = ecsServices // singleton
-        val defaultRetryPolicy = DefaultRetryPolicy( // 10 second time out
-                30000,
-                0,
-                0f)
-        MECDataHolder.INSTANCE.eCSServices.setVolleyTimeoutAndRetryCount(defaultRetryPolicy)
-
 
     }
 
     /**
      * @param uiLauncher      Object of UiLauncherxx
      * @param uappLaunchInput Object of  UappLaunchInput
+     * @throws MECLaunchException : It can through user not logged in or no internet exception
      * @throws RuntimeException
      */
-    @Throws(RuntimeException::class)
+    @Throws(RuntimeException::class,MECLaunchException::class)
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
-        val mecHandler = this!!.mMECSettings?.let { MECHandler((mUappDependencies as MECDependencies?)!!, it, uiLauncher, uappLaunchInput as MECLaunchInput) }
+
+        MECDataHolder.INSTANCE.initECSSDK()
+
+        if(MECDataHolder.INSTANCE.isInternetActive()) {
+            val mecLaunchInput = uappLaunchInput as MECLaunchInput
+
+            if(mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW){
+
+                if(MECDataHolder.INSTANCE.isUserLoggedIn()){
+                    launchMEC(uiLauncher,mecLaunchInput)
+                }else{
+                    throw MECLaunchException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_cart_login_error_message),MECLaunchException.ERROR_CODE_NOT_LOGGED_IN)
+                }
+            }else{
+                launchMEC(uiLauncher,mecLaunchInput)
+            }
+
+
+        }else{
+            throw MECLaunchException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet),MECLaunchException.ERROR_CODE_NO_INTERNET)
+        }
+    }
+
+
+    private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput){
+        val mecHandler = this!!.mMECSettings?.let { MECHandler((mUappDependencies as MECDependencies?)!!, it, uiLauncher, mecLaunchInput) }
         mecHandler?.launchMEC()
     }
 
 
-
-
     companion object {
+
+        val instance = MECDataProvider()
         /**
          * Get the Singleton MEC Data Interface to call MEC public API
          *
@@ -110,8 +108,7 @@ import com.philips.platform.uappframework.uappinput.UappSettings
 
         @JvmStatic
         open fun getMECDataInterface(): MECDataInterface {
-
-            return MECDataProvider()
+            return instance
         }
     }
 

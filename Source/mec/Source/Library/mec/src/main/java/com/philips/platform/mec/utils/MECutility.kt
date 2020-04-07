@@ -18,11 +18,14 @@ import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.fragment.app.FragmentManager
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import com.google.gson.Gson
 import com.philips.cdp.di.ecs.error.ECSError
 import com.philips.cdp.di.ecs.error.ECSErrorEnum
 import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.R
+import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.common.MecError
@@ -32,6 +35,7 @@ import com.philips.platform.mec.utils.MECConstant.LOW_STOCK
 import com.philips.platform.uid.thememanager.UIDHelper
 import com.philips.platform.uid.utils.DialogConstants
 import com.philips.platform.uid.view.widget.AlertDialogFragment
+
 
 class MECutility {
 
@@ -308,6 +312,26 @@ class MECutility {
             val colorCodeHighlighted: Int = typedArray.getColor(0, 0)
             typedArray.recycle();
             return colorCodeHighlighted
+        }
+
+        fun isExistingUser() : Boolean{
+
+            var storedEmail = "NONE"
+
+            val isEmailKEYExist = MECDataHolder.INSTANCE.appinfra.secureStorage.doesStorageKeyExist(HybrisAuth.KEY_MEC_AUTH_DATA)
+            if(isEmailKEYExist) {
+
+                //TODO Handle the error
+                val sse = SecureStorageInterface.SecureStorageError()
+
+                val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
+
+                //TODO to have a defined type map instead generic
+                val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
+                storedEmail = map[HybrisAuth.KEY_MEC_EMAIL] as String
+            }
+
+          return storedEmail == MECDataHolder.INSTANCE.getUserInfo().email
         }
 
 

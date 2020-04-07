@@ -41,11 +41,13 @@ import com.philips.platform.mec.integration.MECBazaarVoiceInput;
 import com.philips.platform.mec.integration.MECDependencies;
 import com.philips.platform.mec.integration.MECFlowConfigurator;
 import com.philips.platform.mec.integration.MECInterface;
+import com.philips.platform.mec.integration.MECLaunchException;
 import com.philips.platform.mec.integration.MECLaunchInput;
 import com.philips.platform.mec.integration.MECSettings;
 import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment;
 import com.philips.platform.mec.utils.MECConstant;
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface;
+import com.philips.platform.pif.DataInterface.MEC.MECException;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECHybrisAvailabilityListener;
@@ -181,8 +183,6 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                     configInterface.setPropertyForKey("propositionid", "MEC", mEtPropositionId.getText().toString(), configError);
 
                     Toast.makeText(getActivity(), "Proposition id is set", Toast.LENGTH_SHORT).show();
-                    getActivity().finishAffinity();
-                    System.exit(0);
                 }
             });
 
@@ -332,23 +332,26 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
         MECDependencies mecDependencies = new MECDependencies(mAppInfraInterface, urInterface.getUserDataInterface());
 
-        try {
+
             mMecInterface.init(mecDependencies, mMecSettings);
             mMECDataInterface = MECInterface.getMECDataInterface();
-            if (isHybrisEnable && urInterface.getUserDataInterface()!= null && urInterface.getUserDataInterface().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+
+            try {
+
                 //update shopping cart count if user logged in
-                if(null!=mMecInterface) {
+                if (null != mMecInterface) {
 
                     mMECDataInterface.fetchCartCount(this);
 
-                    mMECDataInterface.isHybrisAvailable(this );
+                    mMECDataInterface.isHybrisAvailable(this);
 
                     mMECDataInterface.addCartUpdateListener(this);
                 }
+
+            }catch (MECException e){
+                Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                e.getErrorCode();
             }
-        } catch (RuntimeException ex) {
-            Log.v("MecInterface","MecInterface init failed "+ex.getMessage());
-        }
 
         mMecLaunchInput = new MECLaunchInput();
 
@@ -410,6 +413,10 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
         } catch (RuntimeException exception) {
             Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (MECLaunchException e) {
+            e.printStackTrace();
+            e.getErrorCode();
+            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -420,8 +427,14 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         mMecLaunchInput.setVoucherCode(voucherCode);
         mMecLaunchInput.setMaxCartCount(maxCartCount);
         mMecLaunchInput.setFlowConfigurator(pMecFlowConfigurator);
-        mMecInterface.launch(new FragmentLauncher(getActivity(), R.id.container_base_demo, this),
-                mMecLaunchInput);
+        try {
+            mMecInterface.launch(new FragmentLauncher(getActivity(), R.id.container_base_demo, this),
+                    mMecLaunchInput);
+        } catch (MECLaunchException e) {
+            e.printStackTrace();
+
+            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -530,12 +543,12 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
 
-        if (isHybrisEnable && urInterface.getUserDataInterface()!= null && urInterface.getUserDataInterface().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+       /* if (isHybrisEnable && urInterface.getUserDataInterface()!= null && urInterface.getUserDataInterface().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
             //update shopping cart count if user logged in
             shouldShowCart(true);
             }else{
             shouldShowCart(false);
-        }
+        }*/
 
     }
 

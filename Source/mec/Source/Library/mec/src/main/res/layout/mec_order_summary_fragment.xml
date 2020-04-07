@@ -307,7 +307,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
                 android:layout_above="@+id/mecPriceLayout"
-                android:background="?attr/uidContentItemTertiaryNormalTextColor" />
+                android:rotationY="90"
+                android:background="@drawable/uid_shadow_level_two" />
 
             <LinearLayout
                 android:id="@+id/mecPriceLayout"
@@ -333,7 +334,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_total_price"
-                    style="@style/mecCentralesansBookFont"
+                    style="@style/mecCentralesansBoldFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text='@{shoppingCart.totalPriceWithTax.formattedValue ?? ""}'

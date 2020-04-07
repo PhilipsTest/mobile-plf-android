@@ -9,16 +9,19 @@
  */
 package com.philips.platform.mec.utils
 
+import com.android.volley.DefaultRetryPolicy
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient
 import com.philips.cdp.di.ecs.ECSServices
 import com.philips.cdp.di.ecs.model.config.ECSConfig
+import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
+import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.mec.integration.MECBannerConfigurator
 import com.philips.platform.mec.integration.MECBazaarVoiceInput
 import com.philips.platform.mec.integration.MECOrderFlowCompletion
+import com.philips.platform.mec.screens.address.UserInfo
 import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.screens.payment.MECPayments
-import com.philips.platform.mec.screens.address.UserInfo
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.pif.DataInterface.USR.UserDataInterfaceException
@@ -41,7 +44,7 @@ enum class MECDataHolder {
     lateinit var voucherCode: String
     var maxCartCount: Int = 0
     lateinit var userDataInterface: UserDataInterface
-    var refreshToken: String? = null
+    var refreshToken: String = "UNKNOWN" //To avoid null check and Null pointer exception 
     var blackListedRetailers: List<String>? = null
     lateinit var mecBazaarVoiceInput: MECBazaarVoiceInput
     private var privacyUrl: String? = null
@@ -110,10 +113,47 @@ enum class MECDataHolder {
         }
     }
 
-    fun setPrivacyPolicyUrls(privacyUrl: String, faqUrl: String, termsUrl: String) {
+    fun setPrivacyPolicyUrls(privacyUrl: String?, faqUrl: String?, termsUrl: String?) {
         this.privacyUrl = privacyUrl
         this.faqUrl = faqUrl
         this.termsUrl = termsUrl
+    }
+
+    fun isUserLoggedIn() : Boolean{
+       return userDataInterface != null && userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN
+    }
+
+    fun isInternetActive() : Boolean{
+        return  appinfra.restClient.isInternetReachable
+    }
+
+    fun initECSSDK() {
+        val configError = AppConfigurationInterface.AppConfigurationError()
+        val propositionID = appinfra.configInterface.getPropertyForKey("propositionid", "MEC", configError)
+        var propertyForKey = ""
+        if (propositionID != null) {
+            propertyForKey = propositionID as String
+        }
+
+        var voucher: Boolean = true // if voucher key is not mentioned Appconfig then by default it will be considered True
+        try {
+            voucher =appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
+        } catch (e: Exception) {
+
+        }
+
+        propositionId = propertyForKey
+        voucherEnabled = voucher
+        val ecsServices = ECSServices(propertyForKey, appinfra as AppInfra)
+
+        val defaultRetryPolicy = DefaultRetryPolicy( // 30 second time out
+                30000,
+                0,
+                0f)
+        ecsServices.setVolleyTimeoutAndRetryCount(defaultRetryPolicy)
+
+        eCSServices = ecsServices // singleton
+
     }
 
 }

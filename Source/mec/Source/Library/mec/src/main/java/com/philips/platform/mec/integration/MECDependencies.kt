@@ -16,13 +16,11 @@ import com.philips.platform.uappframework.uappinput.UappDependencies
 
 /**
  * MECDependencies handles the dependency required for MEC. So right now, MEC has one dependency i.e AppInfra. So vertical needs to initialize MECDependencies and set the app infra object. This app infra object will be responsible for logging, tagging and some configuration.
- * @since 1.0.0
- */
-class MECDependencies
-/**
  * Create MECDependencies instance from AppInfraInterface and UserDataInterface object
  * @param appInfra  to pass the instance of AppInfraInterface
  * @param userDataInterface to pass the instance of UserDataInterface
- * @since 1903
+ * @since 1.0.0
  */
-(appInfra: AppInfraInterface, val userDataInterface: UserDataInterface) : UappDependencies(appInfra)
+class MECDependencies(appInfra: AppInfraInterface, val userDataInterface: UserDataInterface) : UappDependencies(appInfra)
+
+

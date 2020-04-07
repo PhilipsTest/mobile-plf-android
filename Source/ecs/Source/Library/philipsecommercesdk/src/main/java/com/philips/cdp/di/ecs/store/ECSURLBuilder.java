@@ -9,7 +9,6 @@ package com.philips.cdp.di.ecs.store;
 import com.philips.cdp.di.ecs.integration.ECSOAuthProvider;
 import com.philips.cdp.di.ecs.integration.GrantType;
 import com.philips.cdp.di.ecs.util.ECSConfiguration;
-import com.philips.platform.appinfra.appidentity.AppIdentityInterface;
 
 
 public class ECSURLBuilder implements URLProvider {
@@ -78,7 +77,7 @@ public class ECSURLBuilder implements URLProvider {
         StringBuilder builder = new StringBuilder(ECSConfiguration.INSTANCE.getBaseURL());
         builder.append(WEBROOT_OAUTH).append(SEPERATOR).append(SUFFIX_OAUTH)
                 .append("?" + oAuthInput.getGrantType().getType() + "=").append(oAuthInput.getOAuthID())
-                .append("&grant_type=" + grantType.getType() + "&client_id=" + oAuthInput.getClientID().getType() + "&client_secret=" + oAuthInput.getClientSecret());
+                .append("&grant_type=" + grantType.getType() + "&client_id=" + oAuthInput.getClientType().getType() + "&client_secret=" + oAuthInput.getClientSecret());
         return builder.toString();
     }
 
@@ -87,7 +86,7 @@ public class ECSURLBuilder implements URLProvider {
         StringBuilder builder = new StringBuilder(ECSConfig.INSTANCE.getBaseURL());
         builder.append(WEBROOT).append(SEPERATOR).append(SUFFIX_OAUTH)
                 .append("?refresh_token=").append(oAuthInput.getOAuthID())
-                .append("&grant_type="+oAuthInput.getGrantType().getType()+"&client_id="+oAuthInput.getClientID()+"&client_secret="+oAuthInput.getClientSecret());
+                .append("&grant_type="+oAuthInput.getGrantType().getType()+"&client_id="+oAuthInput.getClientType()+"&client_secret="+oAuthInput.getClientSecret());
         return  builder.toString();
     }*/
 

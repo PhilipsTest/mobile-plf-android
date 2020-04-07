@@ -15,6 +15,7 @@ import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.config.ECSConfig
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
+import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener
@@ -26,7 +27,7 @@ import com.philips.platform.pif.DataInterface.MEC.listeners.MECHybrisAvailabilit
 * @since 2002.0
 * */
 
-class MECManager {
+class MECManager{
 
     // to be called by Proposition to check if Hybris available
     fun ishybrisavailableWorker(mECHybrisAvailabilityListener : MECHybrisAvailabilityListener){
@@ -42,8 +43,12 @@ class MECManager {
         }
     }
 
+    var fetchCartListener: MECFetchCartListener? = null
+
     // to be called by Proposition getProductCartCount() API call to show cart count
     fun getProductCartCountWorker(mECFetchCartListener: MECFetchCartListener){
+
+        fetchCartListener = mECFetchCartListener
         if(null!= MECDataHolder.INSTANCE.eCSServices) {
             MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : ECSCallback<ECSConfig, Exception> {
                 override fun onResponse(result: ECSConfig) {
@@ -58,7 +63,6 @@ class MECManager {
                             }
                         })
                     } else {
-                        //hybris not available
                         mECFetchCartListener.onFailure(Exception(ECSErrorEnum.ECSHybrisNotAvailable.localizedErrorString))
                     }
                 }
@@ -71,6 +75,18 @@ class MECManager {
 
     //to be called by Catalog and Product Detail screen to show cart count
     fun getShoppingCartData(mECCartUpdateListener: MECCartUpdateListener){
+        // handle both from catalog ...detail and proposition
+        // Handle user logged in status ...for direct launch to landing view
+
+        if(MECutility.isExistingUser()){
+            doCartCall(mECCartUpdateListener)
+        }else{
+            doHybrisAuthCall(mECCartUpdateListener)
+        }
+
+    }
+
+    private fun doCartCall(mECCartUpdateListener: MECCartUpdateListener) {
         MECDataHolder.INSTANCE.eCSServices.fetchShoppingCart(object : ECSCallback<ECSShoppingCart, Exception> {
             override fun onResponse(carts: ECSShoppingCart?) {
                 if (carts != null) {
@@ -81,22 +97,23 @@ class MECManager {
             }
 
             override fun onFailure(error: Exception, ecsError: ECSError) {
-                if (     MECutility.isAuthError(ecsError)) {
-                    var authCallBack = object: ECSCallback<ECSOAuthData, Exception> {
-
-                        override fun onResponse(result: ECSOAuthData?) {
-                            getShoppingCartData(mECCartUpdateListener)
-                        }
-
-                        override fun onFailure(error: Exception, ecsError: ECSError) {
-                            //do nothing on auth failure
-                        }
-                    }
-                    com.philips.platform.mec.auth.HybrisAuth.hybrisAuthentication(authCallBack)
-
-                }
+                if (MECutility.isAuthError(ecsError)) doHybrisAuthCall(mECCartUpdateListener)
             }
         })
-
     }
+
+    private fun doHybrisAuthCall(mECCartUpdateListener: MECCartUpdateListener) {
+        var authCallBack = object : ECSCallback<ECSOAuthData, Exception> {
+
+            override fun onResponse(result: ECSOAuthData?) {
+                getShoppingCartData(mECCartUpdateListener)
+            }
+
+            override fun onFailure(error: Exception, ecsError: ECSError) {
+                fetchCartListener?.onFailure(error)
+            }
+        }
+        HybrisAuth.hybrisAuthentication(authCallBack)
+    }
+
 }

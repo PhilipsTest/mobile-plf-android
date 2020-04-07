@@ -79,7 +79,7 @@
                         android:id="@+id/mec_quantity_val"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text='@{@string/mec_quantity+" "+ecsEntries.quantity}'
+                        android:text='@{@string/mec_quantity+": "+ecsEntries.quantity}'
                         android:textColor="?attr/uidTextBoxQuietNormalTextColor"
                         android:textSize="@dimen/iap_text_size_16sp" />
 

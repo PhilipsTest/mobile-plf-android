@@ -32,7 +32,7 @@ open class CommonViewModel : ViewModel() {
                 authFailureCallback.invoke(error,ecsError)
             }
         }
-        com.philips.platform.mec.auth.HybrisAuth.hybrisRefreshAuthentication(authCallback)
+       HybrisAuth.hybrisRefreshAuthentication(authCallback)
     }
 
     open fun authFailureCallback(error: Exception?, ecsError: ECSError?){

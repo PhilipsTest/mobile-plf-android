@@ -147,9 +147,9 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
 
 
     private fun addCartSummaryList(ecsShoppingCart: ECSShoppingCart): MutableList<MECCartSummary> {
-        mecOrderSummaryService.addDeliveryCostToCartSummaryList(binding.mecDeliveryModeDescription.context, ecsShoppingCart, cartSummaryList)
-        mecOrderSummaryService.addAppliedVoucherToCartSummaryList(ecsShoppingCart, cartSummaryList)
         mecOrderSummaryService.addAppliedOrderPromotionsToCartSummaryList(ecsShoppingCart, cartSummaryList)
+        mecOrderSummaryService.addAppliedVoucherToCartSummaryList(ecsShoppingCart, cartSummaryList)
+        mecOrderSummaryService.addDeliveryCostToCartSummaryList(binding.mecDeliveryModeDescription.context, ecsShoppingCart, cartSummaryList)
         cartSummaryAdapter?.notifyDataSetChanged()
         return cartSummaryList
     }
