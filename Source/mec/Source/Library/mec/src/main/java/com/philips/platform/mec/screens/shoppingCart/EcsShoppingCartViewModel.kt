@@ -28,7 +28,7 @@ import com.philips.cdp.di.ecs.model.voucher.ECSVoucher
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.scRemove
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCode
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeApplied
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRevoked
@@ -101,17 +101,25 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     }
 
     fun tagApplyOrDeleteVoucher(mECRequestType :MECRequestType){
-        var map = HashMap<String, String>()
+        var actionMap = HashMap<String, String>()
         if(mECRequestType==MECRequestType.MEC_APPLY_VOUCHER || mECRequestType==MECRequestType.MEC_APPLY_VOUCHER_SILENT){
-            map.put(MECAnalyticsConstant.specialEvents, voucherCodeApplied)
-            map.put(voucherCode, addVoucherString)
+            actionMap.put(MECAnalyticsConstant.specialEvents, voucherCodeApplied)
+            actionMap.put(voucherCode, addVoucherString)
         }else{
-            map.put(MECAnalyticsConstant.specialEvents, voucherCodeRevoked)
-            map.put(voucherCode, deleteVoucherString)
+            actionMap.put(MECAnalyticsConstant.specialEvents, voucherCodeRevoked)
+            actionMap.put(voucherCode, deleteVoucherString)
         }
-        var cartProductsMap :Map<String, String>  = MECAnalytics.getCartProductsInfo(ecsShoppingCart.value)
-        map.putAll(cartProductsMap) // add cart product list
-        MECAnalytics.trackMultipleActions(sendData,map)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,ecsShoppingCart.value)
+    }
+
+    fun tagProductIfDeleted(){
+        if(updateQuantityNumber<updateQuantityEntries.quantity){ // if product quantity is reduced or deleted(updateQuantityNumber=0)
+            var actionMap = HashMap<String, String>()
+            actionMap.put(MECAnalyticsConstant.specialEvents, scRemove)
+            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfo(updateQuantityEntries.product!!))
+            MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
+        }
+
     }
 
     fun selectAPIcall(mecRequestType: MECRequestType):() -> Unit{

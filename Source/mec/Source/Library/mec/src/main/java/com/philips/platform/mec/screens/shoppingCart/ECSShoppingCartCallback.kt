@@ -16,6 +16,9 @@ import com.philips.platform.mec.utils.MECutility
 class ECSShoppingCartCallback(private val ecsShoppingCartViewModel: EcsShoppingCartViewModel) : ECSCallback<ECSShoppingCart, Exception> {
     var mECRequestType = MECRequestType.MEC_FETCH_SHOPPING_CART
     override fun onResponse(ecsShoppingCart: ECSShoppingCart?) {
+        if(mECRequestType==MECRequestType.MEC_UPDATE_SHOPPING_CART){ // if any product quantity of cart is changed
+            ecsShoppingCartViewModel.tagProductIfDeleted()
+        }
         ecsShoppingCartViewModel.ecsShoppingCart.value = ecsShoppingCart
     }
 

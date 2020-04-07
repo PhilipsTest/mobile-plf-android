@@ -53,7 +53,7 @@ class MECAnalytics {
                 if (currentPage != previousPageName) {
                     previousPageName = currentPage
                     Log.v("MEC_LOG", "trackPage" + currentPage);
-                    mAppTaggingInterface!!.trackPageWithInfo(currentPage, com.philips.platform.mec.analytics.MECAnalytics.Companion.addCountryAndCurrency(map))
+                    mAppTaggingInterface!!.trackPageWithInfo(currentPage, addCountryAndCurrency(map))
                 }
             }
         }
@@ -71,7 +71,7 @@ class MECAnalytics {
         fun trackMultipleActions(state: String, map: Map<String, String>) {
             if (mAppTaggingInterface != null)
                 Log.v("MEC_LOG", "trackMtlutipleAction ")
-            mAppTaggingInterface!!.trackActionWithInfo(state, com.philips.platform.mec.analytics.MECAnalytics.Companion.addCountryAndCurrency(map))
+            mAppTaggingInterface!!.trackActionWithInfo(state, addCountryAndCurrency(map))
         }
 
 
@@ -146,11 +146,11 @@ class MECAnalytics {
 
 
         /*c
-        * This method return shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
+        * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
-        fun getCartProductsInfo(ecsShoppingCart: ECSShoppingCart?): Map<String, String>{
-            var map = HashMap<String, String>()
+        fun tagActionsWithCartProductsInfo(actionMap :Map<String, String>, ecsShoppingCart: ECSShoppingCart?){
+            var productsMap = HashMap<String, String>()
             val entryList= ecsShoppingCart?.entries
             if (entryList != null && entryList.size > 0) {
                 val mutableEntryIterator = entryList.iterator()
@@ -160,10 +160,10 @@ class MECAnalytics {
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 Log.v("MEC_LOG", "Cart prodList : " + productListString)
-                map.put(mecProducts, productListString);
+                productsMap.put(mecProducts, productListString);
             }
-            return map;
-
+            productsMap.putAll(actionMap)
+            trackMultipleActions(sendData, productsMap)
         }
 
         /*c

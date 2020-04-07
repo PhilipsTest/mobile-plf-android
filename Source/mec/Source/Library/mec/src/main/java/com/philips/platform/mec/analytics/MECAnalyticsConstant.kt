@@ -37,6 +37,12 @@ object MECAnalyticsConstant {
     val voucherCode                  = "voucherCode"
     val voucherCodeApplied           = "voucherCodeApplied"
     val voucherCodeRevoked           = "voucherCodeRevoked"
+    val continueShoppingSelected     = "continueShoppingSelected"
+    val scCheckout                   = "scCheckout"
+    val scRemove                     = "scRemove"
+    val productTabsClick             = "productTabsClick"
+    val specs                        = "specs"
+    val features                     = "features"
 
 
 
