@@ -50,7 +50,6 @@ public class ApplicationLifeCycleHandler implements Application.ActivityLifecycl
 
             ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG,
                     AppInfraLogEventID.AI_TAGGING,"ApplicationLifeCycleHandler Resumed");
-        mAppTaggingInterface.trackActionWithInfo("sendData", "appStatus", "ForeGround");
             isInBackground = false;
         }
     }
@@ -103,7 +102,7 @@ public class ApplicationLifeCycleHandler implements Application.ActivityLifecycl
             ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG,
                     AppInfraLogEventID.AI_TAGGING,"ApplicationLifeCycleHandler Background");
 
-            mAppTaggingInterface.trackActionWithInfo("sendData","appStatus", "Background");
+
             isInBackground = true;
         }
     }
