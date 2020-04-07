@@ -45,8 +45,8 @@ public class RequestQueue extends com.android.volley.RequestQueue {
     @Override
     public <T> Request<T> add(Request<T> request) {
         final String url = request.getUrl();
-        SharedPreferences shared = mAppInfra.getAppInfraContext().getSharedPreferences("chuckEnabled", mAppInfra.getAppInfraContext().MODE_PRIVATE);
-        Boolean chuck = (shared.getBoolean("CHUCK", false));
+        SharedPreferences shared = mAppInfra.getAppInfraContext().getSharedPreferences("chuckEnabled",Context.MODE_PRIVATE);
+        boolean chuck = (shared.getBoolean("CHUCK", false));
         if(chuck) {
             addHttpClient(url);
         }

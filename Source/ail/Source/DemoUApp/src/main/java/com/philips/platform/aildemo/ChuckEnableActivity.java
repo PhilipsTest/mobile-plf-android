@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.appinfra.demo.R;
 
 public class ChuckEnableActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
@@ -21,7 +20,7 @@ public class ChuckEnableActivity extends AppCompatActivity implements CompoundBu
         setContentView(R.layout.activity_chuck_enable);
         cbChuck= findViewById(R.id.pim_checkbox);
         SharedPreferences shared = this.getSharedPreferences("chuckEnabled", MODE_PRIVATE);
-        Boolean chuck = (shared.getBoolean("CHUCK", false));
+        boolean chuck = (shared.getBoolean("CHUCK", false));
         cbChuck.setChecked(chuck);
         cbChuck.setOnCheckedChangeListener(this);
     }
