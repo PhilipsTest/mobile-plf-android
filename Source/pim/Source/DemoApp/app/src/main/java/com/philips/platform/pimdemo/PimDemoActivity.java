@@ -2,6 +2,7 @@ package com.philips.platform.pimdemo;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatSpinner;
 import android.view.View;
@@ -29,7 +30,10 @@ public class PimDemoActivity extends UIDActivity {
         launchUApp.setOnClickListener(v -> {
             Intent intent = new Intent(PimDemoActivity.this, PIMDemoUAppActivity.class);
             intent.putExtra("SelectedLib", selectLibreary.getSelectedItem().toString());
-            intent.putExtra("chuckEnabled", enableChuck.isChecked());
+            SharedPreferences preferences = this.getSharedPreferences("chuckEnabled", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("CHUCK", enableChuck.isChecked());
+            editor.apply();
             startActivity(intent);
         });
 

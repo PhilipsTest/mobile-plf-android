@@ -113,7 +113,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private MECLaunchInput mMecLaunchInput;
     private MECBazaarVoiceInput mecBazaarVoiceInput;
     private PIMDemoUAppApplication uAppApplication;
-    private Object chuckEnabled;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,9 +124,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         Label appversion = findViewById(R.id.appversion);
         appversion.setText("Version : " + BuildConfig.VERSION_NAME);
 
-        chuckEnabled = getIntent().getExtras().get("chuckEnabled");
         uAppApplication = (PIMDemoUAppApplication) getApplicationContext();
-        uAppApplication.build((Boolean) chuckEnabled);
         appInfraInterface = uAppApplication.getAppInfra();
         //new PIMDemoUAppApplication((Boolean) chuckEnabled);
 

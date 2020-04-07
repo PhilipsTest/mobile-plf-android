@@ -46,8 +46,6 @@ public interface AppInfraInterface extends Serializable {
      */
     InternationalizationInterface getInternationalization();
 
-    Boolean isChuckEnabled();
-
     /**
      * Gets logging.
      *

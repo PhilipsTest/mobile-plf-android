@@ -58,7 +58,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
     private InternationalizationInterface local;
     private ServiceDiscoveryInterface mServiceDiscoveryInterface;
 
-    private Boolean isChuckEnabled ;
     private TimeInterface mTimeSyncInterface;
     private AppConfigurationInterface configInterface;
     private RestInterface mRestInterface;
@@ -127,11 +126,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
     @Override
     public InternationalizationInterface getInternationalization() {
         return local;
-    }
-
-    @Override
-    public Boolean isChuckEnabled() {
-        return isChuckEnabled;
     }
 
     @Override
@@ -209,10 +203,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
 
     private void setServiceDiscoveryInterface(ServiceDiscoveryInterface mServiceDiscoveryInterfac) {
         mServiceDiscoveryInterface = mServiceDiscoveryInterfac;
-    }
-
-    private void setChuckEnabled(Boolean chuckEnabled) {
-       this.isChuckEnabled = chuckEnabled;
     }
 
     void setAppupdateInterface(AppUpdateInterface appupdateInterface) {
@@ -294,8 +284,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
         private AppUpdateInterface appupdateInterface;
         private ConsentManagerInterface consentManager;
         private DeviceStoredConsentHandler deviceStoredConsentHandler;
-        private Boolean isChuckEnabled;
-
 
 
         /**
@@ -318,7 +306,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
             abtesting = null;
             consentManager = null;
             deviceStoredConsentHandler = null;
-            isChuckEnabled = null;
         }
 
 
@@ -389,11 +376,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
             return this;
         }
 
-        public Builder setChuck(Boolean isChuckEnabled) {
-            this.isChuckEnabled = isChuckEnabled;
-            return this;
-        }
-
         /**
          * Sets Builder tagging overriding the default implementation.
          *
@@ -452,8 +434,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
 
             ai.setServiceDiscoveryInterface(mServiceDiscoveryInterface == null ?
                     new ServiceDiscoveryManager(ai) : mServiceDiscoveryInterface);
-
-            ai.setChuckEnabled((isChuckEnabled));
 
             ai.setRestInterface(mRestInterface == null ? new RestManager(ai) : mRestInterface);
 
