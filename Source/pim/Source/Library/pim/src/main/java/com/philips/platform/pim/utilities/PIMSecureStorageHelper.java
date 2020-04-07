@@ -15,21 +15,21 @@ import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DE
 
 public class PIMSecureStorageHelper {
 
-    private final Context context;
     private final AppInfraInterface appInfra;
+    private final String AUTHORIZATION_REQUEST = "AUTHORIZATION_REQUEST";
+    private final String AUTHORIZATION_RESPONSE = "AUTHORIZATION_RESPONSE";
 
-    public PIMSecureStorageHelper(Context context, AppInfraInterface appInfra) {
-        this.context = context;
+    public PIMSecureStorageHelper(AppInfraInterface appInfra) {
         this.appInfra = appInfra;
     }
 
     public boolean saveAuthorizationRequest(AuthorizationRequest authorizationRequest) {
-        boolean isStored = appInfra.getSecureStorage().storeValueForKey("AuthorizationRequest", authorizationRequest.jsonSerializeString(), new SecureStorageInterface.SecureStorageError());
+        boolean isStored = appInfra.getSecureStorage().storeValueForKey(AUTHORIZATION_REQUEST, authorizationRequest.jsonSerializeString(), new SecureStorageInterface.SecureStorageError());
         return isStored;
     }
 
     public AuthorizationRequest getAuthorizationRequest() {
-        String authorizationRequestString = appInfra.getSecureStorage().fetchValueForKey("AuthorizationRequest", new SecureStorageInterface.SecureStorageError());
+        String authorizationRequestString = appInfra.getSecureStorage().fetchValueForKey(AUTHORIZATION_REQUEST, new SecureStorageInterface.SecureStorageError());
         if (authorizationRequestString != null) {
             try {
                 return AuthorizationRequest.jsonDeserialize(authorizationRequestString);
@@ -41,17 +41,17 @@ public class PIMSecureStorageHelper {
     }
 
     public boolean saveAuthorizationResponse(String authorizationResponse) {
-        boolean isStored = appInfra.getSecureStorage().storeValueForKey("AuthorizationResponse", authorizationResponse, new SecureStorageInterface.SecureStorageError());
+        boolean isStored = appInfra.getSecureStorage().storeValueForKey(AUTHORIZATION_RESPONSE, authorizationResponse, new SecureStorageInterface.SecureStorageError());
         return isStored;
     }
 
     public String getAuthorizationResponse() {
-        String authorizationRequestString = appInfra.getSecureStorage().fetchValueForKey("AuthorizationResponse", new SecureStorageInterface.SecureStorageError());
+        String authorizationRequestString = appInfra.getSecureStorage().fetchValueForKey(AUTHORIZATION_RESPONSE, new SecureStorageInterface.SecureStorageError());
         return authorizationRequestString;
     }
 
-    public boolean deleteAuthorizationResponse(){
-        return appInfra.getSecureStorage().removeValueForKey("AuthorizationResponse");
+    public boolean deleteAuthorizationResponse() {
+        return appInfra.getSecureStorage().removeValueForKey(AUTHORIZATION_RESPONSE);
 
     }
 }

@@ -74,10 +74,9 @@ public class PIMAuthManager {
     /**
      * Fetch authorization request from OIDC for launching CLP page
      *
-     * @param authServiceConfiguration configuration downloaded using OIDC discovery URI
-     * @param clientID                 to create authorizaton request
-     * @param parameter                contains additional parameters
-     * @return intent
+     * @param pimOidcConfigration configuration downloaded using OIDC discovery URI
+     * @param parameter           contains additional parameters
+     * @return authorizationRequest
      * @throws ActivityNotFoundException
      */
     AuthorizationRequest createAuthorizationRequest(@NonNull PIMOIDCConfigration pimOidcConfigration, Map<String, String> parameter) throws ActivityNotFoundException {
@@ -239,10 +238,7 @@ public class PIMAuthManager {
             if (authorizationRequest.state == null && response.state != null
                     || (authorizationRequest.state != null && !authorizationRequest.state.equals(response.state))) {
 
-                Logger.warn("State returned in authorization response (%s) does not match state "
-                                + "from request (%s) - discarding response",
-                        response.state,
-                        authorizationRequest.state);
+                mLoggingInterface.log(DEBUG, TAG, "State returned in authorization response " + response.state + " does not match state from request " + authorizationRequest.state + "  discarding response");
 
                 return AuthorizationException.AuthorizationRequestErrors.STATE_MISMATCH.toIntent();
             }

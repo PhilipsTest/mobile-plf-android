@@ -27,7 +27,6 @@ import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DE
 /**
  * Class to perform OIDC request during login
  */
-//TODO: Shashi,Handle backend issues in test case(Such as invalid client id)
 public class PIMLoginManager {
     private String TAG = PIMLoginManager.class.getSimpleName();
     private PIMOIDCConfigration mPimoidcConfigration;
@@ -45,7 +44,7 @@ public class PIMLoginManager {
         mLoggingInterface = PIMSettingManager.getInstance().getLoggingInterface();
         mTaggingInterface = PIMSettingManager.getInstance().getTaggingInterface();
         mPimUserManager = PIMSettingManager.getInstance().getPimUserManager();
-        pimSecureStorageHelper = new PIMSecureStorageHelper(context, PIMSettingManager.getInstance().getAppInfraInterface());
+        pimSecureStorageHelper = new PIMSecureStorageHelper(PIMSettingManager.getInstance().getAppInfraInterface());
         this.consentParameterMap = consentParameterMap;
     }
 
@@ -156,7 +155,7 @@ public class PIMLoginManager {
         return consentList;
     }
 
-    public void exchangeCodeAfterAppKillBeforeEmailVerify() {
+    public void exchangeCodeOnEmailVerify() {
         Intent authIntent = mPimAuthManager.extractResponseData(pimSecureStorageHelper.getAuthorizationResponse(), pimSecureStorageHelper.getAuthorizationRequest());
         pimSecureStorageHelper.deleteAuthorizationResponse();
         if (mPimAuthManager.isAuthorizationSuccess(authIntent))

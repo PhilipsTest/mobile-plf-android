@@ -44,7 +44,6 @@ android {
         vectorDrawables.useSupportLibrary = true
         renderscriptTargetApi versions.renderscriptTargetApi
         renderscriptSupportModeEnabled true
-        manifestPlaceholders = ['appAuthRedirectScheme': '']
     }
 
     buildTypes {

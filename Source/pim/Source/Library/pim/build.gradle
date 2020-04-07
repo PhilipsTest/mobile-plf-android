@@ -38,7 +38,7 @@ android {
         versionName version
         multiDexEnabled true
         manifestPlaceholders = [
-                'appAuthRedirectScheme':''
+                udiRedirectScheme: ''
         ]
     }
 
@@ -86,9 +86,7 @@ dependencies {
     implementation deps.adobemobilelib
     implementation deps.androidx.annotations
     implementation deps.volley
-    implementation (deps.openid_appauth){
-        changing = true
-    }
+    implementation deps.openid_appauth
     implementation deps.androidx.livedata_extensions
 
     testImplementation deps.json

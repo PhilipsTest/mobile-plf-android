@@ -206,24 +206,13 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         });
 
         viewInitlization(pimDemoUAppDependencies, pimDemoUAppSettings);
-//        pimInterface = new PIMInterface();
-//        pimInterface.init(pimDemoUAppDependencies, pimDemoUAppSettings);
-//        userDataInterface = pimInterface.getUserDataInterface();
 
         sharedPreferences = getApplicationContext().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         spinnerCountrySelection = findViewById(R.id.spinner_CountrySelection);
         spinnerCountryText = findViewById(R.id.spinner_Text);
 
-        if (getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().getBoolean("RedirectOnAppKill")) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN)
-                        onLoginSuccess();
-                }
-            }, 2000);
-        } else if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_NOT_LOGGED_IN) {
+        if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_NOT_LOGGED_IN) {
             spinnerCountrySelection.setVisibility(View.VISIBLE);
             spinnerCountryText.setVisibility(View.GONE);
             String[] stringArray = getResources().getStringArray(R.array.countries_array);

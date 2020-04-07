@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.philips.platform.pim">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,8 +21,18 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="${udiRedirectScheme}" />
+            </intent-filter>
+        </activity>
 
-                <data android:scheme="com.philips.apps.94e28300-565d-4110-8919-42dc4f817393" />
+        <activity
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="appauth"/>
             </intent-filter>
         </activity>
 

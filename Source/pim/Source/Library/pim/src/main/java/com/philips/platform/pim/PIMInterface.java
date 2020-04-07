@@ -14,12 +14,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pim.fragment.PIMFragment;
@@ -79,17 +76,17 @@ public class PIMInterface implements UappInterface {
         PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "PIMInterface init called.");
     }
 
-    private Observer<PIMInitState> observer = new Observer<PIMInitState>() {
+    private final Observer<PIMInitState> observer = new Observer<PIMInitState>() {
         @Override
         public void onChanged(@Nullable PIMInitState pimInitState) {
-            PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(context, PIMSettingManager.getInstance().getAppInfraInterface());
+            PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(PIMSettingManager.getInstance().getAppInfraInterface());
+            PIMMigrator pimMigrator = new PIMMigrator(context);
             if (pimInitState == PIMInitState.INIT_SUCCESS) {
                 if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                     PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "User is already logged in");
                 } else if (pimSecureStorageHelper.getAuthorizationResponse() != null) {
-                    new PIMLoginManager(context, PIMSettingManager.getInstance().getPimOidcConfigration(), null).exchangeCodeAfterAppKillBeforeEmailVerify();
-                } else {
-                    PIMMigrator pimMigrator = new PIMMigrator(context);
+                    new PIMLoginManager(context, PIMSettingManager.getInstance().getPimOidcConfigration(), null).exchangeCodeOnEmailVerify();
+                } else if (pimMigrator.isMigrationRequired()) {
                     pimMigrator.migrateUSRToPIM();
                 }
                 PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);

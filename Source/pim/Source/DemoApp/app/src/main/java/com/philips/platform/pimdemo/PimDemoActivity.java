@@ -6,10 +6,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatSpinner;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 
 import com.philips.platform.uid.utils.UIDActivity;
 import com.philips.platform.uid.view.widget.Button;
@@ -27,20 +29,9 @@ public class PimDemoActivity extends UIDActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pim_demo);
         Button launchUApp = findViewById(R.id.launch);
-        launchUApp.setOnClickListener(v -> {
-            Intent intent = new Intent(PimDemoActivity.this, PIMDemoUAppActivity.class);
-            boolean isRedirect = false;
-            if(intent.hasExtra("RedirectOnAppKill")){
-                isRedirect = intent.getExtras().getBoolean("RedirectOnAppKill");
-            }
-            intent.putExtra("SelectedLib", selectLibreary.getSelectedItem().toString());
-            if (getIntent() != null && getIntent().getExtras() != null) {
-                intent.putExtra("RedirectOnAppKill", getIntent().getExtras().getBoolean("RedirectOnAppKill"));
-            }
-            startActivity(intent);
-        });
-
+        ProgressBar progressBar = findViewById(R.id.relaunchProgressBar);
         selectLibreary = findViewById(R.id.selectLibrary);
+
         List<String> libraryList = new ArrayList<>();
         libraryList.add("PIM");
         libraryList.add("USR");
@@ -58,10 +49,33 @@ public class PimDemoActivity extends UIDActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Log.i("SHASHI", "onNothingSelected");
             }
         });
 
+        launchUApp.setOnClickListener(v -> {
+            launchUApp();
+        });
+
+        if (getIntent().hasExtra("RELAUNCH_ON_EMAIL_VERIFY")) {
+            progressBar.setVisibility(View.VISIBLE);
+            selectLibreary.setVisibility(View.INVISIBLE);
+            launchUApp.setVisibility(View.INVISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    launchUApp();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    selectLibreary.setVisibility(View.VISIBLE);
+                    launchUApp.setVisibility(View.VISIBLE
+                    );
+                }
+            }, 5000);
+        }
     }
 
+    private void launchUApp() {
+        Intent intent = new Intent(PimDemoActivity.this, PIMDemoUAppActivity.class);
+        intent.putExtra("SelectedLib", selectLibreary.getSelectedItem().toString());
+        startActivity(intent);
+    }
 }
