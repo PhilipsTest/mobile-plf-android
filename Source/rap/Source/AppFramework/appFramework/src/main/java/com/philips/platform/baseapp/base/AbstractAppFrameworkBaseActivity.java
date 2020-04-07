@@ -88,7 +88,7 @@ public abstract class AbstractAppFrameworkBaseActivity extends  UIDActivity impl
         themeConfig.add(accentColorRange);
         UIDHelper.injectCalligraphyFonts();
         setTheme(themeResourceId);
-       // UIDHelper.init(themeConfig);
+        UIDHelper.init(themeConfig);
     }
 
     @Override

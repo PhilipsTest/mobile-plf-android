@@ -22,7 +22,6 @@ import net.openid.appauth.AuthorizationService;
 import net.openid.appauth.AuthorizationServiceConfiguration;
 import net.openid.appauth.ResponseTypeValues;
 import net.openid.appauth.TokenRequest;
-import net.openid.appauth.internal.Logger;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -116,8 +115,6 @@ public class PIMAuthManager {
                 .setAdditionalParameters(additionalParameter)
                 .setPrompt("none")
                 .build();
-
-
         return authRequest;
     }
 
