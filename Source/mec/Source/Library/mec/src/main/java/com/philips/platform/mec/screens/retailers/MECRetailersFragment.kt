@@ -27,6 +27,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecRetailersFragmentBinding
 import com.philips.platform.mec.utils.MECConstant
+import com.philips.platform.mec.utils.MECDataHolder
 import java.util.*
 
 
@@ -71,11 +72,13 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
 
         binding.retailerList = retailers
         binding.itemClickListener = this
-        tagRetailerList(retailers,product)
+        tagRetailerAndBlackListedRetailerList(retailers,product)
         return binding.root
     }
 
-    private fun tagRetailerList(retailers: ECSRetailerList, product :ECSProduct  ){
+    private fun tagRetailerAndBlackListedRetailerList(retailers: ECSRetailerList, product :ECSProduct  ){
+        // add retailer list if present
+        val map = HashMap<String, String>()
         if(retailers!=null && retailers.retailers!=null && retailers.retailers.size>0) {
             val mutableRetailersIterator = retailers.retailers.iterator()
             var retailerListString: String = ""
@@ -84,13 +87,22 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
             }
             retailerListString = retailerListString.substring(1, retailerListString.length - 1)
 
-            val map = HashMap<String, String>()
             map.put(MECAnalyticsConstant.retailerList, retailerListString)
             val productInfo: String = MECAnalytics.getProductInfo(product)
             map.put(MECAnalyticsConstant.mecProducts, productInfo)
-            MECAnalytics.trackMultipleActions(sendData, map)
 
         }
+        // add Blacklisted retailer list if present otherwise send empty string
+        var blackListedRetailerListString: String = ""
+        if(MECDataHolder.INSTANCE.blackListedRetailers!=null && MECDataHolder.INSTANCE.blackListedRetailers!!.size>0){
+            for(blackListedRetailer: String in MECDataHolder.INSTANCE.blackListedRetailers!!){
+                blackListedRetailerListString+= "|" +blackListedRetailer
+            }
+            blackListedRetailerListString = blackListedRetailerListString.substring(1, blackListedRetailerListString.length - 1)
+        }
+        map.put(MECAnalyticsConstant.blackListedRetailerList, blackListedRetailerListString)
+        MECAnalytics.trackMultipleActions(sendData, map)
+
     }
 
 }

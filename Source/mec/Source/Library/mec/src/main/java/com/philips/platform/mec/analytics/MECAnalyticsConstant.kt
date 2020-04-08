@@ -16,6 +16,7 @@ object MECAnalyticsConstant {
     val exitLinkNameKey              = "exitLinkName"
     val exitLinkParameter            = "15_global_%s_%s-app_%s-app"
     val retailerList                 = "retailerList"
+    val blackListedRetailerList      = "blackListedRetailerList"
     val retailerName                 = "retailerName"
     val stockStatus                  = "stockStatus"
     val available                    = "Available"
