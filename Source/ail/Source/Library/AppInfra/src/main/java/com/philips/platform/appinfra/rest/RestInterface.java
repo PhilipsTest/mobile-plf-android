@@ -21,7 +21,7 @@ public interface RestInterface extends Serializable {
      */
     RequestQueue getRequestQueue();
 
-    
+
     enum NetworkTypes {WIFI,MOBILE_DATA,NO_NETWORK}
 
     /**
