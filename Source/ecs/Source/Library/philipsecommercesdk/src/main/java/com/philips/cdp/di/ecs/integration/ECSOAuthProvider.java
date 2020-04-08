@@ -20,8 +20,8 @@ public abstract class ECSOAuthProvider {
 
     public abstract String getOAuthID();
 
-    public ClientType getClientType() {
-        return ClientType.JANRAIN;
+    public ClientID getClientID() {
+        return ClientID.JANRAIN;
     }
 
     public String getClientSecret() {
