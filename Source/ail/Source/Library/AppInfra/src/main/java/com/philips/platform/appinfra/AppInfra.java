@@ -27,7 +27,6 @@ import com.philips.platform.appinfra.logging.CloudLoggingInterface;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.appinfra.rest.RestManager;
-import com.philips.platform.appinfra.rest.request.RequestQueue;
 import com.philips.platform.appinfra.securestorage.SecureStorage;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
@@ -57,7 +56,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
     private AppIdentityInterface appIdentity;
     private InternationalizationInterface local;
     private ServiceDiscoveryInterface mServiceDiscoveryInterface;
-
     private TimeInterface mTimeSyncInterface;
     private AppConfigurationInterface configInterface;
     private RestInterface mRestInterface;
@@ -161,7 +159,6 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
     public void setConfigInterface(AppConfigurationInterface configInterface) {
         this.configInterface = configInterface;
     }
-
 
     @Override
     public RestInterface getRestClient() {
