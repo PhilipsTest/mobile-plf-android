@@ -323,6 +323,7 @@ class MECutility {
                 val sse = SecureStorageInterface.SecureStorageError()
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
+                MECLog.e("MEC:SecureStorageError",""+ sse.errorMessage)
 
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
