@@ -85,7 +85,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
             for (ecsRetailer in mutableRetailersIterator) {
                 retailerListString += "|" + ecsRetailer.name
             }
-            retailerListString = retailerListString.substring(1, retailerListString.length - 1)
+            retailerListString = retailerListString.substring(1, retailerListString.length )
 
             map.put(MECAnalyticsConstant.retailerList, retailerListString)
             val productInfo: String = MECAnalytics.getProductInfo(product)
@@ -98,7 +98,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
             for(blackListedRetailer: String in MECDataHolder.INSTANCE.blackListedRetailers!!){
                 blackListedRetailerListString+= "|" +blackListedRetailer
             }
-            blackListedRetailerListString = blackListedRetailerListString.substring(1, blackListedRetailerListString.length - 1)
+            blackListedRetailerListString = blackListedRetailerListString.substring(1, blackListedRetailerListString.length )
         }
         map.put(MECAnalyticsConstant.blackListedRetailerList, blackListedRetailerListString)
         MECAnalytics.trackMultipleActions(sendData, map)

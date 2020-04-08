@@ -44,7 +44,13 @@ object MECAnalyticsConstant {
     val productTabsClick             = "productTabsClick"
     val specs                        = "specs"
     val features                     = "features"
-
+    val newShippingAddressAdded      = "newShippingAddressAdded"
+    val paymentType                  = "paymentType"
+    val old                          = "old"
+    val new                          = "new"
+    val paymentFailure               = "paymentFailure"
+    val cancelPayment                = "cancelPayment"
+    val purchase                     = "purchase"
 
 
 

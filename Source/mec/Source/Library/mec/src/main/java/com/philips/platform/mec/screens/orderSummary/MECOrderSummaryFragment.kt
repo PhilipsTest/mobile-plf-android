@@ -63,7 +63,8 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
     private lateinit var voucherList: MutableList<AppliedVoucherEntity>
     private lateinit var paymentViewModel: PaymentViewModel
-    private lateinit var orderNumber: String
+    private lateinit var mECSOrderDetail :ECSOrderDetail
+
     override fun onItemClick(item: Any) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -73,9 +74,9 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     }
 
     private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
+        mECSOrderDetail=eCSOrderDetail
         MECLog.v("orderObserver ", "" + eCSOrderDetail.code)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
-        orderNumber = eCSOrderDetail.code
         paymentViewModel.makePayment(eCSOrderDetail, mecPayment.ecsPayment.billingAddress)
     }
 
@@ -83,7 +84,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         MECLog.v("mkPaymentObs ", "" + eCSPaymentProvider.worldpayUrl)
         val mECWebPaymentFragment = MECWebPaymentFragment()
         val bundle = Bundle()
-        bundle.putString(MECConstant.ORDER_NUMBER, orderNumber)
+        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mECSOrderDetail)
         bundle.putString(MECConstant.WEB_PAY_URL, eCSPaymentProvider.worldpayUrl)
         mECWebPaymentFragment.arguments = bundle
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)

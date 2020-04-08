@@ -16,6 +16,7 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.R
 import com.philips.platform.mec.databinding.MecPaymentConfirmationBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -33,6 +34,7 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
 
     private lateinit var binding: MecPaymentConfirmationBinding
     private var mecPaymentConfirmationService = MECPaymentConfirmationService()
+    private lateinit var mECSOrderDetail :ECSOrderDetail
 
     override fun getFragmentTag(): String {
         return "MECPaymentConfirmationFragment"
@@ -44,10 +46,11 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
         paymentStatus = arguments!!.getBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, false)
         binding.isPaymentCompleted = paymentStatus
         val arguments = arguments
-        if (arguments != null && arguments.containsKey(MECConstant.ORDER_NUMBER)) {
+        if (arguments != null && arguments.containsKey(MECConstant.MEC_ORDER_DETAIL)) {
             binding.tvMecYourOrderNumber.visibility=View.VISIBLE
             binding.tvOrderNumberVal.visibility=View.VISIBLE
-            binding.orderNumber = arguments?.getString(MECConstant.ORDER_NUMBER)
+            mECSOrderDetail = arguments?.getParcelable<ECSOrderDetail>(MECConstant.MEC_ORDER_DETAIL)!!
+            binding.orderNumber = mECSOrderDetail.code
 
         }
         val detailKeys = ArrayList<String>()

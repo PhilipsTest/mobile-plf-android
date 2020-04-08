@@ -12,6 +12,7 @@ package com.philips.platform.mec.analytics
 import android.app.Activity
 import android.util.Log
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.cdp.di.ecs.model.orders.Entries
 import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
@@ -146,12 +147,32 @@ class MECAnalytics {
 
 
         /*c
+       * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
+       * */
+        @JvmStatic
+        fun tagActionsWithOrderProductsInfo(actionMap :Map<String, String>, entryList : List<Entries>){
+            var productsMap = HashMap<String, String>()
+            if (entryList != null && entryList.size > 0) { //Entries
+                val mutableEntryIterator = entryList.iterator()
+                var productListString: String = ""
+                for(entry in mutableEntryIterator){
+                    productListString += "," + getProductInfo(entry.product)
+                }
+                productListString = productListString.substring(1, productListString.length - 1)
+                Log.v("MEC_LOG", "Order prodList : " + productListString)
+                productsMap.put(mecProducts, productListString);
+            }
+            productsMap.putAll(actionMap)
+            trackMultipleActions(sendData, productsMap)
+        }
+
+        /*c
         * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
         fun tagActionsWithCartProductsInfo(actionMap :Map<String, String>, ecsShoppingCart: ECSShoppingCart?){
             var productsMap = HashMap<String, String>()
-            val entryList= ecsShoppingCart?.entries
+            val entryList= ecsShoppingCart?.entries // ECSEntries
             if (entryList != null && entryList.size > 0) {
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
@@ -165,6 +186,9 @@ class MECAnalytics {
             productsMap.putAll(actionMap)
             trackMultipleActions(sendData, productsMap)
         }
+
+      
+
 
         /*c
        * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"

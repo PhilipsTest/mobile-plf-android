@@ -321,6 +321,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
 
     private void initMEC() {
+        ignorelistedRetailer.clear();
         ignorelistedRetailer.add("Frys.com");
         ignorelistedRetailer.add("Amazon - US");
         ignorelistedRetailer.add("BestBuy.com");

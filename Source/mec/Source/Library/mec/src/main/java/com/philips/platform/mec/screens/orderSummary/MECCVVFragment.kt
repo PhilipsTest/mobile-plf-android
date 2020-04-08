@@ -19,6 +19,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.old
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentFailure
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentType
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecCvcCodeFragmentBinding
 import com.philips.platform.mec.screens.payment.PaymentViewModel
@@ -31,7 +37,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
 
     private lateinit var binding: MecCvcCodeFragmentBinding
     private lateinit var paymentViewModel: PaymentViewModel
-    private lateinit var orderNumber :String
+    private lateinit var mEcsOrderDetail: ECSOrderDetail
 
     companion object {
         const val TAG:String="MECCVVFragment"
@@ -39,12 +45,16 @@ class MECCVVFragment: BottomSheetDialogFragment() {
 
     private val orderDetailObserver: Observer<ECSOrderDetail> = Observer(fun(ecsOrderDetail: ECSOrderDetail) {
         MECLog.d(javaClass.simpleName ,ecsOrderDetail.code)
-        orderNumber=ecsOrderDetail.getCode()
+        mEcsOrderDetail=ecsOrderDetail
         binding.root.mec_progress.visibility = View.GONE
         gotoPaymentConfirmationFragment()
     })
 
     private val errorObserver: Observer<MecError> = Observer(fun(mecError: MecError?) {
+        var actionMap = HashMap<String, String>()
+        actionMap.put(paymentType, old)
+        actionMap.put(specialEvents, paymentFailure)
+        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,mEcsOrderDetail.entries)
         MECutility.tagAndShowError(mecError, false, fragmentManager, context)
         showErrorDialog()
         binding.root.mec_progress.visibility = View.GONE
@@ -80,7 +90,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
     private fun gotoPaymentConfirmationFragment(){
         val mecPaymentConfirmationFragment : MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
         val bundle = Bundle()
-        bundle.putString(MECConstant.ORDER_NUMBER, orderNumber)
+        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mEcsOrderDetail)
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, java.lang.Boolean.TRUE)
         mecPaymentConfirmationFragment.arguments = bundle
         replaceFragment(mecPaymentConfirmationFragment, false)

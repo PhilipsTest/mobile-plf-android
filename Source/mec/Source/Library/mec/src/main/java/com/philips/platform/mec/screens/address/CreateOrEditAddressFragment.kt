@@ -26,6 +26,8 @@ import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.region.ECSRegion
 import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecAddressEditBinding
@@ -88,6 +90,7 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
 
     private val createAddressObserver: Observer<ECSAddress> = Observer { ecsAddress ->
         Log.d(this@CreateOrEditAddressFragment.javaClass.name, ecsAddress?.id)
+        mECSShoppingCart?.let { addressViewModel.tagCreateNewAddress(it) }
         addressViewModel.setDeliveryAddress(ecsAddress!!)
     }
 
@@ -175,8 +178,10 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
                 ecsAddress.phone2 = ecsAddress.phone1
 
                 if(ecsAddress.id !=null) { // This means address already existed , so need to create it again
+                    MECAnalytics.trackPage(MECAnalyticPageNames.editShippingAddressPage)
                     addressViewModel.updateAddress(ecsAddress)
                 }else{
+                    MECAnalytics.trackPage(MECAnalyticPageNames.createShippingAddressPage)
                     addressViewModel.createAddress(ecsAddress)
                 }
 
