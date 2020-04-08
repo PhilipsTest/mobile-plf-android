@@ -66,7 +66,6 @@ import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
-import com.philips.platform.uid.BuildConfig;
 import com.philips.platform.uid.thememanager.AccentRange;
 import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
@@ -126,7 +125,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
         uAppApplication = (PIMDemoUAppApplication) getApplicationContext();
         appInfraInterface = uAppApplication.getAppInfra();
-        //new PIMDemoUAppApplication((Boolean) chuckEnabled);
 
         btnGetUserDetail = findViewById(R.id.btn_GetUserDetail);
         btnGetUserDetail.setOnClickListener(this);
@@ -263,7 +261,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void viewInitlization(PIMDemoUAppDependencies pimDemoUAppDependencies, PIMDemoUAppSettings pimDemoUAppSettings) {
-
         if (getIntent().getExtras() != null && getIntent().getExtras().get("SelectedLib").equals("USR")) {
             isUSR = true;
             Log.i(TAG, "Selected Liberary : USR");
@@ -429,14 +426,14 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_MCS) {
-           // showToast("Not implemented");
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-                MECFlowConfigurator pMecFlowConfigurator = new MECFlowConfigurator();
-                pMecFlowConfigurator.setLandingView(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW);
-                launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, pMecFlowConfigurator, null);
-            } else {
-                showToast("User is not loged-in, Please login!");
-            }
+            showToast("Not implemented");
+//            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+//                MECFlowConfigurator pMecFlowConfigurator = new MECFlowConfigurator();
+//                pMecFlowConfigurator.setLandingView(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW);
+//                launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, pMecFlowConfigurator, null);
+//            } else {
+//                showToast("User is not loged-in, Please login!");
+//            }
         } else if (v == btnMigrator) {
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 userDataInterface.migrateUserToPIM(new UserMigrationListener() {

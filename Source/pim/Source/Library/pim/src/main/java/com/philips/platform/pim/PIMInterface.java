@@ -73,6 +73,7 @@ public class PIMInterface implements UappInterface {
         pimUserManager.init(context, uappDependencies.getAppInfra());
         PIMConfigManager pimConfigManager = new PIMConfigManager(pimUserManager);
         pimConfigManager.init(uappSettings.getContext(), uappDependencies.getAppInfra().getServiceDiscovery());
+
         PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "PIMInterface init called.");
     }
 
@@ -102,6 +103,7 @@ public class PIMInterface implements UappInterface {
      */
     @Override
     public void launch(UiLauncher uiLauncher, UappLaunchInput uappLaunchInput) {
+
         if (uiLauncher instanceof ActivityLauncher) {
             launchAsActivity(((ActivityLauncher) uiLauncher), (PIMLaunchInput) uappLaunchInput);
             PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Launch : Launched as activity");
@@ -134,6 +136,7 @@ public class PIMInterface implements UappInterface {
             intent.putExtra(PIM_KEY_ACTIVITY_THEME, uiLauncher.getUiKitTheme());
             intent.putExtra(PIM_KEY_CONSENTS, pimLaunchInput.getParameterToLaunch());
             PIMSettingManager.getInstance().setUserLoginInerface(pimLaunchInput.getUserLoginListener());
+
             uiLauncher.getActivityContext().startActivity(intent);
         }
     }
