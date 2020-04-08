@@ -44,7 +44,7 @@ enum class MECDataHolder {
     lateinit var voucherCode: String
     var maxCartCount: Int = 0
     lateinit var userDataInterface: UserDataInterface
-    var refreshToken: String = "UNKNOWN" //To avoid null check and Null pointer exception 
+    var refreshToken: String? = null //To avoid null check and Null pointer exception
     var blackListedRetailers: List<String>? = null
     lateinit var mecBazaarVoiceInput: MECBazaarVoiceInput
     private var privacyUrl: String? = null
@@ -119,12 +119,12 @@ enum class MECDataHolder {
         this.termsUrl = termsUrl
     }
 
-    fun isUserLoggedIn() : Boolean{
-       return userDataInterface != null && userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN
+    fun isUserLoggedIn(): Boolean {
+        return userDataInterface != null && userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN
     }
 
-    fun isInternetActive() : Boolean{
-        return  appinfra.restClient.isInternetReachable
+    fun isInternetActive(): Boolean {
+        return appinfra.restClient.isInternetReachable
     }
 
     fun initECSSDK() {
@@ -137,7 +137,7 @@ enum class MECDataHolder {
 
         var voucher: Boolean = true // if voucher key is not mentioned Appconfig then by default it will be considered True
         try {
-            voucher =appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
+            voucher = appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
         } catch (e: Exception) {
 
         }

@@ -179,11 +179,9 @@
             <View
                 android:id="@+id/price_button_view"
                 android:layout_width="match_parent"
-                android:layout_height="0.05dp"
                 android:layout_above="@+id/mecPriceLayout"
-                android:layout_marginTop="5dp"
-                android:rotationY="90"
-                android:background="@drawable/uid_shadow_level_two" />
+                android:layout_height="2dp"
+                android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
 
             <LinearLayout
                 android:id="@+id/mecPriceLayout"
@@ -194,7 +192,6 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
                 android:background="?attr/uidBottomSheetDefaultBackgroundColor"
-                android:backgroundTint="#FFFFFF"
                 android:orientation="horizontal">
 
                 <com.philips.platform.uid.view.widget.Label

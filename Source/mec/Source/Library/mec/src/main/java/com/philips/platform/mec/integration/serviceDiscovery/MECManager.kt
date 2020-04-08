@@ -15,6 +15,7 @@ import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.config.ECSConfig
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
+import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
@@ -27,15 +28,16 @@ import com.philips.platform.pif.DataInterface.MEC.listeners.MECHybrisAvailabilit
 * @since 2002.0
 * */
 
-class MECManager{
+class MECManager {
 
     // to be called by Proposition to check if Hybris available
-    fun ishybrisavailableWorker(mECHybrisAvailabilityListener : MECHybrisAvailabilityListener){
-        if(null!= MECDataHolder.INSTANCE.eCSServices) {
-            MECDataHolder.INSTANCE.eCSServices.configureECS(object : ECSCallback<Boolean,java.lang.Exception> {
+    fun ishybrisavailableWorker(mECHybrisAvailabilityListener: MECHybrisAvailabilityListener) {
+        if (null != MECDataHolder.INSTANCE.eCSServices) {
+            MECDataHolder.INSTANCE.eCSServices.configureECS(object : ECSCallback<Boolean, java.lang.Exception> {
                 override fun onResponse(result: Boolean) {
                     mECHybrisAvailabilityListener.isHybrisAvailable(result)
                 }
+
                 override fun onFailure(error: java.lang.Exception, ecsError: ECSError) {
                     mECHybrisAvailabilityListener.isHybrisAvailable(false)
                 }
@@ -46,10 +48,10 @@ class MECManager{
     var fetchCartListener: MECFetchCartListener? = null
 
     // to be called by Proposition getProductCartCount() API call to show cart count
-    fun getProductCartCountWorker(mECFetchCartListener: MECFetchCartListener){
+    fun getProductCartCountWorker(mECFetchCartListener: MECFetchCartListener) {
 
         fetchCartListener = mECFetchCartListener
-        if(null!= MECDataHolder.INSTANCE.eCSServices) {
+        if (null != MECDataHolder.INSTANCE.eCSServices) {
             MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : ECSCallback<ECSConfig, Exception> {
                 override fun onResponse(result: ECSConfig) {
                     if (result.isHybris && null != result!!.rootCategory) {
@@ -58,14 +60,16 @@ class MECManager{
                             override fun onUpdateCartCount(count: Int) {
                                 mECFetchCartListener.onGetCartCount(count)
                             }
+
                             override fun shouldShowCart(shouldShow: Boolean?) {
-                               // do nothing
+                                // do nothing
                             }
                         })
                     } else {
                         mECFetchCartListener.onFailure(Exception(ECSErrorEnum.ECSHybrisNotAvailable.localizedErrorString))
                     }
                 }
+
                 override fun onFailure(error: Exception, ecsError: ECSError) {
                     mECFetchCartListener.onFailure(error)
                 }
@@ -74,13 +78,13 @@ class MECManager{
     }
 
     //to be called by Catalog and Product Detail screen to show cart count
-    fun getShoppingCartData(mECCartUpdateListener: MECCartUpdateListener){
+    fun getShoppingCartData(mECCartUpdateListener: MECCartUpdateListener) {
         // handle both from catalog ...detail and proposition
         // Handle user logged in status ...for direct launch to landing view
 
-        if(MECutility.isExistingUser()){
+        if (MECutility.isExistingUser() && ECSConfiguration.INSTANCE.accessToken != null) {
             doCartCall(mECCartUpdateListener)
-        }else{
+        } else {
             doHybrisAuthCall(mECCartUpdateListener)
         }
 
