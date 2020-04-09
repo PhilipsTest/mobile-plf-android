@@ -333,7 +333,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
 
             mMecInterface.init(mecDependencies, mMecSettings);
-            mMECDataInterface = MECInterface.getMECDataInterface();
+            mMECDataInterface = mMecInterface.getMECDataInterface();
 
             try {
 

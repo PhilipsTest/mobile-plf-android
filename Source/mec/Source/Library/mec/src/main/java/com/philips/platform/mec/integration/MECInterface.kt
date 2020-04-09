@@ -26,8 +26,8 @@ import com.philips.platform.uappframework.uappinput.UappSettings
  * MECInterface is the public class for any proposition to consume MEC micro app. Its the starting initialization point.
  * @since 1.0.0
  */
- class MECInterface : UappInterface {
-    private var mMECSettings: MECSettings?=null
+class MECInterface : UappInterface {
+    private var mMECSettings: MECSettings? = null
     private var mUappDependencies: UappDependencies? = null
     private var mUserDataInterface: UserDataInterface? = null
     val MEC_NOTATION = "mec"
@@ -79,7 +79,7 @@ import com.philips.platform.uappframework.uappinput.UappSettings
                 if(MECDataHolder.INSTANCE.isUserLoggedIn()){
                     launchMEC(uiLauncher,mecLaunchInput)
                 }else{
-                    throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
+                    throw MECException(mMECSettings?.context?.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
                 }
             }else{
                 launchMEC(uiLauncher,mecLaunchInput)
@@ -87,30 +87,20 @@ import com.philips.platform.uappframework.uappinput.UappSettings
 
 
         }else{
-            throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
+            throw MECException(mMECSettings?.context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
 
 
-    private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput){
-        val mecHandler = this!!.mMECSettings?.let { MECHandler((mUappDependencies as MECDependencies?)!!, it, uiLauncher, mecLaunchInput) }
+    private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {
+        val mecHandler = this.mMECSettings?.let { MECHandler((mUappDependencies as MECDependencies?)!!, it, uiLauncher, mecLaunchInput) }
         mecHandler?.launchMEC()
     }
 
 
-    companion object {
-
-        val instance = MECDataProvider()
-        /**
-         * Get the Singleton MEC Data Interface to call MEC public API
-         *
-         * @since 2002.0
-         */
-
-        @JvmStatic
-        open fun getMECDataInterface(): MECDataInterface {
-            return instance
-        }
+    fun getMECDataInterface(): MECDataInterface {
+        MECDataProvider.context = mMECSettings?.context
+        return MECDataProvider
     }
 
 
