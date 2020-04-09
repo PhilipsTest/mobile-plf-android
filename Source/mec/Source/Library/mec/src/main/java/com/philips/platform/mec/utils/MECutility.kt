@@ -25,6 +25,8 @@ import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.screens.payment.MECPayment
@@ -319,11 +321,10 @@ class MECutility {
             val isEmailKEYExist = MECDataHolder.INSTANCE.appinfra.secureStorage.doesStorageKeyExist(HybrisAuth.KEY_MEC_AUTH_DATA)
             if(isEmailKEYExist) {
 
-                //TODO Handle the error
                 val sse = SecureStorageInterface.SecureStorageError()
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
-                MECLog.e("MEC:SecureStorageError",""+ sse.errorMessage)
+                tagAndLog(""+ sse.errorMessage)
 
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
@@ -333,6 +334,10 @@ class MECutility {
           return storedEmail == MECDataHolder.INSTANCE.getUserInfo().email
         }
 
+        fun tagAndLog(message:String){
+            MECLog.e(MECAnalyticsConstant.technicalError,message)
+            MECAnalytics.trackAction(MECAnalyticsConstant.sendData, MECAnalyticsConstant.technicalError, message)
+        }
 
     }
 
@@ -375,5 +380,7 @@ class MECutility {
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
     }
+
+
 
 }

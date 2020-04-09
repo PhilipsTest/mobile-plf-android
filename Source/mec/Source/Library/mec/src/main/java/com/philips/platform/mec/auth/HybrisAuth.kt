@@ -20,7 +20,6 @@ import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
 import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.utils.MECDataHolder
-import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants
 import com.philips.platform.pif.DataInterface.USR.enums.Error
@@ -102,7 +101,7 @@ class HybrisAuth {
                     var jsonString = getJsonStringOfMap(map)
                     MECDataHolder.INSTANCE.refreshToken = result?.refreshToken!!
                     MECDataHolder.INSTANCE.appinfra.secureStorage.storeValueForKey(KEY_MEC_AUTH_DATA,jsonString,sse)
-                    MECLog.e("MEC:SecureStorageError",""+sse.errorMessage)
+                    MECutility.tagAndLog(""+sse.errorMessage)
                     fragmentCallback.onResponse(result)
                 }
 
