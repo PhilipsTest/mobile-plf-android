@@ -30,6 +30,7 @@ class TabPagerAdapter(var fm: FragmentManager, var product: ECSProduct, var cont
 
         val bundle = Bundle()
         bundle.putString(MECConstant.MEC_PRODUCT_CTN,product.code)
+        bundle.putSerializable(MECConstant.MEC_PRODUCT,product)
 
 
 
