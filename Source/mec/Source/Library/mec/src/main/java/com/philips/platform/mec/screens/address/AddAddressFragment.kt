@@ -111,6 +111,11 @@ class AddAddressFragment : MecBaseFragment() {
         setTitleAndBackButtonVisibility(R.string.mec_address, true)
     }
 
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(createShippingAddressPage)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -201,7 +206,7 @@ class AddAddressFragment : MecBaseFragment() {
             }
         })
 
-        MECAnalytics.trackPage(createShippingAddressPage)
+
         return binding.root
     }
 

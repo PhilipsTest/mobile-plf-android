@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.webkit.CookieManager
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.paymentPage
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.cancelPayment
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.new
@@ -61,6 +62,7 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_payment, false)
         setCartIconVisibility(false)
+        MECAnalytics.trackPage(paymentPage)
     }
 
 

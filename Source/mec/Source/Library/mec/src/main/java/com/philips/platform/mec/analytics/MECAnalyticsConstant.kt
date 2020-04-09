@@ -51,6 +51,10 @@ object MECAnalyticsConstant {
     val paymentFailure               = "paymentFailure"
     val cancelPayment                = "cancelPayment"
     val purchase                     = "purchase"
+    val deliveryMethod               = "deliveryMethod"
+    val promotion                    = "promotion"
+    val transationID                 = "transationID"
+
 
 
 

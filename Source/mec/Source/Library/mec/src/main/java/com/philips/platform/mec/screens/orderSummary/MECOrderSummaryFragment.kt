@@ -28,14 +28,17 @@ import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderSummaryPage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderSummaryFragmentBinding
-import com.philips.platform.mec.screens.payment.MECPayment
-import com.philips.platform.mec.screens.payment.PaymentViewModel
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.catalog.MecPrivacyFragment
+import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.screens.payment.MECWebPaymentFragment
+import com.philips.platform.mec.screens.payment.PaymentViewModel
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummaryAdapter
 import com.philips.platform.mec.screens.shoppingCart.MECShoppingCartFragment
@@ -139,6 +142,11 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     override fun onResume() {
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_checkout, true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(orderSummaryPage)
     }
 
     override fun onDestroy() {

@@ -23,6 +23,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.shippingAddressSelectionPage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -157,7 +160,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
             isAddressPopup = true
             MECutility.showActionDialog(binding.mecBtnSetAddress.context, getString(R.string.mec_set_text), getString(R.string.mec_cancel), getString(R.string.mec_address), getString(R.string.mec_set_shipping_address_alert_message), fragmentManager!!, this)
         }
-
+        MECAnalytics.trackPage(shippingAddressSelectionPage)
         return binding.root
     }
 

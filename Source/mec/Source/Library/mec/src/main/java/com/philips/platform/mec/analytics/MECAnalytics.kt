@@ -9,18 +9,23 @@
  */
 package com.philips.platform.mec.analytics
 
-import android.app.Activity
 import android.util.Log
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.orders.Entries
 import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.country
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.currency
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.deliveryMethod
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.productListLayout
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.promotion
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.purchase
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
 import com.philips.platform.mec.integration.MECDependencies
 import com.philips.platform.mec.utils.MECDataHolder
 import java.util.*
@@ -76,18 +81,6 @@ class MECAnalytics {
         }
 
 
-        @JvmStatic
-        fun pauseCollectingLifecycleData() {
-            if (mAppTaggingInterface != null)
-               mAppTaggingInterface!!.pauseLifecycleInfo()
-        }
-
-
-        @JvmStatic
-        fun collectLifecycleData(activity: Activity) {
-            if (mAppTaggingInterface != null)
-                mAppTaggingInterface!!.collectLifecycleInfo(activity)
-        }
 
         private fun addCountryAndCurrency(map: Map<String, String>): Map<String, String> {
             //var newMap = map.toMap<String,>()
@@ -147,7 +140,7 @@ class MECAnalytics {
 
 
         /*c
-       * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
+       * This method is to tag passed Action(s) with order products details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
         fun tagActionsWithOrderProductsInfo(actionMap :Map<String, String>, entryList : List<Entries>){
@@ -190,7 +183,7 @@ class MECAnalytics {
       
 
 
-        /*c
+        /*
        * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
@@ -200,6 +193,26 @@ class MECAnalytics {
             protuctDetail += ";" + (if (product.stock != null && product.stock.stockLevel != null) product.stock.stockLevel else 0)
             protuctDetail += ";" + (if (product.discountPrice != null) product.discountPrice.value else 0)
             return protuctDetail
+        }
+
+
+        /*
+        * This method will tag a successful purchase order details
+        * */
+        @JvmStatic
+        fun tagPurchaseOrder(mECSOrderDetail : ECSOrderDetail){
+            var orderMap = HashMap<String, String>()
+            orderMap.put(specialEvents,purchase)
+            orderMap.put(transationID,mECSOrderDetail.code)
+            orderMap.put(deliveryMethod,mECSOrderDetail.deliveryMode.name)
+            var orderPromotionList :String=""
+            for (appliedOrderPromotion in mECSOrderDetail.appliedOrderPromotions){
+                orderPromotionList+="|" +appliedOrderPromotion.promotion.code // | separated promotion(s)
+            }
+            orderPromotionList=orderPromotionList.substring(1,orderPromotionList.length) // remove first | from string
+            orderMap.put(promotion,orderPromotionList)
+
+            tagActionsWithOrderProductsInfo(orderMap,mECSOrderDetail.entries)
         }
 
         fun setCurrencyString(localeString: String) {

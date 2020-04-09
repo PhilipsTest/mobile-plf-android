@@ -25,6 +25,9 @@ import com.philips.cdp.di.ecs.model.payment.CardType
 import com.philips.cdp.di.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.databinding.MecDeliveryBinding
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.deliveryDetailPage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -252,6 +255,11 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_delivery, true)
         setCartIconVisibility(false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(deliveryDetailPage)
     }
 
     override fun onStop() {

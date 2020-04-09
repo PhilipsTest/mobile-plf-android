@@ -19,6 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.cvvPage
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.old
@@ -76,7 +78,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         paymentViewModel =  ViewModelProviders.of(this).get(PaymentViewModel::class.java)
         paymentViewModel.ecsOrderDetail.observe(this,orderDetailObserver)
         paymentViewModel.mecError.observe(this,errorObserver)
-
+        MECAnalytics.trackPage(cvvPage)
         return binding.root
     }
 
