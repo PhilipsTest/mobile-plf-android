@@ -81,7 +81,6 @@ class MECAnalytics {
         }
 
 
-
         private fun addCountryAndCurrency(map: Map<String, String>): Map<String, String> {
             //var newMap = map.toMap<String,>()
             var newMap = HashMap(map)
@@ -143,12 +142,12 @@ class MECAnalytics {
        * This method is to tag passed Action(s) with order products details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
-        fun tagActionsWithOrderProductsInfo(actionMap :Map<String, String>, entryList : List<Entries>){
+        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<Entries>) {
             var productsMap = HashMap<String, String>()
             if (entryList != null && entryList.size > 0) { //Entries
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
-                for(entry in mutableEntryIterator){
+                for (entry in mutableEntryIterator) {
                     productListString += "," + getProductInfo(entry.product)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
@@ -163,13 +162,13 @@ class MECAnalytics {
         * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
-        fun tagActionsWithCartProductsInfo(actionMap :Map<String, String>, ecsShoppingCart: ECSShoppingCart?){
+        fun tagActionsWithCartProductsInfo(actionMap: Map<String, String>, ecsShoppingCart: ECSShoppingCart?) {
             var productsMap = HashMap<String, String>()
-            val entryList= ecsShoppingCart?.entries // ECSEntries
+            val entryList = ecsShoppingCart?.entries // ECSEntries
             if (entryList != null && entryList.size > 0) {
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
-                for(entry in mutableEntryIterator){
+                for (entry in mutableEntryIterator) {
                     productListString += "," + getProductInfo(entry.product)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
@@ -179,8 +178,6 @@ class MECAnalytics {
             productsMap.putAll(actionMap)
             trackMultipleActions(sendData, productsMap)
         }
-
-      
 
 
         /*
@@ -200,19 +197,19 @@ class MECAnalytics {
         * This method will tag a successful purchase order details
         * */
         @JvmStatic
-        fun tagPurchaseOrder(mECSOrderDetail : ECSOrderDetail){
+        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail) {
             var orderMap = HashMap<String, String>()
-            orderMap.put(specialEvents,purchase)
-            orderMap.put(transationID,mECSOrderDetail.code)
-            orderMap.put(deliveryMethod,mECSOrderDetail.deliveryMode.name)
-            var orderPromotionList :String=""
-            for (appliedOrderPromotion in mECSOrderDetail.appliedOrderPromotions){
-                orderPromotionList+="|" +appliedOrderPromotion.promotion.code // | separated promotion(s)
+            orderMap.put(specialEvents, purchase)
+            orderMap.put(transationID, mECSOrderDetail.code)
+            orderMap.put(deliveryMethod, mECSOrderDetail.deliveryMode.name)
+            var orderPromotionList: String = ""
+            for (appliedOrderPromotion in mECSOrderDetail.appliedOrderPromotions) {
+                orderPromotionList += "|" + appliedOrderPromotion.promotion.code // | separated promotion(s)
             }
-            orderPromotionList=orderPromotionList.substring(1,orderPromotionList.length) // remove first | from string
-            orderMap.put(promotion,orderPromotionList)
+            orderPromotionList = orderPromotionList.substring(1, orderPromotionList.length) // remove first | from string
+            orderMap.put(promotion, orderPromotionList)
 
-            tagActionsWithOrderProductsInfo(orderMap,mECSOrderDetail.entries)
+            tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
         }
 
         fun setCurrencyString(localeString: String) {
