@@ -17,9 +17,11 @@ import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.integration.ECSOAuthProvider
 import com.philips.cdp.di.ecs.integration.GrantType
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
+import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
+import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants
 import com.philips.platform.pif.DataInterface.USR.enums.Error
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener
@@ -105,8 +107,13 @@ class HybrisAuth {
                 }
 
                 override fun onFailure(error: Exception?, ecsError: ECSError?) {
-                    MECLog.d(TAG, "hybrisAuthentication onFailure " + ecsError + "and exception :" + error)
-                    refreshJainrain(fragmentCallback);
+                    MECLog.d(TAG, "hybrisAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
+                    if (MECutility.isAuthError(ecsError)) {
+                        refreshJainrain(fragmentCallback);
+                    } else {
+                        MECLog.d(TAG, "hybrisAuthentication : onFailure : not OAuthError")
+                        fragmentCallback.onFailure(error, ecsError)
+                    }
                 }
             }
 
@@ -128,8 +135,14 @@ class HybrisAuth {
                 }
 
                 override fun onFailure(error: Exception?, ecsError: ECSError?) {
-                    MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure :" + error!!.message + "EcsError" + ecsError)
-                    refreshJainrain(fragmentCallback);
+                    MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
+                    if (MECutility.isAuthError(ecsError)) {
+                        refreshJainrain(fragmentCallback);
+                    } else {
+                        MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : not OAuthError")
+                        ECSConfiguration.INSTANCE.setAuthToken(null)
+                        fragmentCallback.onFailure(error, ecsError)
+                    }
                 }
             }
             MECDataHolder.INSTANCE.eCSServices.hybrisRefreshOAuth(getRefreshOAuthInput(), hybrisCallback)
