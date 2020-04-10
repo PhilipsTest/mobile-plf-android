@@ -18,7 +18,7 @@ import com.philips.platform.appinfra.logging.LoggingInterface;
 public class ApplicationLifeCycleHandler implements Application.ActivityLifecycleCallbacks, ComponentCallbacks2 {
 
     private static final String TAG = ApplicationLifeCycleHandler.class.getSimpleName();
-    public static boolean isInBackground = true;
+
 
     private AppInfraInterface mAppInfra;
     private AppTaggingInterface mAppTaggingInterface;
@@ -46,12 +46,11 @@ public class ApplicationLifeCycleHandler implements Application.ActivityLifecycl
     @Override
     public void onActivityResumed(Activity activity) {
 
-        if (isInBackground) {
+
 
             ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG,
                     AppInfraLogEventID.AI_TAGGING,"ApplicationLifeCycleHandler Resumed");
-            isInBackground = false;
-        }
+
     }
 
     @Override
@@ -102,8 +101,7 @@ public class ApplicationLifeCycleHandler implements Application.ActivityLifecycl
             ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG,
                     AppInfraLogEventID.AI_TAGGING,"ApplicationLifeCycleHandler Background");
 
-
-            isInBackground = true;
+            
         }
     }
 }

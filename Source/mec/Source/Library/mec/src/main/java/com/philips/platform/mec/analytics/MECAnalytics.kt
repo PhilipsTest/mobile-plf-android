@@ -49,7 +49,6 @@ class MECAnalytics {
             } catch (e: Exception) {
 
             }
-            // currencyCode = Currency.getInstance(countryCode).currencyCode
         }
 
         @JvmStatic

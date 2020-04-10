@@ -39,7 +39,7 @@ public class ApplicationLifeCycleHandlerTest {
     public void setUp() throws Exception {
         initMocks(this);
 
-        ApplicationLifeCycleHandler.isInBackground = true;
+
         applicationLifeCycleHandler = new ApplicationLifeCycleHandler(appInfraMock);
     }
 

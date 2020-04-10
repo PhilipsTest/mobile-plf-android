@@ -88,7 +88,7 @@ object MECConstant {
     val HTTP_REDIRECT = 307
     val WEB_PAY_URL = "webpay_url"
     val ORDER_NUMBER = "order_number"
-    val MEC_ORDER_DETAIL = "MCS_order_detail"
+    val MEC_ORDER_DETAIL = "MEC_order_detail"
     val PAYMENT_SUCCESS_STATUS = "payment_success_status"
     val PAYMENT_CANCELLED = "PAYMENT_CANCELLED"
 
