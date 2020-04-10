@@ -203,11 +203,22 @@ class MECAnalytics {
             orderMap.put(transationID, mECSOrderDetail.code)
             orderMap.put(deliveryMethod, mECSOrderDetail.deliveryMode.name)
             var orderPromotionList: String = ""
-            for (appliedOrderPromotion in mECSOrderDetail.appliedOrderPromotions) {
-                orderPromotionList += "|" + appliedOrderPromotion.promotion.code // | separated promotion(s)
+            if(null!=mECSOrderDetail.appliedOrderPromotions && mECSOrderDetail.appliedOrderPromotions.size>0) {
+                for (appliedOrderPromotion in mECSOrderDetail.appliedOrderPromotions) {
+                    orderPromotionList += "|" + appliedOrderPromotion.promotion.code // | separated promotion(s)
+                }
+                orderPromotionList = orderPromotionList.substring(1, orderPromotionList.length) // remove first "|" from string
             }
-            orderPromotionList = orderPromotionList.substring(1, orderPromotionList.length) // remove first | from string
             orderMap.put(promotion, orderPromotionList)
+
+            var voucherList: String = ""
+            if(null!=mECSOrderDetail.appliedVouchers && mECSOrderDetail.appliedVouchers.size>0) {
+                for (voucher in mECSOrderDetail.appliedVouchers) {
+                    voucherList += "|" + voucher.voucherCode // "|" separated promotion(s)
+                }
+                voucherList = voucherList.substring(1, voucherList.length) // remove first "|" from string
+            }
+            orderMap.put(promotion, voucherList)
 
             tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
         }
