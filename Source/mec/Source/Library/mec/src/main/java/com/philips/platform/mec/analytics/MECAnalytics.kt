@@ -28,6 +28,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
 import com.philips.platform.mec.integration.MECDependencies
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -80,8 +81,20 @@ class MECAnalytics {
         }
 
 
+        /*
+        * This API is used To track Technical and User error and also to log details at Error level
+        * */
+        @JvmStatic
+        fun trackTechnicalOrUserError( errorType: String, value: Any){
+            val errorObject = value as String
+            MECLog.e(errorType, javaClass.simpleName +" : "+ errorObject)
+            var map = HashMap<String, String>()
+            map.put(errorType,errorObject) // errorType can be technicalError or userError
+            trackMultipleActions(sendData,map)
+        }
+
+
         private fun addCountryAndCurrency(map: Map<String, String>): Map<String, String> {
-            //var newMap = map.toMap<String,>()
             var newMap = HashMap(map)
             newMap.put(country, countryCode)
             newMap.put(currency, currencyCode)

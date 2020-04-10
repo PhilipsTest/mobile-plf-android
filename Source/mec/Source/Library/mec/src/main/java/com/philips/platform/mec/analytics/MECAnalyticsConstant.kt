@@ -32,6 +32,7 @@ object MECAnalyticsConstant {
     val retailer                     = "Retailer"
     val mecProducts                  = "&&products"
     val technicalError               = "technicalError"
+    val userError                    = "userError"
     val sendData                     = "sendData"
     val scAdd                        = "scAdd"
     val scView                       = "scView"
