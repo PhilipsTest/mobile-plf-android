@@ -35,7 +35,7 @@ public interface MECDataInterface {
      * This API is called to explicitly check if Hybris server is available .
      *
      *  @param mECHybrisAvailabilityListener the Hybris server availability listener for product count callback
-     *  @throws MECException : It can throw user not logged in or no internet exception
+     *  @throws MECException : It can throw  no internet exception
      *  @since 2002.0
      */
     void isHybrisAvailable(  MECHybrisAvailabilityListener mECHybrisAvailabilityListener) throws MECException;
