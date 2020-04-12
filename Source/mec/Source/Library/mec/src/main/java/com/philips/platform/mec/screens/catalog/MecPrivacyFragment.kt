@@ -24,6 +24,7 @@ import android.widget.FrameLayout
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkNameKey
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
@@ -86,7 +87,9 @@ class MecPrivacyFragment : MecBaseFragment() {
             override fun onPageCommitVisible(view: WebView?, url: String) {
                 var tagUrl = url
                     tagUrl = getPhilipsFormattedUrl(url)
-                MECAnalytics.trackAction(MECAnalyticsConstant.sendData, MECAnalyticsConstant.exitLinkNameKey, tagUrl)
+                var map = HashMap<String, String>()
+                map.put(exitLinkNameKey, tagUrl)
+                MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
                 super.onPageCommitVisible(view, url)
             }
 

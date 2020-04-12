@@ -25,6 +25,7 @@ import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.retailerListPage
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkNameKey
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
@@ -93,7 +94,9 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                 if (isPhilipsShop) {
                     tagUrl = getPhilipsFormattedUrl(url)
                 }
-                MECAnalytics.trackAction(MECAnalyticsConstant.sendData, MECAnalyticsConstant.exitLinkNameKey, tagUrl)
+                var map = HashMap<String, String>()
+                map.put(exitLinkNameKey, tagUrl)
+                MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
                 super.onPageCommitVisible(view, url)
             }
 

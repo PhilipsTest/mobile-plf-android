@@ -55,6 +55,8 @@ object MECAnalyticsConstant {
     val deliveryMethod               = "deliveryMethod"
     val promotion                    = "promotion"
     val transationID                 = "transationID"
+    val voucherCodeStatus            = "voucherCodeStatus"
+    val voucherCodeRedeemed          = "voucherCodeRedeemed"
 
 
 

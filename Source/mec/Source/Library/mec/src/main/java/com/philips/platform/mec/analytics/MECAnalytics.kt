@@ -26,6 +26,8 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.purchase
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRedeemed
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeStatus
 import com.philips.platform.mec.integration.MECDependencies
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
@@ -118,7 +120,9 @@ class MECAnalytics {
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 Log.v("MEC_LOG", "prodList : " + productListString)
-                trackAction(sendData, mecProducts, productListString)
+                var map = HashMap<String, String>()
+                map.put(mecProducts, productListString)
+                trackMultipleActions(sendData,map )
             }
         }
 
@@ -221,6 +225,7 @@ class MECAnalytics {
                 }
                 orderPromotionList = orderPromotionList.substring(1, orderPromotionList.length) // remove first "|" from string
             }
+            if(orderPromotionList.isNotBlank())
             orderMap.put(promotion, orderPromotionList)
 
             var voucherList: String = ""
@@ -230,7 +235,10 @@ class MECAnalytics {
                 }
                 voucherList = voucherList.substring(1, voucherList.length) // remove first "|" from string
             }
-            orderMap.put(promotion, voucherList)
+            if(voucherList.isNotBlank()) {
+                orderMap.put(voucherCodeStatus, voucherCodeRedeemed)
+                orderMap.put(promotion, voucherList)
+            }
 
             tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
         }
