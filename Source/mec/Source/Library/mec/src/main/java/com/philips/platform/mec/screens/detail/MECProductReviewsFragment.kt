@@ -68,9 +68,11 @@ class MECProductReviewsFragment : MecBaseFragment() {
 
         totalReview = reviewResponse?.totalResults ?: 0
         for (review in reviews!!) {
-            val nick = if (review.userNickname != null) review.userNickname else getString(R.string.mec_anonymous)
+            val nick = review.userNickname ?: getString(R.string.mec_anonymous)
+            val title = review.title ?: ""
+            val reviewText = review.reviewText ?: ""
 
-            mecReviews.add(MECReview(review.title, review.reviewText, review.rating.toString(), nick, review.lastModificationDate, ecsProductDetailViewModel.getValueFor("Pros", review), ecsProductDetailViewModel.getValueFor("Cons", review), ecsProductDetailViewModel.getValueForUseDuration(review)))
+            mecReviews.add(MECReview(title, reviewText, review.rating.toString(), nick, review.lastModificationDate, ecsProductDetailViewModel.getValueFor("Pros", review), ecsProductDetailViewModel.getValueFor("Cons", review), ecsProductDetailViewModel.getValueForUseDuration(review)))
 
         }
 
