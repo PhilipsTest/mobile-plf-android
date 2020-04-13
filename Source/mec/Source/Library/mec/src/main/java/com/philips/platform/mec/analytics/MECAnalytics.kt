@@ -25,6 +25,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.promotion
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.purchase
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRedeemed
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeStatus
@@ -83,15 +84,31 @@ class MECAnalytics {
         }
 
 
+
+
         /*
-        * This API is used To track Technical and User error and also to log details at Error level
+        * This API is used To tag and log Technical error at Error level
+        * Tag format-    <Component_Code>:<Error_Category>:<server_name>:<ErrorMessage><Error_Code>
         * */
         @JvmStatic
         fun trackTechnicalOrUserError( errorType: String, value: Any){
             val errorObject = value as String
             MECLog.e(errorType, javaClass.simpleName +" : "+ errorObject)
             var map = HashMap<String, String>()
-            map.put(errorType,errorObject) // errorType can be technicalError or userError
+            map.put(errorType,errorObject) // errorType will be technicalError
+            trackMultipleActions(sendData,map)
+        }
+
+        /*
+       * This API is used To tag and log User error at Error level
+       * Tag format-    <Component_Code>:<Error_Category>:<ErrorMessage>
+       * */
+        @JvmStatic
+        fun trackUserError( errorType: String, value: Any){
+            val errorObject = value as String
+            MECLog.e(errorType, javaClass.simpleName +" : "+ errorObject)
+            var map = HashMap<String, String>()
+            map.put(errorType,errorObject) // errorType will be userError
             trackMultipleActions(sendData,map)
         }
 
@@ -225,8 +242,9 @@ class MECAnalytics {
                 }
                 orderPromotionList = orderPromotionList.substring(1, orderPromotionList.length) // remove first "|" from string
             }
-            if(orderPromotionList.isNotBlank())
-            orderMap.put(promotion, orderPromotionList)
+            if(orderPromotionList.isNotBlank()) {
+                orderMap.put(promotion, orderPromotionList)
+            }s
 
             var voucherList: String = ""
             if(null!=mECSOrderDetail.appliedVouchers && mECSOrderDetail.appliedVouchers.size>0) {
@@ -250,7 +268,7 @@ class MECAnalytics {
                 val currency = Currency.getInstance(locale)
                 currencyCode = currency.currencyCode
             } catch (e: Exception) {
-
+                trackTechnicalOrUserError(technicalError, e.localizedMessage)
             }
 
         }

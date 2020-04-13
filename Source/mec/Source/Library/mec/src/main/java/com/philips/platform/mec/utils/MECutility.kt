@@ -250,6 +250,8 @@ class MECutility {
             return null
         }
 
+
+
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context?) {
             var errorMessage: String = ""
@@ -265,6 +267,8 @@ class MECutility {
                         //
                         errorString += com.philips.platform.mec.analytics.MECAnalyticServer.prx + ":"
                     }
+
+                    errorString+=mecError.mECRequestType.toString() // Error_Category
 
                     if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
                         errorMessage = Acontext!!.getString(R.string.mec_time_out_error)

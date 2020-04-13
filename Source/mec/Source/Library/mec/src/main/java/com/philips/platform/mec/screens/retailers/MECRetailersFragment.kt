@@ -93,14 +93,18 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
 
         }
         // add Blacklisted retailer list if present otherwise send empty string
-        var blackListedRetailerListString: String = ""
+        var blackListedRetailerListString: String? = null
         if(MECDataHolder.INSTANCE.blackListedRetailers!=null && MECDataHolder.INSTANCE.blackListedRetailers!!.size>0){
             for(blackListedRetailer: String in MECDataHolder.INSTANCE.blackListedRetailers!!){
                 blackListedRetailerListString+= "|" +blackListedRetailer
             }
-            blackListedRetailerListString = blackListedRetailerListString.substring(1, blackListedRetailerListString.length )
+            if (blackListedRetailerListString != null) {
+                blackListedRetailerListString = blackListedRetailerListString.substring(1, blackListedRetailerListString.length )
+            }
+            blackListedRetailerListString?.let { map.put(MECAnalyticsConstant.blackListedRetailerList, it) }
         }
-        map.put(MECAnalyticsConstant.blackListedRetailerList, blackListedRetailerListString)
+
+
         MECAnalytics.trackMultipleActions(sendData, map)
 
     }

@@ -2,7 +2,8 @@ package com.philips.platform.mec.screens.address
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.Toast
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.userError
 import com.philips.platform.uid.view.widget.InputValidationLayout
 
 class MECInputValidationLayout(context: Context,attributes: AttributeSet) : InputValidationLayout(context,attributes){
@@ -11,7 +12,9 @@ class MECInputValidationLayout(context: Context,attributes: AttributeSet) : Inpu
     override fun showError() {
         super.showError()
         val error = errorLabelView.text
-        //TODO tag the error here
-        Toast.makeText(context,error,Toast.LENGTH_SHORT).show()
+
+        var errorString: String = com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME + ":"
+        errorString += error.toString()
+        MECAnalytics.trackUserError(userError,errorString)
     }
 }
