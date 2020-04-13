@@ -698,9 +698,11 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     @Override
     public View getBannerViewProductList() {
         if (isBannerEnabled) {
-            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View v = inflater.inflate(R.layout.banner_view, null);
-            return v;
+            if(getActivity()!=null) {
+                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View v = inflater.inflate(R.layout.banner_view, null);
+                return v;
+            }
         }
         return null;
 
