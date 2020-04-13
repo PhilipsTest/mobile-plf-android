@@ -33,17 +33,6 @@ import com.philips.cdp.di.iap.integration.IAPInterface;
 import com.philips.cdp.di.iap.integration.IAPLaunchInput;
 import com.philips.cdp.di.iap.integration.IAPListener;
 import com.philips.cdp.di.iap.integration.IAPSettings;
-import com.philips.platform.mec.integration.MECBannerConfigurator;
-import com.philips.platform.mec.integration.MECBazaarVoiceInput;
-import com.philips.platform.mec.integration.MECLaunchException;
-import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener;
-import com.philips.platform.mec.integration.MECDependencies;
-import com.philips.platform.mec.integration.MECFlowConfigurator;
-import com.philips.platform.mec.integration.MECInterface;
-import com.philips.platform.mec.integration.MECLaunchInput;
-import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener;
-import com.philips.platform.mec.integration.MECSettings;
-import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment;
 import com.philips.cdp.registration.configuration.RegistrationLaunchMode;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;
@@ -54,6 +43,17 @@ import com.philips.cdp.registration.ui.utils.URLaunchInput;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
+import com.philips.platform.mec.integration.MECBannerConfigurator;
+import com.philips.platform.mec.integration.MECBazaarVoiceInput;
+import com.philips.platform.mec.integration.MECDependencies;
+import com.philips.platform.mec.integration.MECFlowConfigurator;
+import com.philips.platform.mec.integration.MECInterface;
+import com.philips.platform.mec.integration.MECLaunchInput;
+import com.philips.platform.mec.integration.MECSettings;
+import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment;
+import com.philips.platform.pif.DataInterface.MEC.MECException;
+import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener;
+import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterfaceException;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
@@ -540,7 +540,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             mMecInterface.launch(new ActivityLauncher
                             (mContext, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_PORTRAIT, null, 0, null),
                     mMecLaunchInput);
-        } catch (MECLaunchException e) {
+        } catch (MECException e) {
             e.printStackTrace();
         }
 

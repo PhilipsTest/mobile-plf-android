@@ -41,7 +41,6 @@ import com.philips.platform.mec.integration.MECBazaarVoiceInput;
 import com.philips.platform.mec.integration.MECDependencies;
 import com.philips.platform.mec.integration.MECFlowConfigurator;
 import com.philips.platform.mec.integration.MECInterface;
-import com.philips.platform.mec.integration.MECLaunchException;
 import com.philips.platform.mec.integration.MECLaunchInput;
 import com.philips.platform.mec.integration.MECSettings;
 import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment;
@@ -334,7 +333,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
 
             mMecInterface.init(mecDependencies, mMecSettings);
-            mMECDataInterface = MECInterface.getMECDataInterface();
+            mMECDataInterface = mMecInterface.getMECDataInterface();
 
             try {
 
@@ -413,7 +412,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
         } catch (RuntimeException exception) {
             Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-        } catch (MECLaunchException e) {
+        } catch (MECException e) {
             e.printStackTrace();
             e.getErrorCode();
             Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
@@ -430,7 +429,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         try {
             mMecInterface.launch(new FragmentLauncher(getActivity(), R.id.container_base_demo, this),
                     mMecLaunchInput);
-        } catch (MECLaunchException e) {
+        } catch (MECException e) {
             e.printStackTrace();
 
             Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();

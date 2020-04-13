@@ -11,6 +11,7 @@
 package com.philips.platform.mec.integration
 
 
+import android.content.Context
 import com.philips.platform.mec.R
 import com.philips.platform.mec.integration.serviceDiscovery.MECManager
 import com.philips.platform.mec.utils.MECDataHolder
@@ -22,9 +23,9 @@ import com.philips.platform.pif.DataInterface.MEC.listeners.MECHybrisAvailabilit
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MECDataProvider : MECDataInterface {
+object MECDataProvider : MECDataInterface {
 
-
+    internal var context: Context? = null
 
     override fun addCartUpdateListener(mecCartUpdateListener: MECCartUpdateListener?) {
         MECDataHolder.INSTANCE.mecCartUpdateListener=mecCartUpdateListener
@@ -48,10 +49,10 @@ class MECDataProvider : MECDataInterface {
                     mecManager.getProductCartCountWorker(mECFetchCartListener)
                 }
             }else{
-                throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
+                throw MECException(context?.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
             }
         }else{
-            throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
+            throw MECException(context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
 
