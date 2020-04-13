@@ -260,12 +260,6 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
             binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
 
-            binding.mecVat.visibility = View.GONE
-            binding.mecTotalPrice.visibility = View.GONE
-            binding.mecTotalProducts.visibility = View.GONE
-            binding.mecContinueShoppingBtn.visibility = View.GONE
-            binding.mecContinueCheckoutBtn.visibility  = View.GONE
-
             swipeController = MECSwipeController(binding.mecCartSummaryRecyclerView.context, object : SwipeControllerActions() {
                 override fun onRightClicked(position: Int) {
                     itemPosition = position
