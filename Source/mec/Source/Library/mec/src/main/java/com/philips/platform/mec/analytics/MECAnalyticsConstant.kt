@@ -58,6 +58,8 @@ object MECAnalyticsConstant {
     val transationID                 = "transationID"
     val voucherCodeStatus            = "voucherCodeStatus"
     val voucherCodeRedeemed          = "voucherCodeRedeemed"
+    val inappnotification            = "inappnotification"
+    val inappnotificationresponse    = "inappnotificationresponse"
 
 
 

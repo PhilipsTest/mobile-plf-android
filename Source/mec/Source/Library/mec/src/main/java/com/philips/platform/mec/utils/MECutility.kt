@@ -26,6 +26,8 @@ import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotification
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotificationresponse
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.auth.HybrisAuth
@@ -58,7 +60,13 @@ class MECutility {
 
         internal fun showDLSDialog(context: Context, pButtonText: String, pErrorString: String, pErrorDescription: String, pFragmentManager: FragmentManager) {
             val builder = AlertDialogFragment.Builder(context)
-                    .setMessage(pErrorDescription).setPositiveButton(pButtonText) { dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager) }
+                    .setMessage(pErrorDescription).setPositiveButton(pButtonText) {
+                        var actionMap= HashMap<String, String>()
+                        actionMap.put(inappnotification,pErrorDescription)
+                        actionMap.put(inappnotificationresponse,"Ok") // only English response
+                        MECAnalytics.trackMultipleActions(sendData,actionMap)
+                        dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
+                    }
 
             builder.setTitle(pErrorString)
             if (alertDialogFragment != null) {
@@ -88,10 +96,13 @@ class MECutility {
         fun showActionDialog(context: Context, positiveBtnText: String, negativeBtnText: String?,
                              pErrorString: String, descriptionText: String, pFragmentManager: FragmentManager, alertListener: AlertListener) {
             val builder = AlertDialogFragment.Builder(context)
+            var actionMap= HashMap<String, String>()
+
             builder.setDialogType(DialogConstants.TYPE_ALERT)
 
             if (!TextUtils.isEmpty(descriptionText)) {
                 builder.setMessage(descriptionText)
+                actionMap.put(inappnotification,descriptionText)
             }
 
             if (!TextUtils.isEmpty(pErrorString)) {
@@ -99,12 +110,16 @@ class MECutility {
             }
             builder.setPositiveButton(positiveBtnText
             ) {
+                actionMap.put(inappnotificationresponse,positiveBtnText)
+                MECAnalytics.trackMultipleActions(sendData,actionMap)
                 alertListener.onPositiveBtnClick()
                 dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
             }
 
             if(negativeBtnText!=null) {
                 builder.setNegativeButton(negativeBtnText) {
+                    actionMap.put(inappnotificationresponse,negativeBtnText)
+                    MECAnalytics.trackMultipleActions(sendData,actionMap)
                     alertListener.onNegativeBtnClick()
                     dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
                 }
