@@ -183,6 +183,11 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         }
         if (productsAdapter!!.itemCount > 0) {
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
+            binding.mecVat.visibility = View.VISIBLE
+            binding.mecTotalPrice.visibility = View.VISIBLE
+            binding.mecTotalProducts.visibility = View.VISIBLE
+            binding.mecContinueShoppingBtn.visibility = View.VISIBLE
+            binding.mecContinueCheckoutBtn.visibility  = View.VISIBLE
         }
     }
 
@@ -237,7 +242,6 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             ecsShoppingCartViewModel.mecError.observe(this, this)
             addressViewModel.mecError.observe(this, this)
 
-
             productReviewList = mutableListOf()
 
             voucherList = mutableListOf()
@@ -255,6 +259,12 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
 
             binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
+
+            binding.mecVat.visibility = View.GONE
+            binding.mecTotalPrice.visibility = View.GONE
+            binding.mecTotalProducts.visibility = View.GONE
+            binding.mecContinueShoppingBtn.visibility = View.GONE
+            binding.mecContinueCheckoutBtn.visibility  = View.GONE
 
             swipeController = MECSwipeController(binding.mecCartSummaryRecyclerView.context, object : SwipeControllerActions() {
                 override fun onRightClicked(position: Int) {
