@@ -11,9 +11,9 @@ class MECInputValidationLayout(context: Context,attributes: AttributeSet) : Inpu
 
     override fun showError() {
         super.showError()
-        val error = errorLabelView.text
-
+        val error = errorLabelView.text // inline errro text box
         var errorString: String = com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME + ":"
+        errorString += userError+ ":"
         errorString += error.toString()
         MECAnalytics.trackUserError(userError,errorString)
     }

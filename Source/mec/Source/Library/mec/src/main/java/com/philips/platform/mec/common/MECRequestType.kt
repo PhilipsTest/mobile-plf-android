@@ -9,7 +9,7 @@
  */
 package com.philips.platform.mec.common
 
-enum class MECRequestType(s: String) {
+enum class MECRequestType(val category: String) {
     MEC_CONFIGURE_ECS(""),
     MEC_CONFIGURE_ECS_TO_GET_CONFIGURATION("configureECSWithConfiguration"),
     MEC_HYBRIS_AUTH("hybrisOAuthAuthenticationWith"),
@@ -55,8 +55,6 @@ enum class MECRequestType(s: String) {
     MEC_FETCH_REVIEW("fetchAllReviewsForCTN"),
     MEC_FETCH__BULK_RATING("fetchBulkRatingsForCTNList"),
     MEC_FETCH_SPECIFICATION("fetchProductSpecsFor"),
-    MEC_FETCH_FEATURE("fetchProductFeaturesFor"),
-
-
+    MEC_FETCH_FEATURE("fetchProductFeaturesFor"),;
 
 }

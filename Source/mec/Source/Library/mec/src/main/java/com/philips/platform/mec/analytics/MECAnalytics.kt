@@ -244,7 +244,7 @@ class MECAnalytics {
             }
             if(orderPromotionList.isNotBlank()) {
                 orderMap.put(promotion, orderPromotionList)
-            }s
+            }
 
             var voucherList: String = ""
             if(null!=mECSOrderDetail.appliedVouchers && mECSOrderDetail.appliedVouchers.size>0) {

@@ -268,7 +268,7 @@ class MECutility {
                         errorString += com.philips.platform.mec.analytics.MECAnalyticServer.prx + ":"
                     }
 
-                    errorString+=mecError.mECRequestType.toString() // Error_Category
+                    errorString += mecError.mECRequestType!!.category + ":"// Error_Category
 
                     if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
                         errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
@@ -288,7 +288,7 @@ class MECutility {
                 }
             }
             if (showDialog.equals(true)) {
-                aFragmentManager?.let { Acontext?.let { it1 -> MECutility.showErrorDialog(it1, it, "OK", "Error", errorMessage) } }
+                aFragmentManager?.let { Acontext?.let { it1 -> MECutility.showErrorDialog(it1, it, Acontext!!.getString(R.string.mec_ok), "Error", errorMessage) } }
             }
 
         }

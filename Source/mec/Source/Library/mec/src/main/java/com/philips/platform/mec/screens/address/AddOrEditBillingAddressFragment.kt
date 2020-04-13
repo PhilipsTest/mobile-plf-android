@@ -71,7 +71,7 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
         super.onResume()
         setCartIconVisibility(false)
         setTitleAndBackButtonVisibility(R.string.mec_address, true)
-        if(null==ecsAddress.id){
+        if(null==ecsAddress.phone1){
            MECAnalytics.trackPage(createBillingAddressPage)
         }else{
             MECAnalytics.trackPage(editBillingAddressPage)
