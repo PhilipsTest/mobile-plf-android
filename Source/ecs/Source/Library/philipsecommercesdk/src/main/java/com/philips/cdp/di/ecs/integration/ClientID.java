@@ -5,7 +5,7 @@
  */
 package com.philips.cdp.di.ecs.integration;
 
-public enum ClientType {
+public enum ClientID {
     JANRAIN("inApp_client"),
     OIDC("inApp_client");
 
@@ -17,7 +17,7 @@ public enum ClientType {
     }
 
 
-    ClientType(String type) {
+    ClientID(String type) {
         this.type = type;
     }
 }

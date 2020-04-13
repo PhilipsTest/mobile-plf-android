@@ -26,6 +26,7 @@ import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MecError
@@ -250,8 +251,6 @@ class MECutility {
             return null
         }
 
-
-
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context?) {
             var errorMessage: String = ""
@@ -324,10 +323,10 @@ class MECutility {
             val isEmailKEYExist = MECDataHolder.INSTANCE.appinfra.secureStorage.doesStorageKeyExist(HybrisAuth.KEY_MEC_AUTH_DATA)
             if(isEmailKEYExist) {
 
-                //TODO Handle the error
                 val sse = SecureStorageInterface.SecureStorageError()
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
+                tagAndLog(""+ sse.errorMessage)
 
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
@@ -337,6 +336,10 @@ class MECutility {
           return storedEmail == MECDataHolder.INSTANCE.getUserInfo().email
         }
 
+        fun tagAndLog(message:String){
+            MECLog.e(technicalError,message)
+            MECAnalytics.trackAction(sendData, technicalError, message)
+        }
 
     }
 
@@ -379,5 +382,7 @@ class MECutility {
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
     }
+
+
 
 }

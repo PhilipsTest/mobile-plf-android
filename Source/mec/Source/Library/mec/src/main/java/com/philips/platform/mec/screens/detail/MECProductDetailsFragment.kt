@@ -148,6 +148,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
             }
         }
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
+        binding.rlParentContent.visibility = View.VISIBLE
 
     }
 
@@ -253,6 +254,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     }
 
     open fun executeRequest() {
+        binding.rlParentContent.visibility = View.INVISIBLE
         showProgressBar(binding.mecProgress.mecProgressBarContainer)
         ecsProductDetailViewModel.getProductDetail(product)
     }

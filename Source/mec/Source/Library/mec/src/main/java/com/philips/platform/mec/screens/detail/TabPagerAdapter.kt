@@ -36,7 +36,10 @@ class TabPagerAdapter(var fm: FragmentManager, var product: ECSProduct, var cont
 
         return when (position) {
             0 -> {
-                MECProductInfoFragment(product)
+                val fragment = MECProductInfoFragment()
+                bundle.putSerializable(MECConstant.MEC_KEY_PRODUCT,product)
+                fragment.arguments = bundle
+                return fragment
             }
             1 -> {
                 val productFeaturesFragment = MECProductFeaturesFragment()
@@ -58,7 +61,10 @@ class TabPagerAdapter(var fm: FragmentManager, var product: ECSProduct, var cont
                 return fragment
             }
             else ->{
-                MECProductInfoFragment(product)
+                val fragment = MECProductInfoFragment()
+                bundle.putSerializable(MECConstant.MEC_KEY_PRODUCT,product)
+                fragment.arguments = bundle
+                return fragment
             }
         }
     }
