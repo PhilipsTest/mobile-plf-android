@@ -18,6 +18,7 @@ import com.philips.platform.mec.analytics.MECAnalyticPageNames.paymentPage
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.cancelPayment
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.new
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.newBillingAddressAdded
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentFailure
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentType
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
@@ -108,18 +109,23 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
     }
 
     private fun verifyResultCallBacks(url: String): Boolean {
-        var actionMap = HashMap<String, String>()
-        actionMap.put(paymentType,new)
+        var actionMapPaymentSuccess = HashMap<String, String>()
+        var actionMapPaymentFailure = HashMap<String, String>()
+        actionMapPaymentFailure.put(paymentType,new)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
         var match = true
         if (url.startsWith(PAYMENT_SUCCESS_CALLBACK_URL)) {
+            actionMapPaymentSuccess.put(specialEvents,newBillingAddressAdded)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess,mECSOrderDetail.entries)
             launchConfirmationScreen(createSuccessBundle(true))
         } else if (url.startsWith(PAYMENT_PENDING_CALLBACK_URL)) {
+            actionMapPaymentSuccess.put(specialEvents,newBillingAddressAdded)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess,mECSOrderDetail.entries)
             val bundle = Bundle()
             launchConfirmationScreen(createSuccessBundle(false))
         } else if (url.startsWith(PAYMENT_FAILURE_CALLBACK_URL)) {
-            actionMap.put(specialEvents,paymentFailure)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,mECSOrderDetail.entries)
+            actionMapPaymentFailure.put(specialEvents,paymentFailure)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure,mECSOrderDetail.entries)
             mIsPaymentFailed = true
             MECutility.showActionDialog(mContext!!, mContext!!.getString(R.string.mec_ok), null, mContext!!.getString(R.string.mec_payment), mContext!!.getString(R.string.mec_payment_failed_message), fragmentManager!!, object:AlertListener{
                 override fun onPositiveBtnClick() {
@@ -127,8 +133,8 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
                 }
             })
         } else if (url.startsWith(PAYMENT_CANCEL_CALLBACK_URL)) {
-            actionMap.put(specialEvents,cancelPayment)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,mECSOrderDetail.entries)
+            actionMapPaymentFailure.put(specialEvents,cancelPayment)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure,mECSOrderDetail.entries)
             moveToCaller(mIsPaymentFailed,TAG)
         } else {
             match = false

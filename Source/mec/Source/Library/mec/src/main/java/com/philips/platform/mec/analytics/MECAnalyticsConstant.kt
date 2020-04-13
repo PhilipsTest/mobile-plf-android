@@ -46,6 +46,7 @@ object MECAnalyticsConstant {
     val specs                        = "specs"
     val features                     = "features"
     val newShippingAddressAdded      = "newShippingAddressAdded"
+    val newBillingAddressAdded       = "newBillingAddressAdded"
     val paymentType                  = "paymentType"
     val old                          = "old"
     val new                          = "new"
