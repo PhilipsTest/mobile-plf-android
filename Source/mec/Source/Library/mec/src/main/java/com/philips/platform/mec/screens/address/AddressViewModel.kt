@@ -27,7 +27,6 @@ import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.mec.view.MECDropDown
 import com.philips.platform.uid.view.widget.CheckBox
-import com.philips.platform.uid.view.widget.InputValidationLayout
 import com.philips.platform.uid.view.widget.Label
 import com.philips.platform.uid.view.widget.ValidationEditText
 import kotlinx.android.synthetic.main.mec_enter_address.view.*
@@ -265,14 +264,13 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
         @JvmStatic
         @BindingAdapter("phoneNumberEditText")
-        fun setPhoneNumberValidator(inputValidationLayout: InputValidationLayout, phoneNumberValidationEditText: ValidationEditText) {
+        fun setPhoneNumberValidator(inputValidationLayout: MECInputValidationLayout, phoneNumberValidationEditText: ValidationEditText) {
             inputValidationLayout.setValidator(PhoneNumberInputValidator(phoneNumberValidationEditText, PhoneNumberUtil.getInstance()))
         }
 
         @JvmStatic
-        @BindingAdapter("emptyValidator")
-        fun setEmptyValidator(inputValidationLayout: InputValidationLayout, obj: Any?) { // As binding Adapter without parameter not possible
-
+        @BindingAdapter("mecEmptyValidator")
+        fun setMECEmptyValidator(inputValidationLayout: MECInputValidationLayout, obj: Any?) { // As binding Adapter without parameter not possible
             inputValidationLayout.setValidator(EmptyInputValidator())
         }
 
