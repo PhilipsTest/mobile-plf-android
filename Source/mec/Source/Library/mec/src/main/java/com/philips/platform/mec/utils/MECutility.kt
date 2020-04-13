@@ -281,7 +281,7 @@ class MECutility {
                     }
                     errorString += errorMessage
                     errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
-                    MECAnalytics.trackTechnicalOrUserError(technicalError, errorString)
+                    MECAnalytics.trackTechnicalError( errorString)
                 } catch (e: Exception) {
 
                 }

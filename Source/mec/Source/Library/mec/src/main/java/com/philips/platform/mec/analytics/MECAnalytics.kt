@@ -27,6 +27,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.userError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRedeemed
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeStatus
 import com.philips.platform.mec.integration.MECDependencies
@@ -91,11 +92,11 @@ class MECAnalytics {
         * Tag format-    <Component_Code>:<Error_Category>:<server_name>:<ErrorMessage><Error_Code>
         * */
         @JvmStatic
-        fun trackTechnicalOrUserError( errorType: String, value: Any){
+        fun trackTechnicalError( value: Any){
             val errorObject = value as String
-            MECLog.e(errorType, javaClass.simpleName +" : "+ errorObject)
+            MECLog.e(technicalError, javaClass.simpleName +" : "+ errorObject)
             var map = HashMap<String, String>()
-            map.put(errorType,errorObject) // errorType will be technicalError
+            map.put(technicalError,errorObject)
             trackMultipleActions(sendData,map)
         }
 
@@ -104,11 +105,11 @@ class MECAnalytics {
        * Tag format-    <Component_Code>:<Error_Category>:<ErrorMessage>
        * */
         @JvmStatic
-        fun trackUserError( errorType: String, value: Any){
+        fun trackUserError( value: Any){
             val errorObject = value as String
-            MECLog.e(errorType, javaClass.simpleName +" : "+ errorObject)
+            MECLog.e(userError, javaClass.simpleName +" : "+ errorObject)
             var map = HashMap<String, String>()
-            map.put(errorType,errorObject) // errorType will be userError
+            map.put(userError,errorObject)
             trackMultipleActions(sendData,map)
         }
 
@@ -268,7 +269,7 @@ class MECAnalytics {
                 val currency = Currency.getInstance(locale)
                 currencyCode = currency.currencyCode
             } catch (e: Exception) {
-                trackTechnicalOrUserError(technicalError, e.localizedMessage)
+                trackTechnicalError( e.localizedMessage)
             }
 
         }
