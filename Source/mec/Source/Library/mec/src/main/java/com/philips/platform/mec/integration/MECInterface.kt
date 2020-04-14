@@ -14,6 +14,7 @@ import com.philips.platform.mec.R
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface
+import com.philips.platform.pif.DataInterface.MEC.MECException
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.uappframework.UappInterface
 import com.philips.platform.uappframework.launcher.UiLauncher
@@ -25,8 +26,8 @@ import com.philips.platform.uappframework.uappinput.UappSettings
  * MECInterface is the public class for any proposition to consume MEC micro app. Its the starting initialization point.
  * @since 1.0.0
  */
- class MECInterface : UappInterface {
-    private var mMECSettings: MECSettings?=null
+class MECInterface : UappInterface {
+    private var mMECSettings: MECSettings? = null
     private var mUappDependencies: UappDependencies? = null
     private var mUserDataInterface: UserDataInterface? = null
     val MEC_NOTATION = "mec"
@@ -62,10 +63,10 @@ import com.philips.platform.uappframework.uappinput.UappSettings
     /**
      * @param uiLauncher      Object of UiLauncherxx
      * @param uappLaunchInput Object of  UappLaunchInput
-     * @throws MECLaunchException : It can through user not logged in or no internet exception
+     * @throws MECException : It can throw user not logged in or no internet exception
      * @throws RuntimeException
      */
-    @Throws(RuntimeException::class,MECLaunchException::class)
+    @Throws(RuntimeException::class, MECException::class)
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
 
         MECDataHolder.INSTANCE.initECSSDK()
@@ -78,7 +79,7 @@ import com.philips.platform.uappframework.uappinput.UappSettings
                 if(MECDataHolder.INSTANCE.isUserLoggedIn()){
                     launchMEC(uiLauncher,mecLaunchInput)
                 }else{
-                    throw MECLaunchException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_cart_login_error_message),MECLaunchException.ERROR_CODE_NOT_LOGGED_IN)
+                    throw MECException(mMECSettings?.context?.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
                 }
             }else{
                 launchMEC(uiLauncher,mecLaunchInput)
@@ -86,30 +87,20 @@ import com.philips.platform.uappframework.uappinput.UappSettings
 
 
         }else{
-            throw MECLaunchException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet),MECLaunchException.ERROR_CODE_NO_INTERNET)
+            throw MECException(mMECSettings?.context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
 
 
-    private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput){
-        val mecHandler = this!!.mMECSettings?.let { MECHandler((mUappDependencies as MECDependencies?)!!, it, uiLauncher, mecLaunchInput) }
+    private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {
+        val mecHandler = this.mMECSettings?.let { MECHandler((mUappDependencies as MECDependencies?)!!, it, uiLauncher, mecLaunchInput) }
         mecHandler?.launchMEC()
     }
 
 
-    companion object {
-
-        val instance = MECDataProvider()
-        /**
-         * Get the Singleton MEC Data Interface to call MEC public API
-         *
-         * @since 2002.0
-         */
-
-        @JvmStatic
-        open fun getMECDataInterface(): MECDataInterface {
-            return instance
-        }
+    fun getMECDataInterface(): MECDataInterface {
+        MECDataProvider.context = mMECSettings?.context
+        return MECDataProvider
     }
 
 

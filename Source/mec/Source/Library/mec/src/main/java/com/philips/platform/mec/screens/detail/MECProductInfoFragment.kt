@@ -17,11 +17,12 @@ import android.view.ViewGroup
 import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.platform.mec.databinding.MecProductInfoFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
+import com.philips.platform.mec.utils.MECConstant
 
 /**
  * A simple [Fragment] subclass.
  */
-class MECProductInfoFragment(val product: ECSProduct) : MecBaseFragment() {
+class MECProductInfoFragment : MecBaseFragment() {
 
 
 
@@ -36,6 +37,7 @@ class MECProductInfoFragment(val product: ECSProduct) : MecBaseFragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = MecProductInfoFragmentBinding.inflate(inflater, container, false)
+        var product = arguments?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as ECSProduct
         binding.product = product
         return binding.root
     }
