@@ -305,7 +305,9 @@ class MECutility {
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                         //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
                         MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
-                    } else {
+                    } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                        MECAnalytics.trackUserError(mecError!!.exception!!.message.toString())
+                    }else{
                         errorMessage = mecError!!.exception!!.message.toString()
                         errorString += errorMessage
                         errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
