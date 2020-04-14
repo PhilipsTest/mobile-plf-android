@@ -12,11 +12,7 @@
 
 package com.philips.platform.mec.screens.history
 
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.philips.cdp.di.ecs.model.cart.BasePriceEntity
-import com.philips.cdp.di.ecs.model.products.ECSProduct
-import com.philips.platform.uid.view.widget.Label
 
 class MECOrderHistoryService {
 
@@ -26,12 +22,4 @@ class MECOrderHistoryService {
         return visibleItemCount + firstVisibleItemPosition >= lay.itemCount && firstVisibleItemPosition >= 0
     }
 
-    // For doing static binding operations
-    companion object {
-        @JvmStatic
-        @BindingAdapter("setPrice", "totalPriceEntity")
-        fun setPrice(priceLabel: Label, product: ECSProduct?, basePriceEntity: BasePriceEntity?) {
-
-        }
-    }
 }
