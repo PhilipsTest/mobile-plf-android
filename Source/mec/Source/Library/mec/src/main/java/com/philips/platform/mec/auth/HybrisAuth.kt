@@ -85,7 +85,7 @@ class HybrisAuth {
                 val userDetailsMap = MECDataHolder.INSTANCE.userDataInterface.getUserDetails(detailsKey)
                 return userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN)!!.toString()
             } catch (e: Exception) {
-                MECLog.d(TAG, "Exception Occurred : " + e.message)
+                MECLog.e(TAG, "Exception Occurred : " + e.message)
             }
             return null
         }
@@ -107,7 +107,7 @@ class HybrisAuth {
                 }
 
                 override fun onFailure(error: Exception?, ecsError: ECSError?) {
-                    MECLog.d(TAG, "hybrisAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
+                    MECLog.e(TAG, "hybrisAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
                     if (MECutility.isAuthError(ecsError) || ecsError.errorcode == ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
                         refreshJainrain(fragmentCallback);
                     } else {
@@ -135,11 +135,11 @@ class HybrisAuth {
                 }
 
                 override fun onFailure(error: Exception?, ecsError: ECSError?) {
-                    MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
+                    MECLog.e(TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
                     if (MECutility.isAuthError(ecsError) || ecsError.errorcode == ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
                         refreshJainrain(fragmentCallback);
                     } else {
-                        MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : not OAuthError")
+                        MECLog.e(TAG, "hybrisRefreshAuthentication : onFailure : not OAuthError")
                         ECSConfiguration.INSTANCE.setAuthToken(null)
                         fragmentCallback.onFailure(error, ecsError)
                     }
@@ -157,14 +157,14 @@ class HybrisAuth {
                 }
 
                 override fun refreshSessionFailed(error: Error?) {
-                    MECLog.d(TAG, "refreshJainrain : refreshSessionFailed :" + error!!.errCode)
+                    MECLog.e(TAG, "refreshJainrain : refreshSessionFailed :" + error!!.errCode)
                     val ecsError = ECSError(5000, ECSErrorEnum.ECSinvalid_grant.name)
                     val exception = java.lang.Exception()
                     fragmentCallback.onFailure(exception, ecsError)
                 }
 
                 override fun forcedLogout() {
-                    MECLog.d(TAG, "refreshJainrain : forcedLogout ")
+                    MECLog.e(TAG, "refreshJainrain : forcedLogout ")
                     // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 

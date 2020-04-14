@@ -40,8 +40,8 @@ open class CommonViewModel : ViewModel() {
     }
 
     open fun authFailureCallback(error: Exception?, ecsError: ECSError?) {
-        Log.v("Auth", "refresh auth failed " + ecsError);
-        val mecError = com.philips.platform.mec.common.MecError(error, ecsError, null)
+        Log.e("Auth", "refresh auth failed " + ecsError);
+        val mecError = MecError(error, ecsError, null)
         this.mecError.value = mecError
     }
 }
