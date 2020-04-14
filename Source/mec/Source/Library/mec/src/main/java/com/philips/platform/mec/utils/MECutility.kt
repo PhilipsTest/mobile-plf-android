@@ -61,10 +61,7 @@ class MECutility {
         internal fun showDLSDialog(context: Context, pButtonText: String, pErrorString: String, pErrorDescription: String, pFragmentManager: FragmentManager) {
             val builder = AlertDialogFragment.Builder(context)
                     .setMessage(pErrorDescription).setPositiveButton(pButtonText) {
-                        var actionMap= HashMap<String, String>()
-                        actionMap.put(inappnotification,pErrorDescription)
-                        actionMap.put(inappnotificationresponse,"Ok") // only English response
-                        MECAnalytics.trackMultipleActions(sendData,actionMap)
+                        MECAnalytics.trackInAppNotofication(pErrorDescription,"Ok")
                         dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
                     }
 

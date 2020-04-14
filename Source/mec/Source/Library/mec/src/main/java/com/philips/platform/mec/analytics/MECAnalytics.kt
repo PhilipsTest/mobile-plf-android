@@ -93,6 +93,17 @@ class MECAnalytics {
         }
 
 
+        /*
+        * This API is used To tag In App notification with response
+        *
+        * */
+        @JvmStatic
+        fun trackInAppNotofication(errorDescription : String, errorResponse : String){
+            var actionMap= HashMap<String, String>()
+            actionMap.put(MECAnalyticsConstant.inappnotification,errorDescription)
+            actionMap.put(MECAnalyticsConstant.inappnotificationresponse,errorResponse)
+            MECAnalytics.trackMultipleActions(sendData,actionMap)
+        }
 
 
         /*
