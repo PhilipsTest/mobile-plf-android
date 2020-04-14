@@ -26,7 +26,6 @@ import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.continueShoppingSelected
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.scCheckout
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.scView
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
@@ -299,9 +298,9 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     fun showDialog() {
         if (removeVoucher) {
-            MECutility.showActionDialog(binding.mecVoucherEditText.context, getString(R.string.mec_delete), getString(R.string.mec_cancel), getString(R.string.mec_shopping_cart_title), getString(R.string.mec_delete_voucher_confirmation_title), fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete,R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_voucher_confirmation_title, fragmentManager!!, this)
         } else {
-            MECutility.showActionDialog(binding.mecVoucherEditText.context, getString(R.string.mec_delete), getString(R.string.mec_cancel), getString(R.string.mec_shopping_cart_title), getString(R.string.mec_delete_product_confirmation_title), fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_product_confirmation_title, fragmentManager!!, this)
         }
     }
 

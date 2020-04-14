@@ -9,7 +9,12 @@
  */
 package com.philips.platform.mec.analytics
 
+import android.annotation.TargetApi
+import android.content.Context
+import android.content.res.Configuration
+import android.os.Build
 import android.util.Log
+import androidx.annotation.NonNull
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.orders.Entries
@@ -41,6 +46,7 @@ class MECAnalytics {
 
     companion object {
 
+        val  defaultLocale: String = "en_GB"
         var mAppTaggingInterface: AppTaggingInterface? = null
         var previousPageName = "uniquePageName";
         var countryCode = ""
@@ -260,6 +266,18 @@ class MECAnalytics {
             }
 
             tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
+        }
+
+        /*
+        * This method returns default string resource
+        * */
+        @JvmStatic
+        @NonNull
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+        fun getDefaultString(context: Context, id: Int): String {
+            val configuration = Configuration(context.resources.configuration)
+            configuration.setLocale(Locale(defaultLocale))
+            return context.createConfigurationContext(configuration).resources.getString(id)
         }
 
         fun setCurrencyString(localeString: String) {

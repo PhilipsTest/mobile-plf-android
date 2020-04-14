@@ -93,32 +93,32 @@ class MECutility {
                 alertDialogFragment.dismiss()
         }
 
-        fun showActionDialog(context: Context, positiveBtnText: String, negativeBtnText: String?,
-                             pErrorString: String, descriptionText: String, pFragmentManager: FragmentManager, alertListener: AlertListener) {
+        fun showActionDialog(context: Context, positiveBtnTextResourceID: Int, negativeBtnTextResourceID: Int?,
+                             pErrorTitleTextResourceId: Int, descriptionTextResourceId: Int, pFragmentManager: FragmentManager, alertListener: AlertListener) {
             val builder = AlertDialogFragment.Builder(context)
             var actionMap= HashMap<String, String>()
 
             builder.setDialogType(DialogConstants.TYPE_ALERT)
 
-            if (!TextUtils.isEmpty(descriptionText)) {
-                builder.setMessage(descriptionText)
-                actionMap.put(inappnotification,descriptionText)
+            if (!TextUtils.isEmpty(context.getString(descriptionTextResourceId))) {
+                builder.setMessage(descriptionTextResourceId)
+                actionMap.put(inappnotification,MECAnalytics.getDefaultString(context, descriptionTextResourceId))
             }
 
-            if (!TextUtils.isEmpty(pErrorString)) {
-                builder.setTitle(pErrorString)
+            if (!TextUtils.isEmpty(context.getString(pErrorTitleTextResourceId))) {
+                builder.setTitle(pErrorTitleTextResourceId)
             }
-            builder.setPositiveButton(positiveBtnText
+            builder.setPositiveButton(positiveBtnTextResourceID
             ) {
-                actionMap.put(inappnotificationresponse,positiveBtnText)
+                actionMap.put(inappnotificationresponse,MECAnalytics.getDefaultString(context,positiveBtnTextResourceID))
                 MECAnalytics.trackMultipleActions(sendData,actionMap)
                 alertListener.onPositiveBtnClick()
                 dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
             }
 
-            if(negativeBtnText!=null) {
-                builder.setNegativeButton(negativeBtnText) {
-                    actionMap.put(inappnotificationresponse,negativeBtnText)
+            if(negativeBtnTextResourceID!=null) {
+                builder.setNegativeButton(negativeBtnTextResourceID) {
+                    actionMap.put(inappnotificationresponse,MECAnalytics.getDefaultString(context,negativeBtnTextResourceID))
                     MECAnalytics.trackMultipleActions(sendData,actionMap)
                     alertListener.onNegativeBtnClick()
                     dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)

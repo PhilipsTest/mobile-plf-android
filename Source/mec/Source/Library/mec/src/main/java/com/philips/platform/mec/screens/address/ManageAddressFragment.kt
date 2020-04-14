@@ -23,7 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.shippingAddressSelectionPage
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
@@ -153,12 +152,12 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
 
         binding.mecBtnDeleteAddress.setOnClickListener {
             isAddressPopup = false
-            MECutility.showActionDialog(binding.mecBtnDeleteAddress.context, getString(R.string.mec_delete), getString(R.string.mec_cancel), getString(R.string.mec_address), getString(R.string.mec_delete_item_alert_message), fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecBtnDeleteAddress.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_address, R.string.mec_delete_item_alert_message, fragmentManager!!, this)
         }
 
         binding.mecBtnSetAddress.setOnClickListener {
             isAddressPopup = true
-            MECutility.showActionDialog(binding.mecBtnSetAddress.context, getString(R.string.mec_set_text), getString(R.string.mec_cancel), getString(R.string.mec_address), getString(R.string.mec_set_shipping_address_alert_message), fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecBtnSetAddress.context, R.string.mec_set_text, R.string.mec_cancel, R.string.mec_address, R.string.mec_set_shipping_address_alert_message, fragmentManager!!, this)
         }
         MECAnalytics.trackPage(shippingAddressSelectionPage)
         return binding.root

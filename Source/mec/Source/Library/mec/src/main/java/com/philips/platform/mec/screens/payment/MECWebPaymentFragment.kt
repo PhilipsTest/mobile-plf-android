@@ -127,7 +127,7 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
             actionMapPaymentFailure.put(specialEvents,paymentFailure)
             MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure,mECSOrderDetail.entries)
             mIsPaymentFailed = true
-            MECutility.showActionDialog(mContext!!, mContext!!.getString(R.string.mec_ok), null, mContext!!.getString(R.string.mec_payment), mContext!!.getString(R.string.mec_payment_failed_message), fragmentManager!!, object:AlertListener{
+            MECutility.showActionDialog(mContext!!, R.string.mec_ok, null, R.string.mec_payment, R.string.mec_payment_failed_message, fragmentManager!!, object:AlertListener{
                 override fun onPositiveBtnClick() {
                     moveToCaller(mIsPaymentFailed,TAG)
                 }
@@ -148,7 +148,7 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
 
     override fun handleBackEvent(): Boolean {
         mIsPaymentFailed = false
-        MECutility.showActionDialog(mContext!!, mContext!!.getString(R.string.mec_ok), mContext!!.getString(R.string.mec_cancel), mContext!!.getString(R.string.mec_payment), mContext!!.getString(R.string.mec_cancel_payment), fragmentManager!!, this)
+        MECutility.showActionDialog(mContext!!, R.string.mec_ok,R.string.mec_cancel, R.string.mec_payment, R.string.mec_cancel_payment, fragmentManager!!, this)
         return true
     }
 
