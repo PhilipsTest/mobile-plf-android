@@ -25,7 +25,6 @@ import com.philips.cdp.di.ecs.model.payment.CardType
 import com.philips.cdp.di.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.databinding.MecDeliveryBinding
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.deliveryDetailPage
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
@@ -453,19 +452,22 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
         if (MECDataHolder.INSTANCE.PAYMENT_HOLDER.getSelectedPayment() != null) {
             bundle.putSerializable(MECConstant.MEC_PAYMENT_METHOD, MECDataHolder.INSTANCE.PAYMENT_HOLDER.getSelectedPayment())
         } else {
-            MECutility.showDLSDialog(binding.mecPaymentRecyclerView.context, getString(R.string.mec_ok), getString(R.string.mec_address), getString(R.string.mec_no_payment_error_message), fragmentManager!!)
+            MECAnalytics.trackUserError(getString(R.string.mec_no_payment_error_message))
+            MECutility.showErrorDialog(binding.mecPaymentRecyclerView.context, fragmentManager!!, getString(R.string.mec_ok), getString(R.string.mec_address), R.string.mec_no_payment_error_message)
             return
         }
         if (mECSShoppingCart.deliveryMode != null) {
             bundle.putSerializable(MECConstant.KEY_ECS_SHOPPING_CART, mECSShoppingCart)
         } else {
-            MECutility.showDLSDialog(binding.mecPaymentRecyclerView.context, getString(R.string.mec_ok), getString(R.string.mec_delivery_method), getString(R.string.mec_no_delivery_mode_error_message), fragmentManager!!)
+            MECAnalytics.trackUserError(getString(R.string.mec_no_delivery_mode_error_message))
+            MECutility.showErrorDialog(binding.mecPaymentRecyclerView.context, fragmentManager!!, getString(R.string.mec_ok), getString(R.string.mec_delivery_method), R.string.mec_no_delivery_mode_error_message)
             return
         }
         if (ecsAddresses!!.isNotEmpty()) {
             bundle.putSerializable(MECConstant.KEY_ECS_ADDRESS, ecsAddresses?.get(0))
         } else {
-            MECutility.showDLSDialog(binding.mecPaymentRecyclerView.context, getString(R.string.mec_ok), getString(R.string.mec_shipping_address), getString(R.string.mec_no_address_select_message), fragmentManager!!)
+            MECAnalytics.trackUserError(getString(R.string.mec_no_address_select_message))
+            MECutility.showErrorDialog(binding.mecPaymentRecyclerView.context, fragmentManager!!, getString(R.string.mec_ok), getString(R.string.mec_shipping_address), R.string.mec_no_address_select_message)
             return
         }
         mecOrderSummaryFragment.arguments = bundle

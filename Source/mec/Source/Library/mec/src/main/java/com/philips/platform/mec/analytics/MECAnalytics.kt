@@ -9,10 +9,8 @@
  */
 package com.philips.platform.mec.analytics
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Build
 import android.util.Log
 import androidx.annotation.NonNull
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
@@ -48,7 +46,7 @@ class MECAnalytics {
 
     companion object {
 
-        val  defaultLocale: String = "en_GB"
+        val defaultLocale: String = "en_US"
         var mAppTaggingInterface: AppTaggingInterface? = null
         var previousPageName = "uniquePageName";
         var countryCode = ""
@@ -98,11 +96,11 @@ class MECAnalytics {
         *
         * */
         @JvmStatic
-        fun trackInAppNotofication(errorDescription : String, errorResponse : String){
-            var actionMap= HashMap<String, String>()
-            actionMap.put(MECAnalyticsConstant.inappnotification,errorDescription)
-            actionMap.put(MECAnalyticsConstant.inappnotificationresponse,errorResponse)
-            MECAnalytics.trackMultipleActions(sendData,actionMap)
+        fun trackInAppNotofication(errorDescription: String, errorResponse: String) {
+            var actionMap = HashMap<String, String>()
+            actionMap.put(MECAnalyticsConstant.inappnotification, errorDescription)
+            actionMap.put(MECAnalyticsConstant.inappnotificationresponse, errorResponse)
+            MECAnalytics.trackMultipleActions(sendData, actionMap)
         }
 
 
@@ -111,12 +109,12 @@ class MECAnalytics {
         * Tag format-    <Component_Code>:<Error_Category>:<server_name>:<ErrorMessage><Error_Code>
         * */
         @JvmStatic
-        fun trackTechnicalError( value: Any){
+        fun trackTechnicalError(value: Any) {
             val errorObject = value as String
-            MECLog.e(technicalError, javaClass.simpleName +" : "+ errorObject)
+            MECLog.e(technicalError, javaClass.simpleName + " : " + errorObject)
             var map = HashMap<String, String>()
-            map.put(technicalError,errorObject)
-            trackMultipleActions(sendData,map)
+            map.put(technicalError, errorObject)
+            trackMultipleActions(sendData, map)
         }
 
         /*
@@ -124,15 +122,15 @@ class MECAnalytics {
        * Tag format-    <Component_Code>:<Error_Category>:<ErrorMessage>
        * */
         @JvmStatic
-        fun trackUserError( value: Any){
+        fun trackUserError(value: Any) {
             var errorString: String = MECConstant.COMPONENT_NAME + ":"
-            errorString += userError+ ":"
+            errorString += userError + ":"
             val errorObject = value as String
             errorString += errorObject
-                    MECLog.e(userError, javaClass.simpleName +" : "+ errorString)
+            MECLog.e(userError, javaClass.simpleName + " : " + errorString)
             var map = HashMap<String, String>()
-            map.put(userError,errorString)
-            trackMultipleActions(sendData,map)
+            map.put(userError, errorString)
+            trackMultipleActions(sendData, map)
         }
 
         /*
@@ -140,12 +138,12 @@ class MECAnalytics {
       * Tag format-    <Component_Code>:<Error_Category>:<ErrorMessage>
       * */
         @JvmStatic
-        fun trackInformationError( value: Any){
+        fun trackInformationError(value: Any) {
             val errorObject = value as String
-            MECLog.i(informationalError, javaClass.simpleName +" : "+ errorObject)
+            MECLog.i(informationalError, javaClass.simpleName + " : " + errorObject)
             var map = HashMap<String, String>()
-            map.put(informationalError,errorObject)
-            trackMultipleActions(sendData,map)
+            map.put(informationalError, errorObject)
+            trackMultipleActions(sendData, map)
         }
 
 
@@ -175,7 +173,7 @@ class MECAnalytics {
                 Log.v("MEC_LOG", "prodList : " + productListString)
                 var map = HashMap<String, String>()
                 map.put(mecProducts, productListString)
-                trackMultipleActions(sendData,map )
+                trackMultipleActions(sendData, map)
             }
         }
 
@@ -272,24 +270,24 @@ class MECAnalytics {
             orderMap.put(transationID, mECSOrderDetail.code)
             orderMap.put(deliveryMethod, mECSOrderDetail.deliveryMode.name)
             var orderPromotionList: String = ""
-            if(null!=mECSOrderDetail.appliedOrderPromotions && mECSOrderDetail.appliedOrderPromotions.size>0) {
+            if (null != mECSOrderDetail.appliedOrderPromotions && mECSOrderDetail.appliedOrderPromotions.size > 0) {
                 for (appliedOrderPromotion in mECSOrderDetail.appliedOrderPromotions) {
                     orderPromotionList += "|" + appliedOrderPromotion.promotion.code // | separated promotion(s)
                 }
                 orderPromotionList = orderPromotionList.substring(1, orderPromotionList.length) // remove first "|" from string
             }
-            if(orderPromotionList.isNotBlank()) {
+            if (orderPromotionList.isNotBlank()) {
                 orderMap.put(promotion, orderPromotionList)
             }
 
             var voucherList: String = ""
-            if(null!=mECSOrderDetail.appliedVouchers && mECSOrderDetail.appliedVouchers.size>0) {
+            if (null != mECSOrderDetail.appliedVouchers && mECSOrderDetail.appliedVouchers.size > 0) {
                 for (voucher in mECSOrderDetail.appliedVouchers) {
                     voucherList += "|" + voucher.voucherCode // "|" separated promotion(s)
                 }
                 voucherList = voucherList.substring(1, voucherList.length) // remove first "|" from string
             }
-            if(voucherList.isNotBlank()) {
+            if (voucherList.isNotBlank()) {
                 orderMap.put(voucherCodeStatus, voucherCodeRedeemed)
                 orderMap.put(promotion, voucherList)
             }
@@ -298,11 +296,10 @@ class MECAnalytics {
         }
 
         /*
-        * This method returns default string resource
+        * This method returns default english string resource
         * */
         @JvmStatic
         @NonNull
-        @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         fun getDefaultString(context: Context, id: Int): String {
             val configuration = Configuration(context.resources.configuration)
             configuration.setLocale(Locale(defaultLocale))
@@ -316,7 +313,7 @@ class MECAnalytics {
                 val currency = Currency.getInstance(locale)
                 currencyCode = currency.currencyCode
             } catch (e: Exception) {
-                trackTechnicalError( e.localizedMessage)
+                trackTechnicalError(e.localizedMessage)
             }
 
         }

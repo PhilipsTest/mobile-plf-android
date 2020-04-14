@@ -102,7 +102,7 @@
                             android:layout_marginEnd="8dp"
                             android:layout_weight="1"
                             android:background="?attr/uidTextBoxDefaultPressedBackgroundColor"
-                            app:mecEmptyValidator="@{null}"
+                            app:emptyValidator="@{null}"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="Voucher Error">
 

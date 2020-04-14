@@ -19,10 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.cvvPage
 import com.philips.platform.mec.analytics.MECAnalytics
-import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.old
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentFailure
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentType
@@ -63,9 +61,8 @@ class MECCVVFragment: BottomSheetDialogFragment() {
     })
 
     private fun showErrorDialog() {
-        context?.let {
-            fragmentManager?.let { it1 -> MECutility.showDLSDialog(it, it.getString(R.string.mec_ok), it.getString(R.string.mec_payment), it.getString(R.string.mec_payment_failed_message), it1) }
-        }
+        context?.let { fragmentManager?.let { it1 -> MECutility.showErrorDialog(it, it1,getString(R.string.mec_ok),getString(R.string.mec_payment),R.string.mec_payment_failed_message) } }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -31,7 +31,9 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotification
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.auth.HybrisAuth
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
+import com.philips.platform.mec.integration.MECDataProvider
 import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.utils.MECConstant.IN_STOCK
 import com.philips.platform.mec.utils.MECConstant.LOW_STOCK
@@ -48,20 +50,33 @@ class MECutility {
         val ALERT_DIALOG_TAG = "ALERT_DIALOG_TAG"
 
 
+        /*
+        * This method shows error dialog and takes error description as String parameter (pErrorDescriptionString: String)
+        * */
         @JvmStatic
-        fun showErrorDialog(context: Context, pFragmentManager: FragmentManager,
-                            pButtonText: String, pErrorString: String, pErrorDescription: String) {
-
+        fun showErrorDialog(context: Context, pFragmentManager: FragmentManager, pButtonText: String, pErrorString: String, pErrorDescriptionString: String) {
             if (!(context as Activity).isFinishing) {
-                showDLSDialog(UIDHelper.getPopupThemedContext(context), pButtonText, pErrorString, pErrorDescription, pFragmentManager)
+                showErrorDialogWithResourceID(UIDHelper.getPopupThemedContext(context), pFragmentManager, pButtonText, pErrorString, null, pErrorDescriptionString)
             }
         }
 
 
-        internal fun showDLSDialog(context: Context, pButtonText: String, pErrorString: String, pErrorDescription: String, pFragmentManager: FragmentManager) {
-            val builder = AlertDialogFragment.Builder(context)
-                    .setMessage(pErrorDescription).setPositiveButton(pButtonText) {
-                        MECAnalytics.trackInAppNotofication(pErrorDescription,"Ok")
+        /*
+        * This method shows error dialog and takes error description as Int(resource id) parameter (pErrorDescriptionResourceId: Int)
+        * */
+        @JvmStatic
+        fun showErrorDialog(context: Context, pFragmentManager: FragmentManager, pButtonText: String, pErrorString: String, pErrorDescriptionResourceId: Int) {
+            if (!(context as Activity).isFinishing) {
+                showErrorDialogWithResourceID(UIDHelper.getPopupThemedContext(context), pFragmentManager, pButtonText, pErrorString, pErrorDescriptionResourceId, context.getString(pErrorDescriptionResourceId))
+            }
+        }
+
+
+        private fun showErrorDialogWithResourceID(context: Context, pFragmentManager: FragmentManager, pButtonText: String, pErrorString: String, pErrorDescriptionResourceId: Int?, pErrorDescriptionString: String) {
+            val builder = AlertDialogFragment.Builder(context).setMessage(pErrorDescriptionString.toString())
+                    .setPositiveButton(pButtonText) {
+                        val defaultEnglishErrorDescription: String = if (pErrorDescriptionResourceId != null) MECAnalytics.getDefaultString(context, pErrorDescriptionResourceId!!) else pErrorDescriptionString
+                        MECAnalytics.trackInAppNotofication(defaultEnglishErrorDescription, "OK") // default english string
                         dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
                     }
 
@@ -93,13 +108,13 @@ class MECutility {
         fun showActionDialog(context: Context, positiveBtnTextResourceID: Int, negativeBtnTextResourceID: Int?,
                              pErrorTitleTextResourceId: Int, descriptionTextResourceId: Int, pFragmentManager: FragmentManager, alertListener: AlertListener) {
             val builder = AlertDialogFragment.Builder(context)
-            var actionMap= HashMap<String, String>()
+            var actionMap = HashMap<String, String>()
 
             builder.setDialogType(DialogConstants.TYPE_ALERT)
 
             if (!TextUtils.isEmpty(context.getString(descriptionTextResourceId))) {
                 builder.setMessage(descriptionTextResourceId)
-                actionMap.put(inappnotification,MECAnalytics.getDefaultString(context, descriptionTextResourceId))
+                actionMap.put(inappnotification, MECAnalytics.getDefaultString(context, descriptionTextResourceId))
             }
 
             if (!TextUtils.isEmpty(context.getString(pErrorTitleTextResourceId))) {
@@ -107,16 +122,16 @@ class MECutility {
             }
             builder.setPositiveButton(positiveBtnTextResourceID
             ) {
-                actionMap.put(inappnotificationresponse,MECAnalytics.getDefaultString(context,positiveBtnTextResourceID))
-                MECAnalytics.trackMultipleActions(sendData,actionMap)
+                actionMap.put(inappnotificationresponse, MECAnalytics.getDefaultString(context, positiveBtnTextResourceID))
+                MECAnalytics.trackMultipleActions(sendData, actionMap)
                 alertListener.onPositiveBtnClick()
                 dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
             }
 
-            if(negativeBtnTextResourceID!=null) {
+            if (negativeBtnTextResourceID != null) {
                 builder.setNegativeButton(negativeBtnTextResourceID) {
-                    actionMap.put(inappnotificationresponse,MECAnalytics.getDefaultString(context,negativeBtnTextResourceID))
-                    MECAnalytics.trackMultipleActions(sendData,actionMap)
+                    actionMap.put(inappnotificationresponse, MECAnalytics.getDefaultString(context, negativeBtnTextResourceID))
+                    MECAnalytics.trackMultipleActions(sendData, actionMap)
                     alertListener.onNegativeBtnClick()
                     dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
                 }
@@ -266,7 +281,9 @@ class MECutility {
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context?) {
             var errorMessage: String = ""
-            if (!mecError!!.ecsError!!.errorType.equals("No internet connection")) {
+            if (mecError!!.ecsError!!.errorType.equals("No internet connection")) {
+                MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
+            } else {
                 try {
                     //tag all techinical defect except "No internet connection"
                     var errorString: String = com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME + ":"
@@ -274,28 +291,29 @@ class MECutility {
                         errorString += com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice + ":"
                     } else if (mecError!!.ecsError!!.errorcode in 5000..5999) {
                         errorString += com.philips.platform.mec.analytics.MECAnalyticServer.hybris + ":"
+                    } else if (mecError.mECRequestType!!.category.equals(MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)) {
+                        errorString += com.philips.platform.mec.analytics.MECAnalyticServer.wtb + ":"
                     } else {
                         //
                         errorString += com.philips.platform.mec.analytics.MECAnalyticServer.prx + ":"
                     }
-
                     errorString += mecError.mECRequestType!!.category + ":"// Error_Category
 
                     if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
                         errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
                     } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
-                       //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-
-                        errorMessage = Acontext!!.getString(R.string.mec_no_internet)
+                        //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
+                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
                     } else {
                         errorMessage = mecError!!.exception!!.message.toString()
+                        errorString += errorMessage
+                        errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
+                        MECAnalytics.trackTechnicalError(errorString)
                     }
-                    errorString += errorMessage
-                    errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
-                    MECAnalytics.trackTechnicalError( errorString)
-                } catch (e: Exception) {
 
+                } catch (e: Exception) {
+                    MECAnalytics.trackTechnicalError(e.toString())
                 }
             }
             if (showDialog.equals(true)) {
@@ -328,28 +346,28 @@ class MECutility {
             return colorCodeHighlighted
         }
 
-        fun isExistingUser() : Boolean{
+        fun isExistingUser(): Boolean {
 
             var storedEmail = "NONE"
 
             val isEmailKEYExist = MECDataHolder.INSTANCE.appinfra.secureStorage.doesStorageKeyExist(HybrisAuth.KEY_MEC_AUTH_DATA)
-            if(isEmailKEYExist) {
+            if (isEmailKEYExist) {
 
                 val sse = SecureStorageInterface.SecureStorageError()
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
-                tagAndLog(""+ sse.errorMessage)
+                tagAndLog("" + sse.errorMessage)
 
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
                 storedEmail = map[HybrisAuth.KEY_MEC_EMAIL] as String
             }
 
-          return storedEmail == MECDataHolder.INSTANCE.getUserInfo().email
+            return storedEmail == MECDataHolder.INSTANCE.getUserInfo().email
         }
 
-        fun tagAndLog(message:String){
-            MECLog.e(technicalError,message)
+        fun tagAndLog(message: String) {
+            MECLog.e(technicalError, message)
             MECAnalytics.trackAction(sendData, technicalError, message)
         }
 
@@ -394,7 +412,6 @@ class MECutility {
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
     }
-
 
 
 }

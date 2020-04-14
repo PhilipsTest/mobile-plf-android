@@ -360,7 +360,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                     ecsProductDetailViewModel.addProductToShoppingcart(it,addToProductCallback)
                 }
             }else{
-                fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), getString(R.string.mec_cart_login_error_message)) } }
+                fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), R.string.mec_cart_login_error_message) } }
             }
         }
     }
