@@ -74,7 +74,7 @@ class MECInterface : UappInterface {
         if(MECDataHolder.INSTANCE.isInternetActive()) {
             val mecLaunchInput = uappLaunchInput as MECLaunchInput
 
-            if(mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW){
+            if(isLogInRequired(mecLaunchInput)){
 
                 if(MECDataHolder.INSTANCE.isUserLoggedIn()){
                     launchMEC(uiLauncher,mecLaunchInput)
@@ -90,6 +90,9 @@ class MECInterface : UappInterface {
             throw MECException(mMECSettings?.context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
+
+    private fun isLogInRequired(mecLaunchInput: MECLaunchInput) =
+            mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW || mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY
 
 
     private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {

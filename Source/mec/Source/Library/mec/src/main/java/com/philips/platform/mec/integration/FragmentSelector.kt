@@ -16,6 +16,7 @@ import com.philips.platform.mec.screens.catalog.MECCategorizedRetailerFragment
 import com.philips.platform.mec.screens.catalog.MECProductCatalogCategorizedFragment
 import com.philips.platform.mec.screens.catalog.MECProductCatalogFragment
 import com.philips.platform.mec.screens.detail.MECLandingProductDetailsFragment
+import com.philips.platform.mec.screens.history.MECOrderHistoryFragment
 import com.philips.platform.mec.screens.shoppingCart.MECShoppingCartFragment
 import com.philips.platform.mec.utils.MECConstant
 import java.util.*
@@ -43,6 +44,9 @@ class FragmentSelector {
             }
             MECFlowConfigurator.MECLandingView.MEC_CATEGORIZED_PRODUCT_LIST_VIEW -> {
                 fragment = getCategorizedFragment(isHybris)
+            }
+            MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY -> {
+                fragment = MECOrderHistoryFragment()
             }
         }
         putCtnsToBundle(bundle,mecFlowConfigurator)
