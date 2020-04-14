@@ -74,7 +74,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
 
         MECDataHolder.INSTANCE.blackListedRetailers = mLaunchInput.blackListedRetailerNames
 
-        com.philips.platform.mec.analytics.MECAnalytics.initMECAnalytics(mMECDependencies)
+
 
         getUrl()
 

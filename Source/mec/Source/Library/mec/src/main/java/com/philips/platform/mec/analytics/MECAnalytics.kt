@@ -24,6 +24,7 @@ import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.country
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.currency
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.deliveryMethod
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.informationalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.productListLayout
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.promotion
@@ -36,6 +37,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.userError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRedeemed
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeStatus
 import com.philips.platform.mec.integration.MECDependencies
+import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import java.util.*
@@ -112,10 +114,26 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun trackUserError( value: Any){
+            var errorString: String = MECConstant.COMPONENT_NAME + ":"
+            errorString += userError+ ":"
             val errorObject = value as String
-            MECLog.e(userError, javaClass.simpleName +" : "+ errorObject)
+            errorString += errorObject
+                    MECLog.e(userError, javaClass.simpleName +" : "+ errorString)
             var map = HashMap<String, String>()
-            map.put(userError,errorObject)
+            map.put(userError,errorString)
+            trackMultipleActions(sendData,map)
+        }
+
+        /*
+      * This API is used To tag and log Information error at Info level
+      * Tag format-    <Component_Code>:<Error_Category>:<ErrorMessage>
+      * */
+        @JvmStatic
+        fun trackInformationError( value: Any){
+            val errorObject = value as String
+            MECLog.i(informationalError, javaClass.simpleName +" : "+ errorObject)
+            var map = HashMap<String, String>()
+            map.put(informationalError,errorObject)
             trackMultipleActions(sendData,map)
         }
 
