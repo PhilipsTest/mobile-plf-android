@@ -25,11 +25,16 @@ import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
+import com.philips.platform.mec.analytics.MECAnalyticServer.hybris
+import com.philips.platform.mec.analytics.MECAnalyticServer.other
+import com.philips.platform.mec.analytics.MECAnalyticServer.prx
+import com.philips.platform.mec.analytics.MECAnalyticServer.wtb
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotification
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotificationresponse
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -286,16 +291,16 @@ class MECutility {
             } else {
                 try {
                     //tag all techinical defect except "No internet connection"
-                    var errorString: String = com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME + ":"
+                    var errorString: String = COMPONENT_NAME + ":"
                     if (mecError!!.ecsError!!.errorcode == 1000) {
-                        errorString += com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice + ":"
+                        errorString += bazaarVoice + ":"
                     } else if (mecError!!.ecsError!!.errorcode in 5000..5999) {
-                        errorString += com.philips.platform.mec.analytics.MECAnalyticServer.hybris + ":"
+                        errorString += hybris + ":"
                     } else if (mecError.mECRequestType!!.category.equals(MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)) {
-                        errorString += com.philips.platform.mec.analytics.MECAnalyticServer.wtb + ":"
+                        errorString += wtb + ":"
                     } else {
                         //
-                        errorString += com.philips.platform.mec.analytics.MECAnalyticServer.prx + ":"
+                        errorString += prx + ":"
                     }
                     errorString += mecError.mECRequestType!!.category + ":"// Error_Category
 
@@ -358,7 +363,7 @@ class MECutility {
                 val sse = SecureStorageInterface.SecureStorageError()
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
-                tagAndLog("" + sse.errorMessage)
+                MECAnalytics.trackTechnicalError(COMPONENT_NAME+other+sse.errorMessage)
 
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
@@ -368,10 +373,7 @@ class MECutility {
             return storedEmail == MECDataHolder.INSTANCE.getUserInfo().email
         }
 
-        fun tagAndLog(message: String) {
-            MECLog.e(technicalError, message)
-            MECAnalytics.trackAction(sendData, technicalError, message)
-        }
+
 
     }
 

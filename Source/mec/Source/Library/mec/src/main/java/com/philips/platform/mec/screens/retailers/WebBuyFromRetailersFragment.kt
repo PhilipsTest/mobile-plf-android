@@ -23,9 +23,11 @@ import android.webkit.*
 import android.widget.FrameLayout
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.retailerListPage
+import com.philips.platform.mec.analytics.MECAnalyticServer
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkNameKey
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
@@ -122,6 +124,8 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                         return true
                     }
                 } catch (e: Exception) {
+                    MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + MECRequestType.MEC_FETCH_RETAILER_FOR_CTN+ MECAnalyticServer.wtb + e.toString())
+
                     // Avoid crash due to not installed app which can handle the specific url scheme
                     return false
                 }

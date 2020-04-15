@@ -19,6 +19,7 @@ import com.philips.cdp.di.ecs.model.orders.Entries
 import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
+import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.country
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.currency
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.deliveryMethod
@@ -313,7 +314,7 @@ class MECAnalytics {
                 val currency = Currency.getInstance(locale)
                 currencyCode = currency.currencyCode
             } catch (e: Exception) {
-                trackTechnicalError(e.localizedMessage)
+                trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME +other+e.localizedMessage)
             }
 
         }

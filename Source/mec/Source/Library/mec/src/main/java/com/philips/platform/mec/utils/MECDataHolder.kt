@@ -16,6 +16,9 @@ import com.philips.cdp.di.ecs.model.config.ECSConfig
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
+import com.philips.platform.mec.analytics.MECAnalyticServer
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.integration.MECBannerConfigurator
 import com.philips.platform.mec.integration.MECBazaarVoiceInput
 import com.philips.platform.mec.integration.MECOrderFlowCompletion
@@ -139,7 +142,7 @@ enum class MECDataHolder {
         try {
             voucher =appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
         } catch (e: Exception) {
-
+            MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + MECAnalyticServer.other +e.toString())
         }
 
         propositionId = propertyForKey
