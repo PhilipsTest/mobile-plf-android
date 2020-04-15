@@ -189,6 +189,11 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         }
         if (productsAdapter!!.itemCount > 0) {
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
+            binding.mecVat.visibility = View.VISIBLE
+            binding.mecTotalPrice.visibility = View.VISIBLE
+            binding.mecTotalProducts.visibility = View.VISIBLE
+            binding.mecContinueShoppingBtn.visibility = View.VISIBLE
+            binding.mecContinueCheckoutBtn.visibility  = View.VISIBLE
         }
     }
 
@@ -242,7 +247,6 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             addressViewModel.ecsAddresses.observe(this, addressObserver)
             ecsShoppingCartViewModel.mecError.observe(this, this)
             addressViewModel.mecError.observe(this, this)
-
 
             productReviewList = mutableListOf()
 
