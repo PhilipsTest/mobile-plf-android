@@ -250,7 +250,7 @@ dependencies {
         implementation project(strings.prguapp.projectName)
         implementation project(strings.usruapp.projectName)
 
-        implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        implementation deps.kotlin_stdlib_jdk7
 
 
 
@@ -300,12 +300,12 @@ dependencies {
     //compile project(path: ':mecUApp')
 
     implementation 'com.google.guava:guava:27.0.1-android'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    implementation deps.kotlin_stdlib_jdk7
+    implementation deps.kotlin_test
     kapt deps.androidx.livedata_compiler
 
     //Kotlin test
-    kaptAndroidTest "android.databinding:databinding-compiler:$kotlin_version"
+    kaptAndroidTest deps.databinding_compiler
 }
 
 task copyToLib(type: Copy) {

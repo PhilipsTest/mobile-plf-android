@@ -15,6 +15,12 @@ public class PromotionEntity  implements Serializable {
     private boolean enabled;
     private String endDate;
 
+    public String getName() {
+        return name;
+    }
+
+    private String name;
+
     public PromotionDiscount getPromotionDiscount() {
         return promotionDiscount;
     }

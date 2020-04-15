@@ -16,8 +16,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
-import com.philips.cdp.di.mec.screens.catalog.MECProductCatalogCategorizedFragment;
-import com.philips.cdp.di.mec.screens.catalog.MECProductCatalogFragment;
+import com.philips.platform.mec.screens.catalog.MECProductCatalogCategorizedFragment;
+import com.philips.platform.mec.screens.catalog.MECProductCatalogFragment;
 import com.philips.platform.uappframework.listener.ActionBarListener;
 import com.philips.platform.uappframework.listener.BackEventListener;
 import com.philips.platform.uid.thememanager.AccentRange;
@@ -25,7 +25,6 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
@@ -43,8 +42,10 @@ public class BaseDemoActivity extends AppCompatActivity implements ActionBarList
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.base_demo_activity);
         showAppVersion();
+        fragment=new BaseDemoFragment();
         actionBar();
-        setFragment(new BaseDemoFragment());
+
+        setFragment(fragment);
 
     }
 
@@ -54,6 +55,7 @@ public class BaseDemoActivity extends AppCompatActivity implements ActionBarList
         FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container_base_demo, fragment);
+       // fragmentTransaction.addToBackStack(BaseDemoFragment.class.getSimpleName());
         fragmentTransaction.commit();
     }
 
@@ -77,6 +79,7 @@ public class BaseDemoActivity extends AppCompatActivity implements ActionBarList
     }
 
     private void initTheme() {
+        UIDHelper.injectCalligraphyFonts();
         int themeResourceID = new ThemeHelper(this).getThemeResourceId();
         int themeIndex = themeResourceID;
         if (themeIndex <= 0) {
@@ -101,15 +104,15 @@ public class BaseDemoActivity extends AppCompatActivity implements ActionBarList
         Drawable mBackDrawable = VectorDrawableCompat.create(getResources(), R.drawable.mec_demo_app_back_arrow,getTheme());
         mBackImage.setBackground(mBackDrawable);
         mTitleTextView = findViewById(R.id.mec_demo_app_header_title);
-        fragment = new BaseDemoFragment();
+        //fragment = new BaseDemoFragment();
         fragment.setTextView(mTitleTextView);
-        setTitle(getString(R.string.mec_app_name));
-        mShoppingCart.setOnClickListener(new View.OnClickListener() {
+        setTitle(getString(R.string.demo_app_name));
+      /*  mShoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        });*/
     }
 
     @Override

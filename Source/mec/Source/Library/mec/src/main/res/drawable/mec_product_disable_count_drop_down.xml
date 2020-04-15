@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="10dp"
+    android:height="5dp"
+    android:viewportHeight="5"
+    android:viewportWidth="10">
+    <group android:name="picker">
+        <path
+            android:name="arrow"
+            android:pathData="M-0.000,0.000 L10.000,0.000 L5.000,5.000 L-0.000,0.000 Z" />
+    </group>
+</vector>

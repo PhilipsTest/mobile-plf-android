@@ -136,8 +136,12 @@
     <dimen name="iap_body_text">16sp</dimen>
     <dimen name="iap_title_padding">4dp</dimen>
     <dimen name="iap_body_text_line_spacing_extra">6dp</dimen>
-    <dimen name="reg_scroll_margin">15dip</dimen>
+    <dimen name="reg_scroll_margin">15dp</dimen>
     <dimen name="mec_retailer_button_text_big">16sp</dimen>
+    <dimen name="mec_drop_down_icon_width_size">10dp</dimen>
+    <dimen name="mec_drop_down_icon_height_size">5dp</dimen>
+
+    <dimen name="mec_8_sp">8sp</dimen>
 
 
 </resources>

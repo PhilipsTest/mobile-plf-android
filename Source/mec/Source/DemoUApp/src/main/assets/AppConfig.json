@@ -85,6 +85,8 @@
     }
   },
   "MEC": {
-    "propositionid": "Tuscany2016"
+    "propositionid": "Tuscany2016",
+    "voucherCode.enable": true
+
   }
 }

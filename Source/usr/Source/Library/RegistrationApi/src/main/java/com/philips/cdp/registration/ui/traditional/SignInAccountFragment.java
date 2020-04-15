@@ -751,7 +751,7 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
 
     private String getClientId() {
         ClientIDConfiguration clientIDConfiguration = new ClientIDConfiguration();
-        return clientIDConfiguration.getResetPasswordClientId(RegConstants.HTTPS_CONST + Jump.getCaptureDomain());
+        return clientIDConfiguration.getResetPasswordClientId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+RegistrationHelper.getInstance().getCountryCode());
     }
 
     private void createResendSMSIntent(String url) {

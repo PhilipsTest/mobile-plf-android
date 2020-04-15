@@ -19,7 +19,7 @@
 
 
     <com.philips.platform.uid.view.widget.Label
-        android:id="@+id/mec_online_retailers_lebel"
+        android:id="@+id/mec_chapter_name_lebel"
         style="@style/iapCentralesansBoldFont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

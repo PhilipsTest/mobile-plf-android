@@ -61,7 +61,7 @@ public class AppInfraMainActivity extends AppCompatActivity {
 
         final ArrayList arryaLsit = new ArrayList();
         arryaLsit.add("appinfra.testing.service");
-        arryaLsit.add("userreg.janrain.cdn");
+        arryaLsit.add("userreg.janrain.cdn.v2");
         arryaLsit.add("userreg.landing.emailverif");
         arryaLsit.add("userreg.landing.resetpass");
 
@@ -123,7 +123,7 @@ public class AppInfraMainActivity extends AppCompatActivity {
             }
         });
 
-        AppInfraApplication.gAppInfra.getServiceDiscovery().getServiceUrlWithCountryPreference("userreg.janrain.api", new ServiceDiscoveryInterface.OnGetServiceUrlListener() {
+        AppInfraApplication.gAppInfra.getServiceDiscovery().getServiceUrlWithCountryPreference("userreg.janrain.api.v2", new ServiceDiscoveryInterface.OnGetServiceUrlListener() {
             @Override
             public void onSuccess(URL url) {
                 Log.i("SD", ""+url);

@@ -23,6 +23,10 @@ public class Region implements Serializable{
     private String isocodeShort;
     private String name;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCountryIso() {
         return countryIso;
     }

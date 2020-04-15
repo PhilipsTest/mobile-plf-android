@@ -1,0 +1,107 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:id="@+id/design_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_gravity="bottom"
+        android:visibility="visible"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="5dip"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="380dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textDirection="locale"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/mec_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.philips.platform.uid.view.widget.Label
+                style="@style/mec_address_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="@dimen/border16_margin_left_right"
+                android:paddingRight="@dimen/border16_margin_left_right"
+                fontPath="fonts/centralesansbold.ttf"
+                android:textSize="18sp"
+                android:gravity="start"
+                android:text="@string/mec_manage_address" />
+
+            <com.philips.platform.uid.view.widget.Label
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:paddingLeft="@dimen/border16_margin_left_right"
+                android:paddingRight="@dimen/border16_margin_left_right"
+                android:textSize="14sp"
+                fontPath="fonts/centralesansbook.ttf"
+                android:text="@string/mec_choose_address_text" />
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <com.philips.platform.uid.view.widget.Button
+            android:id="@+id/mec_btn_set_address"
+            style="@style/mecCentralesansBookFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/iap_shopping_cart_btn_margin"
+            android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
+            android:enabled="true"
+            android:text="@string/mec_deliver_to_this_address"
+            android:textColor="?attr/uidButtonPrimaryNormalTextColor"
+            android:textSize="@dimen/iap_text_size_16sp"
+            app:uidComponentType="Primary" />
+
+        <com.philips.platform.uid.view.widget.Button
+            android:id="@+id/mec_btn_delete_address"
+            style="@style/mecCentralesansBookFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/iap_shopping_cart_btn_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
+            android:layout_marginBottom="@dimen/iap_shopping_cart_btn_margin"
+            android:enabled="true"
+            android:text="@string/mec_delete"
+            android:textColor="?attr/uidButtonSecondaryNormalTextColor"
+            android:textSize="@dimen/iap_text_size_16sp"
+            app:uidComponentType="Secondary" />
+
+
+    </LinearLayout>
+        <include
+            android:id="@+id/mec_progress"
+            layout="@layout/mec_progress_bar"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+    </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

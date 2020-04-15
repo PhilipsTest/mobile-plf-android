@@ -1,0 +1,113 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="pattern"
+            type="com.philips.platform.mec.screens.address.MECSalutationHolder" />
+
+        <variable
+            name="mecRegions"
+            type="com.philips.platform.mec.screens.address.MECRegions" />
+
+        <variable
+            name="ecsAddress"
+            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+
+        <variable
+            name="addressFieldEnabler"
+            type="com.philips.platform.mec.screens.address.MECAddressFieldEnabler" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/border16_margin_left_right"
+        android:layout_marginEnd="@dimen/border16_margin_left_right"
+        android:textDirection="locale">
+
+
+
+        <ScrollView
+            android:id="@+id/address_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_buttons"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            android:scrollbars="none">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/uidContentPrimaryBackgroundColor"
+                android:orientation="vertical">
+
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/tv_shipping_address"
+                    style="@style/mec_address_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/iap_margin_20dp"
+                    android:textSize="20sp"
+                    android:layout_gravity="start"
+                    android:text="@string/mec_shipping_address" />
+
+                <LinearLayout
+                    android:id="@+id/llShipping"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/border12_margin">
+
+                    <include
+                        android:id="@+id/dls_iap_address_shipping"
+                        layout="@layout/mec_enter_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:addressFieldEnabler="@{addressFieldEnabler}"
+                        app:mecRegions="@{mecRegions}"
+                        app:ecsAddress="@{ecsAddress}"
+                        app:pattern="@{pattern}">
+
+                    </include>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/uidContentPrimaryBackgroundColor"
+            android:orientation="vertical">
+
+            <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/btn_continue"
+                style="@style/mecCentralesansBookFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/border8_margin"
+                android:layout_marginBottom="@dimen/border12_margin"
+                android:text="Save"
+                app:uidComponentType="Primary" />
+
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/mec_progress"
+            layout="@layout/mec_progress_bar"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+
+    </RelativeLayout>
+</layout>

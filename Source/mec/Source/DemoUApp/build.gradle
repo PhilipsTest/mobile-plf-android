@@ -119,7 +119,7 @@ dependencies {
         implementation philipsdeps.AppInfra
         implementation philipsdeps.uAppFwLib
     }
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation deps.kotlin_stdlib_jdk7
 }
 
 tasks.withType(Test) {

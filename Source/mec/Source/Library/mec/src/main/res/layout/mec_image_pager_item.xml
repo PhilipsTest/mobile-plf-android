@@ -2,21 +2,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="asset"
             type="com.philips.cdp.di.ecs.model.asset.Asset" />
     </data>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/network_image"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:image_url="@{ asset.asset}"/>
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.philips.platform.uid.view.widget.ProgressBar
+                android:id="@+id/mec_item_progressBar"
+                style="@style/UIDProgressBarCircularIndeterminateMiddle"
+                app:uidCircularProgressBarSize="small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:uidIsIndeterminateProgressIndicator="true"
+                android:background="@android:color/transparent"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/network_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:mec_item_progressbar="@{mecItemProgressBar}"
+                app:pager_item_image="@{ asset.asset}"
+                android:visibility="gone" />
+
+
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 </layout>

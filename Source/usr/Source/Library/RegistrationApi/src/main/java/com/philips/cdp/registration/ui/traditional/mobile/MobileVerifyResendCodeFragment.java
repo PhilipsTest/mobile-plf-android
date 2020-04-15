@@ -86,7 +86,7 @@ public class MobileVerifyResendCodeFragment extends RegistrationBaseFragment imp
     @BindView(R2.id.reg_error_msg)
     XRegError errorMessage;
 
-    @BindView(R2.id.ll_reg_root_container)
+    @BindView(R2.id.usr_reg_root_layout)
     LinearLayout rootLayout;
 
     @BindView(R2.id.rl_reg_number_field)
@@ -429,7 +429,7 @@ public class MobileVerifyResendCodeFragment extends RegistrationBaseFragment imp
         } else {
             if (this.isVisible() && popupWindow != null) {
                 popupWindow.showAtLocation(getActivity().
-                        findViewById(R.id.ll_reg_root_container), Gravity.TOP, 0, 0);
+                        findViewById(R.id.usr_reg_root_layout), Gravity.TOP, 0, 0);
             }
         }
     }

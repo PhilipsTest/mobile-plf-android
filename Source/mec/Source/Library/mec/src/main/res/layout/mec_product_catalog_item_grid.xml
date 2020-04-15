@@ -2,11 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
             name="product"
-            type="com.philips.cdp.di.mec.screens.catalog.MECProductReview" />
+            type="com.philips.platform.mec.screens.catalog.MECProductReview" />
     </data>
 
     <LinearLayout
@@ -35,17 +36,6 @@
                     android:layout_height="@dimen/iap_network_image_width_height"
                     android:layout_centerHorizontal="true"
                     app:image_url="@{ product.ecsProduct.summary.imageURL}" />
-
-
-                <ImageView
-                    android:id="@+id/iv_camera"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="top|end"
-                    android:background="@drawable/mec_circular_background"
-                    android:src="@drawable/mec_wishlist"
-                    android:tint="@color/colorAccent"
-                    android:visibility="invisible" />
             </FrameLayout>
 
 
@@ -54,9 +44,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/frame"
-                android:padding="@dimen/border16_margin_left_right"
                 android:layout_centerVertical="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/border16_margin_left_right">
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/iap_retailerItem_productName_lebel"
@@ -118,9 +108,9 @@
                         android:id="@+id/iap_retailerItem_price_lebel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_above="@+id/view"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
-                        android:layout_above="@+id/view"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
                         android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                         android:textSize="16sp"
@@ -139,7 +129,6 @@
 
 
         </RelativeLayout>
-
 
 
     </LinearLayout>

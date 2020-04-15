@@ -16,7 +16,6 @@ import com.philips.platform.uappframework.uappinput.UappDependencies;
  * So vertical needs to initialize IAPDependencies and set the app infra object. This app infra object will
  * be responsible for logging, tagging and some configuration.
  *
- * @since TODO: Shashi, Need ti update version
  */
 public class PIMDependencies extends UappDependencies {
     /**

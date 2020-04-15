@@ -1,0 +1,88 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.philips.platform.mec.screens.shoppingCart.MECShoppingCartFragment" />
+
+        <variable
+            name="itemClickListener"
+            type="com.philips.platform.mec.common.ItemClickListener" />
+
+        <variable
+            name="voucher"
+            type="com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/uid_level_white"
+        android:paddingTop="3dp">
+
+        <RelativeLayout
+            android:id="@+id/mec_applied_vocuher_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
+
+            <LinearLayout
+                android:id="@+id/mec_voucherItem_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/border16_margin_left_right"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/iap_text_size_16sp"
+                android:paddingTop="@dimen/iap_margin_10dp"
+                android:paddingRight="@dimen/iap_text_size_16sp"
+                android:paddingBottom="@dimen/iap_margin_10dp">
+
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_voucherItem_label"
+                    style="@style/mecCentralesansBookFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{voucher.voucherCode ?? "" }'
+                    android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                    android:textSize="@dimen/iap_text_size_16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/iap_margin_4dp">
+
+                    <com.philips.platform.uid.view.widget.Label
+                        android:id="@+id/mec_discountedPrecentage_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@{voucher.valueFormatted + @string/mec_empty_space + @string/mec_discount + @string/mec_empty_space + "|" + @string/mec_empty_space ?? ""}'
+                        android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                        android:textSize="@dimen/iap_text_size_12" />
+
+                    <com.philips.platform.uid.view.widget.Label
+                        android:id="@+id/mec_discount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text='@{voucher.appliedValue.formattedValue?? ""}'
+                        android:textColor="?attr/uidButtonSecondaryNormalTextColor"
+                        android:textSize="@dimen/iap_text_size_12" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                style="@style/mec_button_border"
+                android:layout_below="@+id/mec_voucherItem_layout"
+                android:layout_marginTop="@dimen/border8_margin" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>

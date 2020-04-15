@@ -29,6 +29,11 @@
   "IAP": {
     "propositionid": "Tuscany2016"
   },
+  "MEC": {
+    "propositionid": "Tuscany2016",
+    "voucherCode.enable": true
+
+  },
   "ProductRegistration": {
     "ApiKey":"Euqjw7YWRa5pc7c6jKliv1odg5vLUT2m465k7FJ8"
   },
@@ -50,7 +55,7 @@
       "DOT-ReceiveMarketingOptIn"
     ],
     "servicediscovery.platformMicrositeId": "70000",
-    "servicediscovery.platformEnvironment": "production",
+    "servicediscovery.platformEnvironment": "PRODUCTION",
     "timesync.ntp.hosts": [
       "0.pool.ntp.org",
       "1.pool.ntp.org",

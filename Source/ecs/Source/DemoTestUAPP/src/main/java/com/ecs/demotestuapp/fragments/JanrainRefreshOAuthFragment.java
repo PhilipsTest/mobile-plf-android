@@ -5,11 +5,13 @@ import android.widget.EditText;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ClientType;
+import com.philips.cdp.di.ecs.integration.ClientID;
 import com.philips.cdp.di.ecs.integration.ECSCallback;
 import com.philips.cdp.di.ecs.integration.ECSOAuthProvider;
 import com.philips.cdp.di.ecs.integration.GrantType;
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData;
+import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.appinfra.appidentity.AppIdentityInterface;
 
 public class JanrainRefreshOAuthFragment extends BaseAPIFragment {
 
@@ -31,13 +33,19 @@ public class JanrainRefreshOAuthFragment extends BaseAPIFragment {
         }
 
         etSecret = getLinearLayout().findViewWithTag("et_one");
-        etSecret.setText("secret");
+        if (ECSConfiguration.INSTANCE.getAppInfra().getAppIdentity().getAppState().equals(AppIdentityInterface.AppState.PRODUCTION)) {
+            etSecret.setText("prod_inapp_54321");
+        } else if ((ECSConfiguration.INSTANCE.getAppInfra().getAppIdentity().getAppState().equals(AppIdentityInterface.AppState.ACCEPTANCE))||ECSConfiguration.INSTANCE.getAppInfra().getAppIdentity().getAppState().equals(AppIdentityInterface.AppState.STAGING)){
+            etSecret.setText("acc_inapp_12345");
+        } else {
+            etSecret.setText("secret");
+        }
 
         etClient = getLinearLayout().findViewWithTag("et_two");
         if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
-            etClient.setText(ClientType.OIDC.getType());
+            etClient.setText(ClientID.OIDC.getType());
         else
-            etClient.setText(ClientType.JANRAIN.getType());
+            etClient.setText(ClientID.JANRAIN.getType());
         etOAuthID = getLinearLayout().findViewWithTag("et_three");
         etOAuthID.setText(refreshToken);
     }
@@ -81,10 +89,10 @@ public class JanrainRefreshOAuthFragment extends BaseAPIFragment {
             }
 
             @Override
-            public ClientType getClientID() {
+            public ClientID getClientID() {
                 if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
-                    return ClientType.OIDC;
-                return ClientType.JANRAIN;
+                    return ClientID.OIDC;
+                return ClientID.JANRAIN;
             }
 
             @Override

@@ -213,9 +213,9 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
           if (this.isVisible()) {
               RLog.d(TAG, "onRefreshUserSuccess");
               storePreference(user.getMobile());
+              hideProgressSpinner();
               SpannableString description = setDescription(normalText, user.getMobile());
               regVerifyMobileDesc1.setText(description);
-              hideProgressSpinner();
               if (isVerified) {
                   if (getRegistrationFragment().getCurrentFragment() instanceof MobileVerifyCodeFragment) {
                       EventBus.getDefault().unregister(this);
@@ -224,6 +224,7 @@ public class MobileVerifyCodeFragment extends RegistrationBaseFragment implement
               }
           }
       } catch (Exception e){
+          RLog.d(TAG, "onRefreshUserSuccess: Exception:"+e.getLocalizedMessage());
 
       }
     }

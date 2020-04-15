@@ -24,15 +24,6 @@
         android:layout_centerInParent="true"
         android:layout_margin="5dp" />
 
-  <!--  <aandroidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_CountrySelection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/selectLibrary"
-        android:layout_centerInParent="true"
-
-        android:layout_margin="5dp" />-->
-
     <com.philips.platform.uid.view.widget.Button
         android:id="@+id/launch"
         android:layout_width="wrap_content"
@@ -53,5 +44,12 @@
         android:layout_centerInParent="true"
         android:checked="false"
         android:text="Enable Chuck"/>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/relaunchProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
 </RelativeLayout>

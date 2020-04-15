@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class CardType implements Serializable {
     private static final long serialVersionUID = 8160886424090692482L;
     private String code;
+
     private String name;
 
     public String getCode() {
@@ -18,5 +19,9 @@ public class CardType implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -38,7 +38,7 @@ android {
         versionName version
         multiDexEnabled true
         manifestPlaceholders = [
-                appAuthRedirectScheme: ''
+                udiRedirectScheme: ''
         ]
     }
 
