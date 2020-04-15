@@ -32,11 +32,13 @@ import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames.productDetails
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.productDetailsPage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.outOfStock
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.prodView
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.retailerName
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.scAdd
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.stockStatus
@@ -189,8 +191,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
            // ecsProductDetailViewModel.ecsProduct.value = product
 
 
-            com.philips.platform.mec.analytics.MECAnalytics.trackPage(productDetails)
-            tagActions(product)
+
             mRootView=binding.root
             showData()
             ////////////// start of update cart and login if required
@@ -231,6 +232,12 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_product_detail_title, true)
         setCartIconVisibility(true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(productDetailsPage)
+        tagActions(product)
     }
 
 
@@ -332,6 +339,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                 val addToProductCallback =  object: ECSCallback<ECSShoppingCart, Exception> {
 
                     override fun onResponse(eCSShoppingCart: ECSShoppingCart?) {
+                        tagAddToCart(binding.product!!)
                         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
                         val bundle = Bundle()
                         bundle.putSerializable(MECConstant.MEC_SHOPPING_CART, eCSShoppingCart)
@@ -352,7 +360,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                     ecsProductDetailViewModel.addProductToShoppingcart(it,addToProductCallback)
                 }
             }else{
-                fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), getString(R.string.mec_cart_login_error_message)) } }
+                fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), R.string.mec_cart_login_error_message) } }
             }
         }
     }
@@ -408,8 +416,8 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     private fun tagActions(product: ECSProduct) {
         var map = HashMap<String, String>()
         map.put(specialEvents, prodView)
-        map.put(mecProducts, com.philips.platform.mec.analytics.MECAnalytics.getProductInfo(product))
-        com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(sendData, map)
+        map.put(mecProducts, MECAnalytics.getProductInfo(product))
+        MECAnalytics.trackMultipleActions(sendData, map)
     }
 
 
@@ -417,11 +425,19 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         var map = HashMap<String, String>()
         map.put(retailerName, name)
         map.put(stockStatus, status)
-        map.put(mecProducts, com.philips.platform.mec.analytics.MECAnalytics.getProductInfo(product!!))
-        com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(sendData, map)
+        map.put(mecProducts, MECAnalytics.getProductInfo(product!!))
+        MECAnalytics.trackMultipleActions(sendData, map)
+    }
+
+    private fun tagAddToCart(product: ECSProduct){
+        var map = HashMap<String, String>()
+        map.put(specialEvents, scAdd)
+        map.put(mecProducts, MECAnalytics.getProductInfo(product))
+        MECAnalytics.trackMultipleActions(sendData, map)
     }
 
     companion object {
+
 
         val TAG = "MECProductDetailsFragment"
 
@@ -429,8 +445,8 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         fun tagOutOfStockActions(product: ECSProduct) {
             var map = HashMap<String, String>()
             map.put(specialEvents, outOfStock)
-            map.put(mecProducts, com.philips.platform.mec.analytics.MECAnalytics.getProductInfo(product))
-            com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(sendData, map)
+            map.put(mecProducts, MECAnalytics.getProductInfo(product))
+            MECAnalytics.trackMultipleActions(sendData, map)
         }
     }
 

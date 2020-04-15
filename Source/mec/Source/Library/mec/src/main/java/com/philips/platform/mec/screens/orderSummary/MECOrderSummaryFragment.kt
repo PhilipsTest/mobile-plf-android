@@ -28,14 +28,17 @@ import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderSummaryPage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderSummaryFragmentBinding
-import com.philips.platform.mec.screens.payment.MECPayment
-import com.philips.platform.mec.screens.payment.PaymentViewModel
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.catalog.MecPrivacyFragment
+import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.screens.payment.MECWebPaymentFragment
+import com.philips.platform.mec.screens.payment.PaymentViewModel
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummaryAdapter
 import com.philips.platform.mec.screens.shoppingCart.MECShoppingCartFragment
@@ -63,7 +66,8 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
     private lateinit var voucherList: MutableList<AppliedVoucherEntity>
     private lateinit var paymentViewModel: PaymentViewModel
-    private lateinit var orderNumber: String
+    private lateinit var mECSOrderDetail :ECSOrderDetail
+
     override fun onItemClick(item: Any) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -73,9 +77,9 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     }
 
     private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
+        mECSOrderDetail=eCSOrderDetail
         MECLog.v("orderObserver ", "" + eCSOrderDetail.code)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
-        orderNumber = eCSOrderDetail.code
         paymentViewModel.makePayment(eCSOrderDetail, mecPayment.ecsPayment.billingAddress)
     }
 
@@ -83,7 +87,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         MECLog.v("mkPaymentObs ", "" + eCSPaymentProvider.worldpayUrl)
         val mECWebPaymentFragment = MECWebPaymentFragment()
         val bundle = Bundle()
-        bundle.putString(MECConstant.ORDER_NUMBER, orderNumber)
+        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mECSOrderDetail)
         bundle.putString(MECConstant.WEB_PAY_URL, eCSPaymentProvider.worldpayUrl)
         mECWebPaymentFragment.arguments = bundle
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
@@ -138,6 +142,11 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     override fun onResume() {
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_checkout, true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(orderSummaryPage)
     }
 
     override fun onDestroy() {

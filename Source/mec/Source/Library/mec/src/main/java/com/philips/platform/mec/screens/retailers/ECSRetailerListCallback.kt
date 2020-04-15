@@ -13,6 +13,7 @@ import com.philips.cdp.di.ecs.error.ECSError
 import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 
@@ -27,7 +28,7 @@ class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewM
     }
 
     override fun onFailure(error: Exception?, ecsError: ECSError?) {
-        val mecError = MecError(error, ecsError,null)
+        val mecError = MecError(error, ecsError,MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)
         ecsRetailerViewModel.mecError.value = mecError
     }
 

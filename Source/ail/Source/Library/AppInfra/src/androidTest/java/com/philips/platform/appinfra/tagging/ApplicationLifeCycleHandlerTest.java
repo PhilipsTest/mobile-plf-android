@@ -39,7 +39,7 @@ public class ApplicationLifeCycleHandlerTest {
     public void setUp() throws Exception {
         initMocks(this);
 
-        ApplicationLifeCycleHandler.isInBackground = true;
+
         applicationLifeCycleHandler = new ApplicationLifeCycleHandler(appInfraMock);
     }
 
@@ -68,7 +68,7 @@ public class ApplicationLifeCycleHandlerTest {
         applicationLifeCycleHandler.onActivityResumed(activity);
         verify(loggingInterfaceMock).log(LoggingInterface.LogLevel.DEBUG,
                 AppInfraLogEventID.AI_TAGGING, "ApplicationLifeCycleHandler Resumed");
-        verify(appTaggingInterfaceMock).trackActionWithInfo("sendData", "appStatus", "ForeGround");
+
     }
 
     @Test

@@ -20,13 +20,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
 import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecRetailersFragmentBinding
 import com.philips.platform.mec.utils.MECConstant
-import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.mec.utils.MECDataHolder
 import java.util.*
 
 
@@ -71,26 +72,41 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
 
         binding.retailerList = retailers
         binding.itemClickListener = this
-        tagRetailerList(retailers,product)
+        tagRetailerAndBlackListedRetailerList(retailers,product)
         return binding.root
     }
 
-    private fun tagRetailerList(retailers: ECSRetailerList, product :ECSProduct  ){
+    private fun tagRetailerAndBlackListedRetailerList(retailers: ECSRetailerList, product :ECSProduct  ){
+        // add retailer list if present
+        val map = HashMap<String, String>()
         if(retailers!=null && retailers.retailers!=null && retailers.retailers.size>0) {
             val mutableRetailersIterator = retailers.retailers.iterator()
             var retailerListString: String = ""
             for (ecsRetailer in mutableRetailersIterator) {
                 retailerListString += "|" + ecsRetailer.name
             }
-            retailerListString = retailerListString.substring(1, retailerListString.length - 1)
+            retailerListString = retailerListString.substring(1, retailerListString.length )
 
-            val map = HashMap<String, String>()
-            map.put(com.philips.platform.mec.analytics.MECAnalyticsConstant.retailerList, retailerListString)
-            val productInfo: String = com.philips.platform.mec.analytics.MECAnalytics.getProductInfo(product)
-            map.put(com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts, productInfo)
-            com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(sendData, map)
+            map.put(MECAnalyticsConstant.retailerList, retailerListString)
+            val productInfo: String = MECAnalytics.getProductInfo(product)
+            map.put(MECAnalyticsConstant.mecProducts, productInfo)
 
         }
+        // add Blacklisted retailer list if present otherwise send empty string
+        var blackListedRetailerListString: String? = null
+        if(MECDataHolder.INSTANCE.blackListedRetailers!=null && MECDataHolder.INSTANCE.blackListedRetailers!!.size>0){
+            for(blackListedRetailer: String in MECDataHolder.INSTANCE.blackListedRetailers!!){
+                blackListedRetailerListString+= "|" +blackListedRetailer
+            }
+            if (blackListedRetailerListString != null) {
+                blackListedRetailerListString = blackListedRetailerListString.substring(1, blackListedRetailerListString.length )
+            }
+            blackListedRetailerListString?.let { map.put(MECAnalyticsConstant.blackListedRetailerList, it) }
+        }
+
+
+        MECAnalytics.trackMultipleActions(sendData, map)
+
     }
 
 }

@@ -25,6 +25,9 @@ import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.region.ECSRegion
 import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.createBillingAddressPage
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.editBillingAddressPage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecAddressEditBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -68,6 +71,11 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
         super.onResume()
         setCartIconVisibility(false)
         setTitleAndBackButtonVisibility(R.string.mec_address, true)
+        if(null==ecsAddress.phone1){
+           MECAnalytics.trackPage(createBillingAddressPage)
+        }else{
+            MECAnalytics.trackPage(editBillingAddressPage)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

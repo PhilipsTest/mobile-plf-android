@@ -19,6 +19,10 @@ import com.philips.cdp.di.ecs.integration.GrantType
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
 import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
+import com.philips.platform.mec.analytics.MECAnalyticServer
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants
@@ -82,7 +86,7 @@ class HybrisAuth {
                 val userDetailsMap = MECDataHolder.INSTANCE.userDataInterface.getUserDetails(detailsKey)
                 return userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN)!!.toString()
             } catch (e: Exception) {
-                e.printStackTrace()
+                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
             }
             return null
         }
@@ -101,7 +105,9 @@ class HybrisAuth {
                     var jsonString = getJsonStringOfMap(map)
                     MECDataHolder.INSTANCE.refreshToken = result?.refreshToken!!
                     MECDataHolder.INSTANCE.appinfra.secureStorage.storeValueForKey(KEY_MEC_AUTH_DATA,jsonString,sse)
-                    MECutility.tagAndLog(""+sse.errorMessage)
+                    if(sse!=null && sse.errorMessage!=null && sse.errorCode!=null) {
+                        MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError+ ":" + MECAnalyticServer.other + sse.errorMessage + ":" + sse.errorCode)
+                    }
                     fragmentCallback.onResponse(result)
                 }
 

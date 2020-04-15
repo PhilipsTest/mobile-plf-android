@@ -23,8 +23,11 @@ import android.webkit.*
 import android.widget.FrameLayout
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.retailerListPage
+import com.philips.platform.mec.analytics.MECAnalyticServer
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkNameKey
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
@@ -58,7 +61,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
         mUrl = getArguments()!!.getString(MECConstant.MEC_BUY_URL)
         isPhilipsShop = arguments!!.getBoolean(MECConstant.MEC_IS_PHILIPS_SHOP)
         initializeWebView(group)
-        com.philips.platform.mec.analytics.MECAnalytics.trackPage(retailerListPage)
+        MECAnalytics.trackPage(retailerListPage)
         return group
     }
 
@@ -93,7 +96,9 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                 if (isPhilipsShop) {
                     tagUrl = getPhilipsFormattedUrl(url)
                 }
-                com.philips.platform.mec.analytics.MECAnalytics.trackAction(com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData, com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkNameKey, tagUrl)
+                var map = HashMap<String, String>()
+                map.put(exitLinkNameKey, tagUrl)
+                MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
                 super.onPageCommitVisible(view, url)
             }
 
@@ -119,6 +124,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                         return true
                     }
                 } catch (e: Exception) {
+                    MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECRequestType.MEC_FETCH_RETAILER_FOR_CTN + ":" + MECAnalyticServer.wtb + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
                     // Avoid crash due to not installed app which can handle the specific url scheme
                     return false
                 }
