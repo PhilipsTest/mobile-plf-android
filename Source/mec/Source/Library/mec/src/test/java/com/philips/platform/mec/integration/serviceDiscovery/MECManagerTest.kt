@@ -128,9 +128,4 @@ class MECManagerTest {
         mecManager.getShoppingCartData(mecCartUpdateListener)
     }
 
-    @Test
-    fun testGetShoppingCartDataDoHybrisAuthCall() {
-        Mockito.`when`(MECutility.isExistingUser()).thenReturn(false)
-        mecManager.getShoppingCartData(mecCartUpdateListener)
-    }
 }
