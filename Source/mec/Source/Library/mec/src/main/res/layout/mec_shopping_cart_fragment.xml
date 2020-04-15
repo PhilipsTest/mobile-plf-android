@@ -95,14 +95,14 @@
                         android:paddingRight="@dimen/border16_margin_left_right"
                         android:visibility="@{mecDataHolder.voucherEnabled ? View.VISIBLE : View.GONE, default = gone}">
 
-                        <com.philips.platform.mec.screens.address.MECInputValidationLayout
+                        <com.philips.platform.uid.view.widget.InputValidationLayout
                             android:id="@+id/ll_add_voucher"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
                             android:layout_weight="1"
                             android:background="?attr/uidTextBoxDefaultPressedBackgroundColor"
-                            app:mecEmptyValidator="@{null}"
+                            app:emptyValidator="@{null}"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="Voucher Error">
 
@@ -115,7 +115,7 @@
                                 android:hint="@string/mec_enter_code"
                                 android:textSize="16dp"
                                 app:uidInputTextWithClearButton="true" />
-                        </com.philips.platform.mec.screens.address.MECInputValidationLayout>
+                        </com.philips.platform.uid.view.widget.InputValidationLayout>
 
                         <com.philips.platform.uid.view.widget.Button
                             android:id="@+id/mec_voucher_btn"
