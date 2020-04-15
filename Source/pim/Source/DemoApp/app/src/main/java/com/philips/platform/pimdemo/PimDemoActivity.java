@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
+import com.philips.platform.pim.UDIRedirectReceiverActivity;
 import com.philips.platform.uid.utils.UIDActivity;
 import com.philips.platform.uid.view.widget.Button;
 import com.pim.demouapp.PIMDemoUAppActivity;
@@ -56,7 +57,7 @@ public class PimDemoActivity extends UIDActivity {
             launchUApp();
         });
 
-        if (getIntent().hasExtra("RELAUNCH_ON_EMAIL_VERIFY")) {
+        if (getIntent().hasExtra(UDIRedirectReceiverActivity.RELAUNCH_ON_EMAIL_VERIFY)) {
             progressBar.setVisibility(View.VISIBLE);
             selectLibreary.setVisibility(View.INVISIBLE);
             launchUApp.setVisibility(View.INVISIBLE);

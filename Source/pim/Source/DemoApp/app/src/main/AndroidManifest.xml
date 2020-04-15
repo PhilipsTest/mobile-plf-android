@@ -21,6 +21,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.philips.platform.pim.UDIRedirectReceiverActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="${udiRedirectScheme}" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

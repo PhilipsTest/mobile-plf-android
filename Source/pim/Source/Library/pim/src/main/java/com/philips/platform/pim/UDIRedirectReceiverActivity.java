@@ -16,7 +16,7 @@ import net.openid.appauth.AuthorizationManagementActivity;
 
 public class UDIRedirectReceiverActivity extends Activity {
 
-    private final String RELAUNCH_ON_EMAIL_VERIFY = "RELAUNCH_ON_EMAIL_VERIFY";
+    public static final String RELAUNCH_ON_EMAIL_VERIFY = "RELAUNCH_ON_EMAIL_VERIFY";
 
     @Override
     public void onCreate(Bundle savedInstanceBundle) {

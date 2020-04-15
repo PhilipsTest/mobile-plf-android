@@ -452,6 +452,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             }
         } else if (v == btnMigrator) {
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+                showToast("User is already logged-in!");
+            } else {
                 userDataInterface.migrateUserToPIM(new UserMigrationListener() {
                     @Override
                     public void onUserMigrationSuccess() {
@@ -463,9 +465,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                         showToast("user migration failed error code = " + error.getErrCode() + " error message : " + error.getErrDesc());
                     }
                 });
-            } else {
-                showToast("User is not loged-in, Please login!");
             }
+
         } else if (v == btn_RefetchUserDetails) {
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 userDataInterface.refetchUserDetails(new RefetchUserDetailsListener() {
