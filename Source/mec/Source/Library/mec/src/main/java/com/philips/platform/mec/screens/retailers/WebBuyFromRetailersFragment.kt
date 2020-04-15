@@ -124,8 +124,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                         return true
                     }
                 } catch (e: Exception) {
-                    MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + MECRequestType.MEC_FETCH_RETAILER_FOR_CTN+ MECAnalyticServer.wtb + e.toString())
-
+                    MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECRequestType.MEC_FETCH_RETAILER_FOR_CTN + ":" + MECAnalyticServer.wtb + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
                     // Avoid crash due to not installed app which can handle the specific url scheme
                     return false
                 }

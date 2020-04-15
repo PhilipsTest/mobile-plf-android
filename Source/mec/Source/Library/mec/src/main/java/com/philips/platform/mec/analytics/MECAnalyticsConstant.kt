@@ -13,6 +13,7 @@ object MECAnalyticsConstant {
 
     val COMPONENT_NAME = "mec"
 
+    val exceptionErrorCode           = "90000"
     val exitLinkNameKey              = "exitLinkName"
     val exitLinkParameter            = "15_global_%s_%s-app_%s-app"
     val retailerList                 = "retailerList"

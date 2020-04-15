@@ -86,7 +86,7 @@ class HybrisAuth {
                 val userDetailsMap = MECDataHolder.INSTANCE.userDataInterface.getUserDetails(detailsKey)
                 return userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN)!!.toString()
             } catch (e: Exception) {
-                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + MECAnalyticServer.other + e.localizedMessage)
+                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECRequestType.MEC_APP_ERROR.category + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
             }
             return null
         }

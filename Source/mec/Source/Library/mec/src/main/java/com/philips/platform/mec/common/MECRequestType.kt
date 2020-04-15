@@ -10,6 +10,7 @@
 package com.philips.platform.mec.common
 
 enum class MECRequestType(val category: String) {
+    MEC_APP_ERROR("appError"),
     MEC_CONFIGURE_ECS(""),
     MEC_CONFIGURE_ECS_TO_GET_CONFIGURATION("configureECSWithConfiguration"),
     MEC_HYBRIS_AUTH("hybrisOAuthAuthenticationWith"),
