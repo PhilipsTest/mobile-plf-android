@@ -31,8 +31,19 @@
         android:layout_below="@id/selectLibrary"
         android:layout_centerInParent="true"
         android:layout_margin="5dp"
+        android:layout_marginBottom="10dp"
         android:onClick="launch"
         android:text="Launch PIM MicroApp" />
+
+    <CheckBox
+        android:id="@+id/pim_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/launch"
+        android:layout_marginStart="@dimen/reg_dimen_8dp"
+        android:layout_centerInParent="true"
+        android:checked="false"
+        android:text="Enable Chuck"/>
 
     <ProgressBar
         android:layout_centerInParent="true"

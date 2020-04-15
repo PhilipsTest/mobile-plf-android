@@ -2,15 +2,16 @@ package com.philips.platform.pimdemo;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatSpinner;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 
 import com.philips.platform.pim.UDIRedirectReceiverActivity;
@@ -23,22 +24,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PimDemoActivity extends UIDActivity {
-    private AppCompatSpinner selectLibreary;
+    private AppCompatSpinner selectLibrary;
+    private CheckBox enableChuck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pim_demo);
         Button launchUApp = findViewById(R.id.launch);
+        enableChuck = findViewById(R.id.pim_checkbox);
         ProgressBar progressBar = findViewById(R.id.relaunchProgressBar);
-        selectLibreary = findViewById(R.id.selectLibrary);
+        selectLibrary = findViewById(R.id.selectLibrary);
 
         List<String> libraryList = new ArrayList<>();
         libraryList.add("PIM");
         libraryList.add("USR");
         ArrayAdapter libraryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, libraryList);
-        selectLibreary.setAdapter(libraryAdapter);
-        selectLibreary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        selectLibrary.setAdapter(libraryAdapter);
+        selectLibrary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String selectedLib = libraryList.get(position);
@@ -59,14 +62,14 @@ public class PimDemoActivity extends UIDActivity {
 
         if (getIntent().hasExtra(UDIRedirectReceiverActivity.RELAUNCH_ON_EMAIL_VERIFY)) {
             progressBar.setVisibility(View.VISIBLE);
-            selectLibreary.setVisibility(View.INVISIBLE);
+            selectLibrary.setVisibility(View.INVISIBLE);
             launchUApp.setVisibility(View.INVISIBLE);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     launchUApp();
                     progressBar.setVisibility(View.INVISIBLE);
-                    selectLibreary.setVisibility(View.VISIBLE);
+                    selectLibrary.setVisibility(View.VISIBLE);
                     launchUApp.setVisibility(View.VISIBLE
                     );
                 }
@@ -76,7 +79,11 @@ public class PimDemoActivity extends UIDActivity {
 
     private void launchUApp() {
         Intent intent = new Intent(PimDemoActivity.this, PIMDemoUAppActivity.class);
-        intent.putExtra("SelectedLib", selectLibreary.getSelectedItem().toString());
+        intent.putExtra("SelectedLib", selectLibrary.getSelectedItem().toString());
+        SharedPreferences preferences = this.getSharedPreferences("chuckEnabled", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("CHUCK", enableChuck.isChecked());
+        editor.apply();
         startActivity(intent);
     }
 }
