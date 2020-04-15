@@ -79,10 +79,17 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         return binding.root
     }
 
-    fun onClickContinue(){ // TODO pass the text from editText through the method
-        binding.root.mec_progress.visibility = View.VISIBLE
+    fun onClickContinue(){
+
         val cvv=binding.root.mec_cvv_digits.text.toString()
-        if(cvv.trim().isNotEmpty()) paymentViewModel.submitOrder(cvv) else binding.root.mec_cvv_digits.startAnimation(MECutility.getShakeAnimation())
+        if(cvv.trim().isNotEmpty()){
+            binding.root.mec_progress.visibility = View.VISIBLE
+            paymentViewModel.submitOrder(cvv)
+        }
+          else {
+            binding.root.mec_cvv_digits.startAnimation(MECutility.getShakeAnimation())
+            this.context?.let { MECAnalytics.getDefaultString(it,R.string.mec_blank_cvv_error) }?.let { MECAnalytics.trackUserError(it) }
+        }
 
     }
 

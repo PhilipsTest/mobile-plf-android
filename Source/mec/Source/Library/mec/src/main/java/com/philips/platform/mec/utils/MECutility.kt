@@ -33,6 +33,7 @@ import com.philips.platform.mec.analytics.MECAnalyticServer.wtb
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotification
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotificationresponse
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
@@ -321,7 +322,7 @@ class MECutility {
                     }
 
                 } catch (e: Exception) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + MECRequestType.MEC_APP_ERROR.category + ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
                 }
             }
             if (showDialog.equals(true)) {
@@ -365,7 +366,7 @@ class MECutility {
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
                 if(sse!=null && sse.errorMessage!=null && sse.errorCode!=null) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + MECRequestType.MEC_APP_ERROR.category + ":" + other + sse.errorMessage + ":" + sse.errorCode)
+                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + sse.errorMessage + ":" + sse.errorCode)
                 }
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)

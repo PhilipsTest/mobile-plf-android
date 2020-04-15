@@ -19,7 +19,6 @@ import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.mec.analytics.MECAnalyticServer
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
-import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.integration.MECBannerConfigurator
 import com.philips.platform.mec.integration.MECBazaarVoiceInput
 import com.philips.platform.mec.integration.MECOrderFlowCompletion
@@ -48,7 +47,7 @@ enum class MECDataHolder {
     lateinit var voucherCode: String
     var maxCartCount: Int = 0
     lateinit var userDataInterface: UserDataInterface
-    var refreshToken: String = "UNKNOWN" //To avoid null check and Null pointer exception 
+    var refreshToken: String = "UNKNOWN" //To avoid null check and Null pointer exception
     var blackListedRetailers: List<String>? = null
     lateinit var mecBazaarVoiceInput: MECBazaarVoiceInput
     private var privacyUrl: String? = null
@@ -99,7 +98,7 @@ enum class MECDataHolder {
                 lastName = hashMap.get(UserDetailConstants.FAMILY_NAME) as String
                 email = hashMap.get(UserDetailConstants.EMAIL) as String
             } catch (e: UserDataInterfaceException) {
-                e.printStackTrace()
+                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECAnalyticsConstant.appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
             }
 
         }
@@ -143,8 +142,7 @@ enum class MECDataHolder {
         try {
             voucher =appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
         } catch (e: Exception) {
-            MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECRequestType.MEC_APP_ERROR.category + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
-            MECRequestType.MEC_FETCH_RETAILER_FOR_CTN
+
         }
 
         propositionId = propertyForKey

@@ -10,7 +10,6 @@
 package com.philips.platform.mec.common
 
 enum class MECRequestType(val category: String) {
-    MEC_APP_ERROR("appError"),
     MEC_CONFIGURE_ECS(""),
     MEC_CONFIGURE_ECS_TO_GET_CONFIGURATION("configureECSWithConfiguration"),
     MEC_HYBRIS_AUTH("hybrisOAuthAuthenticationWith"),
@@ -54,7 +53,7 @@ enum class MECRequestType(val category: String) {
     MEC_SET_PROPOSITION_ID(""),
     MEC_SET_VOLLEY_TIMEOUT_AND_RETRY_COUNT("setVolleyTimeout"),
     MEC_FETCH_REVIEW("fetchAllReviewsForCTN"),
-    MEC_FETCH__BULK_RATING("fetchBulkRatingsForCTNList"),
+    MEC_FETCH_BULK_RATING("fetchBulkRatingsForCTNList"),
     MEC_FETCH_SPECIFICATION("fetchProductSpecsFor"),
     MEC_FETCH_FEATURE("fetchProductFeaturesFor"),;
 

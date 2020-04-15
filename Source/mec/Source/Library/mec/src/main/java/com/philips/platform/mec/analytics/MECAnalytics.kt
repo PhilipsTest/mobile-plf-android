@@ -20,6 +20,7 @@ import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.country
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.currency
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.deliveryMethod
@@ -36,7 +37,6 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.userError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRedeemed
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeStatus
-import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.integration.MECDependencies
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
@@ -316,7 +316,7 @@ class MECAnalytics {
                 val currency = Currency.getInstance(locale)
                 currencyCode = currency.currencyCode
             } catch (e: Exception) {
-                trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME+":"+MECRequestType.MEC_APP_ERROR.category +":"+ other+e.toString()+":"+exceptionErrorCode)
+                trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME+":"+ appError +":"+ other+e.toString()+":"+exceptionErrorCode)
             }
 
         }
