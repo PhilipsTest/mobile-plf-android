@@ -15,14 +15,14 @@ open class MECBazaarVoiceInput {
 
     open fun getBazaarVoiceClientID (): String{
 
-        return "philipsglobal";
+        return "philipsglobal"
     }
 
     open fun getBazaarVoiceConversationAPIKey (): String{
-        return "caAyWvBUz6K3xq4SXedraFDzuFoVK71xMplaDk1oO5P4E"
+        return "ca23LB5V0eOKLe0cX6kPTz6LpAEJ7SGnZHe21XiWJcshc"
     }
 
     open fun getBazaarVoiceEnvironment() : MECBazaarVoiceEnvironment{
-        return MECBazaarVoiceEnvironment.PRODUCTION
+        return MECBazaarVoiceEnvironment.STAGING
     }
 }

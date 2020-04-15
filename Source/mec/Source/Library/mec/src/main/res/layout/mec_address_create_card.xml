@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
 
         <variable
@@ -11,42 +12,36 @@
         android:id="@+id/mec_address_card_view"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="8dp"
         android:clickable="true"
         android:focusable="true"
         android:padding="@dimen/iap_margin_10dp"
-        app:cardUseCompatPadding="true"
-        android:textDirection="locale">
+        android:textDirection="locale"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
+            <com.philips.platform.uid.view.widget.Label
+                fontPath="fonts/centralesansbold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/mec_pros_plus"
+                android:textSize="56sp" />
 
             <com.philips.platform.uid.view.widget.Label
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                fontPath="fonts/centralesansbold.ttf"
-                android:textSize="56sp"
-                android:text="@string/mec_pros_plus"/>
-            <com.philips.platform.uid.view.widget.Label
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:text="Add new Shipping Address"/>
+                android:text="@string/mec_add_new_address"
+                android:textSize="14sp" />
 
         </LinearLayout>
-
-        <!--bold 56  ,,, book sp14  cengte-->
-<!-- pro cons unicode + 56*56 "\u{FF0B}"
-     lebel - Add new Shipping Address
-     -->
-
     </androidx.cardview.widget.CardView>
 </layout>

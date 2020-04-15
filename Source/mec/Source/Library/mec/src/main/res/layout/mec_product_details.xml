@@ -31,6 +31,10 @@
     >
 
 
+    <RelativeLayout
+        android:id="@+id/rl_parent_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -305,7 +309,7 @@
             />
 
     </LinearLayout>
-
+</RelativeLayout>
 
     <include
         android:id="@+id/mec_progress"

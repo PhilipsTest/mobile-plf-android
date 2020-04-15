@@ -15,14 +15,15 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.philips.cdp.digitalcare.ConsumerProductInfo;
@@ -135,6 +136,13 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
         DigiCareLogger.v(TAG, "SupportScreen Launched");
         View mView = inflater.inflate(R.layout.consumercare_fragment_support, container,
                 false);
+
+        mOptionParent = mView.findViewById(
+                R.id.optionParent);
+        mOptionContainer = mView.findViewById(
+                R.id.supportMenuContainer);
+        mParams = (LinearLayout.LayoutParams) mOptionParent.getLayoutParams();
+
         mIsFirstScreenLaunch = true;
 
 
@@ -213,11 +221,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mOptionParent = getActivity().findViewById(
-                R.id.optionParent);
-        mOptionContainer = getActivity().findViewById(
-                R.id.supportMenuContainer);
-        mParams = (LinearLayout.LayoutParams) mOptionParent.getLayoutParams();
+
 
         Configuration config = getResources().getConfiguration();
         setViewParams(config);

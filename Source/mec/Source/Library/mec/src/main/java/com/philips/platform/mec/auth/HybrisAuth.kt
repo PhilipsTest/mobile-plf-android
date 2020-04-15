@@ -12,7 +12,7 @@ package com.philips.platform.mec.auth
 import com.google.gson.Gson
 import com.philips.cdp.di.ecs.error.ECSError
 import com.philips.cdp.di.ecs.error.ECSErrorEnum
-import com.philips.cdp.di.ecs.integration.ClientType
+import com.philips.cdp.di.ecs.integration.ClientID
 import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.integration.ECSOAuthProvider
 import com.philips.cdp.di.ecs.integration.GrantType
@@ -46,8 +46,8 @@ class HybrisAuth {
                     return getAccessToken()
                 }
 
-                override fun getClientType(): ClientType {
-                    return if (MECDataHolder.INSTANCE.userDataInterface.isOIDCToken) ClientType.OIDC else ClientType.JANRAIN
+                  override fun getClientID(): ClientID {
+                    if(MECDataHolder.INSTANCE.userDataInterface.isOIDCToken) return ClientID.OIDC else return ClientID.JANRAIN
                 }
 
                 override fun getGrantType(): GrantType {
@@ -64,9 +64,9 @@ class HybrisAuth {
                     return MECDataHolder.INSTANCE.refreshToken
                 }
 
-                override fun getClientType(): ClientType {
-                    if (MECDataHolder.INSTANCE.userDataInterface.isOIDCToken) return ClientType.OIDC
-                    return super.getClientType()
+                override fun getClientID(): ClientID {
+                    if(MECDataHolder.INSTANCE.userDataInterface.isOIDCToken) return ClientID.OIDC
+                    return super.getClientID()
                 }
 
                 override fun getGrantType(): GrantType {
@@ -101,8 +101,8 @@ class HybrisAuth {
 
                     val jsonString = getJsonStringOfMap(map)
                     MECDataHolder.INSTANCE.refreshToken = result?.refreshToken!!
-                    MECDataHolder.INSTANCE.appinfra.secureStorage.storeValueForKey(KEY_MEC_AUTH_DATA, jsonString, sse) //TODO handle sse error
-                    MECLog.d(TAG, "hybrisAuthentication onResponse ")
+                    MECDataHolder.INSTANCE.appinfra.secureStorage.storeValueForKey(KEY_MEC_AUTH_DATA,jsonString,sse)
+                    MECutility.tagAndLog(""+sse.errorMessage)
                     fragmentCallback.onResponse(result)
                 }
 
