@@ -12,14 +12,24 @@ import com.philips.platform.pim.PIMInterface;
 
 public class PIMDemoUAppApplication extends Application {
 
+    private static PIMDemoUAppApplication instance;
     @NonNull
     private AppInfraInterface appInfraInterface;
     private UserDataInterface userDataInterface;
 
     @Override
     public void onCreate() {
+        setInstance(this);
         super.onCreate();
         appInfraInterface = new AppInfra.Builder().build(this);
+    }
+
+    public static PIMDemoUAppApplication getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(PIMDemoUAppApplication instance) {
+        PIMDemoUAppApplication.instance = instance;
     }
 
     public AppInfraInterface getAppInfra() {

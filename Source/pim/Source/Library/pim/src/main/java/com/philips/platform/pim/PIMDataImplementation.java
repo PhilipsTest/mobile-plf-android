@@ -168,7 +168,9 @@ public class PIMDataImplementation implements UserDataInterface {
 
     @Override
     public void migrateUserToPIM(UserMigrationListener userMigrationListener) {
-        if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+        PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
+        if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN || !pimMigrator.isMigrationRequired()) {
+            userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(mContext, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
             return;
         }
         isInitRequiredAgain = true;
@@ -179,7 +181,6 @@ public class PIMDataImplementation implements UserDataInterface {
             public void onChanged(@Nullable PIMInitState pimInitState) {
                 if (pimInitState == PIMInitState.INIT_SUCCESS) {
                     pimInitLiveData.removeObserver(this);
-                    PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
                     pimMigrator.migrateUSRToPIM();
                 } else if (pimInitState == PIMInitState.INIT_FAILED) {
                     if (isInitRequiredAgain) {
