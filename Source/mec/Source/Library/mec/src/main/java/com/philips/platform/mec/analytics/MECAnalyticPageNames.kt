@@ -10,8 +10,19 @@
 package com.philips.platform.mec.analytics
 
 object MECAnalyticPageNames {
-    val productCatalogue              = "IAP_01_01_product_list"
-    val productDetails                = "IAP_02_01_a_product_details"
-    val retailerListPage                  = "IAP_02_08_view_retailers"
-    
+    val productCataloguePage                = "iap_product_list"
+    val productDetailsPage                  = "iap_product_details"
+    val retailerListPage                    = "iap_view_retailers"
+    val shoppingCartPage                    = "iap_shopping_cart"
+    val createShippingAddressPage           = "iap_create_shipping_address"
+    val editShippingAddressPage             = "iap_edit_shipping_address"
+    val deliveryDetailPage                  = "iap_delivery_detail"
+    val shippingAddressSelectionPage        = "iap_shipping_address_selection"
+    val createBillingAddressPage            = "iap_create_billing_address"
+    val editBillingAddressPage              = "iap_edit_billing_address"
+    val orderSummaryPage                    = "iap_order_summary"
+    val cvvPage                             = "iap_cvv"
+    val paymentPage                         = "iap_payment"
+    val orderConfirmationPage               = "iap_order_confirmation"
+
 }

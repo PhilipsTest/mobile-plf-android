@@ -16,6 +16,7 @@ import com.philips.platform.mec.utils.MECutility
 class ECSVoucherCallback(private var ecsShoppingCartViewModel: EcsShoppingCartViewModel) : ECSCallback<List<ECSVoucher>,Exception> {
     lateinit var mECRequestType :MECRequestType
     override fun onResponse(ecsVoucher: List<ECSVoucher>?) {
+        ecsShoppingCartViewModel.tagApplyOrDeleteVoucher(mECRequestType)
         ecsShoppingCartViewModel.getShoppingCart()
     }
 

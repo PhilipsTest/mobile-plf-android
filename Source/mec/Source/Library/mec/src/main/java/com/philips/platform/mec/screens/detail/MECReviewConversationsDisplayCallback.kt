@@ -17,7 +17,7 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 
 class MECReviewConversationsDisplayCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel) : ConversationsDisplayCallback<ReviewResponse> {
-    lateinit var mECRequestType : MECRequestType
+
     override fun onSuccess(response: ReviewResponse) {
         ecsProductDetailViewModel.review.value = response
     }
@@ -25,7 +25,7 @@ class MECReviewConversationsDisplayCallback(private val ecsProductDetailViewMode
     override fun onFailure(exception: ConversationsException) {
         val exception = Exception("Fetch Rating failed")
         val ecsError = ECSError(1000,"Fetch Rating failed")
-        val mecError = MecError(exception, ecsError,mECRequestType)
+        val mecError = MecError(exception, ecsError,MECRequestType.MEC_FETCH_REVIEW)
         ecsProductDetailViewModel.mecError.value = mecError
     }
 }

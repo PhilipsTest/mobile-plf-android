@@ -36,7 +36,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.cdp.di.ecs.model.products.ECSProducts
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames.productCatalogue
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.productCataloguePage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.gridView
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.listView
 import com.philips.platform.mec.common.ItemClickListener
@@ -51,6 +52,8 @@ import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uid.view.widget.Label
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -217,7 +220,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
-                    com.philips.platform.mec.analytics.MECAnalytics.tagProductList(productList, gridView)
+                    MECAnalytics.tagProductList(productList, gridView)
                 }
             }
 
@@ -229,7 +232,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
-                    com.philips.platform.mec.analytics.MECAnalytics.tagProductList(productList, listView)
+                    MECAnalytics.tagProductList(productList, listView)
                 }
             }
 
@@ -307,8 +310,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             adapter.emptyView = binding.mecEmptyResult
 
-            com.philips.platform.mec.analytics.MECAnalytics.trackPage(productCatalogue)
-            com.philips.platform.mec.analytics.MECAnalytics.tagProductList(productList, listView)
+
             mRootView = binding.root
 
 
@@ -346,6 +348,12 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_product_title, true)
         setCartIconVisibility(true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(productCataloguePage)
+        MECAnalytics.tagProductList(productList, listView)
     }
 
     private fun privacyTextView(view: TextView) {

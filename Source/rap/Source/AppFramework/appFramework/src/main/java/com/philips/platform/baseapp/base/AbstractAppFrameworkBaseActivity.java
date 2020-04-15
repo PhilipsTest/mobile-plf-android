@@ -10,12 +10,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.WindowManager;
+
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.view.WindowManager;
 
 import com.philips.platform.appframework.BuildConfig;
 import com.philips.platform.appframework.R;
@@ -215,7 +216,7 @@ public abstract class AbstractAppFrameworkBaseActivity extends  UIDActivity impl
         RALog.d(TAG, " onResume called");
         if (((AppFrameworkApplication) getApplicationContext()).getAppInfra() != null) {
             startCollectingLifecycleData();
-            AppFrameworkTagging.getInstance().getTagging().trackActionWithInfo("sendData", "appStatus", "ForeGround");
+
         }
     }
 
@@ -229,7 +230,7 @@ public abstract class AbstractAppFrameworkBaseActivity extends  UIDActivity impl
         RALog.d(TAG, " onPause called");
         if (((AppFrameworkApplication) getApplicationContext()).getAppInfra() != null) {
             AppFrameworkTagging.getInstance().pauseCollectingLifecycleData();
-            AppFrameworkTagging.getInstance().getTagging().trackActionWithInfo("sendData", "appStatus", "Background");
+
         }
     }
 

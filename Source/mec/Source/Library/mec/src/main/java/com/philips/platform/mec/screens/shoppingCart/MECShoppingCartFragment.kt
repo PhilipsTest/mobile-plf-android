@@ -21,6 +21,12 @@ import com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity
 import com.philips.cdp.di.ecs.model.cart.ECSEntries
 import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.shoppingCartPage
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.continueShoppingSelected
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.scCheckout
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.scView
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -292,9 +298,9 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     fun showDialog() {
         if (removeVoucher) {
-            MECutility.showActionDialog(binding.mecVoucherEditText.context, getString(R.string.mec_delete), getString(R.string.mec_cancel), getString(R.string.mec_shopping_cart_title), getString(R.string.mec_delete_voucher_confirmation_title), fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete,R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_voucher_confirmation_title, fragmentManager!!, this)
         } else {
-            MECutility.showActionDialog(binding.mecVoucherEditText.context, getString(R.string.mec_delete), getString(R.string.mec_cancel), getString(R.string.mec_shopping_cart_title), getString(R.string.mec_delete_product_confirmation_title), fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_product_confirmation_title, fragmentManager!!, this)
         }
     }
 
@@ -324,6 +330,10 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     override fun onStart() {
         super.onStart()
+        MECAnalytics.trackPage(shoppingCartPage)
+        var actionMap = HashMap<String, String>()
+        actionMap.put(specialEvents, scView)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,binding.shoppingCart)
         executeRequest()
     }
 
@@ -350,6 +360,9 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     }
 
     fun onCheckOutClick() {
+        var actionMap = HashMap<String, String>()
+        actionMap.put(specialEvents, scCheckout)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,binding.shoppingCart)
         if (MECDataHolder.INSTANCE.maxCartCount != 0 && shoppingCart.deliveryItemsQuantity > MECDataHolder.INSTANCE.maxCartCount) {
             fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it, getString(R.string.mec_ok), getString(R.string.mec_shopping_cart_title), String.format(getString(R.string.mec_cart_count_exceed_message), MECDataHolder.INSTANCE.maxCartCount)) } }
         } else {
@@ -359,6 +372,9 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     }
 
     fun gotoProductCatalog() {
+        var actionMap = HashMap<String, String>()
+        actionMap.put(specialEvents, continueShoppingSelected)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,binding.shoppingCart)
         showProductCatalogFragment(TAG)
     }
 

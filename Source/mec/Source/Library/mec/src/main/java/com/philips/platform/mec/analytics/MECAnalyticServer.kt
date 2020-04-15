@@ -14,4 +14,5 @@ object  MECAnalyticServer {
     val hybris           = "Hybris"
     val wtb              = "WTB"
     val bazaarVoice      = "bazaarVoice"
+    val other            = "other"
 }
