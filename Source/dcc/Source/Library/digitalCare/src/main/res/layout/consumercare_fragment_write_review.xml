@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/parentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.philips.platform.uid.view.widget.Label
+        android:id="@+id/reviewHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+        android:padding="16dp"
+        android:text="Write your review"
+        android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/iap_productDetailsScreen_separator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/parentLayout"
+        android:background="@drawable/uid_shadow_level_two" />
+
+    <RelativeLayout
+        android:id="@+id/productLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iap_productDetailsScreen_separator"
+        android:padding="16sp">
+
+    <ImageView
+        android:id="@+id/dcc_product_image"
+        style="@style/viewProductDetails_ProdImage"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_alignParentStart="true" />
+
+
+    <LinearLayout
+        android:id="@+id/iap_product_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/dcc_product_image"
+        android:orientation="vertical">
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/iap_product_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginStart="10dp"
+            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <com.philips.platform.uid.view.widget.Label
+        android:id="@+id/retailer_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/consumercare_list_right_arrow"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <com.philips.platform.uid.view.widget.Label
+        android:id="@+id/dcc_rating_header"
+        style="@style/dcc_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_below="@+id/productLayout"
+        android:text="Your product rating"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dcc_rating_header"
+        android:padding="16dp">
+
+    <com.philips.platform.uid.view.widget.Label
+        android:id="@+id/dcc_overall_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:layout_marginTop="10dp"
+        android:text="Overall rating (required)"
+        android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+        android:textSize="16sp" />
+
+
+        <com.philips.platform.uid.view.widget.RatingBar
+            android:id="@+id/dcc_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dcc_overall_rating"
+            android:layout_marginTop="10dp"
+            android:numStars="5"
+            android:stepSize="0.01"
+            android:rating="3" />
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/dcc_performance_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/dcc_rating_bar"
+            android:text="Performance"
+            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            android:textSize="16sp" />
+
+
+        <com.philips.platform.uid.view.widget.RatingBar
+            android:id="@+id/dcc_performance_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dcc_performance_rating"
+            android:layout_marginTop="15dp"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:stepSize="0.01"
+            android:rating="3" />
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/dcc_use_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/dcc_performance_rating_bar"
+            android:text="Ease of use"
+            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            android:textSize="16sp" />
+
+
+        <com.philips.platform.uid.view.widget.RatingBar
+            android:id="@+id/dcc_use_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dcc_use_rating"
+            android:layout_marginTop="15dp"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:stepSize="0.01"
+            android:rating="3" />
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/dcc_design_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/dcc_use_rating_bar"
+            android:text="Design"
+            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            android:textSize="16sp" />
+
+
+        <com.philips.platform.uid.view.widget.RatingBar
+            android:id="@+id/dcc_design_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dcc_design_rating"
+            android:layout_marginTop="15dp"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:stepSize="0.01"
+            android:rating="3" />
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/dcc_recommend_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/dcc_design_rating_bar"
+            android:text="Do you recommend this product?"
+            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:id="@+id/dcc_rg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/dcc_recommend_product"
+            >
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dcc_rb_yes"
+                android:text="Yes"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dcc_rb_no"
+                android:text="No"/>
+
+        </RadioGroup>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

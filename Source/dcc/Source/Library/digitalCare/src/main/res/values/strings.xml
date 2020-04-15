@@ -130,7 +130,7 @@
 
     <!-- Registration Screen   null -->
     <string name="login_to_social_media">Log in with your social media account?</string>
-   <!-- <string name="twitter">On Twitter</string>
+    <!-- <string name="twitter">On Twitter</string>
     <string name="facebook">On Facebook</string>
     <string name="linkedin">On LinkedIn</string>
     <string name="googleplus">On Google Plus</string>-->
@@ -149,7 +149,7 @@
     <string name="QUESTION_KEY">Question and answer</string>
     <string name="NO_PRODUCT_KEY">No products available</string>
     <string name="NO_SUPPORT_KEY">No support available</string>
-  <!--  <string name="show_all">Show all</string>
+    <!--  <string name="show_all">Show all</string>
     <string name="show_less">Show less</string>-->
 
     <string name="ManualDownLoadConfirmMessage">Press OK to download manual in %s language</string>
@@ -207,12 +207,18 @@
     <string name="dcc_Help_Support">Help and support</string> <!--done-->
     <string name="dcc_Call">Call</string>
     <string name="dcc_Opening_Hours">Opening hours</string>
+    <string name="dcc_email_text">Dear Customer,\n\nThank you for writing to Philips Consumer care. We\'re here to help and answer any questions you may have.\n\n Please share the following details:\n\n<b>Product model no: </b>\n<b>Product serial no: </b>\n<b>Date of purchase: </b>\n<b>Your Question/s: </b>\n<b>Call preference if any: </b>\n\n
+    Please confirm your address and telephone no. For any modifications please respond to this email with updates.\n\n<b>Telephone: </b>\n<b>Address: </b>\n\nBest Regards,\nPhilips Consumer care</string>
+    <string name="dcc_review">Review</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-  <!--  Remove
 
-    "chat_desc"
-    "twitter"
-    "facebook"-->
+    <!--  Remove
+
+      "chat_desc"
+      "twitter"
+      "facebook"-->
 
 </resources>

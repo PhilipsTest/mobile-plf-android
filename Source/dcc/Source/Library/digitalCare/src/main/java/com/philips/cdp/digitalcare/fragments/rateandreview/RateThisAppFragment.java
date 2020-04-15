@@ -26,6 +26,7 @@ import com.philips.cdp.digitalcare.analytics.AnalyticsConstants;
 import com.philips.cdp.digitalcare.fragments.rateandreview.fragments.ProductReviewFragment;
 import com.philips.cdp.digitalcare.fragments.rateandreview.fragments.RateThisAppFragmentContract;
 import com.philips.cdp.digitalcare.fragments.rateandreview.fragments.RateThisAppFragmentPresenter;
+import com.philips.cdp.digitalcare.fragments.rateandreview.fragments.WriteReviewFragment;
 import com.philips.cdp.digitalcare.homefragment.DigitalCareBaseFragment;
 import com.philips.cdp.digitalcare.productdetails.model.ViewProductDetailsModel;
 
@@ -105,7 +106,8 @@ public class RateThisAppFragment extends DigitalCareBaseFragment implements Rate
 
     private void rateProductReview() {
         if (isConnectionAvailable())
-            showFragment(new ProductReviewFragment());
+            showFragment(new WriteReviewFragment());
+            //showFragment(new ProductReviewFragment());
     }
 
     @Override

@@ -48,4 +48,18 @@
         <item name="colorAccent">@color/uidColorBlack</item>
     </style>
 
+    <style name="dcc_header">
+        <item name="fontPath">fonts/centralesansbook.ttf</item>
+        <item name="android:background">?attr/uidContentSecondaryNeutralBackgroundColor</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:spacing">6dp</item>
+        <item name="android:textColor">?attr/uidContentItemTertiaryNormalTextColor</item>
+
+    </style>
+
 </resources>

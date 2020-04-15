@@ -280,8 +280,19 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
             launchTwitterFeature();
         } else if (tag != null && (tag.equalsIgnoreCase(getStringKey(R.string.dcc_send_email))) && isConnectionAvailable()) {
             tagServiceRequest(AnalyticsConstants.ACTION_VALUE_SERVICE_CHANNEL_EMAIL);
-            sendEmail();
+            writeEmail();
+            //sendEmail();
         }
+    }
+
+    private void writeEmail() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+       // intent.setType("plain/text");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "ranju.92s@gmail.com" });
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Philips Consumer care");
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.dcc_email_text));
+        startActivity(Intent.createChooser(intent, ""));
     }
 
     boolean isSimAvailable() {
