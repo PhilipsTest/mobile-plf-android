@@ -321,7 +321,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             binding.mecCatalogProgress.mecProgressBar.visibility = View.VISIBLE
             executeRequest()
             ////////////// start of update cart and login if required
-            if (isUserLoggedIn()) {
+            if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
                 GlobalScope.launch {
                     var mecManager: MECManager = MECManager()
                     MECDataHolder.INSTANCE.mecCartUpdateListener?.let { mecManager.getShoppingCartData(it) }

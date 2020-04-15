@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <com.philips.platform.uid.view.widget.Label
-                fontPath="fonts/centralesansbold.ttf"
+                style="@style/mecCentralesansBoldFont"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:gravity="center"
@@ -36,7 +36,7 @@
                 android:textSize="56sp" />
 
             <com.philips.platform.uid.view.widget.Label
-                fontPath="fonts/centralesansbook.ttf"
+                style="@style/mecCentralesansBookFont"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

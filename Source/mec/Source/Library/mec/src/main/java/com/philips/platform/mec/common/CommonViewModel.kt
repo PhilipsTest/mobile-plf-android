@@ -16,28 +16,32 @@ import com.philips.cdp.di.ecs.error.ECSError
 import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.mec.auth.HybrisAuth
+import com.philips.platform.mec.utils.MECDataHolder
 
 open class CommonViewModel : ViewModel() {
     val mecError = MutableLiveData<MecError>()
 
 
-    var authFailCallback ={ error: Exception?, ecsError: ECSError? -> authFailureCallback(error, ecsError) }
+    var authFailCallback = { error: Exception?, ecsError: ECSError? -> authFailureCallback(error, ecsError) }
 
-    fun authAndCallAPIagain(retryAPIcall: () -> Unit, authFailureCallback: (Exception, ECSError) -> Unit){
-        val authCallback= object: ECSCallback<ECSOAuthData, Exception> {
+    fun authAndCallAPIagain(retryAPIcall: () -> Unit, authFailureCallback: (Exception, ECSError) -> Unit) {
+        val authCallback = object : ECSCallback<ECSOAuthData, Exception> {
             override fun onResponse(result: ECSOAuthData?) {
                 retryAPIcall.invoke()
             }
+
             override fun onFailure(error: Exception, ecsError: ECSError) {
-                authFailureCallback.invoke(error,ecsError)
+                authFailureCallback.invoke(error, ecsError)
             }
         }
-       HybrisAuth.hybrisRefreshAuthentication(authCallback)
+        if (MECDataHolder.INSTANCE.refreshToken != null)
+            HybrisAuth.hybrisRefreshAuthentication(authCallback)
+        else HybrisAuth.refreshJainrain(authCallback)
     }
 
-    open fun authFailureCallback(error: Exception?, ecsError: ECSError?){
-        Log.v("Auth","refresh auth failed "+ecsError);
-        val mecError = com.philips.platform.mec.common.MecError(error, ecsError, null)
+    open fun authFailureCallback(error: Exception?, ecsError: ECSError?) {
+        Log.e("Auth", "refresh auth failed " + ecsError);
+        val mecError = MecError(error, ecsError, null)
         this.mecError.value = mecError
     }
 }
