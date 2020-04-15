@@ -13,6 +13,7 @@ package com.philips.platform.mec.integration
 
 import android.content.Context
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.integration.serviceDiscovery.MECManager
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface
@@ -52,6 +53,7 @@ object MECDataProvider : MECDataInterface {
                 throw MECException(context?.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
             }
         }else{
+            MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!,R.string.mec_no_internet ))
             throw MECException(context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
@@ -64,6 +66,7 @@ object MECDataProvider : MECDataInterface {
                 mecManager.ishybrisavailableWorker(mECHybrisAvailabilityListener)
             }
         }else{
+            MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!,R.string.mec_no_internet ))
             throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }

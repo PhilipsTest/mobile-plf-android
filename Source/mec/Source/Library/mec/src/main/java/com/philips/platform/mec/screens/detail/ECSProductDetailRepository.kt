@@ -36,7 +36,6 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
     fun fetchProductReview(ctn: String, pageNumber: Int, pageSize: Int){
         val request = ReviewsRequest.Builder(ctn.replace("/","_"), pageSize, pageNumber).addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC).addFilter(ReviewOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(MECConstant.KEY_BAZAAR_LOCALE!!, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter("FilteredStats", "Reviews").build()
         val prepareCall = bvClient!!.prepareCall(request)
-        reviewsCb.mECRequestType=MECRequestType.MEC_FETCH_REVIEW
         prepareCall.loadAsync(reviewsCb)
     }
 

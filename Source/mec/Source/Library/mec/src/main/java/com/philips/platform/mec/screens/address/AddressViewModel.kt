@@ -16,8 +16,11 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.philips.cdp.di.ecs.model.address.Country
 import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode
+import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.utils.MECDataHolder
@@ -262,14 +265,20 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
         @JvmStatic
         @BindingAdapter("phoneNumberEditText")
-        fun setPhoneNumberValidator(inputValidationLayout: InputValidationLayout, phoneNumberValidationEditText: ValidationEditText) {
+        fun setPhoneNumberValidator(inputValidationLayout: MECInputValidationLayout, phoneNumberValidationEditText: ValidationEditText) {
             inputValidationLayout.setValidator(PhoneNumberInputValidator(phoneNumberValidationEditText, PhoneNumberUtil.getInstance()))
         }
+
 
         @JvmStatic
         @BindingAdapter("emptyValidator")
         fun setEmptyValidator(inputValidationLayout: InputValidationLayout, obj: Any?) { // As binding Adapter without parameter not possible
+            inputValidationLayout.setValidator(EmptyInputValidator())
+        }
 
+        @JvmStatic
+        @BindingAdapter("mecEmptyValidator")
+        fun setMECEmptyValidator(inputValidationLayout: MECInputValidationLayout, obj: Any?) { // As binding Adapter without parameter not possible
             inputValidationLayout.setValidator(EmptyInputValidator())
         }
 
@@ -383,6 +392,10 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
         return shake
     }
 
-
+    fun tagCreateNewAddress(mECSShoppingCart : ECSShoppingCart){
+        var actionMap = HashMap<String, String>()
+        actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.newShippingAddressAdded)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,mECSShoppingCart)
+    }
 
 }

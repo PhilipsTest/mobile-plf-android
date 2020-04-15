@@ -7,11 +7,12 @@ package com.philips.cdp.di.ecs.model.orders;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.VisibleForTesting;
 
 import com.philips.cdp.di.ecs.model.address.ECSAddress;
 import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
-
+import com.philips.cdp.di.ecs.model.voucher.ECSVoucher;
 
 import java.util.List;
 
@@ -62,6 +63,8 @@ public class ECSOrderDetail implements Parcelable{
     private String statusDisplay;
 
 
+
+    private List<ECSVoucher> appliedVouchers ;
     private List<AppliedOrderPromotions> appliedOrderPromotions;
     private List<DeliveryOrderGroups> deliveryOrderGroups;
 
@@ -238,6 +241,10 @@ public class ECSOrderDetail implements Parcelable{
 
     public String getStatusDisplay() {
         return statusDisplay;
+    }
+
+    public List<ECSVoucher> getAppliedVouchers() {
+        return appliedVouchers;
     }
 
     public List<AppliedOrderPromotions> getAppliedOrderPromotions() {

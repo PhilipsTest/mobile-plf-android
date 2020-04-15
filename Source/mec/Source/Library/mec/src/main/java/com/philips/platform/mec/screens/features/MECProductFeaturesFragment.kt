@@ -16,11 +16,18 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.cdp.prxclient.datamodels.features.FeaturesModel
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.features
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.productTabsClick
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecProductFeaturesFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
+import com.philips.platform.mec.utils.MECConstant.MEC_PRODUCT
 
 class MECProductFeaturesFragment : MecBaseFragment() {
     override fun getFragmentTag(): String {
@@ -31,6 +38,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
     var mFeaturesModel: FeaturesModel?=null
     private lateinit var binding: MecProductFeaturesFragmentBinding
     private lateinit var productFeaturesViewModel: ProductFeaturesViewModel
+    private lateinit var mECSProduct : ECSProduct
 
     private val featuresObserver : Observer<FeaturesModel> = object : Observer<FeaturesModel> {
 
@@ -80,6 +88,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
 
         val bundle = arguments
         val productCtn = bundle!!.getString(MECConstant.MEC_PRODUCT_CTN,"INVALID")
+        mECSProduct =bundle!!.getSerializable(MEC_PRODUCT) as ECSProduct
 
         if(null==mFeaturesModel) {
             context?.let { productFeaturesViewModel.fetchProductFeatures(it, productCtn) }
@@ -89,6 +98,17 @@ class MECProductFeaturesFragment : MecBaseFragment() {
         }
         mRecyclerView = binding.root as RecyclerView
         return binding.root
+    }
+
+    // when user switch to this tab, this method will be called
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            var actionMap = HashMap<String, String>()
+            actionMap.put(productTabsClick, features)
+            actionMap.put(mecProducts, MECAnalytics.getProductInfo(mECSProduct))
+            MECAnalytics.trackMultipleActions(sendData, actionMap)
+        }
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {
