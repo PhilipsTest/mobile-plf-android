@@ -140,7 +140,7 @@
     <string name="mec_threshold_title">Request threshold reached</string>
     <string name="mec_time_out_error">Network timeout reached!</string>
     <string name="mec_town">Town/City</string>
-    <string name="mec_town_error">Please enter a valid town</string>
+    <string name="mec_town_error">Please enter a valid town</string>f
     <string name="mec_town_hint">Enter your town or city</string>
     <string name="mec_use_as_billing_address">Use this address as my billing address</string>
     <string name="mec_valid_until">Valid until</string>
@@ -154,6 +154,9 @@
     <string name="mec_seperator" translatable="false">&#160;|&#160;</string>
     <string name="mec_empty_space" translatable="false">&#160;</string>
     <string name="mec_bazaarVoice_link" translatable="false">http://www.bazaarvoice.com/trustmark</string>
+
+    <string name="mec_order_state" translatable="false">Your order is %s</string>
+    <string name="mec_order_number" translatable="false">Order number: %s</string>
 
 
 </resources>

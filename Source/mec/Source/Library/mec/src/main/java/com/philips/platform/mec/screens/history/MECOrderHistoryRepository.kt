@@ -13,10 +13,15 @@
 package com.philips.platform.mec.screens.history
 
 import com.philips.cdp.di.ecs.ECSServices
+import com.philips.cdp.di.ecs.model.orders.ECSOrders
 
 class MECOrderHistoryRepository(val ecsService: ECSServices) {
 
     fun fetchOrderSummary(pageNumber: Int ,pageSize: Int,  ecsOrderHistoryCallback: ECSOrderHistoryCallback) {
         ecsService.fetchOrderHistory(pageNumber,pageSize,ecsOrderHistoryCallback)
+    }
+
+    fun fetchOrderDetail(ecsOrders: ECSOrders, ecsOrderDetailCallback: ECSOrderDetailForOrdersCallback) {
+        ecsService.fetchOrderDetail(ecsOrders,ecsOrderDetailCallback)
     }
 }
