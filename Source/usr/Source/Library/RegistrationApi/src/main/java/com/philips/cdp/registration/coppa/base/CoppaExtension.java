@@ -69,16 +69,15 @@ public class CoppaExtension {
                 } else if (consent.getGiven() != null && (hoursSinceLastConsent() >= 24L) && consent.getConfirmationGiven() == null) {
                     RLog.d(TAG,"getCoppaStatusForConsent ***" + consent.getConfirmationCommunicationSentAt() + " " + consent.getConfirmationCommunicationSentAt());
                     coppaStatus = CoppaStatus.kDICOPPAConfirmationPending;
-                    if (!RegUtility.isCountryUS(consent.getLocale())) {
-                        coppaStatus = CoppaStatus.kDICOPPAConfirmationGiven;
-                        RLog.d(TAG, "Consent kDICOPPAConfirmationGiven");
-
-                    }
+//                    if (!RegUtility.isCountryUS(consent.getLocale())) {
+//                        coppaStatus = CoppaStatus.kDICOPPAConfirmationGiven;
+//                        RLog.d(TAG, "Consent kDICOPPAConfirmationGiven");
+//                    }
                 }else{
                     coppaStatus = CoppaStatus.kDICOPPAConsentGiven;
-                    if (!RegUtility.isCountryUS(consent.getLocale())) {
-                        coppaStatus = CoppaStatus.kDICOPPAConfirmationGiven;
-                    }
+//                    if (!RegUtility.isCountryUS(consent.getLocale())) {
+//                        coppaStatus = CoppaStatus.kDICOPPAConfirmationGiven;
+//                    }
                 }
             } else {
                 coppaStatus = CoppaStatus.kDICOPPAConsentNotGiven;
