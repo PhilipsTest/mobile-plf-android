@@ -13,17 +13,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="service"
-            type="com.philips.platform.mec.screens.history.MECOrderHistoryService" />
-
-        <variable
-            name="mecOrdersModel"
-            type="com.philips.platform.mec.screens.history.MECOrdersModel" />
-    </data>
-
     <RelativeLayout
         android:id="@+id/mec_order_history_container"
         android:layout_width="match_parent"
@@ -36,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/mec_progress_layout"
-            app:mecOrderModel="@{mecOrdersModel}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <LinearLayout

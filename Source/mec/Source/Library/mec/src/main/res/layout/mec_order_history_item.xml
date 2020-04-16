@@ -103,6 +103,7 @@
             android:id="@+id/recycler_product_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:mecEntriesModel="@{ecsOrders.orderDetail.entries}"
              />
 

@@ -25,13 +25,12 @@ import com.philips.cdp.di.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
 
 class MECOrderHistoryFragment : MecBaseFragment() {
 
+    private lateinit var mecOrderHistoryAdapter: MECOrderHistoryAdapter
     private lateinit var mecOrderHistoryViewModel: MECOrderHistoryViewModel
     private var mRootView: View? = null
     private lateinit var binding: MecOrderHistoryFragmentBinding
@@ -60,26 +59,31 @@ class MECOrderHistoryFragment : MecBaseFragment() {
     }
 
     private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
+        val jobs = mutableListOf<Deferred<Unit>>()
 
         // wait this for loop to be over using kotlin co-routine
         CoroutineScope(IO).launch {
 
-            for (ecsOrders in orderList) {
-                mecOrderHistoryViewModel.fetchOrderDetail(ecsOrders)
-            }
+            suspend {
+                for (orders in orderList){
+                     mecOrderHistoryViewModel.fetchOrderDetail(orders)
+                    //jobs.add(jab)
+                }
 
-            dispatchDataToUI()
+                withContext(Dispatchers.Main) {
+                    hidePaginationProgressBar()
+                    hideFullScreenProgressBar()
+                    isCallOnProgress = false
+                    mecOrderHistoryAdapter.notifyDataSetChanged()
+                }
+
+            }.invoke()
+            //jobs.awaitAll()
+
+
+
         }
 
-    }
-
-    private fun dispatchDataToUI() {
-        CoroutineScope(Main).launch {
-            binding.mecOrdersModel = MECOrdersModel(ordersList)
-            hidePaginationProgressBar()
-            hideFullScreenProgressBar()
-            isCallOnProgress = false
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -91,6 +95,8 @@ class MECOrderHistoryFragment : MecBaseFragment() {
             mecOrderHistoryViewModel = ViewModelProvider(this).get(MECOrderHistoryViewModel::class.java)
             mecOrderHistoryViewModel.ecsOrderHistory.observe(viewLifecycleOwner, orderHistoryObserver)
             mecOrderHistoryViewModel.mecError.observe(viewLifecycleOwner, this)
+            mecOrderHistoryAdapter = MECOrderHistoryAdapter(ordersList)
+            binding.recyclerOrderHistory.adapter = mecOrderHistoryAdapter
 
             showFullScreenProgressBar()
             executeRequest()
