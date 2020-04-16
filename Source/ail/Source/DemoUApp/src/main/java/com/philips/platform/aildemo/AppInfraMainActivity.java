@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.demo.R;
+import com.philips.platform.uappframework.uappinput.UappDependencies;
+import com.philips.platform.uappframework.uappinput.UappSettings;
 import com.philips.platform.uid.thememanager.AccentRange;
 import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
@@ -34,7 +36,7 @@ public class AppInfraMainActivity extends AppCompatActivity {
     ListView listView;
     String appInfraComponents[] = {"Secure Storage", "AppTagging", "Logging","AppIdentity",
             "Internationalization", "ServiceDiscovery", "TimeSync", "Config", "Rest Client", " A/B Testing",  "WhiteBox API", "Internet Check", "Language Pack",
-            "Resolution locale","App Update"};
+            "Resolution locale","App Update","Chuck"};
     byte[] plainByte;
     byte[] encryptedByte;
 
@@ -240,6 +242,11 @@ public class AppInfraMainActivity extends AppCompatActivity {
                 startActivity(appUpdateActivity);
                 break;
 
+            case 15:
+                Intent chuckEnableActivity = new Intent(AppInfraMainActivity.this , ChuckEnableActivity.class);
+                startActivity(chuckEnableActivity);
+                break;
+
             
         }
 
@@ -283,6 +290,7 @@ public class AppInfraMainActivity extends AppCompatActivity {
             TextView testModeLabel;
         }
     }
+
 
     private void initTheme() {
         int themeResourceID = new ThemeHelper(this).getThemeResourceId();

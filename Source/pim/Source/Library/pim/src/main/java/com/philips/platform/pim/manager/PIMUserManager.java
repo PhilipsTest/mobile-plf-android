@@ -32,6 +32,7 @@ import com.philips.platform.pim.utilities.PIMInitState;
 import com.philips.platform.pim.utilities.PIMTaggingConstants;
 
 import net.openid.appauth.AuthState;
+import net.openid.appauth.AuthorizationRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;

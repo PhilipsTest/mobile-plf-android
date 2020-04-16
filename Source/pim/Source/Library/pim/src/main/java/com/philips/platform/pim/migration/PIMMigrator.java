@@ -31,6 +31,10 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
         this.userMigrationListener = userMigrationListener;
     }
 
+    public boolean isMigrationRequired() {
+        return usrTokenManager.isUSRUserAvailable();
+    }
+
     public void migrateUSRToPIM() {
         if (usrTokenManager.isUSRUserAvailable()) {
             usrTokenManager.fetchRefreshedAccessToken(this);
@@ -63,7 +67,7 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
 
     @Override
     public void onUserMigrationFailed(Error error) {
-        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError","technicalError","migration");
+        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError", "technicalError", "migration");
         mLoggingInterface.log(DEBUG, TAG, "User migration failed! " + error.getErrDesc());
         if (userMigrationListener != null)
             userMigrationListener.onUserMigrationFailed(error);

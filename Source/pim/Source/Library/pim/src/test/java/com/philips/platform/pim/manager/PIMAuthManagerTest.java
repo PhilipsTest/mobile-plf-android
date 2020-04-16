@@ -166,7 +166,7 @@ public class PIMAuthManagerTest extends TestCase {
         when(mockAuthReqBuilder.setAdditionalParameters(anyMap())).thenReturn(mockAuthReqBuilder);
         when(mockAuthorizationService.getAuthorizationRequestIntent(mockAuthorizationRequest)).thenReturn(mockIntent);
         pimAuthManager = new PIMAuthManager(mockContext);
-        Intent intent = pimAuthManager.getAuthorizationRequestIntent(mockAuthorizationServiceConfiguration, "", "", anyMap());
+        Intent intent = pimAuthManager.getAuthorizationRequestIntent(mockAuthorizationRequest);
         assertEquals(mockIntent, intent);
     }
 
