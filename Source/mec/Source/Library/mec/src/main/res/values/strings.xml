@@ -153,6 +153,7 @@
     <string name="mec_pros_minus" translatable="false">\uFF0D</string>
     <string name="mec_seperator" translatable="false">&#160;|&#160;</string>
     <string name="mec_empty_space" translatable="false">&#160;</string>
+    <string name="mec_colon" translatable="false">&#58;</string>
     <string name="mec_bazaarVoice_link" translatable="false">http://www.bazaarvoice.com/trustmark</string>
 
     <string name="mec_order_state" translatable="false">Your order is %s</string>

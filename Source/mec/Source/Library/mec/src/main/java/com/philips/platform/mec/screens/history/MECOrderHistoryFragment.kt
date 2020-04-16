@@ -27,6 +27,7 @@ import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
 class MECOrderHistoryFragment : MecBaseFragment() {
@@ -36,7 +37,7 @@ class MECOrderHistoryFragment : MecBaseFragment() {
     private lateinit var binding: MecOrderHistoryFragmentBinding
 
     private var pageNumber = 0
-    private var pageSize = 20
+    private var pageSize = 5
     private var totalPage = 0
 
     private var ordersList = mutableListOf<ECSOrders>()
@@ -67,11 +68,18 @@ class MECOrderHistoryFragment : MecBaseFragment() {
                 mecOrderHistoryViewModel.fetchOrderDetail(ecsOrders)
             }
 
-            binding.mecOrdersModel = MECOrdersModel(orderList)
-            hidePaginationProgressBar()
-            hideFullScreenProgressBar()
+            dispatchDataToUI()
         }
 
+    }
+
+    private fun dispatchDataToUI() {
+        CoroutineScope(Main).launch {
+            binding.mecOrdersModel = MECOrdersModel(ordersList)
+            hidePaginationProgressBar()
+            hideFullScreenProgressBar()
+            isCallOnProgress = false
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -98,7 +106,7 @@ class MECOrderHistoryFragment : MecBaseFragment() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
-                if (dy > 0 && shouldFetchNextPage()) {
+                if (shouldFetchNextPage()) {
                     pageNumber++
                     executeRequest()
                     showPaginationProgressBar()
@@ -119,6 +127,8 @@ class MECOrderHistoryFragment : MecBaseFragment() {
 
 
     fun shouldFetchNextPage(): Boolean {
+
+        if(isCallOnProgress) return false
         val lay = binding.recyclerOrderHistory.layoutManager as LinearLayoutManager
 
         if (mecOrderHistoryService.isScrollDown(lay)) {
@@ -129,19 +139,19 @@ class MECOrderHistoryFragment : MecBaseFragment() {
         return false
     }
 
-    private fun  showPaginationProgressBar(){
-       binding.paginationProgressBar.visibility = View.GONE
+    private fun showPaginationProgressBar() {
+        binding.mecProgressLayout.visibility = View.VISIBLE
     }
 
-    private fun hidePaginationProgressBar(){
-        binding.paginationProgressBar.visibility = View.VISIBLE
+    private fun hidePaginationProgressBar() {
+        binding.mecProgressLayout.visibility = View.GONE
     }
 
-    private fun showFullScreenProgressBar(){
+    private fun showFullScreenProgressBar() {
         binding.mecOrderHistoryProgress.mecProgressBarContainer.visibility = View.VISIBLE
     }
 
-    private fun hideFullScreenProgressBar(){
+    private fun hideFullScreenProgressBar() {
         binding.mecOrderHistoryProgress.mecProgressBarContainer.visibility = View.GONE
     }
 }

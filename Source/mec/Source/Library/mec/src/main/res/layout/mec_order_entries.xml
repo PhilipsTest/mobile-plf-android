@@ -56,7 +56,7 @@
             style="@style/mecCentralesansBookFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{ecsEntries.quantity}"
+            android:text="@{@string/mec_quantity + @string/mec_colon + String.valueOf(ecsEntries.quantity)}"
             android:layout_below="@+id/tv_productName"
             android:layout_marginTop="@dimen/iap_margin_4dp"
             android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
