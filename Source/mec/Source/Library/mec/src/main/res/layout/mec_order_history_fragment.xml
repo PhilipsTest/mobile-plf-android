@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="service"
+            type="com.philips.platform.mec.screens.history.MECOrderHistoryService" />
+
+        <variable
+            name="mecOrdersModel"
+            type="com.philips.platform.mec.screens.history.MECOrdersModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/mec_order_history_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/uidContentPrimaryBackgroundColor">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_order_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mecOrderModel="@{mecOrdersModel}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <LinearLayout
+            android:id="@+id/mec_progress_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:background="?attr/uidContentSecondaryNeutralBackgroundColor"
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <com.philips.platform.uid.view.widget.ProgressBar
+                android:id="@+id/pagination_progressBar"
+                style="@style/UIDProgressBarCircularIndeterminateSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="1dp"
+                android:background="@android:color/transparent"
+                 />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/mec_order_history_progress"
+            layout="@layout/mec_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+             />
+
+    </RelativeLayout>
+
+</layout>
