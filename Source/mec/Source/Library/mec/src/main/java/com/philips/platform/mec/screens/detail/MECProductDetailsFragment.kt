@@ -389,7 +389,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                 tagActionsforRetailer(ecsRetailer.name, MECutility.stockStatus(ecsRetailer.availability))
                 val fragment = WebBuyFromRetailersFragment()
                 fragment.arguments = bundle
-                replaceFragment(fragment, WebBuyFromRetailersFragment.TAG, true)
+                replaceFragment(fragment, TAG, true)
             }
         }
     }

@@ -24,6 +24,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.mec.view.MECDropDown
 import com.philips.platform.uid.view.widget.CheckBox
@@ -37,6 +38,7 @@ import java.io.IOException
 
 class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
+    private val TAG: String = AddressViewModel::class.java.simpleName
 
     private var ecsCreateAddressCallBack = ECSCreateAddressCallBack(this)
 
@@ -140,7 +142,7 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
     }
 
     fun retryAPI(mecRequestType: MECRequestType) {
-        var retryAPI = selectAPIcall(mecRequestType)
+        val retryAPI = selectAPIcall(mecRequestType)
         authAndCallAPIagain(retryAPI, authFailCallback)
     }
 
@@ -188,17 +190,15 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
             val jsonArray = addressEnablerJsonObject.getJSONArray(country)
 
-
             for (i in 0 until jsonArray.length()) {
                 val excludedField = jsonArray.getString(i)
                 val addressFieldJsonEnum = AddressFieldJsonEnum.getAddressFieldJsonEnumFromField(excludedField)
                 setAddressFieldEnabler(addressFieldEnabler, addressFieldJsonEnum!!)
             }
-
         } catch (e: JSONException) {
-
+            MECLog.e(TAG, "Exception Occurred:" + e.localizedMessage)
         } catch (e: IOException) {
-
+            MECLog.e(TAG, "Exception Occurred:" + e.localizedMessage)
         }
 
         return addressFieldEnabler
@@ -221,7 +221,6 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
             AddressFieldJsonEnum.HOUSE_NUMBER -> addressFieldEnabler.isHouseNumberEnabled = false
             AddressFieldJsonEnum.TOWN -> addressFieldEnabler.isTownEnabled = false
         }
-
     }
 
 
@@ -317,7 +316,6 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
             if (!lastName.isNullOrEmpty() && !lastName.equals("null", true)) {
                 validationEditText.setText(lastName)
             }
-
         }
 
         //ECSAddress
@@ -381,21 +379,21 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
     }
 
     fun setRegion(linearLayout: LinearLayout, mecRegions: MECRegions?, ecsAddress: ECSAddress) {
-        var state = linearLayout.et_state.text.toString()
+        val state = linearLayout.et_state.text.toString()
         ecsAddress.region = mecRegions?.getRegion(state)
     }
 
-    public fun shakeError(): TranslateAnimation {
+    fun shakeError(): TranslateAnimation {
         val shake = TranslateAnimation(0f, 10f, 0f, 0f)
         shake.duration = 500
         shake.interpolator = CycleInterpolator(7f)
         return shake
     }
 
-    fun tagCreateNewAddress(mECSShoppingCart : ECSShoppingCart){
-        var actionMap = HashMap<String, String>()
+    fun tagCreateNewAddress(mECSShoppingCart: ECSShoppingCart) {
+        val actionMap = HashMap<String, String>()
         actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.newShippingAddressAdded)
-        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,mECSShoppingCart)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap, mECSShoppingCart)
     }
 
 }

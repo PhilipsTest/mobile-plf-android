@@ -17,6 +17,7 @@ import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 
 open class CommonViewModel : ViewModel() {
     val mecError = MutableLiveData<MecError>()
@@ -40,7 +41,7 @@ open class CommonViewModel : ViewModel() {
     }
 
     open fun authFailureCallback(error: Exception?, ecsError: ECSError?) {
-        Log.e("Auth", "refresh auth failed " + ecsError);
+        MECLog.e("Auth", "refresh auth failed $ecsError");
         val mecError = MecError(error, ecsError, null)
         this.mecError.value = mecError
     }

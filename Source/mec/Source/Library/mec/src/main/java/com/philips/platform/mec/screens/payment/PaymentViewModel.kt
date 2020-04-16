@@ -62,7 +62,7 @@ class PaymentViewModel : com.philips.platform.mec.common.CommonViewModel() {
     }
 
     fun retryAPI(mecRequestType: MECRequestType) {
-        var retryAPI = selectAPIcall(mecRequestType)
+        val retryAPI = selectAPIcall(mecRequestType)
         authAndCallAPIagain(retryAPI, authFailCallback)
     }
 

@@ -12,11 +12,12 @@ package com.philips.platform.mec.screens.address
 import android.util.Log
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.philips.cdp.di.ecs.util.ECSConfiguration
+import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.uid.view.widget.InputValidationLayout
 import com.philips.platform.uid.view.widget.ValidationEditText
 
 class PhoneNumberInputValidator(private val valPhoneNumberValidationEditText: ValidationEditText,val phoneNumberUtil: PhoneNumberUtil) : InputValidationLayout.Validator {
-
+    private val TAG: String = PhoneNumberInputValidator::class.java.simpleName
     override fun validate(msg: CharSequence?): Boolean {
 
         if(msg.isNullOrEmpty()){
@@ -31,7 +32,7 @@ class PhoneNumberInputValidator(private val valPhoneNumberValidationEditText: Va
             val phoneNumber = phoneNumberUtil.parse(valPhoneNumberValidationEditText.text.toString(), ECSConfiguration.INSTANCE.country)
             return phoneNumberUtil.isValidNumber(phoneNumber)
         } catch (e: Exception) {
-            Log.d("ShippingAddressFragment", "NumberParseException")
+            MECLog.d(TAG, "NumberParseException")
         }
         return false
     }

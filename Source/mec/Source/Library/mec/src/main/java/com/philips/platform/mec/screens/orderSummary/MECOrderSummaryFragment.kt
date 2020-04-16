@@ -91,7 +91,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         bundle.putString(MECConstant.WEB_PAY_URL, eCSPaymentProvider.worldpayUrl)
         mECWebPaymentFragment.arguments = bundle
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
-        addFragment(mECWebPaymentFragment, MECWebPaymentFragment.TAG, true)
+        addFragment(mECWebPaymentFragment, TAG, true)
 
 
     }
@@ -259,7 +259,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         }
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle
-        replaceFragment(mecPrivacyFragment, MecPrivacyFragment.TAG, true)
+        replaceFragment(mecPrivacyFragment, TAG, true)
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {

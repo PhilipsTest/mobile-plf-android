@@ -45,7 +45,6 @@ class ECSShoppingCartRepository(ecsShoppingCartViewModel: EcsShoppingCartViewMod
          }else{
              this.ecsServices.fetchShoppingCart(ecsShoppingCartCallback)
          }
-
     }
 
     fun updateShoppingCart(entries: ECSEntries, quantity: Int) {

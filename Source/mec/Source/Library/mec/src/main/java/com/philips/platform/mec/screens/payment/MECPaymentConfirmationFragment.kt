@@ -28,9 +28,8 @@ import com.philips.platform.pif.DataInterface.USR.UserDetailConstants
 import java.util.*
 
 class MECPaymentConfirmationFragment : MecBaseFragment() {
-    companion object {
-        val TAG = "MECPaymentConfirmationFragment"
-    }
+    private val TAG: String = MECPaymentConfirmationFragment::class.java.simpleName
+
 
     private var paymentStatus: Boolean = false
 
@@ -63,10 +62,10 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
 
         val emailConfirmation = if (binding.isPaymentCompleted as Boolean) getString(R.string.mec_confirmation_email_msg) else getString(R.string.mec_payment_pending_confirmation)
         val boldCount: Spanned
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            boldCount = Html.fromHtml("$emailConfirmation  <b>$email</b>", Html.FROM_HTML_MODE_LEGACY)
+        boldCount = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml("$emailConfirmation  <b>$email</b>", Html.FROM_HTML_MODE_LEGACY)
         } else {
-            boldCount = Html.fromHtml("$emailConfirmation  <b>$email</b>")
+            Html.fromHtml("$emailConfirmation  <b>$email</b>")
         }
 
         binding.tvMecConfirmationEmailMsg.text = boldCount
@@ -92,7 +91,7 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
     }
 
     fun onClickOk(){
-        moveToCaller(paymentStatus,MECWebPaymentFragment.TAG)
+        moveToCaller(paymentStatus,TAG)
     }
 
 

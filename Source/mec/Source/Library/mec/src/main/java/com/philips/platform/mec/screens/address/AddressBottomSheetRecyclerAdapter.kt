@@ -24,26 +24,20 @@ import kotlinx.android.synthetic.main.mec_address_card.view.*
 class AddressBottomSheetRecyclerAdapter(private val mecAddresses: MECAddresses, val defaultAddressId: String, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val totalItem = mecAddresses.ecsAddresses.size + 1
-
     private val CREATE_ADDRESS = "CREATE_ADDRESS"
     private var mSelectedItem = 0
     var mSelectedAddress = mecAddresses.ecsAddresses[0]
-
+    private val VIEW_TYPE_FOOTER = 1
+    lateinit var binding: ViewDataBinding
 
     fun setDefaultSelectedAddressAndPosition() {
-
         for (x in 0 until totalItem - 1) {
-
             if (mecAddresses.ecsAddresses[x].id.equals(defaultAddressId, true)) {
                 mSelectedItem = x
                 mSelectedAddress = mecAddresses.ecsAddresses[x]
             }
         }
     }
-
-
-    private val VIEW_TYPE_FOOTER = 1
-    lateinit var binding: ViewDataBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -55,13 +49,11 @@ class AddressBottomSheetRecyclerAdapter(private val mecAddresses: MECAddresses, 
             binding.root.setOnClickListener {
                 itemClickListener.onItemClick(CREATE_ADDRESS)
             }
-
             return AddressBottomSheetFooterViewHolder(binding)
         } else {
             binding = MecAddressCardBinding.inflate(inflater)
             return AddressBottomSheetViewHolder(binding)
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -88,15 +80,12 @@ class AddressBottomSheetRecyclerAdapter(private val mecAddresses: MECAddresses, 
                 mSelectedItem = position
                 notifyDataSetChanged()
             }
-
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-
         if (position == totalItem - 1) return VIEW_TYPE_FOOTER
         return super.getItemViewType(position)
-
     }
 
 }

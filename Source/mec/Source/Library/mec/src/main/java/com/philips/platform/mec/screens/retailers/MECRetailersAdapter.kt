@@ -32,7 +32,7 @@ class MECRetailersAdapter (private val mecRetailers: List<ECSRetailer>? ,val ite
         viewHolder.bind(retailer!!)
     }
 
-    private class ViewHolder(val binding: MecRetailersItemBinding , val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root){
+    private open class ViewHolder(val binding: MecRetailersItemBinding, val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root){
 
         open fun bind(retailer: ECSRetailer) {
             binding.mecRetailer = retailer

@@ -46,10 +46,6 @@ class MECDeliveryModesAdapter(private val deliveryModes : MutableList<ECSDeliver
         mECDeliveryModeHolder.itemView.mec_delivery_mode_radio_button.setChecked(position == mSelectedItem);
     }
 
-    fun getSelectedDeliveryMode() : ECSDeliveryMode{
-        return deliveryMode
-    }
-
     fun setSelectedDeliveryModeAsCart(aDeliveryModeEntity: DeliveryModeEntity?){
         mECSShoppingCartDeliveryModeEntity=aDeliveryModeEntity
     }
@@ -65,7 +61,6 @@ class MECDeliveryModesAdapter(private val deliveryModes : MutableList<ECSDeliver
             binding.mecDeliveryModeRadioButton.setOnClickListener{
                 setDeliveryMode()
             }
-
         }
 
         private fun setDeliveryMode(){
@@ -74,7 +69,6 @@ class MECDeliveryModesAdapter(private val deliveryModes : MutableList<ECSDeliver
                 mSelectedItem = getAdapterPosition()
                 itemClickListener.onItemClick(deliveryModes.get(getAdapterPosition()) as Object)
                 notifyDataSetChanged()
-
             }
         }
     }

@@ -176,17 +176,8 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             cartSummaryList.add(MECCartSummary(name, price))
         }
 
-        /*for (i in 0..shoppingCart.appliedProductPromotions.size - 1) {
-            name = shoppingCart.appliedProductPromotions.get(i).promotion.description
-            price = "-" + shoppingCart.appliedProductPromotions.get(i).promotion.promotionDiscount.formattedValue
-            cartSummaryList.add(MECCartSummary(name, price))
-        }*/
-
         productsAdapter?.notifyDataSetChanged()
         cartSummaryAdapter?.notifyDataSetChanged()
-        if (productsAdapter != null) {
-            //MECProductsAdapter.CloseWindow(this.mPopupWindow).onStop()
-        }
         if (productsAdapter!!.itemCount > 0) {
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
             binding.mecVat.visibility = View.VISIBLE

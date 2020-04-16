@@ -90,7 +90,7 @@ class DataBindingUtility {
 
             val mecBannerEnabler = MECDataHolder.INSTANCE.mecBannerEnabler
 
-            if (mecBannerEnabler != null && mecBannerEnabler.bannerViewProductList != null) {
+            if (mecBannerEnabler?.bannerViewProductList != null) {
 
                 if (mecBannerEnabler.bannerViewProductList.parent != null) {
                     val viewGroup = mecBannerEnabler.bannerViewProductList.parent as ViewGroup
@@ -161,7 +161,7 @@ class DataBindingUtility {
             if (!csValueItems.isNullOrEmpty()) {
 
                 if(csValueItems.size == 1){
-                    label.text = csValueItems.get(0).csValueName +" "+unit
+                    label.text = csValueItems[0].csValueName +" "+unit
                     return
                 }
 

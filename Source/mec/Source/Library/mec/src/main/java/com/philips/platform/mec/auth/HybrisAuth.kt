@@ -34,9 +34,8 @@ import java.util.*
 
 class HybrisAuth {
 
-
     companion object {
-        private val TAG = "HybrisAuth"
+        private val TAG: String = HybrisAuth::class.java.simpleName
 
         const val KEY_MEC_EMAIL = "mec_email_id"
         const val KEY_MEC_AUTH_DATA = "mec_auth_data"
@@ -51,11 +50,11 @@ class HybrisAuth {
                 }
 
                   override fun getClientID(): ClientID {
-                    if(MECDataHolder.INSTANCE.userDataInterface.isOIDCToken) return ClientID.OIDC else return ClientID.JANRAIN
+                      return if(MECDataHolder.INSTANCE.userDataInterface.isOIDCToken) ClientID.OIDC else ClientID.JANRAIN
                 }
 
                 override fun getGrantType(): GrantType {
-                    if (MECDataHolder.INSTANCE.userDataInterface.isOIDCToken) return GrantType.OIDC else return GrantType.JANRAIN
+                    return if (MECDataHolder.INSTANCE.userDataInterface.isOIDCToken) GrantType.OIDC else GrantType.JANRAIN
                 }
             }
         }
@@ -107,7 +106,7 @@ class HybrisAuth {
                     val jsonString = getJsonStringOfMap(map)
                     MECDataHolder.INSTANCE.refreshToken = result?.refreshToken!!
                     MECDataHolder.INSTANCE.appinfra.secureStorage.storeValueForKey(KEY_MEC_AUTH_DATA,jsonString,sse)
-                    if(sse!=null && sse.errorMessage!=null && sse.errorCode!=null) {
+                    if(sse.errorMessage != null && sse.errorCode!=null) {
                         MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError+ ":" + MECAnalyticServer.other + sse.errorMessage + ":" + sse.errorCode)
                     }
                     fragmentCallback.onResponse(result)

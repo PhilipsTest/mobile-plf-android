@@ -32,16 +32,14 @@ class ProfileViewModel : com.philips.platform.mec.common.CommonViewModel() {
     }
 
     fun retryAPI(mecRequestType: MECRequestType) {
-        var retryAPI = selectAPIcall(mecRequestType)
+        val retryAPI = selectAPIcall(mecRequestType)
         authAndCallAPIagain(retryAPI, authFailCallback)
     }
 
     fun selectAPIcall(mecRequestType: MECRequestType): () -> Unit {
 
         lateinit var APIcall: () -> Unit
-        when (mecRequestType) {
-            MECRequestType.MEC_FETCH_USER_PROFILE -> APIcall = { fetchUserProfile() }
-        }
+        if (mecRequestType == MECRequestType.MEC_FETCH_USER_PROFILE) APIcall = { fetchUserProfile() }
         return APIcall
     }
 

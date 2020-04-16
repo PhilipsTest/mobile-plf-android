@@ -113,7 +113,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         return shouldSupportPagination
     }
 
-    private lateinit var mecCatalogUIModel: MECCatalogUIModel
     private var highLightedBackgroundColor: Int = 0
 
     var totalPages: Int = 0
@@ -192,9 +191,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
         if (null == mRootView) {
             binding = MecCatalogFragmentBinding.inflate(inflater, container, false)
-
-            mecCatalogUIModel = MECCatalogUIModel()
-
 
             ecsProductViewModel = ViewModelProviders.of(this).get(EcsProductViewModel::class.java)
 
@@ -385,7 +381,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getPrivacyUrl())
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle
-        replaceFragment(mecPrivacyFragment, MecPrivacyFragment.TAG, true)
+        replaceFragment(mecPrivacyFragment, TAG, true)
     }
 
     private fun isScrollDown(lay: LinearLayoutManager): Boolean {

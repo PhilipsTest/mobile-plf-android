@@ -15,19 +15,20 @@ import com.philips.platform.mec.integration.MECHandler.Companion.IAP_FAQ_URL
 import com.philips.platform.mec.integration.MECHandler.Companion.IAP_PRIVACY_URL
 import com.philips.platform.mec.integration.MECHandler.Companion.IAP_TERMS_URL
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 import java.util.*
 
 class ServiceDiscoveryMapListener : ServiceDiscoveryInterface.OnGetServiceUrlMapListener {
+    private val TAG: String = ServiceDiscoveryMapListener::class.java.simpleName
 
 
     override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
+        MECLog.e(TAG, error!!.name)
     }
 
 
     override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
         val collection = urlMap?.values
-
-
         val list = ArrayList<ServiceDiscoveryService>()
         if (collection != null) {
             list.addAll(collection)

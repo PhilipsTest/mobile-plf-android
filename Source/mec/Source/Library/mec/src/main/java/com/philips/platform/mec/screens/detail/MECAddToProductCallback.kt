@@ -35,16 +35,20 @@ class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductD
      * @param ecsError the error code
      */
     override fun onFailure(error: Exception?, ecsError: ECSError?) {
-       
 
-        if (  MECutility.isAuthError(ecsError)) {
-            ecsProductDetailViewModel.retryAPI(mECRequestType)
-        }else if (ecsError!!.errorcode == ECSErrorEnum.ECSCartError.errorCode){
-            ecsProductDetailViewModel.createShoppingCart(request)
-        } else{
 
-            val mecError = MecError(error, ecsError,mECRequestType)
-            ecsProductDetailViewModel.mecError.value = mecError
+        when {
+            MECutility.isAuthError(ecsError) -> {
+                ecsProductDetailViewModel.retryAPI(mECRequestType)
+            }
+            ecsError!!.errorcode == ECSErrorEnum.ECSCartError.errorCode -> {
+                ecsProductDetailViewModel.createShoppingCart(request)
+            }
+            else -> {
+
+                val mecError = MecError(error, ecsError,mECRequestType)
+                ecsProductDetailViewModel.mecError.value = mecError
+            }
         }
     }
 }

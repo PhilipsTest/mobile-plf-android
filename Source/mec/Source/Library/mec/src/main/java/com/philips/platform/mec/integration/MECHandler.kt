@@ -12,7 +12,6 @@ package com.philips.platform.mec.integration
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.philips.cdp.di.ecs.error.ECSError
 import com.philips.cdp.di.ecs.integration.ECSCallback
 import com.philips.cdp.di.ecs.model.config.ECSConfig
@@ -24,6 +23,7 @@ import com.philips.platform.mec.integration.serviceDiscovery.ServiceDiscoveryMap
 import com.philips.platform.mec.screens.reviews.BazaarVoiceHelper
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.uappframework.launcher.ActivityLauncher
 import com.philips.platform.uappframework.launcher.FragmentLauncher
 import com.philips.platform.uappframework.launcher.UiLauncher
@@ -34,6 +34,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
     private var appInfra: AppInfra? = null
     private var listOfServiceId: ArrayList<String>? = null
     lateinit var serviceUrlMapListener: OnGetServiceUrlMapListener
+    private val TAG: String = MECHandler::class.java.simpleName
 
 
     companion object {
@@ -107,7 +108,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
             }
 
             override fun onFailure(error: Exception?, ecsError: ECSError?) {
-                Log.e("MEC", "Config failed : Can't Launch MEC")
+                MECLog.e(TAG, "Config failed : Can't Launch MEC")
             }
         })
 
@@ -148,7 +149,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
         mecLandingFragment?.arguments = bundle
 
 
-       MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
+        MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
         val transaction = fragmentLauncher.fragmentActivity.supportFragmentManager.beginTransaction()
         transaction.replace(fragmentLauncher.parentContainerResourceID, mecLandingFragment!!, mecLandingFragment.getFragmentTag())
         transaction.addToBackStack(mecLandingFragment.getFragmentTag())

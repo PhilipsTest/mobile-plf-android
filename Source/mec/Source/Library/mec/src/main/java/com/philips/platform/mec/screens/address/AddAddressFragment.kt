@@ -12,7 +12,6 @@ package com.philips.platform.mec.screens.address
 
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +25,6 @@ import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.createShippingAddressPage
 import com.philips.platform.mec.analytics.MECAnalytics
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.newShippingAddressAdded
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecAddressCreateBinding
@@ -44,6 +41,7 @@ import java.io.Serializable
 
 
 class AddAddressFragment : MecBaseFragment() {
+    private val TAG: String = AddAddressFragment::class.java.simpleName
     override fun getFragmentTag(): String {
         return "AddAddressFragment"
     }
@@ -61,15 +59,15 @@ class AddAddressFragment : MecBaseFragment() {
 
 
     var isError = false
-    var validationEditText : ValidationEditText ? =null
+    var validationEditText: ValidationEditText? = null
 
-    var eCSAddressShipping : ECSAddress = ECSAddress()
+    var eCSAddressShipping: ECSAddress = ECSAddress()
 
-    private var eCSAddressBilling : ECSAddress = ECSAddress()
+    private var eCSAddressBilling: ECSAddress = ECSAddress()
 
     private var mAddressList: List<ECSAddress>? = null
 
-    var mecRegions : MECRegions? = null
+    var mecRegions: MECRegions? = null
 
 
     private val regionListObserver: Observer<List<ECSRegion>> = Observer { regionList ->
@@ -78,18 +76,18 @@ class AddAddressFragment : MecBaseFragment() {
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
     }
 
-    private val setDeliveryAddressObserver: Observer<Boolean> = Observer {isAddressSet->
+    private val setDeliveryAddressObserver: Observer<Boolean> = Observer { isAddressSet ->
 
-         if(isAddressSet){
-             ecsShoppingCartViewModel.getShoppingCart()
-         }else{
-             addressViewModel.fetchAddresses()
-         }
+        if (isAddressSet) {
+            ecsShoppingCartViewModel.getShoppingCart()
+        } else {
+            addressViewModel.fetchAddresses()
+        }
 
     }
 
     private val createAddressObserver: Observer<ECSAddress> = Observer { ecsAddress ->
-        Log.d(this@AddAddressFragment.javaClass.name, ecsAddress?.id)
+        MECLog.d(TAG, ecsAddress?.id)
         addressViewModel.tagCreateNewAddress(mECSShoppingCart)
         addressViewModel.setDeliveryAddress(ecsAddress!!)
     }
@@ -129,41 +127,38 @@ class AddAddressFragment : MecBaseFragment() {
 
 
         //Set Country before binding
-        eCSAddressShipping.country =addressViewModel.getCountry()
+        eCSAddressShipping.country = addressViewModel.getCountry()
         eCSAddressBilling.country = addressViewModel.getCountry()
 
         //set First Name
         val firstName = MECDataHolder.INSTANCE.getUserInfo().firstName
-        if(!firstName.isNullOrEmpty() && !firstName.equals("null",true)){
+        if (!firstName.isNullOrEmpty() && !firstName.equals("null", true)) {
             eCSAddressShipping.firstName = firstName
             eCSAddressBilling.firstName = firstName
         }
 
         //set Last Name
         val lastName = MECDataHolder.INSTANCE.getUserInfo().lastName
-        if(!lastName.isNullOrEmpty() && !lastName.equals("null",true)){
+        if (!lastName.isNullOrEmpty() && !lastName.equals("null", true)) {
             eCSAddressShipping.lastName = lastName
             eCSAddressBilling.lastName = lastName
         }
-
 
         binding.ecsAddressShipping = eCSAddressShipping
         binding.ecsAddressBilling = eCSAddressBilling
 
 
-
-
         regionViewModel.regionsList.observe(activity!!, regionListObserver)
-        regionViewModel.mecError.observe(this,this)
+        regionViewModel.mecError.observe(this, this)
 
         addressViewModel.mecError.observe(this, this)
-        addressViewModel.eCSAddress.observe(this,createAddressObserver)
-        addressViewModel.ecsAddresses.observe(this,fetchAddressObserver)
-        addressViewModel.isDeliveryAddressSet.observe(this,setDeliveryAddressObserver)
+        addressViewModel.eCSAddress.observe(this, createAddressObserver)
+        addressViewModel.ecsAddresses.observe(this, fetchAddressObserver)
+        addressViewModel.isDeliveryAddressSet.observe(this, setDeliveryAddressObserver)
 
         ecsShoppingCartViewModel = ViewModelProviders.of(this).get(EcsShoppingCartViewModel::class.java)
         ecsShoppingCartViewModel.ecsShoppingCart.observe(this, cartObserver)
-        ecsShoppingCartViewModel.mecError.observe(this,this)
+        ecsShoppingCartViewModel.mecError.observe(this, this)
 
 
         addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(ECSConfiguration.INSTANCE.country, it) }
@@ -180,24 +175,24 @@ class AddAddressFragment : MecBaseFragment() {
 
                 validateEditTexts(binding.addressContainer)
 
-                if(isError){
+                if (isError) {
                     validationEditText?.requestFocus()
 
-                }else{
+                } else {
 
                     // update region properly ..as two way data binding for region is not possible : Shipping
                     val ecsAddressShipping = binding.ecsAddressShipping
                     ecsAddressShipping?.phone2 = ecsAddressShipping?.phone1
-                    addressViewModel.setRegion(binding.llShipping,binding.mecRegions,ecsAddressShipping!!)
+                    addressViewModel.setRegion(binding.llShipping, binding.mecRegions, ecsAddressShipping!!)
 
 
-                    if(binding.billingCheckBox.isChecked){ // assign shipping address to billing address if checkbox is checked
+                    if (binding.billingCheckBox.isChecked) { // assign shipping address to billing address if checkbox is checked
                         eCSAddressBilling = ecsAddressShipping
-                    }else{
+                    } else {
                         eCSAddressBilling = binding.ecsAddressBilling!!
                         eCSAddressBilling.phone2 = eCSAddressBilling.phone1
                         // update region properly ..as two way data binding for region is not possible : Billing
-                        addressViewModel.setRegion(binding.llBilling,binding.mecRegions,eCSAddressBilling)
+                        addressViewModel.setRegion(binding.llBilling, binding.mecRegions, eCSAddressBilling)
                     }
 
                     addressViewModel.createAddress(ecsAddressShipping)
@@ -210,26 +205,24 @@ class AddAddressFragment : MecBaseFragment() {
         return binding.root
     }
 
-    private fun validateEditTexts(v: ViewGroup){
+    private fun validateEditTexts(v: ViewGroup) {
 
         for (i in 0 until v.childCount) {
             val child = v.getChildAt(i)
 
             if (v is InputValidationLayout && child is ValidationEditText && child.visibility == View.VISIBLE) {
 
-                Log.d("MEC",child.hint.toString())
+                MECLog.d(TAG, child.hint.toString())
 
-                var validator:InputValidationLayout.Validator
-
-                if(child.inputType == InputType.TYPE_CLASS_PHONE){
-                    validator = PhoneNumberInputValidator(child, PhoneNumberUtil.getInstance())
-                }else{
-                    validator = EmptyInputValidator()
+                val validator: InputValidationLayout.Validator = if (child.inputType == InputType.TYPE_CLASS_PHONE) {
+                    PhoneNumberInputValidator(child, PhoneNumberUtil.getInstance())
+                } else {
+                    EmptyInputValidator()
                 }
 
-                if(!validator.validate(child.text.toString())){
+                if (!validator.validate(child.text.toString())) {
                     child.startAnimation(addressViewModel.shakeError())
-                    if(validationEditText==null) {
+                    if (validationEditText == null) {
                         validationEditText = child
                     }
                     v.showError()
@@ -238,20 +231,18 @@ class AddAddressFragment : MecBaseFragment() {
 
             } else if (child is ViewGroup) {
 
-                if(child.visibility == View.VISIBLE) {
+                if (child.visibility == View.VISIBLE) {
                     validateEditTexts(child)  // Recursive call.
                 }
-
             }
         }
     }
 
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if(addressFieldEnabler?.isStateEnabled!! && mecRegions==null) {
+        if (addressFieldEnabler?.isStateEnabled!! && mecRegions == null) {
             regionViewModel.fetchRegions()
             showProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
@@ -262,8 +253,8 @@ class AddAddressFragment : MecBaseFragment() {
         val deliveryFragment = MECDeliveryFragment()
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.KEY_ECS_ADDRESSES, addressList as Serializable)
-        bundle.putSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS,eCSAddressBilling)
-        bundle.putSerializable(MECConstant.KEY_ECS_SHOPPING_CART , mECSShoppingCart)
+        bundle.putSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS, eCSAddressBilling)
+        bundle.putSerializable(MECConstant.KEY_ECS_SHOPPING_CART, mECSShoppingCart)
         deliveryFragment.arguments = bundle
         replaceFragment(deliveryFragment, MECDeliveryFragment().getFragmentTag(), true)
     }
@@ -271,15 +262,15 @@ class AddAddressFragment : MecBaseFragment() {
     override fun processError(mecError: MecError?, showDialog: Boolean) {
 
 
-        if(mecError?.mECRequestType == MECRequestType.MEC_CREATE_ADDRESS){
+        if (mecError?.mECRequestType == MECRequestType.MEC_CREATE_ADDRESS) {
             super.processError(mecError, showDialog)
-        }else{
-            if(mecError?.mECRequestType == MECRequestType.MEC_FETCH_SHOPPING_CART){
+        } else {
+            if (mecError?.mECRequestType == MECRequestType.MEC_FETCH_SHOPPING_CART) {
                 addressViewModel.fetchAddresses()
                 showProgressBar(binding.mecProgress.mecProgressBarContainer)
-            }else {
-                var errorMessage = mecError!!.exception!!.message
-                MECLog.e(javaClass.simpleName, errorMessage)
+            } else {
+                val errorMessage = mecError!!.exception!!.message
+                MECLog.e(TAG, errorMessage)
                 MECutility.tagAndShowError(mecError, false, fragmentManager, context)
             }
         }

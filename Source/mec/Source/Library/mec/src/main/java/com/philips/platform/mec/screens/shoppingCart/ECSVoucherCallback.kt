@@ -21,14 +21,18 @@ class ECSVoucherCallback(private var ecsShoppingCartViewModel: EcsShoppingCartVi
     }
 
     override fun onFailure(error: Exception?, ecsError: ECSError?) {
-        if(MECutility.isAuthError(ecsError)){
-            ecsShoppingCartViewModel.retryAPI(mECRequestType)
-        }else if(ecsError!!.errorcode== ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
-            val mecError = MecError(error, ecsError,mECRequestType )
-            ecsShoppingCartViewModel.mecError.value = mecError
-        }else {
-            val mecError = MecError(error, ecsError,mECRequestType)
-            ecsShoppingCartViewModel.mecError.value = mecError
+        when {
+            MECutility.isAuthError(ecsError) -> {
+                ecsShoppingCartViewModel.retryAPI(mECRequestType)
+            }
+            ecsError!!.errorcode== ECSErrorEnum.ECSUnsupportedVoucherError.errorCode -> {
+                val mecError = MecError(error, ecsError,mECRequestType )
+                ecsShoppingCartViewModel.mecError.value = mecError
+            }
+            else -> {
+                val mecError = MecError(error, ecsError,mECRequestType)
+                ecsShoppingCartViewModel.mecError.value = mecError
+            }
         }
     }
 }
