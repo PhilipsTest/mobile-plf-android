@@ -1,5 +1,7 @@
 package com.philips.platform.appinfra.rest.request;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -10,6 +12,15 @@ import com.android.volley.Request;
 import com.android.volley.ResponseDelivery;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.appinfra.AppInfraInterface;
+import com.readystatesoftware.chuck.Chuck;
+import com.readystatesoftware.chuck.ChuckInterceptor;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
 
 /**
@@ -22,16 +33,23 @@ import com.android.volley.VolleyLog;
 
 public class RequestQueue extends com.android.volley.RequestQueue {
     private final ResponseDelivery mHttpErrorDelivery;
+    private AppInfraInterface mAppInfra;
 
-    public RequestQueue(Cache cache, Network network) {
+    public RequestQueue(Cache cache, Network network, AppInfraInterface appInfra) {
         super(cache, network);
         VolleyLog.DEBUG = false;
+        this.mAppInfra = appInfra;
         mHttpErrorDelivery = new ExecutorDelivery(new Handler(Looper.getMainLooper()));
     }
 
     @Override
     public <T> Request<T> add(Request<T> request) {
         final String url = request.getUrl();
+        SharedPreferences shared = mAppInfra.getAppInfraContext().getSharedPreferences("chuckEnabled",Context.MODE_PRIVATE);
+        boolean chuck = (shared.getBoolean("CHUCK", false));
+        if(chuck) {
+            addHttpClient(url);
+        }
         if (!url.trim().toLowerCase().startsWith("https://")) {
             if (url.trim().startsWith("serviceid://")) {
                 return super.add(request);
@@ -42,5 +60,22 @@ public class RequestQueue extends com.android.volley.RequestQueue {
             }
         }
         return super.add(request);
+    }
+
+
+    private void addHttpClient(String url) {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new ChuckInterceptor(mAppInfra.getAppInfraContext()))
+                .build();
+        //Chuck.getLaunchIntent(context);
+        Thread thread = new Thread(() -> {
+            try  {
+                client.newCall(new okhttp3.Request.Builder().url(url).build()).execute();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        thread.start();
     }
 }

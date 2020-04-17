@@ -323,6 +323,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
 
     private void initMEC() {
+        ignorelistedRetailer.clear();
         ignorelistedRetailer.add("Frys.com");
         ignorelistedRetailer.add("Amazon - US");
         ignorelistedRetailer.add("BestBuy.com");
@@ -364,6 +365,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         mMecLaunchInput.setSupportsRetailer(isRetailerEnabled);
         mMecLaunchInput.setMecBazaarVoiceInput(mecBazaarVoiceInput);
         mMecLaunchInput.setMecCartUpdateListener(this); // required local for app to update cart count on action bar
+        mMecLaunchInput.setBlackListedRetailerNames(ignorelistedRetailer);
 
 
 

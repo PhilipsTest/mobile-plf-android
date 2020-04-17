@@ -179,11 +179,9 @@
             <View
                 android:id="@+id/price_button_view"
                 android:layout_width="match_parent"
-                android:layout_height="0.05dp"
                 android:layout_above="@+id/mecPriceLayout"
-                android:layout_marginTop="5dp"
-                android:rotationY="90"
-                android:background="@drawable/uid_shadow_level_two" />
+                android:layout_height="2dp"
+                android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
 
             <LinearLayout
                 android:id="@+id/mecPriceLayout"
@@ -194,13 +192,13 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
                 android:background="?attr/uidBottomSheetDefaultBackgroundColor"
-                android:backgroundTint="#FFFFFF"
                 android:orientation="horizontal">
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_total_products"
                     style="@style/mecCentralesansBookFont"
                     android:layout_width="0dp"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text='@{@string/mec_cart_total + @string/mec_empty_space + "("+ shoppingCart.totalItems + @string/mec_empty_space + @string/mec_product_title + ")" ?? ""}'
@@ -211,6 +209,7 @@
                     android:id="@+id/mec_total_price"
                     style="@style/mecCentralesansBoldFont"
                     android:layout_width="wrap_content"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:text='@{shoppingCart.totalPriceWithTax.formattedValue ?? ""}'
                     android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
@@ -228,6 +227,7 @@
                 android:layout_marginEnd="@dimen/iap_shopping_cart_btn_margin"
                 android:text="@{String.format(@string/mec_cart_tax_message, shoppingCart.totalTax.formattedValue)}"
                 android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                android:visibility="gone"
                 android:textSize="@dimen/iap_retailers_store_name_size_12sp" />
 
             <com.philips.platform.uid.view.widget.Button
@@ -237,6 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/mec_continue_shopping_btn"
                 android:layout_marginLeft="@dimen/iap_shopping_cart_btn_margin"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
                 android:enabled="true"
@@ -256,6 +257,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
                 android:layout_marginBottom="@dimen/iap_shopping_cart_btn_margin"
+                android:visibility="gone"
                 android:enabled="true"
                 android:onClick="@{() -> fragment.gotoProductCatalog()}"
                 android:text="@string/mec_continue_shopping"

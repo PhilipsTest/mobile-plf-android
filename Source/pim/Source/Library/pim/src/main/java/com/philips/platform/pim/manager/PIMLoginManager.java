@@ -14,6 +14,7 @@ import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.listeners.PIMTokenRequestListener;
 import com.philips.platform.pim.listeners.PIMUserMigrationListener;
 import com.philips.platform.pim.listeners.PIMUserProfileDownloadListener;
+import com.philips.platform.pim.utilities.PIMSecureStorageHelper;
 
 import net.openid.appauth.AuthorizationRequest;
 
@@ -26,7 +27,6 @@ import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DE
 /**
  * Class to perform OIDC request during login
  */
-//TODO: Shashi,Handle backend issues in test case(Such as invalid client id)
 public class PIMLoginManager {
     private String TAG = PIMLoginManager.class.getSimpleName();
     private PIMOIDCConfigration mPimoidcConfigration;
@@ -36,6 +36,7 @@ public class PIMLoginManager {
     private AppTaggingInterface mTaggingInterface;
     private PIMUserManager mPimUserManager;
     private HashMap consentParameterMap;
+    private PIMSecureStorageHelper pimSecureStorageHelper;
 
     public PIMLoginManager(Context context, PIMOIDCConfigration pimoidcConfigration, HashMap consentParameterMap) {
         mPimoidcConfigration = pimoidcConfigration;
@@ -43,14 +44,15 @@ public class PIMLoginManager {
         mLoggingInterface = PIMSettingManager.getInstance().getLoggingInterface();
         mTaggingInterface = PIMSettingManager.getInstance().getTaggingInterface();
         mPimUserManager = PIMSettingManager.getInstance().getPimUserManager();
+        pimSecureStorageHelper = new PIMSecureStorageHelper(PIMSettingManager.getInstance().getAppInfraInterface());
         this.consentParameterMap = consentParameterMap;
     }
 
     public Intent getAuthReqIntent(@NonNull PIMLoginListener pimLoginListener) throws ActivityNotFoundException {
         mPimLoginListener = pimLoginListener;
-        String clientID = mPimoidcConfigration.getClientId();
-        String redirectUrl = mPimoidcConfigration.getRedirectUrl();
-        return mPimAuthManager.getAuthorizationRequestIntent(mPimoidcConfigration.getAuthorizationServiceConfiguration(), clientID, redirectUrl, createAdditionalParameterForLogin());
+        final AuthorizationRequest authorizationRequest = mPimAuthManager.createAuthorizationRequest(mPimoidcConfigration, createAdditionalParameterForLogin());
+        pimSecureStorageHelper.saveAuthorizationRequest(authorizationRequest);
+        return mPimAuthManager.getAuthorizationRequestIntent(authorizationRequest);
     }
 
     public boolean isAuthorizationSuccess(Intent intentData) {
@@ -65,12 +67,14 @@ public class PIMLoginManager {
                     @Override
                     public void onUserProfileDownloadSuccess() {
                         mPimUserManager.saveLoginFlowType(PIMUserManager.LOGIN_FLOW.DEFAULT);
-                        mPimLoginListener.onLoginSuccess();
-                    }
+                        if (mPimLoginListener != null)
+                            mPimLoginListener.onLoginSuccess();
+                          }
 
                     @Override
                     public void onUserProfileDownloadFailed(Error error) {
-                        mPimLoginListener.onLoginFailed(error);
+                        if (mPimLoginListener != null)
+                            mPimLoginListener.onLoginFailed(error);
                     }
                 }); //Request user profile on success of token request
             }
@@ -149,6 +153,13 @@ public class PIMLoginManager {
             consentList.add(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent);
         mLoggingInterface.log(DEBUG, TAG, "consent list parameters : " + consentList.toString());
         return consentList;
+    }
+
+    public void exchangeCodeOnEmailVerify() {
+        Intent authIntent = mPimAuthManager.extractResponseData(pimSecureStorageHelper.getAuthorizationResponse(), pimSecureStorageHelper.getAuthorizationRequest());
+        pimSecureStorageHelper.deleteAuthorizationResponse();
+        if (mPimAuthManager.isAuthorizationSuccess(authIntent))
+            exchangeAuthorizationCode(authIntent);
     }
 }
 

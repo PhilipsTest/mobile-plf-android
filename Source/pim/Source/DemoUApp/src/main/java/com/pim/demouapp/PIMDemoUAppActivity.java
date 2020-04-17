@@ -178,12 +178,12 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         marketingOptedSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if ((!isNetworkConnected()) || buttonView.getTag() != null) {
-                        if (buttonView.isPressed()) {
-                            marketingOptedSwitch.setChecked(isOptedIn);
-                        }
-                        return;
+                if ((!isNetworkConnected()) || buttonView.getTag() != null) {
+                    if (buttonView.isPressed()) {
+                        marketingOptedSwitch.setChecked(isOptedIn);
                     }
+                    return;
+                }
 
                 if (userDataInterface.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN) {
                     marketingOptedSwitch.setChecked(false);
@@ -207,14 +207,12 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         });
 
         viewInitlization(pimDemoUAppDependencies, pimDemoUAppSettings);
-//        pimInterface = new PIMInterface();
-//        pimInterface.init(pimDemoUAppDependencies, pimDemoUAppSettings);
-//        userDataInterface = pimInterface.getUserDataInterface();
 
         sharedPreferences = getApplicationContext().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         spinnerCountrySelection = findViewById(R.id.spinner_CountrySelection);
         spinnerCountryText = findViewById(R.id.spinner_Text);
+
         if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_NOT_LOGGED_IN) {
             spinnerCountrySelection.setVisibility(View.VISIBLE);
             spinnerCountryText.setVisibility(View.GONE);
@@ -228,10 +226,12 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String countrycode = getCountryCode(countryList.get(position));
                     appInfraInterface.getServiceDiscovery().setHomeCountry(countrycode);
-                    editor.putString(SELECTED_COUNTRY, countryList.get(position));
-                    editor.apply();
-                    uAppApplication.initialisePim();
-                    userDataInterface = uAppApplication.getUserDataInterface();
+                    if (!countryList.get(position).equals(getSavedCountry())) {
+                        editor.putString(SELECTED_COUNTRY, countryList.get(position));
+                        editor.apply();
+                        uAppApplication.initialisePim();
+                        userDataInterface = uAppApplication.getUserDataInterface();
+                    }
                 }
 
                 @Override
@@ -240,7 +240,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 }
             });
         } else {
-            String selectedCountry = sharedPreferences.getString(SELECTED_COUNTRY, "");
+            String selectedCountry = getSavedCountry();
             spinnerCountryText.setVisibility(View.VISIBLE);
             spinnerCountryText.setText(selectedCountry);
             spinnerCountrySelection.setVisibility(View.GONE);
@@ -290,12 +290,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             btn_ECS.setVisibility(View.GONE);
             btnGetUserDetail.setVisibility(View.GONE);
             btnLaunchAsFragment.setText("Launch USR");
-            uAppApplication.intialiseUR();
             userDataInterface = uAppApplication.getUserDataInterface();
         } else {
             isUSR = false;
             Log.i(TAG, "Selected Liberary : PIM");
-            uAppApplication.initialisePim();
             userDataInterface = uAppApplication.getUserDataInterface();
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 btnLaunchAsActivity.setVisibility(View.GONE);
@@ -445,7 +443,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_MCS) {
-            //showToast("Not implemented");
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 MECFlowConfigurator pMecFlowConfigurator = new MECFlowConfigurator();
                 pMecFlowConfigurator.setLandingView(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW);
@@ -455,6 +452,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             }
         } else if (v == btnMigrator) {
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+                showToast("User is already logged-in!");
+            } else {
                 userDataInterface.migrateUserToPIM(new UserMigrationListener() {
                     @Override
                     public void onUserMigrationSuccess() {
@@ -466,9 +465,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                         showToast("user migration failed error code = " + error.getErrCode() + " error message : " + error.getErrDesc());
                     }
                 });
-            } else {
-                showToast("User is not loged-in, Please login!");
             }
+
         } else if (v == btn_RefetchUserDetails) {
             if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                 userDataInterface.refetchUserDetails(new RefetchUserDetailsListener() {
@@ -818,5 +816,9 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onUpdateCartCount(int count) {
 
+    }
+
+    private String getSavedCountry() {
+        return sharedPreferences.getString(SELECTED_COUNTRY, "");
     }
 }

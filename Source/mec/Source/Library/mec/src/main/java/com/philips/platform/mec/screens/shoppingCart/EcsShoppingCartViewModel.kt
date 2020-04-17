@@ -26,6 +26,12 @@ import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.cdp.di.ecs.model.voucher.ECSVoucher
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.scRemove
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCode
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeApplied
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRevoked
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
@@ -82,7 +88,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
         ecsShoppingCartRepository.fetchProductReview(entries, this)
     }
 
-    fun addVoucher(voucherCode : String, mECRequestType :MECRequestType){
+    fun addVoucher(voucherCode : String,  mECRequestType :MECRequestType){
         ecsVoucherCallback.mECRequestType = mECRequestType
         addVoucherString=voucherCode
         ecsShoppingCartRepository.applyVoucher(voucherCode,ecsVoucherCallback)
@@ -92,6 +98,28 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
         ecsVoucherCallback.mECRequestType = MECRequestType.MEC_REMOVE_VOUCHER
         deleteVoucherString=voucherCode
         ecsShoppingCartRepository.removeVoucher(voucherCode,ecsVoucherCallback)
+    }
+
+    fun tagApplyOrDeleteVoucher(mECRequestType :MECRequestType){
+        var actionMap = HashMap<String, String>()
+        if(mECRequestType==MECRequestType.MEC_APPLY_VOUCHER || mECRequestType==MECRequestType.MEC_APPLY_VOUCHER_SILENT){
+            actionMap.put(MECAnalyticsConstant.specialEvents, voucherCodeApplied)
+            actionMap.put(voucherCode, addVoucherString)
+        }else{
+            actionMap.put(MECAnalyticsConstant.specialEvents, voucherCodeRevoked)
+            actionMap.put(voucherCode, deleteVoucherString)
+        }
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,ecsShoppingCart.value)
+    }
+
+    fun tagProductIfDeleted(){
+        if(updateQuantityNumber<updateQuantityEntries.quantity){ // if product quantity is reduced or deleted(updateQuantityNumber=0)
+            var actionMap = HashMap<String, String>()
+            actionMap.put(MECAnalyticsConstant.specialEvents, scRemove)
+            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfo(updateQuantityEntries.product!!))
+            MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
+        }
+
     }
 
     fun selectAPIcall(mecRequestType: MECRequestType):() -> Unit{

@@ -11,6 +11,8 @@ package com.philips.platform.mec.integration
 
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.integration.MECDataProvider.context
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface
@@ -57,6 +59,7 @@ class MECInterface : UappInterface {
         MECLog.appInfraLoggingInterface = MECDependencies.appInfra.logging.createInstanceForComponent(MEC_NOTATION, BuildConfig.VERSION_NAME)
 
         MECDataHolder.INSTANCE.userDataInterface = MECDependencies.userDataInterface
+        MECAnalytics.initMECAnalytics(((mUappDependencies as MECDependencies?)!!))
 
     }
 
@@ -87,6 +90,7 @@ class MECInterface : UappInterface {
 
 
         }else{
+            MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!,R.string.mec_no_internet ))
             throw MECException(mMECSettings?.context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }

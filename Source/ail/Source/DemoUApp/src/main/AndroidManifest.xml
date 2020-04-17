@@ -117,6 +117,10 @@
             android:name="com.philips.platform.aildemo.SecureStorageBulkActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.philips.platform.aildemo.ChuckEnableActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.philips.platform.aildemo.ServiceDiscoverySelectionActivity"></activity>
     </application>
 

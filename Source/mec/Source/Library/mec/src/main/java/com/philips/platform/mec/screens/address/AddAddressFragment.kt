@@ -24,6 +24,10 @@ import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.region.ECSRegion
 import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.createShippingAddressPage
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.newShippingAddressAdded
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecAddressCreateBinding
@@ -86,6 +90,7 @@ class AddAddressFragment : MecBaseFragment() {
 
     private val createAddressObserver: Observer<ECSAddress> = Observer { ecsAddress ->
         Log.d(this@AddAddressFragment.javaClass.name, ecsAddress?.id)
+        addressViewModel.tagCreateNewAddress(mECSShoppingCart)
         addressViewModel.setDeliveryAddress(ecsAddress!!)
     }
 
@@ -104,6 +109,11 @@ class AddAddressFragment : MecBaseFragment() {
         super.onResume()
         setCartIconVisibility(false)
         setTitleAndBackButtonVisibility(R.string.mec_address, true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(createShippingAddressPage)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -195,6 +205,7 @@ class AddAddressFragment : MecBaseFragment() {
                 }
             }
         })
+
 
         return binding.root
     }
