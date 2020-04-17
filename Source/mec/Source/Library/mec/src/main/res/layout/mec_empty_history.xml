@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/uidContentPrimaryBackgroundColor">
+
+    <LinearLayout
+        android:id="@+id/tv_time_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/tv_time"
+            style="@style/mec_list_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/border16_margin_left_right"
+            android:paddingRight="@dimen/border16_margin_left_right"
+            android:text="@string/mec_order_summary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_time_header"
+        android:background="@color/uidColorWhite"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/border16_margin_left_right"
+        android:paddingStart="@dimen/border16_margin_left_right"
+        android:paddingTop="@dimen/border16_margin_left_right">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iap_info"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/iap_product_ctn_12"
+                android:background="@drawable/mec_info_image"
+                android:scaleType="fitXY" />
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/tv_empty_purchase_history_title"
+            style="@style/iapCentralesansBoldFont"
+            android:layout_toRightOf="@+id/iap_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/mec_order_not_received_text"
+            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            android:textSize="@dimen/iap_text_size_16sp"
+            />
+
+        </RelativeLayout>
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/tv_empty_order_history"
+            style="@style/mecCentralesansBookFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/border16_margin_left_right"
+            android:layout_marginTop="@dimen/border16_margin_left_right"
+            android:text="@string/mec_empty_purchase_history"
+            android:textColor="?attr/uidContentItemPrimaryNormalTextColor" />
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/tv_from_other_channel"
+            style="@style/mecCentralesansBookFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/border16_margin_left_right"
+            android:layout_marginTop="@dimen/border16_margin_left_right"
+            android:text="@string/mec_other_channel"
+            android:textColor="?attr/uidContentItemPrimaryNormalTextColor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/iap_continue_shopping"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_content"
+        android:layout_marginTop="@dimen/border16_margin_left_right"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/border16_margin_left_right"
+        android:paddingStart="@dimen/border16_margin_left_right">
+
+        <com.philips.platform.uid.view.widget.Button
+            android:id="@+id/btn_continue_shopping"
+            style="@style/mecCentralesansBookFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:enabled="true"
+            android:text="@string/mec_continue_shopping"
+            app:uidComponentType="Primary" />
+        
+    </LinearLayout>
+
+
+</RelativeLayout>
