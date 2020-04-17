@@ -235,7 +235,7 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
             }
     }
 
-    private fun exitMEC() {
+    fun exitMEC() {
         removeMECFragments()
         finishActivity()
     }

@@ -149,6 +149,25 @@ class MECutility {
             }
         }
 
+        fun showPositiveActionDialog(context: Context,btnText:String,errorTitle:String,errorDescription:String,fragmentManager: FragmentManager,alertListener: AlertListener){
+
+            val builder = AlertDialogFragment.Builder(context)
+            builder.setDialogType(DialogConstants.TYPE_ALERT)
+            builder.setTitle(errorTitle)
+            builder.setMessage(errorDescription)
+            builder.setPositiveButton(btnText) {
+                alertListener.onPositiveBtnClick()
+                dismissAlertFragmentDialog(alertDialogFragment, fragmentManager)
+            }
+
+            alertDialogFragment = builder.setCancelable(false).create()
+            if (!alertDialogFragment!!.isVisible) {
+                alertDialogFragment!!.show(fragmentManager, ALERT_DIALOG_TAG)
+            }
+        }
+
+
+
 
         private fun isCallingFragmentVisible(fragmentManager: FragmentManager?): Boolean {
 

@@ -22,9 +22,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.philips.cdp.di.ecs.model.orders.ECSOrderHistory
 import com.philips.cdp.di.ecs.model.orders.ECSOrders
+import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
+import com.philips.platform.mec.utils.AlertListener
+import com.philips.platform.mec.utils.MECutility
+import kotlinx.android.synthetic.main.mec_empty_history.view.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 
@@ -50,12 +54,17 @@ class MECOrderHistoryFragment : MecBaseFragment() {
     }
 
     private val orderHistoryObserver: Observer<ECSOrderHistory> = Observer { ecsOrderHistory ->
-        totalPage = ecsOrderHistory.pagination.totalPages
-        pageNumber = ecsOrderHistory.pagination.currentPage
 
-        ordersList.addAll(ecsOrderHistory.orders)
-        ordersList.sortByDescending { it.placed }
-        fetchOrderDetailForOrders(ordersList)
+        if (ecsOrderHistory.pagination.totalResults == 0) {
+            showOrderEmptyMessage()
+        } else {
+            totalPage = ecsOrderHistory.pagination.totalPages
+            pageNumber = ecsOrderHistory.pagination.currentPage
+
+            ordersList.addAll(ecsOrderHistory.orders)
+            ordersList.sortByDescending { it.placed }
+            fetchOrderDetailForOrders(ordersList)
+        }
     }
 
     private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
@@ -65,8 +74,8 @@ class MECOrderHistoryFragment : MecBaseFragment() {
         CoroutineScope(IO).launch {
 
             suspend {
-                for (orders in orderList){
-                     mecOrderHistoryViewModel.fetchOrderDetail(orders)
+                for (orders in orderList) {
+                    mecOrderHistoryViewModel.fetchOrderDetail(orders)
                     //jobs.add(jab)
                 }
 
@@ -79,7 +88,6 @@ class MECOrderHistoryFragment : MecBaseFragment() {
 
             }.invoke()
             //jobs.awaitAll()
-
 
 
         }
@@ -127,14 +135,15 @@ class MECOrderHistoryFragment : MecBaseFragment() {
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {
-        super.processError(mecError, showDialog)
+        super.processError(mecError, false)
         isCallOnProgress = false
+        showErrorDialog(mecError)
     }
 
 
     fun shouldFetchNextPage(): Boolean {
 
-        if(isCallOnProgress) return false
+        if (isCallOnProgress) return false
         val lay = binding.recyclerOrderHistory.layoutManager as LinearLayoutManager
 
         if (mecOrderHistoryService.isScrollDown(lay)) {
@@ -159,5 +168,26 @@ class MECOrderHistoryFragment : MecBaseFragment() {
 
     private fun hideFullScreenProgressBar() {
         binding.mecOrderHistoryProgress.mecProgressBarContainer.visibility = View.GONE
+    }
+
+    private fun showOrderEmptyMessage() {
+        hidePaginationProgressBar()
+        hideFullScreenProgressBar()
+        isCallOnProgress = false
+        binding.mecEmptyHistory.visibility = View.VISIBLE
+        binding.mecEmptyHistory.btn_continue_shopping.setOnClickListener { showProductCatalogFragment(getFragmentTag()) }
+    }
+
+    private fun showErrorDialog(mecError: MecError?) {
+
+        context?.let {
+            fragmentManager?.let { it1 ->
+                MECutility.showPositiveActionDialog(it, context!!.getString(R.string.mec_ok), context!!.getString(R.string.mec_order_summary), mecError!!.exception!!.message.toString(), it1, object : AlertListener {
+                    override fun onPositiveBtnClick() {
+                        exitMEC()
+                    }
+                })
+            }
+        }
     }
 }
