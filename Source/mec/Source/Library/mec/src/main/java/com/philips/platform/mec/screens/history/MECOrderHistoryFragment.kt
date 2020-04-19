@@ -203,5 +203,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL,ecsOrderDetail)
         fragment.arguments = bundle
         replaceFragment(fragment,fragment.getFragmentTag(),true)
+
+        ecsOrderDetail.entries[0].product.summary.subcategory
     }
 }
