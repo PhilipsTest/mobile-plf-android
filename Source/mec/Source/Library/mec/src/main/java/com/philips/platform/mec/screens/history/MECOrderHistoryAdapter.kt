@@ -15,9 +15,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.philips.cdp.di.ecs.model.orders.ECSOrders
+import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecOrderHistoryItemBinding
 
-class MECOrderHistoryAdapter (val items: MutableList<ECSOrders>) : RecyclerView.Adapter<OrdersViewHolder>() {
+class MECOrderHistoryAdapter(val items: MutableList<ECSOrders>, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<OrdersViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): OrdersViewHolder {
 
@@ -32,6 +33,6 @@ class MECOrderHistoryAdapter (val items: MutableList<ECSOrders>) : RecyclerView.
     }
 
     override fun onBindViewHolder(viewHolder : OrdersViewHolder, position: Int) {
-        viewHolder.bind(items[position])
+        viewHolder.bind(items[position],itemClickListener)
     }
 }

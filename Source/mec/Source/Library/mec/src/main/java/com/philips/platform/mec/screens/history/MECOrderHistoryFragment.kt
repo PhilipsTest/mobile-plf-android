@@ -20,18 +20,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.orders.ECSOrderHistory
 import com.philips.cdp.di.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
+import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
+import com.philips.platform.mec.screens.history.orderDetail.MECOrderDetailFragment
 import com.philips.platform.mec.utils.AlertListener
+import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECutility
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 
-class MECOrderHistoryFragment : MecBaseFragment() {
+class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
     private lateinit var mecOrderHistoryAdapter: MECOrderHistoryAdapter
     private lateinit var mecOrderHistoryViewModel: MECOrderHistoryViewModel
@@ -102,7 +106,7 @@ class MECOrderHistoryFragment : MecBaseFragment() {
             mecOrderHistoryViewModel = ViewModelProvider(this).get(MECOrderHistoryViewModel::class.java)
             mecOrderHistoryViewModel.ecsOrderHistory.observe(viewLifecycleOwner, orderHistoryObserver)
             mecOrderHistoryViewModel.mecError.observe(viewLifecycleOwner, this)
-            mecOrderHistoryAdapter = MECOrderHistoryAdapter(ordersList)
+            mecOrderHistoryAdapter = MECOrderHistoryAdapter(ordersList,this )
             binding.recyclerOrderHistory.adapter = mecOrderHistoryAdapter
 
 
@@ -189,5 +193,15 @@ class MECOrderHistoryFragment : MecBaseFragment() {
                 })
             }
         }
+    }
+
+    override fun onItemClick(item: Any) {
+
+        var ecsOrderDetail = item as ECSOrderDetail
+        var fragment = MECOrderDetailFragment()
+        var bundle = Bundle()
+        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL,ecsOrderDetail)
+        fragment.arguments = bundle
+        replaceFragment(fragment,fragment.getFragmentTag(),true)
     }
 }

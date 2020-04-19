@@ -17,6 +17,10 @@
     <data>
 
         <variable
+            name="itemClickListener"
+            type="com.philips.platform.mec.common.ItemClickListener" />
+
+        <variable
             name="ecsOrders"
             type="com.philips.cdp.di.ecs.model.orders.ECSOrders" />
 
