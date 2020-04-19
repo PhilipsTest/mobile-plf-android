@@ -28,7 +28,6 @@ import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.AlertListener
 import com.philips.platform.mec.utils.MECutility
-import kotlinx.android.synthetic.main.mec_empty_history.view.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 
@@ -106,6 +105,7 @@ class MECOrderHistoryFragment : MecBaseFragment() {
             mecOrderHistoryAdapter = MECOrderHistoryAdapter(ordersList)
             binding.recyclerOrderHistory.adapter = mecOrderHistoryAdapter
 
+
             showFullScreenProgressBar()
             executeRequest()
             handlePagination()
@@ -174,8 +174,8 @@ class MECOrderHistoryFragment : MecBaseFragment() {
         hidePaginationProgressBar()
         hideFullScreenProgressBar()
         isCallOnProgress = false
-        binding.mecEmptyHistory.visibility = View.VISIBLE
-        binding.mecEmptyHistory.btn_continue_shopping.setOnClickListener { showProductCatalogFragment(getFragmentTag()) }
+       // binding.mecEmptyHistory.mecContinueShopping.btn_continue_shopping.setOnClickListener { showProductCatalogFragment(getFragmentTag()) }
+        binding.mecEmptyHistory.rlEmptyHistory.visibility = View.VISIBLE
     }
 
     private fun showErrorDialog(mecError: MecError?) {

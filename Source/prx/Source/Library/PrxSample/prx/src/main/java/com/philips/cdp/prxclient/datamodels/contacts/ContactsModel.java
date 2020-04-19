@@ -1,0 +1,50 @@
+/*
+ *  Copyright (c) Koninklijke Philips N.V., 2020
+ *
+ *  * All rights are reserved. Reproduction or dissemination
+ *
+ *  * in whole or in part is prohibited without the prior written
+ *
+ *  * consent of the copyright holder.
+ *
+ *
+ */
+
+package com.philips.cdp.prxclient.datamodels.contacts;
+
+import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.philips.cdp.prxclient.response.ResponseData;
+
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
+public class ContactsModel extends ResponseData implements Serializable {
+
+    @SerializedName("data")
+    @Expose
+    private Data data;
+
+    @SerializedName("data")
+    @Expose
+    private boolean success;
+
+    public Data getData() {
+        return data;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    @Override
+    public ResponseData parseJsonResponseData(JSONObject response) {
+        if (response != null) {
+            return new Gson().fromJson(response.toString(), ContactsModel.class);
+
+        }
+        return null;
+    }
+}

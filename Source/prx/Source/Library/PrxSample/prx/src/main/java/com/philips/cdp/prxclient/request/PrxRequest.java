@@ -9,7 +9,6 @@ import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryServ
 
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +37,11 @@ public abstract class PrxRequest {
 
     private List<String> mCtns;
 
+    public void setCategory(String mCategory) {
+        this.mCategory = mCategory;
+    }
+
+    private String mCategory;
     /**
      * PRX request constructor.
      * @param ctn CTN of the product
@@ -59,6 +63,19 @@ public abstract class PrxRequest {
      */
     public PrxRequest(String ctn, String serviceID, PrxConstants.Sector sector, PrxConstants.Catalog catalog) {
         this.mCtn = ctn;
+        this.mServiceId = serviceID;
+        this.mSector = sector;
+        this.mCatalog = catalog;
+    }
+
+    /**
+     * PRX request constructor.
+     * @param serviceID PRX ServiceId
+     * @param sector sector
+     * @param catalog catalog
+     * @since 1.0.0
+     */
+    public PrxRequest(String serviceID, PrxConstants.Sector sector, PrxConstants.Catalog catalog) {
         this.mServiceId = serviceID;
         this.mSector = sector;
         this.mCatalog = catalog;
@@ -138,7 +155,13 @@ public abstract class PrxRequest {
      */
     public void getRequestUrlFromAppInfra(final AppInfraInterface appInfra, final OnUrlReceived listener) {
         Map<String, String> replaceUrl = new HashMap<>();
-        replaceUrl.put("ctn", mCtn);
+        if(mCtn!=null) {
+            replaceUrl.put("ctn", mCtn);
+        }
+
+        if(mCategory!=null) {
+            replaceUrl.put("productCategory", mCategory);
+        }
         replaceUrl.put("sector", getSector().toString());
         replaceUrl.put("catalog", getCatalog().toString());
         // replaceUrl.put("locale", locale);
