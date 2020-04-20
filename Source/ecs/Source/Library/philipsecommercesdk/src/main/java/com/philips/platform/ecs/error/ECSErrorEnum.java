@@ -7,7 +7,7 @@ package com.philips.platform.ecs.error;
 
 import android.util.Log;
 
-import com.philips.cdp.ecs.R;
+import com.philips.platform.ecs.R;
 import com.philips.platform.ecs.util.ECSConfiguration;
 
 public enum ECSErrorEnum {
