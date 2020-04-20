@@ -310,9 +310,13 @@ class MECutility {
                     } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                         //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
+                        //MECAnalytics.trackInformationError(errorString) // tag all details including server:category etc
+                        errorMessage = Acontext!!.getString(R.string.mec_no_internet)
                     } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
-                        MECAnalytics.trackUserError(mecError!!.exception!!.message.toString())
+                        val errorMsg = mecError!!.exception!!.message.toString()
+                        errorString +=errorMsg
+                        MECAnalytics.trackUserError(errorString)
+                        errorMessage=mecError!!.exception!!.message.toString()
                     }else{
                         errorMessage = mecError!!.exception!!.message.toString()
                         errorString += errorMessage
