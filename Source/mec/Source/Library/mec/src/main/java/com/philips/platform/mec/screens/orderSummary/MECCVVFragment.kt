@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.R
@@ -38,6 +39,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
     private lateinit var binding: MecCvcCodeFragmentBinding
     private lateinit var paymentViewModel: PaymentViewModel
     private lateinit var mEcsOrderDetail: ECSOrderDetail
+    private lateinit var mEcsShoppingCart: ECSShoppingCart
 
     companion object {
         const val TAG:String="MECCVVFragment"
@@ -54,7 +56,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         var actionMap = HashMap<String, String>()
         actionMap.put(paymentType, old)
         actionMap.put(specialEvents, paymentFailure)
-        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,mEcsOrderDetail.entries)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,mEcsShoppingCart)
         MECutility.tagAndShowError(mecError, false, fragmentManager, context)
         showErrorDialog()
         binding.root.mec_progress.visibility = View.GONE
@@ -70,6 +72,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         binding.fragment=this
         val bundle= arguments
         val ecsPayment=bundle?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as ECSPayment
+        mEcsShoppingCart=bundle?.getSerializable(MECConstant.MEC_SHOPPING_CART) as ECSShoppingCart
         binding.paymentMethod=ecsPayment
 
         paymentViewModel =  ViewModelProviders.of(this).get(PaymentViewModel::class.java)
