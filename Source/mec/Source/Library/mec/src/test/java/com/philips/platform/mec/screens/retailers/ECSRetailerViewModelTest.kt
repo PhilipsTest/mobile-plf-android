@@ -1,10 +1,8 @@
 package com.philips.platform.mec.screens.retailers
 
-import com.philips.platform.ecs.ECSServices
 import com.philips.platform.mec.utils.MECDataHolder
-import org.junit.Test
-
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito

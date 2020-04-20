@@ -1,7 +1,7 @@
 package com.philips.platform.mec.screens.orderSummary
 
 import android.content.Context
-import com.philips.cdp.ecs.model.cart.*
+import com.philips.platform.ecs.model.cart.*
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import org.junit.Before

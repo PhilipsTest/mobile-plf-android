@@ -1,7 +1,6 @@
 package com.philips.platform.mec.screens.detail
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder

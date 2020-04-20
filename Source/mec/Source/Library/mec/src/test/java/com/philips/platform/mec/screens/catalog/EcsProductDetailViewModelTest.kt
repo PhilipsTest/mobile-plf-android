@@ -1,8 +1,6 @@
 package com.philips.platform.mec.screens.catalog
 
 import android.content.Context
-import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.screens.detail.ECSProductDetailRepository
 import com.philips.platform.mec.screens.detail.EcsProductDetailViewModel
 import com.philips.platform.mec.utils.MECDataHolder

@@ -3,8 +3,6 @@ package com.philips.platform.mec.screens.detail
 
 import android.content.Context
 import com.bazaarvoice.bvandroidsdk.*
-import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
 import org.junit.Test

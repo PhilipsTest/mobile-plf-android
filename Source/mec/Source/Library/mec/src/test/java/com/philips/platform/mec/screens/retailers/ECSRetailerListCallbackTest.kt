@@ -1,8 +1,6 @@
 package com.philips.platform.mec.screens.retailers
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.platform.ecs.model.retailers.ECSRetailer
-import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.common.MecError
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

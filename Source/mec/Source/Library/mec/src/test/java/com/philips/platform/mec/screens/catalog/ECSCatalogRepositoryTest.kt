@@ -1,6 +1,5 @@
 package com.philips.platform.mec.screens.catalog
 
-import com.philips.platform.ecs.ECSServices
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

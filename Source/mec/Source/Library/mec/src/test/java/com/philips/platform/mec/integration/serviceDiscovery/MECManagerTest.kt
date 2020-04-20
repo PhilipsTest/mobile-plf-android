@@ -1,10 +1,6 @@
 package com.philips.platform.mec.integration.serviceDiscovery
 
 import com.google.gson.Gson
-import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.securestorage.SecureStorage
 import com.philips.platform.mec.auth.HybrisAuth
