@@ -266,14 +266,7 @@
                 app:uidComponentType="Secondary" />
         </RelativeLayout>
 
-        <!-- android:id="@+id/mec_empty_result"
-            android:layout_width="@dimen/iap_match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:background="?attr/uidContentPrimaryBackgroundColor"
-            android:orientation="vertical"
-            android:visibility="gone">-->
+
         <RelativeLayout
             android:id="@+id/mec_empty_result"
             android:layout_width="@dimen/iap_match_parent"
@@ -378,7 +371,7 @@
                 android:text="@string/mec_continue_checkout"
                 android:textColor="?attr/uidButtonPrimaryNormalTextColor"
                 android:textSize="16dp"
-                app:uidComponentType="Primary" />
+                app:uidComponentType="Secondary" />
 
             <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/mec_continue_shopping_btn_empty_cart"
@@ -395,7 +388,7 @@
                 android:text="@string/mec_continue_shopping"
                 android:textColor="?attr/uidButtonSecondaryNormalTextColor"
                 android:textSize="16dp"
-                app:uidComponentType="Secondary" />
+                app:uidComponentType="Primary" />
         </RelativeLayout>
 
 
