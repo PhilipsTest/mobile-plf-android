@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Súhrn obsahu košíka</string>
   <string name="mec_cart_tax_message">Cena vrátane %s DPH</string>
   <string name="mec_cart_total">Celkom</string>
+  <string name="mec_check_internet_connection">Skontrolujte svoje pripojenie k internetu.</string>
   <string name="mec_checkout">Objednať</string>
   <string name="mec_choose_address_text">Vybrať adresu doručenia zo zoznamu nižšie</string>
   <string name="mec_confirmation">Potvrdenie</string>
@@ -139,7 +140,7 @@
   <string name="mec_thank_for_order">Ďakujeme za vašu objednávku</string>
   <string name="mec_threshold_message">Môže to trvať dlhšie. Prajete si pokračovať?</string>
   <string name="mec_threshold_title">Bol dosiahnutý limit požiadavky</string>
-  <string name="mec_time_out_error">[sk]Network timeout reached!</string>
+  <string name="mec_time_out_error">Vypršal časový limit sieťového pripojenia!</string>
   <string name="mec_town">Mesto</string>
   <string name="mec_town_error">Zadajte platné mesto</string>
   <string name="mec_town_hint">Zadajte mesto</string>

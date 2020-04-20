@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Товары в корзине</string>
   <string name="mec_cart_tax_message">Цена с учетом %s НДС</string>
   <string name="mec_cart_total">Итого</string>
+  <string name="mec_check_internet_connection">Проверьте подключение к Интернету.</string>
   <string name="mec_checkout">Оформление заказа</string>
   <string name="mec_choose_address_text">Выберите адрес доставки из списка ниже</string>
   <string name="mec_confirmation">Подтверждение</string>
@@ -139,7 +140,7 @@
   <string name="mec_thank_for_order">Спасибо за заказ</string>
   <string name="mec_threshold_message">Это может занять больше времени. Продолжить?</string>
   <string name="mec_threshold_title">Достигнут предел ожидания запроса</string>
-  <string name="mec_time_out_error">[ru]Network timeout reached!</string>
+  <string name="mec_time_out_error">Время ожидания ответа сети истекло!</string>
   <string name="mec_town">Город</string>
   <string name="mec_town_error">Правильно укажите город</string>
   <string name="mec_town_hint">Введите свой город</string>

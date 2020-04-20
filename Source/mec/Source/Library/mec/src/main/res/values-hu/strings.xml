@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">A kosár tartalmának összegzése</string>
   <string name="mec_cart_tax_message">Ár %s áfával</string>
   <string name="mec_cart_total">Teljes</string>
+  <string name="mec_check_internet_connection">Ellenőrizze internetkapcsolatát.</string>
   <string name="mec_checkout">Kijelentkezés</string>
   <string name="mec_choose_address_text">Szállítási cím kiválasztása az alábbi listából</string>
   <string name="mec_confirmation">Jóváhagyás</string>
@@ -139,7 +140,7 @@
   <string name="mec_thank_for_order">Köszönjük megrendelését</string>
   <string name="mec_threshold_message">Ez több időt vehet igénybe. Kívánja folytatni?</string>
   <string name="mec_threshold_title">Elérte a kérés küszöbértékét</string>
-  <string name="mec_time_out_error">[hu]Network timeout reached!</string>
+  <string name="mec_time_out_error">Hálózati időtúllépés!</string>
   <string name="mec_town">Helység/Város</string>
   <string name="mec_town_error">Érvényes várost adjon meg</string>
   <string name="mec_town_hint">Adja meg a várost</string>
