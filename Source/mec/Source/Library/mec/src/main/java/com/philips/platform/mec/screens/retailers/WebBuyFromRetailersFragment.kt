@@ -166,9 +166,9 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
             val urlString = URL(url)
             return urlString.query != null
         } catch (e: MalformedURLException) {
-            MECLog.e(TAG, "Exception Occurs : " + e.message)
+            MECLog.d(TAG, "Exception Occurs : " + e.message)
         } catch (e: Exception) {
-            MECLog.e(TAG, "Exception Occurs : " + e.message)
+            MECLog.d(TAG, "Exception Occurs : " + e.message)
         }
 
         return false

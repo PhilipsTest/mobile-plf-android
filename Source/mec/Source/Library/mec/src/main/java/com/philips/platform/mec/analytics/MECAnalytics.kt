@@ -61,7 +61,7 @@ class MECAnalytics {
                 mAppTaggingInterface = dependencies.appInfra.tagging.createInstanceForComponent(MECAnalyticsConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME)
                 countryCode = dependencies.appInfra.serviceDiscovery.homeCountry
             } catch (e: Exception) {
-                MECLog.e(TAG, "Exception :" + e.message);
+                MECLog.d(TAG, "Exception :" + e.message);
             }
         }
 
@@ -71,7 +71,7 @@ class MECAnalytics {
                 val map = HashMap<String, String>()
                 if (currentPage != previousPageName) {
                     previousPageName = currentPage
-                    MECLog.v("MEC_LOG", "trackPage$currentPage");
+                    MECLog.v(TAG, "trackPage$currentPage");
                     mAppTaggingInterface!!.trackPageWithInfo(currentPage, addCountryAndCurrency(map))
                 }
             }
@@ -81,7 +81,7 @@ class MECAnalytics {
         @JvmStatic
         fun trackAction(state: String, key: String, value: Any) {
             val valueObject = value as String
-            MECLog.v("MEC_LOG", "trackAction$valueObject");
+            MECLog.v(TAG, "trackAction$valueObject");
             if (mAppTaggingInterface != null)
                 mAppTaggingInterface!!.trackActionWithInfo(state, key, valueObject)
         }
@@ -89,7 +89,7 @@ class MECAnalytics {
         @JvmStatic
         fun trackMultipleActions(state: String, map: Map<String, String>) {
             if (mAppTaggingInterface != null)
-                MECLog.v("MEC_LOG", "trackMtlutipleAction ")
+                MECLog.v(TAG, "trackMtlutipleAction ")
             mAppTaggingInterface!!.trackActionWithInfo(state, addCountryAndCurrency(map))
         }
 
@@ -173,7 +173,7 @@ class MECAnalytics {
                     productListString += "," + getProductInfo(product)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
-                MECLog.v("MEC_LOG", "prodList : $productListString")
+                MECLog.v(TAG, "prodList : $productListString")
                 val map = HashMap<String, String>()
                 map.put(mecProducts, productListString)
                 trackMultipleActions(sendData, map)
@@ -316,7 +316,7 @@ class MECAnalytics {
                 val currency = Currency.getInstance(locale)
                 currencyCode = currency.currencyCode
             } catch (e: Exception) {
-                MECLog.e(TAG, "Exception : " + e.message)
+                MECLog.d(TAG, "Exception : " + e.message)
                 trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + exceptionErrorCode)
             }
 
