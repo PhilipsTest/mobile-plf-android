@@ -252,8 +252,7 @@ class MECutility {
                 return false
             }
 
-            return (stockLevelStatus.equals(IN_STOCK, ignoreCase = true) ||
-                    stockLevelStatus.equals(LOW_STOCK, ignoreCase = true) || stockLevel > 0)
+            return ((stockLevelStatus.equals(IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(LOW_STOCK, ignoreCase = true)) && stockLevel > 0)
         }
 
         fun stockStatus(availability: String): String {
