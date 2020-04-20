@@ -19,10 +19,10 @@ import android.view.animation.TranslateAnimation
 import androidx.fragment.app.FragmentManager
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.google.gson.Gson
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.error.ECSErrorEnum
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSErrorEnum
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
@@ -244,7 +244,7 @@ class MECutility {
             }
         }
 
-        fun getQuantity(carts: ECSShoppingCart): Int {
+        fun getQuantity(carts: com.philips.platform.ecs.model.cart.ECSShoppingCart): Int {
             val totalItems = carts.totalItems
             var quantity = 0
             if (carts.entries != null) {
@@ -258,14 +258,14 @@ class MECutility {
             return quantity
         }
 
-        fun isAuthError(ecsError: ECSError?): Boolean {
+        fun isAuthError(ecsError: com.philips.platform.ecs.error.ECSError?): Boolean {
             var authError: Boolean = false
             with(ecsError!!.errorcode) {
-                if (this == ECSErrorEnum.ECSInvalidTokenError.errorCode
-                        || this == ECSErrorEnum.ECSinvalid_grant.errorCode
-                        || this == ECSErrorEnum.ECSinvalid_client.errorCode
-                        || this == ECSErrorEnum.ECSOAuthDetailError.errorCode
-                        || this == ECSErrorEnum.ECSOAuthNotCalled.errorCode) {
+                if (this == com.philips.platform.ecs.error.ECSErrorEnum.ECSInvalidTokenError.errorCode
+                        || this == com.philips.platform.ecs.error.ECSErrorEnum.ECSinvalid_grant.errorCode
+                        || this == com.philips.platform.ecs.error.ECSErrorEnum.ECSinvalid_client.errorCode
+                        || this == com.philips.platform.ecs.error.ECSErrorEnum.ECSOAuthDetailError.errorCode
+                        || this == com.philips.platform.ecs.error.ECSErrorEnum.ECSOAuthNotCalled.errorCode) {
                     authError = true
                 }
             }
@@ -274,7 +274,7 @@ class MECutility {
         }
 
         @JvmStatic
-        fun findGivenAddressInAddressList(ecsAddressID: String, ecsAddressList: List<ECSAddress>): ECSAddress? {
+        fun findGivenAddressInAddressList(ecsAddressID: String, ecsAddressList: List<com.philips.platform.ecs.model.address.ECSAddress>): com.philips.platform.ecs.model.address.ECSAddress? {
 
             for (ecsAddress in ecsAddressList) {
                 if (ecsAddressID.equals(ecsAddress.id, true)) {
@@ -311,7 +311,7 @@ class MECutility {
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                         //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
                         MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
-                    } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                    } else if (mecError!!.ecsError!!.errorcode == com.philips.platform.ecs.error.ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                         MECAnalytics.trackUserError(mecError!!.exception!!.message.toString())
                     }else{
                         errorMessage = mecError!!.exception!!.message.toString()
@@ -379,7 +379,7 @@ class MECutility {
 
     }
 
-    fun constructShippingAddressDisplayField(ecsAddress: ECSAddress): String {
+    fun constructShippingAddressDisplayField(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress): String {
 
         var formattedAddress = ""
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort

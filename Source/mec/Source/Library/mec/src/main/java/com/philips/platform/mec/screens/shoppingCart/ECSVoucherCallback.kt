@@ -5,25 +5,25 @@
  */
 package com.philips.platform.mec.screens.shoppingCart
 
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.error.ECSErrorEnum
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.voucher.ECSVoucher
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSErrorEnum
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.voucher.ECSVoucher
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class ECSVoucherCallback(private var ecsShoppingCartViewModel: EcsShoppingCartViewModel) : ECSCallback<List<ECSVoucher>,Exception> {
+class ECSVoucherCallback(private var ecsShoppingCartViewModel: EcsShoppingCartViewModel) : com.philips.platform.ecs.integration.ECSCallback<List<com.philips.platform.ecs.model.voucher.ECSVoucher>, Exception> {
     lateinit var mECRequestType :MECRequestType
-    override fun onResponse(ecsVoucher: List<ECSVoucher>?) {
+    override fun onResponse(ecsVoucher: List<com.philips.platform.ecs.model.voucher.ECSVoucher>?) {
         ecsShoppingCartViewModel.tagApplyOrDeleteVoucher(mECRequestType)
         ecsShoppingCartViewModel.getShoppingCart()
     }
 
-    override fun onFailure(error: Exception?, ecsError: ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
         if(MECutility.isAuthError(ecsError)){
             ecsShoppingCartViewModel.retryAPI(mECRequestType)
-        }else if(ecsError!!.errorcode== ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+        }else if(ecsError!!.errorcode== com.philips.platform.ecs.error.ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
             val mecError = MecError(error, ecsError,mECRequestType )
             ecsShoppingCartViewModel.mecError.value = mecError
         }else {

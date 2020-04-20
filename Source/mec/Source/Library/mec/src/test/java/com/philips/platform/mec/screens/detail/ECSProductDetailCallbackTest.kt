@@ -1,8 +1,7 @@
 package com.philips.platform.mec.screens.detail
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
@@ -16,7 +15,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 import org.powermock.reflect.Whitebox
 
-@PrepareForTest(ECSProduct::class, EcsProductDetailViewModel::class, ECSProductDetailCallback::class, MECDataHolder::class, MECRequestType::class)
+@PrepareForTest(com.philips.platform.ecs.model.products.ECSProduct::class, EcsProductDetailViewModel::class, ECSProductDetailCallback::class, MECDataHolder::class, MECRequestType::class)
 @RunWith(PowerMockRunner::class)
 class ECSProductDetailCallbackTest {
 
@@ -27,19 +26,19 @@ class ECSProductDetailCallbackTest {
     lateinit var ecsProductDetailViewModel: EcsProductDetailViewModel
 
     @Mock
-    lateinit var mutableLiveDataMock: MutableLiveData<ECSProduct>
+    lateinit var mutableLiveDataMock: MutableLiveData<com.philips.platform.ecs.model.products.ECSProduct>
 
     @Mock
     lateinit var mutableLiveDataMecErrorMock: MutableLiveData<MecError>
 
     @Mock
-    val ecsProduct = ECSProduct()
+    val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
 
     @Mock
     lateinit var mecRequestType: MECRequestType
 
     @Mock
-    private val mockMutableLiveData: MutableLiveData<ECSProduct>? = null
+    private val mockMutableLiveData: MutableLiveData<com.philips.platform.ecs.model.products.ECSProduct>? = null
 
     @Before
     fun setUp() {

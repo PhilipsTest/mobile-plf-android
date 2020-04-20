@@ -10,8 +10,7 @@
 package com.philips.platform.mec.screens.address.region
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.di.ecs.model.region.ECSRegion
-import com.philips.platform.mec.common.CommonViewModel
+import com.philips.platform.ecs.model.region.ECSRegion
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 
@@ -19,7 +18,7 @@ class RegionViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
     private var ecsRegionListCallback = ECSRegionListCallback(this)
 
-    var regionsList = MutableLiveData<List<ECSRegion>>()
+    var regionsList = MutableLiveData<List<com.philips.platform.ecs.model.region.ECSRegion>>()
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
     var regionRepository = RegionRepository(ecsServices)

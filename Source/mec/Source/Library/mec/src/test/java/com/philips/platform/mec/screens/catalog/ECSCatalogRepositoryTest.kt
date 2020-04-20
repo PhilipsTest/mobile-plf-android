@@ -1,12 +1,9 @@
 package com.philips.platform.mec.screens.catalog
 
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.platform.mec.screens.detail.ECSProductDetailRepository
-import com.philips.platform.mec.screens.detail.EcsProductDetailViewModel
+import com.philips.platform.ecs.ECSServices
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
@@ -21,7 +18,7 @@ class ECSCatalogRepositoryTest{
 
 
     @Mock
-    lateinit var ecsServices: ECSServices
+    lateinit var ecsServices: com.philips.platform.ecs.ECSServices
 
     @Mock
     lateinit var ecsCallback: ECSProductsCallback

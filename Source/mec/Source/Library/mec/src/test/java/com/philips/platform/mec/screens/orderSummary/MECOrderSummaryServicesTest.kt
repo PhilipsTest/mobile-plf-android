@@ -1,7 +1,7 @@
 package com.philips.platform.mec.screens.orderSummary
 
 import android.content.Context
-import com.philips.cdp.di.ecs.model.cart.*
+import com.philips.cdp.ecs.model.cart.*
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import org.junit.Before
@@ -23,25 +23,25 @@ class MECOrderSummaryServicesTest {
     lateinit var mockContext: Context
 
     @Mock
-    lateinit var mockEcsShoppingCart: ECSShoppingCart
+    lateinit var mockEcsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart
 
     @Mock
     lateinit var mockCartSummaryList: MutableList<MECCartSummary>
 
     @Mock
-    lateinit var mockAppliedOrderPromotionEntity: AppliedOrderPromotionEntity
+    lateinit var mockAppliedOrderPromotionEntity: com.philips.platform.ecs.model.cart.AppliedOrderPromotionEntity
 
     @Mock
-    lateinit var promotionEntity: PromotionEntity
+    lateinit var promotionEntity: com.philips.platform.ecs.model.cart.PromotionEntity
 
     @Mock
-    lateinit var promotionDiscount: PromotionDiscount
+    lateinit var promotionDiscount: com.philips.platform.ecs.model.cart.PromotionDiscount
 
     @Mock
-    lateinit var appliedVoucherEntity: AppliedVoucherEntity
+    lateinit var appliedVoucherEntity: com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 
     @Mock
-    lateinit var deliveryCostEntity: DeliveryCostEntity
+    lateinit var deliveryCostEntity: com.philips.platform.ecs.model.cart.DeliveryCostEntity
 
     @Before
     fun setUp() {

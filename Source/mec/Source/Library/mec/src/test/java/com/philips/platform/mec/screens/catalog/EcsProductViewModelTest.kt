@@ -1,7 +1,6 @@
 package com.philips.platform.mec.screens.catalog
 
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.ECSServices
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
 import org.junit.Test
@@ -11,8 +10,6 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
-import org.powermock.reflect.Whitebox
-import java.util.*
 
 @PrepareForTest(ECSCatalogRepository::class, ECSProductListCallback::class, ECSProductsCallback::class)
 @RunWith(PowerMockRunner::class)
@@ -22,7 +19,7 @@ class EcsProductViewModelTest {
     lateinit var ecsProductViewModel: EcsProductViewModel
 
     @Mock
-    lateinit var ecsServices: ECSServices
+    lateinit var ecsServices: com.philips.platform.ecs.ECSServices
 
     @Mock
     lateinit var eCSCatalogRepository: ECSCatalogRepository

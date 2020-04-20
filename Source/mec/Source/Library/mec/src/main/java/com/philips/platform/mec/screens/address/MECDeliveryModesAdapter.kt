@@ -13,17 +13,17 @@ package com.philips.platform.mec.screens.address
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode
-import com.philips.cdp.di.ecs.model.cart.DeliveryModeEntity
+import com.philips.platform.ecs.model.address.ECSDeliveryMode
+import com.philips.platform.ecs.model.cart.DeliveryModeEntity
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecDeliveryModeItemBinding
 import kotlinx.android.synthetic.main.mec_delivery_mode_item.view.*
 
-class MECDeliveryModesAdapter(private val deliveryModes : MutableList<ECSDeliveryMode>,private val itemClickListener : ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MECDeliveryModesAdapter(private val deliveryModes : MutableList<com.philips.platform.ecs.model.address.ECSDeliveryMode>, private val itemClickListener : ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mSelectedItem = -1 // default value no selection..
 
-    private lateinit var deliveryMode: ECSDeliveryMode
-    private  var mECSShoppingCartDeliveryModeEntity: DeliveryModeEntity? = null
+    private lateinit var deliveryMode: com.philips.platform.ecs.model.address.ECSDeliveryMode
+    private  var mECSShoppingCartDeliveryModeEntity: com.philips.platform.ecs.model.cart.DeliveryModeEntity? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MECDeliveryModeHolder(MecDeliveryModeItemBinding.inflate(LayoutInflater.from(parent.context)))
@@ -46,18 +46,18 @@ class MECDeliveryModesAdapter(private val deliveryModes : MutableList<ECSDeliver
         mECDeliveryModeHolder.itemView.mec_delivery_mode_radio_button.setChecked(position == mSelectedItem);
     }
 
-    fun getSelectedDeliveryMode() : ECSDeliveryMode{
+    fun getSelectedDeliveryMode() : com.philips.platform.ecs.model.address.ECSDeliveryMode {
         return deliveryMode
     }
 
-    fun setSelectedDeliveryModeAsCart(aDeliveryModeEntity: DeliveryModeEntity?){
+    fun setSelectedDeliveryModeAsCart(aDeliveryModeEntity: com.philips.platform.ecs.model.cart.DeliveryModeEntity?){
         mECSShoppingCartDeliveryModeEntity=aDeliveryModeEntity
     }
 
 
     inner class MECDeliveryModeHolder(val binding: MecDeliveryModeItemBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(deliveryMode :ECSDeliveryMode ,  itemClickListener: ItemClickListener){
+        fun bind(deliveryMode : com.philips.platform.ecs.model.address.ECSDeliveryMode, itemClickListener: ItemClickListener){
             binding.deliveryMode=deliveryMode
             binding.mecDeliveryModeItemRow.setOnClickListener{
                 setDeliveryMode()

@@ -18,13 +18,13 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.cart.BasePriceEntity
-import com.philips.cdp.di.ecs.model.cart.ECSEntries
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.products.ECSProduct
-import com.philips.cdp.di.ecs.model.voucher.ECSVoucher
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.cart.BasePriceEntity
+import com.philips.platform.ecs.model.cart.ECSEntries
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.voucher.ECSVoucher
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
@@ -40,9 +40,9 @@ import com.philips.platform.uid.view.widget.Label
 
 open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
-    var ecsShoppingCart = MutableLiveData<ECSShoppingCart>()
+    var ecsShoppingCart = MutableLiveData<com.philips.platform.ecs.model.cart.ECSShoppingCart>()
 
-    var ecsVoucher = MutableLiveData<List<ECSVoucher>>()
+    var ecsVoucher = MutableLiveData<List<com.philips.platform.ecs.model.voucher.ECSVoucher>>()
 
     val ecsProductsReviewList = MutableLiveData<MutableList<MECCartProductReview>>()
 
@@ -50,7 +50,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
-     lateinit  var updateQuantityEntries :ECSEntries
+     lateinit  var updateQuantityEntries : com.philips.platform.ecs.model.cart.ECSEntries
      var updateQuantityNumber:Int = 0
      lateinit  var addVoucherString :String
      lateinit var deleteVoucherString :String
@@ -66,11 +66,11 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     }
 
     fun createShoppingCart(request: String){
-        val createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, Exception> {
-            override fun onResponse(result: ECSShoppingCart?) {
+        val createShoppingCartCallback=  object: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception> {
+            override fun onResponse(result: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
                 getShoppingCart()
             }
-            override fun onFailure(error: Exception?, ecsError: ECSError?) {
+            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                 val mECError = MecError(error, ecsError,null)
                 mecError.value = mECError
             }
@@ -78,13 +78,13 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
         ecsShoppingCartRepository.createCart(createShoppingCartCallback)
     }
 
-    fun updateQuantity(entries: ECSEntries, quantity: Int) {
+    fun updateQuantity(entries: com.philips.platform.ecs.model.cart.ECSEntries, quantity: Int) {
         updateQuantityEntries=entries
         updateQuantityNumber=quantity
         ecsShoppingCartRepository.updateShoppingCart(entries,quantity)
     }
 
-    fun fetchProductReview(entries: MutableList<ECSEntries>) {
+    fun fetchProductReview(entries: MutableList<com.philips.platform.ecs.model.cart.ECSEntries>) {
         ecsShoppingCartRepository.fetchProductReview(entries, this)
     }
 
@@ -147,7 +147,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     companion object {
         @JvmStatic
         @BindingAdapter("setPrice", "totalPriceEntity")
-        fun setPrice(priceLabel: Label, product: ECSProduct?, basePriceEntity: BasePriceEntity?) {
+        fun setPrice(priceLabel: Label, product: com.philips.platform.ecs.model.products.ECSProduct?, basePriceEntity: com.philips.platform.ecs.model.cart.BasePriceEntity?) {
             val textSize16 = priceLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_discount_price_label_size)
             val textSize12 = priceLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_price_label_size);
             if (product != null && basePriceEntity!!.formattedValue != null && basePriceEntity?.formattedValue!!.length > 0 && (product.price.value - basePriceEntity.value) > 0) {
@@ -168,7 +168,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
 
         @JvmStatic
         @BindingAdapter("setDiscountPrice", "totalPriceEntity")
-        fun setDiscountPrice(discountPriceLabel: Label, product: ECSProduct?, basePriceEntity: BasePriceEntity?) {
+        fun setDiscountPrice(discountPriceLabel: Label, product: com.philips.platform.ecs.model.products.ECSProduct?, basePriceEntity: com.philips.platform.ecs.model.cart.BasePriceEntity?) {
             val discount = (product!!.price!!.value - basePriceEntity!!.value) / product.price!!.value * 100
 
             val discountRounded: String = String.format("%.2f", discount).toString()
@@ -183,7 +183,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
         @SuppressLint("SetTextI18n")
         @JvmStatic
         @BindingAdapter("setStock","setQuantity")
-        fun setStock(stockLabel : Label , product: ECSProduct?, quantity: Int) {
+        fun setStock(stockLabel : Label, product: com.philips.platform.ecs.model.products.ECSProduct?, quantity: Int) {
             if (null != product && null != product.stock) {
                 if ((!MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) || (product.stock.stockLevel==0)) {
                     setSpannedText(stockLabel)

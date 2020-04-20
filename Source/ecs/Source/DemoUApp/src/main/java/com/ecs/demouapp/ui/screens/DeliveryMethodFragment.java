@@ -15,7 +15,7 @@ import com.ecs.demouapp.ui.container.CartModelContainer;
 import com.ecs.demouapp.ui.controller.AddressController;
 import com.ecs.demouapp.ui.session.NetworkConstants;
 import com.ecs.demouapp.ui.utils.ECSUtility;
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 
 
 import java.util.List;

@@ -1,10 +1,10 @@
 package com.philips.platform.mec.integration.serviceDiscovery
 
 import com.google.gson.Gson
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.config.ECSConfig
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.securestorage.SecureStorage
 import com.philips.platform.mec.auth.HybrisAuth
@@ -30,31 +30,31 @@ class MECManagerTest {
     lateinit var mecHybrisAvailabilityListener: MECHybrisAvailabilityListener
 
     @Mock
-    lateinit var ecsServices: ECSServices
+    lateinit var ecsServices: com.philips.platform.ecs.ECSServices
 
     @Mock
     lateinit var appInfraInterface: AppInfraInterface
 
     @Captor
-    lateinit var captor: ArgumentCaptor<ECSCallback<Boolean, java.lang.Exception>>
+    lateinit var captor: ArgumentCaptor<com.philips.platform.ecs.integration.ECSCallback<Boolean, java.lang.Exception>>
 
     @Captor
-    lateinit var captor1: ArgumentCaptor<ECSCallback<ECSConfig, java.lang.Exception>>
+    lateinit var captor1: ArgumentCaptor<com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, java.lang.Exception>>
 
     @Mock
-    lateinit var ecsCallback: ECSCallback<Boolean, Exception>
+    lateinit var ecsCallback: com.philips.platform.ecs.integration.ECSCallback<Boolean, Exception>
 
     @Mock
-    lateinit var ecsCallback1: ECSCallback<ECSConfig, Exception>
+    lateinit var ecsCallback1: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception>
 
     @Mock
     lateinit var exception: java.lang.Exception
 
     @Mock
-    lateinit var error: ECSError
+    lateinit var error: com.philips.platform.ecs.error.ECSError
 
     @Mock
-    lateinit var ecsConfig: ECSConfig
+    lateinit var ecsConfig: com.philips.platform.ecs.model.config.ECSConfig
 
     @Mock
     lateinit var mecFetchCartListener: MECFetchCartListener

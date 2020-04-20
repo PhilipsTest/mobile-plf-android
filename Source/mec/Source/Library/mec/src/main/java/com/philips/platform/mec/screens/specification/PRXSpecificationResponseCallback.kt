@@ -9,7 +9,7 @@
  */
 package com.philips.platform.mec.screens.specification
 
-import com.philips.cdp.di.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSError
 import com.philips.cdp.prxclient.datamodels.specification.SpecificationModel
 import com.philips.cdp.prxclient.error.PrxError
 import com.philips.cdp.prxclient.response.ResponseData
@@ -28,7 +28,7 @@ class PRXSpecificationResponseCallback(private val prxSpecificationViewModel: Sp
         val description = prxError?.description
 
         val exception = Exception(description)
-        val ecsError = ECSError(1000,description)
+        val ecsError = com.philips.platform.ecs.error.ECSError(1000, description)
         val mecError = MecError(exception, ecsError,mECRequestType)
         //prxSpecificationViewModel.mecError.value = mecError
     }

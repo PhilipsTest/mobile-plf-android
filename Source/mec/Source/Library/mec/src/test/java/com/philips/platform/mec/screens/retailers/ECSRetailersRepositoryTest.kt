@@ -1,10 +1,9 @@
 package com.philips.platform.mec.screens.retailers
 
-import com.philips.cdp.di.ecs.ECSServices
+import com.philips.platform.ecs.ECSServices
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
@@ -23,7 +22,7 @@ class ECSRetailersRepositoryTest {
     lateinit var  ecsRetailerViewModelMock: ECSRetailerViewModel
 
     @Mock
-    lateinit var  ecsServicesMock: ECSServices
+    lateinit var  ecsServicesMock: com.philips.platform.ecs.ECSServices
 
     @Mock
     lateinit var eCSRetailerListCallback : ECSRetailerListCallback

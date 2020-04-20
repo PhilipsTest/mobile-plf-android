@@ -20,14 +20,14 @@ import com.ecs.demouapp.ui.session.NetworkConstants;
 import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.ECSLog;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
-import com.philips.cdp.di.ecs.model.address.ECSAddress;
+import com.philips.platform.ecs.model.address.ECSAddress;
 
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
-import com.philips.cdp.di.ecs.model.address.ECSUserProfile;
-import com.philips.cdp.di.ecs.model.address.GetDeliveryModes;
-import com.philips.cdp.di.ecs.model.payment.ECSPayment;
-import com.philips.cdp.di.ecs.model.payment.PaymentMethods;
-import com.philips.cdp.di.ecs.model.region.RegionsList;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.address.ECSUserProfile;
+import com.philips.platform.ecs.model.address.GetDeliveryModes;
+import com.philips.platform.ecs.model.payment.ECSPayment;
+import com.philips.platform.ecs.model.payment.PaymentMethods;
+import com.philips.platform.ecs.model.region.RegionsList;
 
 import java.util.ArrayList;
 import java.util.Locale;

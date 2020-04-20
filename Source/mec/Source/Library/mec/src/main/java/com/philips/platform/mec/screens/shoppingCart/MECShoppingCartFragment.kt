@@ -16,10 +16,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity
-import com.philips.cdp.di.ecs.model.cart.ECSEntries
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
+import com.philips.platform.ecs.model.cart.ECSEntries
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.shoppingCartPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -55,7 +55,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     private lateinit var addressViewModel: AddressViewModel
 
 
-    private var mAddressList: List<ECSAddress>? = null
+    private var mAddressList: List<com.philips.platform.ecs.model.address.ECSAddress>? = null
 
     var mRootView: View? = null
 
@@ -68,14 +68,14 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     private lateinit var binding: MecShoppingCartFragmentBinding
     private var itemPosition: Int = 0
     private var mPopupWindow: UIPicker? = null
-    private lateinit var shoppingCart: ECSShoppingCart
+    private lateinit var shoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart
     lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
     private var productsAdapter: MECProductsAdapter? = null
     private var cartSummaryAdapter: MECCartSummaryAdapter? = null
     private var vouchersAdapter: MECVouchersAdapter? = null
     private lateinit var productReviewList: MutableList<MECCartProductReview>
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
-    private lateinit var voucherList: MutableList<AppliedVoucherEntity>
+    private lateinit var voucherList: MutableList<com.philips.platform.ecs.model.cart.AppliedVoucherEntity>
     private var voucherCode: String = ""
     private var removeVoucher: Boolean = true
     private var name: String = ""
@@ -83,7 +83,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     var validationEditText: ValidationEditText? = null
     val list: ArrayList<String>? = ArrayList()
 
-    private val cartObserver: Observer<ECSShoppingCart> = Observer<ECSShoppingCart> { ecsShoppingCart ->
+    private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> { ecsShoppingCart ->
         binding.shoppingCart = ecsShoppingCart
         shoppingCart = ecsShoppingCart!!
 
@@ -198,7 +198,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     }
 
 
-    private val addressObserver: Observer<List<ECSAddress>> = Observer(fun(addressList: List<ECSAddress>?) {
+    private val addressObserver: Observer<List<com.philips.platform.ecs.model.address.ECSAddress>> = Observer(fun(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
 
         mAddressList = addressList
         if (productsAdapter!!.itemCount > 0) {
@@ -222,7 +222,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         replaceFragment(addAddressFragment, addAddressFragment.getFragmentTag(), true)
     }
 
-    private fun gotoDeliveryAddress(addressList: List<ECSAddress>?) {
+    private fun gotoDeliveryAddress(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
         val deliveryFragment = MECDeliveryFragment()
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.KEY_ECS_ADDRESSES, addressList as Serializable)
@@ -346,7 +346,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         ecsShoppingCartViewModel.getShoppingCart()
     }
 
-    fun updateCartRequest(entries: ECSEntries, int: Int) {
+    fun updateCartRequest(entries: com.philips.platform.ecs.model.cart.ECSEntries, int: Int) {
         showProgressBar(binding.mecProgress.mecProgressBarContainer)
         ecsShoppingCartViewModel.updateQuantity(entries, int)
     }

@@ -3,8 +3,8 @@ package com.philips.platform.mec.screens.detail
 
 import android.content.Context
 import com.bazaarvoice.bvandroidsdk.*
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
 import org.junit.Test
@@ -34,7 +34,7 @@ class ECSProductDetailRepositoryTest {
     lateinit var ecsProductDetailCallBack: ECSProductDetailCallback
 
     @Mock
-    lateinit var ecsServices: ECSServices
+    lateinit var ecsServices: com.philips.platform.ecs.ECSServices
 
     @Mock
     lateinit var loadCallDisplayRatingsMock: LoadCallDisplay<BulkRatingsRequest, BulkRatingsResponse>
@@ -52,7 +52,7 @@ class ECSProductDetailRepositoryTest {
     @Mock
     lateinit var mECDetailBulkRatingConversationsDisplayCallback: MECDetailBulkRatingConversationsDisplayCallback
 
-    lateinit var eCSProduct: ECSProduct
+    lateinit var eCSProduct: com.philips.platform.ecs.model.products.ECSProduct
 
 
     @Before
@@ -61,7 +61,7 @@ class ECSProductDetailRepositoryTest {
         eCSProductDetailRepository = ECSProductDetailRepository(ecsProductDetailViewModel, ecsServices)
         eCSProductDetailRepository.ecsProductDetailCallBack = ecsProductDetailCallBack
 
-        eCSProduct = ECSProduct()
+        eCSProduct = com.philips.platform.ecs.model.products.ECSProduct()
         eCSProduct.code = "HX12345/00"
 
         MECDataHolder.INSTANCE.locale = "en"

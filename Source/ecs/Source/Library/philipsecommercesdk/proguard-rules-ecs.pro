@@ -2,14 +2,14 @@
 
 
  #ECS
- -keep class com.philips.cdp.di.ecs.ECSServices {*;}
- -keep class com.philips.cdp.di.ecs.ECSManager {*;}
- -keep class com.philips.cdp.di.ecs.ECSCallValidator {*;}
- -keep class com.philips.cdp.di.ecs.ApiInputValidator {*;}
--keep class com.philips.cdp.di.ecs.model** {*;}
--keep class com.philips.cdp.di.ecs.integration** {*;}
--keep class com.philips.cdp.di.ecs.error** {*;}
--keep interface com.philips.cdp.di.ecs.ECSServiceProvider** {*;}
+ -keep class com.philips.cdp.ecs.ECSServices {*;}
+ -keep class com.philips.cdp.ecs.ECSManager {*;}
+ -keep class com.philips.cdp.ecs.ECSCallValidator {*;}
+ -keep class com.philips.cdp.ecs.ApiInputValidator {*;}
+-keep class com.philips.cdp.ecs.model** {*;}
+-keep class com.philips.cdp.ecs.integration** {*;}
+-keep class com.philips.cdp.ecs.error** {*;}
+-keep interface com.philips.cdp.ecs.ECSServiceProvider** {*;}
 
 
 #JSACKSON

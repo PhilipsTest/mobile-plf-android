@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.ecs.demouapp.R;
 import com.ecs.demouapp.ui.container.CartModelContainer;
 import com.ecs.demouapp.ui.screens.OnSetDeliveryModeListener;
-import com.philips.cdp.di.ecs.model.address.DeliveryCost;
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.address.DeliveryCost;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 
 import java.util.List;
 
