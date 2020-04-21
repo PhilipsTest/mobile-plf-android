@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">장바구니 요약</string>
   <string name="mec_cart_tax_message">%s의 부가세가 포함된 가격입니다.</string>
   <string name="mec_cart_total">총액</string>
+  <string name="mec_check_internet_connection">인터넷 연결을 확인해 주십시오.</string>
   <string name="mec_checkout">계산</string>
   <string name="mec_choose_address_text">아래 목록에서 배송 주소를 선택하십시오.</string>
   <string name="mec_confirmation">확인</string>
@@ -81,8 +82,8 @@
   <string name="mec_loading">로딩 중...</string>
   <string name="mec_manage_address">주소 관리</string>
   <string name="mec_more_info">참조</string>
-  <string name="mec_mr">[ko]Mr</string>
-  <string name="mec_mrs">[ko]Ms</string>
+  <string name="mec_mr">Mr</string>
+  <string name="mec_mrs">Ms</string>
   <string name="mec_new_card_text">새 카드</string>
   <string name="mec_new_payment_disclaimer">주문 완료 시 선택하신 결제 세부 정보가 저장됩니다.</string>
   <string name="mec_no_address_select_message">배송 주소를 선택하십시오.</string>
@@ -139,7 +140,7 @@
   <string name="mec_thank_for_order">주문해 주셔서 감사합니다.</string>
   <string name="mec_threshold_message">이 작업은 시간이 더 걸릴 수 있습니다. 계속하시겠습니까?</string>
   <string name="mec_threshold_title">요청 임계값 도달</string>
-  <string name="mec_time_out_error">[ko]Network timeout reached!</string>
+  <string name="mec_time_out_error">네트워크 시간 초과!</string>
   <string name="mec_town">구/군/시</string>
   <string name="mec_town_error">유효한 구/군/시를 입력하십시오.</string>
   <string name="mec_town_hint">구/군/시 입력</string>

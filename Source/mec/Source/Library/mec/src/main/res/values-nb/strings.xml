@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Sammendrag av handlekurv</string>
   <string name="mec_cart_tax_message">Prisen inkluderer %s mva.</string>
   <string name="mec_cart_total">Totalsum</string>
+  <string name="mec_check_internet_connection">Kontroller Internett-forbindelsen.</string>
   <string name="mec_checkout">Kasse</string>
   <string name="mec_choose_address_text">Velg leveringsadresse fra listen nedenfor</string>
   <string name="mec_confirmation">Bekreftelse</string>
@@ -139,7 +140,7 @@
   <string name="mec_thank_for_order">Tusen takk for bestillingen</string>
   <string name="mec_threshold_message">Dette kan ta lengre tid. Ønsker du å fortsette?</string>
   <string name="mec_threshold_title">Terskelen for forespørsler er nådd</string>
-  <string name="mec_time_out_error">[nb]Network timeout reached!</string>
+  <string name="mec_time_out_error">Tidsavbrudd for nettverk!</string>
   <string name="mec_town">By/sted</string>
   <string name="mec_town_error">Angi et gyldig poststed</string>
   <string name="mec_town_hint">Angi by eller sted</string>
