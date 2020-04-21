@@ -9,7 +9,7 @@
  */
 package com.philips.platform.mec.common
 
-import com.philips.cdp.di.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSError
 
 
-class MecError( val exception: Exception?, val ecsError: ECSError?, val mECRequestType :MECRequestType?)
+class MecError(val exception: Exception?, val ecsError: com.philips.platform.ecs.error.ECSError?, val mECRequestType :MECRequestType?)

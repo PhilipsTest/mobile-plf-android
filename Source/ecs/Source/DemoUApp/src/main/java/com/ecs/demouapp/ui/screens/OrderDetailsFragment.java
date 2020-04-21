@@ -42,10 +42,10 @@ import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
 import com.ecs.demouapp.ui.utils.Utility;
 import com.google.gson.Gson;
-import com.philips.cdp.di.ecs.model.orders.ConsignmentEntries;
-import com.philips.cdp.di.ecs.model.orders.Entries;
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail;
-import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.ecs.model.orders.ConsignmentEntries;
+import com.philips.platform.ecs.model.orders.Entries;
+import com.philips.platform.ecs.model.orders.ECSOrderDetail;
+import com.philips.platform.ecs.util.ECSConfiguration;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.platform.appinfra.rest.request.JsonObjectRequest;
 

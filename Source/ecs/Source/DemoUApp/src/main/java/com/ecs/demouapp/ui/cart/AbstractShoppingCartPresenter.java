@@ -14,11 +14,11 @@ import com.ecs.demouapp.ui.controller.ControllerFactory;
 import com.ecs.demouapp.ui.session.IAPNetworkError;
 import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailer;
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.cart.ECSShoppingCart;
+import com.philips.platform.ecs.model.retailers.ECSRetailer;
+import com.philips.platform.ecs.model.retailers.ECSRetailerList;
 
 
 import java.util.ArrayList;

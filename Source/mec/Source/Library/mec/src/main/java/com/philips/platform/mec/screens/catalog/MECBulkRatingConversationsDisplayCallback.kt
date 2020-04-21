@@ -13,12 +13,12 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback
 import com.bazaarvoice.bvandroidsdk.ConversationsException
 import com.bazaarvoice.bvandroidsdk.Statistics
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.common.MecError
 import java.text.DecimalFormat
 
-class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<ECSProduct>, val ecsProductViewModel: EcsProductViewModel) : ConversationsDisplayCallback<BulkRatingsResponse> {
+class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<com.philips.platform.ecs.model.products.ECSProduct>, val ecsProductViewModel: EcsProductViewModel) : ConversationsDisplayCallback<BulkRatingsResponse> {
 
 
     override fun onSuccess(response: BulkRatingsResponse) {
@@ -32,13 +32,13 @@ class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<ECSProduct
 
     override fun onFailure(exception: ConversationsException) {
 
-        val ecsError = ECSError(1000,exception.localizedMessage)
+        val ecsError = com.philips.platform.ecs.error.ECSError(1000, exception.localizedMessage)
         val mecError = MecError(exception, ecsError,null)
         ecsProductViewModel.mecError.value = mecError
     }
 
 
-    private fun createMECProductReviewObject(ecsProducts: List<ECSProduct>, statisticsList: List<Statistics>) {
+    private fun createMECProductReviewObject(ecsProducts: List<com.philips.platform.ecs.model.products.ECSProduct>, statisticsList: List<Statistics>) {
 
         var mecProductReviewList :MutableList<MECProductReview> = mutableListOf()
 

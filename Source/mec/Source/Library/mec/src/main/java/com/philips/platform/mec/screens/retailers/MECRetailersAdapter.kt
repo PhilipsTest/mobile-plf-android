@@ -13,11 +13,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
+import com.philips.platform.ecs.model.retailers.ECSRetailer
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecRetailersItemBinding
 
-class MECRetailersAdapter (private val mecRetailers: List<ECSRetailer>? ,val itemClickListener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MECRetailersAdapter (private val mecRetailers: List<com.philips.platform.ecs.model.retailers.ECSRetailer>?, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
 
@@ -31,9 +31,9 @@ class MECRetailersAdapter (private val mecRetailers: List<ECSRetailer>? ,val ite
         viewHolder.bind(retailer!!)
     }
 
-    private class ViewHolder(val binding: MecRetailersItemBinding , val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root){
+    private open class ViewHolder(val binding: MecRetailersItemBinding, val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root){
 
-        open fun bind(retailer: ECSRetailer) {
+        open fun bind(retailer: com.philips.platform.ecs.model.retailers.ECSRetailer) {
             binding.mecRetailer = retailer
             binding.itemClickListener = itemClickListener
 

@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">ملخص العربة</string>
   <string name="mec_cart_tax_message">يشمل السعر الضريبة على القيمة المضافة بقيمة %s</string>
   <string name="mec_cart_total">المجموع</string>
+  <string name="mec_check_internet_connection">يرجى التحقق من اتصال الإنترنت لديك.</string>
   <string name="mec_checkout">الدفع عند المغادرة</string>
   <string name="mec_choose_address_text">اختيار عنوان الشحن من القائمة أدناه</string>
   <string name="mec_confirmation">تأكيد</string>
@@ -139,7 +140,7 @@
   <string name="mec_thank_for_order">نشكرك على طلبك</string>
   <string name="mec_threshold_message">قد يستغرق هذا وقتًا أطول. هل ترغب في المتابعة؟</string>
   <string name="mec_threshold_title">تم الوصول إلى الحد الأدنى من الطلبات</string>
-  <string name="mec_time_out_error">[ar]Network timeout reached!</string>
+  <string name="mec_time_out_error">انتهت مهلة الشبكة!</string>
   <string name="mec_town">البلدة/المدينة</string>
   <string name="mec_town_error">يُرجى إدخال بلدة صالحة</string>
   <string name="mec_town_hint">أدخل بلدتك أو مدينتك</string>

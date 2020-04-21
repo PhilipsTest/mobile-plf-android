@@ -24,11 +24,10 @@ class MECUIPickerAdapter(context: Context, private val resID: Int, states: Array
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view: Label
-        if (convertView == null) {
-            view = inflater!!.inflate(resID, parent, false) as Label
+        val view: Label = if (convertView == null) {
+            inflater!!.inflate(resID, parent, false) as Label
         } else {
-            view = (convertView as Label?)!!
+            (convertView as Label?)!!
         }
         view.text = getItem(position)
         return view

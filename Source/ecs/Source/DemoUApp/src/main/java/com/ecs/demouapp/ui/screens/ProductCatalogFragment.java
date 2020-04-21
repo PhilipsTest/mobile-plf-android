@@ -6,7 +6,7 @@ package com.ecs.demouapp.ui.screens;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,11 +36,11 @@ import com.ecs.demouapp.ui.session.NetworkConstants;
 import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.products.PaginationEntity;
-import com.philips.cdp.di.ecs.model.products.ECSProduct;
-import com.philips.cdp.di.ecs.model.products.ECSProducts;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.products.PaginationEntity;
+import com.philips.platform.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.model.products.ECSProducts;
 import com.philips.platform.uid.view.widget.RecyclerViewSeparatorItemDecoration;
 import com.philips.platform.uid.view.widget.SearchBox;
 

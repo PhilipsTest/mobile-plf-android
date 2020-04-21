@@ -6,8 +6,8 @@ package com.ecs.demouapp.ui.cart;
 
 import android.content.Context;
 
-import com.philips.cdp.di.ecs.model.cart.ECSEntries;
-import com.philips.cdp.di.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.products.ECSProduct;
 
 public interface ShoppingCartAPI {
     void getCurrentCartDetails();

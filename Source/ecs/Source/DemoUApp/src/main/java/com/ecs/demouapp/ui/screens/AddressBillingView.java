@@ -20,7 +20,7 @@ import com.ecs.demouapp.ui.utils.ModelConstants;
 import com.ecs.demouapp.ui.utils.Utility;
 import com.ecs.demouapp.ui.view.SalutationDropDown;
 import com.ecs.demouapp.ui.view.StateDropDown;
-import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.ecs.util.ECSConfiguration;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterfaceException;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.uid.view.widget.InputValidationLayout;

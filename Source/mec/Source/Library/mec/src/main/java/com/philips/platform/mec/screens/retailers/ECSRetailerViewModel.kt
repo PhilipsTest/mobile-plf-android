@@ -13,9 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
-import com.philips.platform.mec.common.CommonViewModel
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.uid.view.widget.Label
@@ -23,7 +22,7 @@ import java.util.*
 
 class ECSRetailerViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
-    val ecsRetailerList = MutableLiveData<ECSRetailerList>()
+    val ecsRetailerList = MutableLiveData<com.philips.platform.ecs.model.retailers.ECSRetailerList>()
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
@@ -36,7 +35,7 @@ class ECSRetailerViewModel : com.philips.platform.mec.common.CommonViewModel() {
     companion object DataBindingAdapter {
         @JvmStatic
         @BindingAdapter("retailers","listener")
-        fun setAdapter(recyclerView: RecyclerView, ecsRetailerList: ECSRetailerList, itemClickListener: ItemClickListener) {
+        fun setAdapter(recyclerView: RecyclerView, ecsRetailerList: com.philips.platform.ecs.model.retailers.ECSRetailerList, itemClickListener: ItemClickListener) {
             recyclerView.adapter = MECRetailersAdapter(ecsRetailerList.retailers,itemClickListener)
         }
 

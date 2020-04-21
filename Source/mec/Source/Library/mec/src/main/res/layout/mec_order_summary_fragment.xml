@@ -10,11 +10,11 @@
 
         <variable
             name="shoppingCart"
-            type="com.philips.cdp.di.ecs.model.cart.ECSShoppingCart" />
+            type="com.philips.platform.ecs.model.cart.ECSShoppingCart" />
 
         <variable
             name="ecsAddressShipping"
-            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+            type="com.philips.platform.ecs.model.address.ECSAddress" />
 
         <variable
             name="mecPayment"

@@ -19,7 +19,7 @@ import com.ecs.demouapp.ui.response.orders.ProductData;
 import com.ecs.demouapp.ui.session.NetworkImageLoader;
 import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.Utility;
-import com.philips.cdp.di.ecs.model.orders.ECSOrders;
+import com.philips.platform.ecs.model.orders.ECSOrders;
 
 
 import java.util.List;
