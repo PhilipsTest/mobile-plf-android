@@ -1,6 +1,6 @@
 package com.ecs.demouapp.ui.response.orders;
 
-import com.philips.cdp.di.ecs.model.orders.Entries;
+import com.philips.platform.ecs.model.orders.Entries;
 
 public class ProductData {
 

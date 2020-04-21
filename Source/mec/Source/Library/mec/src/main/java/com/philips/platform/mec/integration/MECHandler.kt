@@ -13,9 +13,9 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.config.ECSConfig
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -80,9 +80,9 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
 
         // get config
 
-        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : ECSCallback<ECSConfig, Exception> {
+        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception> {
 
-            override fun onResponse(config: ECSConfig?) {
+            override fun onResponse(config: com.philips.platform.ecs.model.config.ECSConfig?) {
 
 
                 //set config data to singleton
@@ -106,7 +106,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
                 }
             }
 
-            override fun onFailure(error: Exception?, ecsError: ECSError?) {
+            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                 Log.e("MEC", "Config failed : Can't Launch MEC")
             }
         })

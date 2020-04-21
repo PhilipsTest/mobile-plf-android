@@ -1,17 +1,17 @@
 package com.ecs.demouapp.ui.response.placeorder;
 
-import com.philips.cdp.di.ecs.model.cart.DeliveryAddressEntity;
-import com.philips.cdp.di.ecs.model.cart.DeliveryCostEntity;
-import com.philips.cdp.di.ecs.model.cart.DeliveryModeEntity;
-import com.philips.cdp.di.ecs.model.cart.DeliveryOrderGroupsEntity;
-import com.philips.cdp.di.ecs.model.cart.ECSEntries;
-import com.philips.cdp.di.ecs.model.cart.OrderDiscountsEntity;
-import com.philips.cdp.di.ecs.model.cart.ProductDiscountsEntity;
-import com.philips.cdp.di.ecs.model.cart.SubTotalEntity;
-import com.philips.cdp.di.ecs.model.cart.TotalDiscountsEntity;
-import com.philips.cdp.di.ecs.model.cart.TotalPriceEntity;
-import com.philips.cdp.di.ecs.model.cart.TotalPriceWithTaxEntity;
-import com.philips.cdp.di.ecs.model.cart.TotalTaxEntity;
+import com.philips.platform.ecs.model.cart.DeliveryAddressEntity;
+import com.philips.platform.ecs.model.cart.DeliveryCostEntity;
+import com.philips.platform.ecs.model.cart.DeliveryModeEntity;
+import com.philips.platform.ecs.model.cart.DeliveryOrderGroupsEntity;
+import com.philips.platform.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.cart.OrderDiscountsEntity;
+import com.philips.platform.ecs.model.cart.ProductDiscountsEntity;
+import com.philips.platform.ecs.model.cart.SubTotalEntity;
+import com.philips.platform.ecs.model.cart.TotalDiscountsEntity;
+import com.philips.platform.ecs.model.cart.TotalPriceEntity;
+import com.philips.platform.ecs.model.cart.TotalPriceWithTaxEntity;
+import com.philips.platform.ecs.model.cart.TotalTaxEntity;
 
 import java.util.List;
 

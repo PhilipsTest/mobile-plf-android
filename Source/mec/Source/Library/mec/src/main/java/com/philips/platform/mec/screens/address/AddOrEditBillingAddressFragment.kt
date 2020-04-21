@@ -21,9 +21,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.region.ECSRegion
-import com.philips.cdp.di.ecs.util.ECSConfiguration
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.region.ECSRegion
+import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.createBillingAddressPage
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.editBillingAddressPage
@@ -44,7 +44,7 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
 
 
     private lateinit var regionViewModel: RegionViewModel
-    private lateinit var ecsAddress: ECSAddress
+    private lateinit var ecsAddress: com.philips.platform.ecs.model.address.ECSAddress
     private var addressFieldEnabler: MECAddressFieldEnabler? = null
 
     lateinit var binding: MecAddressEditBinding
@@ -56,9 +56,9 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
 
     var mecRegions: MECRegions? = null
 
-    private val regionListObserver: Observer<List<ECSRegion>> = object : Observer<List<ECSRegion>> {
+    private val regionListObserver: Observer<List<com.philips.platform.ecs.model.region.ECSRegion>> = object : Observer<List<com.philips.platform.ecs.model.region.ECSRegion>> {
 
-        override fun onChanged(regionList: List<ECSRegion>?) {
+        override fun onChanged(regionList: List<com.philips.platform.ecs.model.region.ECSRegion>?) {
 
             mecRegions = MECRegions(regionList!!)
             binding.mecRegions = mecRegions
@@ -96,7 +96,7 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
 
 
 
-        ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as ECSAddress
+        ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as com.philips.platform.ecs.model.address.ECSAddress
         binding.ecsAddress = ecsAddress
 
 
@@ -108,7 +108,7 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
 
 
 
-        addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(ECSConfiguration.INSTANCE.country, it) }
+        addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.country, it) }
 
         binding.addressFieldEnabler = addressFieldEnabler
 
@@ -138,7 +138,7 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
         return binding.root
     }
 
-    private fun sendBillingAddressToDeliveryFragment(ecsAddress: ECSAddress?) {
+    private fun sendBillingAddressToDeliveryFragment(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress?) {
         val intent = Intent()
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS, ecsAddress)

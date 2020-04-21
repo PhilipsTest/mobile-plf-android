@@ -15,9 +15,9 @@ import androidx.annotation.Nullable;
 import com.ecs.demotestuapp.R;
 import com.ecs.demotestuapp.jsonmodel.SubgroupItem;
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.voucher.ECSVoucher;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.voucher.ECSVoucher;
 
 import java.util.List;
 

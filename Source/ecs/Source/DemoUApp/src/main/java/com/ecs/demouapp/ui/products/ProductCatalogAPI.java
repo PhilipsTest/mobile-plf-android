@@ -7,8 +7,8 @@ package com.ecs.demouapp.ui.products;
 
 
 import com.ecs.demouapp.ui.integration.ECSListener;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.products.ECSProducts;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.products.ECSProducts;
 
 import java.util.ArrayList;
 

@@ -24,7 +24,7 @@ import com.ecs.demouapp.ui.eventhelper.EventHelper;
 import com.ecs.demouapp.ui.session.NetworkImageLoader;
 import com.ecs.demouapp.ui.stock.ECSStockAvailabilityHelper;
 import com.ecs.demouapp.ui.utils.ECSConstant;
-import com.philips.cdp.di.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.model.products.ECSProduct;
 
 
 import java.util.ArrayList;

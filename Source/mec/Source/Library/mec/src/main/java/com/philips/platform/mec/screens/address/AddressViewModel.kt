@@ -13,11 +13,11 @@ import android.widget.ScrollView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.philips.cdp.di.ecs.model.address.Country
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.util.ECSConfiguration
+import com.philips.platform.ecs.model.address.Country
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.address.ECSDeliveryMode
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
@@ -57,9 +57,9 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
     var addressRepository = AddressRepository(ecsServices)
 
 
-    var eCSAddress = MutableLiveData<ECSAddress>()
+    var eCSAddress = MutableLiveData<com.philips.platform.ecs.model.address.ECSAddress>()
 
-    val ecsAddresses = MutableLiveData<List<ECSAddress>>()
+    val ecsAddresses = MutableLiveData<List<com.philips.platform.ecs.model.address.ECSAddress>>()
 
     val isDeliveryAddressSet = MutableLiveData<Boolean>()
 
@@ -68,14 +68,14 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
     val isAddressUpdate = MutableLiveData<Boolean>()
 
 
-    val ecsDeliveryModes = MutableLiveData<List<ECSDeliveryMode>>()
+    val ecsDeliveryModes = MutableLiveData<List<com.philips.platform.ecs.model.address.ECSDeliveryMode>>()
 
     val ecsDeliveryModeSet = MutableLiveData<Boolean>()
 
 
-    lateinit var paramEcsAddress: ECSAddress
+    lateinit var paramEcsAddress: com.philips.platform.ecs.model.address.ECSAddress
 
-    lateinit var paramEcsDeliveryMode: ECSDeliveryMode
+    lateinit var paramEcsDeliveryMode: com.philips.platform.ecs.model.address.ECSDeliveryMode
 
 
     fun fetchAddresses() {
@@ -83,46 +83,46 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
         addressRepository.fetchSavedAddresses(ecsFetchAddressesCallback)
     }
 
-    fun createAddress(ecsAddress: ECSAddress) {
+    fun createAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         paramEcsAddress = ecsAddress
         addressRepository.createAddress(ecsAddress, ecsCreateAddressCallBack)
     }
 
-    fun createAndFetchAddress(ecsAddress: ECSAddress) {
+    fun createAndFetchAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         paramEcsAddress = ecsAddress
         ecsCreateAddressCallBack.mECRequestType = MECRequestType.MEC_CREATE_AND_FETCH_ADDRESS
         addressRepository.createAndFetchAddress(ecsAddress, ecsFetchAddressesCallback)
     }
 
-    fun deleteAndFetchAddress(ecsAddress: ECSAddress) {
+    fun deleteAndFetchAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         paramEcsAddress = ecsAddress
         ecsCreateAddressCallBack.mECRequestType = MECRequestType.MEC_DELETE_AND_FETCH_ADDRESS
         addressRepository.deleteAndFetchAddress(ecsAddress, ecsFetchAddressesCallback)
     }
 
-    fun deleteAddress(ecsAddress: ECSAddress) {
+    fun deleteAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         paramEcsAddress = ecsAddress
         addressRepository.deleteAddress(ecsAddress, deleteAddressCallBack)
     }
 
-    fun setAndFetchDeliveryAddress(ecsAddress: ECSAddress) {
+    fun setAndFetchDeliveryAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         paramEcsAddress = ecsAddress
         ecsFetchAddressesCallback.mECRequestType = MECRequestType.MEC_SET_AND_FETCH_DELIVERY_ADDRESS
         addressRepository.setAndFetchDeliveryAddress(ecsAddress, ecsFetchAddressesCallback)
     }
 
-    fun setDeliveryAddress(ecsAddress: ECSAddress) {
+    fun setDeliveryAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         paramEcsAddress = ecsAddress
         addressRepository.setDeliveryAddress(ecsAddress, setDeliveryAddressCallBack)
     }
 
-    fun updateAndFetchAddress(ecsAddress: ECSAddress) {
+    fun updateAndFetchAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         paramEcsAddress = ecsAddress
         ecsFetchAddressesCallback.mECRequestType = MECRequestType.MEC_UPDATE_AND_FETCH_ADDRESS
         addressRepository.updateAndFetchAddress(ecsAddress, ecsFetchAddressesCallback)
     }
 
-    fun updateAddress(ecsAddress: ECSAddress) {
+    fun updateAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         paramEcsAddress = ecsAddress
         addressRepository.updateAddress(ecsAddress, updateAddressCallBack)
     }
@@ -132,7 +132,7 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
         addressRepository.fetchDeliveryModes(ecsFetchDeliveryModesCallback)
     }
 
-    fun setDeliveryMode(ecsDeliveryMode: ECSDeliveryMode) {
+    fun setDeliveryMode(ecsDeliveryMode: com.philips.platform.ecs.model.address.ECSDeliveryMode) {
         paramEcsDeliveryMode = ecsDeliveryMode
         ecsSetDeliveryModesCallback.mECRequestType = MECRequestType.MEC_SET_DELIVERY_MODE
         addressRepository.setDeliveryMode(ecsDeliveryMode, ecsSetDeliveryModesCallback)
@@ -324,7 +324,7 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
         @JvmStatic
         @BindingAdapter("shippingAddress")
-        fun setShippingAddress(lebel: Label, ecsAddress: ECSAddress) {
+        fun setShippingAddress(lebel: Label, ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
             lebel.text = MECutility().constructShippingAddressDisplayField(ecsAddress)
         }
 
@@ -374,13 +374,13 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
         }
     }
 
-    fun getCountry(): Country {
-        val country = Country()
-        country.isocode = ECSConfiguration.INSTANCE.country
+    fun getCountry(): com.philips.platform.ecs.model.address.Country {
+        val country = com.philips.platform.ecs.model.address.Country()
+        country.isocode = com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.country
         return country
     }
 
-    fun setRegion(linearLayout: LinearLayout, mecRegions: MECRegions?, ecsAddress: ECSAddress) {
+    fun setRegion(linearLayout: LinearLayout, mecRegions: MECRegions?, ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         var state = linearLayout.et_state.text.toString()
         ecsAddress.region = mecRegions?.getRegion(state)
     }
@@ -392,7 +392,7 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
         return shake
     }
 
-    fun tagCreateNewAddress(mECSShoppingCart : ECSShoppingCart){
+    fun tagCreateNewAddress(mECSShoppingCart : com.philips.platform.ecs.model.cart.ECSShoppingCart){
         var actionMap = HashMap<String, String>()
         actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.newShippingAddressAdded)
         MECAnalytics.tagActionsWithCartProductsInfo(actionMap,mECSShoppingCart)

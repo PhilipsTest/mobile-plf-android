@@ -1,9 +1,6 @@
 package com.philips.platform.mec.screens.retailers
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.common.MecError
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -28,16 +25,16 @@ class ECSRetailerListCallbackTest {
     lateinit var ecsRetailerViewModelMock: ECSRetailerViewModel
 
     @Mock
-    lateinit var ecsRetailerList: ECSRetailerList
+    lateinit var ecsRetailerList: com.philips.platform.ecs.model.retailers.ECSRetailerList
 
     @Mock
-    lateinit var mutableLiveDataMock: MutableLiveData<ECSRetailerList>
+    lateinit var mutableLiveDataMock: MutableLiveData<com.philips.platform.ecs.model.retailers.ECSRetailerList>
 
     @Mock
     lateinit var mutableLiveDataMecErrorMock: MutableLiveData<MecError>
 
     @Mock
-    lateinit var ecsRetailer: ECSRetailer
+    lateinit var ecsRetailer: com.philips.platform.ecs.model.retailers.ECSRetailer
 
     @Mock
     lateinit var mecErrorMutableLiveData: MutableLiveData<MecError>
@@ -62,12 +59,12 @@ class ECSRetailerListCallbackTest {
     @Test
     fun shouldRemovePhilipsStoreIfHybrisIsOn() {
 
-        val ecsRetailerList = ECSRetailerList()
+        val ecsRetailerList = com.philips.platform.ecs.model.retailers.ECSRetailerList()
 
-        val ecsRetailer = ECSRetailer()
+        val ecsRetailer = com.philips.platform.ecs.model.retailers.ECSRetailer()
         ecsRetailer.isPhilipsStore = "Y"
 
-        val list = ArrayList<ECSRetailer>()
+        val list = ArrayList<com.philips.platform.ecs.model.retailers.ECSRetailer>()
         list.add(ecsRetailer)
 
         assertEquals(0, ecsRetailerListCallback.removePhilipsStoreForHybris(ecsRetailerList).retailers.size)

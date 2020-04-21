@@ -30,8 +30,8 @@ import com.ecs.demouapp.ui.session.NetworkImageLoader;
 import com.ecs.demouapp.ui.stock.ECSStockAvailabilityHelper;
 import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.Utility;
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
-import com.philips.cdp.di.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.cart.ECSShoppingCart;
+import com.philips.platform.ecs.model.cart.ECSEntries;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.UIPicker;
 

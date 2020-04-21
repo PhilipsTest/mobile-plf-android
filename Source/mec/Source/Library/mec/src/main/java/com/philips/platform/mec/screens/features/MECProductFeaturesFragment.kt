@@ -16,7 +16,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.cdp.prxclient.datamodels.features.FeaturesModel
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.features
@@ -38,7 +38,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
     var mFeaturesModel: FeaturesModel?=null
     private lateinit var binding: MecProductFeaturesFragmentBinding
     private lateinit var productFeaturesViewModel: ProductFeaturesViewModel
-    private lateinit var mECSProduct : ECSProduct
+    private lateinit var mECSProduct : com.philips.platform.ecs.model.products.ECSProduct
 
     private val featuresObserver : Observer<FeaturesModel> = object : Observer<FeaturesModel> {
 
@@ -88,7 +88,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
 
         val bundle = arguments
         val productCtn = bundle!!.getString(MECConstant.MEC_PRODUCT_CTN,"INVALID")
-        mECSProduct =bundle!!.getSerializable(MEC_PRODUCT) as ECSProduct
+        mECSProduct =bundle!!.getSerializable(MEC_PRODUCT) as com.philips.platform.ecs.model.products.ECSProduct
 
         if(null==mFeaturesModel) {
             context?.let { productFeaturesViewModel.fetchProductFeatures(it, productCtn) }

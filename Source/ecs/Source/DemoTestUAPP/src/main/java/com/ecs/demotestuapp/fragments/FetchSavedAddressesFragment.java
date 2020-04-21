@@ -3,9 +3,9 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.address.ECSAddress;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.address.ECSAddress;
 
 import java.util.List;
 

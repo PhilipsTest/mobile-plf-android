@@ -9,6 +9,6 @@
  */
 package com.philips.platform.mec.screens.catalog
 
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProduct
 
-class MECProductReview(val ecsProduct: ECSProduct,val overallRating: String ,val overallReview: String)
+class MECProductReview(val ecsProduct: com.philips.platform.ecs.model.products.ECSProduct, val overallRating: String, val overallReview: String)
