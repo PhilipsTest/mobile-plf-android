@@ -9,13 +9,6 @@
  */
 package com.philips.platform.mec.integration.serviceDiscovery
 
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.error.ECSErrorEnum
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
-import com.philips.platform.ecs.model.config.ECSConfig
-import com.philips.platform.ecs.model.oauth.ECSOAuthData
-import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
