@@ -23,7 +23,7 @@
             android:id="@+id/mec_empty_history"
             layout="@layout/mec_empty_history"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView

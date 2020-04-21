@@ -161,6 +161,8 @@ public abstract class PrxRequest {
 
         if(mCategory!=null) {
             replaceUrl.put("productCategory", mCategory);
+            replaceUrl.put("productSector",getSector().toString());
+            replaceUrl.put("productCatalog",getCatalog().toString());
         }
         replaceUrl.put("sector", getSector().toString());
         replaceUrl.put("catalog", getCatalog().toString());

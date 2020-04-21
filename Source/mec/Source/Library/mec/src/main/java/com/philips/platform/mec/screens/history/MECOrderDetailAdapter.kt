@@ -14,9 +14,11 @@ package com.philips.platform.mec.screens.history
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.philips.cdp.di.ecs.model.orders.ECSOrders
+import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecOrderEntriesBinding
 
-class MECOrderDetailAdapter (val items: MECEntriesModel) : RecyclerView.Adapter<OrderDetailViewHolder>() {
+class MECOrderDetailAdapter(val items: ECSOrders, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<OrderDetailViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): OrderDetailViewHolder {
 
@@ -27,10 +29,11 @@ class MECOrderDetailAdapter (val items: MECEntriesModel) : RecyclerView.Adapter<
 
 
     override fun getItemCount(): Int {
-        return items.entriesList.size
+        return items.orderDetail.entries.size
     }
 
     override fun onBindViewHolder(viewHolder : OrderDetailViewHolder, position: Int) {
-        viewHolder.bind(items.entriesList[position])
+        viewHolder.bind(items.orderDetail.entries[position])
+        viewHolder.itemView.setOnClickListener { itemClickListener.onItemClick(items) }
     }
 }

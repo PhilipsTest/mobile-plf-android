@@ -93,27 +93,23 @@
                 android:textColor="?attr/uidContentItemPrimaryNormalTextColor" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/mec_continue_shopping"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/ll_content"
-            android:layout_marginTop="@dimen/border16_margin_left_right"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/border16_margin_left_right"
-            android:paddingEnd="@dimen/border16_margin_left_right">
+
 
             <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_continue_shopping"
                 style="@style/mecCentralesansBookFont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_content"
+                android:layout_marginTop="@dimen/border16_margin_left_right"
                 android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:layout_marginStart="@dimen/border16_margin_left_right"
+                android:layout_marginEnd="@dimen/border16_margin_left_right"
                 android:enabled="true"
                 android:text="@string/mec_continue_shopping"
                 app:uidComponentType="Primary" />
 
-        </LinearLayout>
 
 
     </RelativeLayout>

@@ -108,7 +108,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:mecEntriesModel="@{ecsOrders.orderDetail.entries}"
+            app:itemClickListener="@{itemClickListener}"
+            app:ecsOrders="@{ecsOrders}"
              />
 
         <com.philips.platform.uid.view.widget.Label

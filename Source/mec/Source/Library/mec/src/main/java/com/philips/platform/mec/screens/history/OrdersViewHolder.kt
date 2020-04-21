@@ -18,9 +18,9 @@ import com.philips.cdp.di.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecOrderHistoryItemBinding
 
-class OrdersViewHolder (val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root){
+class OrdersViewHolder(val binding: ViewDataBinding, val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: ECSOrders, itemClickListener: ItemClickListener) {
+    fun bind(item: ECSOrders) {
         val mecOrderHistoryItemBinding = binding as MecOrderHistoryItemBinding
 
         val mLayoutManager = object : LinearLayoutManager(binding.root.context) {
@@ -32,8 +32,6 @@ class OrdersViewHolder (val binding: ViewDataBinding) : RecyclerView.ViewHolder(
         mecOrderHistoryItemBinding.ecsOrders = item
         mecOrderHistoryItemBinding.service = MECOrderHistoryService()
         mecOrderHistoryItemBinding.itemClickListener = itemClickListener
-        mecOrderHistoryItemBinding.recyclerProductDetail.setOnClickListener {
-            itemClickListener.onItemClick(item.orderDetail)
-        }
+
     }
 }

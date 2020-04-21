@@ -20,7 +20,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.cdp.di.ecs.model.orders.ECSOrderHistory
 import com.philips.cdp.di.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
@@ -31,6 +30,7 @@ import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.history.orderDetail.MECOrderDetailFragment
 import com.philips.platform.mec.utils.AlertListener
 import com.philips.platform.mec.utils.MECConstant
+import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -107,8 +107,9 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
             mecOrderHistoryViewModel.ecsOrderHistory.observe(viewLifecycleOwner, orderHistoryObserver)
             mecOrderHistoryViewModel.mecError.observe(viewLifecycleOwner, this)
             mecOrderHistoryAdapter = MECOrderHistoryAdapter(ordersList,this )
-            binding.recyclerOrderHistory.adapter = mecOrderHistoryAdapter
 
+            binding.recyclerOrderHistory.adapter = mecOrderHistoryAdapter
+            binding.mecEmptyHistory.btnContinueShopping.setOnClickListener { showProductCatalogFragment(getFragmentTag()) }
 
             showFullScreenProgressBar()
             executeRequest()
@@ -178,7 +179,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         hidePaginationProgressBar()
         hideFullScreenProgressBar()
         isCallOnProgress = false
-       // binding.mecEmptyHistory.mecContinueShopping.btn_continue_shopping.setOnClickListener { showProductCatalogFragment(getFragmentTag()) }
+        binding.recyclerOrderHistory.visibility = View.GONE
         binding.mecEmptyHistory.rlEmptyHistory.visibility = View.VISIBLE
     }
 
@@ -197,13 +198,14 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
     override fun onItemClick(item: Any) {
 
-        var ecsOrderDetail = item as ECSOrderDetail
+        val ecsOrders = item as ECSOrders
+
+        var ecsOrderDetail = ecsOrders.orderDetail
         var fragment = MECOrderDetailFragment()
         var bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL,ecsOrderDetail)
         fragment.arguments = bundle
         replaceFragment(fragment,fragment.getFragmentTag(),true)
-
-        ecsOrderDetail.entries[0].product.summary.subcategory
+        MECLog.d("pabitra" ,ecsOrderDetail.entries[0].product.summary.subcategory)
     }
 }

@@ -27,7 +27,7 @@ public class ContactsModel extends ResponseData implements Serializable {
     @Expose
     private Data data;
 
-    @SerializedName("data")
+    @SerializedName("success")
     @Expose
     private boolean success;
 

@@ -24,7 +24,7 @@ class MECOrderHistoryAdapter(val items: MutableList<ECSOrders>, val itemClickLis
 
         val inflater = LayoutInflater.from(parent.context)
         val binding = MecOrderHistoryItemBinding.inflate(inflater)
-        return OrdersViewHolder(binding)
+        return OrdersViewHolder(binding,itemClickListener)
     }
 
 
@@ -33,6 +33,6 @@ class MECOrderHistoryAdapter(val items: MutableList<ECSOrders>, val itemClickLis
     }
 
     override fun onBindViewHolder(viewHolder : OrdersViewHolder, position: Int) {
-        viewHolder.bind(items[position],itemClickListener)
+        viewHolder.bind(items[position])
     }
 }

@@ -18,13 +18,5 @@ import com.philips.cdp.di.ecs.model.orders.Entries
 
 class MECOrderHistoryDataBindingUtility {
 
-    companion object {
 
-        @JvmStatic
-        @BindingAdapter("mecEntriesModel")
-        fun setOrderDetailAdapter(recyclerView: RecyclerView, entriesList: List<Entries>?) {
-            if(entriesList!=null)
-                recyclerView.adapter = MECOrderDetailAdapter(MECEntriesModel(entriesList as MutableList<Entries>))
-        }
-    }
 }

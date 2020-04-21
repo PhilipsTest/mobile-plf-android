@@ -161,6 +161,8 @@
     <string name="mec_order_not_received_text" translatable="false">Order not received</string>
     <string name="mec_empty_purchase_history" translatable="false">If you placed your order using this app, please check that you have received an order confirmation email.</string>
     <string name="mec_other_channel" translatable="false">If you placed your order using another retailer then your order may not show up here.</string>
+    <string name="mec_contact_consumer_care_for_support" translatable="false">Please contact Philips Consumer care for further support.</string>
+    <string name="mec_call_us" translatable="false">Call us</string>
 
 
 </resources>

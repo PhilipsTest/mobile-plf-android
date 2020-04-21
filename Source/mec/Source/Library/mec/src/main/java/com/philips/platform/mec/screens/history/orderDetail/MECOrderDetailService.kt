@@ -12,5 +12,11 @@
 
 package com.philips.platform.mec.screens.history.orderDetail
 
+import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
+
 class MECOrderDetailService {
+
+    fun getProductSubcategory(ecsOrderDetail: ECSOrderDetail?): String? {
+        return ecsOrderDetail?.entries?.get(0)?.product?.summary?.subcategory
+    }
 }
