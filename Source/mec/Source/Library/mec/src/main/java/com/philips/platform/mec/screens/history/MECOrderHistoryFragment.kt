@@ -30,7 +30,6 @@ import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.history.orderDetail.MECOrderDetailFragment
 import com.philips.platform.mec.utils.AlertListener
 import com.philips.platform.mec.utils.MECConstant
-import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -200,12 +199,10 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
         val ecsOrders = item as ECSOrders
 
-        var ecsOrderDetail = ecsOrders.orderDetail
         var fragment = MECOrderDetailFragment()
         var bundle = Bundle()
-        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL,ecsOrderDetail)
+        bundle.putSerializable(MECConstant.MEC_ORDERS,ecsOrders)
         fragment.arguments = bundle
         replaceFragment(fragment,fragment.getFragmentTag(),true)
-        MECLog.d("pabitra" ,ecsOrderDetail.entries[0].product.summary.subcategory)
     }
 }

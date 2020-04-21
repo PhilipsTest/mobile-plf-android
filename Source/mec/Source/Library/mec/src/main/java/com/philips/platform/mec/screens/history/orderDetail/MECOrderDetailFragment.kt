@@ -18,7 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
+import com.philips.cdp.di.ecs.model.orders.ECSOrders
 import com.philips.cdp.prxclient.datamodels.contacts.ContactsModel
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -27,7 +27,7 @@ import com.philips.platform.mec.utils.MECConstant
 class MECOrderDetailFragment : MecBaseFragment(){
 
     private lateinit var binding: MecOrderHistoryDetailBinding
-    private var ecsOrderDetail: ECSOrderDetail? = null
+    private var ecsOrders: ECSOrders? = null
     private lateinit var mecOrderDetailViewModel: MECOrderDetailViewModel
     var mecOrderDetailService = MECOrderDetailService()
 
@@ -36,8 +36,7 @@ class MECOrderDetailFragment : MecBaseFragment(){
     }
 
     private val contactsObserver: Observer<ContactsModel> = Observer { contactsModel ->
-        contactsModel.data.email
-
+        binding.contact=contactsModel
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -50,9 +49,10 @@ class MECOrderDetailFragment : MecBaseFragment(){
 
         mecOrderDetailViewModel.contacts.observe(viewLifecycleOwner, contactsObserver)
         mecOrderDetailViewModel.mecError.observe(viewLifecycleOwner, this)
-        ecsOrderDetail = arguments?.getParcelable(MECConstant.MEC_ORDER_DETAIL)
-        var subCategory = mecOrderDetailService.getProductSubcategory(ecsOrderDetail)
+        ecsOrders = arguments?.getSerializable(MECConstant.MEC_ORDERS) as ECSOrders?
+        binding.ecsOrders = ecsOrders
 
+        var subCategory = mecOrderDetailService.getProductSubcategory(ecsOrders?.orderDetail)
         context?.let { subCategory?.let { it1 -> mecOrderDetailViewModel.fetchContacts(it, it1) } }
 
         return binding.root

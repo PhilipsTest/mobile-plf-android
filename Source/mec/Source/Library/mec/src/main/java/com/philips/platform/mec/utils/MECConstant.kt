@@ -13,6 +13,7 @@ import com.philips.platform.mec.R
 
 object MECConstant {
 
+    const val MEC_ORDERS: String = "MEC_ORDERS"
     const val NEW_CARD_PAYMENT = "NEW_CARD_PAYMENT"
     const val KEY_ECS_BILLING_ADDRESS = "KEY_ECS_BILLING_ADDRESS"
     const val BUNDLE_BILLING_ADDRESS = "BUNDLE_BILLING_ADDRESS"
