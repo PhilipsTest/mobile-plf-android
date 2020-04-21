@@ -18,8 +18,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.philips.cdp.di.ecs.model.orders.ECSOrders
 import com.philips.cdp.prxclient.datamodels.contacts.ContactsModel
+import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant

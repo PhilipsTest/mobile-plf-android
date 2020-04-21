@@ -33,6 +33,8 @@ class MECInterface : UappInterface {
     private var mUappDependencies: UappDependencies? = null
     private var mUserDataInterface: UserDataInterface? = null
     val MEC_NOTATION = "mec"
+    private val TAG: String = MECInterface::class.java.simpleName
+
 
 
     /**
@@ -82,6 +84,7 @@ class MECInterface : UappInterface {
                 if(MECDataHolder.INSTANCE.isUserLoggedIn()){
                     launchMEC(uiLauncher,mecLaunchInput)
                 }else{
+                    MECLog.d(TAG, "User is not logged in")
                     throw MECException(mMECSettings?.context?.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
                 }
             }else{
@@ -90,6 +93,7 @@ class MECInterface : UappInterface {
 
 
         }else{
+            MECLog.e(TAG, "No Network or Internet not available")
             MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!,R.string.mec_no_internet ))
             throw MECException(mMECSettings?.context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }

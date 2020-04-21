@@ -12,8 +12,8 @@
 
 package com.philips.platform.mec.screens.history
 
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.model.orders.ECSOrders
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.model.orders.ECSOrders
 
 class MECOrderHistoryRepository(val ecsService: ECSServices) {
 

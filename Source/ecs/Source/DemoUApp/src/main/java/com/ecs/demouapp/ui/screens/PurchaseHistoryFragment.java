@@ -30,9 +30,9 @@ import com.ecs.demouapp.ui.session.RequestCode;
 import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.ECSLog;
 import com.ecs.demouapp.ui.utils.ECSUtility;
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail;
-import com.philips.cdp.di.ecs.model.orders.ECSOrderHistory;
-import com.philips.cdp.di.ecs.model.orders.ECSOrders;
+import com.philips.platform.ecs.model.orders.ECSOrderDetail;
+import com.philips.platform.ecs.model.orders.ECSOrderHistory;
+import com.philips.platform.ecs.model.orders.ECSOrders;
 
 import java.util.ArrayList;
 import java.util.List;

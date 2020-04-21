@@ -38,6 +38,7 @@
     <string name="mec_cart_summary">Cart summary</string>
     <string name="mec_cart_tax_message">Price including %s VAT</string>
     <string name="mec_cart_total">Total</string>
+    <string name="mec_check_internet_connection">Please check your Internet Connection.</string>
     <string name="mec_checkout">Checkout</string>
     <string name="mec_choose_address_text">Choose Shipping Address from below list</string>
     <string name="mec_confirmation">Confirmation</string>

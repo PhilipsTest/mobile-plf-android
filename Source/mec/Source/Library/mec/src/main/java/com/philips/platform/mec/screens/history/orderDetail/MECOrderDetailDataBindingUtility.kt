@@ -14,7 +14,7 @@ package com.philips.platform.mec.screens.history.orderDetail
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.orders.ECSOrders
+import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.screens.history.MECOrderDetailAdapter
 

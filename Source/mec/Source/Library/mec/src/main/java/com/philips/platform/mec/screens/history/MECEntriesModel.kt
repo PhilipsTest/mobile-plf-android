@@ -12,6 +12,6 @@
 
 package com.philips.platform.mec.screens.history
 
-import com.philips.cdp.di.ecs.model.orders.Entries
+import com.philips.platform.ecs.model.orders.Entries
 
 class MECEntriesModel (val entriesList :MutableList<Entries>)

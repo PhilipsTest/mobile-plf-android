@@ -22,13 +22,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
-import com.philips.cdp.di.ecs.model.payment.ECSPaymentProvider
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
+import com.philips.platform.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderSummaryPage
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
@@ -57,16 +56,16 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
 
     private lateinit var mecOrderSummaryService: MECOrderSummaryServices
     private lateinit var binding: MecOrderSummaryFragmentBinding
-    private lateinit var ecsShoppingCart: ECSShoppingCart
-    private lateinit var ecsAddress: ECSAddress
+    private lateinit var ecsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart
+    private lateinit var ecsAddress: com.philips.platform.ecs.model.address.ECSAddress
     private lateinit var mecPayment: MECPayment
     private var cartSummaryAdapter: MECCartSummaryAdapter? = null
     private var productsAdapter: MECOrderSummaryProductsAdapter? = null
     private var vouchersAdapter: MECOrderSummaryVouchersAdapter? = null
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
-    private lateinit var voucherList: MutableList<AppliedVoucherEntity>
+    private lateinit var voucherList: MutableList<com.philips.platform.ecs.model.cart.AppliedVoucherEntity>
     private lateinit var paymentViewModel: PaymentViewModel
-    private lateinit var mECSOrderDetail :ECSOrderDetail
+    private lateinit var mECSOrderDetail : com.philips.platform.ecs.model.orders.ECSOrderDetail
 
     override fun onItemClick(item: Any) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -76,14 +75,14 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         return "MECOrderSummaryFragment"
     }
 
-    private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
+    private val orderObserver: Observer<com.philips.platform.ecs.model.orders.ECSOrderDetail> = Observer<com.philips.platform.ecs.model.orders.ECSOrderDetail> { eCSOrderDetail ->
         mECSOrderDetail=eCSOrderDetail
         MECLog.v("orderObserver ", "" + eCSOrderDetail.code)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
         paymentViewModel.makePayment(eCSOrderDetail, mecPayment.ecsPayment.billingAddress)
     }
 
-    private val makePaymentObserver: Observer<ECSPaymentProvider> = Observer<ECSPaymentProvider> { eCSPaymentProvider ->
+    private val makePaymentObserver: Observer<com.philips.platform.ecs.model.payment.ECSPaymentProvider> = Observer<com.philips.platform.ecs.model.payment.ECSPaymentProvider> { eCSPaymentProvider ->
         MECLog.v("mkPaymentObs ", "" + eCSPaymentProvider.worldpayUrl)
         val mECWebPaymentFragment = MECWebPaymentFragment()
         val bundle = Bundle()
@@ -91,7 +90,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         bundle.putString(MECConstant.WEB_PAY_URL, eCSPaymentProvider.worldpayUrl)
         mECWebPaymentFragment.arguments = bundle
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
-        addFragment(mECWebPaymentFragment, MECWebPaymentFragment.TAG, true)
+        addFragment(mECWebPaymentFragment, TAG, true)
 
 
     }
@@ -104,8 +103,9 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = MecOrderSummaryFragmentBinding.inflate(inflater, container, false)
         binding.fragment = this
-        ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as ECSAddress
-        ecsShoppingCart = arguments?.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as ECSShoppingCart
+        binding.shoppingCart
+        ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as com.philips.platform.ecs.model.address.ECSAddress
+        ecsShoppingCart = arguments?.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as com.philips.platform.ecs.model.cart.ECSShoppingCart
         mecPayment = arguments?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as MECPayment
         binding.ecsAddressShipping = ecsAddress
         binding.shoppingCart = ecsShoppingCart
@@ -154,7 +154,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     }
 
 
-    private fun addCartSummaryList(ecsShoppingCart: ECSShoppingCart): MutableList<MECCartSummary> {
+    private fun addCartSummaryList(ecsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart): MutableList<MECCartSummary> {
         mecOrderSummaryService.addAppliedOrderPromotionsToCartSummaryList(ecsShoppingCart, cartSummaryList)
         mecOrderSummaryService.addAppliedVoucherToCartSummaryList(ecsShoppingCart, cartSummaryList)
         mecOrderSummaryService.addDeliveryCostToCartSummaryList(binding.mecDeliveryModeDescription.context, ecsShoppingCart, cartSummaryList)
@@ -259,7 +259,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         }
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle
-        replaceFragment(mecPrivacyFragment, MecPrivacyFragment.TAG, true)
+        replaceFragment(mecPrivacyFragment, TAG, true)
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {

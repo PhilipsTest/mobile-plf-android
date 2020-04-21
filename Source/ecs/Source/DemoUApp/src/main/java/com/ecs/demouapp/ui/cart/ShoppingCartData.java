@@ -8,11 +8,11 @@ package com.ecs.demouapp.ui.cart;
 
 
 
-import com.philips.cdp.di.ecs.model.cart.AppliedOrderPromotionEntity;
-import com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity;
-import com.philips.cdp.di.ecs.model.cart.DeliveryAddressEntity;
-import com.philips.cdp.di.ecs.model.cart.DeliveryModeEntity;
-import com.philips.cdp.di.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.cart.AppliedOrderPromotionEntity;
+import com.philips.platform.ecs.model.cart.AppliedVoucherEntity;
+import com.philips.platform.ecs.model.cart.DeliveryAddressEntity;
+import com.philips.platform.ecs.model.cart.DeliveryModeEntity;
+import com.philips.platform.ecs.model.cart.ECSEntries;
 
 import java.io.Serializable;
 import java.util.List;

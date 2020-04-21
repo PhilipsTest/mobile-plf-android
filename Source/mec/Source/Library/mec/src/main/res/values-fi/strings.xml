@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Ostoskorin sisältö</string>
   <string name="mec_cart_tax_message">Hinta, sisältää ALV:n %s</string>
   <string name="mec_cart_total">Yhteensä</string>
+  <string name="mec_check_internet_connection">Tarkista Internet-yhteys.</string>
   <string name="mec_checkout">Kassa</string>
   <string name="mec_choose_address_text">Valitse toimitusosoite luettelosta</string>
   <string name="mec_confirmation">Vahvistus</string>
@@ -139,7 +140,7 @@
   <string name="mec_thank_for_order">Kiitos tilauksestasi</string>
   <string name="mec_threshold_message">Tämä saattaa viedä enemmän aikaa. Haluatko jatkaa?</string>
   <string name="mec_threshold_title">Pyynnön kynnysarvo saavutettu</string>
-  <string name="mec_time_out_error">[fi]Network timeout reached!</string>
+  <string name="mec_time_out_error">Verkkoyhteys aikakatkaistiin!</string>
   <string name="mec_town">Postitoimipaikka</string>
   <string name="mec_town_error">Kirjoita kelvollinen paikkakunta</string>
   <string name="mec_town_hint">Kirjoita paikkakunta</string>

@@ -1,15 +1,11 @@
 package com.philips.platform.mec.screens.catalog
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.model.products.ECSProduct
-import com.philips.cdp.di.ecs.model.products.ECSProducts
 import com.philips.platform.mec.common.MecError
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
@@ -26,7 +22,7 @@ class ECSProductsCallbackTest {
     lateinit var ecsProductViewModel: EcsProductViewModel
 
     @Mock
-    lateinit var mutableLiveData: MutableLiveData<MutableList<ECSProducts>>
+    lateinit var mutableLiveData: MutableLiveData<MutableList<com.philips.platform.ecs.model.products.ECSProducts>>
 
 
     @Mock
@@ -36,7 +32,7 @@ class ECSProductsCallbackTest {
     lateinit var exception: Exception
 
     @Mock
-    lateinit var ecsError: ECSError
+    lateinit var ecsError: com.philips.platform.ecs.error.ECSError
 
 
     @Before
@@ -53,8 +49,8 @@ class ECSProductsCallbackTest {
     fun onResponse() {
 
         //TODO
-        val ecsProducts = ECSProducts()
-        val ecsProduct = ECSProduct()
+        val ecsProducts = com.philips.platform.ecs.model.products.ECSProducts()
+        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
         ecsProducts.products = listOf(ecsProduct)
 
         callback.onResponse(ecsProducts)

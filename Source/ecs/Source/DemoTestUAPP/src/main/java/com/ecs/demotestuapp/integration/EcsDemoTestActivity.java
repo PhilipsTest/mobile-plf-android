@@ -24,7 +24,7 @@ import com.ecs.demotestuapp.adapter.GroupAdapter;
 import com.ecs.demotestuapp.jsonmodel.JSONConfiguration;
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.google.gson.Gson;
-import com.philips.cdp.di.ecs.ECSServices;
+import com.philips.platform.ecs.ECSServices;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;

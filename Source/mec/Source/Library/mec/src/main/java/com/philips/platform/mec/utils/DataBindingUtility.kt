@@ -18,13 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.NetworkImageView
-import com.philips.cdp.di.ecs.model.asset.Asset
 import com.philips.cdp.prxclient.datamodels.features.FeatureItem
 import com.philips.cdp.prxclient.datamodels.features.FeaturesModel
 import com.philips.cdp.prxclient.datamodels.specification.CsItemItem
 import com.philips.cdp.prxclient.datamodels.specification.SpecificationModel
 import com.philips.platform.mec.R
-import com.philips.platform.mec.networkEssentials.NetworkImageLoader
 import com.philips.platform.mec.screens.detail.ImageAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureChildRecyclerAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureParentRecyclerAdapter
@@ -43,7 +41,7 @@ class DataBindingUtility {
         fun loadImage(imageView: View?, image_url: String?) {
 
             val imageView = imageView as NetworkImageView
-            val imageLoader = NetworkImageLoader.getInstance(imageView.context).imageLoader
+            val imageLoader = com.philips.platform.mec.networkEssentials.NetworkImageLoader.getInstance(imageView.context).imageLoader
             imageLoader.get(image_url, ImageLoader.getImageListener(imageView, 0,com.philips.platform.mec.R.drawable.no_icon))
             imageView.setImageUrl(image_url!!, imageLoader)
         }
@@ -67,7 +65,7 @@ class DataBindingUtility {
 
         @JvmStatic
         @BindingAdapter("assets")
-        fun setAdapter(pager: ViewPager, assets: List<Asset> ?) {
+        fun setAdapter(pager: ViewPager, assets: List<com.philips.platform.ecs.model.asset.Asset> ?) {
             if(assets!=null) {
 
                 // modifying url for specific size image
@@ -90,7 +88,7 @@ class DataBindingUtility {
 
             val mecBannerEnabler = MECDataHolder.INSTANCE.mecBannerEnabler
 
-            if (mecBannerEnabler != null && mecBannerEnabler.bannerViewProductList != null) {
+            if (mecBannerEnabler?.bannerViewProductList != null) {
 
                 if (mecBannerEnabler.bannerViewProductList.parent != null) {
                     val viewGroup = mecBannerEnabler.bannerViewProductList.parent as ViewGroup
@@ -161,7 +159,7 @@ class DataBindingUtility {
             if (!csValueItems.isNullOrEmpty()) {
 
                 if(csValueItems.size == 1){
-                    label.text = csValueItems.get(0).csValueName +" "+unit
+                    label.text = csValueItems[0].csValueName +" "+unit
                     return
                 }
 

@@ -5,10 +5,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.region.ECSRegion;
-import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.region.ECSRegion;
+import com.philips.platform.ecs.util.ECSConfiguration;
 
 import java.util.List;
 

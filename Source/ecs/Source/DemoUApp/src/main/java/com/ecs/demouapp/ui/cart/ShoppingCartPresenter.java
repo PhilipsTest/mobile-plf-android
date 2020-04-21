@@ -15,15 +15,15 @@ import com.ecs.demouapp.ui.response.error.Error;
 import com.ecs.demouapp.ui.response.error.ServerError;
 import com.ecs.demouapp.ui.session.IAPNetworkError;
 import com.ecs.demouapp.ui.utils.ECSUtility;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.error.ECSErrorEnum;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.error.ECSErrorEnum;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 
-import com.philips.cdp.di.ecs.model.address.ECSUserProfile;
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
-import com.philips.cdp.di.ecs.model.cart.ECSEntries;
-import com.philips.cdp.di.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.model.address.ECSUserProfile;
+import com.philips.platform.ecs.model.cart.ECSShoppingCart;
+import com.philips.platform.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.products.ECSProduct;
 
 
 import java.util.List;

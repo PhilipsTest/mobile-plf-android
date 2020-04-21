@@ -5,7 +5,7 @@
 
         <variable
             name="mecRetailer"
-            type="com.philips.cdp.di.ecs.model.retailers.ECSRetailer" />
+            type="com.philips.platform.ecs.model.retailers.ECSRetailer" />
 
         <variable
             name="itemClickListener"

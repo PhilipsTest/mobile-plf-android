@@ -22,7 +22,7 @@
 
         <variable
             name="ecsOrders"
-            type="com.philips.cdp.di.ecs.model.orders.ECSOrders" />
+            type="com.philips.platform.ecs.model.orders.ECSOrders" />
 
         <variable
             name="service"

@@ -32,7 +32,6 @@ class MECFlowConfigurator : Serializable {
         productCTNs =ctns
     }
 
-
     enum class MECLandingView{
         MEC_PRODUCT_LIST_VIEW,
         MEC_PRODUCT_DETAILS_VIEW,

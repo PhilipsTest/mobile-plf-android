@@ -10,9 +10,9 @@
 package com.philips.platform.mec.screens.payment
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
-import com.philips.cdp.di.ecs.model.payment.ECSPaymentProvider
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
+import com.philips.platform.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 
@@ -20,9 +20,9 @@ class PaymentViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
     var mecPayments = MutableLiveData<MECPayments>()
 
-    var ecsOrderDetail = MutableLiveData<ECSOrderDetail>()
+    var ecsOrderDetail = MutableLiveData<com.philips.platform.ecs.model.orders.ECSOrderDetail>()
 
-    var eCSPaymentProvider = MutableLiveData<ECSPaymentProvider>()
+    var eCSPaymentProvider = MutableLiveData<com.philips.platform.ecs.model.payment.ECSPaymentProvider>()
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
@@ -37,9 +37,9 @@ class PaymentViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
     var mCVV :String? =null
 
-    lateinit var  mOrderDetail: ECSOrderDetail
+    lateinit var  mOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail
 
-    lateinit var  mBillingAdress: ECSAddress
+    lateinit var  mBillingAdress: com.philips.platform.ecs.model.address.ECSAddress
 
     fun fetchPaymentDetails(){
         paymentListCallback.mECRequestType=MECRequestType.MEC_FETCH_PAYMENT_DETAILS
@@ -52,7 +52,7 @@ class PaymentViewModel : com.philips.platform.mec.common.CommonViewModel() {
         paymentRepository.submitOrder(cvv,submitOrderCallback)
     }
 
-    fun makePayment(orderDetail: ECSOrderDetail, billingAddress: ECSAddress){
+    fun makePayment(orderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail, billingAddress: com.philips.platform.ecs.model.address.ECSAddress){
         mOrderDetail=orderDetail
         mBillingAdress =billingAddress
 
@@ -62,7 +62,7 @@ class PaymentViewModel : com.philips.platform.mec.common.CommonViewModel() {
     }
 
     fun retryAPI(mecRequestType: MECRequestType) {
-        var retryAPI = selectAPIcall(mecRequestType)
+        val retryAPI = selectAPIcall(mecRequestType)
         authAndCallAPIagain(retryAPI, authFailCallback)
     }
 

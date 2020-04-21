@@ -1,12 +1,12 @@
 package com.philips.platform.mec.screens.orderSummary
 
 import android.content.Context
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 
 class MECOrderSummaryServices {
-    fun addAppliedOrderPromotionsToCartSummaryList(ecsShoppingCart: ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
+    fun addAppliedOrderPromotionsToCartSummaryList(ecsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
         var name: String
         var price: String
         if (ecsShoppingCart.appliedOrderPromotions.size > 0) {
@@ -22,7 +22,7 @@ class MECOrderSummaryServices {
         }
     }
 
-    fun addAppliedVoucherToCartSummaryList(ecsShoppingCart: ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
+    fun addAppliedVoucherToCartSummaryList(ecsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
         var name: String
         var price: String
         for (i in 0 until ecsShoppingCart.appliedVouchers.size) {
@@ -36,7 +36,7 @@ class MECOrderSummaryServices {
         }
     }
 
-    fun addDeliveryCostToCartSummaryList(context: Context, ecsShoppingCart: ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
+    fun addDeliveryCostToCartSummaryList(context: Context, ecsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
         val name: String
         val price: String
         if (ecsShoppingCart.deliveryCost != null) {

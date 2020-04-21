@@ -12,7 +12,7 @@
 
 package com.philips.platform.mec.screens.history.orderDetail
 
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
 
 class MECOrderDetailService {
 

@@ -10,7 +10,7 @@
 package com.philips.platform.mec.screens.specification
 
 import android.content.Context
-import com.philips.cdp.di.ecs.constants.NetworkConstants
+import com.philips.platform.ecs.constants.NetworkConstants
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.cdp.prxclient.PRXDependencies
@@ -25,7 +25,7 @@ class SpecificationRepository {
         var productSpecificationRequest  = ProductSpecificationRequest(ctn,null)
         productSpecificationRequest.sector = PrxConstants.Sector.B2C;
         productSpecificationRequest.catalog = PrxConstants.Catalog.CONSUMER;
-        productSpecificationRequest.requestTimeOut = NetworkConstants.DEFAULT_TIMEOUT_MS;
+        productSpecificationRequest.requestTimeOut = com.philips.platform.ecs.constants.NetworkConstants.DEFAULT_TIMEOUT_MS;
 
         val mRequestManager = RequestManager()
         val prxDependencies = PRXDependencies(context,MECDataHolder.INSTANCE.appinfra, MECConstant.COMPONENT_NAME)

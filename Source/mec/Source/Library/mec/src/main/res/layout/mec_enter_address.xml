@@ -19,7 +19,7 @@
 
         <variable
             name="ecsAddress"
-            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+            type="com.philips.platform.ecs.model.address.ECSAddress" />
 
     </data>
 

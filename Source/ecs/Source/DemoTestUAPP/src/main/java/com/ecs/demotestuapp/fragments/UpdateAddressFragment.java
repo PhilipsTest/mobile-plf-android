@@ -7,9 +7,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.address.ECSAddress;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.address.ECSAddress;
 
 import java.util.ArrayList;
 import java.util.List;

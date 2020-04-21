@@ -20,11 +20,11 @@
 
         <variable
             name="ecsAddressShipping"
-            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+            type="com.philips.platform.ecs.model.address.ECSAddress" />
 
         <variable
             name="ecsAddressBilling"
-            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+            type="com.philips.platform.ecs.model.address.ECSAddress" />
 
     </data>
 

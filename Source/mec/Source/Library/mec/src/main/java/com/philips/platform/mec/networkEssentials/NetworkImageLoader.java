@@ -31,12 +31,12 @@ public class NetworkImageLoader {
     private ImageLoader mImageLoader;
     private LruCache<String, Bitmap> mMemoryCache;
 
-    public NetworkImageLoader(Context context) {
+    private NetworkImageLoader(Context context) {
         mRequestQueue = getRequestQueue(context);
         setUpCacheLoader();
     }
 
-    protected void setUpCacheLoader() {
+    private void setUpCacheLoader() {
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 8;
 
@@ -59,13 +59,13 @@ public class NetworkImageLoader {
                         addBitmapToMemoryCache(url, bitmap);
                     }
 
-                    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+                    void addBitmapToMemoryCache(String key, Bitmap bitmap) {
                         if (getBitmapFromMemCache(key) == null) {
                             mMemoryCache.put(key, bitmap);
                         }
                     }
 
-                    public Bitmap getBitmapFromMemCache(String key) {
+                    Bitmap getBitmapFromMemCache(String key) {
                         return mMemoryCache.get(key);
                     }
                 });
@@ -78,7 +78,7 @@ public class NetworkImageLoader {
         return mInstance;
     }
 
-    protected RequestQueue getRequestQueue(final Context context) {
+    private RequestQueue getRequestQueue(final Context context) {
         if (mRequestQueue == null) {
             Cache cache = new DiskBasedCache(context.getCacheDir(), 10 * 1024 * 1024);
             Network network = new BasicNetwork(new HurlStack());

@@ -14,7 +14,6 @@ import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment
 open class MECBazaarVoiceInput {
 
     open fun getBazaarVoiceClientID (): String{
-
         return "philipsglobal"
     }
 

@@ -1,12 +1,8 @@
 package com.philips.platform.mec.screens.catalog
 
-import android.app.Application
 import android.content.Context
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.platform.mec.screens.detail.ECSProductDetailRepository
 import com.philips.platform.mec.screens.detail.EcsProductDetailViewModel
-import com.philips.platform.mec.screens.reviews.BazaarVoiceHelper
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
 import org.junit.Test
@@ -25,7 +21,7 @@ class EcsProductDetailViewModelTest {
     private lateinit var ecsProductDetailViewModel: EcsProductDetailViewModel
 
     @Mock
-    lateinit var ecsServices: ECSServices
+    lateinit var ecsServices: com.philips.platform.ecs.ECSServices
 
     @Mock
     lateinit var eCSCatalogRepository: ECSProductDetailRepository
@@ -57,14 +53,14 @@ class EcsProductDetailViewModelTest {
 
     @Test(expected = NullPointerException::class)
     fun shouldGetProductDetail() {
-        val ecsProduct = ECSProduct()
+        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
         ecsProductDetailViewModel.getProductDetail(ecsProduct)
         Mockito.verify(eCSCatalogRepository).getProductDetail(ecsProduct)
     }
 
     @Test(expected = KotlinNullPointerException::class)
     fun shouldGetBazaarVoiceReview() {
-        val ecsProduct = ECSProduct()
+        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
         ecsProductDetailViewModel.getBazaarVoiceReview("CTN", 0, 20)
         Mockito.verify(eCSCatalogRepository).fetchProductReview("CTN", 0, 20)
     }

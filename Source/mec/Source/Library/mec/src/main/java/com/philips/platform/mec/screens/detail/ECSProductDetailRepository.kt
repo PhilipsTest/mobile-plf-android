@@ -10,15 +10,15 @@
 package com.philips.platform.mec.screens.detail
 
 import com.bazaarvoice.bvandroidsdk.*
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 
-class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProductDetailViewModel, val ecsServices: ECSServices) {
+class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProductDetailViewModel, val ecsServices: com.philips.platform.ecs.ECSServices) {
 
     var ecsProductDetailCallBack= ECSProductDetailCallback(ecsProductDetailViewModel)
     var mECAddToProductCallback = MECAddToProductCallback(ecsProductDetailViewModel,"AddToCart")
@@ -28,7 +28,7 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
     var reviewsCb = MECReviewConversationsDisplayCallback(ecsProductDetailViewModel)
     var ratingCb = MECDetailBulkRatingConversationsDisplayCallback(ecsProductDetailViewModel)
 
-    fun getProductDetail(ecsProduct: ECSProduct){
+    fun getProductDetail(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct){
         ecsProductDetailCallBack.mECRequestType=MECRequestType.MEC_FETCH_PRODUCT_DETAILS
         ecsServices.fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
     }
@@ -46,12 +46,12 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
         prepareCall.loadAsync(ratingCb)
     }
 
-    fun addTocart(ecsProduct: ECSProduct){
+    fun addTocart(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct){
         mECAddToProductCallback.mECRequestType= MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART
         ecsServices.addProductToShoppingCart(ecsProduct,mECAddToProductCallback)
     }
 
-    fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){
+    fun createCart(createShoppingCartCallback: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception>){
        ecsServices.createShoppingCart(createShoppingCartCallback)
     }
 

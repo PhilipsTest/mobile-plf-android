@@ -13,12 +13,12 @@
 package com.philips.platform.mec.screens.history
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
-import com.philips.cdp.di.ecs.model.orders.ECSOrderHistory
-import com.philips.cdp.di.ecs.model.orders.ECSOrders
-import com.philips.cdp.di.ecs.util.ECSConfiguration
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.oauth.ECSOAuthData
+import com.philips.platform.ecs.model.orders.ECSOrderHistory
+import com.philips.platform.ecs.model.orders.ECSOrders
+import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.CommonViewModel
 import com.philips.platform.mec.common.MECRequestType

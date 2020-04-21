@@ -31,19 +31,20 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 import java.net.MalformedURLException
 import java.net.URL
 
 class WebBuyFromRetailersFragment : MecBaseFragment() {
+    private val TAG: String = WebBuyFromRetailersFragment::class.java.simpleName
+
     override fun getFragmentTag(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
     companion object {
-        val TAG:String="WebBuyFromRetailersFragment"
-
-         fun getFragmentTag(): String {
+        fun getFragmentTag(): String {
             return "WebBuyFromRetailersFragment"
         }
 
@@ -52,7 +53,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
     private var mWebView: WebView? = null
     private var mUrl: String? = null
     private var isPhilipsShop = false
-    private var mProgressBar : FrameLayout? = null
+    private var mProgressBar: FrameLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val group = inflater.inflate(R.layout.mec_web_fragment, container, false) as ViewGroup
@@ -96,37 +97,28 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                 if (isPhilipsShop) {
                     tagUrl = getPhilipsFormattedUrl(url)
                 }
-                var map = HashMap<String, String>()
+                val map = HashMap<String, String>()
                 map.put(exitLinkNameKey, tagUrl)
                 MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
                 super.onPageCommitVisible(view, url)
             }
 
-//            override fun onPageStarted(view: WebView, url: String, favicon: Bitmap) {
-//                var tagUrl = url
-//                if (isPhilipsShop) {
-//                    tagUrl = getPhilipsFormattedUrl(url)
-//                }
-//                MECAnalytics.trackAction(MECAnalyticsConstant.sendData, MECAnalyticsConstant.exitLinkNameKey, tagUrl)
-//                super.onPageStarted(view, url, favicon)
-//            }
-
             override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
                 if (url == null) return false
 
-                try {
+                return try {
                     if (url.startsWith("http:") || url.startsWith("https:")) {
                         view.loadUrl(url)
-                        return true
+                        true
                     } else {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         startActivity(intent)
-                        return true
+                        true
                     }
                 } catch (e: Exception) {
                     MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECRequestType.MEC_FETCH_RETAILER_FOR_CTN + ":" + MECAnalyticServer.wtb + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
                     // Avoid crash due to not installed app which can handle the specific url scheme
-                    return false
+                    false
                 }
 
             }
@@ -174,9 +166,9 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
             val urlString = URL(url)
             return urlString.query != null
         } catch (e: MalformedURLException) {
-            e.printStackTrace()
+            MECLog.d(TAG, "Exception Occurs : " + e.message)
         } catch (e: Exception) {
-            e.printStackTrace()
+            MECLog.d(TAG, "Exception Occurs : " + e.message)
         }
 
         return false
