@@ -308,16 +308,19 @@ class MECutility {
                     if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
                         errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
                     } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+                        // No Internet: Information Error
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                         //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                        //MECAnalytics.trackInformationError(errorString) // tag all details including server:category etc
+                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
                         errorMessage = Acontext!!.getString(R.string.mec_no_internet)
                     } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                        //voucher apply fail:  User error
                         val errorMsg = mecError!!.exception!!.message.toString()
                         errorString +=errorMsg
                         MECAnalytics.trackUserError(errorString)
                         errorMessage=mecError!!.exception!!.message.toString()
                     }else{
+                        // Remaining all errors: Technical errors
                         errorMessage = mecError!!.exception!!.message.toString()
                         errorString += errorMessage
                         errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
