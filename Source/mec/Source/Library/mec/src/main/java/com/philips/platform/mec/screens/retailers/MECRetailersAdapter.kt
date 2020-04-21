@@ -9,7 +9,6 @@
  */
 package com.philips.platform.mec.screens.retailers
 
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,7 @@ class MECRetailersAdapter (private val mecRetailers: List<com.philips.platform.e
             binding.mecRetailer = retailer
             binding.itemClickListener = itemClickListener
 
-            if (TextUtils.isDigitsOnly(retailer.philipsOnlinePrice)) {
+            if (!retailer.philipsOnlinePrice.matches(".*[0-9].*".toRegex() )) { // if price does not contains any digit
                 binding.mecRetailerItemPrice.visibility = View.GONE
             } else {
                 binding.mecRetailerItemPrice.visibility = View.VISIBLE

@@ -19,11 +19,11 @@ import android.view.animation.TranslateAnimation
 import androidx.fragment.app.FragmentManager
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.google.gson.Gson
+import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
-import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
 import com.philips.platform.mec.analytics.MECAnalyticServer.hybris
@@ -263,7 +263,7 @@ class MECutility {
             }
         }
 
-        fun getQuantity(carts: com.philips.platform.ecs.model.cart.ECSShoppingCart): Int {
+        fun getQuantity(carts: ECSShoppingCart): Int {
             val totalItems = carts.totalItems
             var quantity = 0
             if (carts.entries != null) {
@@ -277,14 +277,14 @@ class MECutility {
             return quantity
         }
 
-        fun isAuthError(ecsError: com.philips.platform.ecs.error.ECSError?): Boolean {
+        fun isAuthError(ecsError: ECSError?): Boolean {
             var authError: Boolean = false
             with(ecsError!!.errorcode) {
-                if (this == com.philips.platform.ecs.error.ECSErrorEnum.ECSInvalidTokenError.errorCode
-                        || this == com.philips.platform.ecs.error.ECSErrorEnum.ECSinvalid_grant.errorCode
-                        || this == com.philips.platform.ecs.error.ECSErrorEnum.ECSinvalid_client.errorCode
-                        || this == com.philips.platform.ecs.error.ECSErrorEnum.ECSOAuthDetailError.errorCode
-                        || this == com.philips.platform.ecs.error.ECSErrorEnum.ECSOAuthNotCalled.errorCode) {
+                if (this == ECSErrorEnum.ECSInvalidTokenError.errorCode
+                        || this == ECSErrorEnum.ECSinvalid_grant.errorCode
+                        || this == ECSErrorEnum.ECSinvalid_client.errorCode
+                        || this == ECSErrorEnum.ECSOAuthDetailError.errorCode
+                        || this == ECSErrorEnum.ECSOAuthNotCalled.errorCode) {
                     authError = true
                 }
             }
@@ -293,7 +293,7 @@ class MECutility {
         }
 
         @JvmStatic
-        fun findGivenAddressInAddressList(ecsAddressID: String, ecsAddressList: List<com.philips.platform.ecs.model.address.ECSAddress>): com.philips.platform.ecs.model.address.ECSAddress? {
+        fun findGivenAddressInAddressList(ecsAddressID: String, ecsAddressList: List<ECSAddress>): ECSAddress? {
 
             for (ecsAddress in ecsAddressList) {
                 if (ecsAddressID.equals(ecsAddress.id, true)) {
@@ -327,12 +327,19 @@ class MECutility {
                     if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
                         errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
                     } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+                        // No Internet: Information Error
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                         //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
-                    } else if (mecError!!.ecsError!!.errorcode == com.philips.platform.ecs.error.ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
-                        MECAnalytics.trackUserError(mecError!!.exception!!.message.toString())
+                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
+                        errorMessage = Acontext!!.getString(R.string.mec_no_internet)
+                    } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                        //voucher apply fail:  User error
+                        val errorMsg = mecError!!.exception!!.message.toString()
+                        errorString +=errorMsg
+                        MECAnalytics.trackUserError(errorString)
+                        errorMessage=mecError!!.exception!!.message.toString()
                     }else{
+                        // Remaining all errors: Technical errors
                         errorMessage = mecError!!.exception!!.message.toString()
                         errorString += errorMessage
                         errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
@@ -398,7 +405,7 @@ class MECutility {
 
     }
 
-    fun constructShippingAddressDisplayField(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress): String {
+    fun constructShippingAddressDisplayField(ecsAddress: ECSAddress): String {
 
         var formattedAddress = ""
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
