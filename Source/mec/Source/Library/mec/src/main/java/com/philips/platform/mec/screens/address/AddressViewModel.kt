@@ -196,9 +196,9 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
                 setAddressFieldEnabler(addressFieldEnabler, addressFieldJsonEnum!!)
             }
         } catch (e: JSONException) {
-            MECLog.d(TAG, "Exception Occurred:" + e.localizedMessage)
+            MECLog.d(TAG, "Exception Occurred:" + e.message)
         } catch (e: IOException) {
-            MECLog.d(TAG, "Exception Occurred:" + e.localizedMessage)
+            MECLog.d(TAG, "Exception Occurred:" + e.message)
         }
 
         return addressFieldEnabler
