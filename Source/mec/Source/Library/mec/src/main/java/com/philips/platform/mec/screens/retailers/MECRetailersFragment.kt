@@ -79,7 +79,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
     private fun tagRetailerAndBlackListedRetailerList(retailers: com.philips.platform.ecs.model.retailers.ECSRetailerList, product : com.philips.platform.ecs.model.products.ECSProduct){
         // add retailer list if present
         val map = HashMap<String, String>()
-        if(retailers!=null && retailers.retailers!=null && retailers.retailers.size>0) {
+        if(retailers?.retailers != null && retailers.retailers.size>0) {
             val mutableRetailersIterator = retailers.retailers.iterator()
             var retailerListString: String = ""
             for (ecsRetailer in mutableRetailersIterator) {

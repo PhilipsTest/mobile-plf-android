@@ -136,8 +136,7 @@ internal class MECSwipeController(context : Context,buttonsActions: SwipeControl
     fun drawButtons(c: Canvas, viewHolder: RecyclerView.ViewHolder) {
         val buttonWidthWithoutPadding = buttonWidth - 20
         val corners = 16f
-        val icon : Bitmap
-        icon = BitmapFactory.decodeResource(context.resources, R.drawable.ic_delete)
+        val icon : Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ic_delete)
 
         val itemView = viewHolder.itemView
         val p = Paint()
@@ -173,31 +172,6 @@ internal class MECSwipeController(context : Context,buttonsActions: SwipeControl
             }
     }
 
-    /*fun drawButtons(c: Canvas, viewHolder: RecyclerView.ViewHolder) {
-        val buttonWidthWithoutPadding = buttonWidth - 20
-        val corners = 16f
-
-        val itemView = viewHolder.itemView
-        val p = Paint()
-
-        val leftButton = RectF(itemView.getLeft().toFloat(), itemView.getTop().toFloat(), itemView.getLeft() + buttonWidthWithoutPadding, itemView.getBottom().toFloat())
-        p.color = (ContextCompat.getColor(context, R.color.uid_signal_red_level_60))
-        c.drawRoundRect(leftButton, corners, corners, p)
-        drawText(context.getString(R.string.dls_delete), c, leftButton, p)
-
-        val rightButton = RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop().toFloat(), itemView.getRight().toFloat(), itemView.getBottom().toFloat())
-        p.color = (ContextCompat.getColor(context, R.color.uid_signal_red_level_60))
-        c.drawRoundRect(rightButton, corners, corners, p)
-        drawText(context.getString(R.string.dls_delete), c, rightButton, p)
-
-        buttonInstance = null
-        if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
-            buttonInstance = leftButton
-        } else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
-            buttonInstance = rightButton
-        }
-    }*/
-
     private fun drawText(text: String, c: Canvas, button: RectF, p: Paint) {
         val textSize = 60f
         p.color = Color.WHITE
@@ -215,8 +189,7 @@ internal class MECSwipeController(context : Context,buttonsActions: SwipeControl
     }
 
     companion object {
-
-        private val buttonWidth = 300f
+        private const val buttonWidth = 300f
     }
 }
 

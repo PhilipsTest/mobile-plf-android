@@ -12,7 +12,6 @@ package com.philips.platform.mec.screens.payment
 import android.content.Context
 import android.os.Bundle
 import android.webkit.CookieManager
-import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.paymentPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -27,21 +26,19 @@ import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 
-class MECWebPaymentFragment : MECWebFragment() , AlertListener {
-
+class MECWebPaymentFragment : MECWebFragment(), AlertListener {
 
 
     override fun getFragmentTag(): String {
         return "MECWebPaymentFragment"
     }
 
-    companion object {
-        val TAG:String="MECWebPaymentFragment"
-    }
+    private val TAG: String = MECWebPaymentFragment::class.java.simpleName
+
 
     private var mContext: Context? = null
     private var mIsPaymentFailed: Boolean = false
-    private lateinit var mECSOrderDetail : com.philips.platform.ecs.model.orders.ECSOrderDetail
+    private lateinit var mECSOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail
 
     private val SUCCESS_KEY = "successURL"
     private val PENDING_KEY = "pendingURL"
@@ -67,8 +64,6 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
     }
 
 
-
-
     override fun getWebUrl(): String {
         val arguments = arguments
         mECSOrderDetail = arguments?.getParcelable<com.philips.platform.ecs.model.orders.ECSOrderDetail>(MECConstant.MEC_ORDER_DETAIL)!!
@@ -88,7 +83,7 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
 
     private fun createSuccessBundle(paymentCompleted: Boolean): Bundle {
         val bundle = Bundle()
-        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL,mECSOrderDetail )
+        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mECSOrderDetail)
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, paymentCompleted)
         return bundle
     }
@@ -99,9 +94,9 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
     }
 
     private fun launchConfirmationScreen(bundle: Bundle) {
-       val  mECPaymentConfirmationFragment: MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
-        mECPaymentConfirmationFragment.arguments=bundle
-        addFragment(mECPaymentConfirmationFragment,MECPaymentConfirmationFragment.TAG,true)
+        val mECPaymentConfirmationFragment: MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
+        mECPaymentConfirmationFragment.arguments = bundle
+        addFragment(mECPaymentConfirmationFragment, TAG, true)
     }
 
     override fun shouldOverrideUrlLoading(url: String): Boolean {
@@ -109,33 +104,33 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
     }
 
     private fun verifyResultCallBacks(url: String): Boolean {
-        var actionMapPaymentSuccess = HashMap<String, String>()
-        var actionMapPaymentFailure = HashMap<String, String>()
-        actionMapPaymentFailure.put(paymentType,new)
+        val actionMapPaymentSuccess = HashMap<String, String>()
+        val actionMapPaymentFailure = HashMap<String, String>()
+        actionMapPaymentFailure.put(paymentType, new)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
         var match = true
         if (url.startsWith(PAYMENT_SUCCESS_CALLBACK_URL)) {
-            actionMapPaymentSuccess.put(specialEvents,newBillingAddressAdded)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess,mECSOrderDetail.entries)
+            actionMapPaymentSuccess.put(specialEvents, newBillingAddressAdded)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess, mECSOrderDetail.entries)
             launchConfirmationScreen(createSuccessBundle(true))
         } else if (url.startsWith(PAYMENT_PENDING_CALLBACK_URL)) {
-            actionMapPaymentSuccess.put(specialEvents,newBillingAddressAdded)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess,mECSOrderDetail.entries)
+            actionMapPaymentSuccess.put(specialEvents, newBillingAddressAdded)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess, mECSOrderDetail.entries)
             val bundle = Bundle()
             launchConfirmationScreen(createSuccessBundle(false))
         } else if (url.startsWith(PAYMENT_FAILURE_CALLBACK_URL)) {
-            actionMapPaymentFailure.put(specialEvents,paymentFailure)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure,mECSOrderDetail.entries)
+            actionMapPaymentFailure.put(specialEvents, paymentFailure)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure, mECSOrderDetail.entries)
             mIsPaymentFailed = true
-            MECutility.showActionDialog(mContext!!, R.string.mec_ok, null, R.string.mec_payment, R.string.mec_payment_failed_message, fragmentManager!!, object:AlertListener{
+            MECutility.showActionDialog(mContext!!, R.string.mec_ok, null, R.string.mec_payment, R.string.mec_payment_failed_message, fragmentManager!!, object : AlertListener {
                 override fun onPositiveBtnClick() {
-                    moveToCaller(mIsPaymentFailed,TAG)
+                    moveToCaller(mIsPaymentFailed, TAG)
                 }
             })
         } else if (url.startsWith(PAYMENT_CANCEL_CALLBACK_URL)) {
-            actionMapPaymentFailure.put(specialEvents,cancelPayment)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure,mECSOrderDetail.entries)
-            moveToCaller(mIsPaymentFailed,TAG)
+            actionMapPaymentFailure.put(specialEvents, cancelPayment)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure, mECSOrderDetail.entries)
+            moveToCaller(mIsPaymentFailed, TAG)
         } else {
             match = false
         }
@@ -148,12 +143,12 @@ class MECWebPaymentFragment : MECWebFragment() , AlertListener {
 
     override fun handleBackEvent(): Boolean {
         mIsPaymentFailed = false
-        MECutility.showActionDialog(mContext!!, R.string.mec_ok,R.string.mec_cancel, R.string.mec_payment, R.string.mec_cancel_payment, fragmentManager!!, this)
+        MECutility.showActionDialog(mContext!!, R.string.mec_ok, R.string.mec_cancel, R.string.mec_payment, R.string.mec_cancel_payment, fragmentManager!!, this)
         return true
     }
 
     private fun handleNavigation() {
-        moveToCaller(false,TAG)
+        moveToCaller(false, TAG)
     }
 
     override fun onPositiveBtnClick() {

@@ -88,7 +88,7 @@ enum class MECDataHolder {
         var lastName = ""
         var email = ""
 
-        if (userDataInterface != null && userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN) {
+        if (userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN) {
 
             val userDataMap = ArrayList<String>()
 
@@ -126,7 +126,7 @@ enum class MECDataHolder {
     }
 
     fun isUserLoggedIn(): Boolean {
-        return userDataInterface != null && userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN
+        return userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN
     }
 
     fun isInternetActive(): Boolean {
@@ -144,7 +144,7 @@ enum class MECDataHolder {
         var voucher: Boolean = true // if voucher key is not mentioned Appconfig then by default it will be considered True
         try {
             voucher =appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
-            if(configError!=null && configError.toString()!=null && configError.errorCode!=null) {
+            if(configError.errorCode!=null) {
                 MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + configError.toString() + ":" + configError.errorCode)
             }
         } catch (e: Exception) {

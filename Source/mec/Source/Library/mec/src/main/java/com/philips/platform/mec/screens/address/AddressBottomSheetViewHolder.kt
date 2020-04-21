@@ -19,7 +19,5 @@ class AddressBottomSheetViewHolder(val binding: ViewDataBinding) : RecyclerView.
     fun bind(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
         val mecAddressCardBinding = binding as MecAddressCardBinding
         mecAddressCardBinding.ecsAddress = ecsAddress
-
-      //  mecAddressCardBinding.mecAddressCardView.cardBackgroundColor
     }
 }

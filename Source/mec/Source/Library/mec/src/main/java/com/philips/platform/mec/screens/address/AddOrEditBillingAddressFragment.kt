@@ -14,7 +14,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,11 +32,13 @@ import com.philips.platform.mec.databinding.MecAddressEditBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.address.region.RegionViewModel
 import com.philips.platform.mec.utils.MECConstant
+import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.uid.view.widget.InputValidationLayout
 import com.philips.platform.uid.view.widget.ValidationEditText
 
 
 class AddOrEditBillingAddressFragment : MecBaseFragment() {
+    private val TAG: String = AddOrEditBillingAddressFragment::class.java.simpleName
     override fun getFragmentTag(): String {
         return "EditAddressFragment"
     }
@@ -64,7 +65,6 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
             binding.mecRegions = mecRegions
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
-
     }
 
     override fun onResume() {
@@ -92,13 +92,8 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
         regionViewModel.regionsList.observe(activity!!, regionListObserver)
         regionViewModel.mecError.observe(this, this)
 
-
-
-
-
-        ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as com.philips.platform.ecs.model.address.ECSAddress
+        ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as ECSAddress
         binding.ecsAddress = ecsAddress
-
 
         if (!ecsAddress.isShippingAddress) {
             binding.tvShippingAddress.setText(R.string.mec_billing_address)
@@ -106,9 +101,7 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
             binding.dlsIapAddressShipping.lableLastName.setText(R.string.mec_card_holder_last_name)
         }
 
-
-
-        addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.country, it) }
+        addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(ECSConfiguration.INSTANCE.country, it) }
 
         binding.addressFieldEnabler = addressFieldEnabler
 
@@ -154,14 +147,12 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
 
             if (v is InputValidationLayout && child is ValidationEditText && child.visibility == View.VISIBLE) {
 
-                Log.d("MEC", child.hint.toString())
+                MECLog.d(TAG, child.hint.toString())
 
-                var validator: InputValidationLayout.Validator
-
-                if (child.inputType == InputType.TYPE_CLASS_PHONE) {
-                    validator = PhoneNumberInputValidator(child, PhoneNumberUtil.getInstance())
+                val validator: InputValidationLayout.Validator = if (child.inputType == InputType.TYPE_CLASS_PHONE) {
+                    PhoneNumberInputValidator(child, PhoneNumberUtil.getInstance())
                 } else {
-                    validator = EmptyInputValidator()
+                    EmptyInputValidator()
                 }
 
                 if (!validator.validate(child.text.toString())) {
@@ -174,11 +165,9 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
                 }
 
             } else if (child is ViewGroup) {
-
                 if (child.visibility == View.VISIBLE) {
                     validateEditTexts(child)  // Recursive call.
                 }
-
             }
         }
     }
@@ -203,8 +192,6 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
         super.onStop()
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
     }
-
-
 }
 
 

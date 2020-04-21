@@ -34,9 +34,8 @@ import java.util.*
 
 class HybrisAuth {
 
-
     companion object {
-        private val TAG = "HybrisAuth"
+        val TAG: String = HybrisAuth::class.java.simpleName
 
         const val KEY_MEC_EMAIL = "mec_email_id"
         const val KEY_MEC_AUTH_DATA = "mec_auth_data"
@@ -89,7 +88,7 @@ class HybrisAuth {
                 val userDetailsMap = MECDataHolder.INSTANCE.userDataInterface.getUserDetails(detailsKey)
                 return userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN)!!.toString()
             } catch (e: Exception) {
-                MECLog.e(TAG, "Exception Occurred : " + e.message)
+                MECLog.d(TAG, "Exception Occurred : " + e.message)
                 MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
             }
             return null
@@ -107,14 +106,14 @@ class HybrisAuth {
                     val jsonString = getJsonStringOfMap(map)
                     MECDataHolder.INSTANCE.refreshToken = result?.refreshToken!!
                     MECDataHolder.INSTANCE.appinfra.secureStorage.storeValueForKey(KEY_MEC_AUTH_DATA,jsonString,sse)
-                    if(sse!=null && sse.errorMessage!=null && sse.errorCode!=null) {
+                    if(sse.errorMessage != null && sse.errorCode!=null) {
                         MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError+ ":" + MECAnalyticServer.other + sse.errorMessage + ":" + sse.errorCode)
                     }
                     fragmentCallback.onResponse(result)
                 }
 
                 override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
-                    MECLog.e(TAG, "hybrisAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
+                    MECLog.d(TAG, "hybrisAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
                     if (MECutility.isAuthError(ecsError) || ecsError.errorcode == com.philips.platform.ecs.error.ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
                         refreshJainrain(fragmentCallback);
                     } else {
@@ -142,11 +141,11 @@ class HybrisAuth {
                 }
 
                 override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
-                    MECLog.e(TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
+                    MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
                     if (MECutility.isAuthError(ecsError) || ecsError.errorcode == com.philips.platform.ecs.error.ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
                         refreshJainrain(fragmentCallback);
                     } else {
-                        MECLog.e(TAG, "hybrisRefreshAuthentication : onFailure : not OAuthError")
+                        MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : not OAuthError")
                         com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.setAuthToken(null)
                         fragmentCallback.onFailure(error, ecsError)
                     }

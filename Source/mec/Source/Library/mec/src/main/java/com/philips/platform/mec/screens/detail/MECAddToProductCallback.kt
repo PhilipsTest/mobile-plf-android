@@ -9,17 +9,14 @@
  */
 package com.philips.platform.mec.screens.detail
 
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.error.ECSErrorEnum
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel, private val request :String) : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception> {
+class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel, private val request: String) : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception> {
 
-    lateinit var mECRequestType : MECRequestType
+    lateinit var mECRequestType: MECRequestType
+
     /**
      * On response.
      *
@@ -35,16 +32,20 @@ class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductD
      * @param ecsError the error code
      */
     override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
-       
 
-        if (  MECutility.isAuthError(ecsError)) {
-            ecsProductDetailViewModel.retryAPI(mECRequestType)
-        }else if (ecsError!!.errorcode == com.philips.platform.ecs.error.ECSErrorEnum.ECSCartError.errorCode){
-            ecsProductDetailViewModel.createShoppingCart(request)
-        } else{
 
-            val mecError = MecError(error, ecsError,mECRequestType)
-            ecsProductDetailViewModel.mecError.value = mecError
+        when {
+            MECutility.isAuthError(ecsError) -> {
+                ecsProductDetailViewModel.retryAPI(mECRequestType)
+            }
+            ecsError!!.errorcode == com.philips.platform.ecs.error.ECSErrorEnum.ECSCartError.errorCode -> {
+                ecsProductDetailViewModel.createShoppingCart(request)
+            }
+            else -> {
+
+                val mecError = MecError(error, ecsError, mECRequestType)
+                ecsProductDetailViewModel.mecError.value = mecError
+            }
         }
     }
 }

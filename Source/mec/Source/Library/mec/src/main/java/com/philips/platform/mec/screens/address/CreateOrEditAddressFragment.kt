@@ -14,7 +14,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +42,8 @@ import java.io.Serializable
 
 
 class CreateOrEditAddressFragment : MecBaseFragment() {
+    private val TAG: String = CreateOrEditAddressFragment::class.java.simpleName
+
     override fun getFragmentTag(): String {
         return "EditAddressFragment"
     }
@@ -89,7 +90,7 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
 
 
     private val createAddressObserver: Observer<com.philips.platform.ecs.model.address.ECSAddress> = Observer { ecsAddress ->
-        Log.d(this@CreateOrEditAddressFragment.javaClass.name, ecsAddress?.id)
+        MECLog.d(TAG, ecsAddress?.id)
         mECSShoppingCart?.let { addressViewModel.tagCreateNewAddress(it) }
         addressViewModel.setDeliveryAddress(ecsAddress!!)
     }
@@ -199,14 +200,12 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
 
             if (v is InputValidationLayout && child is ValidationEditText && child.visibility == View.VISIBLE) {
 
-                Log.d("MEC",child.hint.toString())
+                MECLog.d(TAG,child.hint.toString())
 
-                var validator:InputValidationLayout.Validator
-
-                if(child.inputType == InputType.TYPE_CLASS_PHONE){
-                    validator = PhoneNumberInputValidator(child , PhoneNumberUtil.getInstance())
+                val validator:InputValidationLayout.Validator = if(child.inputType == InputType.TYPE_CLASS_PHONE){
+                    PhoneNumberInputValidator(child , PhoneNumberUtil.getInstance())
                 }else{
-                    validator = EmptyInputValidator()
+                    EmptyInputValidator()
                 }
 
                 if(!validator.validate(child.text.toString())){
@@ -248,8 +247,8 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
                 addressViewModel.fetchAddresses()
                 showProgressBar(binding.mecProgress.mecProgressBarContainer)
             }else {
-                var errorMessage = mecError!!.exception!!.message
-                MECLog.e(javaClass.simpleName, errorMessage)
+                val errorMessage = mecError!!.exception!!.message
+                MECLog.e(TAG, errorMessage)
                 MECutility.tagAndShowError(mecError, false, fragmentManager, context)
             }
         }

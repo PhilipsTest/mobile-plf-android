@@ -24,21 +24,20 @@ class RegionViewModel : com.philips.platform.mec.common.CommonViewModel() {
     var regionRepository = RegionRepository(ecsServices)
 
 
-
     fun fetchRegions() {
         regionRepository.getRegions(ecsRegionListCallback)
     }
 
     fun retryAPI(mecRequestType: MECRequestType) {
-        var retryAPI = selectAPIcall(mecRequestType)
-        authAndCallAPIagain(retryAPI,authFailCallback)
+        val retryAPI = selectAPIcall(mecRequestType)
+        authAndCallAPIagain(retryAPI, authFailCallback)
     }
 
-    fun selectAPIcall(mecRequestType: MECRequestType):() -> Unit{
+    fun selectAPIcall(mecRequestType: MECRequestType): () -> Unit {
 
-        lateinit  var APIcall: () -> Unit
-        when(mecRequestType) {
-            MECRequestType.MEC_FETCH_REGIONS                     -> APIcall = { fetchRegions() }
+        lateinit var APIcall: () -> Unit
+        when (mecRequestType) {
+            MECRequestType.MEC_FETCH_REGIONS -> APIcall = { fetchRegions() }
         }
         return APIcall
     }

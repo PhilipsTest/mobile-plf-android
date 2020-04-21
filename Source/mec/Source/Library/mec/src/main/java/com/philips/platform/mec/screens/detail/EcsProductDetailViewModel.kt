@@ -81,7 +81,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
 
     override fun authFailureCallback(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?){
-        Log.v("Auth","refresh auth failed");
+        MECLog.v("Auth","refresh auth failed");
         addToProductCallBack.onFailure(error,ecsError)
     }
 

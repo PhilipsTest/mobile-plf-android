@@ -11,40 +11,34 @@ package com.philips.platform.mec.screens.address
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.address.ECSDeliveryMode
-import com.philips.platform.ecs.model.address.ECSUserProfile
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
-import com.philips.platform.ecs.model.payment.CardType
-import com.philips.platform.ecs.model.payment.ECSPayment
-import com.philips.platform.mec.databinding.MecDeliveryBinding
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.deliveryDetailPage
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
+import com.philips.platform.mec.databinding.MecDeliveryBinding
+import com.philips.platform.mec.screens.MecBaseFragment
+import com.philips.platform.mec.screens.orderSummary.MECOrderSummaryFragment
 import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.screens.payment.MECPayments
 import com.philips.platform.mec.screens.payment.PaymentRecyclerAdapter
 import com.philips.platform.mec.screens.payment.PaymentViewModel
-import com.philips.platform.mec.screens.MecBaseFragment
-import com.philips.platform.mec.screens.orderSummary.MECOrderSummaryFragment
 import com.philips.platform.mec.screens.profile.ProfileViewModel
 import com.philips.platform.mec.screens.shoppingCart.EcsShoppingCartViewModel
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 import java.io.Serializable
 
 class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
-
+    private val TAG: String = MECDeliveryFragment::class.java.simpleName
 
     private lateinit var paymentViewModel: PaymentViewModel
     var mRootView: View? = null
@@ -111,21 +105,15 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
     }
 
     private val addressObserver: Observer<List<com.philips.platform.ecs.model.address.ECSAddress>> = Observer(fun(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
-
-        Log.d("Pabitra", "In addressObserver")
-
         ecsAddresses = addressList!!
         ecsShoppingCartViewModel.getShoppingCart()
-
     })
 
     private val paymentObserver: Observer<MECPayments> = Observer(fun(mecPayments: MECPayments) {
-
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.addAll(mecPayments.payments)
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.isPaymentDownloaded = true
         binding.mecPaymentProgressBar.visibility = View.GONE
         showPaymentCardList()
-
     })
 
     private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> { ecsShoppingCart ->
@@ -165,7 +153,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
             addressViewModel = ViewModelProviders.of(this).get(AddressViewModel::class.java)
             profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
             ecsShoppingCartViewModel = ViewModelProviders.of(this).get(EcsShoppingCartViewModel::class.java)
-            paymentViewModel =  ViewModelProviders.of(this).get(PaymentViewModel::class.java)
+            paymentViewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
 
 
             //observe addressViewModel
@@ -245,7 +233,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
         // Payment logic ends
     }
 
-    fun  showPaymentCardList() {
+    fun showPaymentCardList() {
         mecPaymentAdapter = PaymentRecyclerAdapter(MECDataHolder.INSTANCE.PAYMENT_HOLDER, this)
         binding.mecPaymentRecyclerView.adapter = mecPaymentAdapter
     }
@@ -286,7 +274,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
                     bottomSheetFragment?.dismiss()
                 }
             }
-            Log.d("ADDRESS", "CREATE_ADDRESS")
+            MECLog.d(TAG, "CREATE_ADDRESS")
             // create Address ======= starts
             val ecsAddress = createNewAddress()
             gotoCreateOrEditAddress(ecsAddress)
@@ -294,7 +282,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
         // When Create Billing Address  is clicked
         if (item is String && item.equals(MECConstant.CREATE_BILLING_ADDRESS, true)) {
-            Log.d("ADDRESS", "CREATE_BILLING_ADDRESS")
+            MECLog.d(TAG, "CREATE_BILLING_ADDRESS")
             // create Address ======= starts
             val ecsAddress = createNewAddress()
             gotoCreateOrEditBillingAddress(ecsAddress)
@@ -302,7 +290,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
         // when Edit Billing Address is clicked
         if (item is MECPayment && item.ecsPayment.id.equals(MECConstant.NEW_CARD_PAYMENT, true)) {
-            Log.d("ADDRESS", "CREATE_BILLING_ADDRESS")
+            MECLog.d(TAG, "CREATE_BILLING_ADDRESS")
             gotoCreateOrEditBillingAddress(item.ecsPayment.billingAddress)
         }
 
@@ -373,7 +361,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
     override fun processError(mecError: MecError?, showDialog: Boolean) {
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
 
-        if(mecError?.mECRequestType == MECRequestType.MEC_FETCH_PAYMENT_DETAILS) {
+        if (mecError?.mECRequestType == MECRequestType.MEC_FETCH_PAYMENT_DETAILS) {
             binding.mecPaymentProgressBar.visibility = View.GONE
             showPaymentCardList() // even for error inflate the Add Payment view
         }
@@ -409,7 +397,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
             val bundleExtra = data?.getBundleExtra(MECConstant.BUNDLE_ADDRESSES)
             ecsAddresses = bundleExtra?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<com.philips.platform.ecs.model.address.ECSAddress>
 
-            if(bundleExtra.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART)!=null) {
+            if (bundleExtra.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) != null) {
                 mECSShoppingCart = bundleExtra.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as com.philips.platform.ecs.model.cart.ECSShoppingCart
             }
             onRefreshCart()

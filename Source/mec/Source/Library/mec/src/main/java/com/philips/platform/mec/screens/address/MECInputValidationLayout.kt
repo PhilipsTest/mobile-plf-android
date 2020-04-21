@@ -10,7 +10,6 @@ import com.philips.platform.uid.view.widget.InputValidationLayout
 
 class MECInputValidationLayout(context: Context,attributes: AttributeSet) : InputValidationLayout(context,attributes){
 
-
     override fun showError() {
         super.showError()
         val resourceIdString = this.tag as String

@@ -12,18 +12,16 @@ package com.philips.platform.mec.integration
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECLauncherActivity
 import com.philips.platform.mec.integration.serviceDiscovery.ServiceDiscoveryMapListener
 import com.philips.platform.mec.screens.reviews.BazaarVoiceHelper
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.uappframework.launcher.ActivityLauncher
 import com.philips.platform.uappframework.launcher.FragmentLauncher
 import com.philips.platform.uappframework.launcher.UiLauncher
@@ -34,6 +32,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
     private var appInfra: AppInfra? = null
     private var listOfServiceId: ArrayList<String>? = null
     lateinit var serviceUrlMapListener: OnGetServiceUrlMapListener
+    private val TAG: String = MECHandler::class.java.simpleName
 
 
     companion object {
@@ -107,7 +106,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
             }
 
             override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
-                Log.e("MEC", "Config failed : Can't Launch MEC")
+                MECLog.d(HybrisAuth.TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
             }
         })
 
@@ -148,7 +147,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
         mecLandingFragment?.arguments = bundle
 
 
-       MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
+        MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
         val transaction = fragmentLauncher.fragmentActivity.supportFragmentManager.beginTransaction()
         transaction.replace(fragmentLauncher.parentContainerResourceID, mecLandingFragment!!, mecLandingFragment.getFragmentTag())
         transaction.addToBackStack(mecLandingFragment.getFragmentTag())

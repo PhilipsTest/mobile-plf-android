@@ -40,6 +40,7 @@ import java.io.Serializable
 
 class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
 
+    private val TAG: String = ManageAddressFragment::class.java.simpleName
 
     private var mECSShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart? = null
     private lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
@@ -107,8 +108,8 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
                 addressViewModel.fetchAddresses()
                 showProgressBar(binding.mecProgress.mecProgressBarContainer)
             } else {
-                var errorMessage = mecError!!.exception!!.message
-                MECLog.e(javaClass.simpleName, errorMessage)
+                val errorMessage = mecError!!.exception!!.message
+                MECLog.e(TAG, errorMessage)
                 MECutility.tagAndShowError(mecError, false, fragmentManager, context)
             }
         }
@@ -200,6 +201,4 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
     override fun onNegativeBtnClick() {
         isAddressPopup = false
     }
-
-
 }

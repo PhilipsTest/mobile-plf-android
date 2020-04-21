@@ -26,21 +26,18 @@ class FragmentSelector {
         var fragment: MecBaseFragment? = null
 
         when (mecFlowConfigurator.landingView) {
-
-
             MECFlowConfigurator.MECLandingView.MEC_PRODUCT_DETAILS_VIEW -> {
                 fragment = MECLandingProductDetailsFragment()
-
             }
 
             MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW -> {
                 fragment = MECShoppingCartFragment()
-
             }
 
             MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW -> {
                 fragment = MECProductCatalogFragment()
             }
+
             MECFlowConfigurator.MECLandingView.MEC_CATEGORIZED_PRODUCT_LIST_VIEW -> {
                 fragment = getCategorizedFragment(isHybris)
             }
@@ -50,16 +47,16 @@ class FragmentSelector {
     }
 
     private fun getCategorizedFragment(isHybris: Boolean): MecBaseFragment? {
-        if (isHybris) {
-            return MECProductCatalogCategorizedFragment()
+        return if (isHybris) {
+            MECProductCatalogCategorizedFragment()
         } else {
-            return MECCategorizedRetailerFragment()
+            MECCategorizedRetailerFragment()
         }
     }
 
     private fun putCtnsToBundle(bundle: Bundle, mecFlowConfigurator: MECFlowConfigurator){
 
-        var ctnList: ArrayList<String>? = ArrayList()
+        val ctnList: ArrayList<String>? = ArrayList()
 
         if (mecFlowConfigurator.productCTNs != null) {
 
@@ -68,7 +65,7 @@ class FragmentSelector {
             }
         }
 
-        bundle?.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, ctnList)
+        bundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, ctnList)
 
         val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
         if(ctnList?.size !=0) {
@@ -77,7 +74,6 @@ class FragmentSelector {
             ecsProduct.code = ""
         }
 
-        bundle?.putSerializable(MECConstant.MEC_KEY_PRODUCT,ecsProduct)
-
+        bundle.putSerializable(MECConstant.MEC_KEY_PRODUCT,ecsProduct)
     }
 }
