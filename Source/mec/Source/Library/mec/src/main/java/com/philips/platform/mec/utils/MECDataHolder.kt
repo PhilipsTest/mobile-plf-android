@@ -11,8 +11,6 @@ package com.philips.platform.mec.utils
 
 import com.android.volley.DefaultRetryPolicy
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient
-import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
@@ -97,9 +95,18 @@ enum class MECDataHolder {
             userDataMap.add(UserDetailConstants.EMAIL)
             try {
                 val hashMap = userDataInterface.getUserDetails(userDataMap)
-                firstName = hashMap.get(UserDetailConstants.GIVEN_NAME) as String
-                lastName = hashMap.get(UserDetailConstants.FAMILY_NAME) as String
-                email = hashMap.get(UserDetailConstants.EMAIL) as String
+                var firstNameValue = hashMap.get(UserDetailConstants.GIVEN_NAME)
+                if(null!=firstNameValue) {
+                    firstName = firstNameValue as String
+                }
+                var lastNameValue = hashMap.get(UserDetailConstants.FAMILY_NAME)
+                if(null!=lastNameValue) {
+                    lastName = lastNameValue as String
+                }
+                var emailValue = hashMap.get(UserDetailConstants.EMAIL)
+                if(null!=emailValue) {
+                    email = emailValue as String
+                }
             } catch (e: UserDataInterfaceException) {
                 MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECAnalyticsConstant.appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
             }
