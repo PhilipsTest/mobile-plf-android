@@ -9,6 +9,6 @@
  */
 package com.philips.platform.mec.screens.address
 
-import com.philips.cdp.di.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.address.ECSAddress
 
-class MECAddresses (val ecsAddresses : List<ECSAddress>)
+class MECAddresses (val ecsAddresses : List<com.philips.platform.ecs.model.address.ECSAddress>)

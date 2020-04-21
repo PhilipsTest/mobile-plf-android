@@ -18,12 +18,12 @@ import com.ecs.demotestuapp.jsonmodel.SubgroupItem;
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.model.address.Country;
-import com.philips.cdp.di.ecs.model.address.ECSAddress;
-import com.philips.cdp.di.ecs.model.address.Region;
-import com.philips.cdp.di.ecs.model.region.ECSRegion;
-import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.model.address.Country;
+import com.philips.platform.ecs.model.address.ECSAddress;
+import com.philips.platform.ecs.model.address.Region;
+import com.philips.platform.ecs.model.region.ECSRegion;
+import com.philips.platform.ecs.util.ECSConfiguration;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterfaceException;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 

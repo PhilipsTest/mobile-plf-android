@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ecs.demotestuapp.R;
 import com.ecs.demotestuapp.adapter.SubGroupAdapter;
 import com.ecs.demotestuapp.jsonmodel.GroupItem;
-import com.philips.cdp.di.ecs.ECSServices;
+import com.philips.platform.ecs.ECSServices;
 import com.philips.cdp.registration.ui.utils.URInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.uid.view.widget.Button;

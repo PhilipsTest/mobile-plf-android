@@ -18,10 +18,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.region.ECSRegion
-import com.philips.cdp.di.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.createShippingAddressPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -47,7 +43,7 @@ class AddAddressFragment : MecBaseFragment() {
     }
 
 
-    private lateinit var mECSShoppingCart: ECSShoppingCart
+    private lateinit var mECSShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart
     private lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
     private var addressFieldEnabler: MECAddressFieldEnabler? = null
 
@@ -61,16 +57,16 @@ class AddAddressFragment : MecBaseFragment() {
     var isError = false
     var validationEditText: ValidationEditText? = null
 
-    var eCSAddressShipping: ECSAddress = ECSAddress()
+    var eCSAddressShipping: com.philips.platform.ecs.model.address.ECSAddress = com.philips.platform.ecs.model.address.ECSAddress()
 
-    private var eCSAddressBilling: ECSAddress = ECSAddress()
+    private var eCSAddressBilling: com.philips.platform.ecs.model.address.ECSAddress = com.philips.platform.ecs.model.address.ECSAddress()
 
-    private var mAddressList: List<ECSAddress>? = null
+    private var mAddressList: List<com.philips.platform.ecs.model.address.ECSAddress>? = null
 
     var mecRegions: MECRegions? = null
 
 
-    private val regionListObserver: Observer<List<ECSRegion>> = Observer { regionList ->
+    private val regionListObserver: Observer<List<com.philips.platform.ecs.model.region.ECSRegion>> = Observer { regionList ->
         mecRegions = MECRegions(regionList!!)
         binding.mecRegions = mecRegions
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
@@ -86,18 +82,18 @@ class AddAddressFragment : MecBaseFragment() {
 
     }
 
-    private val createAddressObserver: Observer<ECSAddress> = Observer { ecsAddress ->
+    private val createAddressObserver: Observer<com.philips.platform.ecs.model.address.ECSAddress> = Observer { ecsAddress ->
         MECLog.d(TAG, ecsAddress?.id)
         addressViewModel.tagCreateNewAddress(mECSShoppingCart)
         addressViewModel.setDeliveryAddress(ecsAddress!!)
     }
 
-    private val fetchAddressObserver: Observer<List<ECSAddress>> = Observer(fun(addressList: List<ECSAddress>?) {
+    private val fetchAddressObserver: Observer<List<com.philips.platform.ecs.model.address.ECSAddress>> = Observer(fun(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
         mAddressList = addressList
         gotoDeliveryAddress(mAddressList)
     })
 
-    private val cartObserver: Observer<ECSShoppingCart> = Observer { ecsShoppingCart ->
+    private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer { ecsShoppingCart ->
         mECSShoppingCart = ecsShoppingCart
         addressViewModel.fetchAddresses()
     }
@@ -123,7 +119,7 @@ class AddAddressFragment : MecBaseFragment() {
         addressViewModel = ViewModelProviders.of(this).get(AddressViewModel::class.java)
         regionViewModel = activity?.let { ViewModelProviders.of(it).get(RegionViewModel::class.java) }!!
 
-        mECSShoppingCart = arguments?.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART)!! as ECSShoppingCart
+        mECSShoppingCart = arguments?.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART)!! as com.philips.platform.ecs.model.cart.ECSShoppingCart
 
 
         //Set Country before binding
@@ -161,7 +157,7 @@ class AddAddressFragment : MecBaseFragment() {
         ecsShoppingCartViewModel.mecError.observe(this, this)
 
 
-        addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(ECSConfiguration.INSTANCE.country, it) }
+        addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.country, it) }
 
         binding.addressFieldEnabler = addressFieldEnabler
 
@@ -248,7 +244,7 @@ class AddAddressFragment : MecBaseFragment() {
         }
     }
 
-    private fun gotoDeliveryAddress(addressList: List<ECSAddress>?) {
+    private fun gotoDeliveryAddress(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         val deliveryFragment = MECDeliveryFragment()
         val bundle = Bundle()

@@ -7,13 +7,13 @@ package com.philips.platform.mec.screens.shoppingCart
 
 
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity
+import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecVoucherItemBinding
 
 class MECVoucherHolder(val binding: MecVoucherItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(voucher: AppliedVoucherEntity, itemClickListener: ItemClickListener){
+    fun bind(voucher: com.philips.platform.ecs.model.cart.AppliedVoucherEntity, itemClickListener: ItemClickListener){
         binding.voucher = voucher
         binding.mecCross.setOnClickListener { itemClickListener.onItemClick(voucher as Object) }
     }

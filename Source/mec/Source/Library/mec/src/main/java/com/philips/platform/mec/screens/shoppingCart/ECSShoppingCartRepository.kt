@@ -8,13 +8,13 @@ package com.philips.platform.mec.screens.shoppingCart
 import com.bazaarvoice.bvandroidsdk.BulkRatingOptions
 import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest
 import com.bazaarvoice.bvandroidsdk.EqualityOperator
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.cart.ECSEntries
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData
-import com.philips.cdp.di.ecs.util.ECSConfiguration
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.cart.ECSEntries
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.oauth.ECSOAuthData
+import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -22,17 +22,17 @@ import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 
-class ECSShoppingCartRepository(ecsShoppingCartViewModel: EcsShoppingCartViewModel, val ecsServices: ECSServices)
+class ECSShoppingCartRepository(ecsShoppingCartViewModel: EcsShoppingCartViewModel, val ecsServices: com.philips.platform.ecs.ECSServices)
 {
     private var ecsShoppingCartCallback= ECSShoppingCartCallback(ecsShoppingCartViewModel)
 
-    var authCallBack = object : ECSCallback<ECSOAuthData, Exception> {
+    var authCallBack = object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.oauth.ECSOAuthData, Exception> {
 
-        override fun onResponse(result: ECSOAuthData?) {
+        override fun onResponse(result: com.philips.platform.ecs.model.oauth.ECSOAuthData?) {
             fetchShoppingCart()
         }
 
-        override fun onFailure(error: Exception, ecsError: ECSError) {
+        override fun onFailure(error: Exception, ecsError: com.philips.platform.ecs.error.ECSError) {
             val mecError = MecError(error, ecsError,MECRequestType.MEC_HYBRIS_AUTH)
             ecsShoppingCartViewModel.mecError.value = mecError
         }
@@ -40,19 +40,19 @@ class ECSShoppingCartRepository(ecsShoppingCartViewModel: EcsShoppingCartViewMod
 
      fun fetchShoppingCart() {
 
-         if(!MECutility.isExistingUser() || ECSConfiguration.INSTANCE.accessToken == null) {
+         if(!MECutility.isExistingUser() || com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.accessToken == null) {
              HybrisAuth.hybrisAuthentication(authCallBack)
          }else{
              this.ecsServices.fetchShoppingCart(ecsShoppingCartCallback)
          }
     }
 
-    fun updateShoppingCart(entries: ECSEntries, quantity: Int) {
+    fun updateShoppingCart(entries: com.philips.platform.ecs.model.cart.ECSEntries, quantity: Int) {
         ecsShoppingCartCallback.mECRequestType=MECRequestType.MEC_UPDATE_SHOPPING_CART
         this.ecsServices.updateShoppingCart(quantity,entries,ecsShoppingCartCallback)
     }
 
-    fun fetchProductReview(ecsEntries: MutableList<ECSEntries>, ecsShoppingCartViewModel: EcsShoppingCartViewModel){
+    fun fetchProductReview(ecsEntries: MutableList<com.philips.platform.ecs.model.cart.ECSEntries>, ecsShoppingCartViewModel: EcsShoppingCartViewModel){
 
         val mecConversationsDisplayCallback = MECBulkRatingCallback(ecsEntries, ecsShoppingCartViewModel)
         val ctnList: MutableList<String> = mutableListOf()
@@ -74,7 +74,7 @@ class ECSShoppingCartRepository(ecsShoppingCartViewModel: EcsShoppingCartViewMod
         ecsServices.removeVoucher(voucherCode,ecsVoucherCallback)
     }
 
-    fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){
+    fun createCart(createShoppingCartCallback: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception>){
         ecsServices.createShoppingCart(createShoppingCartCallback)
     }
 

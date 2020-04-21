@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.ecs.demouapp.R;
 import com.ecs.demouapp.ui.utils.ECSConstant;
-import com.philips.cdp.di.ecs.model.payment.ECSPayment;
+import com.philips.platform.ecs.model.payment.ECSPayment;
 
 
 public class CvvCvcDialogFragment extends DialogFragment {

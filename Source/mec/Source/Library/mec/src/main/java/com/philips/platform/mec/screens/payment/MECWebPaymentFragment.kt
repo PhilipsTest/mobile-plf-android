@@ -12,7 +12,6 @@ package com.philips.platform.mec.screens.payment
 import android.content.Context
 import android.os.Bundle
 import android.webkit.CookieManager
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.paymentPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -39,7 +38,7 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
 
     private var mContext: Context? = null
     private var mIsPaymentFailed: Boolean = false
-    private lateinit var mECSOrderDetail: ECSOrderDetail
+    private lateinit var mECSOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail
 
     private val SUCCESS_KEY = "successURL"
     private val PENDING_KEY = "pendingURL"
@@ -67,7 +66,7 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
 
     override fun getWebUrl(): String {
         val arguments = arguments
-        mECSOrderDetail = arguments?.getParcelable(MECConstant.MEC_ORDER_DETAIL)!!
+        mECSOrderDetail = arguments?.getParcelable<com.philips.platform.ecs.model.orders.ECSOrderDetail>(MECConstant.MEC_ORDER_DETAIL)!!
 
         if (arguments == null || !arguments.containsKey(MECConstant.WEB_PAY_URL)) {
             MECLog.v(TAG, "payment URL must be provided")

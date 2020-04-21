@@ -12,10 +12,6 @@ package com.philips.platform.mec.analytics
 import android.content.Context
 import android.content.res.Configuration
 import androidx.annotation.NonNull
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
-import com.philips.cdp.di.ecs.model.orders.Entries
-import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
@@ -165,7 +161,7 @@ class MECAnalytics {
         *
         * */
         @JvmStatic
-        fun tagProductList(productList: MutableList<ECSProduct>) {
+        fun tagProductList(productList: MutableList<com.philips.platform.ecs.model.products.ECSProduct>) {
             if (productList != null && productList.size > 0) {
                 val mutableProductIterator = productList.iterator()
                 var productListString: String = ""
@@ -187,7 +183,7 @@ class MECAnalytics {
         * format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
-        fun tagProductList(productList: MutableList<ECSProduct>, listOrGrid: String) {
+        fun tagProductList(productList: MutableList<com.philips.platform.ecs.model.products.ECSProduct>, listOrGrid: String) {
             val map = HashMap<String, String>()
             map.put(productListLayout, listOrGrid)
             if (productList != null && productList.size > 0) {
@@ -212,9 +208,9 @@ class MECAnalytics {
        * This method is to tag passed Action(s) with order products details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
-        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<Entries>) {
+        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<com.philips.platform.ecs.model.orders.Entries>) {
             val productsMap = HashMap<String, String>()
-            if (entryList != null && entryList.isNotEmpty()) { //Entries
+            if (entryList != null && entryList.size > 0) { //Entries
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
                 for (entry in mutableEntryIterator) {
@@ -232,8 +228,8 @@ class MECAnalytics {
         * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
-        fun tagActionsWithCartProductsInfo(actionMap: Map<String, String>, ecsShoppingCart: ECSShoppingCart?) {
-            val productsMap = HashMap<String, String>()
+        fun tagActionsWithCartProductsInfo(actionMap: Map<String, String>, ecsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
+            var productsMap = HashMap<String, String>()
             val entryList = ecsShoppingCart?.entries // ECSEntries
             if (entryList != null && entryList.size > 0) {
                 val mutableEntryIterator = entryList.iterator()
@@ -254,7 +250,7 @@ class MECAnalytics {
        * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
-        fun getProductInfo(product: ECSProduct): String {
+        fun getProductInfo(product: com.philips.platform.ecs.model.products.ECSProduct): String {
             var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
             protuctDetail += ";" + product.code
             protuctDetail += ";" + (if (product.stock != null && product.stock.stockLevel != null) product.stock.stockLevel else 0)
@@ -267,7 +263,7 @@ class MECAnalytics {
         * This method will tag a successful purchase order details
         * */
         @JvmStatic
-        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail) {
+        fun tagPurchaseOrder(mECSOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail) {
             var orderMap = HashMap<String, String>()
             orderMap.put(specialEvents, purchase)
             orderMap.put(transationID, mECSOrderDetail.code)

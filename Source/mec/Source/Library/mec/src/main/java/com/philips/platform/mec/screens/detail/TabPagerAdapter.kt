@@ -15,14 +15,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.features.MECProductFeaturesFragment
 import com.philips.platform.mec.screens.specification.SpecificationFragment
 import com.philips.platform.mec.utils.MECConstant
 
 
-class TabPagerAdapter(var fm: FragmentManager, var product: ECSProduct, var context: Context) : FragmentPagerAdapter(fm) {
+class TabPagerAdapter(var fm: FragmentManager, var product: com.philips.platform.ecs.model.products.ECSProduct, var context: Context) : FragmentPagerAdapter(fm) {
 
 
 

@@ -10,7 +10,7 @@
 package com.philips.platform.mec.integration
 
 import android.os.Bundle
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.catalog.MECCategorizedRetailerFragment
 import com.philips.platform.mec.screens.catalog.MECProductCatalogCategorizedFragment
@@ -67,7 +67,7 @@ class FragmentSelector {
 
         bundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, ctnList)
 
-        val ecsProduct = ECSProduct()
+        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
         if(ctnList?.size !=0) {
             ecsProduct.code = ctnList?.get(0) ?: ""
         }else{

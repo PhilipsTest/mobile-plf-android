@@ -4,9 +4,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.products.ECSProducts;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.products.ECSProducts;
 
 public class FetchProductsFragment extends BaseAPIFragment {
 

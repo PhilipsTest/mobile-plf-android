@@ -19,7 +19,7 @@ import com.ecs.demouapp.ui.address.AddressFields;
 import com.ecs.demouapp.ui.eventhelper.EventHelper;
 import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.Utility;
-import com.philips.cdp.di.ecs.model.address.ECSAddress;
+import com.philips.platform.ecs.model.address.ECSAddress;
 import com.philips.platform.uid.view.widget.RadioButton;
 
 import java.util.List;

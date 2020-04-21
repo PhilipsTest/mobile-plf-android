@@ -11,12 +11,12 @@ package com.philips.platform.mec.screens.orderSummary
 
 
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity
+import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.mec.databinding.MecOrderSummaryVoucherItemBinding
 
 class MECOrderSummaryVoucherHolder(val binding: MecOrderSummaryVoucherItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(voucher: AppliedVoucherEntity) {
+    fun bind(voucher: com.philips.platform.ecs.model.cart.AppliedVoucherEntity) {
         binding.voucher = voucher
     }
 }

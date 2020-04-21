@@ -12,7 +12,7 @@ package com.philips.platform.mec.screens.detail
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback
 import com.bazaarvoice.bvandroidsdk.ConversationsException
-import com.philips.cdp.di.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 
@@ -25,7 +25,7 @@ class MECDetailBulkRatingConversationsDisplayCallback(private val ecsProductDeta
     override fun onFailure(exception: ConversationsException) {
 
         val exception = Exception("Fetch Rating failed")
-        val ecsError = ECSError(1000,"Fetch Rating failed")
+        val ecsError = com.philips.platform.ecs.error.ECSError(1000, "Fetch Rating failed")
         val mecError = MecError(exception, ecsError,MECRequestType.MEC_FETCH_BULK_RATING)
         ecsProductDetailViewModel.mecError.value =mecError
     }

@@ -36,11 +36,10 @@ import com.ecs.demouapp.ui.utils.NetworkUtility;
 import com.ecs.demouapp.ui.utils.Utility;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
-import com.philips.cdp.di.ecs.model.address.ECSAddress;
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
-import com.philips.cdp.di.ecs.model.payment.ECSPayment;
-import com.philips.cdp.di.ecs.model.payment.PaymentMethods;
-import com.philips.cdp.di.ecs.model.region.ECSRegion;
+import com.philips.platform.ecs.model.address.ECSAddress;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.payment.ECSPayment;
+import com.philips.platform.ecs.model.region.ECSRegion;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterfaceException;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 

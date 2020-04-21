@@ -11,8 +11,8 @@ package com.philips.platform.mec.utils
 
 import com.android.volley.DefaultRetryPolicy
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.model.config.ECSConfig
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
@@ -60,8 +60,8 @@ enum class MECDataHolder {
     var retailerEnabled: Boolean = true
     var voucherEnabled: Boolean = true
     var rootCategory: String = ""
-    var config: ECSConfig? = null
-    lateinit var eCSServices: ECSServices
+    var config: com.philips.platform.ecs.model.config.ECSConfig? = null
+    lateinit var eCSServices: com.philips.platform.ecs.ECSServices
 
     var mutableListOfPayments = mutableListOf<MECPayment>()
     var PAYMENT_HOLDER: MECPayments = MECPayments(mutableListOfPayments, false) //Default empty MECPayments
@@ -154,7 +154,7 @@ enum class MECDataHolder {
 
         propositionId = propertyForKey
         voucherEnabled = voucher
-        val ecsServices = ECSServices(propertyForKey, appinfra as AppInfra)
+        val ecsServices = com.philips.platform.ecs.ECSServices(propertyForKey, appinfra as AppInfra)
 
         val defaultRetryPolicy = DefaultRetryPolicy( // 30 second time out
                 30000,

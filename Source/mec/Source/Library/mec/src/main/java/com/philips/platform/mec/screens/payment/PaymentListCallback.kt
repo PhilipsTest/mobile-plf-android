@@ -9,18 +9,18 @@
  */
 package com.philips.platform.mec.screens.payment
 
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.payment.ECSPayment
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class PaymentListCallback(private val paymentViewModel: PaymentViewModel) : ECSCallback<List<ECSPayment>, Exception> {
+class PaymentListCallback(private val paymentViewModel: PaymentViewModel) : com.philips.platform.ecs.integration.ECSCallback<List<com.philips.platform.ecs.model.payment.ECSPayment>, Exception> {
 
     lateinit var mECRequestType : MECRequestType
 
-    override fun onResponse(payments: List<ECSPayment>?) {
+    override fun onResponse(payments: List<com.philips.platform.ecs.model.payment.ECSPayment>?) {
 
         val mecPaymentList : MutableList<MECPayment> = mutableListOf()
 
@@ -37,7 +37,7 @@ class PaymentListCallback(private val paymentViewModel: PaymentViewModel) : ECSC
         paymentViewModel.mecPayments.value = MECPayments(mecPaymentList, true)
     }
 
-    override fun onFailure(error: Exception?, ecsError: ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
 
         if (MECutility.isAuthError(ecsError)) {
             paymentViewModel.retryAPI(mECRequestType)

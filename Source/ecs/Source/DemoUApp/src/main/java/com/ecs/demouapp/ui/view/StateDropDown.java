@@ -9,9 +9,7 @@ import android.widget.ArrayAdapter;
 import com.ecs.demouapp.R;
 import com.ecs.demouapp.ui.adapters.UIPickerAdapter;
 import com.ecs.demouapp.ui.container.CartModelContainer;
-import com.philips.cdp.di.ecs.model.address.Region;
-import com.philips.cdp.di.ecs.model.region.ECSRegion;
-import com.philips.cdp.di.ecs.model.region.RegionsList;
+import com.philips.platform.ecs.model.region.ECSRegion;
 import com.philips.platform.uid.thememanager.UIDHelper;
 import com.philips.platform.uid.view.widget.UIPicker;
 

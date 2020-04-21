@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ecs.demotestuapp.R;
 import com.ecs.demotestuapp.model.PropertyItem;
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
-import com.philips.cdp.di.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.products.ECSProduct;
 import java.util.ArrayList;
 import java.util.List;
 

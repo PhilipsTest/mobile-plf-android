@@ -5,7 +5,7 @@
 
         <variable
             name="retailerList"
-            type="com.philips.cdp.di.ecs.model.retailers.ECSRetailerList" />
+            type="com.philips.platform.ecs.model.retailers.ECSRetailerList" />
 
         <variable
             name="itemClickListener"

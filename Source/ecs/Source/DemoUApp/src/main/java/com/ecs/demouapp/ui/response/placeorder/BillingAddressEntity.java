@@ -1,7 +1,7 @@
 package com.ecs.demouapp.ui.response.placeorder;
 
 
-import com.philips.cdp.di.ecs.model.address.Country;
+import com.philips.platform.ecs.model.address.Country;
 
 /**
  * (C) Koninklijke Philips N.V., 2015.

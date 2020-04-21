@@ -12,11 +12,11 @@ package com.philips.platform.mec.screens.catalog
 import com.bazaarvoice.bvandroidsdk.BulkRatingOptions
 import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest
 import com.bazaarvoice.bvandroidsdk.EqualityOperator
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.products.ECSProduct
-import com.philips.cdp.di.ecs.model.products.ECSProducts
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProducts
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
@@ -24,34 +24,34 @@ import com.philips.platform.mec.utils.MECDataHolder
 class ECSCatalogRepository {
 
 
-    fun getProducts(pageNumber: Int, pageSize: Int, ecsCallback: ECSProductsCallback, eCSServices: ECSServices) {
+    fun getProducts(pageNumber: Int, pageSize: Int, ecsCallback: ECSProductsCallback, eCSServices: com.philips.platform.ecs.ECSServices) {
         eCSServices.fetchProducts(pageNumber, pageSize, ecsCallback)
     }
 
-    fun getCategorizedProductsForRetailer(ctnS: MutableList<String>, ecsProductListCallback: ECSProductListCallback, eCSServices: ECSServices) {
+    fun getCategorizedProductsForRetailer(ctnS: MutableList<String>, ecsProductListCallback: ECSProductListCallback, eCSServices: com.philips.platform.ecs.ECSServices) {
         eCSServices.fetchProductSummaries(ctnS, ecsProductListCallback)
     }
 
     //TODO
-    fun getCategorizedProducts(pageNumber: Int, pageSize: Int,numberOFCTnsTobeSerached: Int, ctns: List<String>, existingList : MutableList<ECSProducts>?, ecsProductViewModel: EcsProductViewModel) {
+    fun getCategorizedProducts(pageNumber: Int, pageSize: Int, numberOFCTnsTobeSerached: Int, ctns: List<String>, existingList : MutableList<com.philips.platform.ecs.model.products.ECSProducts>?, ecsProductViewModel: EcsProductViewModel) {
 
 
         var modifiedList = existingList
         val ecsServices = MECDataHolder.INSTANCE.eCSServices
-        ecsServices.fetchProducts(pageNumber, pageSize, object : ECSCallback<ECSProducts, Exception> {
+        ecsServices.fetchProducts(pageNumber, pageSize, object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.products.ECSProducts, Exception> {
 
-            override fun onFailure(error: Exception?, ecsError: ECSError?) {
+            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                 val mecError = MecError(error, ecsError,null)
                 ecsProductViewModel.mecError.value = mecError
             }
 
-            override fun onResponse(ecsProducts: ECSProducts) {
+            override fun onResponse(ecsProducts: com.philips.platform.ecs.model.products.ECSProducts) {
 
                 val mutableLiveData = ecsProductViewModel.ecsProductsList
 
 
                 //add logic
-                val ecsProductFoundList = mutableListOf<ECSProduct>()
+                val ecsProductFoundList = mutableListOf<com.philips.platform.ecs.model.products.ECSProduct>()
 
                 for (ctn in ctns) {
 
@@ -107,7 +107,7 @@ class ECSCatalogRepository {
             }
 
             //Remove already found categorizedCtns from search list
-            private fun getCTNsToBeSearched(ctns: MutableList<String>, ecsProductList: MutableList<ECSProduct>): MutableList<String> {
+            private fun getCTNsToBeSearched(ctns: MutableList<String>, ecsProductList: MutableList<com.philips.platform.ecs.model.products.ECSProduct>): MutableList<String> {
                 for (ecsProduct in ecsProductList) {
                     ctns.remove(ecsProduct.code)
                 }
@@ -126,19 +126,19 @@ class ECSCatalogRepository {
 
     * */
 
-    private fun shouldBreakTheLoop(pageNumber: Int, ecsProductsList: MutableList<ECSProducts>, numberOFCTnsTobeSerached: Int) :Boolean {
+    private fun shouldBreakTheLoop(pageNumber: Int, ecsProductsList: MutableList<com.philips.platform.ecs.model.products.ECSProducts>, numberOFCTnsTobeSerached: Int) :Boolean {
         return shouldDoFivePageCall(pageNumber, ecsProductsList, numberOFCTnsTobeSerached)
 
     }
 
-    private fun shouldDoFivePageCall(pageNumber: Int, ecsProducts: MutableList<ECSProducts>, numberOFCTnsTobeSerached: Int): Boolean {
+    private fun shouldDoFivePageCall(pageNumber: Int, ecsProducts: MutableList<com.philips.platform.ecs.model.products.ECSProducts>, numberOFCTnsTobeSerached: Int): Boolean {
         return  (isProductNotFound(ecsProducts) && didReachThreshold(pageNumber))||
                 didReachLastPage(pageNumber , ecsProducts) ||
                 isAllProductsFound(numberOFCTnsTobeSerached,ecsProducts) ||
                 didProductsFondReachPageSize(pageNumber,ecsProducts)
     }
 
-    private fun getAllProductCount(ecsProductsList: MutableList<ECSProducts>):Int{
+    private fun getAllProductCount(ecsProductsList: MutableList<com.philips.platform.ecs.model.products.ECSProducts>):Int{
 
         var count = 0
 
@@ -149,7 +149,7 @@ class ECSCatalogRepository {
     }
 
 
-    private fun getAllProductCTNs(ecsProductsList: MutableList<ECSProducts>):ArrayList<String>{
+    private fun getAllProductCTNs(ecsProductsList: MutableList<com.philips.platform.ecs.model.products.ECSProducts>):ArrayList<String>{
 
         var ctnList: MutableList<String> = mutableListOf()
 
@@ -163,18 +163,18 @@ class ECSCatalogRepository {
         return ctnList as ArrayList<String>
     }
 
-    private fun didProductsFondReachPageSize(pageNumber: Int,ecsProducts: MutableList<ECSProducts>) = (getAllProductCount(ecsProducts) / (pageNumber+1)) == ecsProducts.get(ecsProducts.size -1).pagination.pageSize
+    private fun didProductsFondReachPageSize(pageNumber: Int,ecsProducts: MutableList<com.philips.platform.ecs.model.products.ECSProducts>) = (getAllProductCount(ecsProducts) / (pageNumber+1)) == ecsProducts.get(ecsProducts.size -1).pagination.pageSize
 
-    private fun isProductNotFound(ecsProducts: MutableList<ECSProducts>) = getAllProductCount(ecsProducts) == 0
+    private fun isProductNotFound(ecsProducts: MutableList<com.philips.platform.ecs.model.products.ECSProducts>) = getAllProductCount(ecsProducts) == 0
 
-    private fun isAllProductsFound(ctnsTobeSearchedSize: Int ,ecsProducts: MutableList<ECSProducts>) = ctnsTobeSearchedSize == getAllProductCount(ecsProducts)
+    private fun isAllProductsFound(ctnsTobeSearchedSize: Int ,ecsProducts: MutableList<com.philips.platform.ecs.model.products.ECSProducts>) = ctnsTobeSearchedSize == getAllProductCount(ecsProducts)
 
     private fun didReachThreshold(pageNumber : Int) =  0 == (pageNumber + 1) % MECConstant.THRESHOLD
 
-    private fun didReachLastPage(pageNumber : Int,ecsProducts: MutableList<ECSProducts>) = pageNumber == ecsProducts.get(ecsProducts.size -1).pagination.totalPages-1
+    private fun didReachLastPage(pageNumber : Int,ecsProducts: MutableList<com.philips.platform.ecs.model.products.ECSProducts>) = pageNumber == ecsProducts.get(ecsProducts.size -1).pagination.totalPages-1
 
 
-    fun fetchProductReview(ecsProducts: List<ECSProduct> , ecsProductViewModel: EcsProductViewModel){
+    fun fetchProductReview(ecsProducts: List<com.philips.platform.ecs.model.products.ECSProduct>, ecsProductViewModel: EcsProductViewModel){
 
         val mecConversationsDisplayCallback = MECBulkRatingConversationsDisplayCallback(ecsProducts, ecsProductViewModel)
         var ctnList: MutableList<String> = mutableListOf()

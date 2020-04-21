@@ -22,14 +22,14 @@ import com.bazaarvoice.bvandroidsdk.ContextDataValue
 import com.bazaarvoice.bvandroidsdk.Review
 import com.bazaarvoice.bvandroidsdk.ReviewResponse
 import com.google.gson.internal.LinkedTreeMap
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.asset.Asset
-import com.philips.cdp.di.ecs.model.asset.Assets
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.products.ECSProduct
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.asset.Asset
+import com.philips.platform.ecs.model.asset.Assets
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.retailers.ECSRetailer
+import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.detail.MECProductDetailsFragment.Companion.tagOutOfStockActions
@@ -43,10 +43,10 @@ import java.util.*
 
 class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
-    var ecsProduct = MutableLiveData<ECSProduct>()
+    var ecsProduct = MutableLiveData<com.philips.platform.ecs.model.products.ECSProduct>()
 
-    lateinit var ecsProductAsParamter :ECSProduct
-    lateinit var  addToProductCallBack :ECSCallback<ECSShoppingCart, Exception>
+    lateinit var ecsProductAsParamter : com.philips.platform.ecs.model.products.ECSProduct
+    lateinit var  addToProductCallBack : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception>
 
     val bulkRatingResponse= MutableLiveData<BulkRatingsResponse>()
 
@@ -65,7 +65,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         ecsProductDetailRepository.getRatings(ctn)
     }
 
-    fun getProductDetail(ecsProduct: ECSProduct){
+    fun getProductDetail(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct){
         ecsProductDetailRepository.getProductDetail(ecsProduct)
     }
 
@@ -73,14 +73,14 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         ecsProductDetailRepository.fetchProductReview(ctn, pageNumber, pageSize)
     }
 
-    fun addProductToShoppingcart(ecsProduct: ECSProduct, addToProductCallback  :ECSCallback<ECSShoppingCart, Exception>){
+    fun addProductToShoppingcart(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct, addToProductCallback  : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception>){
         ecsProductAsParamter=ecsProduct
         addToProductCallBack=addToProductCallback
         ecsProductDetailRepository.addTocart(ecsProductAsParamter)
     }
 
 
-    override fun authFailureCallback(error: Exception?, ecsError: ECSError?){
+    override fun authFailureCallback(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?){
         MECLog.v("Auth","refresh auth failed");
         addToProductCallBack.onFailure(error,ecsError)
     }
@@ -91,11 +91,11 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
     }
 
     fun createShoppingCart(request: String){
-        val createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, Exception>{
-            override fun onResponse(result: ECSShoppingCart?) {
+        val createShoppingCartCallback=  object: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception> {
+            override fun onResponse(result: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
                 addProductToShoppingcart(ecsProductAsParamter,addToProductCallBack)
             }
-            override fun onFailure(error: Exception?, ecsError: ECSError?) {
+            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                 TODO(" create cart must NOT fail")
             }
         }
@@ -112,7 +112,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
         @JvmStatic
         @BindingAdapter("setDisclaimer")
-        fun setDisclaimer(label: Label, ecsProduct: ECSProduct?) {
+        fun setDisclaimer(label: Label, ecsProduct: com.philips.platform.ecs.model.products.ECSProduct?) {
 
             val disclaimerStringBuilder = StringBuilder()
 
@@ -128,7 +128,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
         @JvmStatic
         @BindingAdapter("setStockInfo")
-        fun setStockInfo(stockLabel : Label, product: ECSProduct?) {
+        fun setStockInfo(stockLabel : Label, product: com.philips.platform.ecs.model.products.ECSProduct?) {
             if(null!=product && null!= product.stock) {
                 if (MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) {
                     stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
@@ -213,7 +213,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         return useDurationValue.toString()
     }
 
-    fun removeBlacklistedRetailers(ecsRetailers: ECSRetailerList): ECSRetailerList {
+    fun removeBlacklistedRetailers(ecsRetailers: com.philips.platform.ecs.model.retailers.ECSRetailerList): com.philips.platform.ecs.model.retailers.ECSRetailerList {
         val list = MECDataHolder.INSTANCE.blackListedRetailers
         if(list == null){
             return ecsRetailers
@@ -249,11 +249,11 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         return supplierLinkWithUUID + UUID.randomUUID().toString()
     }
 
-    fun isPhilipsShop(retailer: ECSRetailer): Boolean {
+    fun isPhilipsShop(retailer: com.philips.platform.ecs.model.retailers.ECSRetailer): Boolean {
         return retailer.isPhilipsStore.equals("Y", ignoreCase = true)
     }
 
-    fun setStockInfoWithRetailer(stockLabel : Label, product: ECSProduct? ,ecsRetailers: ECSRetailerList) {
+    fun setStockInfoWithRetailer(stockLabel : Label, product: com.philips.platform.ecs.model.products.ECSProduct?, ecsRetailers: com.philips.platform.ecs.model.retailers.ECSRetailerList) {
             if(!MECDataHolder.INSTANCE.hybrisEnabled) {
                 if (ecsRetailers.retailers.size>0) {
                     var availability=false
@@ -332,12 +332,12 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         }
     }
 
-    fun addNoAsset(product: ECSProduct) {
-        var asset = Asset()
+    fun addNoAsset(product: com.philips.platform.ecs.model.products.ECSProduct) {
+        var asset = com.philips.platform.ecs.model.asset.Asset()
         asset.asset = "NO Image Asset Found"
         asset.type = "APP"
 
-        var assets = Assets()
+        var assets = com.philips.platform.ecs.model.asset.Assets()
         assets.asset = Arrays.asList(asset)
         product.assets = assets
 

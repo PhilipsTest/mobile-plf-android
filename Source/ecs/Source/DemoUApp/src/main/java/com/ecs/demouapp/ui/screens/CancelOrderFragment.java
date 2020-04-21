@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.ecs.demouapp.R;
 import com.ecs.demouapp.ui.session.NetworkConstants;
 import com.ecs.demouapp.ui.utils.ECSConstant;
-import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.ecs.util.ECSConfiguration;
 
 
 public class CancelOrderFragment extends InAppBaseFragment {

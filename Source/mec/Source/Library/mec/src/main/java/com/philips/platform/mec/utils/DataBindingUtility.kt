@@ -18,9 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.NetworkImageView
-import com.philips.cdp.di.ecs.model.asset.Asset
+import com.philips.platform.ecs.model.asset.Asset
 import com.philips.platform.mec.R
-import com.philips.platform.mec.networkEssentials.NetworkImageLoader
 import com.philips.platform.mec.screens.detail.ImageAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureChildRecyclerAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureParentRecyclerAdapter
@@ -67,7 +66,7 @@ class DataBindingUtility {
 
         @JvmStatic
         @BindingAdapter("assets")
-        fun setAdapter(pager: ViewPager, assets: List<Asset> ?) {
+        fun setAdapter(pager: ViewPager, assets: List<com.philips.platform.ecs.model.asset.Asset> ?) {
             if(assets!=null) {
 
                 // modifying url for specific size image
