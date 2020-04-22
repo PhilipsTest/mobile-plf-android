@@ -9,10 +9,6 @@
  */
 package com.philips.platform.mec.screens.address
 
-import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.address.ECSDeliveryMode
-
 class AddressRepository(val ecsServices: com.philips.platform.ecs.ECSServices) {
 
 
