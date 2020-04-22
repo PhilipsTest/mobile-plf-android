@@ -69,7 +69,7 @@ public class PIMLoginManager {
                         mPimUserManager.saveLoginFlowType(PIMUserManager.LOGIN_FLOW.DEFAULT);
                         if (mPimLoginListener != null)
                             mPimLoginListener.onLoginSuccess();
-                          }
+                    }
 
                     @Override
                     public void onUserProfileDownloadFailed(Error error) {
@@ -129,14 +129,14 @@ public class PIMLoginManager {
         AppTaggingInterface.PrivacyStatus privacyConsent = mTaggingInterface.getPrivacyConsent();
         boolean bool;
         bool = privacyConsent.equals(AppTaggingInterface.PrivacyStatus.OPTIN);
-        parameter.put("consents", addConsentLists().toString());
-        parameter.put("analytics_consent", String.valueOf(bool));
+        parameter.put("consents", getConsentList());
+        //parameter.put("analytics_consent", String.valueOf(bool));
         String urlString = "http://";
         String[] urlStringWithVisitorData = mTaggingInterface.getVisitorIDAppendToURL(urlString).split("=");
         mLoggingInterface.log(DEBUG, TAG, "External URL with Adobe_mc : " + urlStringWithVisitorData[1]);
         parameter.put("adobe_mc", urlStringWithVisitorData[1]);
         parameter.put("ui_locales", PIMSettingManager.getInstance().getLocale());
-        parameter.put("analytics_report_suite_id", new PIMOIDCConfigration().getrsID());
+        parameter.put("analytics_report_suite_id", mPimoidcConfigration.getrsID());
         mLoggingInterface.log(DEBUG, TAG, "Additional parameters : " + parameter.toString());
         return parameter;
     }
@@ -153,6 +153,26 @@ public class PIMLoginManager {
             consentList.add(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent);
         mLoggingInterface.log(DEBUG, TAG, "consent list parameters : " + consentList.toString());
         return consentList;
+    }
+
+    private String getConsentList() {
+        AppTaggingInterface.PrivacyStatus privacyConsent = mTaggingInterface.getPrivacyConsent();
+        boolean isAnalyticsEnabled = privacyConsent.equals(AppTaggingInterface.PrivacyStatus.OPTIN);
+        boolean isABTesingEnabled =false;
+        String consents = "";
+
+        if (consentParameterMap != null && consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT) != null
+                && (Boolean) consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT))
+            isABTesingEnabled = true;
+
+        if(isAnalyticsEnabled && isABTesingEnabled)
+            consents = PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT.pimConsent +","+PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent;
+        else if (isAnalyticsEnabled)
+            consents = PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT.pimConsent;
+        else if(isABTesingEnabled)
+            consents = PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent;
+        mLoggingInterface.log(DEBUG, TAG, "consent list parameters : " + consents);
+        return consents;
     }
 
     public void exchangeCodeOnEmailVerify() {
