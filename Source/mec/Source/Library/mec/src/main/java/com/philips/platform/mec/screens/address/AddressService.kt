@@ -1,6 +1,5 @@
 package com.philips.platform.mec.screens.address
 
-import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.mec.R
 import com.philips.platform.mec.utils.MECDataHolder
 

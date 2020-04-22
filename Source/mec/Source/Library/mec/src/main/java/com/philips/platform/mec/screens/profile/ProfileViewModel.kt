@@ -12,15 +12,16 @@ package com.philips.platform.mec.screens.profile
 
 import androidx.lifecycle.MutableLiveData
 import com.philips.platform.ecs.model.address.ECSUserProfile
+import com.philips.platform.mec.common.CommonViewModel
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 
-class ProfileViewModel : com.philips.platform.mec.common.CommonViewModel() {
+class ProfileViewModel : CommonViewModel() {
 
 
-    val userProfile = MutableLiveData<com.philips.platform.ecs.model.address.ECSUserProfile>()
+    var userProfile = MutableLiveData<ECSUserProfile>()
 
-    private var ecsUserProfileCallBack = ECSUserProfileCallBack(this)
+    var ecsUserProfileCallBack = ECSUserProfileCallBack(this)
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 

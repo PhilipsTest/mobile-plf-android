@@ -43,8 +43,6 @@ class ECSRetailerListCallbackTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-//        Mockito.`when`(ecsRetailerViewModelMock.ecsRetailerList).thenReturn(mutableLiveDataMock)
-//        Mockito.`when`(ecsRetailerViewModelMock.mecError).thenReturn(mutableLiveDataMecErrorMock)
         ecsRetailerListCallback = ECSRetailerListCallback(ecsRetailerViewModelMock)
     }
 

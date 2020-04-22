@@ -10,9 +10,6 @@
 package com.philips.platform.mec.screens.payment
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.orders.ECSOrderDetail
-import com.philips.platform.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 

@@ -22,37 +22,37 @@ import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 
-class ECSShoppingCartRepository(ecsShoppingCartViewModel: EcsShoppingCartViewModel, val ecsServices: com.philips.platform.ecs.ECSServices)
+class ECSShoppingCartRepository(var ecsShoppingCartViewModel: EcsShoppingCartViewModel, var ecsServices: ECSServices)
 {
-    private var ecsShoppingCartCallback= ECSShoppingCartCallback(ecsShoppingCartViewModel)
+    var ecsShoppingCartCallback= ECSShoppingCartCallback(ecsShoppingCartViewModel)
 
-    var authCallBack = object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.oauth.ECSOAuthData, Exception> {
+    var authCallBack = object : ECSCallback<ECSOAuthData, Exception> {
 
-        override fun onResponse(result: com.philips.platform.ecs.model.oauth.ECSOAuthData?) {
+        override fun onResponse(result: ECSOAuthData?) {
             fetchShoppingCart()
         }
 
-        override fun onFailure(error: Exception, ecsError: com.philips.platform.ecs.error.ECSError) {
+        override fun onFailure(error: Exception, ecsError: ECSError) {
             val mecError = MecError(error, ecsError,MECRequestType.MEC_HYBRIS_AUTH)
             ecsShoppingCartViewModel.mecError.value = mecError
         }
     }
 
      fun fetchShoppingCart() {
-
-         if(!MECutility.isExistingUser() || com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.accessToken == null) {
+         ecsShoppingCartCallback.mECRequestType=MECRequestType.MEC_FETCH_SHOPPING_CART
+         if(!MECutility.isExistingUser() || ECSConfiguration.INSTANCE.accessToken == null) {
              HybrisAuth.hybrisAuthentication(authCallBack)
          }else{
              this.ecsServices.fetchShoppingCart(ecsShoppingCartCallback)
          }
     }
 
-    fun updateShoppingCart(entries: com.philips.platform.ecs.model.cart.ECSEntries, quantity: Int) {
+    fun updateShoppingCart(entries: ECSEntries, quantity: Int) {
         ecsShoppingCartCallback.mECRequestType=MECRequestType.MEC_UPDATE_SHOPPING_CART
         this.ecsServices.updateShoppingCart(quantity,entries,ecsShoppingCartCallback)
     }
 
-    fun fetchProductReview(ecsEntries: MutableList<com.philips.platform.ecs.model.cart.ECSEntries>, ecsShoppingCartViewModel: EcsShoppingCartViewModel){
+    fun fetchProductReview(ecsEntries: MutableList<ECSEntries>, ecsShoppingCartViewModel: EcsShoppingCartViewModel){
 
         val mecConversationsDisplayCallback = MECBulkRatingCallback(ecsEntries, ecsShoppingCartViewModel)
         val ctnList: MutableList<String> = mutableListOf()
@@ -74,7 +74,7 @@ class ECSShoppingCartRepository(ecsShoppingCartViewModel: EcsShoppingCartViewMod
         ecsServices.removeVoucher(voucherCode,ecsVoucherCallback)
     }
 
-    fun createCart(createShoppingCartCallback: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception>){
+    fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){
         ecsServices.createShoppingCart(createShoppingCartCallback)
     }
 

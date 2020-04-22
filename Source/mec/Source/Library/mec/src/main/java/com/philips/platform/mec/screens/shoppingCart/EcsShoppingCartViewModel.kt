@@ -40,9 +40,9 @@ import com.philips.platform.uid.view.widget.Label
 
 open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
-    var ecsShoppingCart = MutableLiveData<com.philips.platform.ecs.model.cart.ECSShoppingCart>()
+    var ecsShoppingCart = MutableLiveData<ECSShoppingCart>()
 
-    var ecsVoucher = MutableLiveData<List<com.philips.platform.ecs.model.voucher.ECSVoucher>>()
+    var ecsVoucher = MutableLiveData<List<ECSVoucher>>()
 
     val ecsProductsReviewList = MutableLiveData<MutableList<MECCartProductReview>>()
 
@@ -50,12 +50,12 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
-     lateinit  var updateQuantityEntries : com.philips.platform.ecs.model.cart.ECSEntries
+     var updateQuantityEntries : ECSEntries? =null
      var updateQuantityNumber:Int = 0
      lateinit  var addVoucherString :String
      lateinit var deleteVoucherString :String
 
-    private var ecsShoppingCartRepository = ECSShoppingCartRepository(this,ecsServices)
+     var ecsShoppingCartRepository = ECSShoppingCartRepository(this,ecsServices)
 
 
 
@@ -66,25 +66,27 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     }
 
     fun createShoppingCart(request: String){
-        val createShoppingCartCallback=  object: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception> {
-            override fun onResponse(result: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
-                getShoppingCart()
-            }
-            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
-                val mECError = MecError(error, ecsError,null)
-                mecError.value = mECError
-            }
-        }
         ecsShoppingCartRepository.createCart(createShoppingCartCallback)
     }
 
-    fun updateQuantity(entries: com.philips.platform.ecs.model.cart.ECSEntries, quantity: Int) {
+    var createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, Exception> {
+        override fun onResponse(result: ECSShoppingCart?) {
+            getShoppingCart()
+        }
+        override fun onFailure(error: Exception?, ecsError: ECSError?) {
+            val mECError = MecError(error, ecsError,null)
+            mecError.value = mECError
+        }
+    }
+
+
+    fun updateQuantity(entries: ECSEntries, quantity: Int) {
         updateQuantityEntries=entries
         updateQuantityNumber=quantity
         ecsShoppingCartRepository.updateShoppingCart(entries,quantity)
     }
 
-    fun fetchProductReview(entries: MutableList<com.philips.platform.ecs.model.cart.ECSEntries>) {
+    fun fetchProductReview(entries: MutableList<ECSEntries>) {
         ecsShoppingCartRepository.fetchProductReview(entries, this)
     }
 
@@ -113,10 +115,10 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     }
 
     fun tagProductIfDeleted(){
-        if(updateQuantityNumber<updateQuantityEntries.quantity){ // if product quantity is reduced or deleted(updateQuantityNumber=0)
+        if(updateQuantityNumber< updateQuantityEntries?.quantity!!){ // if product quantity is reduced or deleted(updateQuantityNumber=0)
             var actionMap = HashMap<String, String>()
             actionMap.put(MECAnalyticsConstant.specialEvents, scRemove)
-            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfo(updateQuantityEntries.product!!))
+            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfo(updateQuantityEntries?.product!!))
             MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
         }
 
@@ -127,7 +129,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
         lateinit  var APIcall: () -> Unit
         when(mecRequestType) {
             MECRequestType.MEC_FETCH_SHOPPING_CART  -> APIcall = { getShoppingCart() }
-            MECRequestType.MEC_UPDATE_SHOPPING_CART -> APIcall = { updateQuantity(updateQuantityEntries,updateQuantityNumber) }
+            MECRequestType.MEC_UPDATE_SHOPPING_CART -> APIcall = { updateQuantityEntries?.let { updateQuantity(it,updateQuantityNumber) } }
             MECRequestType.MEC_APPLY_VOUCHER        -> APIcall = { addVoucher(addVoucherString,ecsVoucherCallback.mECRequestType) }
             MECRequestType.MEC_REMOVE_VOUCHER       -> APIcall = { removeVoucher(deleteVoucherString) }
 
@@ -147,7 +149,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     companion object {
         @JvmStatic
         @BindingAdapter("setPrice", "totalPriceEntity")
-        fun setPrice(priceLabel: Label, product: com.philips.platform.ecs.model.products.ECSProduct?, basePriceEntity: com.philips.platform.ecs.model.cart.BasePriceEntity?) {
+        fun setPrice(priceLabel: Label, product: ECSProduct?, basePriceEntity: BasePriceEntity?) {
             val textSize16 = priceLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_discount_price_label_size)
             val textSize12 = priceLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_price_label_size);
             if (product != null && basePriceEntity!!.formattedValue != null && basePriceEntity?.formattedValue!!.length > 0 && (product.price.value - basePriceEntity.value) > 0) {
