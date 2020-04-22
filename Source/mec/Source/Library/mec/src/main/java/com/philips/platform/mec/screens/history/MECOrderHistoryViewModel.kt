@@ -35,6 +35,8 @@ class MECOrderHistoryViewModel : CommonViewModel() , ECSCallback<ECSOAuthData, E
 
     var ecsOrderHistory = MutableLiveData<ECSOrderHistory>()
 
+    var ecsOrders = MutableLiveData<ECSOrders>()
+
     var mPageNumber = 0
     var mPageSize = 20
     var mECSOrders : ECSOrders? = null
@@ -61,7 +63,7 @@ class MECOrderHistoryViewModel : CommonViewModel() , ECSCallback<ECSOAuthData, E
         if(!MECutility.isExistingUser() || ECSConfiguration.INSTANCE.accessToken == null) {
             HybrisAuth.hybrisAuthentication(this)
         }else{
-            mecOrderHistoryRepository.fetchOrderSummary(pageNumber, pageSize, ecsOrderHistoryCallback)
+            mecOrderHistoryRepository.fetchOrderHistory(pageNumber, pageSize, ecsOrderHistoryCallback)
         }
     }
 

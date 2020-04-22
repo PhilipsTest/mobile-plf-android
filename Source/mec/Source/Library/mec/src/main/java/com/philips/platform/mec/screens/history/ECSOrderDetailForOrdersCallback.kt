@@ -24,7 +24,7 @@ class ECSOrderDetailForOrdersCallback(private val mecOrderHistoryViewModel: MECO
     var mECRequestType = MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS
 
     override fun onResponse(result: ECSOrders?) {
-       //No need to do anything
+        mecOrderHistoryViewModel.ecsOrders.value = result
     }
 
     override fun onFailure(error: Exception?, ecsError: ECSError?) {

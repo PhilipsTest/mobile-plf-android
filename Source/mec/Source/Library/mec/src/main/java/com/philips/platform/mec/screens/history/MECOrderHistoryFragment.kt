@@ -24,6 +24,7 @@ import com.philips.platform.ecs.model.orders.ECSOrderHistory
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.ItemClickListener
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -44,6 +45,9 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     private var pageNumber = 0
     private var pageSize = 5
     private var totalPage = 0
+
+    private var totalThreadRequest = 0
+    private var totalThreadResponse = 0
 
     private var ordersList = mutableListOf<ECSOrders>()
 
@@ -69,31 +73,32 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         }
     }
 
-    private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
-        val jobs = mutableListOf<Deferred<Unit>>()
-
-        // wait this for loop to be over using kotlin co-routine
-        CoroutineScope(IO).launch {
-
-            suspend {
-                for (orders in orderList) {
-                    mecOrderHistoryViewModel.fetchOrderDetail(orders)
-                    //jobs.add(jab)
-                }
-
-                withContext(Dispatchers.Main) {
-                    hidePaginationProgressBar()
-                    hideFullScreenProgressBar()
-                    isCallOnProgress = false
-                    mecOrderHistoryAdapter.notifyDataSetChanged()
-                }
-
-            }.invoke()
-            //jobs.awaitAll()
-
-
+    private val orderDetailObserver: Observer<ECSOrders> = Observer { ecsOrders ->
+        totalThreadResponse++
+        if(totalThreadRequest == totalThreadResponse){
+            showData()
         }
 
+    }
+
+    private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
+        reinitializeThreadCounts()
+        totalThreadRequest = orderList.size
+        for (orders in orderList) {
+            mecOrderHistoryViewModel.fetchOrderDetail(orders)
+        }
+    }
+
+    private fun reinitializeThreadCounts() {
+        totalThreadRequest = 0
+        totalThreadResponse = 0
+    }
+
+    private fun showData(){
+        hidePaginationProgressBar()
+        hideFullScreenProgressBar()
+        isCallOnProgress = false
+        mecOrderHistoryAdapter.notifyDataSetChanged()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -104,7 +109,9 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
             mecOrderHistoryViewModel = ViewModelProvider(this).get(MECOrderHistoryViewModel::class.java)
             mecOrderHistoryViewModel.ecsOrderHistory.observe(viewLifecycleOwner, orderHistoryObserver)
+            mecOrderHistoryViewModel.ecsOrders.observe(viewLifecycleOwner,orderDetailObserver)
             mecOrderHistoryViewModel.mecError.observe(viewLifecycleOwner, this)
+
             mecOrderHistoryAdapter = MECOrderHistoryAdapter(ordersList,this )
 
             binding.recyclerOrderHistory.adapter = mecOrderHistoryAdapter
@@ -139,6 +146,10 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {
+
+        if(mecError?.mECRequestType == MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS){
+            totalThreadResponse++
+        }
         super.processError(mecError, false)
         isCallOnProgress = false
         showErrorDialog(mecError)
