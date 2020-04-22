@@ -16,7 +16,6 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderConfirmationPage
 import com.philips.platform.mec.analytics.MECAnalytics

@@ -84,9 +84,10 @@ class MECAnalytics {
 
         @JvmStatic
         fun trackMultipleActions(state: String, map: Map<String, String>) {
-            if (mAppTaggingInterface != null)
+            if (mAppTaggingInterface != null) {
                 MECLog.v(TAG, "trackMtlutipleAction ")
-            mAppTaggingInterface!!.trackActionWithInfo(state, addCountryAndCurrency(map))
+                mAppTaggingInterface!!.trackActionWithInfo(state, addCountryAndCurrency(map))
+            }
         }
 
 

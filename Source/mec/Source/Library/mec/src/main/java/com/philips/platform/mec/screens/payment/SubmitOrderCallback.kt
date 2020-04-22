@@ -9,9 +9,6 @@
  */
 package com.philips.platform.mec.screens.payment
 
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
