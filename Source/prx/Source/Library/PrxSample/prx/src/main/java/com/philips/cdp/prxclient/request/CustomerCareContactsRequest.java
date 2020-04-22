@@ -19,6 +19,9 @@ import com.philips.cdp.prxclient.response.ResponseData;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * The type Product summary request.
@@ -27,6 +30,7 @@ public class CustomerCareContactsRequest extends PrxRequest {
 
     private static final String PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID = "cc.cdls";
     private String mRequestTag = null;
+    private String mProductCategory;
 
     /**
      * Instantiates a new Product summary request.
@@ -35,7 +39,7 @@ public class CustomerCareContactsRequest extends PrxRequest {
      */
     public CustomerCareContactsRequest(String productCategory) {
         super(PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID, PrxConstants.Sector.B2C, PrxConstants.Catalog.CARE);
-        setCategory(productCategory);
+        mProductCategory = productCategory;
     }
 
     /**
@@ -48,12 +52,21 @@ public class CustomerCareContactsRequest extends PrxRequest {
      */
     public CustomerCareContactsRequest(String productCategory, PrxConstants.Sector sector, PrxConstants.Catalog catalog, String requestTag) {
         super(PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID, sector, catalog);
-        setCategory(productCategory);
         this.mRequestTag = requestTag;
+        mProductCategory = productCategory;
     }
 
     @Override
     public ResponseData getResponseData(JSONObject jsonObject) {
         return new ContactsModel().parseJsonResponseData(jsonObject);
+    }
+
+    @Override
+    public Map<String, String> getReplaceURLMap() {
+        Map<String, String> replaceUrl = new HashMap<>();
+        replaceUrl.put("productCategory", mProductCategory);
+        replaceUrl.put("productSector",getSector().toString());
+        replaceUrl.put("productCatalog",getCatalog().toString());
+        return replaceUrl;
     }
 }

@@ -37,11 +37,6 @@ public abstract class PrxRequest {
 
     private List<String> mCtns;
 
-    public void setCategory(String mCategory) {
-        this.mCategory = mCategory;
-    }
-
-    private String mCategory;
     /**
      * PRX request constructor.
      * @param ctn CTN of the product
@@ -80,6 +75,7 @@ public abstract class PrxRequest {
         this.mSector = sector;
         this.mCatalog = catalog;
     }
+
 
     /**
      * PRX request constructor.
@@ -154,19 +150,7 @@ public abstract class PrxRequest {
      * @since 1.0.0
      */
     public void getRequestUrlFromAppInfra(final AppInfraInterface appInfra, final OnUrlReceived listener) {
-        Map<String, String> replaceUrl = new HashMap<>();
-        if(mCtn!=null) {
-            replaceUrl.put("ctn", mCtn);
-        }
 
-        if(mCategory!=null) {
-            replaceUrl.put("productCategory", mCategory);
-            replaceUrl.put("productSector",getSector().toString());
-            replaceUrl.put("productCatalog",getCatalog().toString());
-        }
-        replaceUrl.put("sector", getSector().toString());
-        replaceUrl.put("catalog", getCatalog().toString());
-        // replaceUrl.put("locale", locale);
 
         ArrayList<String> serviceIDList = new ArrayList<>();
         serviceIDList.add(mServiceId);
@@ -182,7 +166,19 @@ public abstract class PrxRequest {
                 appInfra.getLogging().log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, "prx ERRORVALUES "+ message);
                 listener.onError(error, message);
             }
-        },replaceUrl);
+        },getReplaceURLMap());
+    }
+
+    /**
+     *
+     * @return map of values which is replaced on URL query
+     */
+    public Map<String, String> getReplaceURLMap(){
+        Map<String, String> replaceUrl = new HashMap<>();
+        replaceUrl.put("ctn", mCtn);
+        replaceUrl.put("sector", getSector().toString());
+        replaceUrl.put("catalog", getCatalog().toString());
+        return replaceUrl;
     }
 
 
