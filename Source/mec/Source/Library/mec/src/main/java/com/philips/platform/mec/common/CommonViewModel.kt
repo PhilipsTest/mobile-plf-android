@@ -11,23 +11,26 @@ package com.philips.platform.mec.common
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 
 open class CommonViewModel : ViewModel() {
-    val mecError = MutableLiveData<MecError>()
+    var mecError = MutableLiveData<MecError>()
 
 
-    var authFailCallback = { error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError? -> authFailureCallback(error, ecsError) }
+    var authFailCallback = { error: Exception?, ecsError: ECSError? -> authFailureCallback(error, ecsError) }
 
-    fun authAndCallAPIagain(retryAPIcall: () -> Unit, authFailureCallback: (Exception, com.philips.platform.ecs.error.ECSError) -> Unit) {
-        val authCallback = object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.oauth.ECSOAuthData, Exception> {
-            override fun onResponse(result: com.philips.platform.ecs.model.oauth.ECSOAuthData?) {
+    fun authAndCallAPIagain(retryAPIcall: () -> Unit, authFailureCallback: (Exception, ECSError) -> Unit) {
+        val authCallback = object : ECSCallback<ECSOAuthData, Exception> {
+            override fun onResponse(result: ECSOAuthData?) {
                 retryAPIcall.invoke()
             }
 
-            override fun onFailure(error: Exception, ecsError: com.philips.platform.ecs.error.ECSError) {
+            override fun onFailure(error: Exception, ecsError: ECSError) {
                 authFailureCallback.invoke(error, ecsError)
             }
         }
@@ -36,7 +39,7 @@ open class CommonViewModel : ViewModel() {
         else HybrisAuth.refreshJainrain(authCallback)
     }
 
-    open fun authFailureCallback(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+    open fun authFailureCallback(error: Exception?, ecsError: ECSError?) {
         MECLog.e("Auth", "refresh auth failed $ecsError");
         val mecError = MecError(error, ecsError, null)
         this.mecError.value = mecError

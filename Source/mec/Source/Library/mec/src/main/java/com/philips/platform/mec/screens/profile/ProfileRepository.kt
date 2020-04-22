@@ -11,7 +11,7 @@ package com.philips.platform.mec.screens.profile
 
 import com.philips.platform.ecs.ECSServices
 
-class ProfileRepository(val ecsServices: com.philips.platform.ecs.ECSServices) {
+class ProfileRepository(var ecsServices:ECSServices) {
 
 
     fun fetchUserProfile(ecsUserProfileCallBack: ECSUserProfileCallBack) {
