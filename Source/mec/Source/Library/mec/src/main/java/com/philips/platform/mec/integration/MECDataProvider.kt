@@ -40,11 +40,17 @@ object MECDataProvider : MECDataInterface {
     @Throws(MECException::class)
     override fun fetchCartCount(mECFetchCartListener: MECFetchCartListener) {
         MECDataHolder.INSTANCE.initECSSDK()
+        //TODO Make error checking at a common place : Pabitra
         if (MECDataHolder.INSTANCE.isInternetActive()) {
             if (MECDataHolder.INSTANCE.isUserLoggedIn()) {
-                GlobalScope.launch {
-                    val mecManager = MECManager()
-                    mecManager.getProductCartCountWorker(mECFetchCartListener)
+                if (MECDataHolder.INSTANCE.hybrisEnabled) {
+                    GlobalScope.launch {
+                        val mecManager = MECManager()
+                        mecManager.getProductCartCountWorker(mECFetchCartListener)
+                    }
+                } else {
+                    MECLog.d(TAG, "Hybris is disabled")
+                    throw MECException(context?.getString(R.string.mec_cart_login_error_message), MECException.USER_NOT_LOGGED_IN)
                 }
             } else {
                 MECLog.d(TAG, "User is not logged in")
@@ -59,16 +65,24 @@ object MECDataProvider : MECDataInterface {
 
     @Throws(MECException::class)
     override fun isHybrisAvailable(mECHybrisAvailabilityListener: MECHybrisAvailabilityListener) {
+        MECDataHolder.INSTANCE.initECSSDK()
+        //TODO Make error checking at a common place : Pabitra
         if (MECDataHolder.INSTANCE.isInternetActive()) {
-            GlobalScope.launch {
-                val mecManager = MECManager()
-                mecManager.ishybrisavailableWorker(mECHybrisAvailabilityListener)
+            if (MECDataHolder.INSTANCE.hybrisEnabled) {
+                GlobalScope.launch {
+                    val mecManager = MECManager()
+                    mecManager.ishybrisavailableWorker(mECHybrisAvailabilityListener)
+                }
+            } else {
+                MECLog.d(TAG, "Hybris is disabled")
+                throw MECException(context?.getString(R.string.mec_cart_login_error_message), MECException.USER_NOT_LOGGED_IN)
             }
         } else {
-            MECLog.d(TAG, "User is not logged in")
+            MECLog.d(TAG, "Internet not available")
             MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!, R.string.mec_no_internet))
             throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet), MECException.NO_INTERNET)
         }
     }
 
+    get
 }

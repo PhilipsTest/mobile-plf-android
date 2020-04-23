@@ -594,13 +594,9 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     //In-App listener functions
     @Override
     public void onGetCartCount(int count) {
-        dismissProgressDialog();
-        if (count > 0) {
+           dismissProgressDialog();
             mCountText.setText(String.valueOf(count));
             mCountText.setVisibility(View.VISIBLE);
-        } else {
-            mCountText.setVisibility(View.GONE);
-        }
 
     }
     @Override

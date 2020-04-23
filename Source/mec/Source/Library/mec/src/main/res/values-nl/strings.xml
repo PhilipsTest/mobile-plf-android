@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Selecteer een leveringsmethode</string>
   <string name="mec_no_internet">Uw internetverbinding lijkt niet te werken. Controleer deze en probeer het opnieuw</string>
   <string name="mec_no_payment_error_message">Selecteer een betaalmethode</string>
+  <string name="mec_no_philips_shop">Philips shop is niet beschikbaar voor het geselecteerde land, alleen winkelmodus is beschikbaar</string>
   <string name="mec_no_product_available">Er werd geen product gevonden in uw winkel.</string>
   <string name="mec_no_result">0 resultaten gevonden voor</string>
   <string name="mec_no_review_available">Geen beoordelingen gevonden</string>

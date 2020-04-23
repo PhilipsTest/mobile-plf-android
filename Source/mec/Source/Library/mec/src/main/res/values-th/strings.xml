@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">โปรดเลือกโหมดการจัดส่ง</string>
   <string name="mec_no_internet">ดูเหมือนว่าการเชื่อมต่ออินเตอร์เน็ตของคุณไม่ทำงาน โปรดตรวจสอบและลองอีกครั้ง</string>
   <string name="mec_no_payment_error_message">โปรดเลือกวิธีการชำระเงิน</string>
+  <string name="mec_no_philips_shop">ร้านค้า Philips ไม่พร้อมให้บริการในประเทศที่เลือก มีเฉพาะโหมดร้านค้าปลีกเท่านั้น</string>
   <string name="mec_no_product_available">ไม่พบสินค้าในร้านค้าของคุณ</string>
   <string name="mec_no_result">ไม่พบผลลัพธ์สำหรับ</string>
   <string name="mec_no_review_available">ไม่พบคำวิจารณ์</string>

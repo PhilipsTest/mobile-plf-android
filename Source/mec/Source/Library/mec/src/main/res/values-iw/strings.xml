@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">בחר מצב משלוח</string>
   <string name="mec_no_internet">נראה שחיבור האינטרנט שלך אינו פועל. בדוק ונסה שוב</string>
   <string name="mec_no_payment_error_message">בחר שיטת תשלום</string>
+  <string name="mec_no_philips_shop">החנות של פיליפס אינה זמינה במדינה שנבחרה, רק מצב קמעונאי זמין</string>
   <string name="mec_no_product_available">לא נמצאו מוצרים בחנות שלך.</string>
   <string name="mec_no_result">נמצאו 0 תוצאות עבור</string>
   <string name="mec_no_review_available">לא נמצאו ביקורות</string>
