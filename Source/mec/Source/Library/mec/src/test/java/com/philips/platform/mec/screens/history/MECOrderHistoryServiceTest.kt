@@ -17,6 +17,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.MockitoAnnotations
 import org.powermock.modules.junit4.PowerMockRunner
+import kotlin.test.assertEquals
 
 @RunWith(PowerMockRunner::class)
 class MECOrderHistoryServiceTest {
@@ -30,11 +31,17 @@ class MECOrderHistoryServiceTest {
     }
 
     @Test
-    fun isScrollDown() {
+    fun shouldReturnFormattedDate() {
+        assertEquals("Thursday Mar 12, 2020",mECOrderHistoryService.getFormattedDate("2020-03-12T05:12:23+0000"))
     }
 
     @Test
-    fun getFormattedDate() {
-        mECOrderHistoryService.getFormattedDate("")
+    fun shouldReturnEmpty() {
+        assertEquals("",mECOrderHistoryService.getFormattedDate(null))
+    }
+
+    @Test
+    fun shouldReturnEmptyOnBadDate() {
+        assertEquals("",mECOrderHistoryService.getFormattedDate(""))
     }
 }

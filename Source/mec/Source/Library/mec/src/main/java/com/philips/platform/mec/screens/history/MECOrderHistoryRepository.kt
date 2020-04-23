@@ -15,7 +15,7 @@ package com.philips.platform.mec.screens.history
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.model.orders.ECSOrders
 
-class MECOrderHistoryRepository(val ecsService: ECSServices) {
+class MECOrderHistoryRepository(var ecsService: ECSServices) {
 
     fun fetchOrderHistory(pageNumber: Int, pageSize: Int, ecsOrderHistoryCallback: ECSOrderHistoryCallback) {
         ecsService.fetchOrderHistory(pageNumber,pageSize,ecsOrderHistoryCallback)

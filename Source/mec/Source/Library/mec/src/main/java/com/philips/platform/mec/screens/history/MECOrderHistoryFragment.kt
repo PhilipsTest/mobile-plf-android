@@ -24,7 +24,6 @@ import com.philips.platform.ecs.model.orders.ECSOrderHistory
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.ItemClickListener
-import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -129,7 +128,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
     private fun executeRequest() {
         isCallOnProgress = true
-        mecOrderHistoryViewModel.fetchOrderSummary(pageNumber, pageSize)
+        mecOrderHistoryViewModel.fetchOrderHistory(pageNumber, pageSize)
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {
@@ -192,9 +191,8 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     override fun onItemClick(item: Any) {
 
         val ecsOrders = item as ECSOrders
-
-        var fragment = MECOrderDetailFragment()
-        var bundle = Bundle()
+        val fragment = MECOrderDetailFragment()
+        val bundle = Bundle()
         bundle.putSerializable(MECConstant.MEC_ORDERS,ecsOrders)
         fragment.arguments = bundle
         replaceFragment(fragment,fragment.getFragmentTag(),true)

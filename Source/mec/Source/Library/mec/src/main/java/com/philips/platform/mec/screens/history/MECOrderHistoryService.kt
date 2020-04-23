@@ -13,7 +13,9 @@
 package com.philips.platform.mec.screens.history
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.utils.MECLog
+import com.philips.platform.mec.utils.MECutility
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,9 +36,12 @@ class MECOrderHistoryService {
             convertedDate = dateFormat.parse(date)
         } catch (e: ParseException) {
             MECLog.d("MECOrderHistoryService", e.message)
+            return ""
         }
         val sdf = SimpleDateFormat("EEEE MMM dd, yyyy") // Set your date format
         return sdf.format(convertedDate)
     }
+
+     fun shouldCallAuth() = !MECutility.isExistingUser() || ECSConfiguration.INSTANCE.accessToken == null
 
 }
