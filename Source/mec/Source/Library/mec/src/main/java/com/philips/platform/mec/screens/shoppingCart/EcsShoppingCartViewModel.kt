@@ -87,7 +87,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     }
 
     fun fetchProductReview(entries: MutableList<ECSEntries>) {
-        ecsShoppingCartRepository.fetchProductReview(entries, this)
+        ecsShoppingCartRepository.fetchProductReview(entries, this,MECDataHolder.INSTANCE.bvClient)
     }
 
     fun addVoucher(voucherCode : String,  mECRequestType :MECRequestType){

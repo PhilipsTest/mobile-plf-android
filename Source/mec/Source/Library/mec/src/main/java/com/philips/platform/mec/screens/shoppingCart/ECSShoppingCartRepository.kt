@@ -5,6 +5,7 @@
  */
 package com.philips.platform.mec.screens.shoppingCart
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient
 import com.bazaarvoice.bvandroidsdk.BulkRatingOptions
 import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest
 import com.bazaarvoice.bvandroidsdk.EqualityOperator
@@ -52,7 +53,7 @@ class ECSShoppingCartRepository(var ecsShoppingCartViewModel: EcsShoppingCartVie
         this.ecsServices.updateShoppingCart(quantity,entries,ecsShoppingCartCallback)
     }
 
-    fun fetchProductReview(ecsEntries: MutableList<ECSEntries>, ecsShoppingCartViewModel: EcsShoppingCartViewModel){
+    fun fetchProductReview(ecsEntries: MutableList<ECSEntries>, ecsShoppingCartViewModel: EcsShoppingCartViewModel ,bvClient: BVConversationsClient?){
 
         val mecConversationsDisplayCallback = MECBulkRatingCallback(ecsEntries, ecsShoppingCartViewModel)
         val ctnList: MutableList<String> = mutableListOf()
@@ -60,9 +61,9 @@ class ECSShoppingCartRepository(var ecsShoppingCartViewModel: EcsShoppingCartVie
         for(ecsEntry in ecsEntries){
             ctnList.add(ecsEntry.product.code.replace("/","_"))
         }
-        val bvClient = MECDataHolder.INSTANCE.bvClient
         val request = MECConstant.KEY_BAZAAR_LOCALE?.let { BulkRatingsRequest.Builder(ctnList, BulkRatingOptions.StatsType.All).addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(it, MECDataHolder.INSTANCE.locale).build() }
-        bvClient!!.prepareCall(request).loadAsync(mecConversationsDisplayCallback)
+        val prepareCall = bvClient!!.prepareCall(request)
+        prepareCall.loadAsync(mecConversationsDisplayCallback)
 
     }
 
