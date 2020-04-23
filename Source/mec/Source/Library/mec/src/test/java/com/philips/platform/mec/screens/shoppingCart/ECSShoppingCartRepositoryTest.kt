@@ -12,13 +12,20 @@
 
 package com.philips.platform.mec.screens.shoppingCart
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient
+import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest
+import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
+import com.bazaarvoice.bvandroidsdk.LoadCallDisplay
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
+import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
@@ -26,7 +33,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 import kotlin.test.assertNotNull
 
-@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartCallback::class,ECSVoucherCallback::class)
+@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartCallback::class,ECSVoucherCallback::class,MECBulkRatingCallback::class,BVConversationsClient::class,LoadCallDisplay::class)
 @RunWith(PowerMockRunner::class)
 class ECSShoppingCartRepositoryTest {
 
@@ -78,10 +85,38 @@ class ECSShoppingCartRepositoryTest {
         Mockito.verify(ecsServicesMock).updateShoppingCart( 1,ecsEntriesMock,ecsShoppingCartCallbackMock)
     }
 
+
+
+
+
+
+    @Mock
+    lateinit var bvClientMock: BVConversationsClient
+
+
+    @Mock
+    lateinit var LoadCallDisplayMock : LoadCallDisplay<BulkRatingsRequest, BulkRatingsResponse>
+
     @Test
     fun fetchProductReview() {
-        //TODO
-       // ecsShoppingCartRepository.fetchProductReview()
+
+        MECDataHolder.INSTANCE.locale = "US"
+
+        var ecsProduct= ECSProduct()
+        var  ecsEntriesList =  mutableListOf<ECSEntries>()
+
+        ecsProduct.code ="123456"
+
+        var ecsEntries = ECSEntries()
+        ecsEntries.product = ecsProduct
+
+        ecsEntriesList.add(ecsEntries)
+        Mockito.`when`(bvClientMock.prepareCall(any(BulkRatingsRequest::class.java))).thenReturn(LoadCallDisplayMock)
+
+        ecsShoppingCartRepository.fetchProductReview(ecsEntriesList,ecsShoppingCartViewModelMock,bvClientMock)
+
+        Mockito.verify(bvClientMock).prepareCall(any(BulkRatingsRequest::class.java))
+        Mockito.verify(LoadCallDisplayMock).loadAsync(any(MECBulkRatingCallback::class.java))
     }
 
     @Mock

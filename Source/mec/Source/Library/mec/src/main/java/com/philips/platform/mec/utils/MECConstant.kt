@@ -41,7 +41,7 @@ object MECConstant {
     const val SELECTED_RETAILER: String ="SELECTED_RETAILER"
     const val RETAILER_REQUEST_CODE: Int = 5000
     const val PAYMENT_REQUEST_CODE: Int = 5001
-    val KEY_BAZAAR_LOCALE: String? ="Locale"
+    const val KEY_BAZAAR_LOCALE ="Locale"
     //Keys
     val MEC_KEY_PRODUCT ="mec_key_product"
     val MEC_PRODUCT     ="mec_product"
