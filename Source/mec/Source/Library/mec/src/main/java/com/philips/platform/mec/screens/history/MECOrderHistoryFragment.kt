@@ -32,8 +32,7 @@ import com.philips.platform.mec.screens.history.orderDetail.MECOrderDetailFragme
 import com.philips.platform.mec.utils.AlertListener
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECutility
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
+
 
 class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
@@ -46,8 +45,6 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     private var pageSize = 5
     private var totalPage = 0
 
-    private var totalThreadRequest = 0
-    private var totalThreadResponse = 0
 
     private var ordersList = mutableListOf<ECSOrders>()
 
@@ -74,25 +71,15 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     }
 
     private val orderDetailObserver: Observer<ECSOrders> = Observer { ecsOrders ->
-        totalThreadResponse++
-        if(totalThreadRequest == totalThreadResponse){
             showData()
-        }
-
     }
 
     private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
-        reinitializeThreadCounts()
-        totalThreadRequest = orderList.size
         for (orders in orderList) {
             mecOrderHistoryViewModel.fetchOrderDetail(orders)
         }
     }
 
-    private fun reinitializeThreadCounts() {
-        totalThreadRequest = 0
-        totalThreadResponse = 0
-    }
 
     private fun showData(){
         hidePaginationProgressBar()
@@ -146,10 +133,6 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {
-
-        if(mecError?.mECRequestType == MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS){
-            totalThreadResponse++
-        }
         super.processError(mecError, false)
         isCallOnProgress = false
         showErrorDialog(mecError)

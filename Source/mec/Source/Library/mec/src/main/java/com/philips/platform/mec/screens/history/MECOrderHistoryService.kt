@@ -27,6 +27,7 @@ class MECOrderHistoryService {
     }
 
     fun getFormattedDate(date: String?): String? {
+        if(date==null) return ""
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
         var convertedDate: Date? = null
         try {
