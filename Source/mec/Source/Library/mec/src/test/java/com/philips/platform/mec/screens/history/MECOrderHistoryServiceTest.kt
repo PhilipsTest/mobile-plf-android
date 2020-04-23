@@ -44,4 +44,9 @@ class MECOrderHistoryServiceTest {
     fun shouldReturnEmptyOnBadDate() {
         assertEquals("",mECOrderHistoryService.getFormattedDate(""))
     }
+
+    @Test
+    fun assertShouldCallAuth() {
+       // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
