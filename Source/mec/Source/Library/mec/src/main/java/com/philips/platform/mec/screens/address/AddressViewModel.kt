@@ -13,7 +13,7 @@ import android.widget.ScrollView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
@@ -328,11 +328,25 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
             lebel.text = MECutility().constructCardDetails(mecPayment)
         }
 
+        @JvmStatic
+        @BindingAdapter("cardDetail")
+        fun cardDetail(lebel: Label, paymentInfo: PaymentInfo) {
+            lebel.text = MECutility().constructCardDetails(paymentInfo)
+        }
+
+
         @SuppressLint("SetTextI18n")
         @JvmStatic
         @BindingAdapter("cardValidityDetail")
         fun cardValidityDetail(label: Label, mecPayment: MECPayment) {
             label.text = label.context.getText(R.string.mec_valid_until).toString() + " " + MECutility().constructCardValidityDetails(mecPayment)
+        }
+
+        @SuppressLint("SetTextI18n")
+        @JvmStatic
+        @BindingAdapter("cardValidityDetail")
+        fun cardValidityDetail(label: Label, paymentInfo: PaymentInfo) {
+            label.text = label.context.getText(R.string.mec_valid_until).toString() + " " + MECutility().constructCardValidityDetails(paymentInfo)
         }
     }
 

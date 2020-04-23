@@ -7,29 +7,32 @@
  * consent of the copyright holder.
 
  */
-package com.philips.platform.mec.screens.orderSummary
+package com.philips.platform.mec.screens.history.orderDetail
 
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
+import com.philips.platform.mec.databinding.MecOrderDetailCartItemsBinding
 import com.philips.platform.mec.databinding.MecOrderSummaryCartItemsBinding
+import com.philips.platform.mec.screens.orderSummary.MECOrderSummaryViewHolder
 
 
-class MECOrderSummaryProductsAdapter(private val mecCart: ECSShoppingCart) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MECOrderDetailProductsAdapter(private val mecCart: ECSOrderDetail?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MECOrderSummaryViewHolder(MecOrderSummaryCartItemsBinding.inflate(LayoutInflater.from(parent.context)))
+        return MECOrderDetailViewHolder(MecOrderDetailCartItemsBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun getItemCount(): Int {
-        return mecCart.entries.size
+        return mecCart!!.entries.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val cartSummary = mecCart.entries[position]
-        val viewHolder = holder as MECOrderSummaryViewHolder
+        val cartSummary = mecCart!!.entries[position]
+        val viewHolder = holder as MECOrderDetailViewHolder
         viewHolder.bind(cartSummary)
     }
 

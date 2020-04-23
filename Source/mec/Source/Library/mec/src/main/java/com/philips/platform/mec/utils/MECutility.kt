@@ -24,6 +24,7 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
 import com.philips.platform.mec.analytics.MECAnalyticServer.hybris
@@ -149,7 +150,7 @@ class MECutility {
             }
         }
 
-        fun showPositiveActionDialog(context: Context,btnText:String,errorTitle:String,errorDescription:String,fragmentManager: FragmentManager,alertListener: AlertListener){
+        fun showPositiveActionDialog(context: Context, btnText: String, errorTitle: String, errorDescription: String, fragmentManager: FragmentManager, alertListener: AlertListener) {
 
             val builder = AlertDialogFragment.Builder(context)
             builder.setDialogType(DialogConstants.TYPE_ALERT)
@@ -165,8 +166,6 @@ class MECutility {
                 alertDialogFragment!!.show(fragmentManager, ALERT_DIALOG_TAG)
             }
         }
-
-
 
 
         private fun isCallingFragmentVisible(fragmentManager: FragmentManager?): Boolean {
@@ -330,15 +329,15 @@ class MECutility {
                         // No Internet: Information Error
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                         //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
+                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
                         errorMessage = Acontext!!.getString(R.string.mec_no_internet)
                     } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                         //voucher apply fail:  User error
                         val errorMsg = mecError!!.exception!!.message.toString()
-                        errorString +=errorMsg
+                        errorString += errorMsg
                         MECAnalytics.trackUserError(errorString)
-                        errorMessage=mecError!!.exception!!.message.toString()
-                    }else{
+                        errorMessage = mecError!!.exception!!.message.toString()
+                    } else {
                         // Remaining all errors: Technical errors
                         errorMessage = mecError!!.exception!!.message.toString()
                         errorString += errorMessage
@@ -347,7 +346,7 @@ class MECutility {
                     }
 
                 } catch (e: Exception) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
                 }
             }
             if (showDialog.equals(true)) {
@@ -390,8 +389,8 @@ class MECutility {
                 val sse = SecureStorageInterface.SecureStorageError()
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
-                if(sse!=null && sse.errorMessage!=null && sse.errorCode!=null) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + sse.errorMessage + ":" + sse.errorCode)
+                if (sse != null && sse.errorMessage != null && sse.errorCode != null) {
+                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError + ":" + other + sse.errorMessage + ":" + sse.errorCode)
                 }
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
@@ -400,7 +399,6 @@ class MECutility {
 
             return storedEmail == MECDataHolder.INSTANCE.getUserInfo().email
         }
-
 
 
     }
@@ -436,10 +434,27 @@ class MECutility {
         return formattedCardDetail
     }
 
+    fun constructCardDetails(paymentInfo: PaymentInfo): CharSequence? {
+        var formattedCardDetail = ""
+        val cardType = if (paymentInfo.cardType != null) paymentInfo.cardType.name else ""
+        val cardNumber = if (paymentInfo.cardNumber != null) paymentInfo.cardNumber else ""
+        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
+        return formattedCardDetail
+    }
+
     fun constructCardValidityDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardValidityDetail = ""
         val cardExpMon = if (mecPayment.ecsPayment.expiryMonth != null) mecPayment.ecsPayment.expiryMonth else ""
         val cardExpYear = if (mecPayment.ecsPayment.expiryYear != null) mecPayment.ecsPayment.expiryYear else ""
+        if (cardExpMon == "" || cardExpYear == "") return null
+        formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
+        return formattedCardValidityDetail
+    }
+
+    fun constructCardValidityDetails(paymentInfo: PaymentInfo): CharSequence? {
+        var formattedCardValidityDetail = ""
+        val cardExpMon = if (paymentInfo.expiryMonth != null) paymentInfo.expiryMonth else ""
+        val cardExpYear = if (paymentInfo.expiryYear != null) paymentInfo.expiryYear else ""
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
