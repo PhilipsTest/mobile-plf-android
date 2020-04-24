@@ -50,7 +50,7 @@ object MECDataProvider : MECDataInterface {
                     }
                 } else {
                     MECLog.d(TAG, "Hybris is disabled")
-                    throw MECException(context?.getString(R.string.mec_no_philips_shop), MECException.USER_NOT_LOGGED_IN)
+                    throw MECException(context?.getString(R.string.mec_no_philips_shop), MECException.HYBRIS_NOT_AVAILABLE)
                 }
             } else {
                 MECLog.d(TAG, "User is not logged in")
@@ -75,7 +75,7 @@ object MECDataProvider : MECDataInterface {
                 }
             } else {
                 MECLog.d(TAG, "Hybris is disabled")
-                throw MECException(context?.getString(R.string.mec_no_philips_shop), MECException.USER_NOT_LOGGED_IN)
+                throw MECException(context?.getString(R.string.mec_no_philips_shop), MECException.HYBRIS_NOT_AVAILABLE)
             }
         } else {
             MECLog.d(TAG, "Internet not available")
