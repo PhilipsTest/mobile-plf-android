@@ -53,7 +53,7 @@
                 android:paddingTop="10dp"
                 android:paddingStart="16dp"
                 android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
             </LinearLayout>
 
