@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">請選擇配送模式</string>
   <string name="mec_no_internet">您的互联网似乎无法正常连接。请检查并重试</string>
   <string name="mec_no_payment_error_message">請選擇付款方式</string>
+  <string name="mec_no_philips_shop">所選國家/地區不提供飛利浦商店，僅提供零售商模式</string>
   <string name="mec_no_product_available">未在您的商店内找到产品。</string>
   <string name="mec_no_result">找到 0 個結果：</string>
   <string name="mec_no_review_available">找不到評論</string>

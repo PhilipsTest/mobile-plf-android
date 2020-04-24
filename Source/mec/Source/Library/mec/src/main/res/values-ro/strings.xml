@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Selectează un mod de livrare</string>
   <string name="mec_no_internet">Conexiunea la internet nu pare să funcţioneze. Verifică şi încearcă din nou.</string>
   <string name="mec_no_payment_error_message">Selectează o metodă de plată</string>
+  <string name="mec_no_philips_shop">Magazinul Philips nu este disponibil pentru ţara selectată; este disponibil numai modul de vânzare cu amănuntul</string>
   <string name="mec_no_product_available">Nu au fost găsite produse în magazinul nostru.</string>
   <string name="mec_no_result">Niciun rezultat găsit pentru</string>
   <string name="mec_no_review_available">Nicio recenzie găsită</string>

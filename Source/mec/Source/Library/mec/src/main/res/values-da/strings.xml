@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Vælg en leveringsmåde</string>
   <string name="mec_no_internet">Din internetforbindelse virker tilsyneladende ikke. Kontrollér forbindelsen, og prøv igen</string>
   <string name="mec_no_payment_error_message">Vælg en betalingsmetode</string>
+  <string name="mec_no_philips_shop">Philips-butikken er ikke tilgængelig i det valgte land, kun forhandlertilstand er tilgængelig</string>
   <string name="mec_no_product_available">Der er ingen produkter i din Store.</string>
   <string name="mec_no_result">0 resultater fundet for</string>
   <string name="mec_no_review_available">Ingen anmeldelser fundet</string>

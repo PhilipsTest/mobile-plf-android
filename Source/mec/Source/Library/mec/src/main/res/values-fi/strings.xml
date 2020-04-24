@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Valitse toimitustapa</string>
   <string name="mec_no_internet">Internetyhteydessäsi vaikuttaa olevan vikaa. Tarkista yhteys ja yritä uudelleen.</string>
   <string name="mec_no_payment_error_message">Valitse maksutapa</string>
+  <string name="mec_no_philips_shop">Philips-kauppa ei ole käytettävissä valitussa maassa, käytettävissä on ainoastaan vähittäismyyjätila</string>
   <string name="mec_no_product_available">Tuotteita ei löydy kaupastasi.</string>
   <string name="mec_no_result">Ei tuloksia haulla</string>
   <string name="mec_no_review_available">Arvosteluja ei löytynyt</string>

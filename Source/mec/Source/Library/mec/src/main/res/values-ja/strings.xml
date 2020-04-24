@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">配送モードを選択してください</string>
   <string name="mec_no_internet">インターネットに接続されていないようです。確認してから再試行してください。</string>
   <string name="mec_no_payment_error_message">支払い方法を選択してください</string>
+  <string name="mec_no_philips_shop">選択された国ではフィリップスショップはご利用いただけません。リテーラーモードのみご利用いただけます。</string>
   <string name="mec_no_product_available">ストア内に製品がありません。</string>
   <string name="mec_no_result">次に一致する検索結果は見つかりませんでした：</string>
   <string name="mec_no_review_available">レビューが見つかりません</string>

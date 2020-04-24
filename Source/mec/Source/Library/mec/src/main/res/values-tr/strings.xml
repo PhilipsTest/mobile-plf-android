@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Lütfen bir Teslimat Modu seçin</string>
   <string name="mec_no_internet">İnternet bağlantınız çalışmıyor gibi görünüyor. Lütfen kontrol edip yeniden deneyin</string>
   <string name="mec_no_payment_error_message">Lütfen bir Ödeme Yöntemi seçin</string>
+  <string name="mec_no_philips_shop">Philips mağazası, seçilen ülke için mevcut değil. Yalnızca perakende modu mevcut</string>
   <string name="mec_no_product_available">Mağazanızda ürün bulunamadı.</string>
   <string name="mec_no_result">Şunun için 0 sonuç bulundu:</string>
   <string name="mec_no_review_available">Hiçbir İnceleme Bulunamadı</string>

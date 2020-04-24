@@ -38,7 +38,6 @@
     <string name="mec_cart_summary">Cart summary</string>
     <string name="mec_cart_tax_message">Price including %s VAT</string>
     <string name="mec_cart_total">Total</string>
-    <string name="mec_check_internet_connection">Please check your Internet Connection.</string>
     <string name="mec_checkout">Checkout</string>
     <string name="mec_choose_address_text">Choose Shipping Address from below list</string>
     <string name="mec_confirmation">Confirmation</string>
@@ -147,6 +146,7 @@
     <string name="mec_valid_until">Valid until</string>
     <string name="mec_your_order_number">Your order number is</string>
     <string name="mec_zero_results_message">This filters our product list. Please check that there are no typos in your filter term</string>
+    <string name="mec_no_philips_shop">Philips shop is not available for the selected country, only retailer mode is available</string>
 
 
     <!-- Specific Android strings -->
@@ -155,6 +155,10 @@
     <string name="mec_seperator" translatable="false">&#160;|&#160;</string>
     <string name="mec_empty_space" translatable="false">&#160;</string>
     <string name="mec_bazaarVoice_link" translatable="false">http://www.bazaarvoice.com/trustmark</string>
+
+    <!--unused Strings -->
+    <string name="mec_check_internet_connection" translatable="false">Please check your Internet Connection.</string>
+
 
 
 </resources>

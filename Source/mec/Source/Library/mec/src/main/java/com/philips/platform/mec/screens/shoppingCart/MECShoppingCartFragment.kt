@@ -132,6 +132,10 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         if (productsAdapter!!.itemCount > 0) {
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
+
+        var actionMap = HashMap<String, String>()
+        actionMap.put(specialEvents, scView)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,binding.shoppingCart)
     }
 
 
@@ -326,9 +330,6 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     override fun onStart() {
         super.onStart()
         MECAnalytics.trackPage(shoppingCartPage)
-        var actionMap = HashMap<String, String>()
-        actionMap.put(specialEvents, scView)
-        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,binding.shoppingCart)
         executeRequest()
     }
 
