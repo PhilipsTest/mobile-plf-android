@@ -9,11 +9,6 @@
  */
 package com.philips.platform.mec.screens.payment
 
-import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.orders.ECSOrderDetail
-import com.philips.platform.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.screens.address.AddressService
 
 class PaymentRepository(val ecsServices: com.philips.platform.ecs.ECSServices) {

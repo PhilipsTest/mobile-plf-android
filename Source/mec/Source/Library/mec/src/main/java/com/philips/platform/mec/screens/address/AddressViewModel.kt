@@ -328,25 +328,11 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
             lebel.text = MECutility().constructCardDetails(mecPayment)
         }
 
-        @JvmStatic
-        @BindingAdapter("cardDetail")
-        fun cardDetail(lebel: Label, paymentInfo: PaymentInfo) {
-            lebel.text = MECutility().constructCardDetails(paymentInfo)
-        }
-
-
         @SuppressLint("SetTextI18n")
         @JvmStatic
         @BindingAdapter("cardValidityDetail")
         fun cardValidityDetail(label: Label, mecPayment: MECPayment) {
             label.text = label.context.getText(R.string.mec_valid_until).toString() + " " + MECutility().constructCardValidityDetails(mecPayment)
-        }
-
-        @SuppressLint("SetTextI18n")
-        @JvmStatic
-        @BindingAdapter("cardValidityDetail")
-        fun cardValidityDetail(label: Label, paymentInfo: PaymentInfo) {
-            label.text = label.context.getText(R.string.mec_valid_until).toString() + " " + MECutility().constructCardValidityDetails(paymentInfo)
         }
     }
 

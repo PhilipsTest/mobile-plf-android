@@ -10,15 +10,10 @@
 package com.philips.platform.mec.auth
 
 import com.google.gson.Gson
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.error.ECSErrorEnum
-import com.philips.platform.ecs.integration.ClientID
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.integration.ECSOAuthProvider
-import com.philips.platform.ecs.integration.GrantType
-import com.philips.platform.ecs.model.oauth.ECSOAuthData
-import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
+import com.philips.platform.ecs.error.ECSErrorEnum
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.mec.analytics.MECAnalyticServer
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
@@ -95,11 +90,11 @@ class HybrisAuth {
         }
 
 
-        fun hybrisAuthentication(fragmentCallback: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.oauth.ECSOAuthData, Exception>) {
+        fun hybrisAuthentication(fragmentCallback: ECSCallback<ECSOAuthData, Exception>) {
 
-            val hybrisCallback = object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.oauth.ECSOAuthData, Exception> {
+            val hybrisCallback = object : ECSCallback<ECSOAuthData, Exception> {
 
-                override fun onResponse(result: com.philips.platform.ecs.model.oauth.ECSOAuthData?) {
+                override fun onResponse(result: ECSOAuthData?) {
                     val map = HashMap<String, String>()
                     map[KEY_MEC_EMAIL] = MECDataHolder.INSTANCE.getUserInfo().email
 
@@ -114,7 +109,7 @@ class HybrisAuth {
 
                 override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                     MECLog.d(TAG, "hybrisAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
-                    if (MECutility.isAuthError(ecsError) || ecsError.errorcode == com.philips.platform.ecs.error.ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
+                    if (MECutility.isAuthError(ecsError) || ecsError.errorcode == ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
                         refreshJainrain(fragmentCallback);
                     } else {
                         MECLog.d(TAG, "hybrisAuthentication : onFailure : not OAuthError")
@@ -131,10 +126,10 @@ class HybrisAuth {
         }
 
 
-        fun hybrisRefreshAuthentication(fragmentCallback: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.oauth.ECSOAuthData, Exception>) {
+        fun hybrisRefreshAuthentication(fragmentCallback: ECSCallback<ECSOAuthData, Exception>) {
 
-            val hybrisCallback = object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.oauth.ECSOAuthData, Exception> {
-                override fun onResponse(result: com.philips.platform.ecs.model.oauth.ECSOAuthData?) {
+            val hybrisCallback = object : ECSCallback<ECSOAuthData, Exception> {
+                override fun onResponse(result: ECSOAuthData?) {
                     MECLog.d(TAG, "hybrisRefreshAuthentication : onResponse : " + result!!.accessToken)
                     MECDataHolder.INSTANCE.refreshToken = result.refreshToken!!
                     fragmentCallback.onResponse(result) // send call back to fragment or view
@@ -142,7 +137,7 @@ class HybrisAuth {
 
                 override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                     MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
-                    if (MECutility.isAuthError(ecsError) || ecsError.errorcode == com.philips.platform.ecs.error.ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
+                    if (MECutility.isAuthError(ecsError) || ecsError.errorcode == ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
                         refreshJainrain(fragmentCallback);
                     } else {
                         MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : not OAuthError")
@@ -155,7 +150,7 @@ class HybrisAuth {
         }
 
 
-        fun refreshJainrain(fragmentCallback: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.oauth.ECSOAuthData, Exception>) {
+        fun refreshJainrain(fragmentCallback:ECSCallback<ECSOAuthData, Exception>) {
             val refreshSessionListener = object : RefreshSessionListener {
                 override fun refreshSessionSuccess() {
                     MECLog.d(TAG, "refreshJainrain : refreshSessionSuccess")
@@ -164,7 +159,7 @@ class HybrisAuth {
 
                 override fun refreshSessionFailed(error: Error?) {
                     MECLog.e(TAG, "refreshJainrain : refreshSessionFailed :" + error!!.errCode)
-                    val ecsError = com.philips.platform.ecs.error.ECSError(5000, com.philips.platform.ecs.error.ECSErrorEnum.ECSinvalid_grant.name)
+                    val ecsError = com.philips.platform.ecs.error.ECSError(5000, ECSErrorEnum.ECSinvalid_grant.name)
                     val exception = java.lang.Exception()
                     fragmentCallback.onFailure(exception, ecsError)
                 }

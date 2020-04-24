@@ -16,14 +16,14 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class ECSUserProfileCallBack(private var ecsProfileViewModel: ProfileViewModel) : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.address.ECSUserProfile, Exception> {
+class ECSUserProfileCallBack(private var ecsProfileViewModel: ProfileViewModel) : ECSCallback<ECSUserProfile, Exception> {
 
-    lateinit var mECRequestType : MECRequestType
-    override fun onResponse(userProfile: com.philips.platform.ecs.model.address.ECSUserProfile) {
+    var mECRequestType =  MECRequestType.MEC_FETCH_USER_PROFILE
+    override fun onResponse(userProfile: ECSUserProfile) {
         ecsProfileViewModel.userProfile.value = userProfile
     }
 
-    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: ECSError?) {
 
         if (MECutility.isAuthError(ecsError)) {
             ecsProfileViewModel.retryAPI(mECRequestType)

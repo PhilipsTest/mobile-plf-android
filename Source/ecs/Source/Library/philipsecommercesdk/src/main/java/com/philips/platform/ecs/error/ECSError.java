@@ -7,6 +7,11 @@ package com.philips.platform.ecs.error;
 
 public class ECSError {
     private  String errorTrype;
+
+    public void setErrorcode(int errorcode) {
+        this.errorcode = errorcode;
+    }
+
     private  int errorcode;
 
 
@@ -21,9 +26,5 @@ public class ECSError {
 
     public String getErrorType() {
         return errorTrype;
-    }
-
-    public void setErrorcode(int errorcode) {
-        this.errorcode = errorcode;
     }
 }
