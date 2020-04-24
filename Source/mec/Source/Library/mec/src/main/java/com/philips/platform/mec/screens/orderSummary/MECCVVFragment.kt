@@ -101,6 +101,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mEcsOrderDetail)
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, java.lang.Boolean.TRUE)
+        bundle.putString(paymentType,old)
         mecPaymentConfirmationFragment.arguments = bundle
         replaceFragment(mecPaymentConfirmationFragment, false)
     }
