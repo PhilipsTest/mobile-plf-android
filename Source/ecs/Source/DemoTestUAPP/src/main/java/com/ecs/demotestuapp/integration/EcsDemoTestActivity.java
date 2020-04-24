@@ -24,7 +24,6 @@ import com.ecs.demotestuapp.adapter.GroupAdapter;
 import com.ecs.demotestuapp.jsonmodel.JSONConfiguration;
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.google.gson.Gson;
-import com.philips.platform.ecs.ECSServices;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;
@@ -32,15 +31,13 @@ import com.philips.cdp.registration.ui.utils.RegistrationContentConfiguration;
 import com.philips.cdp.registration.ui.utils.URInterface;
 import com.philips.cdp.registration.ui.utils.URLaunchInput;
 import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.ecs.ECSServices;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
-import com.philips.platform.pim.PIMInterface;
-import com.philips.platform.pim.PIMLaunchInput;
-import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uid.view.widget.Button;
 
@@ -49,6 +46,10 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+//import com.philips.platform.pim.PIMInterface;
+//import com.philips.platform.pim.PIMLaunchInput;
+//import com.philips.platform.pim.PIMParameterToLaunchEnum;
 
 
 public class EcsDemoTestActivity extends FragmentActivity implements View.OnClickListener, UserLoginListener,
@@ -60,7 +61,7 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
 
     URInterface urInterface;
-    PIMInterface pimInterface;
+//    PIMInterface pimInterface;
     private long mLastClickTime = 0;
 
     AutoCompleteTextView atPropositionID;
@@ -96,11 +97,12 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
             urInterface = new URInterface();
             urInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
             mUserDataInterface = urInterface.getUserDataInterface();
-        } else {
-            pimInterface = new PIMInterface();
-            pimInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
-            mUserDataInterface = pimInterface.getUserDataInterface();
         }
+//        else {
+//            pimInterface = new PIMInterface();
+//            pimInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
+//            mUserDataInterface = pimInterface.getUserDataInterface();
+//        }
         ECSServices ecsServices = new ECSServices(null, new AppInfra.Builder().build(getApplicationContext()));
 
 
@@ -168,17 +170,18 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
             ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
                     ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
             urInterface.launch(activityLauncher, urLaunchInput);
-        } else {
-            PIMLaunchInput launchInput = new PIMLaunchInput();
-//            FragmentLauncher fragmentLauncher = new FragmentLauncher(this, R.id.pimDemoU_mainFragmentContainer, null);
-            launchInput.setUserLoginListener(this);
-            ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
-                    ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
-            HashMap<PIMParameterToLaunchEnum, Object> parameter = new HashMap<>();
-            parameter.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, Boolean.TRUE);
-            launchInput.setParameterToLaunch(parameter);
-            pimInterface.launch(activityLauncher, launchInput);
         }
+//        else {
+//            PIMLaunchInput launchInput = new PIMLaunchInput();
+////            FragmentLauncher fragmentLauncher = new FragmentLauncher(this, R.id.pimDemoU_mainFragmentContainer, null);
+//            launchInput.setUserLoginListener(this);
+//            ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
+//                    ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
+//            HashMap<PIMParameterToLaunchEnum, Object> parameter = new HashMap<>();
+//            parameter.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, Boolean.TRUE);
+//            launchInput.setParameterToLaunch(parameter);
+//            pimInterface.launch(activityLauncher, launchInput);
+//        }
 
 
     }
