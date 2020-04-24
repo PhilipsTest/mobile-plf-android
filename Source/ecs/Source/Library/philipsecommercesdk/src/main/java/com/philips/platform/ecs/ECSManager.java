@@ -733,6 +733,7 @@ class ECSManager {
 
                     @Override
                     public void onError(ERRORVALUES errorvalues, String s) {
+                        ecsCallback.onFailure(new Exception(errorvalues.name()), new ECSError(ECSErrorEnum.ECSUnknownIdentifierError.getErrorCode(),s));
                     }
                 });
             }
@@ -781,9 +782,25 @@ class ECSManager {
 
             @Override
             public void onFailure(Exception error, ECSError ecsError) {
-                ecsCallback.onFailure(error, ecsError);
+
+                if(isAuthError(ecsError)) {
+                    ecsCallback.onFailure(error, ecsError);
+                }else{
+                    orders.setOrderDetail(null);
+                    ecsCallback.onResponse(orders);
+                }
             }
         });
+    }
+
+    boolean isAuthError(ECSError ecsError) {
+        int errorCode = ecsError.getErrorcode();
+        return errorCode == ECSErrorEnum.ECSInvalidTokenError.getErrorCode()
+                    || errorCode == ECSErrorEnum.ECSinvalid_grant.getErrorCode()
+                    || errorCode == ECSErrorEnum.ECSinvalid_client.getErrorCode()
+                    || errorCode == ECSErrorEnum.ECSOAuthDetailError.getErrorCode()
+                    || errorCode == ECSErrorEnum.ECSOAuthNotCalled.getErrorCode();
+
     }
 
     public void refreshAuth(ECSOAuthProvider oAuthInput, ECSCallback<ECSOAuthData, Exception> ecsListener) {

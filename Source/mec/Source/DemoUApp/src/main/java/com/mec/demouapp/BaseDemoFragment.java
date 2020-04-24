@@ -118,6 +118,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     private AppInfraInterface mAppInfraInterface;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

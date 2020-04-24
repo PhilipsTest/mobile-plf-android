@@ -14,13 +14,12 @@ package com.philips.platform.mec.screens.history
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.philips.platform.ecs.model.orders.Entries
-import com.philips.platform.mec.databinding.MecOrderEntriesBinding
+import com.philips.platform.mec.databinding.MecItemOrderDetailRecyclerBinding
 
 class OrderDetailViewHolder (val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root){
 
     fun bind(item: Entries) {
-        val mecOrderEntriesBinding = binding as MecOrderEntriesBinding
+        val mecOrderEntriesBinding = binding as MecItemOrderDetailRecyclerBinding
         mecOrderEntriesBinding.ecsEntries = item
-
     }
 }

@@ -14,24 +14,21 @@ package com.philips.platform.mec.screens.history
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.common.ItemClickListener
-import com.philips.platform.mec.databinding.MecItemOrdersRecyclerBinding
+import com.philips.platform.mec.databinding.MecItemDateRecyclerBinding
 
-class OrdersViewHolder(val binding: ViewDataBinding, val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+class OrdersDateViewHolder(val binding: ViewDataBinding, val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: ECSOrders) {
-        val mecOrderHistoryItemBinding = binding as MecItemOrdersRecyclerBinding
+    fun bind(item: MECDateOrdersHolder) {
+        val mecOrderHistoryItemBinding = binding as MecItemDateRecyclerBinding
 
         val mLayoutManager = object : LinearLayoutManager(binding.root.context) {
             override fun canScrollVertically(): Boolean {
                 return false
             }
         }
-        mecOrderHistoryItemBinding.recyclerProductDetail.layoutManager = mLayoutManager
-        mecOrderHistoryItemBinding.ecsOrders = item
-        mecOrderHistoryItemBinding.service = MECOrderHistoryService()
+        mecOrderHistoryItemBinding.recyclerOrders.layoutManager = mLayoutManager
         mecOrderHistoryItemBinding.itemClickListener = itemClickListener
-
+        mecOrderHistoryItemBinding.mecOrdersHolder = item
     }
 }

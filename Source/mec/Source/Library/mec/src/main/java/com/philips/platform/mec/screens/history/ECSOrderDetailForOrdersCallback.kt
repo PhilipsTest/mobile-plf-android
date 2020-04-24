@@ -19,9 +19,10 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class ECSOrderDetailForOrdersCallback(private val mecOrderHistoryViewModel: MECOrderHistoryViewModel) : ECSCallback<ECSOrders, Exception>{
+class ECSOrderDetailForOrdersCallback(private val mecOrderHistoryViewModel: MECOrderHistoryViewModel) : ECSCallback<ECSOrders, Exception> {
 
     var mECRequestType = MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS
+    private var mecOrderHistoryService = MECOrderHistoryService()
 
     override fun onResponse(result: ECSOrders?) {
         mecOrderHistoryViewModel.ecsOrders.value = result
@@ -29,12 +30,20 @@ class ECSOrderDetailForOrdersCallback(private val mecOrderHistoryViewModel: MECO
 
     override fun onFailure(error: Exception?, ecsError: ECSError?) {
 
-        val mecError = MecError(error, ecsError,mECRequestType)
+        val mecError = MecError(error, ecsError, mECRequestType)
 
         if (MECutility.isAuthError(ecsError)) {
             mecOrderHistoryViewModel.retryAPI(mECRequestType)
-        }  else {
-            mecOrderHistoryViewModel.mecError.value = mecError
+        } else {
+
+            val mECSOrders = mecOrderHistoryViewModel.mECSOrders
+            mECSOrders?.let {
+
+                mecOrderHistoryService.handleOrderDetailFetchFailed(it)
+                mecOrderHistoryViewModel.ecsOrders.value = mECSOrders
+
+            } ?: kotlin.run { mecOrderHistoryViewModel.mecError.value = mecError }
+
         }
     }
 }

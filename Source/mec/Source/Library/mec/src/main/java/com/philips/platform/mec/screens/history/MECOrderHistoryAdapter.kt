@@ -16,23 +16,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.common.ItemClickListener
-import com.philips.platform.mec.databinding.MecOrderHistoryItemBinding
+import com.philips.platform.mec.databinding.MecItemDateRecyclerBinding
 
-class MECOrderHistoryAdapter(val items: MutableList<ECSOrders>, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<OrdersViewHolder>() {
+class MECOrderHistoryAdapter(val dateMap: LinkedHashMap<String, MutableList<ECSOrders>>, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<OrdersDateViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, position: Int): OrdersViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, position: Int): OrdersDateViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = MecOrderHistoryItemBinding.inflate(inflater)
-        return OrdersViewHolder(binding,itemClickListener)
+        val binding = MecItemDateRecyclerBinding.inflate(inflater)
+        return OrdersDateViewHolder(binding,itemClickListener)
     }
 
 
     override fun getItemCount(): Int {
-        return items.size
+        return dateMap.size
     }
 
-    override fun onBindViewHolder(viewHolder : OrdersViewHolder, position: Int) {
-        viewHolder.bind(items[position])
+    override fun onBindViewHolder(viewHolder : OrdersDateViewHolder, position: Int) {
+
+
+        val date = dateMap.keys.toTypedArray()[position]
+        val ecsOrdersList = dateMap.values.toTypedArray()[position]
+        val mecDateOrdersHolder = MECDateOrdersHolder(date,ecsOrdersList)
+        viewHolder.bind(mecDateOrdersHolder)
     }
 }

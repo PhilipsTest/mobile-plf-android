@@ -24,6 +24,7 @@ import com.philips.platform.ecs.model.orders.ECSOrderHistory
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.ItemClickListener
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -46,6 +47,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
 
     private var ordersList = mutableListOf<ECSOrders>()
+    private var dateOrdersMap = LinkedHashMap<String, MutableList<ECSOrders>>()
 
     private var isCallOnProgress = false
 
@@ -70,7 +72,10 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     }
 
     private val orderDetailObserver: Observer<ECSOrders> = Observer { ecsOrders ->
-            showData()
+
+        mecOrderHistoryService.handleOrderDetailFetchFailed(ecsOrders)
+        if(mecOrderHistoryService.isAllDetailsHaveFetched(ordersList)) showData()
+
     }
 
     private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
@@ -81,6 +86,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
 
     private fun showData(){
+        mecOrderHistoryService.getDateOrderMap(dateOrdersMap,ordersList)
         hidePaginationProgressBar()
         hideFullScreenProgressBar()
         isCallOnProgress = false
@@ -98,9 +104,9 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
             mecOrderHistoryViewModel.ecsOrders.observe(viewLifecycleOwner,orderDetailObserver)
             mecOrderHistoryViewModel.mecError.observe(viewLifecycleOwner, this)
 
-            mecOrderHistoryAdapter = MECOrderHistoryAdapter(ordersList,this )
+            mecOrderHistoryAdapter = MECOrderHistoryAdapter(dateOrdersMap,this )
 
-            binding.recyclerOrderHistory.adapter = mecOrderHistoryAdapter
+            binding.dateRecyclerView.adapter = mecOrderHistoryAdapter
             binding.mecEmptyHistory.btnContinueShopping.setOnClickListener { showProductCatalogFragment(getFragmentTag()) }
 
             showFullScreenProgressBar()
@@ -113,7 +119,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     }
 
     private fun handlePagination() {
-        binding.recyclerOrderHistory.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.dateRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
@@ -134,14 +140,15 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     override fun processError(mecError: MecError?, showDialog: Boolean) {
         super.processError(mecError, false)
         isCallOnProgress = false
-        showErrorDialog(mecError)
+
+        if(mecError?.mECRequestType!=MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS) showErrorDialog(mecError)
     }
 
 
     fun shouldFetchNextPage(): Boolean {
 
         if (isCallOnProgress) return false
-        val lay = binding.recyclerOrderHistory.layoutManager as LinearLayoutManager
+        val lay = binding.dateRecyclerView.layoutManager as LinearLayoutManager
 
         if (mecOrderHistoryService.isScrollDown(lay)) {
             if (pageNumber != totalPage - 1) {
@@ -171,7 +178,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         hidePaginationProgressBar()
         hideFullScreenProgressBar()
         isCallOnProgress = false
-        binding.recyclerOrderHistory.visibility = View.GONE
+        binding.dateRecyclerView.visibility = View.GONE
         binding.mecEmptyHistory.rlEmptyHistory.visibility = View.VISIBLE
     }
 
