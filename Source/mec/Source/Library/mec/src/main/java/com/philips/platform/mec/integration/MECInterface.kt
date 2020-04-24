@@ -68,7 +68,8 @@ class MECInterface : UappInterface {
     /**
      * @param uiLauncher      Object of UiLauncherxx
      * @param uappLaunchInput Object of  UappLaunchInput
-     * @throws MECException : It can throw user not logged in or no internet exception
+     * @throws MECException : It can throw user not logged in , no internet exception or  Philips shop not available (if
+     *                      Hybris is explicitly turned off from code)
      * @throws RuntimeException
      */
     @Throws(RuntimeException::class, MECException::class)
