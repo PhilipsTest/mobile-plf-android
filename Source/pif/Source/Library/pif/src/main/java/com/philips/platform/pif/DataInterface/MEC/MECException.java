@@ -19,7 +19,7 @@ public class MECException extends Exception{
 
     public static int USER_NOT_LOGGED_IN = 2000;
     public static int NO_INTERNET = 2001;
-    public static int HYBRIS_NOT_AVAILABLE = 2001;
+    public static int HYBRIS_NOT_AVAILABLE = 2002;
 
     /**
      * @param message : Localized message of the exception
