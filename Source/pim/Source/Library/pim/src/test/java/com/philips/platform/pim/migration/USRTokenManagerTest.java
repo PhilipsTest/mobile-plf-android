@@ -181,6 +181,7 @@ public class USRTokenManagerTest extends TestCase {
         AppConfigurationInterface.AppConfigurationError mockConfigurationError = mock(AppConfigurationInterface.AppConfigurationError.class);
         whenNew(AppConfigurationInterface.AppConfigurationError.class).withNoArguments().thenReturn(mockConfigurationError);
         doReturn("signature").when(spyUsrTokenManager, "getRefreshSignature", anyString(), anyString());
+        doReturn("HEAD").when(spyUsrTokenManager, "getFlowVersion");
         when(mockMap.get(any())).thenReturn(mockServiceDiscoveryService);
         when(mockServiceDiscoveryService.getConfigUrls()).thenReturn("https://stg.accounts.philips.com/c2a48310-9715-3beb-895e-000000000000/login");
         when(mockServiceDiscoveryService.getLocale()).thenReturn("en_US");
@@ -203,6 +204,7 @@ public class USRTokenManagerTest extends TestCase {
         PIMRestClient pimRestClient = new PIMRestClient(PIMSettingManager.getInstance().getRestClient());
         whenNew(PIMRestClient.class).withArguments(mockRestInterface).thenReturn(mockPimRestClient);
         doReturn("signature").when(spyUsrTokenManager, "getRefreshSignature", anyString(), anyString());
+        doReturn("HEAD").when(spyUsrTokenManager, "getFlowVersion");
         when(mockSecureStorageInterface.fetchValueForKey(JR_CAPTURE_REFRESH_SECRET, mockSecureStorageError)).thenReturn("9d945b63d7a7456ee775fddd5f32f1315cda9fed");
         Whitebox.invokeMethod(spyUsrTokenManager, "refreshUSRAccessToken", refreshUrl, "en-US", mockRefreshUSRTokenListener);
         verify(mockPimRestClient).invokeRequest(eq(mockUsrTokenRequest), captorResponseListener.capture(), captorErrorListener.capture());
@@ -224,6 +226,7 @@ public class USRTokenManagerTest extends TestCase {
         when(mockSecureStorageInterface.fetchValueForKey(JR_CAPTURE_REFRESH_SECRET, mockSecureStorageError)).thenReturn("9d945b63d7a7456ee775fddd5f32f1315cda9fed");
         String datetime = Whitebox.invokeMethod(spyUsrTokenManager, "getUTCdatetimeAsString");
         doReturn("signature").when(spyUsrTokenManager, "getRefreshSignature", anyString(), anyString());
+        doReturn("HEAD").when(spyUsrTokenManager, "getFlowVersion");
         HashSet<Pair<String, String>> params = Whitebox.invokeMethod(spyUsrTokenManager, "getParams", "en-US", datetime, accessToken);
         Whitebox.invokeMethod(spyUsrTokenManager, "paramsToString", params, "UTF");
     }
@@ -276,14 +279,6 @@ public class USRTokenManagerTest extends TestCase {
         when(mockAppInfraInterface.getTime()).thenReturn(null);
         String datetime = Whitebox.invokeMethod(spyUsrTokenManager, "getUTCdatetimeAsString");
         assertNull(datetime);
-    }
-
-    @Test
-    public void testGetClientIDFromConfig() throws Exception {
-        whenNew(AppConfigurationInterface.AppConfigurationError.class).withNoArguments().thenReturn(mockAppConfigurationError);
-        when(mockAppConfigurationInterface.getPropertyForKey("JanRainConfiguration.RegistrationClientID", "PIM", mockAppConfigurationError)).thenReturn("f2stykcygm7enbwfw2u9fbg6h6syb8yd");
-        String clientID = Whitebox.invokeMethod(spyUsrTokenManager, "getClientIdFromConfig");
-        assertEquals("f2stykcygm7enbwfw2u9fbg6h6syb8yd", clientID);
     }
 
     @Test
