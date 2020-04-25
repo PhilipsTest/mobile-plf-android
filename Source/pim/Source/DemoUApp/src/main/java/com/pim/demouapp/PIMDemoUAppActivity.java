@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -206,6 +207,11 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             List<String> countryList = new ArrayList<>(Arrays.asList(stringArray));
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, countryList);
             spinnerCountrySelection.setAdapter(arrayAdapter);
+            String selectedCountry = sharedPreferences.getString(SELECTED_COUNTRY, "");
+            if(!TextUtils.isEmpty(selectedCountry)) {
+                int index = countryList.indexOf(selectedCountry);
+                spinnerCountrySelection.setSelection(index);
+            }
             spinnerCountrySelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
