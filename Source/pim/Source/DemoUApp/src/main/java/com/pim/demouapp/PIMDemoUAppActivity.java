@@ -207,9 +207,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             List<String> countryList = new ArrayList<>(Arrays.asList(stringArray));
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, countryList);
             spinnerCountrySelection.setAdapter(arrayAdapter);
-            String selectedCountry = sharedPreferences.getString(SELECTED_COUNTRY, "");
-            if(!TextUtils.isEmpty(selectedCountry)) {
-                int index = countryList.indexOf(selectedCountry);
+            if(!TextUtils.isEmpty(getSavedCountry())) {
+                int index = countryList.indexOf(getSavedCountry());
                 spinnerCountrySelection.setSelection(index);
             }
             spinnerCountrySelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
