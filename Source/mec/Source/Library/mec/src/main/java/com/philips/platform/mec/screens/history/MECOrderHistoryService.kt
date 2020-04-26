@@ -26,9 +26,12 @@ import java.util.*
 class MECOrderHistoryService {
 
     fun isScrollDown(lay: LinearLayoutManager): Boolean {
-        val visibleItemCount = lay.childCount
-        val firstVisibleItemPosition = lay.findFirstVisibleItemPosition()
-        return visibleItemCount + firstVisibleItemPosition >= lay.itemCount && firstVisibleItemPosition >= 0
+
+
+        val visibleItemCount: Int = lay.childCount
+        val totalItemCount: Int = lay.itemCount
+        val pastVisibleItems: Int = lay.findFirstVisibleItemPosition()
+        return (pastVisibleItems + visibleItemCount >= totalItemCount)
     }
 
     fun getFormattedDate(date: String?): String {
@@ -62,19 +65,13 @@ class MECOrderHistoryService {
         }
     }
 
-    fun isAllDetailsHaveFetched(ordersList: MutableList<ECSOrders>): Boolean {
-
-        for (orders in ordersList){
-            val detailsNotFetched = orders.orderDetail == null
-            if(detailsNotFetched) return detailsNotFetched
-        }
-        return true
-    }
 
     fun handleOrderDetailFetchFailed(ecsOrders: ECSOrders) {
         val ecsOrderDetail = ECSOrderDetail()
         ecsOrderDetail.code = MECConstant.MEC_DETAIL_NOT_AVAILABLE
         ecsOrders.orderDetail =  ecsOrders.orderDetail ?: ecsOrderDetail
     }
+
+
 
 }

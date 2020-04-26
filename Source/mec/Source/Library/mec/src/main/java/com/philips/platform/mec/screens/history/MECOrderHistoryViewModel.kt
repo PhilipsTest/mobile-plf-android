@@ -40,6 +40,16 @@ class MECOrderHistoryViewModel : CommonViewModel() , ECSCallback<ECSOAuthData, E
     var mPageSize = 20
     var mECSOrders : ECSOrders? = null
 
+    var callCount :Int = 0
+
+    fun setThreadCount(threadCount:Int) {
+        callCount = threadCount
+    }
+
+    fun countDownThread() {
+         callCount --
+    }
+
     fun retryAPI(mECRequestType: MECRequestType) {
 
         var retryAPI = selectAPIcall(mECRequestType)

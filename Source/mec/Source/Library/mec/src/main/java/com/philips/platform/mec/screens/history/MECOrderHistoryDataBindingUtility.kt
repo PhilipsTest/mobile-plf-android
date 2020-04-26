@@ -25,7 +25,7 @@ class MECOrderHistoryDataBindingUtility {
         @JvmStatic
         @BindingAdapter("ecsOrders","itemClickListener")
         fun setOrderDetailAdapter(recyclerView: RecyclerView, ecsOrders: ECSOrders?, itemClickListener: ItemClickListener) {
-            if(ecsOrders?.orderDetail != null && !ecsOrders.orderDetail.entries?.isEmpty()!!)
+            if(ecsOrders?.orderDetail != null && !ecsOrders.orderDetail.entries.isNullOrEmpty())
                 recyclerView.adapter = MECOrderDetailAdapter(ecsOrders,itemClickListener)
         }
 

@@ -23,10 +23,6 @@
             name="itemClickListener"
             type="com.philips.platform.mec.common.ItemClickListener" />
 
-        <variable
-            name="service"
-            type="com.philips.platform.mec.screens.history.MECOrderHistoryService" />
-
     </data>
 
     <RelativeLayout
@@ -36,16 +32,19 @@
         <LinearLayout
             android:id="@+id/tv_time_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/uidContentPrimaryBackgroundColor">
-
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/uid_shadow_level_two" />
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/tv_time"
                 style="@style/mec_list_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
-                android:text="@{service.getFormattedDate(mecOrdersHolder.date)}"
+                android:text="@{mecOrdersHolder.date}"
                 android:paddingLeft="@dimen/border16_margin_left_right"
                 android:paddingRight="@dimen/border16_margin_left_right" />
         </LinearLayout>

@@ -13,7 +13,6 @@ import android.widget.ScrollView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
@@ -318,8 +317,8 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
         @JvmStatic
         @BindingAdapter("shippingAddress")
-        fun setShippingAddress(lebel: Label, ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
-            lebel.text = MECutility().constructShippingAddressDisplayField(ecsAddress)
+        fun setShippingAddress(lebel: Label, ecsAddress: com.philips.platform.ecs.model.address.ECSAddress?) {
+            if(ecsAddress!=null) lebel.text = MECutility().constructShippingAddressDisplayField(ecsAddress)
         }
 
         @JvmStatic

@@ -22,9 +22,9 @@ import com.philips.platform.mec.utils.MECutility
 class ECSOrderDetailForOrdersCallback(private val mecOrderHistoryViewModel: MECOrderHistoryViewModel) : ECSCallback<ECSOrders, Exception> {
 
     var mECRequestType = MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS
-    private var mecOrderHistoryService = MECOrderHistoryService()
 
     override fun onResponse(result: ECSOrders?) {
+        mecOrderHistoryViewModel.countDownThread()
         mecOrderHistoryViewModel.ecsOrders.value = result
     }
 
@@ -35,15 +35,7 @@ class ECSOrderDetailForOrdersCallback(private val mecOrderHistoryViewModel: MECO
         if (MECutility.isAuthError(ecsError)) {
             mecOrderHistoryViewModel.retryAPI(mECRequestType)
         } else {
-
-            val mECSOrders = mecOrderHistoryViewModel.mECSOrders
-            mECSOrders?.let {
-
-                mecOrderHistoryService.handleOrderDetailFetchFailed(it)
-                mecOrderHistoryViewModel.ecsOrders.value = mECSOrders
-
-            } ?: kotlin.run { mecOrderHistoryViewModel.mecError.value = mecError }
-
+            mecOrderHistoryViewModel.mecError.value = mecError
         }
     }
 }

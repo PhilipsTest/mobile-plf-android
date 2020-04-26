@@ -42,7 +42,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     private lateinit var binding: MecOrderHistoryFragmentBinding
 
     private var pageNumber = 0
-    private var pageSize = 5
+    private var pageSize = 10
     private var totalPage = 0
 
 
@@ -73,12 +73,14 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
     private val orderDetailObserver: Observer<ECSOrders> = Observer { ecsOrders ->
 
-        mecOrderHistoryService.handleOrderDetailFetchFailed(ecsOrders)
-        if(mecOrderHistoryService.isAllDetailsHaveFetched(ordersList)) showData()
-
+        if(mecOrderHistoryViewModel.callCount == 0){
+            showData()
+        }
     }
 
     private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
+        mecOrderHistoryViewModel.setThreadCount(orderList.size)
+
         for (orders in orderList) {
             mecOrderHistoryViewModel.fetchOrderDetail(orders)
         }
@@ -121,9 +123,9 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     private fun handlePagination() {
         binding.dateRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, verticalScrollPixel: Int) {
 
-                if (shouldFetchNextPage()) {
+                if (verticalScrollPixel > 0 && shouldFetchNextPage()) {
                     pageNumber++
                     executeRequest()
                     showPaginationProgressBar()
@@ -141,21 +143,29 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         super.processError(mecError, false)
         isCallOnProgress = false
 
-        if(mecError?.mECRequestType!=MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS) showErrorDialog(mecError)
+        if(mecError?.mECRequestType==MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS){
+            if(mecOrderHistoryViewModel.callCount == 0) showData()
+        }else{
+            showErrorDialog(mecError)
+        }
+
     }
 
 
     fun shouldFetchNextPage(): Boolean {
 
-        if (isCallOnProgress) return false
-        val lay = binding.dateRecyclerView.layoutManager as LinearLayoutManager
+        if (!isCallOnProgress) {
+            val lay = binding.dateRecyclerView.layoutManager as LinearLayoutManager
 
-        if (mecOrderHistoryService.isScrollDown(lay)) {
-            if (pageNumber != totalPage - 1) {
-                return true
+            if (mecOrderHistoryService.isScrollDown(lay)) {
+                if (pageNumber != totalPage - 1) {
+                    return true
+                }
             }
+            return false
+        }else{
+            return false
         }
-        return false
     }
 
     private fun showPaginationProgressBar() {
