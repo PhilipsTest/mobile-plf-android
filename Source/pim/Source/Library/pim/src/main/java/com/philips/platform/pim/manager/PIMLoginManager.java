@@ -3,6 +3,8 @@ package com.philips.platform.pim.manager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
@@ -20,6 +22,7 @@ import net.openid.appauth.AuthorizationRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
@@ -126,11 +129,7 @@ public class PIMLoginManager {
     private Map<String, String> createAdditionalParameterForLogin() {
         Map<String, String> parameter = new HashMap<>();
         parameter.put("claims", mPimoidcConfigration.getCustomClaims());
-        AppTaggingInterface.PrivacyStatus privacyConsent = mTaggingInterface.getPrivacyConsent();
-        boolean bool;
-        bool = privacyConsent.equals(AppTaggingInterface.PrivacyStatus.OPTIN);
         parameter.put("consents", getConsentList());
-        //parameter.put("analytics_consent", String.valueOf(bool));
         String urlString = "http://";
         String[] urlStringWithVisitorData = mTaggingInterface.getVisitorIDAppendToURL(urlString).split("=");
         mLoggingInterface.log(DEBUG, TAG, "External URL with Adobe_mc : " + urlStringWithVisitorData[1]);
@@ -141,36 +140,22 @@ public class PIMLoginManager {
         return parameter;
     }
 
-    private ArrayList<String> addConsentLists() {
-        boolean bool;
-        ArrayList<String> consentList = new ArrayList<>();
-        AppTaggingInterface.PrivacyStatus privacyConsent = mTaggingInterface.getPrivacyConsent();
-        bool = privacyConsent.equals(AppTaggingInterface.PrivacyStatus.OPTIN);
-        if (bool)
-            consentList.add(PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT.pimConsent);
-        if (consentParameterMap != null && consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT) != null
-                && (Boolean) consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT))
-            consentList.add(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent);
-        mLoggingInterface.log(DEBUG, TAG, "consent list parameters : " + consentList.toString());
-        return consentList;
-    }
-
     private String getConsentList() {
         AppTaggingInterface.PrivacyStatus privacyConsent = mTaggingInterface.getPrivacyConsent();
         boolean isAnalyticsEnabled = privacyConsent.equals(AppTaggingInterface.PrivacyStatus.OPTIN);
-        boolean isABTesingEnabled =false;
-        String consents = "";
-
+        boolean isABTesingEnabled = false;
         if (consentParameterMap != null && consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT) != null
                 && (Boolean) consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT))
             isABTesingEnabled = true;
 
-        if(isAnalyticsEnabled && isABTesingEnabled)
-            consents = PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT.pimConsent +","+PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent;
-        else if (isAnalyticsEnabled)
-            consents = PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT.pimConsent;
-        else if(isABTesingEnabled)
-            consents = PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent;
+        List<String> consentList = new ArrayList<>();
+        if(isAnalyticsEnabled)
+            consentList.add(PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT.pimConsent);
+        if(isABTesingEnabled)
+            consentList.add(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent);
+
+        String consents = TextUtils.join(",",consentList);
+
         mLoggingInterface.log(DEBUG, TAG, "consent list parameters : " + consents);
         return consents;
     }
