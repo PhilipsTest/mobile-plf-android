@@ -141,17 +141,14 @@ public class PIMLoginManager {
     }
 
     private String getConsentList() {
-        AppTaggingInterface.PrivacyStatus privacyConsent = mTaggingInterface.getPrivacyConsent();
-        boolean isAnalyticsEnabled = privacyConsent.equals(AppTaggingInterface.PrivacyStatus.OPTIN);
-        boolean isABTesingEnabled = false;
-        if (consentParameterMap != null && consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT) != null
-                && (Boolean) consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT))
-            isABTesingEnabled = true;
-
         List<String> consentList = new ArrayList<>();
-        if(isAnalyticsEnabled)
+
+        if (mTaggingInterface != null && mTaggingInterface.getPrivacyConsent() != null &&
+                mTaggingInterface.getPrivacyConsent().equals(AppTaggingInterface.PrivacyStatus.OPTIN))
             consentList.add(PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT.pimConsent);
-        if(isABTesingEnabled)
+
+        if (consentParameterMap != null && consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT) != null &&
+                (Boolean) consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT))
             consentList.add(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent);
 
         String consents = TextUtils.join(",",consentList);

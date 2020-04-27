@@ -168,11 +168,12 @@ public class PIMDataImplementation implements UserDataInterface {
 
     @Override
     public void migrateUserToPIM(UserMigrationListener userMigrationListener) {
-        PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
-        if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN || !pimMigrator.isMigrationRequired()) {
-            userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(mContext, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
+        if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            userMigrationListener.onUserMigrationSuccess();
             return;
         }
+        PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
+
         isInitRequiredAgain = true;
         MutableLiveData<PIMInitState> pimInitLiveData = PIMSettingManager.getInstance().getPimInitLiveData();
         new PIMConfigManager(PIMSettingManager.getInstance().getPimUserManager()).init(mContext, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
@@ -224,7 +225,7 @@ public class PIMDataImplementation implements UserDataInterface {
 
         PIMOIDCUserProfile pimoidcUserProfile = pimUserManager.getUserProfile();
 
-        if (detailKeys.size() == 0) {
+        if (detailKeys == null && detailKeys.size() == 0) {
             ArrayList<String> allValidKeys = getAllValidUserDetailsKeys();
             return pimoidcUserProfile.fetchUserDetails(allValidKeys);
         } else {
