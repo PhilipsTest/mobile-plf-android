@@ -181,7 +181,7 @@ ext.deps = [
         mockito_android               : "org.mockito:mockito-android:${ext.versions.mockito}",
         multidex                      : 'com.android.support:multidex:1.0.3',
         opengl                        : 'org.khronos:opengl-api:gl1.1-android-2.1_r1',
-        openid_appauth                : 'net.openid:appauth:0.7.1',
+        openid_appauth                : 'net.openid:appauth:0.7.0',
         powermock_api_mockito         : "org.powermock:powermock-api-mockito2:${ext.versions.powermock}",
         powermock_classloading_xstream: "org.powermock:powermock-classloading-xstream:${ext.versions.powermock}",
         powermock_core                : "org.powermock:powermock-core:${ext.versions.powermock}",
