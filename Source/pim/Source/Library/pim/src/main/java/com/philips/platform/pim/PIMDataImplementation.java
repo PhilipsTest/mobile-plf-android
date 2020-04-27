@@ -241,7 +241,7 @@ public class PIMDataImplementation implements UserDataInterface {
             if (allValidKeys.contains(key))
                 validDetailsKey.add(key);
             else
-                throw new UserDataInterfaceException(new Error(Error.UserDetailError.InvalidFields));
+                throw new UserDataInterfaceException(new Error(Error.UserDetailError.InvalidUserDetailsKeys));
         }
         return validDetailsKey;
     }
