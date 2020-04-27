@@ -19,7 +19,7 @@
 
         <variable
             name="ecsAddress"
-            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+            type="com.philips.platform.ecs.model.address.ECSAddress" />
 
     </data>
 
@@ -72,6 +72,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/iap_margin_4dp"
                             app:mecEmptyValidator="@{null}"
+                            android:tag="mec_salutation_error"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="@string/mec_salutation_error">
 
@@ -111,6 +112,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/iap_margin_4dp"
                             app:mecEmptyValidator="@{null}"
+                            android:tag="mec_first_name_error"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="@string/mec_first_name_error">
 
@@ -145,6 +147,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/iap_margin_4dp"
                             app:mecEmptyValidator="@{null}"
+                            android:tag="mec_last_name_error"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="@string/mec_last_name_error">
 
@@ -180,6 +183,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:phoneNumberEditText="@{etPhone1}"
+                            android:tag="mec_phone_error"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="@string/mec_phone_error">
 
@@ -237,6 +241,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
                         app:mecEmptyValidator="@{null}"
+                        android:tag="mec_house_number_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_house_number_error">
 
@@ -270,6 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
                         app:mecEmptyValidator="@{null}"
+                        android:tag="mec_address_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_address_error">
 
@@ -330,6 +336,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
                         app:mecEmptyValidator="@{null}"
+                        android:tag="mec_town_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_town_error">
 
@@ -364,6 +371,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
                         app:mecEmptyValidator="@{null}"
+                        android:tag="mec_postal_code_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_postal_code_error">
 
@@ -399,6 +407,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
                         app:mecEmptyValidator="@{null}"
+                        android:tag="mec_state_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_state_error">
 

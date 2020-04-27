@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">|Overzicht van de inhoud van de winkelwagen|</string>
   <string name="mec_cart_tax_message">|يشمل السعر الضريبة على القيمة المضافة بقيمة %s|</string>
   <string name="mec_cart_total">|Tổng cộng|</string>
+  <string name="mec_check_internet_connection">|Lūdzu, pārbaudiet savu interneta savienojumu.|</string>
   <string name="mec_checkout">|Оформлення замовлення|</string>
   <string name="mec_choose_address_text">|Selecciona la dirección de envío de la lista que aparece a continuación|</string>
   <string name="mec_confirmation">|Подтверждение|</string>
@@ -81,7 +82,7 @@
   <string name="mec_loading">|En cours de chargement...|</string>
   <string name="mec_manage_address">|Διαχείριση διεύθυνσης|</string>
   <string name="mec_more_info">|для получения дополнительной информации|</string>
-  <string name="mec_mr">|[ko]Mr|</string>
+  <string name="mec_mr">|Ponas|</string>
   <string name="mec_mrs">|Dl / D-na / Dra|</string>
   <string name="mec_new_card_text">|Nouvelle carte|</string>
   <string name="mec_new_payment_disclaimer">|Информацията относно плащането ще се запази веднага след като направите поръчка|</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">|Veuillez sélectionner un mode de livraison|</string>
   <string name="mec_no_internet">|Sie sind möglicherweise nicht mit dem Internet verbunden. Überprüfen Sie Ihre Verbindung, und versuchen Sie es erneut.|</string>
   <string name="mec_no_payment_error_message">|Veuillez sélectionner un mode de paiement|</string>
+  <string name="mec_no_philips_shop">|Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής|</string>
   <string name="mec_no_product_available">|No se ha encontrado ningún producto en la tienda.|</string>
   <string name="mec_no_result">|次に一致する検索結果は見つかりませんでした：|</string>
   <string name="mec_no_review_available">|Không tìm thấy bài đánh giá nào|</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">|Σας ευχαριστούμε για την παραγγελία σας|</string>
   <string name="mec_threshold_message">|Αυτό ενδέχεται να διαρκέσει περισσότερη ώρα. Θέλετε να συνεχίσετε;|</string>
   <string name="mec_threshold_title">|Bylo dosaženo prahové hodnoty požadavku|</string>
-  <string name="mec_time_out_error">|[zh-TW]Network timeout reached!|</string>
+  <string name="mec_time_out_error">|Se ha superado el tiempo máximo de espera de la red.|</string>
   <string name="mec_town">|Населений пункт/місто|</string>
   <string name="mec_town_error">|Lūdzu, ievadiet derīgu pilsētas nosaukumu|</string>
   <string name="mec_town_hint">|Въведете вашия град или населено място|</string>

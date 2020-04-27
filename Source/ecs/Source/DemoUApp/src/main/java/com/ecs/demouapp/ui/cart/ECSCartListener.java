@@ -6,7 +6,7 @@ package com.ecs.demouapp.ui.cart;
 
 import android.os.Message;
 
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
+import com.philips.platform.ecs.model.cart.ECSShoppingCart;
 
 public interface ECSCartListener {
     void onSuccess(ECSShoppingCart ecsShoppingCart);

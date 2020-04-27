@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Povzetek košarice</string>
   <string name="mec_cart_tax_message">Cena vsebuje %s DDB</string>
   <string name="mec_cart_total">Skupaj</string>
+  <string name="mec_check_internet_connection">Preverite internetno povezavo.</string>
   <string name="mec_checkout">Zaključek naročila</string>
   <string name="mec_choose_address_text">Izberite naslov za dostavo s spodnjega seznama</string>
   <string name="mec_confirmation">Potrditev</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Izberite način dostave</string>
   <string name="mec_no_internet">Videti je, da vaša internetna povezava ne deluje. Preverite povezavo in poskusite znova.</string>
   <string name="mec_no_payment_error_message">Izberite način plačila</string>
+  <string name="mec_no_philips_shop">Philipsova trgovina ni na voljo za izbrano državo. Na voljo je samo način prodajalca.</string>
   <string name="mec_no_product_available">V trgovini ni bil najden noben izdelek.</string>
   <string name="mec_no_result">0 rezultatov za</string>
   <string name="mec_no_review_available">Najdena ni bila nobena ocena</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Hvala za naročilo</string>
   <string name="mec_threshold_message">To lahko traja še nekaj časa. Želite nadaljevati?</string>
   <string name="mec_threshold_title">Dosežen je bil prag zahtev</string>
-  <string name="mec_time_out_error">[sl]Network timeout reached!</string>
+  <string name="mec_time_out_error">Dosežena je časovna omejitev omrežja.</string>
   <string name="mec_town">Mesto/kraj</string>
   <string name="mec_town_error">Vnesite veljavno mesto</string>
   <string name="mec_town_hint">Vnesite mesto ali kraj</string>

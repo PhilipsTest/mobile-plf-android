@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Pirkinių krepšelio suvestinė</string>
   <string name="mec_cart_tax_message">Kaina, įskaitant %s PVM</string>
   <string name="mec_cart_total">Iš viso</string>
+  <string name="mec_check_internet_connection">Patikrinkite savo interneto ryšį.</string>
   <string name="mec_checkout">Apmokėti</string>
   <string name="mec_choose_address_text">Pasirinkite pristatymo adresą žemiau esančiame sąraše</string>
   <string name="mec_confirmation">Patvirtinimas</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Pasirinkite pristatymo būdą</string>
   <string name="mec_no_internet">Panašu, kad neveikia jūsų interneto ryšys. Patikrinkite ir bandykite dar kartą</string>
   <string name="mec_no_payment_error_message">Pasirinkti mokėjimo būdą</string>
+  <string name="mec_no_philips_shop">„Philips“ parduotuvė neveikia pasirinktoje šalyje, veikia tik mažmeninė prekyba</string>
   <string name="mec_no_product_available">Jūsų parduotuvėje produktų nerasta.</string>
   <string name="mec_no_result">Rasta 0 rezultatų pagal užklausą</string>
   <string name="mec_no_review_available">Atsiliepimų nerasta</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Dėkojame, kad užsisakėte</string>
   <string name="mec_threshold_message">Tai gali užtrukti. Ar norite tęsti?</string>
   <string name="mec_threshold_title">Pasiektas užklausų limitas</string>
-  <string name="mec_time_out_error">[lt]Network timeout reached!</string>
+  <string name="mec_time_out_error">Baigėsi tinklo veikimo laikas!</string>
   <string name="mec_town">Miestas</string>
   <string name="mec_town_error">Įveskite tikrą miestą</string>
   <string name="mec_town_hint">Įveskite miestą</string>

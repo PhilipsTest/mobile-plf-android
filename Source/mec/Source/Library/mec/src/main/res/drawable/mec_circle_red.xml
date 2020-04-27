@@ -4,7 +4,7 @@
     android:shape="oval">
 
 
-    <solid android:color="?attr/uidContentItemSignalNormalIconErrorColor" />/>
+    <solid android:color="?attr/uidContentItemSignalNormalIconErrorColor" />
 
     <size
         android:height="22dp"

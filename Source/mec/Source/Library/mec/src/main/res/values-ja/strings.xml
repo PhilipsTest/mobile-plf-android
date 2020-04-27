@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">カートサマリー</string>
   <string name="mec_cart_tax_message">価格（%s VAT 込）</string>
   <string name="mec_cart_total">合計</string>
+  <string name="mec_check_internet_connection">インターネット接続を確認してください。</string>
   <string name="mec_checkout">精算</string>
   <string name="mec_choose_address_text">下のリストから配送先住所を選択</string>
   <string name="mec_confirmation">確認</string>
@@ -81,14 +82,15 @@
   <string name="mec_loading">ロード中...</string>
   <string name="mec_manage_address">住所を管理</string>
   <string name="mec_more_info">をお読みください</string>
-  <string name="mec_mr">[ja]Mr</string>
-  <string name="mec_mrs">[ja]Ms</string>
+  <string name="mec_mr">Mr</string>
+  <string name="mec_mrs">Ms</string>
   <string name="mec_new_card_text">新しいカード</string>
   <string name="mec_new_payment_disclaimer">この支払い詳細は注文後に保存されます</string>
   <string name="mec_no_address_select_message">配送先住所を選択してください。</string>
   <string name="mec_no_delivery_mode_error_message">配送モードを選択してください</string>
   <string name="mec_no_internet">インターネットに接続されていないようです。確認してから再試行してください。</string>
   <string name="mec_no_payment_error_message">支払い方法を選択してください</string>
+  <string name="mec_no_philips_shop">選択された国ではフィリップスショップはご利用いただけません。リテーラーモードのみご利用いただけます。</string>
   <string name="mec_no_product_available">ストア内に製品がありません。</string>
   <string name="mec_no_result">次に一致する検索結果は見つかりませんでした：</string>
   <string name="mec_no_review_available">レビューが見つかりません</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">ご注文ありがとうございます</string>
   <string name="mec_threshold_message">時間がかかる場合があります。続行しますか？</string>
   <string name="mec_threshold_title">リクエストの閾値に達しました</string>
-  <string name="mec_time_out_error">[ja]Network timeout reached!</string>
+  <string name="mec_time_out_error">ネットワークがタイムアウトしました。</string>
   <string name="mec_town">市区町村</string>
   <string name="mec_town_error">有効な市区町村を入力してください</string>
   <string name="mec_town_hint">市区町村を入力</string>

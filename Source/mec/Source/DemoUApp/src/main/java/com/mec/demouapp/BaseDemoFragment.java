@@ -202,11 +202,6 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     isHybrisEnable = isChecked;
-                    if (isHybrisEnable && mUserDataInterface != null && mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-                        shouldShowCart(true);
-                    }else{
-                        shouldShowCart(false);
-                    }
                     initializeMECComponant();
                 }
             });
@@ -594,7 +589,8 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     //In-App listener functions
     @Override
     public void onGetCartCount(int count) {
-        dismissProgressDialog();
+            dismissProgressDialog();
+            mShoppingCartContainer.setVisibility(View.VISIBLE);
         if (count > 0) {
             mCountText.setText(String.valueOf(count));
             mCountText.setVisibility(View.VISIBLE);

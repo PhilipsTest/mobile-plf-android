@@ -11,12 +11,7 @@ package com.philips.platform.mec.analytics
 
 import android.content.Context
 import android.content.res.Configuration
-import android.util.Log
 import androidx.annotation.NonNull
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
-import com.philips.cdp.di.ecs.model.orders.Entries
-import com.philips.cdp.di.ecs.model.products.ECSProduct
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
@@ -48,6 +43,7 @@ import kotlin.collections.HashMap
 class MECAnalytics {
 
     companion object {
+        private val TAG: String = MECAnalytics::class.java.simpleName
 
         val defaultLocale: String = "en_US"
         var mAppTaggingInterface: AppTaggingInterface? = null
@@ -61,17 +57,17 @@ class MECAnalytics {
                 mAppTaggingInterface = dependencies.appInfra.tagging.createInstanceForComponent(MECAnalyticsConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME)
                 countryCode = dependencies.appInfra.serviceDiscovery.homeCountry
             } catch (e: Exception) {
-
+                MECLog.d(TAG, "Exception :" + e.message);
             }
         }
 
         @JvmStatic
         fun trackPage(currentPage: String) {
-            if (mAppTaggingInterface != null && currentPage != null) {
-                var map = HashMap<String, String>()
+            if (mAppTaggingInterface != null) {
+                val map = HashMap<String, String>()
                 if (currentPage != previousPageName) {
                     previousPageName = currentPage
-                    Log.v("MEC_LOG", "trackPage" + currentPage);
+                    MECLog.v(TAG, "trackPage$currentPage");
                     mAppTaggingInterface!!.trackPageWithInfo(currentPage, addCountryAndCurrency(map))
                 }
             }
@@ -81,16 +77,17 @@ class MECAnalytics {
         @JvmStatic
         fun trackAction(state: String, key: String, value: Any) {
             val valueObject = value as String
-            Log.v("MEC_LOG", "trackAction" + valueObject);
+            MECLog.v(TAG, "trackAction$valueObject");
             if (mAppTaggingInterface != null)
                 mAppTaggingInterface!!.trackActionWithInfo(state, key, valueObject)
         }
 
         @JvmStatic
         fun trackMultipleActions(state: String, map: Map<String, String>) {
-            if (mAppTaggingInterface != null)
-                Log.v("MEC_LOG", "trackMtlutipleAction ")
-            mAppTaggingInterface!!.trackActionWithInfo(state, addCountryAndCurrency(map))
+            if (mAppTaggingInterface != null) {
+                MECLog.v(TAG, "trackMtlutipleAction ")
+                mAppTaggingInterface!!.trackActionWithInfo(state, addCountryAndCurrency(map))
+            }
         }
 
 
@@ -100,10 +97,10 @@ class MECAnalytics {
         * */
         @JvmStatic
         fun trackInAppNotofication(errorDescription: String, errorResponse: String) {
-            var actionMap = HashMap<String, String>()
+            val actionMap = HashMap<String, String>()
             actionMap.put(MECAnalyticsConstant.inappnotification, errorDescription)
             actionMap.put(MECAnalyticsConstant.inappnotificationresponse, errorResponse)
-            MECAnalytics.trackMultipleActions(sendData, actionMap)
+            trackMultipleActions(sendData, actionMap)
         }
 
 
@@ -115,7 +112,7 @@ class MECAnalytics {
         fun trackTechnicalError(value: Any) {
             val errorObject = value as String
             MECLog.e(technicalError, javaClass.simpleName + " : " + errorObject)
-            var map = HashMap<String, String>()
+            val map = HashMap<String, String>()
             map.put(technicalError, errorObject)
             trackMultipleActions(sendData, map)
         }
@@ -131,7 +128,7 @@ class MECAnalytics {
             val errorObject = value as String
             errorString += errorObject
             MECLog.e(userError, javaClass.simpleName + " : " + errorString)
-            var map = HashMap<String, String>()
+            val map = HashMap<String, String>()
             map.put(userError, errorString)
             trackMultipleActions(sendData, map)
         }
@@ -144,14 +141,14 @@ class MECAnalytics {
         fun trackInformationError(value: Any) {
             val errorObject = value as String
             MECLog.i(informationalError, javaClass.simpleName + " : " + errorObject)
-            var map = HashMap<String, String>()
+            val map = HashMap<String, String>()
             map.put(informationalError, errorObject)
             trackMultipleActions(sendData, map)
         }
 
 
         private fun addCountryAndCurrency(map: Map<String, String>): Map<String, String> {
-            var newMap = HashMap(map)
+            val newMap = HashMap(map)
             newMap.put(country, countryCode)
             newMap.put(currency, currencyCode)
             return newMap;
@@ -165,7 +162,7 @@ class MECAnalytics {
         *
         * */
         @JvmStatic
-        fun tagProductList(productList: MutableList<ECSProduct>) {
+        fun tagProductList(productList: MutableList<com.philips.platform.ecs.model.products.ECSProduct>) {
             if (productList != null && productList.size > 0) {
                 val mutableProductIterator = productList.iterator()
                 var productListString: String = ""
@@ -173,8 +170,8 @@ class MECAnalytics {
                     productListString += "," + getProductInfo(product)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
-                Log.v("MEC_LOG", "prodList : " + productListString)
-                var map = HashMap<String, String>()
+                MECLog.v(TAG, "prodList : $productListString")
+                val map = HashMap<String, String>()
                 map.put(mecProducts, productListString)
                 trackMultipleActions(sendData, map)
             }
@@ -187,8 +184,8 @@ class MECAnalytics {
         * format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
-        fun tagProductList(productList: MutableList<ECSProduct>, listOrGrid: String) {
-            var map = HashMap<String, String>()
+        fun tagProductList(productList: MutableList<com.philips.platform.ecs.model.products.ECSProduct>, listOrGrid: String) {
+            val map = HashMap<String, String>()
             map.put(productListLayout, listOrGrid)
             if (productList != null && productList.size > 0) {
                 val mutableProductIterator = productList.iterator()
@@ -201,7 +198,7 @@ class MECAnalytics {
                     }
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
-                Log.v("MEC_LOG", "prodList : " + productListString)
+                MECLog.v("MEC_LOG", "prodList : $productListString")
                 map.put(mecProducts, productListString);
             }
             trackMultipleActions(sendData, map)
@@ -212,8 +209,8 @@ class MECAnalytics {
        * This method is to tag passed Action(s) with order products details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
-        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<Entries>) {
-            var productsMap = HashMap<String, String>()
+        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<com.philips.platform.ecs.model.orders.Entries>) {
+            val productsMap = HashMap<String, String>()
             if (entryList != null && entryList.size > 0) { //Entries
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
@@ -221,7 +218,7 @@ class MECAnalytics {
                     productListString += "," + getProductInfo(entry.product)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
-                Log.v("MEC_LOG", "Order prodList : " + productListString)
+                MECLog.v("MEC_LOG", "Order prodList : " + productListString)
                 productsMap.put(mecProducts, productListString);
             }
             productsMap.putAll(actionMap)
@@ -232,7 +229,7 @@ class MECAnalytics {
         * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
-        fun tagActionsWithCartProductsInfo(actionMap: Map<String, String>, ecsShoppingCart: ECSShoppingCart?) {
+        fun tagActionsWithCartProductsInfo(actionMap: Map<String, String>, ecsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
             var productsMap = HashMap<String, String>()
             val entryList = ecsShoppingCart?.entries // ECSEntries
             if (entryList != null && entryList.size > 0) {
@@ -242,7 +239,7 @@ class MECAnalytics {
                     productListString += "," + getProductInfo(entry.product)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
-                Log.v("MEC_LOG", "Cart prodList : " + productListString)
+                MECLog.v("MEC_LOG", "Cart prodList : " + productListString)
                 productsMap.put(mecProducts, productListString);
             }
             productsMap.putAll(actionMap)
@@ -254,7 +251,7 @@ class MECAnalytics {
        * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
-        fun getProductInfo(product: ECSProduct): String {
+        fun getProductInfo(product: com.philips.platform.ecs.model.products.ECSProduct): String {
             var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
             protuctDetail += ";" + product.code
             protuctDetail += ";" + (if (product.stock != null && product.stock.stockLevel != null) product.stock.stockLevel else 0)
@@ -267,7 +264,7 @@ class MECAnalytics {
         * This method will tag a successful purchase order details
         * */
         @JvmStatic
-        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail) {
+        fun tagPurchaseOrder(mECSOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail) {
             var orderMap = HashMap<String, String>()
             orderMap.put(specialEvents, purchase)
             orderMap.put(transationID, mECSOrderDetail.code)
@@ -316,7 +313,8 @@ class MECAnalytics {
                 val currency = Currency.getInstance(locale)
                 currencyCode = currency.currencyCode
             } catch (e: Exception) {
-                trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME+":"+ appError +":"+ other+e.toString()+":"+exceptionErrorCode)
+                MECLog.d(TAG, "Exception : " + e.message)
+                trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + exceptionErrorCode)
             }
 
         }

@@ -5,10 +5,10 @@ import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.ECSLog;
 import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.ecs.demouapp.ui.utils.Utility;
-import com.philips.cdp.di.ecs.ECSServices;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.ecs.ECSServices;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.util.ECSConfiguration;
 import com.philips.platform.uappframework.launcher.UiLauncher;
 
 public class ECSConfigure {

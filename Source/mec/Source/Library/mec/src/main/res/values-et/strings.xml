@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Ostukorvi kokkuvõte</string>
   <string name="mec_cart_tax_message">Hind sisaldab %s käibemaksu</string>
   <string name="mec_cart_total">Kokku</string>
+  <string name="mec_check_internet_connection">Kontrollige oma internetiühendust.</string>
   <string name="mec_checkout">Kassa</string>
   <string name="mec_choose_address_text">Valige tarneaadress allolevast loendist</string>
   <string name="mec_confirmation">Kinnitus</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Valige tarneviis</string>
   <string name="mec_no_internet">Tundub, et viga on teie internetiühenduses. Kontrollige ja proovige uuesti</string>
   <string name="mec_no_payment_error_message">Valige makseviis</string>
+  <string name="mec_no_philips_shop">Philipsi pood ei ole valitud riikides saadaval; saadaval on ainult edasimüüja režiim</string>
   <string name="mec_no_product_available">Poest ei leitud ühtegi toodet.</string>
   <string name="mec_no_result">0 tulemust leitud otsingule</string>
   <string name="mec_no_review_available">Arvustusi ei leitud</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Täname teid tellimuse eest!</string>
   <string name="mec_threshold_message">See võtab rohkem aega. Kas soovite jätkata?</string>
   <string name="mec_threshold_title">Taotluse ajalõpp saavutatud</string>
-  <string name="mec_time_out_error">[et]Network timeout reached!</string>
+  <string name="mec_time_out_error">Võrk aegus!</string>
   <string name="mec_town">Asula/linn:</string>
   <string name="mec_town_error">Sisestage õige linna nimetus</string>
   <string name="mec_town_hint">Sisestage linn</string>

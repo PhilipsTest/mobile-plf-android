@@ -16,10 +16,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.cdp.prxclient.datamodels.specification.SpecificationModel
 import com.philips.platform.mec.analytics.MECAnalytics
-import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.productTabsClick
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
@@ -33,7 +32,7 @@ import com.philips.platform.mec.utils.MECConstant
 class SpecificationFragment : MecBaseFragment() {
     var mSpecification: SpecificationModel? = null
     var mRecyclerView : RecyclerView? =null
-    private lateinit var mECSProduct : ECSProduct
+    private lateinit var mECSProduct : com.philips.platform.ecs.model.products.ECSProduct
 
     override fun getFragmentTag(): String {
         return "SpecificationFragment"
@@ -73,7 +72,7 @@ class SpecificationFragment : MecBaseFragment() {
 
         val bundle = arguments
         val productCtn = bundle!!.getString(MECConstant.MEC_PRODUCT_CTN, "INVALID")
-        mECSProduct =bundle!!.getSerializable(MECConstant.MEC_PRODUCT) as ECSProduct
+        mECSProduct =bundle!!.getSerializable(MECConstant.MEC_PRODUCT) as com.philips.platform.ecs.model.products.ECSProduct
         mRecyclerView = binding.root as RecyclerView
         if (mSpecification == null) {
             context?.let { prxSpecificationViewModel.fetchSpecification(it, productCtn) }

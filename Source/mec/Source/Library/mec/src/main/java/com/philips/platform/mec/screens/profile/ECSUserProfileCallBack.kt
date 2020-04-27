@@ -9,16 +9,16 @@
  */
 package com.philips.platform.mec.screens.profile
 
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.address.ECSUserProfile
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.address.ECSUserProfile
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class ECSUserProfileCallBack(private var ecsProfileViewModel: ProfileViewModel) :ECSCallback<ECSUserProfile, Exception> {
+class ECSUserProfileCallBack(private var ecsProfileViewModel: ProfileViewModel) : ECSCallback<ECSUserProfile, Exception> {
 
-    lateinit var mECRequestType : MECRequestType
+    var mECRequestType =  MECRequestType.MEC_FETCH_USER_PROFILE
     override fun onResponse(userProfile: ECSUserProfile) {
         ecsProfileViewModel.userProfile.value = userProfile
     }

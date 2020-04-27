@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Tổng giỏ hàng</string>
   <string name="mec_cart_tax_message">Giá bao gồm thuế GTGT %s</string>
   <string name="mec_cart_total">Tổng cộng</string>
+  <string name="mec_check_internet_connection">Vui lòng kiểm tra Kết nối internet của bạn.</string>
   <string name="mec_checkout">Thanh toán</string>
   <string name="mec_choose_address_text">Chọn địa chỉ giao hàng từ danh sách dưới đây</string>
   <string name="mec_confirmation">Xác nhận</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Vui lòng chọn hình thức giao hàng</string>
   <string name="mec_no_internet">Kết nối internet của bạn có vẻ như không hiệu quả. Vui lòng kiểm tra và thử lại</string>
   <string name="mec_no_payment_error_message">Vui lòng chọn phương thức thanh toán</string>
+  <string name="mec_no_philips_shop">Không có cửa hàng của Philips ở quốc gia đã chọn, chỉ có hình thức đại lý bán lẻ</string>
   <string name="mec_no_product_available">Không tìm thấy sản phẩm trong Cửa hàng của bạn.</string>
   <string name="mec_no_result">Tìm thấy 0 kết quả cho</string>
   <string name="mec_no_review_available">Không tìm thấy bài đánh giá nào</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Cảm ơn bạn đã đặt hàng</string>
   <string name="mec_threshold_message">Thao tác này có thể nhiều thời gian. Bạn có muốn tiếp tục không?</string>
   <string name="mec_threshold_title">Đã đạt ngưỡng yêu cầu</string>
-  <string name="mec_time_out_error">[vi]Network timeout reached!</string>
+  <string name="mec_time_out_error">Đã hết thời gian chờ mạng!</string>
   <string name="mec_town">Thị xã/Thành phố</string>
   <string name="mec_town_error">Vui lòng nhập thị xã hợp lệ</string>
   <string name="mec_town_hint">Nhập thị xã hoặc thành phố của bạn</string>

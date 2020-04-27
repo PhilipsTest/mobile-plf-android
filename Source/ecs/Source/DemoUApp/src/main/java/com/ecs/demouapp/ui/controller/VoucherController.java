@@ -6,10 +6,9 @@ import android.os.Message;
 
 import com.ecs.demouapp.ui.session.RequestCode;
 import com.ecs.demouapp.ui.utils.ECSUtility;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.voucher.ECSVoucher;
-import com.philips.cdp.di.ecs.model.voucher.GetAppliedValue;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.voucher.ECSVoucher;
 
 import java.util.List;
 

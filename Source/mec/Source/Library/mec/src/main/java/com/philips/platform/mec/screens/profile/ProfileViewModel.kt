@@ -11,17 +11,17 @@ package com.philips.platform.mec.screens.profile
 
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.di.ecs.model.address.ECSUserProfile
+import com.philips.platform.ecs.model.address.ECSUserProfile
 import com.philips.platform.mec.common.CommonViewModel
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 
-class ProfileViewModel : com.philips.platform.mec.common.CommonViewModel() {
+class ProfileViewModel : CommonViewModel() {
 
 
-    val userProfile = MutableLiveData<ECSUserProfile>()
+    var userProfile = MutableLiveData<ECSUserProfile>()
 
-    private var ecsUserProfileCallBack = ECSUserProfileCallBack(this)
+    var ecsUserProfileCallBack = ECSUserProfileCallBack(this)
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
@@ -32,16 +32,14 @@ class ProfileViewModel : com.philips.platform.mec.common.CommonViewModel() {
     }
 
     fun retryAPI(mecRequestType: MECRequestType) {
-        var retryAPI = selectAPIcall(mecRequestType)
+        val retryAPI = selectAPIcall(mecRequestType)
         authAndCallAPIagain(retryAPI, authFailCallback)
     }
 
     fun selectAPIcall(mecRequestType: MECRequestType): () -> Unit {
 
         lateinit var APIcall: () -> Unit
-        when (mecRequestType) {
-            MECRequestType.MEC_FETCH_USER_PROFILE -> APIcall = { fetchUserProfile() }
-        }
+        if (mecRequestType == MECRequestType.MEC_FETCH_USER_PROFILE) APIcall = { fetchUserProfile() }
         return APIcall
     }
 

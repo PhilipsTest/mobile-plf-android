@@ -19,11 +19,11 @@ import android.view.animation.TranslateAnimation
 import androidx.fragment.app.FragmentManager
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.google.gson.Gson
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.error.ECSErrorEnum
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSErrorEnum
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
 import com.philips.platform.mec.analytics.MECAnalyticServer.hybris
@@ -233,8 +233,7 @@ class MECutility {
                 return false
             }
 
-            return (stockLevelStatus.equals(IN_STOCK, ignoreCase = true) ||
-                    stockLevelStatus.equals(LOW_STOCK, ignoreCase = true) || stockLevel > 0)
+            return ((stockLevelStatus.equals(IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(LOW_STOCK, ignoreCase = true)) && stockLevel > 0)
         }
 
         fun stockStatus(availability: String): String {
@@ -309,12 +308,19 @@ class MECutility {
                     if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
                         errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
                     } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+                        // No Internet: Information Error
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                         //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
+                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
+                        errorMessage = Acontext!!.getString(R.string.mec_no_internet)
                     } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
-                        MECAnalytics.trackUserError(mecError!!.exception!!.message.toString())
+                        //voucher apply fail:  User error
+                        val errorMsg = mecError!!.exception!!.message.toString()
+                        errorString +=errorMsg
+                        MECAnalytics.trackUserError(errorString)
+                        errorMessage=mecError!!.exception!!.message.toString()
                     }else{
+                        // Remaining all errors: Technical errors
                         errorMessage = mecError!!.exception!!.message.toString()
                         errorString += errorMessage
                         errorString = errorString + mecError!!.ecsError!!.errorcode + ":"

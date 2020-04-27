@@ -37,8 +37,9 @@
   <string name="mec_cart_login_error_message">请注册或登录，以便于订购产品</string>
   <string name="mec_cart_out_of_stock_message">此商品临时缺货。请将其从购物车中移除，以便继续购物。</string>
   <string name="mec_cart_summary">购物车摘要</string>
-  <string name="mec_cart_tax_message">价格包含  % 的增值税</string>
+  <string name="mec_cart_tax_message">价格包含 %s 的增值税</string>
   <string name="mec_cart_total">总计</string>
+  <string name="mec_check_internet_connection">请检查您的互联网连接。</string>
   <string name="mec_checkout">结账</string>
   <string name="mec_choose_address_text">从以下列表中选择发货地址</string>
   <string name="mec_confirmation">确认</string>
@@ -63,7 +64,7 @@
   <string name="mec_enter_code">输入礼品码</string>
   <string name="mec_faq">常见问题解答</string>
   <string name="mec_features">功能</string>
-  <string name="mec_fetching_payment">[zh-CN]Fetching Payment Details...</string>
+  <string name="mec_fetching_payment">正在获取付款信息...</string>
   <string name="mec_first_name">名字</string>
   <string name="mec_first_name_error">请输入有效名字</string>
   <string name="mec_first_name_hint">输入名字</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">请选择一种配送模式</string>
   <string name="mec_no_internet">您的互联网似乎无法正常连接。请检查并重试</string>
   <string name="mec_no_payment_error_message">请选择一种付款方式</string>
+  <string name="mec_no_philips_shop">所选国家/地区的飞利浦商城不可用，只有零售商模式可用</string>
   <string name="mec_no_product_available">未在您的商店内找到产品。</string>
   <string name="mec_no_result">找到以下搜索词的 0 个结果：</string>
   <string name="mec_no_review_available">未找到评论</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">感谢您的订单</string>
   <string name="mec_threshold_message">这可能需要更多时间。是否要继续？</string>
   <string name="mec_threshold_title">达到请求阈值</string>
-  <string name="mec_time_out_error">[zh-CN]Network timeout reached!</string>
+  <string name="mec_time_out_error">网络连接超时！</string>
   <string name="mec_town">镇/城市</string>
   <string name="mec_town_error">请输入有效城镇</string>
   <string name="mec_town_hint">输入您所在的城镇或城市</string>

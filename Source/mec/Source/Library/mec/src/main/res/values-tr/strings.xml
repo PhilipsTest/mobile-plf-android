@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Sepet özeti</string>
   <string name="mec_cart_tax_message">Fiyata %s KDV dahildir</string>
   <string name="mec_cart_total">Toplam</string>
+  <string name="mec_check_internet_connection">Lütfen İnternet Bağlantınızı kontrol edin.</string>
   <string name="mec_checkout">Alışverişi bitir</string>
   <string name="mec_choose_address_text">Aşağıdaki listeden bir Teslimat Adresi seçin</string>
   <string name="mec_confirmation">Onay</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Lütfen bir Teslimat Modu seçin</string>
   <string name="mec_no_internet">İnternet bağlantınız çalışmıyor gibi görünüyor. Lütfen kontrol edip yeniden deneyin</string>
   <string name="mec_no_payment_error_message">Lütfen bir Ödeme Yöntemi seçin</string>
+  <string name="mec_no_philips_shop">Philips mağazası, seçilen ülke için mevcut değil. Yalnızca perakende modu mevcut</string>
   <string name="mec_no_product_available">Mağazanızda ürün bulunamadı.</string>
   <string name="mec_no_result">Şunun için 0 sonuç bulundu:</string>
   <string name="mec_no_review_available">Hiçbir İnceleme Bulunamadı</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Siparişiniz için teşekkür ederiz</string>
   <string name="mec_threshold_message">Bu biraz zaman alabilir. Devam etmek istiyor musunuz?</string>
   <string name="mec_threshold_title">Talep eşiğine erişildi</string>
-  <string name="mec_time_out_error">[tr]Network timeout reached!</string>
+  <string name="mec_time_out_error">Ağ zaman aşımına uğradı!</string>
   <string name="mec_town">Semt/Şehir</string>
   <string name="mec_town_error">Lütfen geçerli bir semt yazın</string>
   <string name="mec_town_hint">Semtinizi veya şehrinizi girin</string>

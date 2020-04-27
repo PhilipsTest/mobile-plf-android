@@ -1,13 +1,12 @@
 package com.philips.platform.mec.screens.address
 
-import com.philips.cdp.di.ecs.model.address.ECSAddress
 import com.philips.platform.mec.R
 import com.philips.platform.mec.utils.MECDataHolder
 
 class AddressService{
 
 
-    fun setEnglishSalutation(ecsAddress: ECSAddress){
+    fun setEnglishSalutation(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress){
 
         val localizedSalutation = ecsAddress.titleCode
         val context = MECDataHolder.INSTANCE.appinfra.appInfraContext

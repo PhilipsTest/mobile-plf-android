@@ -104,7 +104,7 @@ dependencies {
         // implementation project(strings.iap.projectName)
         implementation project(strings.prx.projectName)
         implementation project(strings.usr.projectName)
-        implementation project(strings.pim.projectName)
+//        implementation project(strings.pim.projectName)
         implementation project(strings.ail.projectName)
         implementation project(strings.ufw.projectName)
         implementation project(strings.pif.projectName)

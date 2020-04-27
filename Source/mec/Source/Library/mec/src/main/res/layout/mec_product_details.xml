@@ -10,7 +10,7 @@
 
         <variable
             name="product"
-            type="com.philips.cdp.di.ecs.model.products.ECSProduct" />
+            type="com.philips.platform.ecs.model.products.ECSProduct" />
 
         <import type="android.view.View"/>
         <variable
@@ -154,7 +154,7 @@
                     style="@style/mecCentralesansBoldFont"
                     android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                     android:text='@{product.summary.productTitle ?? ""}'
-                    android:textSize="20dp" />
+                    android:textSize="@dimen/iap_text_size_20sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

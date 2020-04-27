@@ -37,8 +37,9 @@
   <string name="mec_cart_login_error_message">Registe-se ou inicie sessão para encomendar facilmente os seus produtos</string>
   <string name="mec_cart_out_of_stock_message">Este produto está temporariamente esgotado. Remova-o do carrinho para fazer mais compras.</string>
   <string name="mec_cart_summary">Resumo do carrinho</string>
-  <string name="mec_cart_tax_message">Preço inclui % de IVA</string>
+  <string name="mec_cart_tax_message">Preço inclui %s de IVA</string>
   <string name="mec_cart_total">Total</string>
+  <string name="mec_check_internet_connection">Verifique a sua ligação à Internet.</string>
   <string name="mec_checkout">Finalizar</string>
   <string name="mec_choose_address_text">Escolha o endereço de envio na lista abaixo</string>
   <string name="mec_confirmation">Confirmação</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Selecione um modo de entrega</string>
   <string name="mec_no_internet">A sua ligação à Internet parece não estar a funcionar. Verifique e tente novamente</string>
   <string name="mec_no_payment_error_message">Selecione um método de pagamento</string>
+  <string name="mec_no_philips_shop">A loja Philips não está disponível para o país selecionado, apenas está disponível o modo de revendedor</string>
   <string name="mec_no_product_available">Nenhum produto encontrado na sua loja.</string>
   <string name="mec_no_result">0 resultados encontrados para</string>
   <string name="mec_no_review_available">Nenhuma avaliação encontrada</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Obrigado pela sua encomenda</string>
   <string name="mec_threshold_message">Isto pode demorar mais tempo. Pretende continuar?</string>
   <string name="mec_threshold_title">Limite de pedido atingido</string>
-  <string name="mec_time_out_error">[pt]Network timeout reached!</string>
+  <string name="mec_time_out_error">Tempo limite de rede atingido!</string>
   <string name="mec_town">Localidade/cidade</string>
   <string name="mec_town_error">Introduza uma localidade válida</string>
   <string name="mec_town_hint">Introduzir localidade ou cidade</string>

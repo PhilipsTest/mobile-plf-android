@@ -37,8 +37,9 @@
   <string name="mec_cart_login_error_message">Pro snadnou objednávku výrobků se zaregistrujte nebo přihlaste</string>
   <string name="mec_cart_out_of_stock_message">Tento produkt dočasně není na skladě. Vyjměte jej z košíku a pokračujte v nákupu.</string>
   <string name="mec_cart_summary">Přehled košíku</string>
-  <string name="mec_cart_tax_message">Cena včetně % DPH</string>
+  <string name="mec_cart_tax_message">Cena včetně %s DPH</string>
   <string name="mec_cart_total">Celkem</string>
+  <string name="mec_check_internet_connection">Zkontrolujte připojení k internetu.</string>
   <string name="mec_checkout">Pokladna</string>
   <string name="mec_choose_address_text">Vyberte dodací adresu z níže uvedeného seznamu</string>
   <string name="mec_confirmation">Potvrzení</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Vyberte způsob dodání</string>
   <string name="mec_no_internet">Připojení k internetu zřejmě nefunguje. Zkontrolujte a zopakujte akci</string>
   <string name="mec_no_payment_error_message">Vyberte způsob platby</string>
+  <string name="mec_no_philips_shop">Obchod Philips není dostupný pro vybranou zemi, k dispozici je pouze režim prodejce</string>
   <string name="mec_no_product_available">V obchodě nebyl nalezen žádný výrobek.</string>
   <string name="mec_no_result">0 výsledků pro:</string>
   <string name="mec_no_review_available">Nebyly nalezeny žádné recenze</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Děkujeme za objednávku</string>
   <string name="mec_threshold_message">To může trvat déle. Chcete pokračovat?</string>
   <string name="mec_threshold_title">Bylo dosaženo prahové hodnoty požadavku</string>
-  <string name="mec_time_out_error">[cs]Network timeout reached!</string>
+  <string name="mec_time_out_error">Vypršelo připojení k síti!</string>
   <string name="mec_town">Město</string>
   <string name="mec_town_error">Zadejte platné město</string>
   <string name="mec_town_hint">Zadejte město</string>

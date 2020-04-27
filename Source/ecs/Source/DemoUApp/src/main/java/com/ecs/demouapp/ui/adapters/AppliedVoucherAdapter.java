@@ -18,8 +18,8 @@ import android.widget.RelativeLayout;
 import com.ecs.demouapp.R;
 import com.ecs.demouapp.ui.eventhelper.EventHelper;
 import com.ecs.demouapp.ui.utils.ECSConstant;
-import com.philips.cdp.di.ecs.model.voucher.GetAppliedValue;
-import com.philips.cdp.di.ecs.model.voucher.ECSVoucher;
+import com.philips.platform.ecs.model.voucher.GetAppliedValue;
+import com.philips.platform.ecs.model.voucher.ECSVoucher;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.UIPicker;
 

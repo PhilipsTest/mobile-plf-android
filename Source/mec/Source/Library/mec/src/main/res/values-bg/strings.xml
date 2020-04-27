@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Резюме на количката за пазаруване</string>
   <string name="mec_cart_tax_message">Цената включва %s ДДС</string>
   <string name="mec_cart_total">Общо</string>
+  <string name="mec_check_internet_connection">Моля, проверете вашата интернет връзка.</string>
   <string name="mec_checkout">Финализиране</string>
   <string name="mec_choose_address_text">Изберете адрес за доставка от списъка по-долу</string>
   <string name="mec_confirmation">Потвърждение</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Моля, изберете режим за доставка</string>
   <string name="mec_no_internet">Изглежда, че вашата интернет връзка не работи. Проверете и опитайте отново.</string>
   <string name="mec_no_payment_error_message">Моля, изберете метод на плащане</string>
+  <string name="mec_no_philips_shop">Магазинът на Philips не е достъпен за избраната държава, наличен е само режим за търговци на дребно</string>
   <string name="mec_no_product_available">Няма намерен продукт във вашия магазин.</string>
   <string name="mec_no_result">Открити са 0 резултата за</string>
   <string name="mec_no_review_available">Не са намерени отзиви</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Благодарим ви за вашата поръчка</string>
   <string name="mec_threshold_message">Това може да отнеме повече време. Желаете ли да продължите?</string>
   <string name="mec_threshold_title">Достигнат е прагът за заявки</string>
-  <string name="mec_time_out_error">[bg]Network timeout reached!</string>
+  <string name="mec_time_out_error">Достигнато е времето за изчакване на сървъра!</string>
   <string name="mec_town">Град/село</string>
   <string name="mec_town_error">Въведете валиден град</string>
   <string name="mec_town_hint">Въведете вашия град или населено място</string>

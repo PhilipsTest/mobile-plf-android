@@ -37,8 +37,9 @@
   <string name="mec_cart_login_error_message">Lai vienkāršāk pasūtītu iecerētos produktus, lūdzu, reģistrējieties vai piesakieties.</string>
   <string name="mec_cart_out_of_stock_message">Šis produkts uz laiku nav pieejams. Lūdzu, izņemiet to no groza, lai turpinātu iepirkties.</string>
   <string name="mec_cart_summary">Groza kopsavilkums</string>
-  <string name="mec_cart_tax_message">Cena, iekļaujot % PVN</string>
+  <string name="mec_cart_tax_message">Cena, iekļaujot %s PVN</string>
   <string name="mec_cart_total">Kopā</string>
+  <string name="mec_check_internet_connection">Lūdzu, pārbaudiet savu interneta savienojumu.</string>
   <string name="mec_checkout">Norēķini</string>
   <string name="mec_choose_address_text">Izvēlieties piegādes adresi no saraksta</string>
   <string name="mec_confirmation">Apstiprinājums</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Lūdzu, atlasiet piegādes veidu</string>
   <string name="mec_no_internet">Iespējams, nedarbojas jūsu interneta savienojums. Lūdzu, pārbaudiet un mēģiniet vēlreiz.</string>
   <string name="mec_no_payment_error_message">Lūdzu, atlasiet maksāšanas metodi</string>
+  <string name="mec_no_philips_shop">Atlasītajā valstī nav pieejams Philips veikals, tajā ir pieejams tikai mazumtirgotāja režīms</string>
   <string name="mec_no_product_available">Jūsu krājumā nav atrasts neviens izstrādājums.</string>
   <string name="mec_no_result">Atrasti 0 rezultāti par</string>
   <string name="mec_no_review_available">Nav atrasta neviena atsauksme</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Paldies par pasūtījumu!</string>
   <string name="mec_threshold_message">Tas var prasīt vairāk laika. Vai tiešām vēlaties turpināt?</string>
   <string name="mec_threshold_title">Sasniegta pieprasījumu sliekšņa vērtība</string>
-  <string name="mec_time_out_error">[lv]Network timeout reached!</string>
+  <string name="mec_time_out_error">Sasniegts tīkla taimauts!</string>
   <string name="mec_town">Pilsēta:</string>
   <string name="mec_town_error">Lūdzu, ievadiet derīgu pilsētas nosaukumu</string>
   <string name="mec_town_hint">Ievadiet pilsētas nosaukumu</string>

@@ -6,10 +6,10 @@ package com.ecs.demouapp.ui.products;
 
 import com.ecs.demouapp.ui.integration.ECSListener;
 import com.ecs.demouapp.ui.utils.ECSUtility;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.model.products.ECSProduct;
-import com.philips.cdp.di.ecs.model.products.ECSProducts;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.model.products.ECSProducts;
 
 import java.util.ArrayList;
 import java.util.List;

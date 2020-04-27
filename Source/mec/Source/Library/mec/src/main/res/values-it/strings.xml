@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Riepilogo carrello</string>
   <string name="mec_cart_tax_message">Prezzo %s IVA inclusa</string>
   <string name="mec_cart_total">Totale</string>
+  <string name="mec_check_internet_connection">Controlla la connessione a Internet.</string>
   <string name="mec_checkout">Inoltra l\'ordine</string>
   <string name="mec_choose_address_text">Scegli l\'indirizzo di spedizione dall\'elenco sottostante</string>
   <string name="mec_confirmation">Conferma</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Seleziona una modalità di consegna</string>
   <string name="mec_no_internet">Sembra esserci un problema con la tua connessione a Internet. Ti preghiamo di verificare e di riprovare</string>
   <string name="mec_no_payment_error_message">Seleziona un metodo di pagamento</string>
+  <string name="mec_no_philips_shop">Il negozio Philips non è disponibile per il Paese selezionato, è disponibile solo la modalità rivenditore</string>
   <string name="mec_no_product_available">Nessun prodotto nello Store.</string>
   <string name="mec_no_result">0 risultati trovati per</string>
   <string name="mec_no_review_available">Nessuna recensione</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Grazie dell\'ordine</string>
   <string name="mec_threshold_message">Potrebbe richiedere più tempo. Desideri continuare?</string>
   <string name="mec_threshold_title">Soglia richiesta raggiunta</string>
-  <string name="mec_time_out_error">[it]Network timeout reached!</string>
+  <string name="mec_time_out_error">Timeout di rete raggiunto</string>
   <string name="mec_town">Città</string>
   <string name="mec_town_error">Inserisci un paese valido</string>
   <string name="mec_town_hint">Inserisci il paese o la città</string>

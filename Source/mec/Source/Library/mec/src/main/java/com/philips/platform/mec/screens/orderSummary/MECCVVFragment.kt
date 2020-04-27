@@ -16,8 +16,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
-import com.philips.cdp.di.ecs.model.payment.ECSPayment
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
+import com.philips.platform.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.cvvPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -37,13 +38,14 @@ class MECCVVFragment: BottomSheetDialogFragment() {
 
     private lateinit var binding: MecCvcCodeFragmentBinding
     private lateinit var paymentViewModel: PaymentViewModel
-    private lateinit var mEcsOrderDetail: ECSOrderDetail
+    private lateinit var mEcsOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail
+    private lateinit var mEcsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart
 
     companion object {
         const val TAG:String="MECCVVFragment"
     }
 
-    private val orderDetailObserver: Observer<ECSOrderDetail> = Observer(fun(ecsOrderDetail: ECSOrderDetail) {
+    private val orderDetailObserver: Observer<com.philips.platform.ecs.model.orders.ECSOrderDetail> = Observer(fun(ecsOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail) {
         MECLog.d(javaClass.simpleName ,ecsOrderDetail.code)
         mEcsOrderDetail=ecsOrderDetail
         binding.root.mec_progress.visibility = View.GONE
@@ -54,7 +56,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         var actionMap = HashMap<String, String>()
         actionMap.put(paymentType, old)
         actionMap.put(specialEvents, paymentFailure)
-        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,mEcsOrderDetail.entries)
+        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,mEcsShoppingCart)
         MECutility.tagAndShowError(mecError, false, fragmentManager, context)
         showErrorDialog()
         binding.root.mec_progress.visibility = View.GONE
@@ -69,7 +71,8 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         binding = MecCvcCodeFragmentBinding.inflate(inflater,container,false)
         binding.fragment=this
         val bundle= arguments
-        val ecsPayment=bundle?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as ECSPayment
+        val ecsPayment=bundle?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as com.philips.platform.ecs.model.payment.ECSPayment
+        mEcsShoppingCart=bundle?.getSerializable(MECConstant.MEC_SHOPPING_CART) as com.philips.platform.ecs.model.cart.ECSShoppingCart
         binding.paymentMethod=ecsPayment
 
         paymentViewModel =  ViewModelProviders.of(this).get(PaymentViewModel::class.java)
