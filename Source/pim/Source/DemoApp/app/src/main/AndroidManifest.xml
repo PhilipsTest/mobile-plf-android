@@ -20,50 +20,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--
-This activity declaration is merged with the version from the library manifest.
-It demonstrates how an https redirect can be captured, in addition to or instead of
-a custom scheme.
 
-Generally, this should be done in conjunction with an app link declaration for Android M
-and above, for additional security and an improved user experience. See:
-
-https://developer.android.com/training/app-links/index.html
-
-The declaration from the library can be completely replaced by adding
-
-tools:node="replace"
-
-To the list of attributes on the activity element.
--->
-        <activity android:name="net.openid.appauth.RedirectUriReceiverActivity">
+        <activity android:name="com.philips.platform.pim.UDIRedirectReceiverActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="com.googleusercontent.apps.346000571262-arpks5qhm771a2mfbm4e829va12olmtf"
-                    android:path="/oauth2redirect"
-                    android:scheme="https" />
+                <data android:scheme="${udiRedirectScheme}" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name="com.janrain.android.engage.OpenIDAppAuthTokenActivity"
-            android:label="SimpleDemoApplication"
-            android:theme="@style/Theme.Janrain.Dialog.Light"
-            android:windowSoftInputMode="stateHidden"></activity>
-
-        <activity
-            android:name="com.janrain.android.engage.OpenIDAppAuthCancelledActivity"
-            android:label="SimpleDemoApplication"
-            android:theme="@style/Theme.Janrain.Dialog.Light"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity
-            android:name="com.philips.platform.baseapp.screens.webview.WebViewActivity"
-            android:theme="@style/Theme.DLS.GroupBlue.UltraLight" />
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https"/>
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -87,6 +63,28 @@ To the list of attributes on the activity element.
             </intent-filter>
         </activity>
 
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
 
     </application>
 

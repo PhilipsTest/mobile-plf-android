@@ -8,6 +8,8 @@ import com.adobe.mobile.Analytics;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
 import com.philips.platform.appinfra.logging.LoggingInterface;
+import com.philips.platform.appinfra.securestorage.SecureStorage;
+import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
@@ -16,6 +18,7 @@ import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.listeners.PIMTokenRequestListener;
 import com.philips.platform.pim.listeners.PIMUserMigrationListener;
 import com.philips.platform.pim.listeners.PIMUserProfileDownloadListener;
+import com.philips.platform.pim.utilities.PIMSecureStorageHelper;
 
 import junit.framework.TestCase;
 
@@ -69,12 +72,16 @@ public class PIMLoginManagerTest extends TestCase {
     AppTaggingInterface mockTaggingInterface;
     @Mock
     private PIMLoginListener mockPimLoginListener;
+    @Mock
+    private AppInfraInterface mockAppInfraInterface;
     @Captor
     private ArgumentCaptor<PIMTokenRequestListener> listenerArgumentCaptor;
     @Captor
     private ArgumentCaptor<PIMUserProfileDownloadListener> userProfileDwnldLstnrCaptor;
     @Mock
     private AuthorizationServiceConfiguration mockAuthorizationServiceConfiguration;
+    @Mock
+    private PIMOIDCConfigration mockPimoidcConfigration;
     @Mock
     private AppConfigurationInterface.AppConfigurationError mockAppConfigurationError;
 
@@ -90,12 +97,10 @@ public class PIMLoginManagerTest extends TestCase {
         HashMap consentParameterMap = new HashMap<PIMParameterToLaunchEnum, Object>();
         consentParameterMap.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, true);
         consentParameterMap.put(PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT, true);
-        PIMOIDCConfigration mockPimoidcConfigration = mock(PIMOIDCConfigration.class);
         AuthorizationService mockAuthorizationService = mock(AuthorizationService.class);
         LoggingInterface mockLoggingInterface = mock(LoggingInterface.class);
         PIMSettingManager mockPimSettingManager = mock(PIMSettingManager.class);
         Context mockContext = mock(Context.class);
-        AppInfraInterface mockAppInfraInterface = mock(AppInfraInterface.class);
         AppConfigurationInterface mockAppConfigurationInterface = mock(AppConfigurationInterface.class);
 
         when(PIMSettingManager.getInstance()).thenReturn(mockPimSettingManager);
@@ -103,6 +108,7 @@ public class PIMLoginManagerTest extends TestCase {
         when(mockPimSettingManager.getPimUserManager()).thenReturn(mockUserManager);
         when(mockPimSettingManager.getAppInfraInterface()).thenReturn(mockAppInfraInterface);
         when(mockAppInfraInterface.getConfigInterface()).thenReturn(mockAppConfigurationInterface);
+        when(mockAppInfraInterface.getSecureStorage()).thenReturn(mock(SecureStorageInterface.class));
         whenNew(AppConfigurationInterface.AppConfigurationError.class).withNoArguments().thenReturn(mockAppConfigurationError);
         when(PIMSettingManager.getInstance()).thenReturn(mockPimSettingManager);
         when(mockPimSettingManager.getLoggingInterface()).thenReturn(mockLoggingInterface);
@@ -120,6 +126,8 @@ public class PIMLoginManagerTest extends TestCase {
         whenNew(AuthorizationService.class).withArguments(mockContext).thenReturn(mockAuthorizationService);
         whenNew(PIMAuthManager.class).withArguments(mockContext).thenReturn(mockAuthManager);
         when(mockAuthManager.getAuthState()).thenReturn(mockAuthState);
+        PIMSecureStorageHelper mockPIMSStorageHelper = mock(PIMSecureStorageHelper.class);
+        whenNew(PIMSecureStorageHelper.class).withArguments(mockAppInfraInterface).thenReturn(mockPIMSStorageHelper);
 
         pimLoginManager = new PIMLoginManager(mockContext, mockPimoidcConfigration, consentParameterMap);
     }
@@ -128,11 +136,14 @@ public class PIMLoginManagerTest extends TestCase {
     public void testGetAuthReqIntent() throws Exception {
         mockStatic(Uri.class);
         Uri mockUri = Mockito.mock(Uri.class);
+
         when(Uri.class, "parse", anyString()).thenReturn(mockUri);
         when(mockTaggingInterface.getVisitorIDAppendToURL("http://")).thenReturn("adobe_mc=TS%3D1568801124%7CMCMID%3D08423335634566345415592103512568266387%7CMCORGID%3D7D976F3055DC96AB7F000101%40AdobeOrg");
         PIMLoginListener mockPimLoginListener = mock(PIMLoginListener.class);
+        AuthorizationRequest mockAuthorizationRequest = Mockito.mock(AuthorizationRequest.class);
+        when(mockAuthManager.createAuthorizationRequest(eq(mockPimoidcConfigration),  any(HashMap.class))).thenReturn(mockAuthorizationRequest);
         pimLoginManager.getAuthReqIntent(mockPimLoginListener);
-        verify(mockAuthManager).getAuthorizationRequestIntent(eq(mockAuthorizationServiceConfiguration), anyString(), anyString(), any(HashMap.class));
+        verify(mockAuthManager).getAuthorizationRequestIntent(mockAuthorizationRequest);
     }
 
     @Test

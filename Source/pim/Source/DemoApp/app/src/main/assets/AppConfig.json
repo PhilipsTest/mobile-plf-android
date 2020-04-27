@@ -77,7 +77,8 @@
       "TR",
       "VN",
       "CN",
-      "TW"
+      "TW",
+      "AE"
     ],
     "fallbackHomeCountry": "US",
     "hsdpUUIDUpload": "false"
@@ -95,7 +96,7 @@
     "propositionid": "Tuscany2016"
   },
   "MEC": {
-    "propositionid": "Tuscany2016"
+    "propositionid": "IAP_MOB_DKA"
   },
   "ProductRegistration": {
     "ApiKey": "Euqjw7YWRa5pc7c6jKliv1odg5vLUT2m465k7FJ8"
@@ -119,7 +120,6 @@
     "servicediscovery.platformMicrositeId": "70000",
     "servicediscovery.platformEnvironment": "production",
     "servicediscovery.propositionEnabled": true,
-    "appconfig.cloudServiceId": "appinfra.appconfigdownload",
     "timesync.ntp.hosts": [
       "time1.google.com",
       "time2.google.com",

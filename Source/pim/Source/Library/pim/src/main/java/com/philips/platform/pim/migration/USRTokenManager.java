@@ -5,13 +5,13 @@ import android.text.TextUtils;
 import android.util.Base64;
 
 import com.philips.platform.appinfra.AppInfraInterface;
-import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.appinfra.timesync.TimeInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
+import com.philips.platform.pim.errors.PIMErrorCodes;
 import com.philips.platform.pim.listeners.RefreshUSRTokenListener;
 import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.pim.rest.PIMRestClient;
@@ -44,7 +44,7 @@ class USRTokenManager {
     private static final String JR_CAPTURE_SIGNED_IN_USER = "jr_capture_signed_in_user";
     private static final String JR_CAPTURE_FLOW = "jr_capture_flow";
     private String TAG = PIMMigrationManager.class.getSimpleName();
-    private final String USR_BASEURL = "userreg.janrain.api";
+    private final String USR_BASEURL = "userreg.janrain.api.v2";
     private String signedInUser;
     private LoggingInterface mLoggingInterface;
     private AppInfraInterface appInfraInterface;
@@ -74,16 +74,14 @@ class USRTokenManager {
             @Override
             public void onError(ERRORVALUES error, String message) {
                 mLoggingInterface.log(DEBUG, TAG, "Migration Failed!! " + " Error in downloadUserUrlFromSD : " + message);
+                if (error != null)
+                    refreshUSRTokenListener.onRefreshTokenFailed(new Error(PIMErrorCodes.MIGRATION_FAILED, message));
             }
         });
     }
 
     private String fetchDataFromSecureStorage(String jrCaptureSignedInUserKey) {
         return appInfraInterface.getSecureStorage().fetchValueForKey(jrCaptureSignedInUserKey, new SecureStorageInterface.SecureStorageError());
-    }
-
-    private Object getClientIdFromConfig() {
-        return appInfraInterface.getConfigInterface().getPropertyForKey("JanRainConfiguration.RegistrationClientID", "PIM", new AppConfigurationInterface.AppConfigurationError());
     }
 
     private void downloadUserUrlFromSD(ServiceDiscoveryInterface.OnGetServiceUrlMapListener serviceUrlMapListener) {
@@ -172,7 +170,7 @@ class USRTokenManager {
         params.add(new Pair<>("signature", getRefreshSignature(date, legacyToken)));
         params.add(new Pair<>("date", date));
         params.add(new Pair<>("flow", "standard"));
-        params.add(new Pair<>("flow_version", "HEAD"));
+        params.add(new Pair<>("flow_version", getFlowVersion()));
         params.add(new Pair<>("access_token", legacyToken));
         params.add(new Pair<>("client_id", PIMSettingManager.getInstance().getPimOidcConfigration().getLegacyClientID()));
         return params;
@@ -221,6 +219,27 @@ class USRTokenManager {
     boolean isUSRUserAvailable() {
         signedInUser = fetchDataFromSecureStorage(JR_CAPTURE_SIGNED_IN_USER);
         return signedInUser != null;
+    }
+
+    private String getFlowVersion() {
+        String fallback_version = "HEAD";
+        String flow_version = appInfraInterface.getSecureStorage().fetchValueForKey("jr_capture_flow_version", new SecureStorageInterface.SecureStorageError());
+        mLoggingInterface.log(DEBUG, TAG, "jr_capture_flow_version : " + flow_version);
+        if (!TextUtils.isEmpty(flow_version))
+            return flow_version;
+
+        String jr_capture_flow = appInfraInterface.getSecureStorage().fetchValueForKey("jr_capture_flow", new SecureStorageInterface.SecureStorageError());
+        if(TextUtils.isEmpty(jr_capture_flow))
+            return fallback_version;
+
+        String key = "version=";
+        int index = jr_capture_flow.indexOf(key);
+        int lastindex = jr_capture_flow.indexOf(',', index);
+        String extraxtedVersion = jr_capture_flow.substring(index + key.length(), lastindex);
+        flow_version = (extraxtedVersion == null) ? fallback_version : extraxtedVersion;
+        mLoggingInterface.log(DEBUG, TAG, "jr_capture_flow : " + flow_version);
+
+        return flow_version;
     }
 
     void deleteUSRFromSecureStorage() {
