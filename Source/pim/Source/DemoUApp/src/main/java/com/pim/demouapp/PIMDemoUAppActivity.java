@@ -164,6 +164,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         PIMDemoUAppDependencies pimDemoUAppDependencies = new PIMDemoUAppDependencies(appInfraInterface);
         PIMDemoUAppSettings pimDemoUAppSettings = new PIMDemoUAppSettings(this);
 
+        aSwitch.setChecked(appInfraInterface.getTagging().getPrivacyConsent() == AppTaggingInterface.PrivacyStatus.OPTIN);
         aSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 appInfraInterface.getTagging().setPrivacyConsent(AppTaggingInterface.PrivacyStatus.OPTIN);

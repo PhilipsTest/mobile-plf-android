@@ -1,6 +1,7 @@
 package com.philips.platform.pim.migration;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.logging.LoggingInterface;
@@ -28,6 +29,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -91,16 +93,22 @@ public class PIMMigratorTest extends TestCase {
 
     @Test
     public void testMigrateUSRToPIM_USRNotAvailbale() {
+        Resources mockResources = mock(Resources.class);
         when(mockUsrTokenManager.isUSRUserAvailable()).thenReturn(false);
+        when(mockContext.getResources()).thenReturn(mockResources);
+        when(mockResources.getString(anyInt())).thenReturn("Migration Failed");
         pimMigrator.migrateUSRToPIM();
         verify(mockLoggingInterface).log(DEBUG, TAG, "USR user is not available so assertion not required");
     }
 
     @Test
     public void testMigrateUSRToPIM_USRUserAvailbale() {
+        Resources mockResources = mock(Resources.class);
+        when(mockUsrTokenManager.isUSRUserAvailable()).thenReturn(false);
+        when(mockContext.getResources()).thenReturn(mockResources);
+        when(mockResources.getString(anyInt())).thenReturn("Migration Failed");
         when(mockUsrTokenManager.isUSRUserAvailable()).thenReturn(true);
         pimMigrator.migrateUSRToPIM();
-
         verify(mockUsrTokenManager).fetchRefreshedAccessToken(captor.capture());
         RefreshUSRTokenListener refreshUSRTokenListener = captor.getValue();
         refreshUSRTokenListener.onRefreshTokenSuccess(accessToken);

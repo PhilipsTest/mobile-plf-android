@@ -59,7 +59,7 @@ public class LogoutRequestTest extends TestCase {
     public void testGetHeader() {
         Map<String, String> header = logoutRequest.getHeader();
         int size = header.size();
-        assertEquals(size, 2);
+        assertEquals(size, 1);
     }
 
     @Test

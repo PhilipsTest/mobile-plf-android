@@ -11,6 +11,7 @@ import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.appinfra.timesync.TimeInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
+import com.philips.platform.pim.errors.PIMErrorCodes;
 import com.philips.platform.pim.listeners.RefreshUSRTokenListener;
 import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.pim.rest.PIMRestClient;
@@ -73,6 +74,8 @@ class USRTokenManager {
             @Override
             public void onError(ERRORVALUES error, String message) {
                 mLoggingInterface.log(DEBUG, TAG, "Migration Failed!! " + " Error in downloadUserUrlFromSD : " + message);
+                if (error != null)
+                    refreshUSRTokenListener.onRefreshTokenFailed(new Error(PIMErrorCodes.MIGRATION_FAILED, message));
             }
         });
     }
