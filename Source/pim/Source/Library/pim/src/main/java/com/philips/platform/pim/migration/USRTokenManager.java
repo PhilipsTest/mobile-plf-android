@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.Base64;
 
 import com.philips.platform.appinfra.AppInfraInterface;
-import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
@@ -80,10 +79,6 @@ class USRTokenManager {
 
     private String fetchDataFromSecureStorage(String jrCaptureSignedInUserKey) {
         return appInfraInterface.getSecureStorage().fetchValueForKey(jrCaptureSignedInUserKey, new SecureStorageInterface.SecureStorageError());
-    }
-
-    private Object getClientIdFromConfig() {
-        return appInfraInterface.getConfigInterface().getPropertyForKey("JanRainConfiguration.RegistrationClientID", "PIM", new AppConfigurationInterface.AppConfigurationError());
     }
 
     private void downloadUserUrlFromSD(ServiceDiscoveryInterface.OnGetServiceUrlMapListener serviceUrlMapListener) {
@@ -172,7 +167,7 @@ class USRTokenManager {
         params.add(new Pair<>("signature", getRefreshSignature(date, legacyToken)));
         params.add(new Pair<>("date", date));
         params.add(new Pair<>("flow", "standard"));
-        params.add(new Pair<>("flow_version", "HEAD"));
+        params.add(new Pair<>("flow_version", getFlowVersion()));
         params.add(new Pair<>("access_token", legacyToken));
         params.add(new Pair<>("client_id", PIMSettingManager.getInstance().getPimOidcConfigration().getLegacyClientID()));
         return params;
@@ -221,6 +216,27 @@ class USRTokenManager {
     boolean isUSRUserAvailable() {
         signedInUser = fetchDataFromSecureStorage(JR_CAPTURE_SIGNED_IN_USER);
         return signedInUser != null;
+    }
+
+    private String getFlowVersion() {
+        String fallback_version = "HEAD";
+        String flow_version = appInfraInterface.getSecureStorage().fetchValueForKey("jr_capture_flow_version", new SecureStorageInterface.SecureStorageError());
+        mLoggingInterface.log(DEBUG, TAG, "jr_capture_flow_version : " + flow_version);
+        if (!TextUtils.isEmpty(flow_version))
+            return flow_version;
+
+        String jr_capture_flow = appInfraInterface.getSecureStorage().fetchValueForKey("jr_capture_flow", new SecureStorageInterface.SecureStorageError());
+        if(TextUtils.isEmpty(jr_capture_flow))
+            return fallback_version;
+
+        String key = "version=";
+        int index = jr_capture_flow.indexOf(key);
+        int lastindex = jr_capture_flow.indexOf(',', index);
+        String extraxtedVersion = jr_capture_flow.substring(index + key.length(), lastindex);
+        flow_version = (extraxtedVersion == null) ? fallback_version : extraxtedVersion;
+        mLoggingInterface.log(DEBUG, TAG, "jr_capture_flow : " + flow_version);
+
+        return flow_version;
     }
 
     void deleteUSRFromSecureStorage() {
