@@ -225,7 +225,7 @@ public class PIMDataImplementation implements UserDataInterface {
 
         PIMOIDCUserProfile pimoidcUserProfile = pimUserManager.getUserProfile();
 
-        if (detailKeys == null && detailKeys.size() == 0) {
+        if (detailKeys == null || detailKeys.size() == 0) {
             ArrayList<String> allValidKeys = getAllValidUserDetailsKeys();
             return pimoidcUserProfile.fetchUserDetails(allValidKeys);
         } else {
