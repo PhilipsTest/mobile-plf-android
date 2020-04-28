@@ -43,7 +43,7 @@
                 style="@style/mec_history_list_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:text="@{mecOrdersHolder.date}"
                 android:paddingLeft="@dimen/border16_margin_left_right"
                 android:paddingRight="@dimen/border16_margin_left_right" />

@@ -23,6 +23,7 @@ import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.orders.ECSOrders
+import com.philips.platform.mec.R
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.orderSummary.MECOrderSummaryVouchersAdapter
@@ -77,6 +78,13 @@ class MECOrderDetailFragment : MecBaseFragment() {
         binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+            setTitleAndBackButtonVisibility(R.string.mec_my_orders, true)
+            setCartIconVisibility(false)
+
     }
 
 
