@@ -3,6 +3,7 @@ package com.philips.platform.pim.manager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -133,7 +134,7 @@ public class PIMLoginManager {
         String urlString = "http://";
         String[] urlStringWithVisitorData = mTaggingInterface.getVisitorIDAppendToURL(urlString).split("=");
         mLoggingInterface.log(DEBUG, TAG, "External URL with Adobe_mc : " + urlStringWithVisitorData[1]);
-        parameter.put("adobe_mc", urlStringWithVisitorData[1]);
+        parameter.put("adobe_mc", Uri.decode(urlStringWithVisitorData[1]));
         parameter.put("ui_locales", PIMSettingManager.getInstance().getLocale());
         parameter.put("analytics_report_suite_id", mPimoidcConfigration.getrsID());
         mLoggingInterface.log(DEBUG, TAG, "Additional parameters : " + parameter.toString());
@@ -157,7 +158,8 @@ public class PIMLoginManager {
         return consents;
     }
 
-    public void exchangeCodeOnEmailVerify() {
+    public void exchangeCodeOnEmailVerify(PIMLoginListener pimLoginListener) {
+        mPimLoginListener = pimLoginListener;
         Intent authIntent = mPimAuthManager.extractResponseData(pimSecureStorageHelper.getAuthorizationResponse(), pimSecureStorageHelper.getAuthorizationRequest());
         pimSecureStorageHelper.deleteAuthorizationResponse();
         if (mPimAuthManager.isAuthorizationSuccess(authIntent))
