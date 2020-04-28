@@ -121,6 +121,8 @@
                 android:paddingEnd="@dimen/border16_margin_left_right"
                 android:textColor="?attr/uidListItemDefaultNormalOffIconColor"
                 android:textSize="@dimen/iap_text_size_16sp"
+                app:rotation="@{ecsOrders.code}"
+                android:textDirection="locale"
                 android:visibility="@{ecsOrders.orderDetail==null ? View.GONE : View.VISIBLE}" />
 
         </FrameLayout>
