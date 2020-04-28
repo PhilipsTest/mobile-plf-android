@@ -150,12 +150,21 @@ public class RegistrationSettingsURL extends RegistrationSettings {
         serviceIdList.add("userreg.smssupported");
         serviceIdList.add(HSDP_BASE_URL_SERVICE_ID);
 
+        String countryId = serviceDiscoveryInterface.getHomeCountry();
+
         serviceDiscoveryInterface.getServicesWithCountryPreference(serviceIdList, new ServiceDiscoveryInterface.OnGetServiceUrlMapListener() {
             @Override
             public void onSuccess(Map<String, ServiceDiscoveryService> resultMap) {
 
+                String environment =  RegistrationConfiguration.getInstance().getRegistrationEnvironment();
+                if(!environment.equalsIgnoreCase("PRODUCTION")){
+                    environment = "STAGING";
+                }
                 setHSDPBaseUrl(resultMap);
-                RLog.d(TAG, " onSuccess  : userreg.janrain.api 88:" + resultMap.get("userreg.janrain.api.v2"));
+
+                RLog.d(TAG, " onSuccess  : country:" +countryId );
+                RLog.d(TAG, " onSuccess  : environment:" +environment );
+                RLog.d(TAG, " onSuccess  : userreg.janrain.api 88:" +countryId + resultMap.get("userreg.janrain.api.v2"));
 
                 ServiceDiscoveryService serviceDiscoveyService = resultMap.get("userreg.janrain.api.v2");
 
@@ -167,20 +176,20 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
                     if (janrainURL.equalsIgnoreCase("philips.capture.cn.janrain.com")) {
                         jumpConfig.captureDomain = "philips-cn.capture.cn.janrain.com";
-                        jumpConfig.engageAppId = clientIDConfiguration.getEngageId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+countryCode);
-                        jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+countryCode);
-                    } else if(countryCode.equalsIgnoreCase("CN")) {
+                        jumpConfig.engageAppId = clientIDConfiguration.getEngageId(environment+"_"+countryId);
+                        jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(environment+"_"+countryId);
+                    } else if(countryId.equalsIgnoreCase("CN")) {
                         jumpConfig.captureDomain = janrainURL;
-                        jumpConfig.engageAppId = clientIDConfiguration.getEngageId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+countryCode);
-                        jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+countryCode);
-                    }else if(countryCode.equalsIgnoreCase("RU")) {
+                        jumpConfig.engageAppId = clientIDConfiguration.getEngageId(environment+"_"+countryId);
+                        jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(environment+"_"+countryId);
+                    }else if(countryId.equalsIgnoreCase("RU")) {
                         jumpConfig.captureDomain = janrainURL;
-                        jumpConfig.engageAppId = clientIDConfiguration.getEngageId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+countryCode);
-                        jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(RegistrationConfiguration.getInstance().getRegistrationEnvironment()+"_"+countryCode);
+                        jumpConfig.engageAppId = clientIDConfiguration.getEngageId(environment+"_"+countryId);
+                        jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(environment+"_"+countryId);
                     }else {
                         jumpConfig.captureDomain = janrainURL;
-                        jumpConfig.engageAppId = clientIDConfiguration.getEngageId(RegistrationConfiguration.getInstance().getRegistrationEnvironment());
-                        jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(RegistrationConfiguration.getInstance().getRegistrationEnvironment());
+                        jumpConfig.engageAppId = clientIDConfiguration.getEngageId(environment);
+                        jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(environment);
                     }
                     RLog.d(TAG, " onSuccess  : userreg.janrain.api :" + urlLocal);
                     if (jumpConfig.engageAppId == null || jumpConfig.captureAppId == null) {
