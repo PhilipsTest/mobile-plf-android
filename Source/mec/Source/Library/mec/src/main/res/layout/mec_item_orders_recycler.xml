@@ -47,31 +47,35 @@
         android:paddingStart="@dimen/border16_margin_left_right"
         android:paddingTop="@dimen/border16_margin_left_right">
 
-        <ImageView
+        <com.philips.platform.uid.view.widget.Label
             android:id="@+id/iv_info"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:gravity="center"
-            android:layout_marginEnd="@dimen/iap_product_ctn_12"
-            android:background="@drawable/mec_info_image"
-            android:scaleType="fitXY" />
+            fontPath="fonts/iconfont.ttf"
+            android:textSize="@dimen/iap_text_size_16sp"
+            android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
+            android:layout_marginEnd="@dimen/iap_margin_4dp"
+
+
+            />
 
         <com.philips.platform.uid.view.widget.Label
             android:id="@+id/tv_order_state"
-            style="@style/iapCentralesansBoldFont"
+            style="@style/mecCentralesansBoldFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/iap_margin_4dp"
             android:layout_toRightOf="@+id/iv_info"
             android:text= "@{String.format(@string/mec_order_state, ecsOrders.statusDisplay.substring(0, 1).toUpperCase() + ecsOrders.statusDisplay.substring(1))}"
-            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
             android:textSize="@dimen/iap_text_size_16sp" />
 
         <com.philips.platform.uid.view.widget.Label
             android:id="@+id/tv_order_number"
             style="@style/mecCentralesansBookFont"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/iap_text_size_12"
             android:layout_below="@+id/tv_order_state"
             android:text="@{String.format(@string/mec_order_state,ecsOrders.code)}"
             android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
