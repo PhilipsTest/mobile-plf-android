@@ -157,7 +157,8 @@ public class PIMLoginManager {
         return consents;
     }
 
-    public void exchangeCodeOnEmailVerify() {
+    public void exchangeCodeOnEmailVerify(PIMLoginListener pimLoginListener) {
+        mPimLoginListener = pimLoginListener;
         Intent authIntent = mPimAuthManager.extractResponseData(pimSecureStorageHelper.getAuthorizationResponse(), pimSecureStorageHelper.getAuthorizationRequest());
         pimSecureStorageHelper.deleteAuthorizationResponse();
         if (mPimAuthManager.isAuthorizationSuccess(authIntent))

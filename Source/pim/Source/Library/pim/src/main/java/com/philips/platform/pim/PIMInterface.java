@@ -18,8 +18,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
+import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
+import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
 import com.philips.platform.pim.fragment.PIMFragment;
+import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.manager.PIMConfigManager;
 import com.philips.platform.pim.manager.PIMLoginManager;
 import com.philips.platform.pim.manager.PIMSettingManager;
@@ -85,7 +88,7 @@ public class PIMInterface implements UappInterface {
                 if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                     PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "User is already logged in");
                 } else if (pimSecureStorageHelper.getAuthorizationResponse() != null) {
-                    new PIMLoginManager(context, PIMSettingManager.getInstance().getPimOidcConfigration(), null).exchangeCodeOnEmailVerify();
+                    loginRedirectToClosedApp();
                 } else if (pimMigrator.isMigrationRequired()) {
                     pimMigrator.migrateUSRToPIM();
                 }
@@ -113,6 +116,23 @@ public class PIMInterface implements UappInterface {
             launchAsFragment((FragmentLauncher) uiLauncher, (PIMLaunchInput) uappLaunchInput);
             PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Launch : Launched as fragment");
         }
+    }
+
+    private void loginRedirectToClosedApp() {
+        PIMLoginManager pimLoginManager = new PIMLoginManager(context, PIMSettingManager.getInstance().getPimOidcConfigration(), null);
+        pimLoginManager.exchangeCodeOnEmailVerify(new PIMLoginListener() {
+            @Override
+            public void onLoginSuccess() {
+                if (PIMSettingManager.getInstance().getPimUserLoginListener() != null)
+                    PIMSettingManager.getInstance().getPimUserLoginListener().onLoginSuccess();
+            }
+
+            @Override
+            public void onLoginFailed(Error error) {
+                if (PIMSettingManager.getInstance().getPimUserLoginListener() != null)
+                    PIMSettingManager.getInstance().getPimUserLoginListener().onLoginFailed(error);
+            }
+        });
     }
 
     private void launchAsFragment(FragmentLauncher uiLauncher, PIMLaunchInput pimLaunchInput) {
