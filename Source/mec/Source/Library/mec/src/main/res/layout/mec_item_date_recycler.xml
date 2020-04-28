@@ -36,11 +36,11 @@
             android:layout_height="wrap_content">
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/uid_shadow_level_two" />
+                android:layout_height="1dp"
+                android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/tv_time"
-                style="@style/mec_list_header"
+                style="@style/mec_history_list_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
