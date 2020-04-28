@@ -148,6 +148,17 @@
     <string name="mec_your_order_number">Your order number is</string>
     <string name="mec_zero_results_message">This filters our product list. Please check that there are no typos in your filter term</string>
 
+    <string name="mec_order_state" translatable="false">Your order is %s</string>
+    <string name="mec_order_number_msg" translatable="false">Order number: %s</string>
+    <string name="mec_order_not_received_items" translatable="false">Order not received</string>
+    <string name="mec_empty_purchase_history" translatable="false">If you placed your order using this app, please check that you have received an order confirmation email.</string>
+    <string name="mec_other_channel_purchase" translatable="false">If you placed your order using another retailer then your order may not show up here.</string>
+    <string name="mec_contact_consumer_care_for_support" translatable="false">Please contact Philips Consumer care for further support.</string>
+    <string name="mec_call_us" translatable="false">Call us</string>
+    <string name="mec_order_detail_unavailable" translatable="false">"Order Detail is unavailable"</string>
+    <string name="mec_my_orders" translatable="false">"My orders"</string>
+    <string name="mec_orders" translatable="false">"Orders"</string>
+
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>
@@ -157,13 +168,6 @@
     <string name="mec_colon" translatable="false">&#58;</string>
     <string name="mec_bazaarVoice_link" translatable="false">http://www.bazaarvoice.com/trustmark</string>
 
-    <string name="mec_order_state" translatable="false">Your order is %s</string>
-    <string name="mec_order_number" translatable="false">Order number: %s</string>
-    <string name="mec_order_not_received_text" translatable="false">Order not received</string>
-    <string name="mec_empty_purchase_history" translatable="false">If you placed your order using this app, please check that you have received an order confirmation email.</string>
-    <string name="mec_other_channel" translatable="false">If you placed your order using another retailer then your order may not show up here.</string>
-    <string name="mec_contact_consumer_care_for_support" translatable="false">Please contact Philips Consumer care for further support.</string>
-    <string name="mec_call_us" translatable="false">Call us</string>
 
 
 </resources>

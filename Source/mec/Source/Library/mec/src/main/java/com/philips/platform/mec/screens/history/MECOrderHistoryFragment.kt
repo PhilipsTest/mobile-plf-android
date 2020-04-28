@@ -196,7 +196,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
         context?.let {
             fragmentManager?.let { it1 ->
-                MECutility.showPositiveActionDialog(it, context!!.getString(R.string.mec_ok), context!!.getString(R.string.mec_order_summary), mecError!!.exception!!.message.toString(), it1, object : AlertListener {
+                MECutility.showPositiveActionDialog(it, context!!.getString(R.string.mec_ok), context!!.getString(R.string.mec_orders), mecError!!.exception!!.message.toString(), it1, object : AlertListener {
                     override fun onPositiveBtnClick() {
                         exitMEC()
                     }

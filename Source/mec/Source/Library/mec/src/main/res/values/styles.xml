@@ -239,8 +239,8 @@
     </style>
 
     <style name="orderNetworkImage">
-        <item name="android:layout_width">@dimen/iap_network_image_width_height</item>
-        <item name="android:layout_height">@dimen/iap_network_image_width_height</item>
+        <item name="android:layout_width">@dimen/iap_list_header</item>
+        <item name="android:layout_height">@dimen/iap_list_header</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:src">@drawable/no_icon</item>
         <item name="android:includeFontPadding">false</item>

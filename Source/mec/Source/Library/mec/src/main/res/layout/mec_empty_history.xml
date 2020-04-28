@@ -17,7 +17,7 @@
         android:id="@+id/rl_empty_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/uidContentPrimaryBackgroundColor">
+        android:background="?attr/uidContentSecondaryNeutralBackgroundColor">
 
         <LinearLayout
             android:id="@+id/tv_time_header"
@@ -26,13 +26,13 @@
 
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/tv_time"
-                style="@style/mec_list_header"
+                style="@style/mec_history_list_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="@dimen/border16_margin_left_right"
                 android:paddingRight="@dimen/border16_margin_left_right"
-                android:text="@string/mec_order_summary" />
+                android:text="@string/mec_orders" />
         </LinearLayout>
 
         <LinearLayout
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_time_header"
-            android:background="@color/uidColorWhite"
+            android:background="?attr/uidContentPrimaryBackgroundColor"
             android:orientation="vertical"
             android:paddingStart="@dimen/border16_margin_left_right"
             android:paddingTop="@dimen/border16_margin_left_right"
@@ -50,14 +50,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/iap_info"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_marginEnd="@dimen/iap_product_ctn_12"
-                    android:background="@drawable/mec_info_image"
+                    android:layout_marginEnd="@dimen/iap_margin_4dp"
+                    android:text="@string/dls_exclamationcircle"
+                    android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
+                    android:textSize="@dimen/iap_text_size_16sp"
                     android:gravity="center"
-                    android:scaleType="fitXY" />
+                     />
+
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/tv_empty_purchase_history_title"
@@ -66,8 +69,8 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/iap_info"
                     android:gravity="center"
-                    android:text="@string/mec_order_not_received_text"
-                    android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                    android:text="@string/mec_order_not_received_items"
+                    android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
                     android:textSize="@dimen/iap_text_size_16sp" />
 
             </RelativeLayout>
@@ -78,19 +81,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/border16_margin_left_right"
-                android:layout_marginBottom="@dimen/border16_margin_left_right"
+                android:textSize="@dimen/iap_text_size_16sp"
+                android:lineSpacingExtra="@dimen/iap_margin_4dp"
                 android:text="@string/mec_empty_purchase_history"
-                android:textColor="?attr/uidContentItemPrimaryNormalTextColor" />
+                android:textColor="?attr/uidContentItemSecondaryNormalTextColor" />
 
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/tv_from_other_channel"
                 style="@style/mecCentralesansBookFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/border16_margin_left_right"
-                android:layout_marginBottom="@dimen/border16_margin_left_right"
-                android:text="@string/mec_other_channel"
-                android:textColor="?attr/uidContentItemPrimaryNormalTextColor" />
+                android:layout_marginTop="@dimen/border8_margin"
+                android:textSize="@dimen/iap_text_size_16sp"
+                android:text="@string/mec_other_channel_purchase"
+                android:lineSpacingExtra="@dimen/iap_margin_4dp"
+                android:textColor="?attr/uidContentItemSecondaryNormalTextColor" />
         </LinearLayout>
 
 
