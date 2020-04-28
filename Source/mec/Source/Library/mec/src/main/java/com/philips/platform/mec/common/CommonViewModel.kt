@@ -19,7 +19,7 @@ import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 
 open class CommonViewModel : ViewModel() {
-    val mecError = MutableLiveData<MecError>()
+    var mecError = MutableLiveData<MecError>()
 
 
     var authFailCallback = { error: Exception?, ecsError: ECSError? -> authFailureCallback(error, ecsError) }
