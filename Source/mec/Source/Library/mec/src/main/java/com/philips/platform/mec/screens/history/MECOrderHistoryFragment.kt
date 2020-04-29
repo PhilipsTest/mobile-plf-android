@@ -120,6 +120,12 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         return mRootView
     }
 
+    override fun onStart() {
+        super.onStart()
+        setTitleAndBackButtonVisibility(R.string.mec_my_orders, true)
+        setCartIconVisibility(false)
+    }
+
     private fun handlePagination() {
         binding.dateRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 

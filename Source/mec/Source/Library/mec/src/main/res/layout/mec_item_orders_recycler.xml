@@ -49,7 +49,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="@dimen/iap_margin_4dp"
-                android:gravity="center"
+                android:gravity="start|center_vertical"
                 android:text="@string/dls_exclamationcircle"
                 android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
                 android:textSize="@dimen/iap_text_size_16sp"
@@ -60,7 +60,8 @@
                 style="@style/mecCentralesansBoldFont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/iv_info"
+                android:layout_toEndOf="@+id/iv_info"
+                android:gravity="center_vertical"
                 android:text="@{String.format(@string/mec_order_state, ecsOrders.statusDisplay.substring(0, 1).toUpperCase() + ecsOrders.statusDisplay.substring(1))}"
                 android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
                 android:textSize="@dimen/iap_text_size_16sp" />
