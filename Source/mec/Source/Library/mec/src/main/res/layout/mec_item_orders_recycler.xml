@@ -48,12 +48,12 @@
                 fontPath="fonts/iconfont.ttf"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="@dimen/iap_margin_4dp"
                 android:gravity="start|center_vertical"
                 android:text="@string/dls_exclamationcircle"
                 android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
-                android:textSize="@dimen/iap_text_size_16sp"
-                />
+                android:textSize="@dimen/iap_text_size_16sp" />
 
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/tv_order_state"
@@ -109,7 +109,7 @@
                 android:text="@string/mec_order_detail_unavailable"
                 android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                 android:textSize="@dimen/iap_text_size_16sp"
-                android:visibility="@{ecsOrders.orderDetail==null ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{ecsOrders.orderDetail !=null &amp;&amp; ecsOrders.orderDetail.entries!=null &amp;&amp;  ecsOrders.orderDetail.entries.size()!=0 ? View.GONE : View.VISIBLE}" />
 
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/arrow"
@@ -123,7 +123,7 @@
                 android:textSize="@dimen/iap_text_size_16sp"
                 app:rotation="@{ecsOrders.code}"
                 android:textDirection="locale"
-                android:visibility="@{ecsOrders.orderDetail==null ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{ecsOrders.orderDetail !=null &amp;&amp; ecsOrders.orderDetail.entries!=null &amp;&amp;  ecsOrders.orderDetail.entries.size()!=0 ? View.VISIBLE : View.GONE}" />
 
         </FrameLayout>
 

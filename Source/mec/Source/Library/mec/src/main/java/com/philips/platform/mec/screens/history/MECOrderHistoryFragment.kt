@@ -46,7 +46,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     private var totalPage = 0
 
 
-    private var ordersList = mutableListOf<ECSOrders>()
+    private lateinit var ordersList : MutableList<ECSOrders>
     private var dateOrdersMap = LinkedHashMap<String, MutableList<ECSOrders>>()
 
     private var isCallOnProgress = false
@@ -65,6 +65,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
             totalPage = ecsOrderHistory.pagination.totalPages
             pageNumber = ecsOrderHistory.pagination.currentPage
 
+            ordersList = mutableListOf<ECSOrders>()
             ordersList.addAll(ecsOrderHistory.orders)
             ordersList.sortByDescending { it.placed }
             fetchOrderDetailForOrders(ordersList)

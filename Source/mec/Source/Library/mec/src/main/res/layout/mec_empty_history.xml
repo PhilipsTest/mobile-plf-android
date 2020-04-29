@@ -42,9 +42,7 @@
             android:layout_below="@+id/tv_time_header"
             android:background="?attr/uidContentPrimaryBackgroundColor"
             android:orientation="vertical"
-            android:paddingStart="@dimen/border16_margin_left_right"
-            android:paddingTop="@dimen/border16_margin_left_right"
-            android:paddingEnd="@dimen/border16_margin_left_right">
+            android:padding="@dimen/border16_margin_left_right">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -56,6 +54,8 @@
                     android:layout_height="16dp"
                     android:layout_marginEnd="@dimen/iap_margin_4dp"
                     android:text="@string/dls_exclamationcircle"
+                    android:layout_marginTop="2dp"
+                    fontPath="fonts/iconfont.ttf"
                     android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
                     android:textSize="@dimen/iap_text_size_16sp"
                     android:gravity="center"
