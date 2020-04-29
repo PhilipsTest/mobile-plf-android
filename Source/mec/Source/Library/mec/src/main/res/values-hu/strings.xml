@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Válasszon ki egy szállítási módot</string>
   <string name="mec_no_internet">Úgy tűnik, nem működik az internetkapcsolata. Ellenőrizze, majd próbálkozzon újra</string>
   <string name="mec_no_payment_error_message">Válasszon ki egy fizetési módot</string>
+  <string name="mec_no_philips_shop">A Philips bolt nem érhető el a kiválasztott országban, csak a viszonteladói mód érhető el</string>
   <string name="mec_no_product_available">Nem találtunk terméket boltjában.</string>
   <string name="mec_no_result">Nincs találat a következőre:</string>
   <string name="mec_no_review_available">Nem található értékelés</string>

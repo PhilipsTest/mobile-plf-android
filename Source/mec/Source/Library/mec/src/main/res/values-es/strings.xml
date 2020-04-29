@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Selecciona un modo de entrega</string>
   <string name="mec_no_internet">Tu conexión a Internet parece no funcionar. Compruébalo e inténtalo de nuevo.</string>
   <string name="mec_no_payment_error_message">Selecciona un método de pago</string>
+  <string name="mec_no_philips_shop">La tienda Philips no está disponible para el país seleccionado, solo está disponible el modo de tienda.</string>
   <string name="mec_no_product_available">No se ha encontrado ningún producto en la tienda.</string>
   <string name="mec_no_result">Se han encontrado 0 resultados para</string>
   <string name="mec_no_review_available">No se han encontrado reseñas</string>

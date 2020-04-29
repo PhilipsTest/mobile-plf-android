@@ -304,7 +304,7 @@
                     android:onClick="@{() -> mecDeliveryFragment.onOrderSummaryClick()}"
                     android:text="@string/mec_continue"
                     android:textColor="?attr/uidButtonPrimaryNormalTextColor"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/iap_text_size_16sp"
                     app:uidComponentType="Primary" />
 
             </RelativeLayout>

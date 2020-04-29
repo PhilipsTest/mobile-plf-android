@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">|Veuillez sélectionner un mode de livraison|</string>
   <string name="mec_no_internet">|Sie sind möglicherweise nicht mit dem Internet verbunden. Überprüfen Sie Ihre Verbindung, und versuchen Sie es erneut.|</string>
   <string name="mec_no_payment_error_message">|Veuillez sélectionner un mode de paiement|</string>
+  <string name="mec_no_philips_shop">|Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής|</string>
   <string name="mec_no_product_available">|No se ha encontrado ningún producto en la tienda.|</string>
   <string name="mec_no_result">|次に一致する検索結果は見つかりませんでした：|</string>
   <string name="mec_no_review_available">|Không tìm thấy bài đánh giá nào|</string>

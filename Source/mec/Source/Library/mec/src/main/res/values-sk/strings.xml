@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Vyberte spôsob doručenia</string>
   <string name="mec_no_internet">Zdá sa, že vaše pripojenie k internetu nefunguje. Skontrolujte to a skúste akciu vykonať znova.</string>
   <string name="mec_no_payment_error_message">Vyberte spôsob platby</string>
+  <string name="mec_no_philips_shop">Obchod Philips nie je k dispozícii pre vybratú krajinu, je k dispozícii iba režim predajcov</string>
   <string name="mec_no_product_available">Vo vašom obchode sa nenašiel žiaden produkt.</string>
   <string name="mec_no_result">Našlo sa 0 výsledkov pre výraz</string>
   <string name="mec_no_review_available">Neboli nájdené žiadne recenzie</string>

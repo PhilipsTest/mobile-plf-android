@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">배송 모드를 선택하십시오.</string>
   <string name="mec_no_internet">인터넷 연결이 작동하지 않는 것으로 보입니다. 확인 후 다시 시도하십시오.</string>
   <string name="mec_no_payment_error_message">지불 방법을 선택하십시오</string>
+  <string name="mec_no_philips_shop">선택한 국가에서는 필립스 매장을 사용할 수 없으며, 소매점 모드로만 이용할 수 있습니다</string>
   <string name="mec_no_product_available">스토어에 제품이 없습니다.</string>
   <string name="mec_no_result">다음에 대한 검색 결과 없음:</string>
   <string name="mec_no_review_available">리뷰 없음</string>

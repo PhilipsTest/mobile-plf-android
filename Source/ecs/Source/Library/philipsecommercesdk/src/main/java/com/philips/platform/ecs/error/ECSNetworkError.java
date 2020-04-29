@@ -32,6 +32,9 @@ public class ECSNetworkError {
 
 
     private static final String LOGGING_TAG = ECSNetworkError.class.getSimpleName();
+    private static final String INVALID_GRANT ="invalid_grant";
+    private static final String PIM_401_UNAUTHORISED=  "401 Unauthorized";
+
 
     public  static ECSErrorWrapper getErrorLocalizedErrorMessage(ECSErrorEnum ecsErrorEnum,Exception exception, String hysbrisResponse){
         String logMessage=ecsErrorEnum.toString();
@@ -134,18 +137,28 @@ public class ECSNetworkError {
         }
         ServerError serverError=null;
         if(null!=errorJsonObject && errorJsonObject.has("error") && null!=errorJsonObject.optString("error")){ // if any auth error
-            /*{
-	    "error": "invalid_grant",
-	    "error_description": "Invalid Janrain Token 47qyecdcks8uexus"
-            }*/
+            /*{For Janrain
+	         "error": "invalid_grant",
+	        "error_description": "Invalid Janrain Token X437kuMqlqomMkBHStryQx4KAMvZw3wZc0FI44SAXXaqA6okuHl0C5kzTXkFJaFh"
+            }
+
+            {For PIM
+	        "error": "server_error",
+	        "error_description": "401 Unauthorized"
+            }
+            */
             Error error = new Error();
             List<Error> errorList = new ArrayList<Error>();
             serverError = new ServerError();
 
             Gson gsonObj = new Gson();
             Map<String, String> inputMap = new HashMap<String, String>();
-            inputMap.put("type", errorJsonObject.optString("error"));
-            inputMap.put("message", errorJsonObject.optString("error_description",""));
+            String errorDescription=errorJsonObject.optString("error_description","");
+            inputMap.put("message", errorDescription);
+
+            // this mapping is done from  "401 Unauthorized" to "invalid_grant"  specific to PIM
+            String errorType = (!errorDescription.equalsIgnoreCase(PIM_401_UNAUTHORISED))?errorJsonObject.optString("error"):INVALID_GRANT;
+            inputMap.put("type", errorType);
             String jsonStr = gsonObj.toJson(inputMap);
             error = new Gson().fromJson(jsonStr, Error.class);
             errorList.add(error);

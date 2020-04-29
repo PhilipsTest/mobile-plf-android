@@ -109,7 +109,7 @@ class HybrisAuth {
 
                 override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                     MECLog.d(TAG, "hybrisAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
-                    if (MECutility.isAuthError(ecsError) || ecsError.errorcode == ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
+                    if (MECutility.isAuthError(ecsError) ) {
                         refreshJainrain(fragmentCallback);
                     } else {
                         MECLog.d(TAG, "hybrisAuthentication : onFailure : not OAuthError")
@@ -137,7 +137,7 @@ class HybrisAuth {
 
                 override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                     MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
-                    if (MECutility.isAuthError(ecsError) || ecsError.errorcode == ECSErrorEnum.ECSsomethingWentWrong.errorCode) {
+                    if (MECutility.isAuthError(ecsError) ) {
                         refreshJainrain(fragmentCallback);
                     } else {
                         MECLog.d(TAG, "hybrisRefreshAuthentication : onFailure : not OAuthError")

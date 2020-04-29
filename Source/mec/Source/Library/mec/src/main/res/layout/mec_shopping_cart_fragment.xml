@@ -113,7 +113,7 @@
                                 android:layout_height="match_parent"
                                 android:afterTextChanged="@{(edtitable)->fragment.afterUserNameChange(edtitable)}"
                                 android:hint="@string/mec_enter_code"
-                                android:textSize="16dp"
+                                android:textSize="@dimen/iap_text_size_16sp"
                                 app:uidInputTextWithClearButton="true" />
                         </com.philips.platform.uid.view.widget.InputValidationLayout>
 
@@ -244,7 +244,7 @@
                 android:onClick="@{() -> fragment.onCheckOutClick()}"
                 android:text="@string/mec_continue_checkout"
                 android:textColor="?attr/uidButtonPrimaryNormalTextColor"
-                android:textSize="16dp"
+                android:textSize="@dimen/iap_text_size_16sp"
                 app:uidComponentType="Primary" />
 
             <com.philips.platform.uid.view.widget.Button
@@ -262,7 +262,7 @@
                 android:onClick="@{() -> fragment.gotoProductCatalog()}"
                 android:text="@string/mec_continue_shopping"
                 android:textColor="?attr/uidButtonSecondaryNormalTextColor"
-                android:textSize="16dp"
+                android:textSize="@dimen/iap_text_size_16sp"
                 app:uidComponentType="Secondary" />
         </RelativeLayout>
 
@@ -370,7 +370,7 @@
                 android:enabled="false"
                 android:text="@string/mec_continue_checkout"
                 android:textColor="?attr/uidButtonPrimaryNormalTextColor"
-                android:textSize="16dp"
+                android:textSize="@dimen/iap_text_size_16sp"
                 app:uidComponentType="Secondary" />
 
             <com.philips.platform.uid.view.widget.Button
@@ -387,7 +387,7 @@
                 android:onClick="@{() -> fragment.gotoProductCatalog()}"
                 android:text="@string/mec_continue_shopping"
                 android:textColor="?attr/uidButtonSecondaryNormalTextColor"
-                android:textSize="16dp"
+                android:textSize="@dimen/iap_text_size_16sp"
                 app:uidComponentType="Primary" />
         </RelativeLayout>
 
