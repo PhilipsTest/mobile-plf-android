@@ -40,10 +40,12 @@ class DataBindingUtility {
         @JvmStatic
         fun loadImage(imageView: View?, image_url: String?) {
 
-            val imageView = imageView as NetworkImageView
-            val imageLoader = com.philips.platform.mec.networkEssentials.NetworkImageLoader.getInstance(imageView.context).imageLoader
-            imageLoader.get(image_url, ImageLoader.getImageListener(imageView, 0,com.philips.platform.mec.R.drawable.no_icon))
-            imageView.setImageUrl(image_url!!, imageLoader)
+            if(image_url!=null) {
+                val imageView = imageView as NetworkImageView
+                val imageLoader = com.philips.platform.mec.networkEssentials.NetworkImageLoader.getInstance(imageView.context).imageLoader
+                imageLoader.get(image_url, ImageLoader.getImageListener(imageView, 0, com.philips.platform.mec.R.drawable.no_icon))
+                imageView.setImageUrl(image_url, imageLoader)
+            }
         }
 
         @BindingAdapter("nullable_image_url")

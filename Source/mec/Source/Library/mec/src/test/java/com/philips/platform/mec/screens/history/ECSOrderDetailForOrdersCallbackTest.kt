@@ -88,7 +88,15 @@ class ECSOrderDetailForOrdersCallbackTest {
     fun onResponse() {
         //TODO check if live data is updated
         eCSOrderDetailForOrdersCallback.onResponse(eCSOrdersMock)
+       // Mockito.verify(mecOrderHistoryViewModelMock).countDownThread()
         assertNotNull(mecOrderHistoryViewModelMock.ecsOrders)
+    }
+
+    @Test
+    fun shouldTestCountDownOnResponse() {
+        mecOrderHistoryViewModelMock.setThreadCount(5)
+        eCSOrderDetailForOrdersCallback.onResponse(eCSOrdersMock)
+        assertEquals(4,mecOrderHistoryViewModelMock.callCount)
     }
 
     @Test
@@ -96,6 +104,13 @@ class ECSOrderDetailForOrdersCallbackTest {
         //TODO check if live error data is updated
         eCSOrderDetailForOrdersCallback.onFailure(errorMock,ecsErrorMock)
         assertNotNull(mecOrderHistoryViewModelMock.mecError)
+    }
+
+    @Test
+    fun shouldTestCountDownOnFail() {
+        mecOrderHistoryViewModelMock.setThreadCount(5)
+        eCSOrderDetailForOrdersCallback.onFailure(errorMock,ecsErrorMock)
+        assertEquals(4,mecOrderHistoryViewModelMock.callCount)
     }
 
     @Test
