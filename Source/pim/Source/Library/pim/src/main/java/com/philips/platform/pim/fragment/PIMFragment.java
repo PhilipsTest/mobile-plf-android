@@ -67,7 +67,8 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
         super.onCreate(savedInstanceState);
         mLoggingInterface = PIMSettingManager.getInstance().getLoggingInterface();
         liveData = PIMSettingManager.getInstance().getPimInitLiveData();
-        liveData.observe(this, this::onChanged);
+        if (liveData != null)
+            liveData.observe(this, this::onChanged);
     }
 
     @Nullable

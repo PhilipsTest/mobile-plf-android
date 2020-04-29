@@ -11,6 +11,7 @@ import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.appinfra.timesync.TimeInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
+import com.philips.platform.pim.errors.PIMErrorCodes;
 import com.philips.platform.pim.listeners.RefreshUSRTokenListener;
 import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.pim.rest.PIMRestClient;
@@ -43,7 +44,7 @@ class USRTokenManager {
     private static final String JR_CAPTURE_SIGNED_IN_USER = "jr_capture_signed_in_user";
     private static final String JR_CAPTURE_FLOW = "jr_capture_flow";
     private String TAG = PIMMigrationManager.class.getSimpleName();
-    private final String USR_BASEURL = "userreg.janrain.api";
+    private final String USR_BASEURL = "userreg.janrain.api.v2";
     private String signedInUser;
     private LoggingInterface mLoggingInterface;
     private AppInfraInterface appInfraInterface;
@@ -73,6 +74,8 @@ class USRTokenManager {
             @Override
             public void onError(ERRORVALUES error, String message) {
                 mLoggingInterface.log(DEBUG, TAG, "Migration Failed!! " + " Error in downloadUserUrlFromSD : " + message);
+                if (error != null)
+                    refreshUSRTokenListener.onRefreshTokenFailed(new Error(PIMErrorCodes.MIGRATION_FAILED, message));
             }
         });
     }

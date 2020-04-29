@@ -94,8 +94,7 @@ android {
         versionName version + "(" + commitHash + ")"
         versionCode 1
         manifestPlaceholders = [
-                appAuthRedirectScheme: 'com.philips.apps.94e28300-565d-4110-8919-42dc4f817393'
-
+                udiRedirectScheme: 'com.philips.apps.94e28300-565d-4110-8919-42dc4f817393'
         ]
     }
 
@@ -103,6 +102,13 @@ android {
         release
     }
 
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
 
     /*
     This defined for signing the apk -- start

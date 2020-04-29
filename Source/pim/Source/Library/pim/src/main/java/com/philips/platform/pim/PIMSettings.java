@@ -12,7 +12,6 @@ import com.philips.platform.uappframework.uappinput.UappSettings;
 
 /**
  * It passes the proposition Application context to PIM component
- * @since TODO: Shashi, Version needs to update
  */
 public class PIMSettings extends UappSettings {
     /**

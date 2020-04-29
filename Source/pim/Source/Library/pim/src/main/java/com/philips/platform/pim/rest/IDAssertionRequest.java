@@ -29,7 +29,7 @@ public class IDAssertionRequest implements PIMRequestInterface {
     @Override
     public Map<String, String> getHeader() {
         Map<String, String> headers = new HashMap<>();
-        headers.put("Content-type", "application/x-www-form-urlencoded");
+        headers.put("Content-type", "application/json");
         headers.put("Api-Key", PIMSettingManager.getInstance().getPimOidcConfigration().getAPIKey());
         headers.put("Api-Version", "1");
         headers.put("Accept", "application/json");

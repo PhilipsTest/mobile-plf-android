@@ -2,7 +2,9 @@ package com.philips.platform.pim;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+
 import android.content.Context;
+
 import androidx.annotation.Nullable;
 
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
@@ -48,8 +50,11 @@ public class PIMDataImplementation implements UserDataInterface {
 
     @Override
     public void logoutSession(LogoutSessionListener logoutSessionListener) {
-        if (pimUserManager != null)
-            pimUserManager.logoutSession(getLogoutSessionListener(logoutSessionListener));
+        if (pimUserManager.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN) {
+            logoutSessionListener.logoutSessionFailed(new Error(Error.UserDetailError.NotLoggedIn));
+            return;
+        }
+        pimUserManager.logoutSession(getLogoutSessionListener(logoutSessionListener));
     }
 
     private LogoutSessionListener getLogoutSessionListener(LogoutSessionListener logoutSessionListener) {
@@ -90,6 +95,10 @@ public class PIMDataImplementation implements UserDataInterface {
 
     @Override
     public void refreshSession(RefreshSessionListener refreshSessionListener) {
+        if (pimUserManager.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN) {
+            refreshSessionListener.refreshSessionFailed(new Error(Error.UserDetailError.NotLoggedIn));
+            return;
+        }
         pimUserManager.refreshSession(getRefreshSessionListener(refreshSessionListener));
     }
 
@@ -100,7 +109,7 @@ public class PIMDataImplementation implements UserDataInterface {
 
     @Override
     public boolean isOIDCToken() {
-        if(pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN)
+        if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN)
             return true;
         return false;
     }
@@ -160,8 +169,11 @@ public class PIMDataImplementation implements UserDataInterface {
     @Override
     public void migrateUserToPIM(UserMigrationListener userMigrationListener) {
         if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            userMigrationListener.onUserMigrationSuccess();
             return;
         }
+        PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
+
         isInitRequiredAgain = true;
         MutableLiveData<PIMInitState> pimInitLiveData = PIMSettingManager.getInstance().getPimInitLiveData();
         new PIMConfigManager(PIMSettingManager.getInstance().getPimUserManager()).init(mContext, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
@@ -169,8 +181,7 @@ public class PIMDataImplementation implements UserDataInterface {
             @Override
             public void onChanged(@Nullable PIMInitState pimInitState) {
                 if (pimInitState == PIMInitState.INIT_SUCCESS) {
-                    pimInitLiveData.removeObserver( this);
-                    PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
+                    pimInitLiveData.removeObserver(this);
                     pimMigrator.migrateUSRToPIM();
                 } else if (pimInitState == PIMInitState.INIT_FAILED) {
                     if (isInitRequiredAgain) {
@@ -214,7 +225,7 @@ public class PIMDataImplementation implements UserDataInterface {
 
         PIMOIDCUserProfile pimoidcUserProfile = pimUserManager.getUserProfile();
 
-        if (detailKeys.size() == 0) {
+        if (detailKeys == null || detailKeys.size() == 0) {
             ArrayList<String> allValidKeys = getAllValidUserDetailsKeys();
             return pimoidcUserProfile.fetchUserDetails(allValidKeys);
         } else {
@@ -230,7 +241,7 @@ public class PIMDataImplementation implements UserDataInterface {
             if (allValidKeys.contains(key))
                 validDetailsKey.add(key);
             else
-                throw new UserDataInterfaceException(new Error(Error.UserDetailError.InvalidFields));
+                throw new UserDataInterfaceException(new Error(Error.UserDetailError.InvalidUserDetailsKeys));
         }
         return validDetailsKey;
     }

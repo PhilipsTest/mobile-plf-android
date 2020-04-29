@@ -27,7 +27,6 @@ public class LogoutRequest implements PIMRequestInterface {
     public Map<String, String> getHeader() {
         Map<String, String> headers = new HashMap<>();
         headers.put("content-type", "application/x-www-form-urlencoded");
-        headers.put("cache-control", "no-cache");
         return headers;
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserMigrationListener;
+import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.listeners.PIMUserMigrationListener;
 import com.philips.platform.pim.listeners.RefreshUSRTokenListener;
 import com.philips.platform.pim.manager.PIMSettingManager;
@@ -31,11 +32,17 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
         this.userMigrationListener = userMigrationListener;
     }
 
+    public boolean isMigrationRequired() {
+        return usrTokenManager.isUSRUserAvailable();
+    }
+
     public void migrateUSRToPIM() {
         if (usrTokenManager.isUSRUserAvailable()) {
             usrTokenManager.fetchRefreshedAccessToken(this);
         } else {
             mLoggingInterface.log(DEBUG, TAG, "USR user is not available so assertion not required");
+            if (userMigrationListener != null)
+                userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
         }
     }
 
@@ -49,7 +56,7 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
     public void onRefreshTokenFailed(Error error) {
         mLoggingInterface.log(DEBUG, TAG, "Refresh access token failed.");
         if (userMigrationListener != null) {
-            userMigrationListener.onUserMigrationFailed(error);
+            userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
         }
     }
 
@@ -63,7 +70,7 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
 
     @Override
     public void onUserMigrationFailed(Error error) {
-        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError","technicalError","migration");
+        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo("setError", "technicalError", "migration");
         mLoggingInterface.log(DEBUG, TAG, "User migration failed! " + error.getErrDesc());
         if (userMigrationListener != null)
             userMigrationListener.onUserMigrationFailed(error);
