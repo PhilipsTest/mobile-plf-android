@@ -35,6 +35,7 @@ class ECSOrderDetailForOrdersCallback(private val mecOrderHistoryViewModel: MECO
         if (MECutility.isAuthError(ecsError)) {
             mecOrderHistoryViewModel.retryAPI(mECRequestType)
         } else {
+            mecOrderHistoryViewModel.countDownThread()
             mecOrderHistoryViewModel.mecError.value = mecError
         }
     }

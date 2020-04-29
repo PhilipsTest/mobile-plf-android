@@ -13,10 +13,8 @@
 package com.philips.platform.mec.screens.history
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.ecs.util.ECSConfiguration
-import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 import java.text.ParseException
@@ -64,14 +62,5 @@ class MECOrderHistoryService {
             }
         }
     }
-
-
-    fun handleOrderDetailFetchFailed(ecsOrders: ECSOrders) {
-        val ecsOrderDetail = ECSOrderDetail()
-        ecsOrderDetail.code = MECConstant.MEC_DETAIL_NOT_AVAILABLE
-        ecsOrders.orderDetail =  ecsOrders.orderDetail ?: ecsOrderDetail
-    }
-
-
 
 }

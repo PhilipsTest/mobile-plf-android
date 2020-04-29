@@ -49,14 +49,16 @@ class MECOrderHistoryViewModelTest {
     @Mock
     lateinit var ecsServiceMock: ECSServices
 
-    @Mock
-    lateinit var appinfraMock: AppInfraInterface
+
 
     @Mock
     lateinit var secureStorageMock: SecureStorageInterface
 
     @Mock
     lateinit var orderHistoryServiceMock: MECOrderHistoryService
+
+    @Mock
+    lateinit var appinfraMock: AppInfraInterface
 
     @Mock
     lateinit var userDataInterfaceMock: UserDataInterface
