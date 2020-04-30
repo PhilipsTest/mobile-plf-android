@@ -14,6 +14,7 @@ import android.content.res.Configuration
 import androidx.annotation.NonNull
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.country
@@ -22,6 +23,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.deliveryMethod
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.exceptionErrorCode
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.informationalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentType
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.productListLayout
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.promotion
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.purchase
@@ -264,9 +266,10 @@ class MECAnalytics {
         * This method will tag a successful purchase order details
         * */
         @JvmStatic
-        fun tagPurchaseOrder(mECSOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail) {
+        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew :String) {
             var orderMap = HashMap<String, String>()
             orderMap.put(specialEvents, purchase)
+            orderMap.put(paymentType, paymentTypeOldOrNew)
             orderMap.put(transationID, mECSOrderDetail.code)
             orderMap.put(deliveryMethod, mECSOrderDetail.deliveryMode.name)
             var orderPromotionList: String = ""

@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Lūdzu, atlasiet piegādes veidu</string>
   <string name="mec_no_internet">Iespējams, nedarbojas jūsu interneta savienojums. Lūdzu, pārbaudiet un mēģiniet vēlreiz.</string>
   <string name="mec_no_payment_error_message">Lūdzu, atlasiet maksāšanas metodi</string>
+  <string name="mec_no_philips_shop">Atlasītajā valstī nav pieejams Philips veikals, tajā ir pieejams tikai mazumtirgotāja režīms</string>
   <string name="mec_no_product_available">Jūsu krājumā nav atrasts neviens izstrādājums.</string>
   <string name="mec_no_result">Atrasti 0 rezultāti par</string>
   <string name="mec_no_review_available">Nav atrasta neviena atsauksme</string>

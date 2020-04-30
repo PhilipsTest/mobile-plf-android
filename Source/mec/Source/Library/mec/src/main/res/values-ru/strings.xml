@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Выберите способ доставки</string>
   <string name="mec_no_internet">Похоже, у вас нет подключения к Интернету. Проверьте подключение и повторите попытку.</string>
   <string name="mec_no_payment_error_message">Выберите способ оплаты</string>
+  <string name="mec_no_philips_shop">Магазин Philips недоступен для выбранной страны, доступен только режим ритейлера</string>
   <string name="mec_no_product_available">В выбранном магазине продукт не найден.</string>
   <string name="mec_no_result">Найдено 0 результатов по запросу:</string>
   <string name="mec_no_review_available">Обзоры не найдены</string>

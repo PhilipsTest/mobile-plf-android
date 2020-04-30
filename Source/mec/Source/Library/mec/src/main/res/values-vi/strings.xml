@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Vui lòng chọn hình thức giao hàng</string>
   <string name="mec_no_internet">Kết nối internet của bạn có vẻ như không hiệu quả. Vui lòng kiểm tra và thử lại</string>
   <string name="mec_no_payment_error_message">Vui lòng chọn phương thức thanh toán</string>
+  <string name="mec_no_philips_shop">Không có cửa hàng của Philips ở quốc gia đã chọn, chỉ có hình thức đại lý bán lẻ</string>
   <string name="mec_no_product_available">Không tìm thấy sản phẩm trong Cửa hàng của bạn.</string>
   <string name="mec_no_result">Tìm thấy 0 kết quả cho</string>
   <string name="mec_no_review_available">Không tìm thấy bài đánh giá nào</string>

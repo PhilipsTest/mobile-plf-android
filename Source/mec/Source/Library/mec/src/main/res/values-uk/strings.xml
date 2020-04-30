@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Виберіть режим доставки</string>
   <string name="mec_no_internet">Здається, немає з’єднання з Інтернетом. Перевірте і спробуйте знову.</string>
   <string name="mec_no_payment_error_message">Виберіть спосіб оплати</string>
+  <string name="mec_no_philips_shop">Магазин Philips недоступний у вибраній країні, можливий лише режим роздрібної торгівлі</string>
   <string name="mec_no_product_available">У магазині немає виробів.</string>
   <string name="mec_no_result">0 результатів знайдено для</string>
   <string name="mec_no_review_available">Відгуків не знайдено</string>

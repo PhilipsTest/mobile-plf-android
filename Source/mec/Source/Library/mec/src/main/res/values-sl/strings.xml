@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Izberite način dostave</string>
   <string name="mec_no_internet">Videti je, da vaša internetna povezava ne deluje. Preverite povezavo in poskusite znova.</string>
   <string name="mec_no_payment_error_message">Izberite način plačila</string>
+  <string name="mec_no_philips_shop">Philipsova trgovina ni na voljo za izbrano državo. Na voljo je samo način prodajalca.</string>
   <string name="mec_no_product_available">V trgovini ni bil najden noben izdelek.</string>
   <string name="mec_no_result">0 rezultatov za</string>
   <string name="mec_no_review_available">Najdena ni bila nobena ocena</string>

@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">請選擇送貨方式</string>
   <string name="mec_no_internet">您的網絡連線似乎未能正常運作，請檢查並再試一次</string>
   <string name="mec_no_payment_error_message">請選擇付款方法</string>
+  <string name="mec_no_philips_shop">所選國家/地區不提供 Philips 商店服務，只提供零售商模式</string>
   <string name="mec_no_product_available">在您的商店內找不到相關產品。</string>
   <string name="mec_no_result">此條件找到 0 個結果：</string>
   <string name="mec_no_review_available">找不到評論</string>

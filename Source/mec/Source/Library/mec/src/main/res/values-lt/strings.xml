@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Pasirinkite pristatymo būdą</string>
   <string name="mec_no_internet">Panašu, kad neveikia jūsų interneto ryšys. Patikrinkite ir bandykite dar kartą</string>
   <string name="mec_no_payment_error_message">Pasirinkti mokėjimo būdą</string>
+  <string name="mec_no_philips_shop">„Philips“ parduotuvė neveikia pasirinktoje šalyje, veikia tik mažmeninė prekyba</string>
   <string name="mec_no_product_available">Jūsų parduotuvėje produktų nerasta.</string>
   <string name="mec_no_result">Rasta 0 rezultatų pagal užklausą</string>
   <string name="mec_no_review_available">Atsiliepimų nerasta</string>

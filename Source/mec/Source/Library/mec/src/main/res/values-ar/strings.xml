@@ -90,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">يرجى تحديد وضع تسليم</string>
   <string name="mec_no_internet">يبدو أن اتصال الإنترنت لديك لا يعمل. يُرجى التحقق من الاتصال وإعادة المحاولة</string>
   <string name="mec_no_payment_error_message">يرجى تحديد طريقة دفع</string>
+  <string name="mec_no_philips_shop">إن متجر Philips غير متاح في البلد المحدد، غير مُتاح سوى وضع البائع فقط</string>
   <string name="mec_no_product_available">لم يتم العثور على منتج في متجرك.</string>
   <string name="mec_no_result">لم يتم العثور على أي نتيجة لـ</string>
   <string name="mec_no_review_available">لم يتم العثور على مراجعات</string>
