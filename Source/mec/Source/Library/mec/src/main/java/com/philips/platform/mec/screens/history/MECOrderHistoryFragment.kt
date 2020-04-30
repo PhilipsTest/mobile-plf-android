@@ -164,7 +164,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         if (!isCallOnProgress) {
             val lay = binding.dateRecyclerView.layoutManager as LinearLayoutManager
 
-            if (mecOrderHistoryService.isScrollDown(lay)) {
+            if (isScrollDown(lay)) {
                 if (pageNumber != totalPage - 1) {
                     return true
                 }
@@ -220,5 +220,12 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         bundle.putSerializable(MECConstant.MEC_ORDERS,ecsOrders)
         fragment.arguments = bundle
         replaceFragment(fragment,fragment.getFragmentTag(),true)
+    }
+
+    private fun isScrollDown(lay: LinearLayoutManager): Boolean {
+        val visibleItemCount: Int = lay.childCount
+        val totalItemCount: Int = lay.itemCount
+        val pastVisibleItems: Int = lay.findFirstVisibleItemPosition()
+        return (pastVisibleItems + visibleItemCount >= totalItemCount)
     }
 }

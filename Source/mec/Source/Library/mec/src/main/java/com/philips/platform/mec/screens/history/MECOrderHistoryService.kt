@@ -12,7 +12,6 @@
 
 package com.philips.platform.mec.screens.history
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.utils.MECLog
@@ -22,15 +21,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MECOrderHistoryService {
-
-    fun isScrollDown(lay: LinearLayoutManager): Boolean {
-
-
-        val visibleItemCount: Int = lay.childCount
-        val totalItemCount: Int = lay.itemCount
-        val pastVisibleItems: Int = lay.findFirstVisibleItemPosition()
-        return (pastVisibleItems + visibleItemCount >= totalItemCount)
-    }
 
     fun getFormattedDate(date: String?): String {
         if(date==null) return ""

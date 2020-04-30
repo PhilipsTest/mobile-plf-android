@@ -13,20 +13,27 @@
 package com.philips.platform.mec.screens.history
 
 import androidx.lifecycle.MutableLiveData
+import com.philips.platform.appinfra.AppInfraInterface
+import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.model.orders.ECSOrders
+import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
+import com.philips.platform.pif.DataInterface.USR.UserDetailConstants
+import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
@@ -54,7 +61,13 @@ class ECSOrderDetailForOrdersCallbackTest {
     lateinit var authFailureCallbackMock: (Exception?, ECSError?) -> Unit
 
     @Mock
+    lateinit var appinfraMock: AppInfraInterface
+
+    @Mock
     lateinit var userDataInterfaceMock: UserDataInterface
+
+    @Mock
+    lateinit var secureStorageMock: SecureStorageInterface
 
 
     @Mock
@@ -108,9 +121,21 @@ class ECSOrderDetailForOrdersCallbackTest {
 
     @Test
     fun shouldTestCountDownOnFail() {
+        setAuthNotRequired()
         mecOrderHistoryViewModelMock.setThreadCount(5)
         eCSOrderDetailForOrdersCallback.onFailure(errorMock,ecsErrorMock)
         assertEquals(4,mecOrderHistoryViewModelMock.callCount)
+    }
+
+    private fun setAuthNotRequired() {
+        Mockito.`when`(userDataInterfaceMock.userLoggedInState).thenReturn(UserLoggedInState.USER_LOGGED_IN)
+        var hashMap = HashMap<String, Any>()
+        hashMap.put(UserDetailConstants.EMAIL, "NONE")
+        Mockito.`when`(userDataInterfaceMock.getUserDetails(ArgumentMatchers.any())).thenReturn(hashMap)
+        MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
+        Mockito.`when`(appinfraMock.secureStorage).thenReturn(secureStorageMock)
+        MECDataHolder.INSTANCE.appinfra = appinfraMock
+        ECSConfiguration.INSTANCE.setAuthToken("123")
     }
 
     @Test
