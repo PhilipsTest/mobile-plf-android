@@ -15,16 +15,16 @@ import com.ecs.demouapp.ui.response.orders.ProductData;
 import com.ecs.demouapp.ui.session.RequestCode;
 import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.google.gson.Gson;
+import com.philips.platform.appinfra.rest.request.JsonObjectRequest;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.model.cart.ECSEntries;
 import com.philips.platform.ecs.model.orders.Consignment;
 import com.philips.platform.ecs.model.orders.ConsignmentEntries;
-import com.philips.platform.ecs.model.orders.ECSOrderHistory;
-import com.philips.platform.ecs.model.orders.Entries;
 import com.philips.platform.ecs.model.orders.ECSOrderDetail;
+import com.philips.platform.ecs.model.orders.ECSOrderHistory;
 import com.philips.platform.ecs.model.summary.Data;
 import com.philips.platform.ecs.util.ECSConfiguration;
-import com.philips.platform.appinfra.rest.request.JsonObjectRequest;
 
 import org.json.JSONObject;
 
@@ -166,8 +166,8 @@ public class OrderController {
         ArrayList<ProductData> products = new ArrayList<>();
         for(ECSOrderDetail detail : orderDetail) {
             if (detail.getDeliveryOrderGroups() != null) {
-                List<Entries> entries = detail.getDeliveryOrderGroups().get(0).getEntries();
-                for (Entries entry : entries) {
+                List<ECSEntries> entries = detail.getDeliveryOrderGroups().get(0).getEntries();
+                for (ECSEntries entry : entries) {
                     ProductData productItem = new ProductData(entry);
                     Data data = entry.getProduct().getSummary();
                     if(data!=null) {
@@ -180,7 +180,7 @@ public class OrderController {
         return products;
     }
 
-    public void setProductData(ArrayList<ProductData> products, ECSOrderDetail detail, Entries entry, ProductData productItem, Data data) {
+    public void setProductData(ArrayList<ProductData> products, ECSOrderDetail detail, ECSEntries entry, ProductData productItem, Data data) {
         productItem.setImageURL(data.getImageURL());
         productItem.setProductTitle(data.getProductTitle());
         productItem.setQuantity(entry.getQuantity());
