@@ -23,14 +23,14 @@ interface ECSServiceProvider {
      * @since 1.0
      * @param ecsCallback the ecs callback containing boolean response. If configuration is success returns true else false
      */
-    fun configureECS(ecsCallback: ECSCallback<Boolean?, Exception?>?)
+    fun configureECS(ecsCallback: ECSCallback<Boolean, Exception>)
 
     /**
      * Configure ecs to get configuration.
      *
      * @param ecsCallback the ecs callback containing ECSConfig object
      */
-    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig?, Exception?>?)
+    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, Exception>)
 
     /**
      * Fetch product details containing assets and disclaimer details
@@ -38,5 +38,5 @@ interface ECSServiceProvider {
      * @param product     the ECSProduct object
      * @param ecsCallback the ecs callback containing ECSProduct object
      */
-    fun fetchProductDetails(product: ECSProduct?, ecsCallback: ECSCallback<ECSProduct?, java.lang.Exception?>?)
+    fun fetchProductDetails(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, Exception>)
 }

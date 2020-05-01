@@ -9,8 +9,13 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.manager
 
-internal class ApiInputValidator {
+package com.philips.platform.ecs.microService.request
 
+
+abstract class AppInfraRequest : APPInfraRequestInterface {
+
+   fun executeRequest(){
+       Thread(Runnable {  NetworkController(this).executeRequest() }).start()
+   }
 }

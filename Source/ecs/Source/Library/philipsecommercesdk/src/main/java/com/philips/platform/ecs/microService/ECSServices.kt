@@ -14,6 +14,8 @@ package com.philips.platform.ecs.microService
 
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.callBack.ServiceDiscoveryCallback
+import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.ecs.model.products.ECSProduct
@@ -25,15 +27,16 @@ class ECSServices(val appInfra: AppInfra) : ECSServiceProvider {
     }
 
 
-    override fun configureECS(ecsCallback: ECSCallback<Boolean?, Exception?>?) {
+    override fun configureECS(ecsCallback: ECSCallback<Boolean, Exception>) {
+
+        appInfra.serviceDiscovery.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryCallback(ecsCallback), null)
+    }
+
+    override fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, Exception>) {
 
     }
 
-    override fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig?, Exception?>?) {
-
-    }
-
-    override fun fetchProductDetails(product: ECSProduct?, ecsCallback: ECSCallback<ECSProduct?, Exception?>?) {
+    override fun fetchProductDetails(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, Exception>) {
 
     }
 }

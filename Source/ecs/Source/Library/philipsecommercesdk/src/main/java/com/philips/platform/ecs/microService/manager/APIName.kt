@@ -9,9 +9,11 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.error
 
-class ECSError(var errorcode: Int,var errorMessage : String, val errorType: ECSErrorType){
+package com.philips.platform.ecs.microService.manager
 
+enum class APIName {
 
+    CONFIG,
+    AUTH
 }

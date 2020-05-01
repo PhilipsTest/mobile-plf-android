@@ -30,6 +30,8 @@ import java.util.List;
 
     }
 
+
+
     ECSErrorWrapper getConfigAPIValidateError(){
         return checkLocalePropositionIDAndBaseURL();
     }

@@ -6,7 +6,6 @@
 package com.philips.platform.ecs.request;
 
 import com.android.volley.Response;
-import com.philips.platform.ecs.network.NetworkController;
 import com.philips.platform.appinfra.rest.TokenProviderInterface;
 import com.philips.platform.ecs.network.NetworkController;
 
@@ -65,7 +64,5 @@ public abstract class AppInfraAbstractRequest implements APPInfraRequest {
     public TokenProviderInterface getTokenProviderInterface() {
         return null;
     }
-
-
 
 }
