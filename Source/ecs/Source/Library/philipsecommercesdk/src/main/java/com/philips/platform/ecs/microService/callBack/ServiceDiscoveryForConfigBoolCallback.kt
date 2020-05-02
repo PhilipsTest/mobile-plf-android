@@ -14,10 +14,10 @@ package com.philips.platform.ecs.microService.callBack
 
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
-import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.manager.ECSManager
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
-class ServiceDiscoveryCallback(ecsCallback: ECSCallback<Boolean, Exception>) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
+class ServiceDiscoveryForConfigBoolCallback(val ecsManager: ECSManager,val ecsCallback: ECSCallback<Boolean, Exception>) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
 
     override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
 
@@ -28,6 +28,11 @@ class ServiceDiscoveryCallback(ecsCallback: ECSCallback<Boolean, Exception>) : S
         ECSDataHolder.locale = locale
         val configUrls = serviceDiscoveryService?.configUrls
         ECSDataHolder.baseURL = configUrls
+        if(configUrls==null || ECSDataHolder.propositionId == null){
+            ecsCallback.onResponse(false)
+        }else{
+            ecsManager.getConfigBoolean(ecsCallback)
+        }
     }
 
     override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {

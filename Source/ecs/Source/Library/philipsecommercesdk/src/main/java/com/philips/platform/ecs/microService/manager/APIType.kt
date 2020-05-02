@@ -12,8 +12,9 @@
 
 package com.philips.platform.ecs.microService.manager
 
-enum class APIName {
+enum class APIType {
 
-    CONFIG,
-    AUTH
+    Locale,
+    LocaleAndHybris,
+    LocaleHybrisAndAuth,
 }

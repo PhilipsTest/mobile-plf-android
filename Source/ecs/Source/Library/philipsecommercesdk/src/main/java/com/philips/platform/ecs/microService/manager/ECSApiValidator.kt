@@ -18,50 +18,31 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class ECSApiValidator {
 
-    fun getECSException(apiName: APIName): ECSException? {
+    fun getECSException(apiType: APIType): ECSException? {
 
-        when (apiName) {
-            APIName.CONFIG -> return validateLocaleAndBaseURL()
+        return when (apiType) {
+            APIType.Locale -> validateLocale()
+            APIType.LocaleAndHybris -> validateLocaleAndHybris()
+            APIType.LocaleHybrisAndAuth -> validateLocaleHybrisAndAuth()
         }
 
-        return null
     }
-
 
     private fun validateLocale(): ECSException? {
         return if (ECSDataHolder.locale == null) ECSException(ECSErrorEnum.ECSLocaleNotFound.localizedErrorString, ECSErrorEnum.ECSLocaleNotFound.errorCode) else null
     }
 
-    private fun validateBaseURL(): ECSException? {
-        return if (ECSDataHolder.baseURL == null) ECSException(ECSErrorEnum.ECSBaseURLNotFound.localizedErrorString, ECSErrorEnum.ECSBaseURLNotFound.errorCode) else null
-    }
-
-    private fun validateLocaleAndBaseURL(): ECSException? {
-        if(validateLocale()!=null) return validateLocale()
-        if(validateBaseURL()!=null) return validateBaseURL()
-        return null
-    }
-
-    private fun validateLocaleBaseURLAndHybris(): ECSException? {
-
-        if(validateLocale()!=null) return validateLocale()
-        if(validateBaseURL()!=null) return validateBaseURL()
+    private fun validateLocaleAndHybris(): ECSException? {
+        if (validateLocale() != null) return validateLocale()
         if (!ECSDataHolder.config.isHybris) return ECSException(ECSErrorEnum.ECSSiteIdNotFound.localizedErrorString, ECSErrorEnum.ECSBaseURLNotFound.errorCode)
         return null
     }
 
-    private fun validateLocaleBaseURLHybrisAndAuth():ECSException?{
+    private fun validateLocaleHybrisAndAuth(): ECSException? {
 
-        if(validateLocale()!=null) return validateLocale()
-        if(validateBaseURL()!=null) return validateBaseURL()
-        if(validateLocaleBaseURLAndHybris()!=null) return validateLocaleBaseURLAndHybris()
-        if(ECSDataHolder.eCSOAuthData==null) return ECSException(ECSErrorEnum.ECSOAuthDetailError.localizedErrorString, ECSErrorEnum.ECSOAuthDetailError.errorCode)
+        if (validateLocale() != null) return validateLocale()
+        if (validateLocaleAndHybris() != null) return validateLocaleAndHybris()
+        if (ECSDataHolder.eCSOAuthData == null) return ECSException(ECSErrorEnum.ECSOAuthDetailError.localizedErrorString, ECSErrorEnum.ECSOAuthDetailError.errorCode)
         return null
     }
-
-    /*ECSErrorEnum.ECSLocaleNotFound
-   ECSErrorEnum.ECSBaseURLNotFound
-   ECSErrorEnum.ECSSiteIdNotFound
-   ECSErrorEnum.ECSOAuthDetailError
-   ECSErrorEnum.ECSCommerceCartModificationError*/
 }

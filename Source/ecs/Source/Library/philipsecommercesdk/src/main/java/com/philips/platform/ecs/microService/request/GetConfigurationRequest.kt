@@ -14,10 +14,10 @@ package com.philips.platform.ecs.microService.request
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
-import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
+import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
-import com.philips.platform.ecs.model.config.ECSConfig
 import org.json.JSONObject
 
 class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Exception>) : AppInfraRequest(), Response.Listener<JSONObject?> {

@@ -12,8 +12,8 @@
 
 package com.philips.platform.ecs.microService
 
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.config.ECSConfig
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.model.products.ECSProduct
 
 interface ECSServiceProvider {
@@ -38,5 +38,6 @@ interface ECSServiceProvider {
      * @param product     the ECSProduct object
      * @param ecsCallback the ecs callback containing ECSProduct object
      */
+    @Throws(Exception::class)
     fun fetchProductDetails(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, Exception>)
 }
