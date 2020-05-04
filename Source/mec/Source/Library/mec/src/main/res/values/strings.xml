@@ -159,6 +159,8 @@
     <string name="mec_my_orders" translatable="false">"My orders"</string>
     <string name="mec_orders" translatable="false">"Orders"</string>
 
+    <string name="mec_cancel_order">Cancel my order</string>
+
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>

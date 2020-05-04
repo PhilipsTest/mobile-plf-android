@@ -20,13 +20,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.philips.cdp.prxclient.datamodels.contacts.ContactsModel
 import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
 import com.philips.platform.mec.screens.MecBaseFragment
-import com.philips.platform.mec.screens.orderSummary.MECOrderSummaryVouchersAdapter
+import com.philips.platform.mec.screens.history.MECOrderHistoryService
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummaryAdapter
 import com.philips.platform.mec.utils.MECConstant
@@ -42,6 +41,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
     private var vouchersAdapter: MECOrderDetailVouchersAdapter? = null
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
     private lateinit var voucherList: MutableList<AppliedVoucherEntity>
+    private  var mECOrderHistoryService= MECOrderHistoryService()
 
 
     override fun getFragmentTag(): String {
@@ -58,7 +58,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
         cartSummaryList = mutableListOf()
         voucherList = mutableListOf()
         binding = MecOrderHistoryDetailBinding.inflate(inflater, container, false)
-
+        binding.mecOrderHistoryService = mECOrderHistoryService
         mecOrderDetailViewModel = ViewModelProvider(this).get(MECOrderDetailViewModel::class.java)
 
         mecOrderDetailViewModel.contacts.observe(viewLifecycleOwner, contactsObserver)
