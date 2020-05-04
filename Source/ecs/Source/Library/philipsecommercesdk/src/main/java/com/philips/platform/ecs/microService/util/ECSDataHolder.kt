@@ -20,7 +20,7 @@ import com.philips.platform.ecs.microService.model.config.oauth.ECSOAuthData
 object ECSDataHolder {
 
     fun getURLMapper(config: String): String? {
-        return urlMAp.get(config)
+        return urlMAp[config]
     }
 
     var baseURL: String? = null

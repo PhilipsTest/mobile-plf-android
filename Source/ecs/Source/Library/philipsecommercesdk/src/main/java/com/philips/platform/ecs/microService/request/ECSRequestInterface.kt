@@ -15,18 +15,20 @@ import com.android.volley.Response
 import com.philips.platform.appinfra.rest.TokenProviderInterface
 import org.json.JSONObject
 
-interface APPInfraRequestInterface : Response.ErrorListener,TokenProviderInterface {
+interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
+
     fun  getMethod(): Int
     fun  getURL(): String
+    fun  getRequestType():RequestType
 
     fun  getJSONRequest(): JSONObject?{
      return null
     }
 
-    fun  getJSONSuccessResponseListener(): Response.Listener<JSONObject?>?{
+    fun  getJSONSuccessResponseListener(): Response.Listener<JSONObject>?{
         return null
     }
-    fun  getStringSuccessResponseListener(): Response.Listener<String?>?{
+    fun  getStringSuccessResponseListener(): Response.Listener<String>?{
         return null
     }
     fun  getJSONFailureResponseListener(): Response.ErrorListener{
@@ -45,6 +47,10 @@ interface APPInfraRequestInterface : Response.ErrorListener,TokenProviderInterfa
 
     override fun getToken(): TokenProviderInterface.Token? {
         return null
+    }
+
+    fun executeRequest(){
+        Thread(Runnable {  NetworkController(this).executeRequest() }).start()
     }
 
 }

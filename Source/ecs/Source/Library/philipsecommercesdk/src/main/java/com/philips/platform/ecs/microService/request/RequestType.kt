@@ -12,10 +12,8 @@
 
 package com.philips.platform.ecs.microService.request
 
+enum class RequestType {
 
-abstract class AppInfraRequest : APPInfraRequestInterface {
-
-   fun executeRequest(){
-       Thread(Runnable {  NetworkController(this).executeRequest() }).start()
-   }
+    JSON,
+    STRING
 }

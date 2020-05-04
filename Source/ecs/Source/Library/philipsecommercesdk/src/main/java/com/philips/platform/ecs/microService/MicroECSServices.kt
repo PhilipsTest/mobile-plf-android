@@ -19,7 +19,7 @@ import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.model.products.ECSProduct
 
-class ECSServices(val appInfra: AppInfra) : ECSServiceProvider {
+class MicroECSServices(val appInfra: AppInfra) : ECSServiceProvider {
 
     init {
         ECSDataHolder.appInfra = appInfra

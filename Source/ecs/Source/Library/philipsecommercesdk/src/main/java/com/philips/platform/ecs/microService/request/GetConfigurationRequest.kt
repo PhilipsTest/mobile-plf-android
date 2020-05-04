@@ -12,7 +12,6 @@
 package com.philips.platform.ecs.microService.request
 
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
@@ -20,22 +19,18 @@ import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import org.json.JSONObject
 
-class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Exception>) : AppInfraRequest(), Response.Listener<JSONObject?> {
+class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Exception>) : ECSJsonRequest() {
+
     override fun getMethod(): Int {
         return Request.Method.GET
     }
 
     override fun getURL(): String {
-
         //TODO check if url is null then throw exception ..dont crash with NullPointer
         return ECSDataHolder.getURLMapper(ECSConstants.CONFIG)!!
     }
 
     override fun onErrorResponse(error: VolleyError?) {}
     override fun onResponse(response: JSONObject?) {}
-
-    override fun getJSONSuccessResponseListener(): Response.Listener<JSONObject?>? {
-        return this
-    }
 
 }

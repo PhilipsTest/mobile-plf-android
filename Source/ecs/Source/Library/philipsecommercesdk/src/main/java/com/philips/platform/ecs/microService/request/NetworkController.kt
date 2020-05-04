@@ -15,37 +15,28 @@ import com.philips.platform.appinfra.rest.request.JsonObjectRequest
 import com.philips.platform.appinfra.rest.request.StringRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
-class NetworkController(appInfraJSONRequest: AppInfraRequest) {
+class NetworkController(private val ecsRequest: ECSRequestInterface) {
 
-    var jsonObjectRequest: JsonObjectRequest? = null
-    var stringRequest: StringRequest? = null
 
-    init {
-        val jsonSuccessResponseListener = appInfraJSONRequest.getJSONSuccessResponseListener()
-        val stringSuccessResponseListener = appInfraJSONRequest.getStringSuccessResponseListener()
-        jsonObjectRequest = jsonSuccessResponseListener?.let { getAppInfraJSONObject(appInfraJSONRequest) }
-        stringRequest = stringSuccessResponseListener?.let {getStringRequest(appInfraJSONRequest)  }
-
-    }
-
-    private fun getAppInfraJSONObject(appInfraJSONRequest: APPInfraRequestInterface): JsonObjectRequest {
-        return JsonObjectRequest(appInfraJSONRequest.getMethod(), appInfraJSONRequest.getURL(), appInfraJSONRequest.getJSONRequest()
-                , appInfraJSONRequest.getJSONSuccessResponseListener(), appInfraJSONRequest.getJSONFailureResponseListener(),
-                appInfraJSONRequest.getHeader(), appInfraJSONRequest.getParams(), appInfraJSONRequest.getTokenProviderInterface())
+    private fun getAppInfraJSONObject(): JsonObjectRequest {
+        return JsonObjectRequest(ecsRequest.getMethod(), ecsRequest.getURL(), ecsRequest.getJSONRequest()
+                , ecsRequest.getJSONSuccessResponseListener(), ecsRequest.getJSONFailureResponseListener(),
+                ecsRequest.getHeader(), ecsRequest.getParams(), ecsRequest.getTokenProviderInterface())
     }
 
     fun executeRequest() {
-            jsonObjectRequest?.let { ECSDataHolder.appInfra.restClient.requestQueue.add(jsonObjectRequest) } ?: kotlin.run {
 
-            stringRequest?.let { ECSDataHolder.appInfra.restClient.requestQueue.add(stringRequest) }
-            }
+        when (ecsRequest.getRequestType()) {
+
+            RequestType.JSON -> ECSDataHolder.appInfra.restClient.requestQueue.add(getAppInfraJSONObject())
+            RequestType.STRING -> ECSDataHolder.appInfra.restClient.requestQueue.add(getStringRequest())
+        }
     }
 
-    private fun getStringRequest(appInfraJSONRequest: APPInfraRequestInterface): StringRequest {
-        return StringRequest(appInfraJSONRequest.getMethod(), appInfraJSONRequest.getURL()
-                , appInfraJSONRequest.getStringSuccessResponseListener(), appInfraJSONRequest.getJSONFailureResponseListener(),
-                appInfraJSONRequest.getHeader(), appInfraJSONRequest.getParams(), appInfraJSONRequest.getTokenProviderInterface())
+    private fun getStringRequest(): StringRequest {
+        return StringRequest(ecsRequest.getMethod(), ecsRequest.getURL()
+                , ecsRequest.getStringSuccessResponseListener(), ecsRequest.getJSONFailureResponseListener(),
+                ecsRequest.getHeader(), ecsRequest.getParams(), ecsRequest.getTokenProviderInterface())
     }
-
 
 }

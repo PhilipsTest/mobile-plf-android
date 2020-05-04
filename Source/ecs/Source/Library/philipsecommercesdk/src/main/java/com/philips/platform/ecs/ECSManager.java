@@ -89,7 +89,6 @@ class ECSManager {
                 ECSConfiguration.INSTANCE.setRootCategory(result.getRootCategory());
                 ecsCallback.onResponse(true);
             }
-
             @Override
             public void onFailure(Exception error, ECSError ecsError) {
                 ecsCallback.onResponse(false);
