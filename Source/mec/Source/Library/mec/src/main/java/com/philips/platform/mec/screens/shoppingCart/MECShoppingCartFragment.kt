@@ -406,7 +406,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
                 super.processError(mecError, false)
                 validationEditText = null
                 binding.mecVoucherEditText.startAnimation(addressViewModel.shakeError())
-                binding.llAddVoucher.setErrorMessage(mecError.exception?.message)
+                binding.llAddVoucher.setErrorMessage(MECutility.getErrorString(mecError,context))
                 binding.llAddVoucher.showError()
                 validationEditText?.requestFocus()
             }
