@@ -110,8 +110,9 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
             @SuppressWarnings("deprecation")
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url != null && url.startsWith("https://m.me")) {
-                    try {
+                if (url != null && ( url.startsWith("https://m.me") || url.contains("com.facebook.katana")
+                        || url.contains("com.facebook.lite"))) {
+                try {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         view.getContext().startActivity(intent);
                         return true;
