@@ -27,11 +27,11 @@ class ECSManager {
 
     // config ==================
     fun configureECS(ecsCallback: ECSCallback<Boolean, Exception>) {
-        ECSDataHolder.appInfra.serviceDiscovery.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryForConfigBoolCallback(this,ecsCallback), null)
+        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryForConfigBoolCallback(this,ecsCallback), null)
     }
 
     fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, Exception>) {
-        ECSDataHolder.appInfra.serviceDiscovery.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryForConfigObjectCallback(this,ecsCallback), null)
+        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryForConfigObjectCallback(this,ecsCallback), null)
     }
 
     fun getConfigObject(ecsCallback: ECSCallback<ECSConfig, Exception>){

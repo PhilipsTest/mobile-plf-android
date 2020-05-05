@@ -25,10 +25,10 @@ object ECSDataHolder {
 
     var baseURL: String? = null
     var locale: String? = null
-    lateinit var appInfra : AppInfra
+    var appInfra : AppInfra? = null
 
     private val configError = AppConfigurationInterface.AppConfigurationError()
-    val propositionId = appInfra.configInterface.getPropertyForKey("propositionid", "MEC", configError)
+    val propositionId = appInfra?.configInterface?.getPropertyForKey("propositionid", "MEC", configError)
 
     lateinit var urlMAp : HashMap<String,String>
 

@@ -17,8 +17,7 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class NetworkController(private val ecsRequest: ECSRequestInterface) {
 
-
-    private fun getAppInfraJSONObject(): JsonObjectRequest {
+    internal fun getAppInfraJSONObject(): JsonObjectRequest {
         return JsonObjectRequest(ecsRequest.getMethod(), ecsRequest.getURL(), ecsRequest.getJSONRequest()
                 , ecsRequest.getJSONSuccessResponseListener(), ecsRequest.getJSONFailureResponseListener(),
                 ecsRequest.getHeader(), ecsRequest.getParams(), ecsRequest.getTokenProviderInterface())
@@ -28,12 +27,12 @@ class NetworkController(private val ecsRequest: ECSRequestInterface) {
 
         when (ecsRequest.getRequestType()) {
 
-            RequestType.JSON -> ECSDataHolder.appInfra.restClient.requestQueue.add(getAppInfraJSONObject())
-            RequestType.STRING -> ECSDataHolder.appInfra.restClient.requestQueue.add(getStringRequest())
+            RequestType.JSON -> ECSDataHolder.appInfra?.restClient?.requestQueue?.add(getAppInfraJSONObject())
+            RequestType.STRING -> ECSDataHolder.appInfra?.restClient?.requestQueue?.add(getStringRequest())
         }
     }
 
-    private fun getStringRequest(): StringRequest {
+    internal fun getStringRequest(): StringRequest {
         return StringRequest(ecsRequest.getMethod(), ecsRequest.getURL()
                 , ecsRequest.getStringSuccessResponseListener(), ecsRequest.getJSONFailureResponseListener(),
                 ecsRequest.getHeader(), ecsRequest.getParams(), ecsRequest.getTokenProviderInterface())
