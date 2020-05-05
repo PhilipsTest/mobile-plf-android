@@ -759,7 +759,7 @@ public class User {
         boolean isValidMobileNo = FieldsValidator.isValidMobileNumber(mobileNo);
         boolean isValidEmail = FieldsValidator.isValidEmail(email);
         if (isValidMobileNo && isValidEmail) {
-            return getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, mobileNo) &&
+            return getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, mobileNo) ||
                     getPreferenceValue(mContext, RegConstants.PERSONAL_CONSENT, email);
         }
         if (isValidMobileNo) {
