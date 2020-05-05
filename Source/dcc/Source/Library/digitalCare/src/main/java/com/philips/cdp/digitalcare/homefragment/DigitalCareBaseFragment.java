@@ -98,6 +98,20 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
             @TargetApi(Build.VERSION_CODES.N)
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
+                if (request.getUrl() != null && ( request.getUrl().toString().startsWith("https://m.me")
+                        || request.getUrl().toString().contains("com.facebook.katana")
+                        || url.contains("com.facebook.lite"))) {
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(request.getUrl().toString()));
+                        view.getContext().startActivity(intent);
+                        return true;
+                    } catch (Exception e) {
+                        Log.i(TAG, "shouldOverrideUrlLoading Exception:" + e);
+                        return true;
+                    }
+                }
+
                 if (request.getUrl().toString().startsWith("tel:")) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse(request.getUrl().toString()));
