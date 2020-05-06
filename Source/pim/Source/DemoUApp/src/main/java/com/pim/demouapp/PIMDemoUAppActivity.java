@@ -278,7 +278,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onResume() {
         super.onResume();
-        if (!userDataInterface.isOIDCToken() && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+
+        if(userDataInterface== null) userDataInterface = PIMDemoUAppApplication.getInstance().getUserDataInterface();
+
+        if (userDataInterface!=null && !userDataInterface.isOIDCToken() && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
             btnLaunchAsFragment.setEnabled(false);
         }
     }

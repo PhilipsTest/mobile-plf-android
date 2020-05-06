@@ -310,7 +310,10 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             removeVoucher = false
             ecsShoppingCartViewModel.removeVoucher(vouchersAdapter?.getVoucher()?.voucherCode.toString())
         } else {
-            updateCartRequest(shoppingCart.entries.get(itemPosition), 0)
+            if(shoppingCart.entries!= null &&  shoppingCart.entries.size > itemPosition) { // condition to be added to avoid ArrayIndex out of bound in case the
+                // delete button is clicked multiple times immediately
+                updateCartRequest(shoppingCart.entries.get(itemPosition), 0)
+            }
         }
     }
 
