@@ -428,7 +428,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     private fun tagAddToCart(product: com.philips.platform.ecs.model.products.ECSProduct){
         var map = HashMap<String, String>()
         map.put(specialEvents, scAdd)
-        map.put(mecProducts, MECAnalytics.getProductInfo(product)) // 1 product added to cart
+        map.put(mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(product,1)) // 1 product added to cart
         MECAnalytics.trackMultipleActions(sendData, map)
     }
 
