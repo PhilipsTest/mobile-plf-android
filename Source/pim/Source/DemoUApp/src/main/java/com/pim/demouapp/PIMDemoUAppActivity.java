@@ -395,7 +395,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void logoutSessionFailed(Error error) {
-                        showToast("Logout Failed due to " + error.getErrCode() + " and error message :" + error.getErrDesc());
+                        showToast("Logout Failed with error code " + error.getErrCode());
                     }
                 });
             } else {
@@ -484,7 +484,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onRefetchFailure(Error error) {
-                        showToast("Refetch failed");
+                        showToast("Refetch failed with error code : " + error.getErrCode());
                     }
                 });
             } else {
