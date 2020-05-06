@@ -12,8 +12,8 @@ import androidx.annotation.VisibleForTesting;
 
 import com.philips.platform.ecs.model.address.ECSAddress;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.cart.ECSEntries;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
-import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class ECSOrderDetail implements Parcelable{
     private List<AppliedOrderPromotions> appliedOrderPromotions;
     private List<DeliveryOrderGroups> deliveryOrderGroups;
 
-    private List<Entries> entries;
+    private List<ECSEntries> entries;
 
     private List<Consignment> consignments;
 
@@ -255,7 +255,7 @@ public class ECSOrderDetail implements Parcelable{
         return deliveryOrderGroups;
     }
 
-    public List<Entries> getEntries() {
+    public List<ECSEntries> getEntries() {
         return entries;
     }
 

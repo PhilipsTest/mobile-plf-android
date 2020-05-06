@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderConfirmationPage
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.databinding.MecPaymentConfirmationBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
@@ -86,7 +87,8 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
     override fun onStart() {
         super.onStart()
         MECAnalytics.trackPage(orderConfirmationPage)
-        MECAnalytics.tagPurchaseOrder(mECSOrderDetail)
+        val paymentType: String= arguments?.getString(MECAnalyticsConstant.paymentType)!!
+        MECAnalytics.tagPurchaseOrder(mECSOrderDetail,paymentType)
     }
 
     fun onClickOk(){

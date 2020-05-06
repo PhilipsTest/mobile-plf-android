@@ -17,7 +17,7 @@ class ECSShoppingCartCallback(private val ecsShoppingCartViewModel: EcsShoppingC
     var mECRequestType = MECRequestType.MEC_FETCH_SHOPPING_CART
     override fun onResponse(ecsShoppingCart: ECSShoppingCart?) {
         if(mECRequestType==MECRequestType.MEC_UPDATE_SHOPPING_CART){ // if any product quantity of cart is changed
-            ecsShoppingCartViewModel.tagProductIfDeleted()
+            ecsShoppingCartViewModel.tagProductAddedOrDeleted()
         }
         ecsShoppingCartViewModel.ecsShoppingCart.value = ecsShoppingCart
     }

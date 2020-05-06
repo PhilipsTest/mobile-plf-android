@@ -51,4 +51,7 @@ public class PIMErrorCodes {
     //OIDC download failed
     public static final int OIDC_DOWNLOAD_FAILED_ERROR = 7700;
 
+    //OIDC access token expire error
+    public static final int ACCESS_TOKEN_EXPIRED = 1012;
+
 }

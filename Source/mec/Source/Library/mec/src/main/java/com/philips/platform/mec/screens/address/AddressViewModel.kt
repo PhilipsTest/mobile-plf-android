@@ -388,7 +388,7 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
     fun tagCreateNewAddress(mECSShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart) {
         val actionMap = HashMap<String, String>()
         actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.newShippingAddressAdded)
-        MECAnalytics.tagActionsWithCartProductsInfo(actionMap, mECSShoppingCart)
+        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, mECSShoppingCart.entries)
     }
 
 }

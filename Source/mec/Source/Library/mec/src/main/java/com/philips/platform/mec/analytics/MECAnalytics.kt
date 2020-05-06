@@ -14,6 +14,10 @@ import android.content.res.Configuration
 import androidx.annotation.NonNull
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
+import com.philips.platform.ecs.model.cart.BasePriceEntity
+import com.philips.platform.ecs.model.cart.ECSEntries
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.country
@@ -22,6 +26,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.deliveryMethod
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.exceptionErrorCode
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.informationalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentType
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.productListLayout
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.promotion
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.purchase
@@ -30,6 +35,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.userError
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCode
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRedeemed
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeStatus
 import com.philips.platform.mec.integration.MECDependencies
@@ -157,12 +163,12 @@ class MECAnalytics {
 
 
         /*
-        * Each product list fetch including pagination/swipe willshall be tagged by this method
+        * Each product list fetch including pagination/swipe will shall be tagged by this method
         * Here product list will be normally of page size (eg 20) or less that page size(Only for last page)
         *
         * */
         @JvmStatic
-        fun tagProductList(productList: MutableList<com.philips.platform.ecs.model.products.ECSProduct>) {
+        fun tagProductList(productList: MutableList<ECSProduct>) {
             if (productList != null && productList.size > 0) {
                 val mutableProductIterator = productList.iterator()
                 var productListString: String = ""
@@ -184,7 +190,7 @@ class MECAnalytics {
         * format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
-        fun tagProductList(productList: MutableList<com.philips.platform.ecs.model.products.ECSProduct>, listOrGrid: String) {
+        fun tagProductList(productList: MutableList<ECSProduct>, listOrGrid: String) {
             val map = HashMap<String, String>()
             map.put(productListLayout, listOrGrid)
             if (productList != null && productList.size > 0) {
@@ -209,13 +215,13 @@ class MECAnalytics {
        * This method is to tag passed Action(s) with order products details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
-        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<com.philips.platform.ecs.model.orders.Entries>) {
+        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<ECSEntries>) {
             val productsMap = HashMap<String, String>()
             if (entryList != null && entryList.size > 0) { //Entries
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
                 for (entry in mutableEntryIterator) {
-                    productListString += "," + getProductInfo(entry.product)
+                    productListString += "," + getProductInfoWithChangedQuantity(entry.product,entry.basePrice,entry.quantity)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 MECLog.v("MEC_LOG", "Order prodList : " + productListString)
@@ -225,18 +231,18 @@ class MECAnalytics {
             trackMultipleActions(sendData, productsMap)
         }
 
-        /*c
+      /*  *//*c
         * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
-        * */
+        * *//*
         @JvmStatic
-        fun tagActionsWithCartProductsInfo(actionMap: Map<String, String>, ecsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
+        fun tagActionsWithCartProductsInfo(actionMap: Map<String, String>, ecsShoppingCart: ECSShoppingCart?) {
             var productsMap = HashMap<String, String>()
             val entryList = ecsShoppingCart?.entries // ECSEntries
             if (entryList != null && entryList.size > 0) {
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
                 for (entry in mutableEntryIterator) {
-                    productListString += "," + getProductInfo(entry.product)
+                    productListString += "," + getProductInfoWithChangedQuantity(entry.product, entry.quantity)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 MECLog.v("MEC_LOG", "Cart prodList : " + productListString)
@@ -244,19 +250,44 @@ class MECAnalytics {
             }
             productsMap.putAll(actionMap)
             trackMultipleActions(sendData, productsMap)
-        }
+        }*/
 
 
         /*
-       * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
+       * This method return singlet product details in format "[Category];[Product1]"
        * */
         @JvmStatic
-        fun getProductInfo(product: com.philips.platform.ecs.model.products.ECSProduct): String {
+        fun getProductInfo(product: ECSProduct): String {
             var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
             protuctDetail += ";" + product.code
-            protuctDetail += ";" + (if (product.stock != null && product.stock.stockLevel != null) product.stock.stockLevel else 0)
-            protuctDetail += ";" + (if (product.discountPrice != null) product.discountPrice.value else 0)
+           return protuctDetail
+        }
+
+        /*
+        * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
+        * product : Product
+        * changedQuantity : qty added or removed
+        * */
+        @JvmStatic
+        fun getProductInfoWithChangedQuantity(product: ECSProduct,basePriceEntity: BasePriceEntity, changedQuantity: Int): String {
+            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
+            protuctDetail += ";" + product.code
+            protuctDetail += ";" + changedQuantity //changed Quantity e.g. 2 product added OR 3 product deleted
+            var totalPrice: Double =getProductPrice(product,basePriceEntity)*changedQuantity.toDouble() // unit Price * quantity
+            totalPrice = Math.round(totalPrice * 100.0) / 100.0 // round off to 2 decimal
+            protuctDetail += ";" + totalPrice
             return protuctDetail
+        }
+
+        /*
+        * This method return product unit price (discounted if any)
+        * */
+        fun getProductPrice(product: ECSProduct,basePriceEntity: BasePriceEntity):Double{
+         var  productPrice :Double = (if (product.price.value != null) product.price.value else 0.0)
+            if(null!=basePriceEntity && null!=basePriceEntity.value ){
+                productPrice=basePriceEntity.value
+            }
+            return productPrice
         }
 
 
@@ -264,9 +295,10 @@ class MECAnalytics {
         * This method will tag a successful purchase order details
         * */
         @JvmStatic
-        fun tagPurchaseOrder(mECSOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail) {
+        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew :String) {
             var orderMap = HashMap<String, String>()
             orderMap.put(specialEvents, purchase)
+            orderMap.put(paymentType, paymentTypeOldOrNew)
             orderMap.put(transationID, mECSOrderDetail.code)
             orderMap.put(deliveryMethod, mECSOrderDetail.deliveryMode.name)
             var orderPromotionList: String = ""
@@ -289,7 +321,7 @@ class MECAnalytics {
             }
             if (voucherList.isNotBlank()) {
                 orderMap.put(voucherCodeStatus, voucherCodeRedeemed)
-                orderMap.put(promotion, voucherList)
+                orderMap.put(voucherCode, voucherList)
             }
 
             tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
