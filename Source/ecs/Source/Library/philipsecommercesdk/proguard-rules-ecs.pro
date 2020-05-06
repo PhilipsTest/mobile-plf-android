@@ -3,7 +3,7 @@
 
  #ECS
 
--keep class com.philips.platform.ecs.ECSServices {*;}
+
 -keep class com.philips.platform.ecs.ECSManager {*;}
 -keep class com.philips.platform.ecs.ECSCallValidator {*;}
 -keep class com.philips.platform.ecs.ApiInputValidator {*;}
