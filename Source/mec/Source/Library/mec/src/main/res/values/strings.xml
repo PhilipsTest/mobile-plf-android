@@ -159,8 +159,10 @@
     <string name="mec_my_orders" translatable="false">"My orders"</string>
     <string name="mec_orders" translatable="false">"Orders"</string>
 
+    <!--new strings-->
     <string name="mec_cancel_order">Cancel my order</string>
     <string name="mec_track_order">Track order</string>
+    <string name="mec_contact_philips_consumer_care">Please contact Philips Consumer Care %s for further support.</string>
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>

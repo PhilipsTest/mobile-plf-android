@@ -26,6 +26,7 @@ class PRXContactsResponseCallback(private val mecOrderDetailViewModel: MECOrderD
     }
 
     override fun onResponseSuccess(responseData: ResponseData?) {
-        mecOrderDetailViewModel.contacts.value = responseData as ContactsModel
+        var contactsModel:  ContactsModel=  responseData as ContactsModel
+        mecOrderDetailViewModel.contactPhone.value = contactsModel.data.phone.get(0)
     }
 }
