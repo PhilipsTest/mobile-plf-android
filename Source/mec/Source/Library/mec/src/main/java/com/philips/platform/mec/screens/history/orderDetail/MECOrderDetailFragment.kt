@@ -71,7 +71,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
         cartSummaryList.clear()
         cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
-        productsAdapter = MECOrderDetailProductsAdapter(ecsOrders?.orderDetail)
+        productsAdapter = MECOrderDetailProductsAdapter(ecsOrders?.orderDetail,this )
         vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
         binding.mecCartSummaryRecyclerView.adapter = productsAdapter
         binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
@@ -99,4 +99,13 @@ class MECOrderDetailFragment : MecBaseFragment() {
     fun onCancelOrder() {
 
     }
+
+     fun showTrackUrlFragment(url :String ) {
+        val bundle = Bundle()
+        bundle.putString(MECConstant.MEC_TRACK_ORDER_URL, url)
+        val mECOrderDetailTrackUrlFragment = MECOrderDetailTrackUrlFragment()
+        mECOrderDetailTrackUrlFragment.arguments = bundle
+        replaceFragment(mECOrderDetailTrackUrlFragment, mECOrderDetailTrackUrlFragment.getFragmentTag(), true)
+    }
+
 }

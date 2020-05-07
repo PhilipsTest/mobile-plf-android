@@ -10,20 +10,16 @@
 package com.philips.platform.mec.screens.history.orderDetail
 
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.philips.platform.ecs.model.orders.ConsignmentEntries
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.databinding.MecOrderDetailCartItemsBinding
-import com.philips.platform.mec.integration.MECDataProvider.context
 import kotlinx.android.synthetic.main.mec_order_detail_cart_items.view.*
 
 
-class MECOrderDetailProductsAdapter(private val ecsOrderDetail: ECSOrderDetail?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MECOrderDetailProductsAdapter(private val ecsOrderDetail: ECSOrderDetail?, private val mECOrderDetailFragment : MECOrderDetailFragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MECOrderDetailViewHolder(MecOrderDetailCartItemsBinding.inflate(LayoutInflater.from(parent.context)))
@@ -39,8 +35,7 @@ class MECOrderDetailProductsAdapter(private val ecsOrderDetail: ECSOrderDetail?)
         val viewHolder = holder as MECOrderDetailViewHolder
         viewHolder.bind(entries,trackURLstring)
         viewHolder.itemView.mec_order_detail_tracking_btn.setOnClickListener{
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(trackURLstring))
-            context?.let { it1 -> startActivity(it1, browserIntent,null) }
+            trackURLstring?.let { it1 -> mECOrderDetailFragment.showTrackUrlFragment(it1) }
         }
     }
 
