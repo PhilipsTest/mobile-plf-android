@@ -14,6 +14,7 @@ package com.philips.platform.ecs.microService
 
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.manager.ECSManager
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
@@ -42,7 +43,8 @@ class MicroECSServices(val appInfra: AppInfra) {
         ecsManager.getProductList(currentPage, pageSize, eCSCallback)
     }
 
-    fun fetchProduct(ctn: String, eCSCallback: com.philips.platform.ecs.integration.ECSCallback<ECSProduct?, java.lang.Exception?>) {
+    @Throws(ECSException::class)
+    fun fetchProduct(ctn: String, eCSCallback:ECSCallback<ECSProduct, Exception>) {
         ecsManager.getProductFor(ctn, eCSCallback)
     }
 

@@ -12,7 +12,7 @@
 package com.philips.platform.ecs.microService.request
 
 import com.android.volley.VolleyError
-import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.store.ECSURLBuilder
@@ -22,6 +22,7 @@ class GetProductForRequest(private val ctn: String, private val ecsCallback: ECS
 
 
     override fun getURL(): String {
+        //TODO
         return ECSURLBuilder().getProduct(ctn)
     }
 
@@ -30,7 +31,8 @@ class GetProductForRequest(private val ctn: String, private val ecsCallback: ECS
     }
 
     override fun onResponse(response: JSONObject) {
-        response.getData(ECSProduct::class.java)
+        val ecsProduct = response.getData(ECSProduct::class.java)
+        ecsCallback.onResponse(ecsProduct)
     }
 
 }

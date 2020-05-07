@@ -18,6 +18,7 @@ import com.philips.platform.ecs.microService.callBack.ServiceDiscoveryForConfigO
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.request.GetConfigurationRequest
+import com.philips.platform.ecs.microService.request.GetProductForRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.model.products.ECSProducts
@@ -46,7 +47,7 @@ class ECSManager {
                 ecsCallback.onResponse(result.isHybris)
             }
 
-            override fun onFailure(ecsError: Exception?) {
+            override fun onFailure(ecsError: Exception) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
@@ -66,8 +67,10 @@ class ECSManager {
         TODO("Not yet implemented")
     }
 
-    fun getProductFor(ctn: String, eCSCallback: com.philips.platform.ecs.integration.ECSCallback<ECSProduct?, java.lang.Exception?>) {
-        TODO("Not yet implemented")
+    fun getProductFor(ctn: String, eCSCallback:ECSCallback<ECSProduct,Exception>) {
+        val ecsException = ECSApiValidator().getECSException(APIType.LocaleAndHybris)
+
+        //ecsException?:let { throw ecsException } ?: kotlin.run { GetProductForRequest(ctn,eCSCallback).executeRequest() }
     }
 
     fun getProductSummary(ctns: List<String?>, ecsCallback: com.philips.platform.ecs.integration.ECSCallback<List<ECSProduct?>?, java.lang.Exception?>) {
