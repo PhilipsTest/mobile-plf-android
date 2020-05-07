@@ -45,7 +45,8 @@ android {
         renderscriptTargetApi versions.renderscriptTargetApi
         renderscriptSupportModeEnabled true
         manifestPlaceholders = [
-                udiRedirectScheme: ''
+                udiRedirectScheme: '',
+                appAuthRedirectScheme: ''
         ]
     }
 
