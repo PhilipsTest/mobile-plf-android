@@ -12,12 +12,14 @@
 
 package com.philips.platform.mec.screens.history.orderDetail
 
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.philips.cdp.prxclient.datamodels.contacts.ContactPhone
@@ -43,7 +45,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
     private var vouchersAdapter: MECOrderDetailVouchersAdapter? = null
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
     private lateinit var voucherList: MutableList<AppliedVoucherEntity>
-    private  var mECOrderHistoryService= MECOrderHistoryService()
+    private var mECOrderHistoryService = MECOrderHistoryService()
 
 
     override fun getFragmentTag(): String {
@@ -61,7 +63,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
         voucherList = mutableListOf()
 
         binding = MecOrderHistoryDetailBinding.inflate(inflater, container, false)
-        binding.fragment=this
+        binding.fragment = this
         binding.mecOrderHistoryService = mECOrderHistoryService
         mecOrderDetailViewModel = ViewModelProvider(this).get(MECOrderDetailViewModel::class.java)
 
@@ -75,7 +77,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
         cartSummaryList.clear()
         cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
-        productsAdapter = MECOrderDetailProductsAdapter(ecsOrders?.orderDetail,this )
+        productsAdapter = MECOrderDetailProductsAdapter(ecsOrders?.orderDetail, this)
         vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
         binding.mecCartSummaryRecyclerView.adapter = productsAdapter
         binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
@@ -86,8 +88,8 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
     override fun onStart() {
         super.onStart()
-            setTitleAndBackButtonVisibility(R.string.mec_my_orders, true)
-            setCartIconVisibility(false)
+        setTitleAndBackButtonVisibility(R.string.mec_my_orders, true)
+        setCartIconVisibility(false)
 
     }
 
@@ -104,7 +106,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
     }
 
-     fun showTrackUrlFragment(url :String ) {
+    fun showTrackUrlFragment(url: String) {
         val bundle = Bundle()
         bundle.putString(MECConstant.MEC_TRACK_ORDER_URL, url)
         val mECOrderDetailTrackUrlFragment = MECOrderDetailTrackUrlFragment()
@@ -112,52 +114,15 @@ class MECOrderDetailFragment : MecBaseFragment() {
         replaceFragment(mECOrderDetailTrackUrlFragment, mECOrderDetailTrackUrlFragment.getFragmentTag(), true)
     }
 
-   /* fun checkPermissionAndCall(phone: String) {
-        if (context?.let {
-                    ContextCompat.checkSelfPermission(it,
-                            Manifest.permission.CALL_PHONE)
-                }
-                != PackageManager.PERMISSION_GRANTED) {
 
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.CALL_PHONE)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed, we can request the permission.
-                activity?.let {
-                    ActivityCompat.requestPermissions(it,
-                            arrayOf(Manifest.permission.CALL_PHONE),
-                            123)
-                }
-            }
-        } else {
-            // Permission has already been granted
-            callPhone(phone)
+    fun callPhone(phone: String) {
+        try {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone))
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context?.let { startActivity(it, intent, null) }
+        } catch (e: NullPointerException) {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == 123) {
-            // If request is cancelled, the result arrays are empty.
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // permission was granted, yay!
-                callPhone()
-            } else {
-                // permission denied, boo! Disable the
-                // functionality
-            }
-            return
-        }
-    }*/
-
-    fun callPhone(phone :String){
-        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone))
-        startActivity(intent)
-    }
 
 }
