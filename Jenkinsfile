@@ -858,7 +858,7 @@ def analyzeWithBlackduck() {
         #!/bin/bash -l
         whoami 
         ls -la /Users/philipsiet/Softwares/synopsys-detect-6.1.0-air-gap-gradle-nuget/packaged-inspectors/gradle
-        java -jar /Users/philipsiet/Softwares/synopsys-detect-6.1.0.jar --detect.project.name=EMS --detect.project.version.name=Android_23 --detect.source.path=${WORKSPACE} --blackduck.url=https://blackduck.philips.com/ --blackduck.trust.cert=true --blackduck.api.token=MDE5ODJkNmYtYzMxNi00NGYyLWFiMmUtNTZkN2JmNDc1YWI3OmVlY2MzNDlkLWUyY2UtNDgxMy05MDFhLWU0ZGI0NDEzOGY2MQ== --detect.gradle.inspector.air.gap.path=/Users/philipsiet/synopsys-detect-5.6.2-air-gap-gradle-nuget/packaged-inspectors/gradle --detect.bom.aggregate.name=EMS_Android_23
+        java -jar /Users/philipsiet/Softwares/synopsys-detect-6.1.0.jar --detect.project.name=EMS --detect.project.version.name=Android_23 --detect.source.path=${WORKSPACE} --blackduck.url=https://blackduck.philips.com/ --blackduck.trust.cert=true --blackduck.api.token=MDE5ODJkNmYtYzMxNi00NGYyLWFiMmUtNTZkN2JmNDc1YWI3OmVlY2MzNDlkLWUyY2UtNDgxMy05MDFhLWU0ZGI0NDEzOGY2MQ== --detect.gradle.inspector.air.gap.path=/Users/philipsiet/synopsys-detect-5.6.2-air-gap-gradle-nuget/packaged-inspectors/gradle
     """
 
     echo "-----------------------------"
