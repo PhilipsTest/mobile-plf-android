@@ -160,7 +160,7 @@
     <string name="mec_orders" translatable="false">"Orders"</string>
 
     <string name="mec_cancel_order">Cancel my order</string>
-
+    <string name="mec_track_order">Track order</string>
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>
