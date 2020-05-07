@@ -10,11 +10,10 @@
  *
  */
 
-package com.philips.platform.ecs.microService.model
+package com.philips.platform.ecs.microService.model.error
 
-import org.json.JSONObject
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-interface ResponseData {
-
-    fun parseJsonResponseData(response: JSONObject?):ResponseData?
-}
+@Parcelize
+data class HybrisError(val errors: List<Error>) : Parcelable

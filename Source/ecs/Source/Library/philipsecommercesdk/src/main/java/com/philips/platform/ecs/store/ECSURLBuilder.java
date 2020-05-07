@@ -9,12 +9,11 @@ package com.philips.platform.ecs.store;
 import com.philips.platform.ecs.integration.ECSOAuthProvider;
 import com.philips.platform.ecs.integration.GrantType;
 import com.philips.platform.ecs.util.ECSConfiguration;
-import com.philips.platform.ecs.util.ECSConfiguration;
 
 
 public class ECSURLBuilder implements URLProvider {
 
-    private static final String SUFFIX_CONFIGURATION = "inAppConfig";
+    public static final String SUFFIX_CONFIGURATION = "inAppConfig";
 
     public static final String WEBROOT = "pilcommercewebservices";
     public static final String WEBROOT_OAUTH = "authorizationserver";

@@ -30,7 +30,7 @@ class ServiceDiscoveryForConfigObjectCallback(val ecsManager: ECSManager,val ecs
         val configUrls = serviceDiscoveryService?.configUrls
         ECSDataHolder.baseURL = configUrls
 
-        if(configUrls==null || ECSDataHolder.propositionId == null){
+        if(configUrls==null || ECSDataHolder.getPropositionId() == null){
             var ecsConfig = ECSConfig()
             ecsConfig.isHybris = false
             ecsConfig.locale = locale

@@ -9,22 +9,22 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.callBack;
+package com.philips.platform.ecs.microService.callBack
 
 /**
  * The interface Iapsdk callback.
  */
-public interface ECSCallback<R,E> {
+interface ECSCallback<R, E> {
     /**
      * On response.
      *
      * @param result the result
      */
-    public void onResponse(R result);
+    fun onResponse(result: R)
 
     /**
      * On failure.
      * @param ecsError the error with exception ,error code and message
      */
-    public void onFailure(E ecsError);
+    fun onFailure(ecsError: E)
 }

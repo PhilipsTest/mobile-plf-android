@@ -10,12 +10,11 @@
  *
  */
 
-package com.philips.platform.ecs.microService.model.product
+package com.philips.platform.ecs.microService.util
 
-import android.os.Parcelable
 import com.google.gson.Gson
-import kotlinx.android.parcel.Parcelize
 import org.json.JSONObject
 
-@Parcelize
-class ECSProduct(val attributes: Attributes?,val id: String?,val type: String?) : Parcelable
+fun<T> JSONObject.getData(classOfT: Class<T>) : T{
+    return Gson().fromJson(this.toString(),classOfT)
+}

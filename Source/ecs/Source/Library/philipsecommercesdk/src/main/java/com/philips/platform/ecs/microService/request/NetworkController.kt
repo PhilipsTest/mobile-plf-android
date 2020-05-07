@@ -11,9 +11,12 @@
  */
 package com.philips.platform.ecs.microService.request
 
+import com.google.gson.JsonSyntaxException
+import com.google.gson.internal.Primitives
 import com.philips.platform.appinfra.rest.request.JsonObjectRequest
 import com.philips.platform.appinfra.rest.request.StringRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import java.lang.reflect.Type
 
 class NetworkController(private val ecsRequest: ECSRequestInterface) {
 

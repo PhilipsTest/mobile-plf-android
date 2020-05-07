@@ -15,7 +15,8 @@ package com.philips.platform.ecs.microService.util
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.ecs.microService.model.config.ECSConfig
-import com.philips.platform.ecs.microService.model.config.oauth.ECSOAuthData
+import com.philips.platform.ecs.model.oauth.ECSOAuthData
+import java.lang.Exception
 
 object ECSDataHolder {
 
@@ -28,11 +29,19 @@ object ECSDataHolder {
     var appInfra : AppInfra? = null
 
     private val configError = AppConfigurationInterface.AppConfigurationError()
-    val propositionId = appInfra?.configInterface?.getPropertyForKey("propositionid", "MEC", configError)
+
 
     lateinit var urlMAp : HashMap<String,String>
 
     var config = ECSConfig()
 
-    var eCSOAuthData :ECSOAuthData?=null
+    var eCSOAuthData : ECSOAuthData?=null
+
+    fun getPropositionId():String?{
+        try {
+           return appInfra?.configInterface?.getPropertyForKey("propositionid", "MEC", configError) as String
+        }catch (e :Exception){
+           return null
+        }
+    }
 }

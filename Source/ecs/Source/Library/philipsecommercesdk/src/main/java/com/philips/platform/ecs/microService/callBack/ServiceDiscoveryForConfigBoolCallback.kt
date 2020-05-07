@@ -28,7 +28,7 @@ class ServiceDiscoveryForConfigBoolCallback(val ecsManager: ECSManager,val ecsCa
         ECSDataHolder.locale = locale
         val configUrls = serviceDiscoveryService?.configUrls
         ECSDataHolder.baseURL = configUrls
-        if(configUrls==null || ECSDataHolder.propositionId == null){
+        if(configUrls==null || ECSDataHolder.getPropositionId() == null){
             ecsCallback.onResponse(false)
         }else{
             ecsManager.getConfigBoolean(ecsCallback)

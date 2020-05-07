@@ -11,13 +11,16 @@
  */
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.Request
 import com.android.volley.Response
 import com.philips.platform.appinfra.rest.TokenProviderInterface
 import org.json.JSONObject
 
 interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
 
-    fun  getMethod(): Int
+    fun  getMethod(): Int{
+        return Request.Method.GET
+    }
     fun  getURL(): String
     fun  getRequestType():RequestType
 

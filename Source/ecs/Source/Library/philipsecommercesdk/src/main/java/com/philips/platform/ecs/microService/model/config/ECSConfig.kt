@@ -13,11 +13,8 @@ package com.philips.platform.ecs.microService.model.config
 
 import android.os.Parcelable
 import com.google.gson.Gson
-import com.philips.platform.ecs.microService.model.ResponseData
-import com.philips.platform.ecs.microService.model.product.ECSProduct
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONObject
-import java.io.Serializable
 
 /**
  * The type Ecs config which contains philips e-commerce configuration data. This object is returned when configureECS is called.
