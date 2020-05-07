@@ -18,8 +18,9 @@ import com.philips.platform.ecs.microService.manager.ECSManager
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProducts
 
-class MicroECSServices(val appInfra: AppInfra) : ECSServiceProvider {
+class MicroECSServices(val appInfra: AppInfra) {
 
     init {
         ECSDataHolder.appInfra = appInfra
@@ -28,16 +29,31 @@ class MicroECSServices(val appInfra: AppInfra) : ECSServiceProvider {
     var ecsManager = ECSManager()
 
 
-    override fun configureECS(ecsCallback: ECSCallback<Boolean, Exception>) {
+    fun configureECS(ecsCallback: ECSCallback<Boolean, Exception>) {
         ecsManager.configureECS(ecsCallback)
     }
 
-    override fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, Exception>) {
+    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, Exception>) {
         ecsManager.configureECSToGetConfiguration(ecsCallback)
     }
 
-    @Throws(Exception::class)
-    override fun fetchProductDetails(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, Exception>) {
-        ecsManager.fetchProductDetails(product,ecsCallback)
+
+    fun fetchProducts(currentPage: Int, pageSize: Int, eCSCallback: com.philips.platform.ecs.integration.ECSCallback<ECSProducts?, java.lang.Exception?>) {
+        ecsManager.getProductList(currentPage, pageSize, eCSCallback)
     }
+
+    fun fetchProduct(ctn: String, eCSCallback: com.philips.platform.ecs.integration.ECSCallback<ECSProduct?, java.lang.Exception?>) {
+        ecsManager.getProductFor(ctn, eCSCallback)
+    }
+
+    fun fetchProductSummaries(ctns: List<String?>, ecsCallback: com.philips.platform.ecs.integration.ECSCallback<List<ECSProduct?>?, java.lang.Exception?>) {
+        ecsManager.getProductSummary(ctns, ecsCallback)
+    }
+
+
+    fun fetchProductDetails(product: ECSProduct, ecsCallback: com.philips.platform.ecs.integration.ECSCallback<ECSProduct?, java.lang.Exception?>) {
+        ecsManager.getProductDetail(product, ecsCallback)
+    }
+
+
 }

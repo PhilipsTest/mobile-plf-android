@@ -20,6 +20,7 @@ import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.request.GetConfigurationRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProducts
 
 class ECSManager {
 
@@ -59,6 +60,22 @@ class ECSManager {
     fun fetchProductDetails(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, Exception>) {
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
        // if (ecsException!=null) throw ecsException else
+    }
+
+    fun getProductList(currentPage: Int, pageSize: Int, eCSCallback: com.philips.platform.ecs.integration.ECSCallback<ECSProducts?, java.lang.Exception?>) {
+        TODO("Not yet implemented")
+    }
+
+    fun getProductFor(ctn: String, eCSCallback: com.philips.platform.ecs.integration.ECSCallback<ECSProduct?, java.lang.Exception?>) {
+        TODO("Not yet implemented")
+    }
+
+    fun getProductSummary(ctns: List<String?>, ecsCallback: com.philips.platform.ecs.integration.ECSCallback<List<ECSProduct?>?, java.lang.Exception?>) {
+        TODO("Not yet implemented")
+    }
+
+    fun getProductDetail(product: ECSProduct, ecsCallback: com.philips.platform.ecs.integration.ECSCallback<ECSProduct?, java.lang.Exception?>) {
+        TODO("Not yet implemented")
     }
 
 
