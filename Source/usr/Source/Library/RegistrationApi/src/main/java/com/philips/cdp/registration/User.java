@@ -951,6 +951,43 @@ public class User {
         });
     }
 
+    public void logoutHsdpOnly(final LogoutHandler logoutHandler) {
+        final HsdpUser hsdpUser = new HsdpUser(mContext);
+        hsdpUser.logOut(new LogoutHandler() {
+            @Override
+            public void onLogoutSuccess() {
+                RLog.d(TAG, "logoutHsdp clearData");
+                if (logoutHandler != null) {
+                    ThreadUtils.postInMainThread(mContext, logoutHandler::onLogoutSuccess);
+                }
+                RegistrationHelper.getInstance().getUserRegistrationListener()
+                        .notifyOnUserLogoutSuccess();
+            }
+
+            @Override
+            public void onLogoutFailure(int responseCode, String message) {
+                if (responseCode == ErrorCodes.HSDP_INPUT_ERROR_1009
+                        || responseCode == ErrorCodes.HSDP_INPUT_ERROR_1151) {
+                    RLog.e(TAG, "onLogoutFailure logout INVALID_ACCESS_TOKEN_CODE and INVALID_REFRESH_TOKEN_CODE:" + responseCode);
+                    if (logoutHandler != null) {
+                        ThreadUtils.postInMainThread(mContext, logoutHandler::onLogoutSuccess);
+                    }
+                    RegistrationHelper.getInstance().getUserRegistrationListener()
+                            .notifyOnLogoutSuccessWithInvalidAccessToken();
+                } else {
+                    RLog.e(TAG, "onLogoutFailure logout :" + responseCode);
+
+                    if (logoutHandler != null) {
+                        ThreadUtils.postInMainThread(mContext, () ->
+                                logoutHandler.onLogoutFailure(responseCode, message));
+                    }
+                    RegistrationHelper.getInstance().getUserRegistrationListener()
+                            .notifyOnUserLogoutFailure();
+                }
+            }
+        });
+    }
+
     /**
      * {@code getEmail} method returns the email address of a logged in user.
      *
