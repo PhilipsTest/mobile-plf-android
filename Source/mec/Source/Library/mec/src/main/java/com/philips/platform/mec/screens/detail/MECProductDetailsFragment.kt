@@ -25,18 +25,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.Statistics
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.products.ECSProduct
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.retailers.ECSRetailer
+import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames.productDetails
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.productDetailsPage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.outOfStock
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.prodView
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.retailerName
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.scAdd
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.stockStatus
@@ -68,19 +70,19 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     }
 
 
-    var mRootView :View? =null
+    var mRootView: View? = null
 
     lateinit var param: String
 
     lateinit var binding: MecProductDetailsBinding
-    lateinit var product: ECSProduct
-    private lateinit var retailersList: ECSRetailerList
+    lateinit var product: com.philips.platform.ecs.model.products.ECSProduct
+    private lateinit var retailersList: com.philips.platform.ecs.model.retailers.ECSRetailerList
     private lateinit var ecsRetailerViewModel: ECSRetailerViewModel
 
     lateinit var ecsProductDetailViewModel: EcsProductDetailViewModel
 
-    private val eCSRetailerListObserver: Observer<ECSRetailerList> = object : Observer<ECSRetailerList> {
-        override fun onChanged(retailers: ECSRetailerList?) {
+    private val eCSRetailerListObserver: Observer<com.philips.platform.ecs.model.retailers.ECSRetailerList> = object : Observer<com.philips.platform.ecs.model.retailers.ECSRetailerList> {
+        override fun onChanged(retailers: com.philips.platform.ecs.model.retailers.ECSRetailerList?) {
             retailersList = retailers!!
             ecsProductDetailViewModel.removeBlacklistedRetailers(retailersList)
             if (retailers.wrbresults.onlineStoresForProduct != null) {
@@ -112,10 +114,10 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
     private val ratingObserver: Observer<BulkRatingsResponse> = Observer<BulkRatingsResponse> { response -> updateData(response?.results) }
 
-    private val productObserver: Observer<ECSProduct> = Observer<ECSProduct> { ecsProduct ->
+    private val productObserver: Observer<com.philips.platform.ecs.model.products.ECSProduct> = Observer<com.philips.platform.ecs.model.products.ECSProduct> { ecsProduct ->
 
         //TO show No Image for no asset found for a product
-        if(ecsProduct.assets== null || ecsProduct.assets.validPRXImageAssets == null || ecsProduct.assets.validPRXImageAssets.isEmpty()){
+        if (ecsProduct.assets == null || ecsProduct.assets.validPRXImageAssets == null || ecsProduct.assets.validPRXImageAssets.isEmpty()) {
             ecsProductDetailViewModel.addNoAsset(product)
         }
 
@@ -151,21 +153,18 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     }
 
 
-
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        if(null==mRootView) {
+        if (null == mRootView) {
             binding = MecProductDetailsBinding.inflate(inflater, container, false)
 
             binding.fragment = this
             binding.mecDataHolder = MECDataHolder.INSTANCE
 
-            ecsProductDetailViewModel =  ViewModelProviders.of(this).get(EcsProductDetailViewModel::class.java)
+            ecsProductDetailViewModel = ViewModelProviders.of(this).get(EcsProductDetailViewModel::class.java)
 
-            ecsRetailerViewModel =  ViewModelProviders.of(this).get(ECSRetailerViewModel::class.java)
+            ecsRetailerViewModel = ViewModelProviders.of(this).get(ECSRetailerViewModel::class.java)
 
             ecsRetailerViewModel.ecsRetailerList.observe(this, eCSRetailerListObserver)
 
@@ -180,21 +179,20 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
             binding.indicator.viewPager = binding.pager
             val bundle = arguments
-            product = bundle?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as ECSProduct
-            
+            product = bundle?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as com.philips.platform.ecs.model.products.ECSProduct
+
 
             //if assets are not available , we should show one Default image
-           // ecsProductDetailViewModel.addNoAsset(product)
+            // ecsProductDetailViewModel.addNoAsset(product)
 
-           // ecsProductDetailViewModel.ecsProduct.value = product
+            // ecsProductDetailViewModel.ecsProduct.value = product
 
 
-            com.philips.platform.mec.analytics.MECAnalytics.trackPage(productDetails)
-            tagActions(product)
+
             mRootView=binding.root
             showData()
             ////////////// start of update cart and login if required
-            if(isUserLoggedIn()) {
+            if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
                 GlobalScope.launch {
                     var mecManager: MECManager = MECManager()
                     MECDataHolder.INSTANCE.mecCartUpdateListener?.let { mecManager.getShoppingCartData(it) }
@@ -206,7 +204,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         return mRootView
     }
 
-    private fun setUpTab(product: ECSProduct) {
+    private fun setUpTab(product: com.philips.platform.ecs.model.products.ECSProduct) {
         val fragmentAdapter = TabPagerAdapter(this.childFragmentManager, product, binding.mecReviewLebel.context)
         binding.viewpagerMain.offscreenPageLimit = 4
         binding.viewpagerMain.adapter = fragmentAdapter
@@ -233,11 +231,17 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         setCartIconVisibility(true)
     }
 
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(productDetailsPage)
+        tagActions(product)
+    }
 
-    fun addToCartVisibility(product: ECSProduct) {
+
+    fun addToCartVisibility(product: com.philips.platform.ecs.model.products.ECSProduct) {
         if (MECDataHolder.INSTANCE.hybrisEnabled.equals(false)) {
             binding.mecAddToCartButton.visibility = View.GONE
-        } else if ((MECDataHolder.INSTANCE.hybrisEnabled.equals(true)) && product!!.stock!=null && !(MECutility.isStockAvailable(product!!.stock?.stockLevelStatus!!, product!!.stock?.stockLevel!!))) {
+        } else if ((MECDataHolder.INSTANCE.hybrisEnabled.equals(true)) && product!!.stock != null && !(MECutility.isStockAvailable(product!!.stock?.stockLevelStatus!!, product!!.stock?.stockLevel!!))) {
             binding.mecAddToCartButton.visibility = View.VISIBLE
             binding.mecAddToCartButton.isEnabled = false
         } else {
@@ -253,9 +257,8 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     }
 
 
-
     private fun getRetailerDetails() {
-        if(null!=product) {
+        if (null != product) {
             ecsRetailerViewModel.getRetailers(product.code)
         }
     }
@@ -270,7 +273,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         if (results != null && results.isNotEmpty()) {
             binding.mecDetailRating.setRating((results.get(0).productStatistics.reviewStatistics.averageOverallRating).toFloat())
             binding.mecRatingLebel.text = DecimalFormat("0.0").format(results.get(0).productStatistics.reviewStatistics.averageOverallRating)
-            binding.mecReviewLebel.text = " (" + results.get(0).productStatistics.reviewStatistics.totalReviewCount.toString() + " " + getString(R.string.mec_reviews)+ ")"
+            binding.mecReviewLebel.text = " (" + results.get(0).productStatistics.reviewStatistics.totalReviewCount.toString() + " " + getString(R.string.mec_reviews) + ")"
         }
 
     }
@@ -280,7 +283,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
         val textSize16 = getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_discount_price_label_size);
         val textSize12 = getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_price_label_size);
-        if(null!=product) {
+        if (null != product) {
 
             if (product!!.discountPrice != null && product!!.discountPrice.formattedValue != null && product!!.discountPrice.formattedValue.length > 0 && (product!!.price.value - product!!.discountPrice.value) > 0) {
                 mecPriceDetailId.visibility = View.VISIBLE
@@ -323,36 +326,37 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         buyFromRetailers()
     }
 
-    fun addToCartClick(){
+    fun addToCartClick() {
 
         //TODO - do this using observer
 
-        if(null!=binding.product ) {
+        if (null != binding.product) {
             if (isUserLoggedIn()) {
-                val addToProductCallback =  object: ECSCallback<ECSShoppingCart, Exception> {
+                val addToProductCallback = object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception> {
 
-                    override fun onResponse(eCSShoppingCart: ECSShoppingCart?) {
+                    override fun onResponse(eCSShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
+                        tagAddToCart(binding.product!!)
                         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
                         val bundle = Bundle()
                         bundle.putSerializable(MECConstant.MEC_SHOPPING_CART, eCSShoppingCart)
                         val fragment = MECShoppingCartFragment()
                         fragment.arguments = bundle
-                        replaceFragment(fragment,MECShoppingCartFragment.TAG,true)
+                        replaceFragment(fragment, MECShoppingCartFragment.TAG, true)
                     }
 
-                    override fun onFailure(error: Exception?, ecsError: ECSError?) {
+                    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
                         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
-                        val mecError = MecError(error, ecsError,null)
-                        fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), mecError!!.exception!!.message.toString()) } }
+                        val mecError = MecError(error, ecsError, null)
+                        fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it, getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), mecError!!.exception!!.message.toString()) } }
                     }
 
                 }
                 product.let {
                     showProgressBar(binding.mecProgress.mecProgressBarContainer)
-                    ecsProductDetailViewModel.addProductToShoppingcart(it,addToProductCallback)
+                    ecsProductDetailViewModel.addProductToShoppingcart(it, addToProductCallback)
                 }
             }else{
-                fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), getString(R.string.mec_cart_login_error_message)) } }
+                fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), R.string.mec_cart_login_error_message) } }
             }
         }
     }
@@ -361,7 +365,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         val bundle = Bundle()
         var bottomSheetFragment = MECRetailersFragment()
         bundle.putSerializable(MECConstant.MEC_KEY_PRODUCT, retailersList)
-        bundle.putSerializable(MEC_PRODUCT,binding.product)
+        bundle.putSerializable(MEC_PRODUCT, binding.product)
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.setTargetFragment(this, MECConstant.RETAILER_REQUEST_CODE)
         fragmentManager?.let { bottomSheetFragment.show(it, bottomSheetFragment.tag) }
@@ -375,7 +379,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         if (requestCode == MECConstant.RETAILER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
             if (data?.extras?.containsKey(MECConstant.SELECTED_RETAILER)!!) {
-                val ecsRetailer: ECSRetailer = data.getSerializableExtra(MECConstant.SELECTED_RETAILER) as ECSRetailer
+                val ecsRetailer: com.philips.platform.ecs.model.retailers.ECSRetailer = data.getSerializableExtra(MECConstant.SELECTED_RETAILER) as com.philips.platform.ecs.model.retailers.ECSRetailer
                 param = ecsRetailer.xactparam
                 val bundle = Bundle()
                 bundle.putString(MECConstant.MEC_BUY_URL, ecsProductDetailViewModel.uuidWithSupplierLink(ecsRetailer.buyURL, param))
@@ -385,7 +389,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                 tagActionsforRetailer(ecsRetailer.name, MECutility.stockStatus(ecsRetailer.availability))
                 val fragment = WebBuyFromRetailersFragment()
                 fragment.arguments = bundle
-                replaceFragment(fragment, WebBuyFromRetailersFragment.TAG, true)
+                replaceFragment(fragment, TAG, true)
             }
         }
     }
@@ -393,10 +397,10 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     override fun processError(mecError: MecError?, bool: Boolean) {
 
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
-        if(mecError?.mECRequestType == MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART){
-            super.processError(mecError,true)
-        }else{
-            super.processError(mecError,false)
+        if (mecError?.mECRequestType == MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART) {
+            super.processError(mecError, true)
+        } else {
+            super.processError(mecError, false)
             binding.detailsParentLayout.visibility = View.GONE
             binding.mecProductDetailsEmptyTextLabel.visibility = View.VISIBLE
         }
@@ -405,11 +409,11 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     }
 
 
-    private fun tagActions(product: ECSProduct) {
+    private fun tagActions(product: com.philips.platform.ecs.model.products.ECSProduct) {
         var map = HashMap<String, String>()
         map.put(specialEvents, prodView)
-        map.put(mecProducts, com.philips.platform.mec.analytics.MECAnalytics.getProductInfo(product))
-        com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(sendData, map)
+        map.put(mecProducts, MECAnalytics.getProductInfo(product))
+        MECAnalytics.trackMultipleActions(sendData, map)
     }
 
 
@@ -417,20 +421,26 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         var map = HashMap<String, String>()
         map.put(retailerName, name)
         map.put(stockStatus, status)
-        map.put(mecProducts, com.philips.platform.mec.analytics.MECAnalytics.getProductInfo(product!!))
-        com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(sendData, map)
+        map.put(mecProducts, MECAnalytics.getProductInfo(product!!))
+        MECAnalytics.trackMultipleActions(sendData, map)
+    }
+
+    private fun tagAddToCart(product: com.philips.platform.ecs.model.products.ECSProduct){
+        var map = HashMap<String, String>()
+        map.put(specialEvents, scAdd)
+        map.put(mecProducts, MECAnalytics.getProductInfo(product))
+        MECAnalytics.trackMultipleActions(sendData, map)
     }
 
     companion object {
-
         val TAG = "MECProductDetailsFragment"
 
         @JvmStatic
-        fun tagOutOfStockActions(product: ECSProduct) {
+        fun tagOutOfStockActions(product: com.philips.platform.ecs.model.products.ECSProduct) {
             var map = HashMap<String, String>()
             map.put(specialEvents, outOfStock)
-            map.put(mecProducts, com.philips.platform.mec.analytics.MECAnalytics.getProductInfo(product))
-            com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(sendData, map)
+            map.put(mecProducts, MECAnalytics.getProductInfo(product))
+            MECAnalytics.trackMultipleActions(sendData, map)
         }
     }
 
@@ -438,7 +448,4 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         super.onStop()
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
     }
-
-
-
 }

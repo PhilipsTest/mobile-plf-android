@@ -11,11 +11,15 @@ package com.philips.platform.mec.utils
 
 import com.android.volley.DefaultRetryPolicy
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.model.config.ECSConfig
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
+import com.philips.platform.mec.analytics.MECAnalyticServer
+import com.philips.platform.mec.analytics.MECAnalyticServer.other
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.integration.MECBannerConfigurator
 import com.philips.platform.mec.integration.MECBazaarVoiceInput
 import com.philips.platform.mec.integration.MECOrderFlowCompletion
@@ -44,7 +48,7 @@ enum class MECDataHolder {
     lateinit var voucherCode: String
     var maxCartCount: Int = 0
     lateinit var userDataInterface: UserDataInterface
-    var refreshToken: String = "UNKNOWN" //To avoid null check and Null pointer exception 
+    var refreshToken: String? = null //To avoid null check and Null pointer exception
     var blackListedRetailers: List<String>? = null
     lateinit var mecBazaarVoiceInput: MECBazaarVoiceInput
     private var privacyUrl: String? = null
@@ -54,8 +58,8 @@ enum class MECDataHolder {
     var retailerEnabled: Boolean = true
     var voucherEnabled: Boolean = true
     var rootCategory: String = ""
-    var config: ECSConfig? = null
-    lateinit var eCSServices: ECSServices
+    var config: com.philips.platform.ecs.model.config.ECSConfig? = null
+    lateinit var eCSServices: com.philips.platform.ecs.ECSServices
 
     var mutableListOfPayments = mutableListOf<MECPayment>()
     var PAYMENT_HOLDER: MECPayments = MECPayments(mutableListOfPayments, false) //Default empty MECPayments
@@ -82,7 +86,7 @@ enum class MECDataHolder {
         var lastName = ""
         var email = ""
 
-        if (userDataInterface != null && userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN) {
+        if (userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN) {
 
             val userDataMap = ArrayList<String>()
 
@@ -91,11 +95,20 @@ enum class MECDataHolder {
             userDataMap.add(UserDetailConstants.EMAIL)
             try {
                 val hashMap = userDataInterface.getUserDetails(userDataMap)
-                firstName = hashMap.get(UserDetailConstants.GIVEN_NAME) as String
-                lastName = hashMap.get(UserDetailConstants.FAMILY_NAME) as String
-                email = hashMap.get(UserDetailConstants.EMAIL) as String
+                var firstNameValue = hashMap.get(UserDetailConstants.GIVEN_NAME)
+                if(null!=firstNameValue) {
+                    firstName = firstNameValue as String
+                }
+                var lastNameValue = hashMap.get(UserDetailConstants.FAMILY_NAME)
+                if(null!=lastNameValue) {
+                    lastName = lastNameValue as String
+                }
+                var emailValue = hashMap.get(UserDetailConstants.EMAIL)
+                if(null!=emailValue) {
+                    email = emailValue as String
+                }
             } catch (e: UserDataInterfaceException) {
-                e.printStackTrace()
+                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECAnalyticsConstant.appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
             }
 
         }
@@ -119,12 +132,12 @@ enum class MECDataHolder {
         this.termsUrl = termsUrl
     }
 
-    fun isUserLoggedIn() : Boolean{
-       return userDataInterface != null && userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN
+    fun isUserLoggedIn(): Boolean {
+        return userDataInterface.userLoggedInState == UserLoggedInState.USER_LOGGED_IN
     }
 
-    fun isInternetActive() : Boolean{
-        return  appinfra.restClient.isInternetReachable
+    fun isInternetActive(): Boolean {
+        return appinfra.restClient.isInternetReachable
     }
 
     fun initECSSDK() {
@@ -138,13 +151,17 @@ enum class MECDataHolder {
         var voucher: Boolean = true // if voucher key is not mentioned Appconfig then by default it will be considered True
         try {
             voucher =appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
+            if(configError.errorCode!=null) {
+                MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + configError.toString() + ":" + configError.errorCode)
+            }
         } catch (e: Exception) {
+            MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
 
         }
 
         propositionId = propertyForKey
         voucherEnabled = voucher
-        val ecsServices = ECSServices(propertyForKey, appinfra as AppInfra)
+        val ecsServices = com.philips.platform.ecs.ECSServices(propertyForKey, appinfra as AppInfra)
 
         val defaultRetryPolicy = DefaultRetryPolicy( // 30 second time out
                 30000,

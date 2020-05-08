@@ -8,7 +8,7 @@
 
         <variable
             name="product"
-            type="com.philips.cdp.di.ecs.model.products.ECSProduct" />
+            type="com.philips.platform.ecs.model.products.ECSProduct" />
     </data>
 
 <RelativeLayout

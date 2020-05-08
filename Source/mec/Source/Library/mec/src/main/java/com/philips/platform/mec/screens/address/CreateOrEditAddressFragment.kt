@@ -14,18 +14,19 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
-import com.philips.cdp.di.ecs.model.region.ECSRegion
-import com.philips.cdp.di.ecs.util.ECSConfiguration
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.region.ECSRegion
+import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecAddressEditBinding
@@ -41,17 +42,19 @@ import java.io.Serializable
 
 
 class CreateOrEditAddressFragment : MecBaseFragment() {
+    private val TAG: String = CreateOrEditAddressFragment::class.java.simpleName
+
     override fun getFragmentTag(): String {
         return "EditAddressFragment"
     }
 
 
     private lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
-    private var mAddressList: List<ECSAddress>? = null
-    private var mECSShoppingCart: ECSShoppingCart? = null
+    private var mAddressList: List<com.philips.platform.ecs.model.address.ECSAddress>? = null
+    private var mECSShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart? = null
     private lateinit var regionViewModel: RegionViewModel
 
-    private lateinit var ecsAddress: ECSAddress
+    private lateinit var ecsAddress: com.philips.platform.ecs.model.address.ECSAddress
     private var addressFieldEnabler: MECAddressFieldEnabler? = null
 
     lateinit var binding: MecAddressEditBinding
@@ -63,7 +66,7 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
 
     var mecRegions :MECRegions ? = null
 
-    private val regionListObserver: Observer<List<ECSRegion>> = Observer { regionList ->
+    private val regionListObserver: Observer<List<com.philips.platform.ecs.model.region.ECSRegion>> = Observer { regionList ->
         mecRegions = MECRegions(regionList!!)
         binding.mecRegions = mecRegions
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
@@ -86,17 +89,18 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
     }
 
 
-    private val createAddressObserver: Observer<ECSAddress> = Observer { ecsAddress ->
-        Log.d(this@CreateOrEditAddressFragment.javaClass.name, ecsAddress?.id)
+    private val createAddressObserver: Observer<com.philips.platform.ecs.model.address.ECSAddress> = Observer { ecsAddress ->
+        MECLog.d(TAG, ecsAddress?.id)
+        mECSShoppingCart?.let { addressViewModel.tagCreateNewAddress(it) }
         addressViewModel.setDeliveryAddress(ecsAddress!!)
     }
 
-    private val fetchAddressObserver: Observer<List<ECSAddress>> = Observer(fun(addressList: List<ECSAddress>?) {
+    private val fetchAddressObserver: Observer<List<com.philips.platform.ecs.model.address.ECSAddress>> = Observer(fun(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
         mAddressList = addressList
         gotoDeliveryAddress(addressList)
     })
 
-    private fun gotoDeliveryAddress(mAddressList: List<ECSAddress> ?) {
+    private fun gotoDeliveryAddress(mAddressList: List<com.philips.platform.ecs.model.address.ECSAddress> ?) {
 
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         val intent = Intent()
@@ -113,7 +117,7 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
 
     }
 
-    private val cartObserver: Observer<ECSShoppingCart> = Observer { ecsShoppingCart ->
+    private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer { ecsShoppingCart ->
         mECSShoppingCart = ecsShoppingCart
         addressViewModel.fetchAddresses()
     }
@@ -133,7 +137,7 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
 
         addressViewModel = ViewModelProviders.of(this).get(AddressViewModel::class.java)
 
-        ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as ECSAddress
+        ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as com.philips.platform.ecs.model.address.ECSAddress
         binding.ecsAddress = ecsAddress
 
 
@@ -152,7 +156,7 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
         ecsShoppingCartViewModel.ecsShoppingCart.observe(this, cartObserver)
         ecsShoppingCartViewModel.mecError.observe(this,this)
 
-        addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(ECSConfiguration.INSTANCE.country, it) }
+        addressFieldEnabler = context?.let { addressViewModel.getAddressFieldEnabler(com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.country, it) }
 
         binding.addressFieldEnabler = addressFieldEnabler
 
@@ -175,8 +179,10 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
                 ecsAddress.phone2 = ecsAddress.phone1
 
                 if(ecsAddress.id !=null) { // This means address already existed , so need to create it again
+                    MECAnalytics.trackPage(MECAnalyticPageNames.editShippingAddressPage)
                     addressViewModel.updateAddress(ecsAddress)
                 }else{
+                    MECAnalytics.trackPage(MECAnalyticPageNames.createShippingAddressPage)
                     addressViewModel.createAddress(ecsAddress)
                 }
 
@@ -194,14 +200,12 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
 
             if (v is InputValidationLayout && child is ValidationEditText && child.visibility == View.VISIBLE) {
 
-                Log.d("MEC",child.hint.toString())
+                MECLog.d(TAG,child.hint.toString())
 
-                var validator:InputValidationLayout.Validator
-
-                if(child.inputType == InputType.TYPE_CLASS_PHONE){
-                    validator = PhoneNumberInputValidator(child , PhoneNumberUtil.getInstance())
+                val validator:InputValidationLayout.Validator = if(child.inputType == InputType.TYPE_CLASS_PHONE){
+                    PhoneNumberInputValidator(child , PhoneNumberUtil.getInstance())
                 }else{
-                    validator = EmptyInputValidator()
+                    EmptyInputValidator()
                 }
 
                 if(!validator.validate(child.text.toString())){
@@ -243,8 +247,8 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
                 addressViewModel.fetchAddresses()
                 showProgressBar(binding.mecProgress.mecProgressBarContainer)
             }else {
-                var errorMessage = mecError!!.exception!!.message
-                MECLog.e(javaClass.simpleName, errorMessage)
+                val errorMessage = mecError!!.exception!!.message
+                MECLog.e(TAG, errorMessage)
                 MECutility.tagAndShowError(mecError, false, fragmentManager, context)
             }
         }

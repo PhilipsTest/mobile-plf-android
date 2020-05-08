@@ -202,11 +202,6 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     isHybrisEnable = isChecked;
-                    if (isHybrisEnable && mUserDataInterface != null && mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-                        shouldShowCart(true);
-                    }else{
-                        shouldShowCart(false);
-                    }
                     initializeMECComponant();
                 }
             });
@@ -320,6 +315,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
 
     private void initMEC() {
+        ignorelistedRetailer.clear();
         ignorelistedRetailer.add("Frys.com");
         ignorelistedRetailer.add("Amazon - US");
         ignorelistedRetailer.add("BestBuy.com");
@@ -361,6 +357,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         mMecLaunchInput.setSupportsRetailer(isRetailerEnabled);
         mMecLaunchInput.setMecBazaarVoiceInput(mecBazaarVoiceInput);
         mMecLaunchInput.setMecCartUpdateListener(this); // required local for app to update cart count on action bar
+        mMecLaunchInput.setBlackListedRetailerNames(ignorelistedRetailer);
 
 
 
@@ -592,7 +589,8 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     //In-App listener functions
     @Override
     public void onGetCartCount(int count) {
-        dismissProgressDialog();
+            dismissProgressDialog();
+            mShoppingCartContainer.setVisibility(View.VISIBLE);
         if (count > 0) {
             mCountText.setText(String.valueOf(count));
             mCountText.setVisibility(View.VISIBLE);

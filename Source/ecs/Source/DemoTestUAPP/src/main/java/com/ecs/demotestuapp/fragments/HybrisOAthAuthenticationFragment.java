@@ -4,13 +4,13 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.cdp.di.ecs.error.ECSError;
-import com.philips.cdp.di.ecs.integration.ClientID;
-import com.philips.cdp.di.ecs.integration.ECSCallback;
-import com.philips.cdp.di.ecs.integration.ECSOAuthProvider;
-import com.philips.cdp.di.ecs.integration.GrantType;
-import com.philips.cdp.di.ecs.model.oauth.ECSOAuthData;
-import com.philips.cdp.di.ecs.util.ECSConfiguration;
+import com.philips.platform.ecs.error.ECSError;
+import com.philips.platform.ecs.integration.ClientID;
+import com.philips.platform.ecs.integration.ECSCallback;
+import com.philips.platform.ecs.integration.ECSOAuthProvider;
+import com.philips.platform.ecs.integration.GrantType;
+import com.philips.platform.ecs.model.oauth.ECSOAuthData;
+import com.philips.platform.ecs.util.ECSConfiguration;
 import com.philips.platform.appinfra.appidentity.AppIdentityInterface;
 
 public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {

@@ -17,7 +17,7 @@ import com.ecs.demouapp.ui.analytics.ECSAnalytics;
 import com.ecs.demouapp.ui.analytics.ECSAnalyticsConstant;
 import com.ecs.demouapp.ui.session.NetworkImageLoader;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailer;
+import com.philips.platform.ecs.model.retailers.ECSRetailer;
 
 
 import java.util.ArrayList;

@@ -6,9 +6,8 @@ package com.ecs.demouapp.ui.container;
 
 
 import com.ecs.demouapp.ui.address.AddressFields;
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
-import com.philips.cdp.di.ecs.model.region.ECSRegion;
-import com.philips.cdp.di.ecs.model.region.RegionsList;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.region.ECSRegion;
 import com.philips.cdp.prxclient.datamodels.Disclaimer.DisclaimerModel;
 
 import com.philips.cdp.prxclient.datamodels.summary.Data;

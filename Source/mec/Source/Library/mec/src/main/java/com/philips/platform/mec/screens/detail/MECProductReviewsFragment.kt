@@ -28,6 +28,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bazaarvoice.bvandroidsdk.ReviewResponse
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecProductReviewFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -159,9 +162,9 @@ class MECProductReviewsFragment : MecBaseFragment() {
 
     private fun tagActions(ctn: String) {
         var map = HashMap<String, String>()
-        map.put(com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents, com.philips.platform.mec.analytics.MECAnalyticsConstant.userReviewsViewed)
-        map.put(com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts, ctn)
-        com.philips.platform.mec.analytics.MECAnalytics.trackMultipleActions(com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData, map)
+        map.put(specialEvents, MECAnalyticsConstant.userReviewsViewed)
+        map.put(MECAnalyticsConstant.mecProducts, ctn)
+        MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
     }
 
     private fun isAllFetched() = totalReview != 0 && reviewsAdapter!!.itemCount < totalReview

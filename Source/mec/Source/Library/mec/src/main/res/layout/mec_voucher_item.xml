@@ -13,7 +13,7 @@
 
         <variable
             name="voucher"
-            type="com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity" />
+            type="com.philips.platform.ecs.model.cart.AppliedVoucherEntity" />
 
     </data>
 

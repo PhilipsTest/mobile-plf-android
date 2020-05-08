@@ -10,11 +10,11 @@
 
         <variable
             name="shoppingCart"
-            type="com.philips.cdp.di.ecs.model.cart.ECSShoppingCart" />
+            type="com.philips.platform.ecs.model.cart.ECSShoppingCart" />
 
         <variable
             name="ecsAddressShipping"
-            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+            type="com.philips.platform.ecs.model.address.ECSAddress" />
 
         <variable
             name="mecPayment"
@@ -305,10 +305,9 @@
             <View
                 android:id="@+id/price_button_view"
                 android:layout_width="match_parent"
-                android:layout_height="0.05dp"
+                android:layout_height="2dp"
                 android:layout_above="@+id/mecPriceLayout"
-                android:rotationY="90"
-                android:background="@drawable/uid_shadow_level_two" />
+                android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
 
             <LinearLayout
                 android:id="@+id/mecPriceLayout"

@@ -8,7 +8,7 @@
 
         <variable
             name="paymentMethod"
-            type="com.philips.cdp.di.ecs.model.payment.ECSPayment" />
+            type="com.philips.platform.ecs.model.payment.ECSPayment" />
 
     </data>
 <RelativeLayout

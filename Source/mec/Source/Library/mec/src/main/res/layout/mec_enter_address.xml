@@ -19,7 +19,7 @@
 
         <variable
             name="ecsAddress"
-            type="com.philips.cdp.di.ecs.model.address.ECSAddress" />
+            type="com.philips.platform.ecs.model.address.ECSAddress" />
 
     </data>
 
@@ -66,12 +66,13 @@
                             style="@style/AddressItemLabel"
                             android:text="@string/mec_salutation" />
 
-                        <com.philips.platform.uid.view.widget.InputValidationLayout
+                        <com.philips.platform.mec.screens.address.MECInputValidationLayout
                             android:id="@+id/ll_salutation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/iap_margin_4dp"
-                            app:emptyValidator="@{null}"
+                            app:mecEmptyValidator="@{null}"
+                            android:tag="mec_salutation_error"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="@string/mec_salutation_error">
 
@@ -88,7 +89,7 @@
                                 android:maxLines="1"
                                 app:dropDownData="@{pattern.dROP_DOWN_DATA}"
                                 app:uidInputTextWithClearButton="true" />
-                        </com.philips.platform.uid.view.widget.InputValidationLayout>
+                        </com.philips.platform.mec.screens.address.MECInputValidationLayout>
 
                     </LinearLayout>
 
@@ -105,12 +106,13 @@
                             style="@style/AddressItemLabel"
                             android:text="@string/mec_first_name" />
 
-                        <com.philips.platform.uid.view.widget.InputValidationLayout
+                        <com.philips.platform.mec.screens.address.MECInputValidationLayout
                             android:id="@+id/ll_first_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/iap_margin_4dp"
-                            app:emptyValidator="@{null}"
+                            app:mecEmptyValidator="@{null}"
+                            android:tag="mec_first_name_error"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="@string/mec_first_name_error">
 
@@ -123,7 +125,7 @@
                                 android:maxLength="17"
                                 android:maxLines="1"
                                 app:uidInputTextWithClearButton="true" />
-                        </com.philips.platform.uid.view.widget.InputValidationLayout>
+                        </com.philips.platform.mec.screens.address.MECInputValidationLayout>
                     </LinearLayout>
 
 
@@ -139,12 +141,13 @@
                             style="@style/AddressItemLabel"
                             android:text="@string/mec_last_name" />
 
-                        <com.philips.platform.uid.view.widget.InputValidationLayout
+                        <com.philips.platform.mec.screens.address.MECInputValidationLayout
                             android:id="@+id/ll_last_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/iap_margin_4dp"
-                            app:emptyValidator="@{null}"
+                            app:mecEmptyValidator="@{null}"
+                            android:tag="mec_last_name_error"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="@string/mec_last_name_error">
 
@@ -157,7 +160,7 @@
                                 android:maxLength="17"
                                 android:maxLines="1"
                                 app:uidInputTextWithClearButton="true" />
-                        </com.philips.platform.uid.view.widget.InputValidationLayout>
+                        </com.philips.platform.mec.screens.address.MECInputValidationLayout>
 
                     </LinearLayout>
 
@@ -175,11 +178,12 @@
                             style="@style/AddressItemLabel"
                             android:text="@string/mec_phone" />
 
-                        <com.philips.platform.uid.view.widget.InputValidationLayout
+                        <com.philips.platform.mec.screens.address.MECInputValidationLayout
                             android:id="@+id/ll_phone1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:phoneNumberEditText="@{etPhone1}"
+                            android:tag="mec_phone_error"
                             app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                             app:uidTextBoxValidationErrorText="@string/mec_phone_error">
 
@@ -191,7 +195,7 @@
                                 android:inputType="phone"
                                 android:maxLines="1"
                                 app:uidInputTextWithClearButton="true" />
-                        </com.philips.platform.uid.view.widget.InputValidationLayout>
+                        </com.philips.platform.mec.screens.address.MECInputValidationLayout>
 
                     </LinearLayout>
 
@@ -231,12 +235,13 @@
                         style="@style/AddressItemLabel"
                         android:text="@string/mec_house_number" />
 
-                    <com.philips.platform.uid.view.widget.InputValidationLayout
+                    <com.philips.platform.mec.screens.address.MECInputValidationLayout
                         android:id="@+id/ll_house_no"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
-                        app:emptyValidator="@{null}"
+                        app:mecEmptyValidator="@{null}"
+                        android:tag="mec_house_number_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_house_number_error">
 
@@ -249,7 +254,7 @@
                             android:maxLength="35"
                             android:maxLines="1"
                             app:uidInputTextWithClearButton="true" />
-                    </com.philips.platform.uid.view.widget.InputValidationLayout>
+                    </com.philips.platform.mec.screens.address.MECInputValidationLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -264,12 +269,13 @@
                         style="@style/AddressItemLabel"
                         android:text="@string/mec_address_line_one" />
 
-                    <com.philips.platform.uid.view.widget.InputValidationLayout
+                    <com.philips.platform.mec.screens.address.MECInputValidationLayout
                         android:id="@+id/ll_address_line_one"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
-                        app:emptyValidator="@{null}"
+                        app:mecEmptyValidator="@{null}"
+                        android:tag="mec_address_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_address_error">
 
@@ -283,7 +289,7 @@
                             android:maxLength="35"
                             android:maxLines="1"
                             app:uidInputTextWithClearButton="true" />
-                    </com.philips.platform.uid.view.widget.InputValidationLayout>
+                    </com.philips.platform.mec.screens.address.MECInputValidationLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -324,12 +330,13 @@
                         style="@style/AddressItemLabel"
                         android:text="@string/mec_town" />
 
-                    <com.philips.platform.uid.view.widget.InputValidationLayout
+                    <com.philips.platform.mec.screens.address.MECInputValidationLayout
                         android:id="@+id/ll_town"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
-                        app:emptyValidator="@{null}"
+                        app:mecEmptyValidator="@{null}"
+                        android:tag="mec_town_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_town_error">
 
@@ -342,7 +349,7 @@
                             android:maxLength="35"
                             android:maxLines="1"
                             app:uidInputTextWithClearButton="true" />
-                    </com.philips.platform.uid.view.widget.InputValidationLayout>
+                    </com.philips.platform.mec.screens.address.MECInputValidationLayout>
                 </LinearLayout>
 
 
@@ -358,12 +365,13 @@
                         style="@style/AddressItemLabel"
                         android:text="@string/mec_postal_code" />
 
-                    <com.philips.platform.uid.view.widget.InputValidationLayout
+                    <com.philips.platform.mec.screens.address.MECInputValidationLayout
                         android:id="@+id/ll_postal_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
-                        app:emptyValidator="@{null}"
+                        app:mecEmptyValidator="@{null}"
+                        android:tag="mec_postal_code_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_postal_code_error">
 
@@ -376,7 +384,7 @@
                             android:maxLength="10"
                             android:maxLines="1"
                             app:uidInputTextWithClearButton="true" />
-                    </com.philips.platform.uid.view.widget.InputValidationLayout>
+                    </com.philips.platform.mec.screens.address.MECInputValidationLayout>
 
                 </LinearLayout>
 
@@ -393,12 +401,13 @@
                         style="@style/AddressItemLabel"
                         android:text="@string/mec_state" />
 
-                    <com.philips.platform.uid.view.widget.InputValidationLayout
+                    <com.philips.platform.mec.screens.address.MECInputValidationLayout
                         android:id="@+id/ll_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/iap_margin_4dp"
-                        app:emptyValidator="@{null}"
+                        app:mecEmptyValidator="@{null}"
+                        android:tag="mec_state_error"
                         app:uidTextBoxValidationErrorDrawable="@drawable/uid_ic_data_validation"
                         app:uidTextBoxValidationErrorText="@string/mec_state_error">
 
@@ -416,7 +425,7 @@
                             android:maxLines="1"
                             app:dropDownData="@{mecRegions.regionNames}"
                             app:uidInputTextWithClearButton="true" />
-                    </com.philips.platform.uid.view.widget.InputValidationLayout>
+                    </com.philips.platform.mec.screens.address.MECInputValidationLayout>
                 </LinearLayout>
 
 

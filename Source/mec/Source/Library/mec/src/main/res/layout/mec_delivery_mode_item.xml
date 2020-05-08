@@ -4,7 +4,7 @@
 
         <variable
             name="deliveryMode"
-            type="com.philips.cdp.di.ecs.model.address.ECSDeliveryMode" />
+            type="com.philips.platform.ecs.model.address.ECSDeliveryMode" />
 
 
         <!--    <variable

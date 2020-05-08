@@ -36,9 +36,9 @@ import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.ecs.demouapp.ui.utils.ModelConstants;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
 import com.ecs.demouapp.ui.utils.Utility;
-import com.philips.cdp.di.ecs.model.address.ECSAddress;
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
-import com.philips.cdp.di.ecs.model.payment.ECSPayment;
+import com.philips.platform.ecs.model.address.ECSAddress;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.payment.ECSPayment;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterfaceException;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 

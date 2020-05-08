@@ -9,16 +9,17 @@
  */
 package com.philips.platform.mec.screens.retailers
 
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailer
-import com.philips.cdp.di.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.retailers.ECSRetailer
+import com.philips.platform.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 
-class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewModel) : ECSCallback<ECSRetailerList, Exception> {
+class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewModel) : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.retailers.ECSRetailerList, Exception> {
 
-    override fun onResponse(result: ECSRetailerList?) {
+    override fun onResponse(result: com.philips.platform.ecs.model.retailers.ECSRetailerList?) {
 
         if (result != null)
             removePhilipsStoreForHybris(result)
@@ -26,13 +27,13 @@ class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewM
         ecsRetailerViewModel.ecsRetailerList.value = result
     }
 
-    override fun onFailure(error: Exception?, ecsError: ECSError?) {
-        val mecError = MecError(error, ecsError,null)
+    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+        val mecError = MecError(error, ecsError,MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)
         ecsRetailerViewModel.mecError.value = mecError
     }
 
 
-    fun removePhilipsStoreForHybris(result: ECSRetailerList): ECSRetailerList {
+    fun removePhilipsStoreForHybris(result: com.philips.platform.ecs.model.retailers.ECSRetailerList): com.philips.platform.ecs.model.retailers.ECSRetailerList {
 
         if (!MECDataHolder.INSTANCE.hybrisEnabled) return result
         val retailers = result.retailers
@@ -51,7 +52,7 @@ class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewM
         return result
     }
 
-    private fun isPhilipsRetailer(ecsRetailer: ECSRetailer?): Boolean {
+    private fun isPhilipsRetailer(ecsRetailer: com.philips.platform.ecs.model.retailers.ECSRetailer?): Boolean {
         if (ecsRetailer?.isPhilipsStore.equals("Y")) {
             return true
         }

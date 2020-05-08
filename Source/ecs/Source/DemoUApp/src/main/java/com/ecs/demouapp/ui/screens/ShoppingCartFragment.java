@@ -40,11 +40,11 @@ import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
 import com.ecs.demouapp.ui.utils.Utility;
-import com.philips.cdp.di.ecs.model.address.ECSAddress;
-import com.philips.cdp.di.ecs.model.address.ECSDeliveryMode;
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
-import com.philips.cdp.di.ecs.model.cart.ECSEntries;
-import com.philips.cdp.di.ecs.model.region.ECSRegion;
+import com.philips.platform.ecs.model.address.ECSAddress;
+import com.philips.platform.ecs.model.address.ECSDeliveryMode;
+import com.philips.platform.ecs.model.cart.ECSShoppingCart;
+import com.philips.platform.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.region.ECSRegion;
 
 
 import java.io.Serializable;

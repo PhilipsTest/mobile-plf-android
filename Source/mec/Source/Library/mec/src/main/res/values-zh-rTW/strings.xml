@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">購物車摘要</string>
   <string name="mec_cart_tax_message">價格含 %s VAT</string>
   <string name="mec_cart_total">總計</string>
+  <string name="mec_check_internet_connection">請檢查您的網際網路連線。</string>
   <string name="mec_checkout">结账</string>
   <string name="mec_choose_address_text">從下方清單選擇運送地址</string>
   <string name="mec_confirmation">确认</string>
@@ -63,7 +64,7 @@
   <string name="mec_enter_code">輸入禮品代碼</string>
   <string name="mec_faq">常見問答集</string>
   <string name="mec_features">功能</string>
-  <string name="mec_fetching_payment">[zh-TW]Fetching Payment Details...</string>
+  <string name="mec_fetching_payment">正在擷取付款詳細資料...</string>
   <string name="mec_first_name">名字</string>
   <string name="mec_first_name_error">请输入有效名字</string>
   <string name="mec_first_name_hint">输入名字</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">請選擇配送模式</string>
   <string name="mec_no_internet">您的互联网似乎无法正常连接。请检查并重试</string>
   <string name="mec_no_payment_error_message">請選擇付款方式</string>
+  <string name="mec_no_philips_shop">所選國家/地區不提供飛利浦商店，僅提供零售商模式</string>
   <string name="mec_no_product_available">未在您的商店内找到产品。</string>
   <string name="mec_no_result">找到 0 個結果：</string>
   <string name="mec_no_review_available">找不到評論</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">感谢您的订单</string>
   <string name="mec_threshold_message">這可能需要更多時間。是否要繼續？</string>
   <string name="mec_threshold_title">已達要求閾值</string>
-  <string name="mec_time_out_error">[zh-TW]Network timeout reached!</string>
+  <string name="mec_time_out_error">網路逾時！</string>
   <string name="mec_town">镇/城市</string>
   <string name="mec_town_error">请输入有效城镇</string>
   <string name="mec_town_hint">输入您所在的城镇或城市</string>

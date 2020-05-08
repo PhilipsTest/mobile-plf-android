@@ -21,30 +21,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import android.widget.FrameLayout
-import com.philips.cdp.di.ecs.constants.NetworkConstants
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
-
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkNameKey
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECLog
 import java.net.MalformedURLException
 import java.net.URL
 
 class MecPrivacyFragment : MecBaseFragment() {
+    private val TAG: String = MecPrivacyFragment::class.java.simpleName
 
     override fun getFragmentTag(): String {
         return "MecPrivacyFragment"
     }
 
-    companion object {
-        val TAG:String="MecPrivacyFragment"
-    }
-
     private var mWebView: WebView? = null
     private var mUrl: String? = null
-    private var mProgressBar : FrameLayout? = null
+    private var mProgressBar: FrameLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val group = inflater.inflate(R.layout.mec_web_fragment, container, false) as ViewGroup
@@ -67,7 +64,6 @@ class MecPrivacyFragment : MecBaseFragment() {
     }
 
 
-
     //TODO take this code to a separate class
 
     internal fun initializeWebView(group: View) {
@@ -87,8 +83,10 @@ class MecPrivacyFragment : MecBaseFragment() {
 
             override fun onPageCommitVisible(view: WebView?, url: String) {
                 var tagUrl = url
-                    tagUrl = getPhilipsFormattedUrl(url)
-                com.philips.platform.mec.analytics.MECAnalytics.trackAction(com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData, com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkNameKey, tagUrl)
+                tagUrl = getPhilipsFormattedUrl(url)
+                var map = HashMap<String, String>()
+                map.put(exitLinkNameKey, tagUrl)
+                MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
                 super.onPageCommitVisible(view, url)
             }
 
@@ -160,9 +158,9 @@ class MecPrivacyFragment : MecBaseFragment() {
             val urlString = URL(url)
             return urlString.query != null
         } catch (e: MalformedURLException) {
-            e.printStackTrace()
+            MECLog.e(TAG, "Exception Occurs : " + e.message)
         } catch (e: Exception) {
-            e.printStackTrace()
+            MECLog.e(TAG, "Exception Occurs : " + e.message)
         }
 
         return false

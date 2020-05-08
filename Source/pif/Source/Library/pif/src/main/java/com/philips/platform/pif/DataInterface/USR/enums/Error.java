@@ -16,7 +16,8 @@ public class Error {
 
     public enum UserDetailError {
         InvalidFields(1000, "INVALID FIELDS"),
-        NotLoggedIn(1001, "USER NOT LOGGED IN");
+        NotLoggedIn(1001, "USER NOT LOGGED IN"),
+        InvalidUserDetailsKeys(1002, "User details keys are invalid");
         private int errorCode;
         private String errorMsg;
 

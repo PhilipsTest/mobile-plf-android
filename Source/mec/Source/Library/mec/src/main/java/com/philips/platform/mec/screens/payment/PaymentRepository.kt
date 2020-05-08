@@ -9,14 +9,9 @@
  */
 package com.philips.platform.mec.screens.payment
 
-import com.philips.cdp.di.ecs.ECSServices
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.orders.ECSOrderDetail
-import com.philips.cdp.di.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.screens.address.AddressService
 
-class PaymentRepository(val ecsServices: ECSServices) {
+class PaymentRepository(val ecsServices: com.philips.platform.ecs.ECSServices) {
 
 
     private var addressService = AddressService()
@@ -29,7 +24,7 @@ class PaymentRepository(val ecsServices: ECSServices) {
         ecsServices.submitOrder(cvv,submitOrderCallback)
     }
 
-    fun makePayment(orderDetail: ECSOrderDetail, billingAddress: ECSAddress, makePaymentCallback : ECSCallback<ECSPaymentProvider, Exception> ){
+    fun makePayment(orderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail, billingAddress: com.philips.platform.ecs.model.address.ECSAddress, makePaymentCallback : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.payment.ECSPaymentProvider, Exception>){
         addressService.setEnglishSalutation(billingAddress)
         ecsServices.makePayment(orderDetail,billingAddress,makePaymentCallback )
     }

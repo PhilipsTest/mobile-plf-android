@@ -12,17 +12,16 @@ package com.philips.platform.mec.integration
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.config.ECSConfig
+import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
+import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECLauncherActivity
 import com.philips.platform.mec.integration.serviceDiscovery.ServiceDiscoveryMapListener
 import com.philips.platform.mec.screens.reviews.BazaarVoiceHelper
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
-import com.philips.platform.appinfra.AppInfra
-import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
+import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.uappframework.launcher.ActivityLauncher
 import com.philips.platform.uappframework.launcher.FragmentLauncher
 import com.philips.platform.uappframework.launcher.UiLauncher
@@ -33,6 +32,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
     private var appInfra: AppInfra? = null
     private var listOfServiceId: ArrayList<String>? = null
     lateinit var serviceUrlMapListener: OnGetServiceUrlMapListener
+    private val TAG: String = MECHandler::class.java.simpleName
 
 
     companion object {
@@ -65,6 +65,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
         MECDataHolder.INSTANCE.voucherCode = mLaunchInput.voucherCode
         MECDataHolder.INSTANCE.maxCartCount = mLaunchInput.maxCartCount
         MECDataHolder.INSTANCE.mecBazaarVoiceInput = mLaunchInput.mecBazaarVoiceInput
+        MECDataHolder.INSTANCE.mecOrderFlowCompletion = mLaunchInput.mecOrderFlowCompletion
 
         if (MECDataHolder.INSTANCE.bvClient == null) {
             val bazarvoiceSDK = BazaarVoiceHelper().getBazaarVoiceClient(mMECSetting.context.applicationContext as Application)
@@ -73,15 +74,15 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
 
         MECDataHolder.INSTANCE.blackListedRetailers = mLaunchInput.blackListedRetailerNames
 
-        com.philips.platform.mec.analytics.MECAnalytics.initMECAnalytics(mMECDependencies)
+
 
         getUrl()
 
         // get config
 
-        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : ECSCallback<ECSConfig, Exception> {
+        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception> {
 
-            override fun onResponse(config: ECSConfig?) {
+            override fun onResponse(config: com.philips.platform.ecs.model.config.ECSConfig?) {
 
 
                 //set config data to singleton
@@ -92,7 +93,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
                 }
 
                 MECDataHolder.INSTANCE.locale = config!!.locale
-                com.philips.platform.mec.analytics.MECAnalytics.setCurrencyString(MECDataHolder.INSTANCE.locale)
+                MECAnalytics.setCurrencyString(MECDataHolder.INSTANCE.locale)
                 if (null != config!!.rootCategory) {
                     MECDataHolder.INSTANCE.rootCategory = config!!.rootCategory
                 }
@@ -105,8 +106,8 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
                 }
             }
 
-            override fun onFailure(error: Exception?, ecsError: ECSError?) {
-                Log.e("MEC", "Config failed : Can't Launch MEC")
+            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+                MECLog.d(HybrisAuth.TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
             }
         })
 
@@ -147,7 +148,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
         mecLandingFragment?.arguments = bundle
 
 
-       MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
+        MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
         val transaction = fragmentLauncher.fragmentActivity.supportFragmentManager.beginTransaction()
         transaction.replace(fragmentLauncher.parentContainerResourceID, mecLandingFragment!!, mecLandingFragment.getFragmentTag())
         transaction.addToBackStack(mecLandingFragment.getFragmentTag())

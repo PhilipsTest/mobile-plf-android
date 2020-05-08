@@ -1,6 +1,6 @@
 package com.ecs.demouapp.ui.response.placeorder;
 
-import com.philips.cdp.di.ecs.model.cart.StockEntity;
+import com.philips.platform.ecs.model.cart.StockEntity;
 
 /**
  * (C) Koninklijke Philips N.V., 2015.

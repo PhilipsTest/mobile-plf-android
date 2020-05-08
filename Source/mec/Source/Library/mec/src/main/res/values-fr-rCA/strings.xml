@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Aperçu du panier</string>
   <string name="mec_cart_tax_message">Prix incluant la TVA de %s</string>
   <string name="mec_cart_total">Total</string>
+  <string name="mec_check_internet_connection">Veuillez vérifier votre connexion Internet.</string>
   <string name="mec_checkout">Passer à la caisse</string>
   <string name="mec_choose_address_text">Choisissez l’adresse de livraison dans la liste ci-dessous</string>
   <string name="mec_confirmation">Confirmation</string>
@@ -63,7 +64,7 @@
   <string name="mec_enter_code">Entrer un code cadeau</string>
   <string name="mec_faq">FAQ</string>
   <string name="mec_features">Caractéristiques</string>
-  <string name="mec_fetching_payment">[fr-CA]Fetching Payment Details...</string>
+  <string name="mec_fetching_payment">Récupération des détails de paiement…</string>
   <string name="mec_first_name">Prénom</string>
   <string name="mec_first_name_error">Veuillez entrer un prénom valide</string>
   <string name="mec_first_name_hint">Entrer un prénom</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Veuillez sélectionner un mode de livraison</string>
   <string name="mec_no_internet">Votre connexion internet semble ne pas fonctionner. Veuillez vérifier et essayer à nouveau</string>
   <string name="mec_no_payment_error_message">Veuillez sélectionner un mode de paiement</string>
+  <string name="mec_no_philips_shop">La boutique Philips n’est pas disponible pour le pays sélectionné; seul le mode revendeur est disponible</string>
   <string name="mec_no_product_available">Aucun produit trouvé dans votre magasin.</string>
   <string name="mec_no_result">0 résultat pour</string>
   <string name="mec_no_review_available">Aucune évaluation trouvée</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Merci de votre commande</string>
   <string name="mec_threshold_message">Cela pourrait prendre plus de temps. Voulez-vous continuer?</string>
   <string name="mec_threshold_title">Seuil de demandes atteint</string>
-  <string name="mec_time_out_error">[fr-CA]Network timeout reached!</string>
+  <string name="mec_time_out_error">Le délai du réseau est dépassé!</string>
   <string name="mec_town">Ville</string>
   <string name="mec_town_error">Veuillez entrer une ville valide</string>
   <string name="mec_town_hint">Entrer votre ville</string>

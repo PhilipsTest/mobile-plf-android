@@ -26,7 +26,7 @@ import com.ecs.demouapp.ui.eventhelper.EventListener;
 import com.ecs.demouapp.ui.session.NetworkConstants;
 import com.ecs.demouapp.ui.utils.ECSConstant;
 import com.ecs.demouapp.ui.utils.ECSUtility;
-import com.philips.cdp.di.ecs.model.payment.ECSPayment;
+import com.philips.platform.ecs.model.payment.ECSPayment;
 
 import java.util.HashMap;
 import java.util.List;

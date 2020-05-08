@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Σύνοψη καλαθιού</string>
   <string name="mec_cart_tax_message">Τιμή συμπ. %s ΦΠΑ</string>
   <string name="mec_cart_total">Σύνολο</string>
+  <string name="mec_check_internet_connection">Ελέγξτε τη σύνδεσή σας στο Internet.</string>
   <string name="mec_checkout">Ολοκλήρωση αγοράς</string>
   <string name="mec_choose_address_text">Επιλέξτε διεύθυνση αποστολής από την παρακάτω λίστα</string>
   <string name="mec_confirmation">Επιβεβαίωση</string>
@@ -61,7 +62,7 @@
   <string name="mec_discount">έκπτωση</string>
   <string name="mec_empty_cart">Το καλάθι αγορών είναι άδειο</string>
   <string name="mec_enter_code">Εισαγωγή κωδικού δώρου</string>
-  <string name="mec_faq">Συχνές ερωτήσεις</string>
+  <string name="mec_faq">τη σελίδα</string>
   <string name="mec_features">Χαρακτηριστικά</string>
   <string name="mec_fetching_payment">Γίνεται λήψη των στοιχείων πληρωμής...</string>
   <string name="mec_first_name">Όνομα</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Επιλέξτε τρόπο παράδοσης</string>
   <string name="mec_no_internet">Η σύνδεσή σας στο Internet πιθανόν να μην λειτουργεί. Ελέγξτε τη και δοκιμάστε ξανά</string>
   <string name="mec_no_payment_error_message">Επιλέξτε τρόπο πληρωμής</string>
+  <string name="mec_no_philips_shop">Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής</string>
   <string name="mec_no_product_available">Δεν βρέθηκε προϊόν στο Κατάστημά σας.</string>
   <string name="mec_no_result">0 αποτελέσματα για</string>
   <string name="mec_no_review_available">Δεν βρέθηκαν κριτικές</string>
@@ -100,7 +102,7 @@
   <string name="mec_order_summary">Σύνοψη παραγγελιών</string>
   <string name="mec_order_summary_shipping">Στοιχεία παράδοσης</string>
   <string name="mec_out_of_stock">Εξαντλήθηκε</string>
-  <string name="mec_page">[el]page</string>
+  <string name="mec_page">Συχνές ερωτήσεις</string>
   <string name="mec_payment">Πληρωμή</string>
   <string name="mec_payment_failed_message">Παρουσιάστηκε πρόβλημα κατά την επεξεργασία της πληρωμής σας. Ο λογαριασμός σας δεν έχει χρεωθεί. Προσπαθήστε ξανά ή επιλέξτε έναν άλλο τρόπο πληρωμής.</string>
   <string name="mec_payment_is_pending">Πληρωμή σε εκκρεμότητα</string>
@@ -118,7 +120,7 @@
   <string name="mec_product_detail_title"> Λεπτομέρειες προϊόντος</string>
   <string name="mec_product_title">Προϊόντα</string>
   <string name="mec_quantity">Ποσότητα</string>
-  <string name="mec_questions">Ερωτήσεις; Επισκεφτείτε τη σελίδα</string>
+  <string name="mec_questions">Ερωτήσεις; Επισκεφτείτε</string>
   <string name="mec_read">Διαβάστε τη</string>
   <string name="mec_read_privacy">Έχω διαβάσει τη</string>
   <string name="mec_reviews">Κριτικές</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Σας ευχαριστούμε για την παραγγελία σας</string>
   <string name="mec_threshold_message">Αυτό ενδέχεται να διαρκέσει περισσότερη ώρα. Θέλετε να συνεχίσετε;</string>
   <string name="mec_threshold_title">Το όριο αιτήματος συμπληρώθηκε</string>
-  <string name="mec_time_out_error">[el]Network timeout reached!</string>
+  <string name="mec_time_out_error">Το χρονικό όριο του δικτύου εξαντλήθηκε!</string>
   <string name="mec_town">Πόλη</string>
   <string name="mec_town_error">Εισαγάγετε έγκυρη πόλη</string>
   <string name="mec_town_hint">Εισαγάγετε την πόλη σας</string>

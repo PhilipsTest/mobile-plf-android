@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Sammanfattning av varukorgen</string>
   <string name="mec_cart_tax_message">Pris inklusive %s moms</string>
   <string name="mec_cart_total">Totalt</string>
+  <string name="mec_check_internet_connection">Kontrollera internetanslutningen.</string>
   <string name="mec_checkout">Till kassan</string>
   <string name="mec_choose_address_text">Välj Leveransadress i listan nedan</string>
   <string name="mec_confirmation">Bekräftelse</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Välj leveranssätt</string>
   <string name="mec_no_internet">Internetanslutningen verkar inte fungera. Kontrollera och försök igen</string>
   <string name="mec_no_payment_error_message">Välj betalningsmetod</string>
+  <string name="mec_no_philips_shop">Philips-butiken är inte tillgänglig för det valda landet, endast återförsäljare är tillgängliga</string>
   <string name="mec_no_product_available">Ingen produkt hittades i din butik.</string>
   <string name="mec_no_result">0 resultat hittades för</string>
   <string name="mec_no_review_available">Inga recensioner hittades</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Tack för din beställning</string>
   <string name="mec_threshold_message">Det kan ta mer tid. Vill du fortsätta?</string>
   <string name="mec_threshold_title">Tröskelvärde för begäran uppnått</string>
-  <string name="mec_time_out_error">[sv]Network timeout reached!</string>
+  <string name="mec_time_out_error">Tidsgräns för nätverk har nåtts!</string>
   <string name="mec_town">Stad/ort</string>
   <string name="mec_town_error">Ange en giltig ort</string>
   <string name="mec_town_hint">Ange ort</string>

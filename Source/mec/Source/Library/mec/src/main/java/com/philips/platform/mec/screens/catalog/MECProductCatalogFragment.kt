@@ -33,10 +33,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.philips.cdp.di.ecs.model.products.ECSProduct
-import com.philips.cdp.di.ecs.model.products.ECSProducts
+import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProducts
 import com.philips.platform.mec.R
-import com.philips.platform.mec.analytics.MECAnalyticPageNames.productCatalogue
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.productCataloguePage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.gridView
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.listView
 import com.philips.platform.mec.common.ItemClickListener
@@ -51,6 +52,7 @@ import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uid.view.widget.Label
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlin.collections.ArrayList
 
 
 /**
@@ -110,7 +112,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         return shouldSupportPagination
     }
 
-    private lateinit var mecCatalogUIModel: MECCatalogUIModel
     private var highLightedBackgroundColor: Int = 0
 
     var totalPages: Int = 0
@@ -125,7 +126,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     var totalProductsTobeSearched: Int = 0
 
 
-    private val productObserver: Observer<MutableList<ECSProducts>> = Observer<MutableList<ECSProducts>>(fun(ecsProductsList: MutableList<ECSProducts>?) {
+    private val productObserver: Observer<MutableList<com.philips.platform.ecs.model.products.ECSProducts>> = Observer<MutableList<com.philips.platform.ecs.model.products.ECSProducts>>(fun(ecsProductsList: MutableList<com.philips.platform.ecs.model.products.ECSProducts>?) {
         if (!ecsProductsList.isNullOrEmpty()) {
 
             totalPages = ecsProductsList.get(ecsProductsList.size - 1).pagination?.totalPages ?: 0
@@ -179,7 +180,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
 
     private lateinit var productReviewList: MutableList<MECProductReview>
-    lateinit var productList: MutableList<ECSProduct>
+    lateinit var productList: MutableList<com.philips.platform.ecs.model.products.ECSProduct>
 
 
     lateinit var binding: MecCatalogFragmentBinding
@@ -189,9 +190,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
         if (null == mRootView) {
             binding = MecCatalogFragmentBinding.inflate(inflater, container, false)
-
-            mecCatalogUIModel = MECCatalogUIModel()
-
 
             ecsProductViewModel = ViewModelProviders.of(this).get(EcsProductViewModel::class.java)
 
@@ -217,7 +215,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
-                    com.philips.platform.mec.analytics.MECAnalytics.tagProductList(productList, gridView)
+                    MECAnalytics.tagProductList(productList, gridView)
                 }
             }
 
@@ -229,7 +227,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
-                    com.philips.platform.mec.analytics.MECAnalytics.tagProductList(productList, listView)
+                    MECAnalytics.tagProductList(productList, listView)
                 }
             }
 
@@ -307,8 +305,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             adapter.emptyView = binding.mecEmptyResult
 
-            com.philips.platform.mec.analytics.MECAnalytics.trackPage(productCatalogue)
-            com.philips.platform.mec.analytics.MECAnalytics.tagProductList(productList, listView)
+
             mRootView = binding.root
 
 
@@ -319,7 +316,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             binding.mecCatalogProgress.mecProgressBar.visibility = View.VISIBLE
             executeRequest()
             ////////////// start of update cart and login if required
-            if (isUserLoggedIn()) {
+            if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
                 GlobalScope.launch {
                     var mecManager: MECManager = MECManager()
                     MECDataHolder.INSTANCE.mecCartUpdateListener?.let { mecManager.getShoppingCartData(it) }
@@ -346,6 +343,12 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_product_title, true)
         setCartIconVisibility(true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MECAnalytics.trackPage(productCataloguePage)
+        MECAnalytics.tagProductList(productList, listView)
     }
 
     private fun privacyTextView(view: TextView) {
@@ -377,7 +380,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getPrivacyUrl())
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle
-        replaceFragment(mecPrivacyFragment, MecPrivacyFragment.TAG, true)
+        replaceFragment(mecPrivacyFragment, TAG, true)
     }
 
     private fun isScrollDown(lay: LinearLayoutManager): Boolean {

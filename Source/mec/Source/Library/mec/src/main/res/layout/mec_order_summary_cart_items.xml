@@ -5,7 +5,7 @@
 
         <variable
             name="ecsEntries"
-            type="com.philips.cdp.di.ecs.model.cart.ECSEntries" />
+            type="com.philips.platform.ecs.model.cart.ECSEntries" />
 
     </data>
 
@@ -38,18 +38,6 @@
                     android:layout_height="@dimen/iap_network_image_width_height"
                     android:tooltipText="@{ ecsEntries.product.name}"
                     app:image_url="@{ ecsEntries.product.summary.imageURL}" />
-
-
-                <ImageView
-                    android:id="@+id/iv_camera"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="top|start"
-                    android:background="@drawable/mec_circular_background"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/mec_wishlist"
-                    android:tint="@color/colorAccent"
-                    android:visibility="invisible" />
             </FrameLayout>
 
 

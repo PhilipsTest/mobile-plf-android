@@ -9,14 +9,14 @@ package com.philips.platform.mec.screens.shoppingCart
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.cdp.di.ecs.model.cart.AppliedVoucherEntity
+import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecVoucherItemBinding
 
-class MECVouchersAdapter(private val voucherList: MutableList<AppliedVoucherEntity>,private val itemClickListener : ItemClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+class MECVouchersAdapter(private val voucherList: MutableList<com.philips.platform.ecs.model.cart.AppliedVoucherEntity>, private val itemClickListener : ItemClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
 
-    private lateinit var voucher: AppliedVoucherEntity
+    private lateinit var voucher: com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MECVoucherHolder(MecVoucherItemBinding.inflate(LayoutInflater.from(parent.context)))
@@ -33,7 +33,7 @@ class MECVouchersAdapter(private val voucherList: MutableList<AppliedVoucherEnti
 
     }
 
-    fun getVoucher(): AppliedVoucherEntity {
+    fun getVoucher(): com.philips.platform.ecs.model.cart.AppliedVoucherEntity {
         return voucher
     }
 

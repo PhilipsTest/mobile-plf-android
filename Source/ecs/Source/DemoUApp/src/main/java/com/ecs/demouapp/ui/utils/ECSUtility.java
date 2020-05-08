@@ -6,10 +6,10 @@ import android.view.View;
 
 
 import com.ecs.demouapp.ui.integration.ECSOrderFlowCompletion;
-import com.philips.cdp.di.ecs.ECSServices;
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart;
-import com.philips.cdp.di.ecs.model.cart.ECSEntries;
-import com.philips.cdp.di.ecs.model.products.PaginationEntity;
+import com.philips.platform.ecs.ECSServices;
+import com.philips.platform.ecs.model.cart.ECSShoppingCart;
+import com.philips.platform.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.products.PaginationEntity;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 
 import java.util.List;

@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">סיכום עגלה</string>
   <string name="mec_cart_tax_message">המחיר כולל ‎%s מע\"מ</string>
   <string name="mec_cart_total">סה\"כ</string>
+  <string name="mec_check_internet_connection">בדוק את חיבור האינטרנט שלך.</string>
   <string name="mec_checkout">מעבר לקופה</string>
   <string name="mec_choose_address_text">בחר כתובת למשלוח מתוך הרשימה הבאה</string>
   <string name="mec_confirmation">אישור</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">בחר מצב משלוח</string>
   <string name="mec_no_internet">נראה שחיבור האינטרנט שלך אינו פועל. בדוק ונסה שוב</string>
   <string name="mec_no_payment_error_message">בחר שיטת תשלום</string>
+  <string name="mec_no_philips_shop">החנות של פיליפס אינה זמינה במדינה שנבחרה, רק מצב קמעונאי זמין</string>
   <string name="mec_no_product_available">לא נמצאו מוצרים בחנות שלך.</string>
   <string name="mec_no_result">נמצאו 0 תוצאות עבור</string>
   <string name="mec_no_review_available">לא נמצאו ביקורות</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">אנו מודים לך על הזמנתך</string>
   <string name="mec_threshold_message">נדרש זמן נוסף לביצוע הפעולה. האם להמשיך?</string>
   <string name="mec_threshold_title">סף בקשה הושג</string>
-  <string name="mec_time_out_error">[he]Network timeout reached!</string>
+  <string name="mec_time_out_error">הזמן הקצוב של הרשת הסתיים!</string>
   <string name="mec_town">עיר / יישוב</string>
   <string name="mec_town_error">הזן עיר תקפה</string>
   <string name="mec_town_hint">הזן את עיר מגוריך</string>

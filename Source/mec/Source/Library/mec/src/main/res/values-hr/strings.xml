@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Sažetak košarice</string>
   <string name="mec_cart_tax_message">Cijena uključuje %s PDV-a</string>
   <string name="mec_cart_total">Ukupno</string>
+  <string name="mec_check_internet_connection">Provjerite internetsku vezu.</string>
   <string name="mec_checkout">Plaćanje</string>
   <string name="mec_choose_address_text">Odaberite adresu za isporuku s popisa u nastavku</string>
   <string name="mec_confirmation">Potvrda</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Odaberite način dostave</string>
   <string name="mec_no_internet">Čini se da vaša internetska veza ne radi. Provjerite i pokušajte ponovo</string>
   <string name="mec_no_payment_error_message">Odaberite način plaćanja</string>
+  <string name="mec_no_philips_shop">Philips trgovina nije dostupna za odabranu državu, dostupna je samo maloprodaja</string>
   <string name="mec_no_product_available">Nema proizvoda u trgovini.</string>
   <string name="mec_no_result">Pronađeno je 0 rezultata za</string>
   <string name="mec_no_review_available">Recenzije nisu pronađene</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Hvala vam na narudžbi</string>
   <string name="mec_threshold_message">Ovo će možda potrajati. Želite li nastaviti?</string>
   <string name="mec_threshold_title">Dosegnuto je ograničenje zahtjeva</string>
-  <string name="mec_time_out_error">[hr]Network timeout reached!</string>
+  <string name="mec_time_out_error">Dosegnuto je vremensko ograničenje mreže.</string>
   <string name="mec_town">Mjesto/grad</string>
   <string name="mec_town_error">Unesite valjano mjesto</string>
   <string name="mec_town_hint">Unesite svoje mjesto ili grad</string>

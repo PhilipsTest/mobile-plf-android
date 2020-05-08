@@ -20,9 +20,11 @@ import android.widget.FrameLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.philips.cdp.di.ecs.model.address.ECSAddress
-import com.philips.cdp.di.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.shippingAddressSelectionPage
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -38,8 +40,9 @@ import java.io.Serializable
 
 class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
 
+    private val TAG: String = ManageAddressFragment::class.java.simpleName
 
-    private var mECSShoppingCart: ECSShoppingCart? = null
+    private var mECSShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart? = null
     private lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
     private lateinit var addressViewModel: AddressViewModel
     private lateinit var binding: MecAddressManageBinding
@@ -55,7 +58,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
         const val TAG: String = "ManageAddressFragment"
     }
 
-    private val fetchAddressObserver: Observer<List<ECSAddress>> = Observer(fun(addressList: List<ECSAddress>?) {
+    private val fetchAddressObserver: Observer<List<com.philips.platform.ecs.model.address.ECSAddress>> = Observer(fun(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
 
         val intent = Intent()
         val bundle = Bundle()
@@ -89,7 +92,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
     }
 
 
-    private val cartObserver: Observer<ECSShoppingCart> = Observer { ecsShoppingCart ->
+    private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer { ecsShoppingCart ->
         mECSShoppingCart = ecsShoppingCart
         addressViewModel.fetchAddresses()
     }
@@ -105,8 +108,8 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
                 addressViewModel.fetchAddresses()
                 showProgressBar(binding.mecProgress.mecProgressBarContainer)
             } else {
-                var errorMessage = mecError!!.exception!!.message
-                MECLog.e(javaClass.simpleName, errorMessage)
+                val errorMessage = mecError!!.exception!!.message
+                MECLog.e(TAG, errorMessage)
                 MECutility.tagAndShowError(mecError, false, fragmentManager, context)
             }
         }
@@ -131,7 +134,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
         ecsShoppingCartViewModel.mecError.observe(this, errorObserver)
 
 
-        val ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<ECSAddress>
+        val ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<com.philips.platform.ecs.model.address.ECSAddress>
         defaultAddressId = arguments?.getSerializable(MECConstant.KEY_MEC_DEFAULT_ADDRESSES_ID) as String
         val itemClickListener = arguments?.getSerializable(MECConstant.KEY_ITEM_CLICK_LISTENER) as ItemClickListener
 
@@ -150,14 +153,14 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
 
         binding.mecBtnDeleteAddress.setOnClickListener {
             isAddressPopup = false
-            MECutility.showActionDialog(binding.mecBtnDeleteAddress.context, getString(R.string.mec_delete), getString(R.string.mec_cancel), getString(R.string.mec_address), getString(R.string.mec_delete_item_alert_message), fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecBtnDeleteAddress.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_address, R.string.mec_delete_item_alert_message, fragmentManager!!, this)
         }
 
         binding.mecBtnSetAddress.setOnClickListener {
             isAddressPopup = true
-            MECutility.showActionDialog(binding.mecBtnSetAddress.context, getString(R.string.mec_set_text), getString(R.string.mec_cancel), getString(R.string.mec_address), getString(R.string.mec_set_shipping_address_alert_message), fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecBtnSetAddress.context, R.string.mec_set_text, R.string.mec_cancel, R.string.mec_address, R.string.mec_set_shipping_address_alert_message, fragmentManager!!, this)
         }
-
+        MECAnalytics.trackPage(shippingAddressSelectionPage)
         return binding.root
     }
 
@@ -198,6 +201,4 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
     override fun onNegativeBtnClick() {
         isAddressPopup = false
     }
-
-
 }

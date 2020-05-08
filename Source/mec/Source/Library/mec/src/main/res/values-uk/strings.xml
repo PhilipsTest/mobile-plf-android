@@ -39,6 +39,7 @@
   <string name="mec_cart_summary">Підсумок у кошику</string>
   <string name="mec_cart_tax_message">Ціна включає %s ПДВ</string>
   <string name="mec_cart_total">Разом</string>
+  <string name="mec_check_internet_connection">Перевірте з’єднання з Інтернетом.</string>
   <string name="mec_checkout">Оформлення замовлення</string>
   <string name="mec_choose_address_text">Виберіть адресу доставки зі списку нижче</string>
   <string name="mec_confirmation">Підтвердження</string>
@@ -89,6 +90,7 @@
   <string name="mec_no_delivery_mode_error_message">Виберіть режим доставки</string>
   <string name="mec_no_internet">Здається, немає з’єднання з Інтернетом. Перевірте і спробуйте знову.</string>
   <string name="mec_no_payment_error_message">Виберіть спосіб оплати</string>
+  <string name="mec_no_philips_shop">Магазин Philips недоступний у вибраній країні, можливий лише режим роздрібної торгівлі</string>
   <string name="mec_no_product_available">У магазині немає виробів.</string>
   <string name="mec_no_result">0 результатів знайдено для</string>
   <string name="mec_no_review_available">Відгуків не знайдено</string>
@@ -139,7 +141,7 @@
   <string name="mec_thank_for_order">Дякуємо за замовлення</string>
   <string name="mec_threshold_message">Це може зайняти довше часу. Бажаєте продовжити?</string>
   <string name="mec_threshold_title">Досягнено потрібного ліміту</string>
-  <string name="mec_time_out_error">[uk]Network timeout reached!</string>
+  <string name="mec_time_out_error">Час підключення до мережі вичерпано!</string>
   <string name="mec_town">Населений пункт/місто</string>
   <string name="mec_town_error">Введіть дійсний населений пункт</string>
   <string name="mec_town_hint">Введіть свій населений пункт чи місто</string>

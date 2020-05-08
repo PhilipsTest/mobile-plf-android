@@ -9,9 +9,9 @@
  */
 package com.philips.platform.mec.screens.detail
 
-import com.philips.cdp.di.ecs.error.ECSError
-import com.philips.cdp.di.ecs.integration.ECSCallback
-import com.philips.cdp.di.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 import java.util.*
@@ -51,13 +51,13 @@ import java.util.*
 
   private fun fetchProductForRetailers() {
 
-      MECDataHolder.INSTANCE.eCSServices.fetchProductSummaries(Arrays.asList(product.code) , object :  ECSCallback<List<ECSProduct>, Exception>{
-      override fun onResponse(result: List<ECSProduct>?) {
+      MECDataHolder.INSTANCE.eCSServices.fetchProductSummaries(Arrays.asList(product.code) , object : com.philips.platform.ecs.integration.ECSCallback<List<com.philips.platform.ecs.model.products.ECSProduct>, Exception> {
+      override fun onResponse(result: List<com.philips.platform.ecs.model.products.ECSProduct>?) {
         product = result?.get(0) ?: product
         callParentExecute()
       }
 
-      override fun onFailure(error: Exception?, ecsError: ECSError?) {
+      override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
         val mecError = MecError(error, ecsError,null)
         processError(mecError,true)
       }
@@ -65,13 +65,13 @@ import java.util.*
   }
 
   private fun fetchProductForHybris() {
-      MECDataHolder.INSTANCE.eCSServices.fetchProduct(product.code, object : ECSCallback<ECSProduct, Exception> {
-      override fun onResponse(result: ECSProduct?) {
+      MECDataHolder.INSTANCE.eCSServices.fetchProduct(product.code, object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.products.ECSProduct, Exception> {
+      override fun onResponse(result: com.philips.platform.ecs.model.products.ECSProduct?) {
         product = result!!
         callParentExecute()
       }
 
-      override fun onFailure(error: Exception?, ecsError: ECSError?) {
+      override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
         val mecError = MecError(error, ecsError,null)
         processError(mecError,true)
       }

@@ -9,10 +9,10 @@
  */
 package com.philips.platform.mec.screens.address
 
-import com.philips.cdp.di.ecs.model.address.Region
-import com.philips.cdp.di.ecs.model.region.ECSRegion
+import com.philips.platform.ecs.model.address.Region
+import com.philips.platform.ecs.model.region.ECSRegion
 
-class MECRegions(private val regionList: List<ECSRegion>){
+class MECRegions(private val regionList: List<com.philips.platform.ecs.model.region.ECSRegion>){
 
     fun getRegionNames(): Array<String> ?{
 
@@ -26,9 +26,9 @@ class MECRegions(private val regionList: List<ECSRegion>){
         return rowItems
     }
 
-    fun getRegion(regionName:String):Region{
+    fun getRegion(regionName:String): com.philips.platform.ecs.model.address.Region {
 
-        val region = Region()
+        val region = com.philips.platform.ecs.model.address.Region()
         for (ecsRegion in regionList){
 
             if(ecsRegion.name.equals(regionName,true)){
