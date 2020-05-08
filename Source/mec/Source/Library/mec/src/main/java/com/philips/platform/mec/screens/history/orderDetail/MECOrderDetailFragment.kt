@@ -19,7 +19,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.philips.cdp.prxclient.datamodels.contacts.ContactPhone
@@ -33,6 +32,10 @@ import com.philips.platform.mec.screens.history.MECOrderHistoryService
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummaryAdapter
 import com.philips.platform.mec.utils.MECConstant
+import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_HOLIDAY_WORKING_HOUR
+import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE
+import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_WEEK_WORKING_HOUR
+import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_NUMBER
 
 class MECOrderDetailFragment : MecBaseFragment() {
 
@@ -46,6 +49,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
     private lateinit var voucherList: MutableList<AppliedVoucherEntity>
     private var mECOrderHistoryService = MECOrderHistoryService()
+    private var mContactphone:ContactPhone?=null
 
 
     override fun getFragmentTag(): String {
@@ -54,6 +58,9 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
     private val contactsObserver: Observer<ContactPhone> = Observer { contactPhone ->
         binding.contactPhone = contactPhone
+        mContactphone= contactPhone
+        binding.mecOrderHistoryDetailCallBtn.setOnClickListener { callPhone(contactPhone.phoneNumber) }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -63,7 +70,6 @@ class MECOrderDetailFragment : MecBaseFragment() {
         voucherList = mutableListOf()
 
         binding = MecOrderHistoryDetailBinding.inflate(inflater, container, false)
-        binding.fragment = this
         binding.mecOrderHistoryService = mECOrderHistoryService
         mecOrderDetailViewModel = ViewModelProvider(this).get(MECOrderDetailViewModel::class.java)
 
@@ -82,6 +88,8 @@ class MECOrderDetailFragment : MecBaseFragment() {
         binding.mecCartSummaryRecyclerView.adapter = productsAdapter
         binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
         binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
+
+        binding.mecOrderHistoryCancelOrderBtn.setOnClickListener { onCancelOrder() }
 
         return binding.root
     }
@@ -103,7 +111,16 @@ class MECOrderDetailFragment : MecBaseFragment() {
     }
 
     fun onCancelOrder() {
-
+        var mECCancelOrderFragment : MECCancelOrderFragment = MECCancelOrderFragment()
+        if( mContactphone!=null && mContactphone!!.openingHoursWeekdays!! !=null && mContactphone!!.openingHoursSaturday!! !=null) {
+            var arguments: Bundle = Bundle()
+            arguments.putString(MEC_ORDER_NUMBER,  binding.ecsOrders?.code)
+            arguments.putString(MEC_ORDER_CUSTOMER_CARE_PHONE, mContactphone!!.phoneNumber)
+            arguments.putString(MEC_ORDER_CUSTOMER_CARE_WEEK_WORKING_HOUR, mContactphone!!.openingHoursWeekdays)
+            arguments.putString(MEC_ORDER_CUSTOMER_CARE_HOLIDAY_WORKING_HOUR, mContactphone!!.openingHoursSaturday)
+            mECCancelOrderFragment.arguments = arguments
+        }
+        replaceFragment(mECCancelOrderFragment,mECCancelOrderFragment.getFragmentTag(),true)
     }
 
     fun showTrackUrlFragment(url: String) {
@@ -117,9 +134,14 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
     fun callPhone(phone: String) {
         try {
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone))
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context?.let { startActivity(it, intent, null) }
+            val myintent = Intent(Intent.ACTION_DIAL)
+            myintent.data = Uri.parse("tel:" + phone!!)
+            myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(myintent)
+
+           /* val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone))
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context?.let { startActivity(it, intent, null) }*/
         } catch (e: NullPointerException) {
         }
     }
