@@ -20,7 +20,7 @@ import org.json.JSONObject
  * The type Ecs config which contains philips e-commerce configuration data. This object is returned when configureECS is called.
  */
 @Parcelize
-class ECSConfig : Parcelable , ResponseData {
+class ECSConfig : Parcelable  {
 
     var locale: String? = null
     val catalogId: String? = null
@@ -31,11 +31,5 @@ class ECSConfig : Parcelable , ResponseData {
     val rootCategory: String? = null
     val siteId: String? = null
     var isHybris = false
-
-    override fun parseJsonResponseData(response: JSONObject?): ECSConfig? {
-        return if (response != null) {
-            Gson().fromJson(response.toString(), ECSConfig::class.java)
-        } else null
-    }
 
 }
