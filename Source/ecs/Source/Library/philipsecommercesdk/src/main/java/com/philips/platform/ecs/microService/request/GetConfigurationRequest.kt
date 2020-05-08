@@ -27,6 +27,14 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Ex
         return getRawConfigUrl()
     }
 
+    override fun getServiceID(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun getReplaceURLMap(): Map<String, String> {
+        TODO("Not yet implemented")
+    }
+
     override fun onErrorResponse(error: VolleyError?) {
         eCSCallback.onFailure(Exception(error?.message))
     }

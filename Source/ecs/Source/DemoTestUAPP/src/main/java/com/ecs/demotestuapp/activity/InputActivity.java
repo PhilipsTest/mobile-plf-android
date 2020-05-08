@@ -17,6 +17,7 @@ import com.ecs.demotestuapp.fragments.CreateAndFetchAddressFragment;
 import com.ecs.demotestuapp.fragments.CreateShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.DeleteAddressFragment;
 import com.ecs.demotestuapp.fragments.DeleteAndFetchAddressFragment;
+import com.ecs.demotestuapp.fragments.ECSFetchProductForCtnFragment;
 import com.ecs.demotestuapp.fragments.FetchAppliedVouchersFragment;
 import com.ecs.demotestuapp.fragments.FetchDeliveryModesFragment;
 import com.ecs.demotestuapp.fragments.FetchOrderDetailForOdersFragment;
@@ -203,6 +204,10 @@ public class InputActivity extends AppCompatActivity {
             case 39:
                 return new JanrainRefreshOAuthFragment();
 
+                //Micro services new APIS =============
+
+            case 40:
+                return new ECSFetchProductForCtnFragment();
             default:
                 return null;
         }

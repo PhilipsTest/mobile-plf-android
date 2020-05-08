@@ -29,7 +29,7 @@ class ECSConfig : Parcelable  {
     val helpDeskPhone: String? = null
     val helpUrl: String? = null
     val rootCategory: String? = null
-    val siteId: String? = null
+    val siteId: String? = "DE_Pub"
     var isHybris = false
 
 }

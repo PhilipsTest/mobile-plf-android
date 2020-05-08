@@ -69,8 +69,9 @@ class ECSManager {
 
     fun getProductFor(ctn: String, eCSCallback:ECSCallback<ECSProduct,Exception>) {
         val ecsException = ECSApiValidator().getECSException(APIType.LocaleAndHybris)
+        GetProductForRequest(ctn,eCSCallback).executeRequest()
 
-        //ecsException?:let { throw ecsException } ?: kotlin.run { GetProductForRequest(ctn,eCSCallback).executeRequest() }
+        //ecsException?.let { throw ecsException } ?: kotlin.run { GetProductForRequest(ctn,eCSCallback).executeRequest() }
     }
 
     fun getProductSummary(ctns: List<String?>, ecsCallback: com.philips.platform.ecs.integration.ECSCallback<List<ECSProduct?>?, java.lang.Exception?>) {

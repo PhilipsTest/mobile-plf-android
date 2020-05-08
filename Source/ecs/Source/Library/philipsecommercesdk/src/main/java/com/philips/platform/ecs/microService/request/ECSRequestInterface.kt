@@ -22,6 +22,9 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
         return Request.Method.GET
     }
     fun  getURL(): String
+
+    fun  getServiceID() :String
+    fun  getReplaceURLMap():Map<String,String>
     fun  getRequestType():RequestType
 
     fun  getJSONRequest(): JSONObject?{
@@ -39,7 +42,11 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
     }
 
     fun  getHeader(): Map<String, String>?{
-        return null
+        var headerMap = HashMap<String,String>()
+        headerMap["Accept"] = "application/json"
+        headerMap["Api-Key"] = "dDHoROZ8fk9aSfTi2LhzD5bzymwnzEAWedKf9pe8"
+        headerMap["Api-Version"] = "1"
+        return headerMap
     }
     fun  getParams(): Map<String, String>?{
         return null

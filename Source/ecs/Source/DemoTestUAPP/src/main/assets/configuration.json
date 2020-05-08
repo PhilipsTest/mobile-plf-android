@@ -951,6 +951,27 @@
           "switches": []
         }
       ]
+    },
+    {
+      "name": "ECS Product Microservices",
+      "subgroup": [
+        {
+          "name": "ECS fetchProductForCTN",
+          "apiNumber": 40,
+          "editText": 1,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter product ctn"
+            }
+          ],
+          "spinners": [],
+          "switches": []
+        }
+      ]
     }
   ]
 }
