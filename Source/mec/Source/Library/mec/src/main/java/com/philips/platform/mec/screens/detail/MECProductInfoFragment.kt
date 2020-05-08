@@ -24,8 +24,6 @@ import com.philips.platform.mec.utils.MECConstant
  */
 class MECProductInfoFragment : MecBaseFragment() {
 
-
-
     override fun getFragmentTag(): String {
        return "MECProductInfoFragment"
     }
@@ -37,7 +35,7 @@ class MECProductInfoFragment : MecBaseFragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = MecProductInfoFragmentBinding.inflate(inflater, container, false)
-        var product = arguments?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as com.philips.platform.ecs.model.products.ECSProduct
+        var product = arguments?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as ECSProduct
         binding.product = product
         return binding.root
     }
