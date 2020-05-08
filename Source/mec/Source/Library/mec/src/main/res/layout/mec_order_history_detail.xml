@@ -248,6 +248,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/border16_margin_left_right"
                     android:paddingRight="@dimen/border16_margin_left_right"
+                    android:visibility="@{ecsOrders.orderDetail.paymentInfo !=null ? View.VISIBLE : View.GONE, default = gone }"
                     android:text="@string/mec_payment_method" />
 
                 <com.philips.platform.uid.view.widget.Label
@@ -258,7 +259,6 @@
                     android:layout_marginStart="@dimen/border16_margin_left_right"
                     android:layout_marginTop="@dimen/iap_margin_10dp"
                     android:layout_marginEnd="@dimen/border16_margin_left_right"
-                    android:layout_weight="1.2"
                     android:gravity="start"
                     android:visibility="@{ecsOrders.orderDetail.paymentInfo !=null ? View.VISIBLE : View.GONE, default = gone }"
                      />

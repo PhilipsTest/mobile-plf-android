@@ -85,8 +85,8 @@ class MECOrderDetailFragment : MecBaseFragment() {
         cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
         productsAdapter = MECOrderDetailProductsAdapter(ecsOrders?.orderDetail, this)
         vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
-        binding.mecCartSummaryRecyclerView.adapter = productsAdapter
         binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
+        binding.mecCartSummaryRecyclerView.adapter = productsAdapter
         binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
 
         binding.mecOrderHistoryCancelOrderBtn.setOnClickListener { onCancelOrder() }
@@ -96,7 +96,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        setTitleAndBackButtonVisibility(R.string.mec_my_orders, true)
+        setTitleAndBackButtonVisibility(R.string.mec_order_details, true)
         setCartIconVisibility(false)
 
     }
