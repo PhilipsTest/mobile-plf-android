@@ -11,7 +11,9 @@ import com.ecs.demotestuapp.R;
 import com.ecs.demotestuapp.fragments.AddProductToShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.ApplyVoucherFragment;
 import com.ecs.demotestuapp.fragments.ConfigureECSFragment;
+import com.ecs.demotestuapp.fragments.ConfigureECSMicroServiceFragment;
 import com.ecs.demotestuapp.fragments.ConfigureECSToGetConfigurationFragment;
+import com.ecs.demotestuapp.fragments.ConfigureECSToGetConfigurationMicroServiceFragment;
 import com.ecs.demotestuapp.fragments.CreateAddressFragment;
 import com.ecs.demotestuapp.fragments.CreateAndFetchAddressFragment;
 import com.ecs.demotestuapp.fragments.CreateShoppingCartFragment;
@@ -207,6 +209,10 @@ public class InputActivity extends AppCompatActivity {
                 //Micro services new APIS =============
 
             case 40:
+                return new ConfigureECSMicroServiceFragment();
+            case 41:
+                return new ConfigureECSToGetConfigurationMicroServiceFragment();
+            case 42:
                 return new ECSFetchProductForCtnFragment();
             default:
                 return null;

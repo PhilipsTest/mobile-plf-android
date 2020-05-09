@@ -180,7 +180,6 @@ class ECSManager {
             getSummaryForCTN(ctn, null, eCSCallback);
         }
 
-
     }
 
     GetProductForRequest getProductForRequestObject(String ctn, ECSCallback<ECSProduct, Exception> ecsCallback) {

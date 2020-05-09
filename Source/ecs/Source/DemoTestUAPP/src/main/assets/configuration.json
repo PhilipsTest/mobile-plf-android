@@ -953,11 +953,36 @@
       ]
     },
     {
+      "name": "ECS Configure new Microservices",
+      "subgroup": [
+        {
+          "name": "ECS configureECS",
+          "apiNumber": 40,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
+        {
+          "name": "ECS ConfigureECSWithConfiguration",
+          "apiNumber": 41,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        }
+      ]
+    },
+    {
       "name": "ECS Product Microservices",
       "subgroup": [
         {
           "name": "ECS fetchProductForCTN",
-          "apiNumber": 40,
+          "apiNumber": 42,
           "editText": 1,
           "spinner": 0,
           "button": 0,
@@ -973,5 +998,6 @@
         }
       ]
     }
+
   ]
 }

@@ -13,11 +13,11 @@ package com.philips.platform.ecs.microService.request
 
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ServerError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
-import com.philips.platform.ecs.store.ECSURLBuilder
-import com.philips.platform.ecs.util.ECSConfiguration
+import com.philips.platform.ecs.microService.util.getJsonError
 import org.json.JSONObject
 
 class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Exception>) : ECSJsonRequest() {
@@ -31,12 +31,14 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Ex
         TODO("Not yet implemented")
     }
 
-    override fun getReplaceURLMap(): Map<String, String> {
+    override fun getReplaceURLMap(): MutableMap<String, String> {
         TODO("Not yet implemented")
     }
 
     override fun onErrorResponse(error: VolleyError?) {
-        eCSCallback.onFailure(Exception(error?.message))
+        val jsonError = error?.getJsonError()
+        val hybrisError = jsonError?.getData(ServerError::class.java)
+        eCSCallback.onFailure(Exception(hybrisError.toString()))
     }
     override fun onResponse(response: JSONObject?) {
         val config = response?.getData(ECSConfig::class.java)
@@ -46,14 +48,15 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Ex
         }
 
         config?.locale = ECSDataHolder.locale
+        config?.let { ECSDataHolder.config = config }
         config?.let { eCSCallback.onResponse(it) } ?: kotlin.run {   } // TODO send error
     }
 
     //TODO remove this method
     private fun getRawConfigUrl(): String {
-        return ECSConfiguration.INSTANCE.baseURL + ECSURLBuilder.WEBROOT + ECSURLBuilder.SEPERATOR + ECSURLBuilder.V2 + ECSURLBuilder.SEPERATOR +
-                ECSURLBuilder.SUFFIX_CONFIGURATION + ECSURLBuilder.SEPERATOR +
-                ECSDataHolder.locale + ECSURLBuilder.SEPERATOR +
+        return ECSDataHolder.baseURL +"/"+ "pilcommercewebservices"+"/" + "v2" + "/" +
+                "inAppConfig" + "/" +
+                ECSDataHolder.locale + "/" +
                 ECSDataHolder.getPropositionId()
     }
 

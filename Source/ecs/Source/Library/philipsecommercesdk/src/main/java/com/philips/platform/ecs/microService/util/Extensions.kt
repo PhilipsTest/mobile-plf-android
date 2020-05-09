@@ -12,7 +12,8 @@
 
 package com.philips.platform.ecs.microService.util
 
-import android.util.Log
+import android.util.Base64
+import com.android.volley.VolleyError
 import com.google.gson.Gson
 import org.json.JSONObject
 
@@ -30,4 +31,16 @@ fun String.replaceParam(replaceMap:Map<String,String>): String{
         convertedString =  convertedString.replace("%$key%", value)
     }
     return convertedString
+}
+
+fun VolleyError.getJsonError():JSONObject?{
+    var errorJSON :JSONObject? = null
+    var data = this.networkResponse?.data
+    data?.let {
+        val encodedString = Base64.encodeToString(it, Base64.DEFAULT)
+        val decode: ByteArray = Base64.decode(encodedString, Base64.DEFAULT)
+        var errorString = String(decode)
+        JSONObject(errorString)
+    }
+    return errorJSON
 }

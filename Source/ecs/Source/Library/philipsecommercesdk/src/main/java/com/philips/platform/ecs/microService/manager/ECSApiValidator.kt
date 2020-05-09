@@ -12,7 +12,7 @@
 
 package com.philips.platform.ecs.microService.manager
 
-import com.philips.platform.ecs.error.ECSErrorEnum
+import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
@@ -29,12 +29,12 @@ class ECSApiValidator {
     }
 
     private fun validateLocale(): ECSException? {
-        return if (ECSDataHolder.locale == null) ECSException(ECSErrorEnum.ECSLocaleNotFound.localizedErrorString, ECSErrorEnum.ECSLocaleNotFound.errorCode) else null
+        return if (ECSDataHolder.locale == null) ECSException(ECSErrorType.ECSLocaleNotFound.getLocalizedErrorString(), ECSErrorType.ECSLocaleNotFound.errorCode) else null
     }
 
     private fun validateLocaleAndHybris(): ECSException? {
         if (validateLocale() != null) return validateLocale()
-        if (!ECSDataHolder.config.isHybris) return ECSException(ECSErrorEnum.ECSSiteIdNotFound.localizedErrorString, ECSErrorEnum.ECSBaseURLNotFound.errorCode)
+        if (!ECSDataHolder.config.isHybris) return ECSException(ECSErrorType.ECSSiteIdNotFound.getLocalizedErrorString(), ECSErrorType.ECSBaseURLNotFound.errorCode)
         return null
     }
 
@@ -42,7 +42,7 @@ class ECSApiValidator {
 
         if (validateLocale() != null) return validateLocale()
         if (validateLocaleAndHybris() != null) return validateLocaleAndHybris()
-        if (ECSDataHolder.eCSOAuthData == null) return ECSException(ECSErrorEnum.ECSOAuthDetailError.localizedErrorString, ECSErrorEnum.ECSOAuthDetailError.errorCode)
+        if (ECSDataHolder.eCSOAuthData == null) return ECSException(ECSErrorType.ECSOAuthDetailError.getLocalizedErrorString(), ECSErrorType.ECSOAuthDetailError.errorCode)
         return null
     }
 }

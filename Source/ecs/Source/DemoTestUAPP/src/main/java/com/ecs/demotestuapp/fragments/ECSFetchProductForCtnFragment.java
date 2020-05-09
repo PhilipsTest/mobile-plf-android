@@ -18,7 +18,7 @@ import android.widget.EditText;
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.philips.platform.ecs.microService.MicroECSServices;
 import com.philips.platform.ecs.microService.error.ECSException;
-import com.philips.platform.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.microService.model.product.ECSProduct;
 
 public class ECSFetchProductForCtnFragment extends BaseAPIFragment {
 
@@ -59,6 +59,8 @@ public class ECSFetchProductForCtnFragment extends BaseAPIFragment {
             });
         } catch (ECSException e) {
             e.printStackTrace();
+            gotoResultActivity(e.getMessage());
+            getProgressBar().setVisibility(View.GONE);
         }
 
     }

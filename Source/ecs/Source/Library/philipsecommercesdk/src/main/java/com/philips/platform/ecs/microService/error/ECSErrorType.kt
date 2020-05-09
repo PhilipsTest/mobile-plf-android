@@ -13,7 +13,7 @@ package com.philips.platform.ecs.microService.error
 
 import android.util.Log
 import com.philips.platform.ecs.R
-import com.philips.platform.ecs.util.ECSConfiguration
+import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
 
@@ -59,9 +59,9 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
 
     fun getLocalizedErrorString(): String {
 
-        var localizedError = ECSConfiguration.INSTANCE.appInfra.appInfraContext.getString(R.string.ECSsomethingWentWrong)
+        var localizedError = ECSDataHolder?.appInfra?.appInfraContext?.getString(R.string.ECSsomethingWentWrong)+""
         try {
-            localizedError = ECSConfiguration.INSTANCE.appInfra.appInfraContext.resources.getString(resourceID)
+            localizedError = ECSDataHolder.appInfra?.appInfraContext?.resources?.getString(resourceID)+""
         } catch (e: Exception) {
             Log.e("RES_NOT_FOUND", e.message)
         }

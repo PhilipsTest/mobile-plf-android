@@ -14,6 +14,7 @@ package com.philips.platform.ecs.microService.request
 import com.android.volley.Request
 import com.android.volley.Response
 import com.philips.platform.appinfra.rest.TokenProviderInterface
+import com.philips.platform.ecs.microService.util.ECSDataHolder
 import org.json.JSONObject
 
 interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
@@ -24,7 +25,15 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
     fun  getURL(): String
 
     fun  getServiceID() :String
-    fun  getReplaceURLMap():Map<String,String>
+
+    fun  getReplaceURLMap():MutableMap<String,String>{
+
+        val map = HashMap<String,String>()
+        ECSDataHolder.config.siteId?.let { map.put("siteId", it) }
+        ECSDataHolder.locale?.split("_")?.get(0)?.let { map.put("language", it) }
+        ECSDataHolder.locale?.split("_")?.get(1)?.let { map.put("country", it) }
+        return map
+    }
     fun  getRequestType():RequestType
 
     fun  getJSONRequest(): JSONObject?{
@@ -41,10 +50,10 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
         return this
     }
 
-    fun  getHeader(): Map<String, String>?{
+    fun  getHeader(): MutableMap<String, String>?{
         var headerMap = HashMap<String,String>()
         headerMap["Accept"] = "application/json"
-        headerMap["Api-Key"] = "dDHoROZ8fk9aSfTi2LhzD5bzymwnzEAWedKf9pe8"
+        headerMap["Api-Key"] = "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
         headerMap["Api-Version"] = "1"
         return headerMap
     }
