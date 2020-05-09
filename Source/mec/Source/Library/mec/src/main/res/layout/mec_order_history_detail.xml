@@ -42,11 +42,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:layout_above="@+id/mec_order_detail_button_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
@@ -169,10 +170,10 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/mec_order_Summary_parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="?attr/uidContentPrimaryBackgroundColor"
                 android:orientation="vertical">
 
@@ -180,6 +181,7 @@
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/tv_shipping_address"
                     style="@style/mec_header"
+                    android:layout_alignParentTop="true"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:paddingStart="@dimen/border16_margin_left_right"
@@ -189,6 +191,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/tv_shipping_address_name"
+                    android:layout_below="@+id/tv_shipping_address"
                     style="@style/mec_address_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -201,6 +204,8 @@
                     android:text="@{ecsOrders.orderDetail.deliveryAddress.firstName + @string/mec_empty_space  +ecsOrders.orderDetail.deliveryAddress.lastName}" />
 
                 <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/tv_shipping_address_detail"
+                    android:layout_below="@+id/tv_shipping_address_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/border16_margin_left_right"
@@ -212,11 +217,14 @@
                     app:shippingAddress="@{ecsOrders.orderDetail.deliveryAddress}" />
 
                 <View
+                    android:id="@+id/mec_divider_shipping_address"
+                    android:layout_below="@+id/tv_shipping_address_detail"
                     style="@style/mec_button_border"
                     android:layout_marginTop="@dimen/border8_margin" />
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_delivery_mode_Title"
+                    android:layout_below="@+id/mec_divider_shipping_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/border16_margin_left_right"
@@ -229,6 +237,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_delivery_mode_description"
+                    android:layout_below="@+id/mec_delivery_mode_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/border16_margin_left_right"
@@ -243,6 +252,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_payment_method_Summary"
+                    android:layout_below="@+id/mec_delivery_mode_description"
                     style="@style/mec_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -253,6 +263,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/tv_payment_method"
+                    android:layout_below="@+id/mec_payment_method_Summary"
                     style="@style/mec_address_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -265,6 +276,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/tv_payment_valid"
+                    android:layout_below="@+id/tv_payment_method"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/border16_margin_left_right"
@@ -278,6 +290,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/tv_billing_address_name"
+                    android:layout_below="@+id/tv_payment_valid"
                     style="@style/mec_address_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -289,6 +302,8 @@
                     android:visibility="@{ecsOrders.orderDetail.paymentInfo !=null ? View.VISIBLE : View.GONE, default = gone }" />
 
                 <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_payment_label"
+                    android:layout_below="@+id/tv_billing_address_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/border16_margin_left_right"
@@ -303,6 +318,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/tv_applied_voucher_address"
+                    android:layout_below="@+id/mec_payment_label"
                     style="@style/mec_header"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -313,6 +329,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mec_accepted_code_recycler_view"
+                    android:layout_below="@+id/tv_applied_voucher_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="3dp"
@@ -322,6 +339,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_cart_Summary"
+                    android:layout_below="@+id/mec_accepted_code_recycler_view"
                     style="@style/mec_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -332,6 +350,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mec_cart_summary_recycler_view"
+                    android:layout_below="@+id/mec_cart_Summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
@@ -339,6 +358,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mec_price_summary_recycler_view"
+                    android:layout_below="@+id/mec_cart_summary_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
@@ -346,7 +366,7 @@
 
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </LinearLayout>

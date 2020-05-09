@@ -57,9 +57,31 @@ class MECOrderDetailFragment : MecBaseFragment() {
     }
 
     private val contactsObserver: Observer<ContactPhone> = Observer { contactPhone ->
-        binding.contactPhone = contactPhone
         mContactphone= contactPhone
+        binding.contactPhone = contactPhone
+
         binding.mecOrderHistoryDetailCallBtn.setOnClickListener { callPhone(contactPhone.phoneNumber) }
+    }
+
+    private fun  updateUI(){
+
+
+
+        cartSummaryList.clear()
+        cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
+        productsAdapter = MECOrderDetailProductsAdapter(ecsOrders?.orderDetail, this)
+        vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
+
+        binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
+        binding.mecAcceptedCodeRecyclerView.adapter?.notifyDataSetChanged()
+
+        binding.mecCartSummaryRecyclerView.adapter = productsAdapter
+        binding.mecCartSummaryRecyclerView.adapter?.notifyDataSetChanged()
+
+        binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
+        binding.mecPriceSummaryRecyclerView.adapter?.notifyDataSetChanged()
+
+
 
     }
 
@@ -78,16 +100,12 @@ class MECOrderDetailFragment : MecBaseFragment() {
         ecsOrders = arguments?.getSerializable(MECConstant.MEC_ORDERS) as ECSOrders?
         binding.ecsOrders = ecsOrders
 
+
+        updateUI()
         val subCategory = mecOrderDetailService.getProductSubcategory(ecsOrders?.orderDetail)
         context?.let { subCategory?.let { it1 -> mecOrderDetailViewModel.fetchContacts(it, it1) } }
 
-        cartSummaryList.clear()
-        cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
-        productsAdapter = MECOrderDetailProductsAdapter(ecsOrders?.orderDetail, this)
-        vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
-        binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
-        binding.mecCartSummaryRecyclerView.adapter = productsAdapter
-        binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
+
 
         binding.mecOrderHistoryCancelOrderBtn.setOnClickListener { onCancelOrder() }
 
@@ -106,7 +124,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
         mecOrderDetailService.addAppliedOrderPromotionsToCartSummaryList(orderDetail!!, cartSummaryList)
         mecOrderDetailService.addAppliedVoucherToCartSummaryList(orderDetail, cartSummaryList)
         mecOrderDetailService.addDeliveryCostToCartSummaryList(binding.mecDeliveryModeDescription.context, orderDetail, cartSummaryList)
-        cartSummaryAdapter?.notifyDataSetChanged()
+       // cartSummaryAdapter?.notifyDataSetChanged()
         return cartSummaryList
     }
 
