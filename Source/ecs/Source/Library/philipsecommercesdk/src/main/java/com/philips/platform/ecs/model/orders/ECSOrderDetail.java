@@ -13,8 +13,8 @@ import androidx.annotation.VisibleForTesting;
 import com.philips.platform.ecs.model.address.ECSAddress;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
-import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ import java.util.List;
  * This object is returned when order is submitted
  * It returns the order detail by passing the orderId for fetchOrderDetail
  */
-public class ECSOrderDetail implements Parcelable{
+public class ECSOrderDetail implements Parcelable, Serializable {
 
 
     private String type;

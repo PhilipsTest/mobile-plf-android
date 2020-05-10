@@ -444,6 +444,12 @@
                 app:uidComponentType="Secondary" />
 
         </LinearLayout>
+        <include
+            android:id="@+id/mec_order_history_detail_progress"
+            layout="@layout/mec_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
     </RelativeLayout>
 

@@ -26,6 +26,7 @@ import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
+import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.history.MECOrderHistoryService
@@ -59,13 +60,11 @@ class MECOrderDetailFragment : MecBaseFragment() {
     private val contactsObserver: Observer<ContactPhone> = Observer { contactPhone ->
         mContactphone= contactPhone
         binding.contactPhone = contactPhone
-
+        dismissProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
         binding.mecOrderHistoryDetailCallBtn.setOnClickListener { callPhone(contactPhone.phoneNumber) }
     }
 
     private fun  updateUI(){
-
-
 
         cartSummaryList.clear()
         cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
@@ -81,8 +80,6 @@ class MECOrderDetailFragment : MecBaseFragment() {
         binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
         binding.mecPriceSummaryRecyclerView.adapter?.notifyDataSetChanged()
 
-
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -90,25 +87,19 @@ class MECOrderDetailFragment : MecBaseFragment() {
         setCartIconVisibility(false)
         cartSummaryList = mutableListOf()
         voucherList = mutableListOf()
-
         binding = MecOrderHistoryDetailBinding.inflate(inflater, container, false)
         binding.mecOrderHistoryService = mECOrderHistoryService
         mecOrderDetailViewModel = ViewModelProvider(this).get(MECOrderDetailViewModel::class.java)
-
         mecOrderDetailViewModel.contactPhone.observe(viewLifecycleOwner, contactsObserver)
         mecOrderDetailViewModel.mecError.observe(viewLifecycleOwner, this)
         ecsOrders = arguments?.getSerializable(MECConstant.MEC_ORDERS) as ECSOrders?
         binding.ecsOrders = ecsOrders
-
-
         updateUI()
         val subCategory = mecOrderDetailService.getProductSubcategory(ecsOrders?.orderDetail)
+        showProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
         context?.let { subCategory?.let { it1 -> mecOrderDetailViewModel.fetchContacts(it, it1) } }
 
-
-
         binding.mecOrderHistoryCancelOrderBtn.setOnClickListener { onCancelOrder() }
-
         return binding.root
     }
 
@@ -119,12 +110,16 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
+    }
+
 
     private fun addCartSummaryList(orderDetail: ECSOrderDetail?): MutableList<MECCartSummary> {
         mecOrderDetailService.addAppliedOrderPromotionsToCartSummaryList(orderDetail!!, cartSummaryList)
         mecOrderDetailService.addAppliedVoucherToCartSummaryList(orderDetail, cartSummaryList)
         mecOrderDetailService.addDeliveryCostToCartSummaryList(binding.mecDeliveryModeDescription.context, orderDetail, cartSummaryList)
-       // cartSummaryAdapter?.notifyDataSetChanged()
         return cartSummaryList
     }
 
@@ -162,6 +157,13 @@ class MECOrderDetailFragment : MecBaseFragment() {
             context?.let { startActivity(it, intent, null) }*/
         } catch (e: NullPointerException) {
         }
+    }
+
+
+
+    override fun processError(mecError: MecError?, showDialog: Boolean) {
+        super.processError(mecError, showDialog)
+        dismissProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
     }
 
 
