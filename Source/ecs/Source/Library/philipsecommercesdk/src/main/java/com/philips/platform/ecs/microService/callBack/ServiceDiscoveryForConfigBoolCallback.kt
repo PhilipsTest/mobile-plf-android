@@ -14,6 +14,7 @@ package com.philips.platform.ecs.microService.callBack
 
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
+import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.manager.ECSManager
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
@@ -21,13 +22,14 @@ class ServiceDiscoveryForConfigBoolCallback(val ecsManager: ECSManager,val ecsCa
 
     override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
 
-        val values = urlMap?.values
-        val toMutableList = values?.toMutableList()
-        val serviceDiscoveryService =toMutableList?.get(0)
+        ECSDataHolder.urlMap = urlMap
+
+        val serviceDiscoveryService =urlMap?.get(ECSConstants.SERVICEID_IAP_BASEURL)
         val locale = serviceDiscoveryService?.locale
         ECSDataHolder.locale = locale
         val configUrls = serviceDiscoveryService?.configUrls
         ECSDataHolder.baseURL = configUrls
+
         if(configUrls==null || ECSDataHolder.getPropositionId() == null){
             ecsCallback.onResponse(false)
         }else{
@@ -36,6 +38,6 @@ class ServiceDiscoveryForConfigBoolCallback(val ecsManager: ECSManager,val ecsCa
     }
 
     override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        ecsCallback.onFailure(Exception(message))
     }
 }

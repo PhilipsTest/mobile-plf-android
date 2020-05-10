@@ -15,4 +15,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class AssetModel(val success :Boolean = false,val data: Data?):Parcelable
+data class AssetModel(val success :Boolean = false,val data: Data?):Parcelable

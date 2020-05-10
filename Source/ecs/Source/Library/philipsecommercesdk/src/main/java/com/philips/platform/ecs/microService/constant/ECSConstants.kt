@@ -19,12 +19,20 @@ class ECSConstants {
     companion object {
 
         const val CONFIG = "config"
+
+        //Service IDS
+        const val SERVICEID_IAP_BASEURL = "iap.baseurl"
+        const val SERVICEID_PRX_ASSETS = "prxclient.assets"
+        const val SERVICEID_PRX_DISCLAIMERS= "prxclient.disclaimers"
+        const val SERVICEID_PRX_SUMMARY_LIST = "prxclient.summarylist"
     }
 
     fun getListOfServiceID() : ArrayList<String> {
-        val SERVICE_ID = "iap.baseurl"
         val listOFServiceID = mutableListOf<String>()
-        listOFServiceID.add(SERVICE_ID)
+        listOFServiceID.add(SERVICEID_IAP_BASEURL)
+        listOFServiceID.add(SERVICEID_PRX_ASSETS)
+        listOFServiceID.add(SERVICEID_PRX_DISCLAIMERS)
+        listOFServiceID.add(SERVICEID_PRX_SUMMARY_LIST)
         return listOFServiceID as ArrayList<String>
     }
 }

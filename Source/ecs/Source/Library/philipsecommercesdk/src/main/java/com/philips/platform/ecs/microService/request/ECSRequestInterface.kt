@@ -24,7 +24,6 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
     }
     fun  getURL(): String
 
-    fun  getServiceID() :String
 
     fun  getReplaceURLMap():MutableMap<String,String>{
 

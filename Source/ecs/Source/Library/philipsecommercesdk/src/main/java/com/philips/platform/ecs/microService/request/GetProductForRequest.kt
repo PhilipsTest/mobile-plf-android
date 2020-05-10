@@ -33,10 +33,6 @@ class GetProductForRequest(private val ctn: String, private val ecsCallback: ECS
         return url.replaceParam(getReplaceURLMap())
     }
 
-    override fun getServiceID(): String {
-        return "ecs.productForCTN"
-    }
-
     override fun getReplaceURLMap(): MutableMap<String, String> {
         val replaceURLMap = super.getReplaceURLMap()
         replaceURLMap["ctn"] = ctn.replace('/', '_')

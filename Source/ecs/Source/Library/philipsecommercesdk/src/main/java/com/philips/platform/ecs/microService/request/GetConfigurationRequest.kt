@@ -27,9 +27,6 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Ex
         return getRawConfigUrl()
     }
 
-    override fun getServiceID(): String {
-        TODO("Not yet implemented")
-    }
 
     override fun getReplaceURLMap(): MutableMap<String, String> {
         TODO("Not yet implemented")

@@ -9,13 +9,11 @@
  *
  *
  */
-
-package com.philips.platform.ecs.microService.model.product
+package com.philips.platform.ecs.microService.model.disclaimer
 
 import android.os.Parcelable
-import com.google.gson.Gson
 import kotlinx.android.parcel.Parcelize
-import org.json.JSONObject
+import java.io.Serializable
 
 @Parcelize
-data class ECSProduct(val attributes: Attributes?,val id: String?,val type: String?) : Parcelable
+data class DisclaimerModel(var success :Boolean = false,var data: Data?) : Parcelable

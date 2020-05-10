@@ -16,9 +16,15 @@ import android.util.Base64
 import com.android.volley.VolleyError
 import com.google.gson.Gson
 import org.json.JSONObject
+import kotlin.Exception
 
-fun<T> JSONObject.getData(classOfT: Class<T>) : T{
-    return Gson().fromJson(this.toString(),classOfT)
+fun<T> JSONObject.getData(classOfT: Class<T>) : T?{
+    try {
+        return Gson().fromJson(this.toString(),classOfT)
+    }catch (e : Exception){
+        return null
+    }
+
 }
 
 fun String.replaceParam(replaceMap:Map<String,String>): String{
