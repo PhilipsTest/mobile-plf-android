@@ -37,6 +37,7 @@ import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_HOLIDA
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_WEEK_WORKING_HOUR
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_NUMBER
+import com.philips.platform.mec.utils.MECutility
 
 class MECOrderDetailFragment : MecBaseFragment() {
 
@@ -94,6 +95,8 @@ class MECOrderDetailFragment : MecBaseFragment() {
         mecOrderDetailViewModel.mecError.observe(viewLifecycleOwner, this)
         ecsOrders = arguments?.getSerializable(MECConstant.MEC_ORDERS) as ECSOrders?
         binding.ecsOrders = ecsOrders
+        binding.cardInfo = ecsOrders?.orderDetail?.paymentInfo?.let { MECutility().constructCardDetails(it) }
+        binding.cardExpiry = ecsOrders?.orderDetail?.paymentInfo?.let { MECutility().constructCardValidityDetails(it) }
         updateUI()
         val subCategory = mecOrderDetailService.getProductSubcategory(ecsOrders?.orderDetail)
         showProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
@@ -151,10 +154,6 @@ class MECOrderDetailFragment : MecBaseFragment() {
             myintent.data = Uri.parse("tel:" + phone!!)
             myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(myintent)
-
-           /* val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone))
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            context?.let { startActivity(it, intent, null) }*/
         } catch (e: NullPointerException) {
         }
     }

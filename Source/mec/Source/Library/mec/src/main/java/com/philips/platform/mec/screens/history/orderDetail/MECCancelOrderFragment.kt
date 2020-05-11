@@ -27,7 +27,8 @@ class MECCancelOrderFragment : MecBaseFragment() {
 
 
         val arguments = arguments
-        binding.orderNumber= arguments?.getString(MECConstant.MEC_ORDER_NUMBER)
+
+        binding.orderNumber=  arguments?.getString(MECConstant.MEC_ORDER_NUMBER)
 
         var contactPhone: ContactPhone? = null
         if (arguments != null && arguments.containsKey(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE)) {

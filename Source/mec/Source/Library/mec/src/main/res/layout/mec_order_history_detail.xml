@@ -28,7 +28,13 @@
             name="contactPhone"
             type="com.philips.cdp.prxclient.datamodels.contacts.ContactPhone" />
 
+        <variable
+            name="CardInfo"
+            type="CharSequence" />
 
+        <variable
+            name="CardExpiry"
+            type="CharSequence" />
 
         <import type="android.view.View" />
     </data>
@@ -271,6 +277,7 @@
                     android:layout_marginTop="@dimen/iap_margin_10dp"
                     android:layout_marginEnd="@dimen/border16_margin_left_right"
                     android:gravity="start"
+                    android:text="@{CardInfo}"
                     android:visibility="@{ecsOrders.orderDetail.paymentInfo !=null ? View.VISIBLE : View.GONE, default = gone }"
                      />
 
@@ -285,6 +292,7 @@
                     android:gravity="start"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                     android:textSize="12sp"
+                    android:text="@{CardExpiry}"
                     android:visibility="@{ecsOrders.orderDetail.paymentInfo.expiryMonth !=null ? View.VISIBLE : View.GONE, default = gone }"
                     />
 
@@ -332,7 +340,6 @@
                     android:layout_below="@+id/tv_applied_voucher_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp"
                     android:nestedScrollingEnabled="false"
                     android:visibility="@{ecsOrders.orderDetail.appliedVouchers.size() > 0 ? View.VISIBLE : View.GONE, default = gone}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -435,7 +442,7 @@
                 android:layout_marginLeft="@dimen/iap_shopping_cart_btn_margin"
                 android:layout_marginTop="@dimen/iap_shopping_cart_btn_margin"
                 android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
-                android:layout_marginBottom="@dimen/iap_shopping_cart_btn_margin"
+                android:layout_marginBottom="@dimen/border8_margin"
                 android:enabled="true"
                 android:clickable="true"
                 android:text="@string/mec_cancel_order"

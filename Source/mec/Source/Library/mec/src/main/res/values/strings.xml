@@ -168,6 +168,7 @@
     <string name="mec_cancel_order_dls_for_your_ref_sg">For your reference, your order number is</string>
     <string name="mec_cancel_your_order">Cancel your order</string>
     <string name="mec_order_details">Order details</string>
+    <string name="mec_call">Call</string>
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>

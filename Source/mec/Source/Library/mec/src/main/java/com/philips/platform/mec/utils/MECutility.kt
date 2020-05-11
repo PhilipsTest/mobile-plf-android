@@ -436,7 +436,7 @@ class MECutility {
 
     fun constructCardDetails(paymentInfo: PaymentInfo): CharSequence? {
         var formattedCardDetail = ""
-        val cardType = if (paymentInfo.cardType != null) paymentInfo.cardType.name else ""
+        val cardType = if (paymentInfo.cardType != null) paymentInfo.cardType.code else ""
         val cardNumber = if (paymentInfo.cardNumber != null) paymentInfo.cardNumber else ""
         formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
         return formattedCardDetail
