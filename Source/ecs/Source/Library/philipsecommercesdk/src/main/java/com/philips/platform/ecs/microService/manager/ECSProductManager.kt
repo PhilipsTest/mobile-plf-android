@@ -53,4 +53,17 @@ class ECSProductManager {
         }).executeRequest()
     }
 
+    fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
+        var ecsProductList = mutableListOf<ECSProduct>()
+        for (ctn in ctns){
+            var ecsProduct = ECSProduct(null,ctn,null,null)
+            ecsProductList.add(ecsProduct)
+        }
+        GetProductSummaryRequest(ecsProductList,ecsCallback).executeRequest()
+    }
+
+    fun fetchProductDetails(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>) {
+
+    }
+
 }

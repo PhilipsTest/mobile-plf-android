@@ -13,7 +13,7 @@ import com.philips.platform.ecs.util.ECSConfiguration;
 
 public class ECSURLBuilder implements URLProvider {
 
-    public static final String SUFFIX_CONFIGURATION = "inAppConfig";
+    private static final String SUFFIX_CONFIGURATION = "inAppConfig";
 
     public static final String WEBROOT = "pilcommercewebservices";
     public static final String WEBROOT_OAUTH = "authorizationserver";

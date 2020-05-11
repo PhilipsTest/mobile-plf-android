@@ -43,4 +43,14 @@ class MicroECSServices(appInfra: AppInfra) {
         ecsProductManager.getProductFor(ctn, eCSCallback)
     }
 
+    @Throws(ECSException::class)
+    fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
+        ecsProductManager.fetchProductSummaries(ctns,ecsCallback)
+    }
+
+    @Throws(ECSException::class)
+    fun fetchProductDetails(product:ECSProduct, ecsCallback:ECSCallback<ECSProduct, ECSError>) {
+        ecsProductManager.fetchProductDetails(product,ecsCallback)
+    }
+
 }
