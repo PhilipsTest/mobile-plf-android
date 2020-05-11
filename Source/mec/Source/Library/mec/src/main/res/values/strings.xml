@@ -4,6 +4,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+    <string name="mec_track_order">Track order</string>
     <string name="mec_accept_terms">By placing the order, I accept Philips’</string>
     <string name="mec_accepted_codes">Accepted codes</string>
     <string name="mec_add">Add</string>
@@ -28,8 +29,14 @@
     <string name="mec_billing_address">Billing address</string>
     <string name="mec_blank_cvv_error">Please enter a valid CVV</string>
     <string name="mec_buy_from_retailers">Buy From Retailer</string>
+    <string name="mec_call">Call</string>
     <string name="mec_cancel">Cancel</string>
+    <string name="mec_cancel_order">Cancel my order</string>
+    <string name="mec_cancel_order_dls_for_your_ref_sg">For your reference, your order number is %s</string>
+    <string name="mec_cancel_order_dls_msg">You can cancel your order before it is shipped. Our consumer care team can assist you with this.</string>
+    <string name="mec_cancel_order_number">Cancel order number </string>
     <string name="mec_cancel_payment">Do you want to cancel the payment? Your cart will be empty.</string>
+    <string name="mec_cancel_your_order">Cancel your order</string>
     <string name="mec_card_holder_first_name">Card Holder First name</string>
     <string name="mec_card_holder_last_name">Card Holder Last name</string>
     <string name="mec_cart_count_exceed_message">Cannot add more than %d products in Cart</string>
@@ -43,6 +50,7 @@
     <string name="mec_confirmation">Confirmation</string>
     <string name="mec_confirmation_email_msg">You will receive a confirmation e-mail shortly at</string>
     <string name="mec_contact_details">Contact details</string>
+    <string name="mec_contact_philips_consumer_care">Please contact Philips Consumer Care %s for further support.</string>
     <string name="mec_continue">Continue</string>
     <string name="mec_continue_checkout">Continue to checkout</string>
     <string name="mec_continue_shopping">Continue shopping</string>
@@ -59,6 +67,7 @@
     <string name="mec_delivery_method">Delivery Method</string>
     <string name="mec_discount">discount</string>
     <string name="mec_empty_cart">Your shopping cart is currently empty.</string>
+    <string name="mec_empty_purchase_history">If you placed your order using this app, please check that you have received an order confirmation email.</string>
     <string name="mec_enter_code">Enter gift code</string>
     <string name="mec_faq">FAQ</string>
     <string name="mec_features">Features</string>
@@ -82,12 +91,14 @@
     <string name="mec_more_info">for more info</string>
     <string name="mec_mr">Mr</string>
     <string name="mec_mrs">Ms</string>
+    <string name="mec_my_orders">My orders</string>
     <string name="mec_new_card_text">New Card</string>
     <string name="mec_new_payment_disclaimer">This payment detail will be saved once you place an order</string>
     <string name="mec_no_address_select_message">Please select a Shipping Address</string>
     <string name="mec_no_delivery_mode_error_message">Please select a Delivery Mode</string>
     <string name="mec_no_internet">Your internet connection does not seem to be working. Please check and try again</string>
     <string name="mec_no_payment_error_message">Please select a Payment Method</string>
+    <string name="mec_no_philips_shop">Philips shop is not available for the selected country, only retailer mode is available</string>
     <string name="mec_no_product_available">No product found in your Store.</string>
     <string name="mec_no_result">0 results found for</string>
     <string name="mec_no_review_available">No Reviews Found</string>
@@ -95,9 +106,16 @@
     <string name="mec_ok">OK</string>
     <string name="mec_online_retailers">Online Retailers</string>
     <string name="mec_only">Only</string>
+    <string name="mec_order_detail_unavailable">Order Detail is unavailable</string>
+    <string name="mec_order_details">Order details</string>
+    <string name="mec_order_not_received_items">Order not received</string>
+    <string name="mec_order_number_msg">Order number: %s</string>
     <string name="mec_order_pay">Order and pay</string>
+    <string name="mec_order_state">Your order is %s</string>
     <string name="mec_order_summary">Order Summary</string>
     <string name="mec_order_summary_shipping">Delivery information</string>
+    <string name="mec_orders">Orders</string>
+    <string name="mec_other_channel_purchase">If you placed your order using another retailer then your order may not show up here.</string>
     <string name="mec_out_of_stock">Out of stock</string>
     <string name="mec_page">page</string>
     <string name="mec_payment">Payment</string>
@@ -140,35 +158,15 @@
     <string name="mec_threshold_title">Request threshold reached</string>
     <string name="mec_time_out_error">Network timeout reached!</string>
     <string name="mec_town">Town/City</string>
-    <string name="mec_town_error">Please enter a valid town</string>f
+    <string name="mec_town_error">Please enter a valid town</string>
     <string name="mec_town_hint">Enter your town or city</string>
     <string name="mec_use_as_billing_address">Use this address as my billing address</string>
     <string name="mec_valid_until">Valid until</string>
     <string name="mec_your_order_number">Your order number is</string>
     <string name="mec_zero_results_message">This filters our product list. Please check that there are no typos in your filter term</string>
-    <string name="mec_no_philips_shop">Philips shop is not available for the selected country, only retailer mode is available</string>
-
-    <string name="mec_order_state" translatable="false">Your order is %s</string>
-    <string name="mec_order_number_msg" translatable="false">Order number: %s</string>
-    <string name="mec_order_not_received_items" translatable="false">Order not received</string>
-    <string name="mec_empty_purchase_history" translatable="false">If you placed your order using this app, please check that you have received an order confirmation email.</string>
-    <string name="mec_other_channel_purchase" translatable="false">If you placed your order using another retailer then your order may not show up here.</string>
-    <string name="mec_contact_consumer_care_for_support" translatable="false">Please contact Philips Consumer care for further support.</string>
-    <string name="mec_call_us" translatable="false">Call us</string>
-    <string name="mec_order_detail_unavailable" translatable="false">"Order Detail is unavailable"</string>
-    <string name="mec_my_orders" translatable="false">"My orders"</string>
-    <string name="mec_orders" translatable="false">"Orders"</string>
-
     <!--new strings-->
-    <string name="mec_cancel_order">Cancel my order</string>
-    <string name="mec_track_order">Track order</string>
-    <string name="mec_contact_philips_consumer_care">Please contact Philips Consumer Care %s for further support.</string>
-    <string name="mec_cancel_order_number">Cancel order number </string>
-    <string name="mec_cancel_order_dls_msg">You can cancel your order before it is shipped. Our consumer care team can assist you with this.</string>
-    <string name="mec_cancel_order_dls_for_your_ref_sg">For your reference, your order number is</string>
-    <string name="mec_cancel_your_order">Cancel your order</string>
-    <string name="mec_order_details">Order details</string>
-    <string name="mec_call">Call</string>
+
+
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>

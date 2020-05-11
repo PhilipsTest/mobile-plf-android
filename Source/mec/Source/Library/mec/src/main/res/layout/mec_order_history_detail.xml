@@ -135,7 +135,7 @@
                         android:layout_margin="@dimen/border16_margin_left_right"
                         android:singleLine="false"
                         android:lineSpacingExtra="2dp"
-                        android:text='@{@string/mec_contact_consumer_care_for_support + @string/mec_empty_space + contactPhone.phoneNumber?? ""}'
+                        android:text="@{String.format(@string/mec_contact_philips_consumer_care, contactPhone.phoneNumber)}"
                         android:textSize="@dimen/title" />
 
                     <com.philips.platform.uid.view.widget.Label
