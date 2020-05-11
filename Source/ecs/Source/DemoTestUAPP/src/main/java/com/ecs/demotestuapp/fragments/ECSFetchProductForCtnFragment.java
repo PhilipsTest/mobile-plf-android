@@ -17,6 +17,7 @@ import android.widget.EditText;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
 import com.philips.platform.ecs.microService.model.product.ECSProduct;
 
@@ -43,7 +44,7 @@ public class ECSFetchProductForCtnFragment extends BaseAPIFragment {
         String ctn = etCTN.getText().toString().trim();
 
         try {
-            microECSServices.fetchProduct(ctn, new com.philips.platform.ecs.microService.callBack.ECSCallback<ECSProduct, Exception>() {
+            microECSServices.fetchProduct(ctn, new com.philips.platform.ecs.microService.callBack.ECSCallback<ECSProduct, ECSError>() {
                 @Override
                 public void onResponse(ECSProduct result) {
                     gotoResultActivity(getJsonStringFromObject(result));
@@ -51,8 +52,8 @@ public class ECSFetchProductForCtnFragment extends BaseAPIFragment {
                 }
 
                 @Override
-                public void onFailure(Exception ecsError) {
-                    String errorString = ecsError.getMessage();
+                public void onFailure(ECSError ecsError) {
+                    String errorString = ecsError.getErrorMessage();
                     gotoResultActivity(errorString);
                     getProgressBar().setVisibility(View.GONE);
                 }

@@ -14,10 +14,11 @@ package com.philips.platform.ecs.microService.request
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
+import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ServerError
 import com.philips.platform.ecs.microService.model.asset.AssetModel
 import com.philips.platform.ecs.microService.model.asset.Assets
-import com.philips.platform.ecs.microService.prx.serviceDiscovery.PrxConstants
+import com.philips.platform.ecs.microService.prx.PrxConstants
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.getJsonError
@@ -25,16 +26,20 @@ import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 import java.util.HashMap
 
-class GetProductAssetRequest(val ctn: String, private val ecsCallback: ECSCallback<Assets?, Exception>) : ECSJsonRequest() {
+class GetProductAssetRequest(val ctn: String, private val ecsCallback: ECSCallback<Assets?, ECSError>) : ECSJsonRequest() {
 
     override fun getURL(): String {
-        var url = ECSDataHolder.urlMap?.get(ECSConstants.SERVICEID_PRX_ASSETS)?.configUrls ?: ""
+        var url = ECSDataHolder.urlMap?.get(getServiceID())?.configUrls ?: ""
         return url.replaceParam(getReplaceURLMap())
+    }
+
+    override fun getServiceID(): String {
+        return ECSConstants.SERVICEID_PRX_ASSETS
     }
 
     override fun onErrorResponse(error: VolleyError) {
         var serverError = error.getJsonError()?.getData(ServerError::class.java).toString()
-        ecsCallback.onFailure(Exception(serverError))
+        ecsCallback.onFailure(ECSError(serverError))
     }
 
     override fun onResponse(response: JSONObject) {

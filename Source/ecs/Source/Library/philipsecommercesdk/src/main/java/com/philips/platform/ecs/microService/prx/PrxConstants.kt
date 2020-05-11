@@ -9,7 +9,7 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.prx.serviceDiscovery
+package com.philips.platform.ecs.microService.prx
 
 object PrxConstants {
     const val PRX_NETWORK_WRAPPER = "PRXNetworkWrapper"

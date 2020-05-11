@@ -9,10 +9,14 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.prx.response
 
-import org.json.JSONObject
+package com.philips.platform.ecs.microService.model.summary
 
-abstract class ResponseData {
-    abstract fun parseJsonResponseData(response: JSONObject?): ResponseData?
-}
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Brand(
+    val partnerBrandType: String?,
+    val partnerLogo: String?
+): Parcelable

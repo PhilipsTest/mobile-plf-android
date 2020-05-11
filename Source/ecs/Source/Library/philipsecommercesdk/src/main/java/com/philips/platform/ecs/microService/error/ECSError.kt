@@ -11,7 +11,7 @@
  */
 package com.philips.platform.ecs.microService.error
 
-class ECSError(var errorcode: Int,var errorMessage : String, val errorType: ECSErrorType){
-
-
+class ECSError( var errorMessage : String) {
+    var errorcode: Int = ECSErrorType.ECSsomethingWentWrong.errorCode
+    var errorType: ECSErrorType = ECSErrorType.ECSsomethingWentWrong
 }

@@ -10,11 +10,17 @@
  *
  */
 
-package com.philips.platform.ecs.microService.model.product
+package com.philips.platform.ecs.microService.model.summary
 
 import android.os.Parcelable
-import com.philips.platform.ecs.microService.model.summary.Summary
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ECSProduct(var attributes: Attributes?,var id: String?,var type: String?,var summary: Summary?) : Parcelable
+data class PriceX(
+    val currencyCode: String?,
+    val displayPrice: String?,
+    val displayPriceType: String?,
+    val formattedDisplayPrice: String?,
+    val formattedPrice: String?,
+    val productPrice: String?
+):Parcelable

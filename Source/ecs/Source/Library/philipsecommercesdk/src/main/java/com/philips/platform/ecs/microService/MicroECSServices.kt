@@ -14,8 +14,10 @@ package com.philips.platform.ecs.microService
 
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
-import com.philips.platform.ecs.microService.manager.ECSManager
+import com.philips.platform.ecs.microService.manager.ECSConfigManager
+import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.util.ECSDataHolder
@@ -23,22 +25,22 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class MicroECSServices(appInfra: AppInfra) {
 
-    private var ecsManager : ECSManager
+    private var ecsConfigManager = ECSConfigManager()
+    private var ecsProductManager = ECSProductManager()
     init {
         ECSDataHolder.appInfra = appInfra
-        ecsManager = ECSManager()
     }
 
-    fun configureECS(ecsCallback: ECSCallback<Boolean, Exception>) {
-        ecsManager.configureECS(ecsCallback)
+    fun configureECS(ecsCallback: ECSCallback<Boolean, ECSError>) {
+        ecsConfigManager.configureECS(ecsCallback)
     }
 
-    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, Exception>) {
-        ecsManager.configureECSToGetConfiguration(ecsCallback)
+    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, ECSError>) {
+        ecsConfigManager.configureECSToGetConfiguration(ecsCallback)
     }
     @Throws(ECSException::class)
-    fun fetchProduct(ctn: String, eCSCallback:ECSCallback<ECSProduct, Exception>) {
-        ecsManager.getProductFor(ctn, eCSCallback)
+    fun fetchProduct(ctn: String, eCSCallback:ECSCallback<ECSProduct?, ECSError>) {
+        ecsProductManager.getProductFor(ctn, eCSCallback)
     }
 
 }

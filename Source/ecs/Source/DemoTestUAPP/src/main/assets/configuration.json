@@ -953,10 +953,10 @@
       ]
     },
     {
-      "name": "ECS Configure new Microservices",
+      "name": "PIL Configure new Microservices",
       "subgroup": [
         {
-          "name": "ECS configureECS",
+          "name": "configureECS",
           "apiNumber": 40,
           "editText": 0,
           "spinner": 0,
@@ -966,7 +966,7 @@
           "switches": []
         },
         {
-          "name": "ECS ConfigureECSWithConfiguration",
+          "name": "ConfigureECSWithConfiguration",
           "apiNumber": 41,
           "editText": 0,
           "spinner": 0,
@@ -978,7 +978,7 @@
       ]
     },
     {
-      "name": "ECS Product Microservices",
+      "name": "PIL Product Microservices",
       "subgroup": [
         {
           "name": "ECS fetchProductForCTN",

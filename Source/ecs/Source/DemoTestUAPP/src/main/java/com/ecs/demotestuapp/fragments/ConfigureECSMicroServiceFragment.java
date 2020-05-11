@@ -15,6 +15,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 
 import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.error.ECSError;
 
 public class ConfigureECSMicroServiceFragment extends BaseAPIFragment {
 
@@ -22,7 +23,7 @@ public class ConfigureECSMicroServiceFragment extends BaseAPIFragment {
 
         MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
 
-        microECSServices.configureECS(new com.philips.platform.ecs.microService.callBack.ECSCallback<Boolean, Exception>() {
+        microECSServices.configureECS(new com.philips.platform.ecs.microService.callBack.ECSCallback<Boolean, ECSError>() {
             @Override
             public void onResponse(Boolean result) {
                 gotoResultActivity(""+result);
@@ -30,8 +31,8 @@ public class ConfigureECSMicroServiceFragment extends BaseAPIFragment {
             }
 
             @Override
-            public void onFailure(Exception ecsError) {
-                gotoResultActivity(ecsError.getMessage());
+            public void onFailure(ECSError ecsError) {
+                gotoResultActivity(ecsError.getErrorMessage());
                 getProgressBar().setVisibility(View.GONE);
             }
         });

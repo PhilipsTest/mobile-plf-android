@@ -15,10 +15,11 @@ package com.philips.platform.ecs.microService.callBack
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
 import com.philips.platform.ecs.microService.constant.ECSConstants
-import com.philips.platform.ecs.microService.manager.ECSManager
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
-class ServiceDiscoveryForConfigBoolCallback(val ecsManager: ECSManager,val ecsCallback: ECSCallback<Boolean, Exception>) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
+class ServiceDiscoveryForConfigBoolCallback(val ecsConfigManager: ECSConfigManager, val ecsCallback: ECSCallback<Boolean, ECSError>) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
 
     override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
 
@@ -33,11 +34,12 @@ class ServiceDiscoveryForConfigBoolCallback(val ecsManager: ECSManager,val ecsCa
         if(configUrls==null || ECSDataHolder.getPropositionId() == null){
             ecsCallback.onResponse(false)
         }else{
-            ecsManager.getConfigBoolean(ecsCallback)
+            ecsConfigManager.getConfigBoolean(ecsCallback)
         }
     }
 
     override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
-        ecsCallback.onFailure(Exception(message))
+        var notNullMessage = message?:""
+        ecsCallback.onFailure(ECSError(notNullMessage))
     }
 }

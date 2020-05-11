@@ -16,6 +16,7 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.callBack.ServiceDiscoveryForConfigBoolCallback
 import com.philips.platform.ecs.microService.callBack.ServiceDiscoveryForConfigObjectCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
+import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.request.GetConfigurationRequest
@@ -23,43 +24,33 @@ import com.philips.platform.ecs.microService.request.GetProductForRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 
-class ECSManager {
+class ECSConfigManager {
 
-
-
-    // config ==================
-    fun configureECS(ecsCallback: ECSCallback<Boolean, Exception>) {
+    fun configureECS(ecsCallback: ECSCallback<Boolean, ECSError>) {
         ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryForConfigBoolCallback(this,ecsCallback), null)
     }
 
-    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, Exception>) {
+    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, ECSError>) {
         ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryForConfigObjectCallback(this,ecsCallback), null)
     }
 
-    fun getConfigObject(ecsCallback: ECSCallback<ECSConfig, Exception>){
+    fun getConfigObject(ecsCallback: ECSCallback<ECSConfig, ECSError>){
         GetConfigurationRequest(ecsCallback).executeRequest()
     }
 
-    fun getConfigBoolean(ecsCallback: ECSCallback<Boolean, Exception>){
+    fun getConfigBoolean(ecsCallback: ECSCallback<Boolean, ECSError>){
 
-        GetConfigurationRequest(object : ECSCallback<ECSConfig, Exception>{
+        GetConfigurationRequest(object : ECSCallback<ECSConfig, ECSError>{
             override fun onResponse(result: ECSConfig) {
                 ecsCallback.onResponse(result.isHybris)
             }
 
-            override fun onFailure(ecsError: Exception) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun onFailure(ecsError: ECSError) {
+                ecsCallback.onFailure(ecsError)
             }
 
 
         }).executeRequest()
-    }
-
-    // ============ config ends
-
-    fun getProductFor(ctn: String, eCSCallback:ECSCallback<ECSProduct,Exception>) {
-        val ecsException = ECSApiValidator().getECSException(APIType.LocaleAndHybris)
-        ecsException?.let { throw ecsException } ?: kotlin.run { GetProductForRequest(ctn,eCSCallback).executeRequest() }
     }
 
 }

@@ -15,11 +15,12 @@ package com.philips.platform.ecs.microService.callBack
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
 import com.philips.platform.ecs.microService.constant.ECSConstants
-import com.philips.platform.ecs.microService.manager.ECSManager
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
-class ServiceDiscoveryForConfigObjectCallback(val ecsManager: ECSManager,val ecsCallback: ECSCallback<ECSConfig, Exception>) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
+class ServiceDiscoveryForConfigObjectCallback(val ecsConfigManager: ECSConfigManager, val ecsCallback: ECSCallback<ECSConfig, ECSError>) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
 
     override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
 
@@ -37,11 +38,12 @@ class ServiceDiscoveryForConfigObjectCallback(val ecsManager: ECSManager,val ecs
             ecsConfig.locale = locale
             ecsCallback.onResponse(ecsConfig)
         }else{
-            ecsManager.getConfigObject(ecsCallback)
+            ecsConfigManager.getConfigObject(ecsCallback)
         }
     }
 
     override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
-        ecsCallback.onFailure(Exception(message))
+        var message = message?:""
+        ecsCallback.onFailure(ECSError(message))
     }
 }

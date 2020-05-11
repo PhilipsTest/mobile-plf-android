@@ -13,6 +13,7 @@ package com.philips.platform.ecs.microService.request
 
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ServerError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
@@ -20,11 +21,15 @@ import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.getJsonError
 import org.json.JSONObject
 
-class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Exception>) : ECSJsonRequest() {
+class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, ECSError>) : ECSJsonRequest() {
 
 
     override fun getURL(): String {
         return getRawConfigUrl()
+    }
+
+    override fun getServiceID(): String {
+        TODO("Not yet implemented")
     }
 
 
@@ -35,7 +40,7 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, Ex
     override fun onErrorResponse(error: VolleyError?) {
         val jsonError = error?.getJsonError()
         val hybrisError = jsonError?.getData(ServerError::class.java)
-        eCSCallback.onFailure(Exception(hybrisError.toString()))
+        eCSCallback.onFailure(ECSError(hybrisError.toString()))
     }
     override fun onResponse(response: JSONObject?) {
         val config = response?.getData(ECSConfig::class.java)
