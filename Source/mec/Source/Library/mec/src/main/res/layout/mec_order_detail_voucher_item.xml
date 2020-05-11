@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/uid_level_white"
-        android:paddingTop="3dp">
+        >
 
         <RelativeLayout
             android:id="@+id/mec_applied_vocuher_layout"
@@ -34,9 +34,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/border16_margin_left_right"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/iap_text_size_16sp"
+                android:paddingStart="@dimen/iap_text_size_16sp"
                 android:paddingTop="@dimen/iap_margin_10dp"
-                android:paddingRight="@dimen/iap_text_size_16sp"
+                android:paddingEnd="@dimen/iap_text_size_16sp"
                 android:paddingBottom="@dimen/iap_margin_10dp">
 
                 <com.philips.platform.uid.view.widget.Label
