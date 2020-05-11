@@ -48,13 +48,12 @@
             android:textSize="@dimen/iap_text_size_16sp" />
 
         <com.philips.platform.uid.view.widget.Label
-            android:id="@+id/iap_cancel_order_ref"
+            android:id="@+id/mec_cancel_order_ref"
             style="@style/mecCentralesansBookFont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/border16_margin_left_right"
             android:lineSpacingExtra="2dp"
-            android:text="@{@string/mec_cancel_order_dls_for_your_ref_sg + @string/mec_empty_space+ orderNumber}"
             android:textColor="?attr/uidContentItemSecondaryNormalTextColor"
             android:textSize="@dimen/iap_text_size_16sp" />
 
@@ -95,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:text='@{@string/mec_call_us + @string/mec_empty_space + contactPhone.phoneNumber?? ""}'
+                android:text='@{@string/mec_call + @string/mec_empty_space + contactPhone.phoneNumber?? ""}'
                 app:uidComponentType="Primary" />
         </LinearLayout>
 

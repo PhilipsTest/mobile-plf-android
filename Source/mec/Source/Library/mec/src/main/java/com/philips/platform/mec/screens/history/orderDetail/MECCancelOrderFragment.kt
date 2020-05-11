@@ -2,7 +2,10 @@ package com.philips.platform.mec.screens.history.orderDetail
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +31,8 @@ class MECCancelOrderFragment : MecBaseFragment() {
 
         val arguments = arguments
 
-        binding.orderNumber=  arguments?.getString(MECConstant.MEC_ORDER_NUMBER)
+        var orderNumber: String? = arguments?.getString(MECConstant.MEC_ORDER_NUMBER)
+        binding.orderNumber =  orderNumber
 
         var contactPhone: ContactPhone? = null
         if (arguments != null && arguments.containsKey(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE)) {
@@ -43,7 +47,15 @@ class MECCancelOrderFragment : MecBaseFragment() {
         }
         binding.contactPhone = contactPhone
         binding.mecCancelOrderCallBtn.setOnClickListener { callPhone(binding.contactPhone!!.phoneNumber) }
-
+        
+        val yourRefText : String= getString(R.string.mec_cancel_order_dls_for_your_ref_sg)+" "
+        val boldSpanned: Spanned
+        boldSpanned = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml("$yourRefText  <b>$orderNumber</b>", Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            Html.fromHtml("$yourRefText  <b>$orderNumber</b>")
+        }
+        binding.mecCancelOrderRef.text=boldSpanned
 
         return binding.root
     }

@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/border16_margin_left_right"
                         android:clickable="true"
-                        android:text='@{@string/mec_call_us + @string/mec_empty_space + contactPhone.phoneNumber?? ""}'
+                        android:text='@{@string/mec_call + @string/mec_empty_space + contactPhone.phoneNumber?? ""}'
                         app:uidComponentType="Primary" />
                 </LinearLayout>
 
