@@ -215,9 +215,12 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
     implementation project(strings.mecuapp.projectName)
-    implementation (philipsdeps.csw){
+    /*implementation (philipsdeps.csw){
         exclude group: 'com.philips.platform'
-    }
+    }*/
+
+    implementation fileTree(include: ['*.aar'], dir: 'lib')
+
     if (useprojectdependencies) {
 
         implementation project(strings.mec.projectName)
