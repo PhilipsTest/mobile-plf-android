@@ -20,7 +20,6 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
     private String TAG = HsdpAuthenticationManagementClient.class.getSimpleName();
     private HSDPConfiguration hsdpConfiguration;
     String  appName = "";
-
     String baseUrl = "";
 
     HsdpAuthenticationManagementClient(HSDPConfiguration hsdpConfiguration, String hsdpAppName, String url) {
@@ -28,31 +27,33 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
         this.hsdpConfiguration = hsdpConfiguration;
         appName = hsdpAppName;
         baseUrl = url;
-
     }
 
     Map<String, Object> loginSocialProviders(String email, String socialAccessToken, String secret) {
         String apiEndpoint = "/authentication/login/social";
         String queryParams = "applicationName=" + appName;
+        String url = baseUrl;
         Map<String, String> headers = new LinkedHashMap<String, String>();
         headers.put("accessToken", socialAccessToken);
         headers.put("refreshSecret", secret);
         headers.put("Api-version", "2");
         Map<String, String> body = new LinkedHashMap<String, String>();
         body.put("loginId", email);
-        return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, body,baseUrl);
+        return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, body,url);
     }
 
     Map<String, Object> logout(String userId, String accessToken) {
         String apiEndpoint = "/authentication/users/" + userId + "/logout";
         String queryParams = "applicationName=" + appName;
+        String url = baseUrl;
         Map<String, String> headers = new LinkedHashMap<String, String>();
         headers.put("accessToken", accessToken);
-        return sendRestRequest(apiEndpoint, queryParams, headers, null, baseUrl);
+        return sendRestRequest(apiEndpoint, queryParams, headers, null, url);
     }
 
     Map<String, Object> refreshSecret(String userUUID, String accessToken, String refreshSecret) {
         String apiEndpoint = "/authentication/users/" + userUUID + "/refreshAccessToken";
+        String url = baseUrl;
         String queryParams = "applicationName=" + appName;
         Map<String, String> headers = new LinkedHashMap<String, String>();
 
@@ -63,7 +64,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
         headers.put("api-version", "2");
         headers.put("accessToken", accessToken);
 
-        return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, null,baseUrl);
+        return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, null,url);
     }
 
     private String createRefreshSignature(String refresh_Secret, String stringToSign) {
