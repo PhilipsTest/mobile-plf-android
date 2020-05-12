@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center"
                 android:gravity="center"
-                android:paddingEnd="@dimen/border16_margin_left_right"
+                android:layout_marginEnd="@dimen/border16_margin_left_right"
                 android:textColor="?attr/uidListItemDefaultNormalOffIconColor"
                 android:textSize="@dimen/iap_text_size_16sp"
                 app:rotation="@{ecsOrders.code}"

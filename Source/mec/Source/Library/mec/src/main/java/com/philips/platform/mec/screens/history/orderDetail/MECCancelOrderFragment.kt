@@ -48,7 +48,7 @@ class MECCancelOrderFragment : MecBaseFragment() {
         binding.contactPhone = contactPhone
         binding.mecCancelOrderCallBtn.setOnClickListener { callPhone(binding.contactPhone!!.phoneNumber) }
         
-        val yourRefText : String= getString(R.string.mec_cancel_order_dls_for_your_ref_sg)+" "
+        val yourRefText : String= String.format(getString(R.string.mec_cancel_order_dls_for_your_ref_sg),"")
         val boldSpanned: Spanned
         boldSpanned = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml("$yourRefText  <b>$orderNumber</b>", Html.FROM_HTML_MODE_LEGACY)
