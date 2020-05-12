@@ -58,7 +58,7 @@ public class HsdpAuthenticationManagementClientTest extends TestCase {
         String queryParams = "applicationName=" + hsdpConfiguration.getHsdpAppName();
         Map<String, String> headers = new LinkedHashMap<String, String>();
         headers.put("accessToken", "accessToken");
-        Mockito.when(hsdpRequestClient.sendRestRequest(apiEndpoint, queryParams, headers, null))
+        Mockito.when(hsdpRequestClient.sendRestRequest(apiEndpoint, queryParams, headers, null, baseUrl))
                 .thenReturn(mock(Map.class));
         hsdpAuthenticationManagementClient.logout("xyz@gmail.com", "accessToken");
 

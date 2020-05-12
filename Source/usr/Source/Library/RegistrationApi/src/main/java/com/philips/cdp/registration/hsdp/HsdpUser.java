@@ -105,11 +105,12 @@ public class HsdpUser {
         if (networkUtility.isNetworkAvailable()) {
             final Handler handler = new Handler(Looper.getMainLooper());
 
+            String url = hsdpConfiguration.getHsdpBaseUrl();
             String name = hsdpConfiguration.getHsdpAppName();
 
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient
-                        = new HsdpAuthenticationManagementClient(hsdpConfiguration, name);
+                        = new HsdpAuthenticationManagementClient(hsdpConfiguration, name,url);
 
                 HsdpUserRecordV2 hsdpUserRecord = getHsdpUserRecord();
 
@@ -191,10 +192,12 @@ public class HsdpUser {
         if (networkUtility.isNetworkAvailable()) {
 
             String name = hsdpConfiguration.getHsdpAppName();
+            String url = hsdpConfiguration.getHsdpBaseUrl();
+
             new Thread(() -> {
 
                 HsdpAuthenticationManagementClient authenticationManagementClient =
-                        new HsdpAuthenticationManagementClient(hsdpConfiguration, name);
+                        new HsdpAuthenticationManagementClient(hsdpConfiguration, name,url);
                 Map<String, Object> dhpAuthenticationResponse = null;
 
                 HsdpUserRecordV2 hsdpUserRecord = getHsdpUserRecord();
@@ -409,11 +412,12 @@ public class HsdpUser {
         RLog.d(TAG, "HSDP login");
         if (networkUtility.isNetworkAvailable()) {
             final Handler handler = new Handler(Looper.getMainLooper());
+            String url = hsdpConfiguration.getHsdpBaseUrl();
             String name = hsdpConfiguration.getHsdpAppName();
 
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient =
-                        new HsdpAuthenticationManagementClient(hsdpConfiguration, name);
+                        new HsdpAuthenticationManagementClient(hsdpConfiguration, name,url);
                 final Map<String, Object> dhpAuthenticationResponse1 =
                         authenticationManagementClient.loginSocialProviders(email,
                                 accessToken, Jump.getRefreshSecret());
