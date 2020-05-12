@@ -329,15 +329,15 @@ class MECutility {
                         // No Internet: Information Error
                         //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                         //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
+                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
                         errorMessage = Acontext!!.getString(R.string.mec_no_internet)
                     } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                         //voucher apply fail:  User error
                         val errorMsg = mecError!!.exception!!.message.toString()
-                        errorString += errorMsg
+                        errorString +=errorMsg
                         MECAnalytics.trackUserError(errorString)
-                        errorMessage = mecError!!.exception!!.message.toString()
-                    } else {
+                        errorMessage=mecError!!.exception!!.message.toString()
+                    }else{
                         // Remaining all errors: Technical errors
                         errorMessage = mecError!!.exception!!.message.toString()
                         errorString += errorMessage
@@ -346,7 +346,7 @@ class MECutility {
                     }
 
                 } catch (e: Exception) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
                 }
             }
             if (showDialog.equals(true)) {
@@ -389,8 +389,8 @@ class MECutility {
                 val sse = SecureStorageInterface.SecureStorageError()
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
-                if (sse != null && sse.errorMessage != null && sse.errorCode != null) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError + ":" + other + sse.errorMessage + ":" + sse.errorCode)
+                if(sse!=null && sse.errorMessage!=null && sse.errorCode!=null) {
+                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + sse.errorMessage + ":" + sse.errorCode)
                 }
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
@@ -413,24 +413,15 @@ class MECutility {
         val line2 = ecsAddress.line2
         val town = ecsAddress.town
         val postalCode = ecsAddress.postalCode
-
-        formattedAddress = if (!houseNumber.isNullOrEmpty()) "$formattedAddress$houseNumber," else formattedAddress
-        formattedAddress = if (!line1.isNullOrEmpty()) "$formattedAddress$line1,\n" else formattedAddress
-        formattedAddress = if (!line2.isNullOrEmpty()) "$formattedAddress$line2,\n" else formattedAddress
-        formattedAddress = if (!town.isNullOrEmpty()) "$formattedAddress$town,\n" else formattedAddress
-        formattedAddress = if (!regionDisplayName.isNullOrEmpty()) "$formattedAddress$regionDisplayName, " else formattedAddress
-        formattedAddress = if (!postalCode.isNullOrEmpty()) "$formattedAddress$postalCode, " else formattedAddress
-        formattedAddress = if (!countryDisplayName.isNullOrEmpty()) formattedAddress + countryDisplayName else formattedAddress
-
+        formattedAddress = (houseNumber.validateStr()) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
+        formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+(countryDisplayName.validateStr())
         return formattedAddress
     }
-
-
     fun constructCardDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardDetail = ""
-        val cardType = if (mecPayment.ecsPayment.cardType != null) mecPayment.ecsPayment.cardType.name else ""
-        val cardNumber = if (mecPayment.ecsPayment.cardNumber != null) mecPayment.ecsPayment.cardNumber else ""
-        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
+        val cardType = (mecPayment.ecsPayment.cardType?.let { it.name } ?: run { "" })
+        val cardNumber = (mecPayment.ecsPayment.cardNumber?.validateStr())
+        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber?.takeLast(8)}"
         return formattedCardDetail
     }
 
@@ -444,8 +435,8 @@ class MECutility {
 
     fun constructCardValidityDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardValidityDetail = ""
-        val cardExpMon = if (mecPayment.ecsPayment.expiryMonth != null) mecPayment.ecsPayment.expiryMonth else ""
-        val cardExpYear = if (mecPayment.ecsPayment.expiryYear != null) mecPayment.ecsPayment.expiryYear else ""
+        val cardExpMon =  ( mecPayment.ecsPayment.expiryMonth.validateStr())
+        val cardExpYear =  ( mecPayment.ecsPayment.expiryYear.validateStr())
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
@@ -460,5 +451,8 @@ class MECutility {
         return formattedCardValidityDetail
     }
 
+    fun Any?.validateStr(): String {
+        return (this?.let { "$this,\n" } ?: run { "" })
+    }
 
 }

@@ -12,7 +12,7 @@ def static epochTime() {
 }
 
 
-ext.baseplatformversion = "2001.1" //platform initial version
+ext.baseplatformversion = "2002.0" //platform initial version
 ext.platformversion = baseplatformversion + "." + epochTime() // platform initial version appended with current timestamp.
 ext.platformversionsuffix = baseplatformversion + ".+"
 
@@ -185,7 +185,7 @@ ext.deps = [
         jackson_core                  : 'com.fasterxml.jackson.core:jackson-core:2.10.2',
         jackson_databind              : 'com.fasterxml.jackson.core:jackson-databind:2.10.2',
         junit                         : 'junit:junit:4.13',
-        libphonenumber                : 'com.googlecode.libphonenumber:libphonenumber:8.11.4',
+        libphonenumber                : 'com.googlecode.libphonenumber:libphonenumber:8.12.1',
         mockito                       : "org.mockito:mockito-core:${ext.versions.mockito}",
         mockito_android               : "org.mockito:mockito-android:${ext.versions.mockito}",
         opengl                        : 'org.khronos:opengl-api:gl1.1-android-2.1_r1',

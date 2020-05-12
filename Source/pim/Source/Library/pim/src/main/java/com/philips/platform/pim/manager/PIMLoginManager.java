@@ -3,6 +3,9 @@ package com.philips.platform.pim.manager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
@@ -20,6 +23,7 @@ import net.openid.appauth.AuthorizationRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
@@ -69,7 +73,7 @@ public class PIMLoginManager {
                         mPimUserManager.saveLoginFlowType(PIMUserManager.LOGIN_FLOW.DEFAULT);
                         if (mPimLoginListener != null)
                             mPimLoginListener.onLoginSuccess();
-                          }
+                    }
 
                     @Override
                     public void onUserProfileDownloadFailed(Error error) {
@@ -126,36 +130,36 @@ public class PIMLoginManager {
     private Map<String, String> createAdditionalParameterForLogin() {
         Map<String, String> parameter = new HashMap<>();
         parameter.put("claims", mPimoidcConfigration.getCustomClaims());
-        AppTaggingInterface.PrivacyStatus privacyConsent = mTaggingInterface.getPrivacyConsent();
-        boolean bool;
-        bool = privacyConsent.equals(AppTaggingInterface.PrivacyStatus.OPTIN);
-        parameter.put("consents", addConsentLists().toString());
-        parameter.put("analytics_consent", String.valueOf(bool));
+        parameter.put("consents", getConsentList());
         String urlString = "http://";
         String[] urlStringWithVisitorData = mTaggingInterface.getVisitorIDAppendToURL(urlString).split("=");
         mLoggingInterface.log(DEBUG, TAG, "External URL with Adobe_mc : " + urlStringWithVisitorData[1]);
-        parameter.put("adobe_mc", urlStringWithVisitorData[1]);
+        parameter.put("adobe_mc", Uri.decode(urlStringWithVisitorData[1]));
         parameter.put("ui_locales", PIMSettingManager.getInstance().getLocale());
-        parameter.put("analytics_report_suite_id", new PIMOIDCConfigration().getrsID());
+        parameter.put("analytics_report_suite_id", mPimoidcConfigration.getrsID());
         mLoggingInterface.log(DEBUG, TAG, "Additional parameters : " + parameter.toString());
         return parameter;
     }
 
-    private ArrayList<String> addConsentLists() {
-        boolean bool;
-        ArrayList<String> consentList = new ArrayList<>();
-        AppTaggingInterface.PrivacyStatus privacyConsent = mTaggingInterface.getPrivacyConsent();
-        bool = privacyConsent.equals(AppTaggingInterface.PrivacyStatus.OPTIN);
-        if (bool)
+    private String getConsentList() {
+        List<String> consentList = new ArrayList<>();
+
+        if (mTaggingInterface != null && mTaggingInterface.getPrivacyConsent() != null &&
+                mTaggingInterface.getPrivacyConsent().equals(AppTaggingInterface.PrivacyStatus.OPTIN))
             consentList.add(PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT.pimConsent);
-        if (consentParameterMap != null && consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT) != null
-                && (Boolean) consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT))
+
+        if (consentParameterMap != null && consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT) != null &&
+                (Boolean) consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT))
             consentList.add(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent);
-        mLoggingInterface.log(DEBUG, TAG, "consent list parameters : " + consentList.toString());
-        return consentList;
+
+        String consents = TextUtils.join(",",consentList);
+
+        mLoggingInterface.log(DEBUG, TAG, "consent list parameters : " + consents);
+        return consents;
     }
 
-    public void exchangeCodeOnEmailVerify() {
+    public void exchangeCodeOnEmailVerify(PIMLoginListener pimLoginListener) {
+        mPimLoginListener = pimLoginListener;
         Intent authIntent = mPimAuthManager.extractResponseData(pimSecureStorageHelper.getAuthorizationResponse(), pimSecureStorageHelper.getAuthorizationRequest());
         pimSecureStorageHelper.deleteAuthorizationResponse();
         if (mPimAuthManager.isAuthorizationSuccess(authIntent))

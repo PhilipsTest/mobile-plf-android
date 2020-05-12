@@ -20,6 +20,7 @@ import com.philips.platform.pif.DataInterface.USR.listeners.RefetchUserDetailsLi
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
+import com.philips.platform.pim.errors.PIMErrorCodes;
 import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.listeners.PIMTokenRequestListener;
 import com.philips.platform.pim.listeners.PIMUserProfileDownloadListener;
@@ -95,9 +96,11 @@ public class PIMUserManager {
 
             userProfileRequestListener.onUserProfileDownloadSuccess();
         }, error -> {
-            mLoggingInterface.log(DEBUG, TAG, "error : " + error.getMessage());
-            if (userProfileRequestListener != null)
+            if(getTokenExpireError(error) != null)
+                userProfileRequestListener.onUserProfileDownloadFailed(getTokenExpireError(error));
+            else
                 userProfileRequestListener.onUserProfileDownloadFailed(new Error(PIMErrorEnums.NETWORK_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.NETWORK_ERROR.errorCode)));
+            mLoggingInterface.log(DEBUG, TAG, "error : " + error.getMessage());
         });
     }
 
@@ -331,9 +334,13 @@ public class PIMUserManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if(getTokenExpireError(error) != null)
+                    updateUserDetailsHandler.onUpdateFailedWithError(getTokenExpireError(error));
+                else
+                    updateUserDetailsHandler.onUpdateFailedWithError(new Error(PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode)));
+
                 mLoggingInterface.log(DEBUG, TAG, "update marketing optin failed!! error : " + error);
                 tagTechnicalError(PIMTaggingConstants.MARKETING_OPTIN);
-                updateUserDetailsHandler.onUpdateFailedWithError(new Error(PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode)));
             }
         });
     }
@@ -369,5 +376,12 @@ public class PIMUserManager {
 
     private void tagTechnicalError(String tagValue) {
         PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo(PIMTaggingConstants.SET_ERROR, PIMTaggingConstants.TECHNICAL_ERROR, tagValue);
+    }
+
+    private Error getTokenExpireError(VolleyError error){
+        if(error != null && error.networkResponse != null && (error.networkResponse.statusCode == 403 || error.networkResponse.statusCode == 401))
+            return new Error(PIMErrorCodes.ACCESS_TOKEN_EXPIRED,"PIM_Error_Msg");
+        else
+            return null;
     }
 }
