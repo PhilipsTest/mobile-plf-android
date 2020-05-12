@@ -34,7 +34,7 @@ public class HsdpAuthenticationManagementClientTest extends TestCase {
         Mockito.when(hsdpConfiguration.getHsdpAppName()).thenReturn("dhpApplicationName");
         Mockito.when(hsdpConfiguration.getHsdpSecretId()).thenReturn("signingKey");
         Mockito.when(hsdpConfiguration.getHsdpSharedId()).thenReturn("signingSecret");
-        hsdpAuthenticationManagementClient = new HsdpAuthenticationManagementClient(hsdpConfiguration, hsdpConfiguration.getHsdpAppName());
+        hsdpAuthenticationManagementClient = new HsdpAuthenticationManagementClient(hsdpConfiguration, hsdpConfiguration.getHsdpAppName(),hsdpConfiguration.getHsdpBaseUrl());
 
     }
 
@@ -49,7 +49,7 @@ public class HsdpAuthenticationManagementClientTest extends TestCase {
         Map<String, String> body = new LinkedHashMap<String, String>();
         body.put("loginId", "xyz@gmail.com");
         hsdpAuthenticationManagementClient.loginSocialProviders("xyz@gmail.com", "accessToken", "secretKey");
-        Mockito.verify(hsdpRequestClient).sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, body);
+        Mockito.verify(hsdpRequestClient).sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, body,"");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class HsdpAuthenticationManagementClientTest extends TestCase {
         String queryParams = "applicationName=" + hsdpConfiguration.getHsdpAppName();
         Map<String, String> headers = new LinkedHashMap<String, String>();
         headers.put("accessToken", "accessToken");
-        Mockito.when(hsdpRequestClient.sendRestRequest(apiEndpoint, queryParams, headers, null, baseUrl))
+        Mockito.when(hsdpRequestClient.sendRestRequest(apiEndpoint, queryParams, headers, null, ""))
                 .thenReturn(mock(Map.class));
         hsdpAuthenticationManagementClient.logout("xyz@gmail.com", "accessToken");
 
@@ -78,7 +78,7 @@ public class HsdpAuthenticationManagementClientTest extends TestCase {
         headers.put("accessToken", "accessToken");
         byte[] input = new byte[1];
         when(android.util.Base64.encodeToString(input, android.util.Base64.NO_WRAP)).thenReturn("signature");
-        Mockito.when(hsdpRequestClient.sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, null))
+        Mockito.when(hsdpRequestClient.sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, null,""))
                 .thenReturn(mock(Map.class));
         hsdpAuthenticationManagementClient.refreshSecret("userUUID", "accessToken", "refresjSecrete");
     }
