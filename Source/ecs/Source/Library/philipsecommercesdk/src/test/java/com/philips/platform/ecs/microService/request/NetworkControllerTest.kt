@@ -59,20 +59,20 @@ class NetworkControllerTest {
         Mockito.`when`(ecsRequestMock.getURL()).thenReturn("http://google.com")
 
         `mock static classes`()
-        networkController = NetworkController(ecsRequestMock)
+        networkController = NetworkController()
     }
 
 
     @Test
     fun `getAppInfraJsonObject method should not return null`() {
         Mockito.`when`(ecsRequestMock.getJSONSuccessResponseListener()).thenReturn(responseJSONListenerMock)
-        assertNotNull(networkController.getAppInfraJSONObject())
+        assertNotNull(ecsRequestMock.getAppInfraJSONObject())
     }
 
     @Test
     fun `getAppInfraStringRequest method should not return null`() {
         Mockito.`when`(ecsRequestMock.getStringSuccessResponseListener()).thenReturn(responseStringListenerMock)
-        assertNotNull(networkController.getStringRequest())
+        assertNotNull(ecsRequestMock.getAppInfraStringRequest())
     }
 
 
@@ -100,7 +100,7 @@ class NetworkControllerTest {
 
         Mockito.`when`(ecsRequestMock.getJSONSuccessResponseListener()).thenReturn(responseJSONListenerMock)
         Mockito.`when`(ecsRequestMock.getRequestType()).thenReturn(RequestType.JSON)
-        networkController.executeRequest()
+        networkController.executeRequest(ecsRequestMock)
 
         //JsonObjectRequest
         Mockito.verify(requestQueueMock).add(Mockito.any(JsonObjectRequest::class.java))
@@ -115,7 +115,7 @@ class NetworkControllerTest {
 
         Mockito.`when`(ecsRequestMock.getStringSuccessResponseListener()).thenReturn(responseStringListenerMock)
         Mockito.`when`(ecsRequestMock.getRequestType()).thenReturn(RequestType.STRING)
-        networkController.executeRequest()
+        networkController.executeRequest(ecsRequestMock)
 
         Mockito.verify(requestQueueMock).add(Mockito.any(StringRequest::class.java))
     }

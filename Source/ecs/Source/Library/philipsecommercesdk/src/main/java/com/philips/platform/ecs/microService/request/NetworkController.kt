@@ -11,34 +11,17 @@
  */
 package com.philips.platform.ecs.microService.request
 
-import com.google.gson.JsonSyntaxException
-import com.google.gson.internal.Primitives
-import com.philips.platform.appinfra.rest.request.JsonObjectRequest
-import com.philips.platform.appinfra.rest.request.StringRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
-import java.lang.reflect.Type
 
-class NetworkController(private val ecsRequest: ECSRequestInterface) {
+class NetworkController() {
 
-    internal fun getAppInfraJSONObject(): JsonObjectRequest {
-        return JsonObjectRequest(ecsRequest.getMethod(), ecsRequest.getURL(), ecsRequest.getJSONRequest()
-                , ecsRequest.getJSONSuccessResponseListener(), ecsRequest.getJSONFailureResponseListener(),
-                ecsRequest.getHeader(), ecsRequest.getParams(), ecsRequest.getTokenProviderInterface())
-    }
-
-    fun executeRequest() {
+    fun executeRequest(ecsRequest: ECSRequestInterface) {
 
         when (ecsRequest.getRequestType()) {
 
-            RequestType.JSON -> ECSDataHolder.appInfra?.restClient?.requestQueue?.add(getAppInfraJSONObject())
-            RequestType.STRING -> ECSDataHolder.appInfra?.restClient?.requestQueue?.add(getStringRequest())
+            RequestType.JSON -> ECSDataHolder.appInfra?.restClient?.requestQueue?.add(ecsRequest.getAppInfraJSONObject())
+            RequestType.STRING -> ECSDataHolder.appInfra?.restClient?.requestQueue?.add(ecsRequest.getAppInfraStringRequest())
         }
-    }
-
-    internal fun getStringRequest(): StringRequest {
-        return StringRequest(ecsRequest.getMethod(), ecsRequest.getURL()
-                , ecsRequest.getStringSuccessResponseListener(), ecsRequest.getJSONFailureResponseListener(),
-                ecsRequest.getHeader(), ecsRequest.getParams(), ecsRequest.getTokenProviderInterface())
     }
 
 }

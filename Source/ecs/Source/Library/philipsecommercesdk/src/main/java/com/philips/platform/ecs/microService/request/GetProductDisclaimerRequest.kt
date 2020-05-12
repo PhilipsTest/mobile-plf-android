@@ -32,11 +32,6 @@ import java.util.HashMap
 
 class GetProductDisclaimerRequest(val ecsProduct: ECSProduct, private val ecsCallback: ECSCallback<ECSProduct, ECSError>) : ECSJsonRequest() {
 
-    override fun getURL(): String {
-        var url = ECSDataHolder.urlMap?.get(getServiceID())?.configUrls ?: ""
-        return url.replaceParam(getReplaceURLMap())
-    }
-
     override fun getServiceID(): String {
         return ECSConstants.SERVICEID_PRX_DISCLAIMERS
     }

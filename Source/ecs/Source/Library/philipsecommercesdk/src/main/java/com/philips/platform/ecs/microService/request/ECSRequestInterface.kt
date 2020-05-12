@@ -14,7 +14,10 @@ package com.philips.platform.ecs.microService.request
 import com.android.volley.Request
 import com.android.volley.Response
 import com.philips.platform.appinfra.rest.TokenProviderInterface
+import com.philips.platform.appinfra.rest.request.JsonObjectRequest
+import com.philips.platform.appinfra.rest.request.StringRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 
 interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
@@ -22,7 +25,10 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
     fun  getMethod(): Int{
         return Request.Method.GET
     }
-    fun  getURL(): String
+    fun  getURL(): String{
+        var url = ECSDataHolder.urlMap?.get(getServiceID())?.configUrls ?: ""
+        return url.replaceParam(getReplaceURLMap())
+    }
     fun  getServiceID():String
 
 
@@ -69,7 +75,15 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
     }
 
     fun executeRequest(){
-         NetworkController(this).executeRequest()
+         NetworkController().executeRequest(this)
+    }
+
+    fun getAppInfraJSONObject(): JsonObjectRequest?{
+        return null
+    }
+
+    fun getAppInfraStringRequest(): StringRequest?{
+        return null
     }
 
 }

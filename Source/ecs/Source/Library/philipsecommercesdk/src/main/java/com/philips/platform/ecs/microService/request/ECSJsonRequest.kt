@@ -13,6 +13,7 @@
 package com.philips.platform.ecs.microService.request
 
 import com.android.volley.Response
+import com.philips.platform.appinfra.rest.request.JsonObjectRequest
 import org.json.JSONObject
 
 abstract class ECSJsonRequest : ECSRequestInterface , Response.Listener<JSONObject>{
@@ -23,5 +24,12 @@ abstract class ECSJsonRequest : ECSRequestInterface , Response.Listener<JSONObje
 
     override fun getJSONSuccessResponseListener(): Response.Listener<JSONObject> {
         return this
+    }
+
+    override fun getAppInfraJSONObject(): JsonObjectRequest? {
+
+        return JsonObjectRequest(getMethod(), getURL(), getJSONRequest()
+                , getJSONSuccessResponseListener(), getJSONFailureResponseListener(),
+                getHeader(), getParams(), getTokenProviderInterface())
     }
 }

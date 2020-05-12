@@ -36,11 +36,6 @@ import kotlin.collections.set
 
 class GetProductSummaryRequest(val ecsProducts:List<ECSProduct>, private val ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) : ECSJsonRequest() {
 
-    override fun getURL(): String {
-        var url = ECSDataHolder.urlMap?.get(getServiceID())?.configUrls ?: ""
-        return url.replaceParam(getReplaceURLMap())
-    }
-
     override fun getServiceID(): String {
         return ECSConstants.SERVICEID_PRX_SUMMARY_LIST
     }
