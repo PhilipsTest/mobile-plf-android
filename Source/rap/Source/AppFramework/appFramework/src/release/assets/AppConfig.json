@@ -74,22 +74,12 @@
       "fileSizeInBytes": 50000,
       "logLevel": "Info",
       "fileLogEnabled": false,
-      "consoleLogEnabled": true,
+      "consoleLogEnabled": false,
       "cloudLogEnabled": false,
       "cloudBatchLimit": 5,
-      "componentLevelLogEnabled": true,
+      "componentLevelLogEnabled": false,
       "componentIds": [
-        "usr",
-        "ail",
-        "uit",
-        "cml",
-        "iap",
-        "dcc",
-        "prg",
-        "dsc",
-        "dcc/prx",
-        "iap/prx",
-        "prg/prx"
+        "usr"
       ]
     },
     "logging.debugConfig": {
