@@ -34,7 +34,5 @@ class OrdersViewHolder(val binding: ViewDataBinding, val itemClickListener: Item
         mecOrderHistoryItemBinding.service = MECOrderHistoryService()
         mecOrderHistoryItemBinding.itemClickListener = itemClickListener
 
-        mecOrderHistoryItemBinding.tvNoDetail.setOnClickListener { itemClickListener.onItemClick(item) }
-
     }
 }
