@@ -247,6 +247,8 @@ class MECutility {
         fun getQuantity(carts: ECSShoppingCart): Int {
             val totalItems = carts.totalItems
             var quantity = 0
+
+
             if (carts.entries != null) {
                 val entries = carts.entries
                 if (totalItems != 0 && null != entries) {
@@ -396,35 +398,29 @@ class MECutility {
         val line2 = ecsAddress.line2
         val town = ecsAddress.town
         val postalCode = ecsAddress.postalCode
-
-        formattedAddress = if (!houseNumber.isNullOrEmpty()) "$formattedAddress$houseNumber," else formattedAddress
-        formattedAddress = if (!line1.isNullOrEmpty()) "$formattedAddress$line1,\n" else formattedAddress
-        formattedAddress = if (!line2.isNullOrEmpty()) "$formattedAddress$line2,\n" else formattedAddress
-        formattedAddress = if (!town.isNullOrEmpty()) "$formattedAddress$town,\n" else formattedAddress
-        formattedAddress = if (!regionDisplayName.isNullOrEmpty()) "$formattedAddress$regionDisplayName, " else formattedAddress
-        formattedAddress = if (!postalCode.isNullOrEmpty()) "$formattedAddress$postalCode, " else formattedAddress
-        formattedAddress = if (!countryDisplayName.isNullOrEmpty()) formattedAddress + countryDisplayName else formattedAddress
-
+        formattedAddress = (houseNumber.validateStr()) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
+        formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+(countryDisplayName.validateStr())
         return formattedAddress
     }
-
-
     fun constructCardDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardDetail = ""
-        val cardType = if (mecPayment.ecsPayment.cardType != null) mecPayment.ecsPayment.cardType.name else ""
-        val cardNumber = if (mecPayment.ecsPayment.cardNumber != null) mecPayment.ecsPayment.cardNumber else ""
-        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
+        val cardType = (mecPayment.ecsPayment.cardType?.let { it.name } ?: run { "" })
+        val cardNumber = (mecPayment.ecsPayment.cardNumber?.validateStr())
+        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber?.takeLast(8)}"
         return formattedCardDetail
     }
 
     fun constructCardValidityDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardValidityDetail = ""
-        val cardExpMon = if (mecPayment.ecsPayment.expiryMonth != null) mecPayment.ecsPayment.expiryMonth else ""
-        val cardExpYear = if (mecPayment.ecsPayment.expiryYear != null) mecPayment.ecsPayment.expiryYear else ""
+        val cardExpMon =  ( mecPayment.ecsPayment.expiryMonth.validateStr())
+        val cardExpYear =  ( mecPayment.ecsPayment.expiryYear.validateStr())
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
     }
 
+    fun Any?.validateStr(): String {
+        return (this?.let { "$this,\n" } ?: run { "" })
+    }
 
 }

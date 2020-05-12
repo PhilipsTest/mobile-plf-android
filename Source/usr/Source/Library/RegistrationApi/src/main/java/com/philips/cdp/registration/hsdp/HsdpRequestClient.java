@@ -56,18 +56,18 @@ class HsdpRequestClient {
         }
     }
 
-    Map<String, Object> sendSignedRequestForSocialLogin(String httpMethod, String apiEndpoint, String queryParams, Map<String, String> headers, Object body) {
+    Map<String, Object> sendSignedRequestForSocialLogin(String httpMethod, String apiEndpoint, String queryParams, Map<String, String> headers, Object body,String baseUrl) {
         String bodyString = asJsonString(body);
         addSignedDateHeader(headers);
 
         sign(headers, apiEndpoint, queryParams, httpMethod, bodyString);
-        URI uri = URI.create(hsdpConfiguration.getHsdpBaseUrl() + apiEndpoint + queryParams(queryParams));
+        URI uri = URI.create(baseUrl + apiEndpoint + queryParams(queryParams));
         return sendRestRequest(httpMethod, uri, headers, bodyString);
     }
 
-    Map<String, Object> sendRestRequest(String apiEndpoint, String queryParams, Map<String, String> headers, Object body) {
+    Map<String, Object> sendRestRequest(String apiEndpoint, String queryParams, Map<String, String> headers, Object body, String baseUrl) {
         String bodyString = asJsonString(body);
-        URI uri = URI.create(hsdpConfiguration.getHsdpBaseUrl() + apiEndpoint + queryParams(queryParams));
+        URI uri = URI.create(baseUrl + apiEndpoint + queryParams(queryParams));
         return sendRestRequest("PUT", uri, headers, bodyString);
     }
 

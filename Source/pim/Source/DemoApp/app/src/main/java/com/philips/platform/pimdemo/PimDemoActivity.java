@@ -60,7 +60,7 @@ public class PimDemoActivity extends UIDActivity {
             launchUApp();
         });
 
-        if (getIntent().hasExtra(UDIRedirectReceiverActivity.RELAUNCH_ON_EMAIL_VERIFY)) {
+        if (getIntent().hasExtra(UDIRedirectReceiverActivity.REDIRECT_TO_CLOSED_APP)) {
             progressBar.setVisibility(View.VISIBLE);
             selectLibrary.setVisibility(View.INVISIBLE);
             launchUApp.setVisibility(View.INVISIBLE);

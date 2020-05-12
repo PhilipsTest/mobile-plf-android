@@ -16,7 +16,7 @@ import net.openid.appauth.AuthorizationManagementActivity;
 
 public class UDIRedirectReceiverActivity extends Activity {
 
-    public static final String RELAUNCH_ON_EMAIL_VERIFY = "RELAUNCH_ON_EMAIL_VERIFY";
+    public static final String REDIRECT_TO_CLOSED_APP = "REDIRECT_TO_CLOSED_APP";
 
     @Override
     public void onCreate(Bundle savedInstanceBundle) {
@@ -37,7 +37,7 @@ public class UDIRedirectReceiverActivity extends Activity {
         Intent intent = packageManager.getLaunchIntentForPackage(context.getPackageName());
         ComponentName componentName = intent.getComponent();
         Intent mainIntent = Intent.makeRestartActivityTask(componentName);
-        mainIntent.putExtra(RELAUNCH_ON_EMAIL_VERIFY, true);
+        mainIntent.putExtra(REDIRECT_TO_CLOSED_APP, true);
         context.startActivity(mainIntent);
     }
 }

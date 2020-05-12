@@ -61,6 +61,8 @@ class PIMMigrationManager {
             @Override
             public void onError(ERRORVALUES error, String message) {
                 mLoggingInterface.log(DEBUG, TAG, "Migration Failed!! " + " Error in downloadIDAssertionUrlFromSD : " + message);
+                if(pimUserMigrationListener != null)
+                    pimUserMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
             }
         });
     }

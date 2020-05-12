@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -163,6 +164,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         PIMDemoUAppDependencies pimDemoUAppDependencies = new PIMDemoUAppDependencies(appInfraInterface);
         PIMDemoUAppSettings pimDemoUAppSettings = new PIMDemoUAppSettings(this);
 
+        aSwitch.setChecked(appInfraInterface.getTagging().getPrivacyConsent() == AppTaggingInterface.PrivacyStatus.OPTIN);
         aSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 appInfraInterface.getTagging().setPrivacyConsent(AppTaggingInterface.PrivacyStatus.OPTIN);
@@ -221,6 +223,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             List<String> countryList = new ArrayList<>(Arrays.asList(stringArray));
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, countryList);
             spinnerCountrySelection.setAdapter(arrayAdapter);
+            if(!TextUtils.isEmpty(getSavedCountry())) {
+                int index = countryList.indexOf(getSavedCountry());
+                spinnerCountrySelection.setSelection(index);
+            }
             spinnerCountrySelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -389,7 +395,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void logoutSessionFailed(Error error) {
-                        showToast("Logout Failed due to " + error.getErrCode() + " and error message :" + error.getErrDesc());
+                        showToast("Logout Failed with error code " + error.getErrCode());
                     }
                 });
             } else {
@@ -478,7 +484,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onRefetchFailure(Error error) {
-                        showToast("Refetch failed");
+                        showToast("Refetch failed with error code : " + error.getErrCode());
                     }
                 });
             } else {
