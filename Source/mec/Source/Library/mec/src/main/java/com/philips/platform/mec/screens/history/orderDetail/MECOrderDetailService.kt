@@ -20,7 +20,9 @@ import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 class MECOrderDetailService {
 
     fun getProductSubcategory(ecsOrderDetail: ECSOrderDetail?): String? {
-        return ecsOrderDetail?.entries?.get(0)?.product?.summary?.subcategory
+        val entriesList = ecsOrderDetail?.entries
+        if(entriesList.isNullOrEmpty()) return null
+        return entriesList.get(0)?.product?.summary?.subcategory
     }
 
     fun addAppliedOrderPromotionsToCartSummaryList(orderDetail: ECSOrderDetail, cartSummaryList: MutableList<MECCartSummary>) {

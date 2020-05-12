@@ -99,8 +99,10 @@ class MECOrderDetailFragment : MecBaseFragment() {
         binding.cardExpiry = ecsOrders?.orderDetail?.paymentInfo?.let { MECutility().constructCardValidityDetails(it) }
         updateUI()
         val subCategory = mecOrderDetailService.getProductSubcategory(ecsOrders?.orderDetail)
-        showProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
-        context?.let { subCategory?.let { it1 -> mecOrderDetailViewModel.fetchContacts(it, it1) } }
+
+        context?.let { subCategory?.let { it1 ->
+            showProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
+            mecOrderDetailViewModel.fetchContacts(it, it1) } }
 
         binding.mecOrderHistoryCancelOrderBtn.setOnClickListener { onCancelOrder() }
         return binding.root
