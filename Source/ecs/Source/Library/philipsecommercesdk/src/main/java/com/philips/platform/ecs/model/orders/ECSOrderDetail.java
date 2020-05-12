@@ -275,5 +275,8 @@ public class ECSOrderDetail implements Parcelable, Serializable {
     public List<Consignment> getConsignments() {
         return consignments;
     }
+    public void setConsignments(List<Consignment> consignments) {
+        this.consignments = consignments;
+    }
 
 }

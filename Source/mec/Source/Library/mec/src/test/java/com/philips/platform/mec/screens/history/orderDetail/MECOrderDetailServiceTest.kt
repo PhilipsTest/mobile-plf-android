@@ -2,6 +2,7 @@ package com.philips.platform.mec.screens.history.orderDetail
 
 import android.content.Context
 import com.philips.platform.ecs.model.orders.*
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.model.voucher.AppliedValue
 import com.philips.platform.ecs.model.voucher.ECSVoucher
 import com.philips.platform.mec.R
@@ -15,6 +16,7 @@ import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import org.powermock.modules.junit4.PowerMockRunner
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 @RunWith(PowerMockRunner::class)
@@ -96,6 +98,36 @@ class MECOrderDetailServiceTest {
 
     @Test
     fun getEntriesFromConsignMent() {
+        var mECSProduct= ECSProduct()
+        mECSProduct.code="ConsignmentCode123ABC"
+        var mOrderEntry=OrderEntry()
+        mOrderEntry.product=mECSProduct
+        var mConsignmentEntries = ConsignmentEntries()
+        mConsignmentEntries.orderEntry=mOrderEntry
+        var consignmentEntriesList =ArrayList<ConsignmentEntries>()
+        consignmentEntriesList.add(mConsignmentEntries)
+        var mConsignment= Consignment()
+        mConsignment.entries=consignmentEntriesList
+
+        var consignmentList  = ArrayList<Consignment>()
+        consignmentList.add(mConsignment)
+
+        mCSOrderDetail.consignments = consignmentList
+        assertNotNull(mMECOrderDetailService.getEntriesFromConsignMent(mCSOrderDetail,"ConsignmentCode123ABC"))
+        assertNull(mMECOrderDetailService.getEntriesFromConsignMent(mCSOrderDetail,""))
+
+
+        // test getOrderTrackUrl()
+        //{300068874=http:\/\/www.fedex.com\/Tracking?action=track&cntry_code=us&tracknumber_list=300068874}
+        var trackAndTraceIDList = ArrayList<String>()
+        trackAndTraceIDList.add("300068874")
+        var trackAndTraceUrlList = ArrayList<String>()
+        trackAndTraceUrlList.add("{300068874=http:\\/\\/www.fedex.com\\/Tracking?action=track&cntry_code=us&tracknumber_list=300068874}")
+
+        mConsignmentEntries.trackAndTraceIDs=trackAndTraceIDList
+        mConsignmentEntries.trackAndTraceUrls=trackAndTraceUrlList
+        assertNotNull( mMECOrderDetailService.getOrderTrackUrl(mConsignmentEntries))
+
     }
 
     @Test

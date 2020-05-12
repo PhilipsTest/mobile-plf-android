@@ -83,7 +83,7 @@ class MECOrderDetailService {
 
      fun getOrderTrackUrl(entries: ConsignmentEntries?): String? {
         if (entries == null) return null
-        if (entries.getTrackAndTraceIDs().isNullOrEmpty() || entries.getTrackAndTraceUrls().isNullOrEmpty()) {
+        if (entries.trackAndTraceIDs.isNullOrEmpty() || entries.trackAndTraceUrls.isNullOrEmpty()) {
             return null
         }
         val trackAndTraceID = entries.trackAndTraceIDs.get(0)
