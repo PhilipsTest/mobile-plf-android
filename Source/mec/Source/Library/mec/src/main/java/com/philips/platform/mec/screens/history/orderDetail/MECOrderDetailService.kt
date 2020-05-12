@@ -13,6 +13,7 @@
 package com.philips.platform.mec.screens.history.orderDetail
 
 import android.content.Context
+import com.philips.platform.ecs.model.orders.ConsignmentEntries
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
@@ -65,4 +66,36 @@ class MECOrderDetailService {
             cartSummaryList.add(MECCartSummary(name, price))
         }
     }
+
+    // methods to get product corresponding track url fro ECSOrder
+     fun getEntriesFromConsignMent(detail: ECSOrderDetail, ctn: String): ConsignmentEntries? {
+        if (detail.consignments == null) return null
+        for (consignment in detail.consignments) {
+            for (entries in consignment.entries) {
+                val consignmentCtn = entries.orderEntry.product.code
+                if (ctn.trim { it <= ' ' }.equals(consignmentCtn.trim({ it <= ' ' }), ignoreCase = true)) {
+                    return entries
+                }
+            }
+        }
+        return null
+    }
+
+     fun getOrderTrackUrl(entries: ConsignmentEntries?): String? {
+        if (entries == null) return null
+        if (entries.getTrackAndTraceIDs().isNullOrEmpty() || entries.getTrackAndTraceUrls().isNullOrEmpty()) {
+            return null
+        }
+        val trackAndTraceID = entries.trackAndTraceIDs.get(0)
+        val trackAndTraceUrl = entries.trackAndTraceUrls.get(0)
+        return getTrackUrl(trackAndTraceID, trackAndTraceUrl)
+    }
+
+    private fun getTrackUrl(trackAndTraceID: String, trackAndTraceUrl: String): String {
+        //sample URL
+        //{300068874=http:\/\/www.fedex.com\/Tracking?action=track&cntry_code=us&tracknumber_list=300068874}
+        val urlWithEndCurlyBrace = trackAndTraceUrl.replace("{$trackAndTraceID=", "")
+        return urlWithEndCurlyBrace.replace("}", "")
+    }
+
 }

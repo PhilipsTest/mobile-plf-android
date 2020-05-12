@@ -32,7 +32,7 @@ class MECOrderDetailTrackUrlFragment : MecBaseFragment() {
         val group = inflater.inflate(R.layout.mec_web_fragment, container, false) as ViewGroup
         mProgressBar = group.findViewById(R.id.mec_progress_bar_container) as FrameLayout
         showProgressBar(mProgressBar)
-        mUrl = arguments!!.getString(MECConstant.MEC_TRACK_ORDER_URL)
+        mUrl = arguments?.getString(MECConstant.MEC_TRACK_ORDER_URL)
         initializeWebView(group)
         return group
     }
