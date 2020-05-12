@@ -106,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/border16_margin_left_right"
+                android:layout_gravity="center_horizontal"
                 android:text="@string/mec_order_detail_unavailable"
                 android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                 android:textSize="@dimen/iap_text_size_16sp"
