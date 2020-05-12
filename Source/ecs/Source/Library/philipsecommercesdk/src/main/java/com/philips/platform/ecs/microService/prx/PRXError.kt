@@ -9,6 +9,13 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.error
 
-class ECSError( var errorMessage : String, var errorcode: Int?,var errorType: ECSErrorType?)
+package com.philips.platform.ecs.microService.prx
+
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class PRXError(
+    val ERROR: ERROR
+):Parcelable

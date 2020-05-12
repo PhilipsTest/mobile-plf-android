@@ -69,7 +69,7 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
     }
 
     fun executeRequest(){
-        Thread(Runnable {  NetworkController(this).executeRequest() }).start()
+         NetworkController(this).executeRequest()
     }
 
 }

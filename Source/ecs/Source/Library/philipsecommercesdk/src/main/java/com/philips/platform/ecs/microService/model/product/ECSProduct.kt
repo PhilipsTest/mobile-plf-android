@@ -13,8 +13,15 @@
 package com.philips.platform.ecs.microService.model.product
 
 import android.os.Parcelable
+import com.philips.platform.ecs.microService.model.asset.Assets
+import com.philips.platform.ecs.microService.model.disclaimer.Disclaimers
 import com.philips.platform.ecs.microService.model.summary.Summary
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ECSProduct(var attributes: Attributes?,var id: String?,var type: String?,var summary: Summary?) : Parcelable
+data class ECSProduct(var attributes: Attributes?,var id: String?,var type: String?) : Parcelable{
+
+    var summary: Summary? =null
+    var assets: Assets?=null
+    var disclaimers: Disclaimers?=null
+}

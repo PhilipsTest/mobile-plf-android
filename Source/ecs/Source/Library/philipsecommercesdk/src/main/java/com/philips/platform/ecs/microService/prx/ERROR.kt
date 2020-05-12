@@ -10,14 +10,15 @@
  *
  */
 
-package com.philips.platform.ecs.microService.model.summary
+package com.philips.platform.ecs.microService.prx
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Brand(
-    val partnerBrandType: String?,
-    val partnerLogo: String?,
-    val brandLogo:String?
-): Parcelable
+data class ERROR(
+    val errorCode: String?,
+    val errorMessage: String?,
+    val more_info: String?,
+    val statusCode: Int?
+):Parcelable

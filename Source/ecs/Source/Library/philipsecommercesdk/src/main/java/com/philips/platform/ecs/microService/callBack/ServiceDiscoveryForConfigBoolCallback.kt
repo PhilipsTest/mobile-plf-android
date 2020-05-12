@@ -39,7 +39,6 @@ class ServiceDiscoveryForConfigBoolCallback(val ecsConfigManager: ECSConfigManag
     }
 
     override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
-        var notNullMessage = message?:""
-        ecsCallback.onFailure(ECSError(notNullMessage))
+        ecsCallback.onFailure(ECSError(message?:"",null,null))
     }
 }

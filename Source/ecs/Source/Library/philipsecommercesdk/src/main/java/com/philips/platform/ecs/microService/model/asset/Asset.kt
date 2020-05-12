@@ -26,3 +26,4 @@ data class Asset (
     var type: String?,
     var asset: String?
 ):Parcelable
+

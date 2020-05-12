@@ -21,6 +21,7 @@ import com.philips.platform.ecs.microService.error.ServerError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.summary.ECSProductSummary
 import com.philips.platform.ecs.microService.model.summary.Summary
+import com.philips.platform.ecs.microService.prx.PRXError
 import com.philips.platform.ecs.microService.prx.PrxConstants
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
@@ -45,18 +46,22 @@ class GetProductSummaryRequest(val ecsProducts:List<ECSProduct>, private val ecs
     }
 
     override fun onErrorResponse(error: VolleyError) {
-        var serverError = error.getJsonError()?.getData(ServerError::class.java).toString()
-        ecsCallback.onFailure(ECSError(serverError))
+        var prxError = error.getJsonError()?.getData(PRXError::class.java)
+        Log.d("GetProductAsset",prxError.toString())
+        val ecsError = ECSError(prxError?.ERROR?.errorMessage ?: "",prxError?.ERROR?.statusCode,null)
+
+        ecsCallback.onFailure(ecsError)
     }
 
     override fun onResponse(response: JSONObject) {
         val ecsProductSummary = response.getData(ECSProductSummary::class.java)
         if(ecsProductSummary?.success == true) {
             updateProductsWithSummary(ecsProducts, ecsProductSummary)
+            ecsCallback.onResponse(ecsProducts)
         }else{
-            Log.d("GetProductSummary",ecsProductSummary?.failureReason?:"")
+            ecsCallback.onFailure(ECSError(ecsProductSummary?.failureReason?:"",null,null))
         }
-        ecsCallback.onResponse(ecsProducts)
+
     }
 
     override fun getReplaceURLMap(): MutableMap<String, String> {

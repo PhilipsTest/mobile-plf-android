@@ -40,7 +40,7 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, EC
     override fun onErrorResponse(error: VolleyError?) {
         val jsonError = error?.getJsonError()
         val hybrisError = jsonError?.getData(ServerError::class.java)
-        eCSCallback.onFailure(ECSError(hybrisError.toString()))
+        eCSCallback.onFailure(ECSError(hybrisError.toString(),null,null))
     }
     override fun onResponse(response: JSONObject?) {
         val config = response?.getData(ECSConfig::class.java)
