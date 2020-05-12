@@ -11,6 +11,7 @@
  */
 package com.philips.platform.mec.screens.history
 
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,8 @@ class OrdersViewHolder(val binding: ViewDataBinding, val itemClickListener: Item
         mecOrderHistoryItemBinding.ecsOrders = item
         mecOrderHistoryItemBinding.service = MECOrderHistoryService()
         mecOrderHistoryItemBinding.itemClickListener = itemClickListener
+
+        mecOrderHistoryItemBinding.tvNoDetail.setOnClickListener { itemClickListener.onItemClick(item) }
 
     }
 }

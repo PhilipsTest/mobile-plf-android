@@ -108,6 +108,7 @@
                 android:padding="@dimen/border16_margin_left_right"
                 android:text="@string/mec_order_detail_unavailable"
                 android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                android:clickable="true"
                 android:textSize="@dimen/iap_text_size_16sp"
                 android:visibility="@{ecsOrders.orderDetail !=null &amp;&amp; ecsOrders.orderDetail.entries!=null &amp;&amp;  ecsOrders.orderDetail.entries.size()!=0 ? View.GONE : View.VISIBLE}" />
 
@@ -123,7 +124,8 @@
                 android:textSize="@dimen/iap_text_size_16sp"
                 app:rotation="@{ecsOrders.code}"
                 android:textDirection="locale"
-                android:visibility="@{ecsOrders.orderDetail !=null &amp;&amp; ecsOrders.orderDetail.entries!=null &amp;&amp;  ecsOrders.orderDetail.entries.size()!=0 ? View.VISIBLE : View.GONE}" />
+                 />
+            <!--android:visibility="@{ecsOrders.orderDetail !=null &amp;&amp; ecsOrders.orderDetail.entries!=null &amp;&amp;  ecsOrders.orderDetail.entries.size()!=0 ? View.VISIBLE : View.GONE}"-->
 
         </FrameLayout>
 
