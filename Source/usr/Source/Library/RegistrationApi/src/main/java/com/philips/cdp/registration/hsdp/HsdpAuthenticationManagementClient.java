@@ -21,10 +21,14 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
     private HSDPConfiguration hsdpConfiguration;
     String  appName = "";
 
-    HsdpAuthenticationManagementClient(HSDPConfiguration hsdpConfiguration, String hsdpAppName) {
+    String baseUrl = "";
+
+    HsdpAuthenticationManagementClient(HSDPConfiguration hsdpConfiguration, String hsdpAppName, String url) {
         super(hsdpConfiguration);
         this.hsdpConfiguration = hsdpConfiguration;
         appName = hsdpAppName;
+        baseUrl = url;
+
     }
 
     Map<String, Object> loginSocialProviders(String email, String socialAccessToken, String secret) {
@@ -36,7 +40,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
         headers.put("Api-version", "2");
         Map<String, String> body = new LinkedHashMap<String, String>();
         body.put("loginId", email);
-        return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, body);
+        return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, body,baseUrl);
     }
 
     Map<String, Object> logout(String userId, String accessToken) {
@@ -44,7 +48,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
         String queryParams = "applicationName=" + appName;
         Map<String, String> headers = new LinkedHashMap<String, String>();
         headers.put("accessToken", accessToken);
-        return sendRestRequest(apiEndpoint, queryParams, headers, null);
+        return sendRestRequest(apiEndpoint, queryParams, headers, null, baseUrl);
     }
 
     Map<String, Object> refreshSecret(String userUUID, String accessToken, String refreshSecret) {
@@ -59,7 +63,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
         headers.put("api-version", "2");
         headers.put("accessToken", accessToken);
 
-        return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, null);
+        return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, null,baseUrl);
     }
 
     private String createRefreshSignature(String refresh_Secret, String stringToSign) {
