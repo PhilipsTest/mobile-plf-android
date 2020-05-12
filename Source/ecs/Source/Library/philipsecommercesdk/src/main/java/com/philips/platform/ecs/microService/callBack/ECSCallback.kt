@@ -12,7 +12,7 @@
 package com.philips.platform.ecs.microService.callBack
 
 /**
- * The interface Iapsdk callback.
+ * The is a callback interface for ECS.
  */
 interface ECSCallback<R, E> {
     /**
