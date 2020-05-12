@@ -139,13 +139,10 @@
       "fileSizeInBytes": 50000,
       "logLevel": "Off",
       "fileLogEnabled": false,
-      "consoleLogEnabled": true,
+      "consoleLogEnabled": false,
       "componentLevelLogEnabled": false,
       "componentIds": [
-        "DemoAppInfra",
-        "PhilipsRegistration",
-        "iap",
-        "iap/prx"
+
       ]
     },
     "logging.debugConfig": {
