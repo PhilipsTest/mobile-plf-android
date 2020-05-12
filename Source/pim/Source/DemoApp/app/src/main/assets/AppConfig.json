@@ -142,7 +142,10 @@
       "consoleLogEnabled": false,
       "componentLevelLogEnabled": false,
       "componentIds": [
-
+        "DemoAppInfra",
+        "PhilipsRegistration",
+        "iap",
+        "iap/prx"
       ]
     },
     "logging.debugConfig": {
