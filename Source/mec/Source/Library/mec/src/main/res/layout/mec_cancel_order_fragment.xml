@@ -22,6 +22,7 @@
         android:layout_gravity="center_horizontal"
         android:background="?attr/uidContentPrimaryBackgroundColor"
         android:orientation="vertical"
+        android:textDirection="locale"
         android:paddingStart="@dimen/border16_margin_left_right"
         android:paddingTop="@dimen/border16_margin_left_right"
         android:paddingEnd="@dimen/border16_margin_left_right"

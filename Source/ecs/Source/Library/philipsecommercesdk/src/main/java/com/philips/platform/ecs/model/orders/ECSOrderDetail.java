@@ -155,6 +155,9 @@ public class ECSOrderDetail implements Parcelable, Serializable {
     public Cost getDeliveryCost() {
         return deliveryCost;
     }
+    public void setDeliveryCost(Cost deliveryCost) {
+        this.deliveryCost = deliveryCost;
+    }
 
     public int getDeliveryItemsQuantity() {
         return deliveryItemsQuantity;
@@ -174,6 +177,9 @@ public class ECSOrderDetail implements Parcelable, Serializable {
 
     public Cost getOrderDiscounts() {
         return orderDiscounts;
+    }
+    public void setOrderDiscounts(Cost orderDiscounts) {
+        this.orderDiscounts = orderDiscounts;
     }
 
     public PaymentInfo getPaymentInfo() {
@@ -247,10 +253,17 @@ public class ECSOrderDetail implements Parcelable, Serializable {
     public List<ECSVoucher> getAppliedVouchers() {
         return appliedVouchers;
     }
+    public void setAppliedVouchers(List<ECSVoucher> appliedVouchers) {
+        this.appliedVouchers = appliedVouchers;
+    }
 
     public List<AppliedOrderPromotions> getAppliedOrderPromotions() {
         return appliedOrderPromotions;
     }
+    public void setAppliedOrderPromotions(List<AppliedOrderPromotions> appliedOrderPromotions) {
+        this.appliedOrderPromotions = appliedOrderPromotions;
+    }
+
     public List<DeliveryOrderGroups> getDeliveryOrderGroups() {
         return deliveryOrderGroups;
     }
