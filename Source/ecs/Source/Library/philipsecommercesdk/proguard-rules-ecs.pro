@@ -3,7 +3,14 @@
 
  #ECS
 
+
 -keep class com.philips.platform.ecs.model** {*;}
+-keep class com.philips.platform.ecs.error** {*;}
+
+#This Rule is required for gson
+-keep class com.google.gson.** {*;}
+-dontwarn com.google.gson.**
+
 
 
 

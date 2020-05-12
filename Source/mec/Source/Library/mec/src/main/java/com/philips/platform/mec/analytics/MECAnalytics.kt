@@ -290,6 +290,34 @@ class MECAnalytics {
             return productPrice
         }
 
+        /*
+       * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
+       * product : Product
+       * changedQuantity : qty added or removed
+       * */
+        @JvmStatic
+        fun getProductInfoWithChangedQuantity(product: ECSProduct, changedQuantity: Int): String {
+            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
+            protuctDetail += ";" + product.code
+            protuctDetail += ";" + changedQuantity //changed Quantity e.g. 1 product added
+            protuctDetail += ";" + getProductPrice(product)
+            return protuctDetail
+        }
+
+        /*
+     * This method return product unit price (discounted if any)
+     * */
+        fun getProductPrice(product: ECSProduct):String{
+            var price:String=""
+             if (product.price!= null && product.price.value!= null) {
+                 price=""+product.price.value
+             }
+            if(product.discountPrice!= null && product.discountPrice.value!= null ){
+                price=""+product.discountPrice.value
+            }
+            return price
+        }
+
 
         /*
         * This method will tag a successful purchase order details

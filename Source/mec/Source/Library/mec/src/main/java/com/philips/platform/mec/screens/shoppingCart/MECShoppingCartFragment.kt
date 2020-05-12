@@ -310,7 +310,10 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             removeVoucher = false
             ecsShoppingCartViewModel.removeVoucher(vouchersAdapter?.getVoucher()?.voucherCode.toString())
         } else {
-            updateCartRequest(shoppingCart.entries.get(itemPosition), 0)
+            if(shoppingCart.entries!= null &&  shoppingCart.entries.size > itemPosition) { // condition to be added to avoid ArrayIndex out of bound in case the
+                // delete button is clicked multiple times immediately
+                updateCartRequest(shoppingCart.entries.get(itemPosition), 0)
+            }
         }
     }
 
@@ -407,7 +410,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
                 super.processError(mecError, false)
                 validationEditText = null
                 binding.mecVoucherEditText.startAnimation(addressViewModel.shakeError())
-                binding.llAddVoucher.setErrorMessage(mecError.exception?.message)
+                binding.llAddVoucher.setErrorMessage(MECutility.getErrorString(mecError,context))
                 binding.llAddVoucher.showError()
                 validationEditText?.requestFocus()
             }
