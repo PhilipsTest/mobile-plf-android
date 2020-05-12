@@ -80,34 +80,45 @@ class ECSProductManager {
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
-            // TODO give the call back once both threads finish their work
-            fetchProductDisclaimer(product)
-            fetchProductAsset(product, ecsCallback)
+
+               //TODO remove the bad coding to wait 2 methoods to retutn their callbacks
+                val callBacks = mutableListOf< ECSCallback<ECSProduct, ECSError>?>()
+                fetchProductDisclaimer(product,ecsCallback,callBacks)
+                fetchProductAsset(product, ecsCallback,callBacks)
         }
     }
 
-    private fun fetchProductAsset(product: ECSProduct,ecsCallback: ECSCallback<ECSProduct, ECSError>){
+    private fun fetchProductAsset(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>, callBacks: MutableList<ECSCallback<ECSProduct, ECSError>?>){
         GetProductAssetRequest(product,object : ECSCallback<ECSProduct, ECSError>{
             override fun onResponse(result: ECSProduct) {
                 Log.d("ECSProductManager",result.toString())
-                ecsCallback.onResponse(result)
+
+                callBacks.add(this)
+
+                if(callBacks.size >1) ecsCallback.onResponse(result)
+
             }
 
             override fun onFailure(ecsError: ECSError) {
                 //do nothing : error is already logged
-                ecsCallback.onResponse(product)
+                callBacks.add(this)
+                if(callBacks.size >1) ecsCallback.onResponse(product)
             }
         }).executeRequest()
     }
 
-    private fun fetchProductDisclaimer(product: ECSProduct){
+    private fun fetchProductDisclaimer(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>, callBacks: MutableList<ECSCallback<ECSProduct, ECSError>?>){
         GetProductDisclaimerRequest(product,object : ECSCallback<ECSProduct, ECSError>{
             override fun onResponse(result: ECSProduct) {
                 Log.d("ECSProductManager",result.toString())
+                callBacks.add(this)
+                if(callBacks.size >1) ecsCallback.onResponse(result)
             }
 
             override fun onFailure(ecsError: ECSError) {
                 //do nothing : error is already logged
+                callBacks.add(this)
+                if(callBacks.size >1) ecsCallback.onResponse(product)
             }
         }).executeRequest()
     }

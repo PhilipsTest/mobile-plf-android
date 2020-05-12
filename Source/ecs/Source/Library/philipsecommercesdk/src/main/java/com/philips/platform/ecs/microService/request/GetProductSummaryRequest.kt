@@ -73,7 +73,6 @@ class GetProductSummaryRequest(val ecsProducts:List<ECSProduct>, private val ecs
     }
 
     private fun getCTNsFromProducts():List<String>{
-
         var arrayList = mutableListOf<String>()
         for (product in ecsProducts){
             product.id?.let { arrayList.add(it) }

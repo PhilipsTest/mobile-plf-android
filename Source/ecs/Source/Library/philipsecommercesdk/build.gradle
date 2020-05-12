@@ -133,6 +133,7 @@ dependencies {
     testImplementation deps.robolectric_shadows
     testImplementation deps.robolectric_utils
     implementation deps.kotlin_stdlib_jdk7
+    implementation deps.kotlinx_coroutines_core
     testImplementation deps.json
 
 }
