@@ -14,7 +14,7 @@ import java.util.*
 
 /**
  * MECFlowConfigurator initializes the required ctn’s for MEC to set the flow of micro app.
- * @since 1.0.0
+ * @since 2002.0
  */
 class MECFlowConfigurator : Serializable {
 
