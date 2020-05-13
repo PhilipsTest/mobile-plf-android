@@ -247,7 +247,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         mEnablePersonalConsentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(mUser.getUserLoginState() == UserLoginState.USER_LOGGED_IN) {
+                if(mUser.getUserLoginState() != UserLoginState.USER_NOT_LOGGED_IN) {
                     logout();
                 }else {
                     enablePersonalConsentSwitch(isChecked);
