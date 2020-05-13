@@ -72,8 +72,6 @@ public class HsdpUser {
     //product registration secure storage key
     private final String PRODUCT_REGISTRATION_KEY = "prod_reg"; // value should match with the key used in PRODUCT_REGISTRATION  (ProdRegConstants.java)
 
-    String url = "";
-    String name = "";
 
 
     /**
@@ -95,17 +93,6 @@ public class HsdpUser {
         RegistrationConfiguration.getInstance().getComponent().inject(this);
         cloudLoggingInterface = RegistrationConfiguration.getInstance().getComponent().getCloudLoggingInterface();
         mSecureStorageInterface = RegistrationConfiguration.getInstance().getComponent().getSecureStorageInterface();
-        url = hsdpConfiguration.getHsdpBaseUrl();
-        name = hsdpConfiguration.getHsdpAppName();
-
-        RLog.d(TAG, "HsdpUser: hsdpConfiguration url and name "+ url +" "+ name );
-
-        if(url==null || url.isEmpty()){
-            hsdpConfiguration = new HSDPConfiguration();
-            url = hsdpConfiguration.getHsdpBaseUrl();
-            name = hsdpConfiguration.getHsdpAppName();
-        }
-
     }
 
 
@@ -117,6 +104,9 @@ public class HsdpUser {
     public void logOut(final LogoutHandler logoutHandler) {
         if (networkUtility.isNetworkAvailable()) {
             final Handler handler = new Handler(Looper.getMainLooper());
+
+            String url = hsdpConfiguration.getHsdpBaseUrl();
+            String name = hsdpConfiguration.getHsdpAppName();
 
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient
@@ -200,6 +190,9 @@ public class HsdpUser {
     public void refreshToken(final RefreshLoginSessionHandler refreshHandler) {
         final Handler handler = new Handler(Looper.getMainLooper());
         if (networkUtility.isNetworkAvailable()) {
+
+            String name = hsdpConfiguration.getHsdpAppName();
+            String url = hsdpConfiguration.getHsdpBaseUrl();
 
             new Thread(() -> {
 
@@ -419,6 +412,8 @@ public class HsdpUser {
         RLog.d(TAG, "HSDP login");
         if (networkUtility.isNetworkAvailable()) {
             final Handler handler = new Handler(Looper.getMainLooper());
+            String url = hsdpConfiguration.getHsdpBaseUrl();
+            String name = hsdpConfiguration.getHsdpAppName();
 
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient =
