@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
         android:padding="16dp"
+        fontPath="fonts/centralesansbold.ttf"
         android:text="Write your review"
         android:textSize="16sp" />
 
@@ -36,8 +37,8 @@
     <ImageView
         android:id="@+id/dcc_product_image"
         style="@style/viewProductDetails_ProdImage"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="92dp"
+        android:layout_height="88dp"
         android:layout_alignParentStart="true" />
 
 
@@ -54,7 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
+            fontPath="fonts/centralesansbook.ttf"
             android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
             android:textSize="16sp" />
     </LinearLayout>
@@ -65,6 +67,8 @@
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/consumercare_list_right_arrow"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="12dp"
         android:layout_centerVertical="true" />
     </RelativeLayout>
 
@@ -90,8 +94,9 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:layout_marginTop="10dp"
+        fontPath="fonts/centralesansbook.ttf"
         android:text="Overall rating (required)"
-        android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+        android:textColor="?attr/uidLabelRegularNormalTextColor"
         android:textSize="16sp" />
 
 
@@ -100,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dcc_overall_rating"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             android:numStars="5"
             android:stepSize="0.01"
             android:rating="3" />
@@ -110,10 +115,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_below="@id/dcc_rating_bar"
             android:text="Performance"
-            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            fontPath="fonts/centralesansbook.ttf"
+            android:textColor="?attr/uidLabelRegularNormalTextColor"
             android:textSize="16sp" />
 
 
@@ -122,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dcc_performance_rating"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             style="?android:attr/ratingBarStyleSmall"
             android:numStars="5"
             android:stepSize="0.01"
@@ -136,7 +142,8 @@
             android:layout_marginTop="20dp"
             android:layout_below="@id/dcc_performance_rating_bar"
             android:text="Ease of use"
-            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            fontPath="fonts/centralesansbook.ttf"
+            android:textColor="?attr/uidLabelRegularNormalTextColor"
             android:textSize="16sp" />
 
 
@@ -145,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dcc_use_rating"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             style="?android:attr/ratingBarStyleSmall"
             android:numStars="5"
             android:stepSize="0.01"
@@ -159,7 +166,8 @@
             android:layout_marginTop="20dp"
             android:layout_below="@id/dcc_use_rating_bar"
             android:text="Design"
-            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            fontPath="fonts/centralesansbook.ttf"
+            android:textColor="?attr/uidLabelRegularNormalTextColor"
             android:textSize="16sp" />
 
 
@@ -168,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dcc_design_rating"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             style="?android:attr/ratingBarStyleSmall"
             android:numStars="5"
             android:stepSize="0.01"
@@ -182,7 +190,8 @@
             android:layout_marginTop="20dp"
             android:layout_below="@id/dcc_design_rating_bar"
             android:text="Do you recommend this product?"
-            android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+            fontPath="fonts/centralesansbook.ttf"
+            android:textColor="?attr/uidLabelRegularNormalTextColor"
             android:textSize="16sp" />
 
         <RadioGroup
@@ -190,7 +199,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="17dp"
             android:layout_below="@+id/dcc_recommend_product"
             >
 
@@ -198,12 +207,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dcc_rb_yes"
+                fontPath="fonts/centralesansbook.ttf"
+                android:textColor="?attr/uidLabelRegularNormalTextColor"
+                android:textSize="16sp"
                 android:text="Yes"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dcc_rb_no"
+                fontPath="fonts/centralesansbook.ttf"
+                android:textColor="?attr/uidLabelRegularNormalTextColor"
+                android:textSize="16sp"
                 android:text="No"/>
 
         </RadioGroup>
