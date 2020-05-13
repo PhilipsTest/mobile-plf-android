@@ -247,7 +247,11 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         mEnablePersonalConsentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                enablePersonalConsentSwitch(isChecked);
+                if(mUser.getUserLoginState() == UserLoginState.USER_LOGGED_IN) {
+                    logout();
+                }else {
+                    enablePersonalConsentSwitch(isChecked);
+                }
             }
         });
         mSkipOptin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -434,6 +438,21 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         } else {
             mBtnHsdpRefreshAccessToken.setVisibility(GONE);
         }
+    }
+
+    private void logout(){
+        mUser.logout(new LogoutHandler() {
+            @Override
+            public void onLogoutSuccess() {
+                LlcoppaItems.setVisibility(GONE);
+                showToast("Logout success");
+            }
+
+            @Override
+            public void onLogoutFailure(int responseCode, String message) {
+                showToast("Code " + responseCode + "Message" + message);
+            }
+        });
     }
 
     private void enablePersonalConsentSwitch(boolean isChecked) {
@@ -1022,6 +1041,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         }
         if (!(isFinishing()) && (mProgressDialog != null)) mProgressDialog.show();
     }
+
 
 
     private void hideLogoutSpinner() {
