@@ -68,7 +68,7 @@ public class CloudLogSyncManager implements Observer<Integer>, RestInterface.Net
                 KEEP_ALIVE_TIME_UNIT,
                 mSyncDataWorkQueue);
         dbLogCount = AILCloudLogDBManager.getInstance(appInfra).getLogCount();
-        dbLogCount.observeForever(this);
+        dbLogCount.observeForever(this); //ToDo :
         secretKey = loggingConfiguration.getCLSecretKey();
         sharedKey = loggingConfiguration.getCLSharedKey();
         productKey = loggingConfiguration.getCLProductKey();
