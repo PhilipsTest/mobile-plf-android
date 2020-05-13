@@ -36,15 +36,9 @@ class MECCancelOrderFragment : MecBaseFragment() {
 
         var contactPhone: ContactPhone? = null
         if (arguments != null && arguments.containsKey(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE)) {
-            contactPhone = ContactPhone()
-            contactPhone.phoneNumber = arguments?.getString(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE)
+            contactPhone = arguments?.getSerializable(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE) as ContactPhone
         }
-        if (arguments != null && arguments.containsKey(MECConstant.MEC_ORDER_CUSTOMER_CARE_WEEK_WORKING_HOUR)) {
-            contactPhone!!.openingHoursWeekdays = arguments?.getString(MECConstant.MEC_ORDER_CUSTOMER_CARE_WEEK_WORKING_HOUR)
-        }
-        if (arguments != null && arguments.containsKey(MECConstant.MEC_ORDER_CUSTOMER_CARE_HOLIDAY_WORKING_HOUR)) {
-            contactPhone!!.openingHoursSaturday = arguments?.getString(MECConstant.MEC_ORDER_CUSTOMER_CARE_HOLIDAY_WORKING_HOUR)
-        }
+
         binding.contactPhone = contactPhone
         binding.mecCancelOrderCallBtn.setOnClickListener { callPhone(binding.contactPhone!!.phoneNumber) }
         
@@ -72,7 +66,7 @@ class MECCancelOrderFragment : MecBaseFragment() {
         try {
             val myintent = Intent(Intent.ACTION_DIAL)
             myintent.data = Uri.parse("tel:" + phone!!)
-            myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            //myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(myintent)
         } catch (e: NullPointerException) {
 

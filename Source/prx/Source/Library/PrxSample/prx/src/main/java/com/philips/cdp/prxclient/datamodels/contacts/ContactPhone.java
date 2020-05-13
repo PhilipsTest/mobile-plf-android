@@ -12,7 +12,11 @@
 
 package com.philips.cdp.prxclient.datamodels.contacts;
 
-public class ContactPhone {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class ContactPhone implements Serializable {
     private String phoneNumber;
     private String openingHoursWeekdays;
     private String openingHoursSaturday;

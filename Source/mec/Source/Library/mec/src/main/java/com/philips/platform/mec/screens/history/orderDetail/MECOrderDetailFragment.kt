@@ -26,6 +26,7 @@ import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
+import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -33,13 +34,12 @@ import com.philips.platform.mec.screens.history.MECOrderHistoryService
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummaryAdapter
 import com.philips.platform.mec.utils.MECConstant
-import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_HOLIDAY_WORKING_HOUR
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE
-import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_WEEK_WORKING_HOUR
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_NUMBER
 import com.philips.platform.mec.utils.MECutility
 
-class MECOrderDetailFragment : MecBaseFragment() {
+class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
+
 
     private lateinit var binding: MecOrderHistoryDetailBinding
     private var ecsOrders: ECSOrders? = null
@@ -69,17 +69,13 @@ class MECOrderDetailFragment : MecBaseFragment() {
 
         cartSummaryList.clear()
         cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
-        productsAdapter = MECOrderDetailProductsAdapter(ecsOrders?.orderDetail, this)
+        productsAdapter = ecsOrders?.orderDetail?.let { MECOrderDetailProductsAdapter(it, this) }
         vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
 
         binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
-        binding.mecAcceptedCodeRecyclerView.adapter?.notifyDataSetChanged()
-
         binding.mecCartSummaryRecyclerView.adapter = productsAdapter
-        binding.mecCartSummaryRecyclerView.adapter?.notifyDataSetChanged()
-
         binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
-        binding.mecPriceSummaryRecyclerView.adapter?.notifyDataSetChanged()
+
 
     }
 
@@ -133,9 +129,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
         if( mContactphone!=null && mContactphone!!.openingHoursWeekdays!! !=null && mContactphone!!.openingHoursSaturday!! !=null) {
             var arguments: Bundle = Bundle()
             arguments.putString(MEC_ORDER_NUMBER,  binding.ecsOrders?.code)
-            arguments.putString(MEC_ORDER_CUSTOMER_CARE_PHONE, mContactphone!!.phoneNumber)
-            arguments.putString(MEC_ORDER_CUSTOMER_CARE_WEEK_WORKING_HOUR, mContactphone!!.openingHoursWeekdays)
-            arguments.putString(MEC_ORDER_CUSTOMER_CARE_HOLIDAY_WORKING_HOUR, mContactphone!!.openingHoursSaturday)
+            arguments.putSerializable(MEC_ORDER_CUSTOMER_CARE_PHONE, mContactphone)
             mECCancelOrderFragment.arguments = arguments
         }
         replaceFragment(mECCancelOrderFragment,mECCancelOrderFragment.getFragmentTag(),true)
@@ -154,7 +148,7 @@ class MECOrderDetailFragment : MecBaseFragment() {
         try {
             val myintent = Intent(Intent.ACTION_DIAL)
             myintent.data = Uri.parse("tel:" + phone!!)
-            myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            //myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(myintent)
         } catch (e: NullPointerException) {
         }
@@ -165,6 +159,10 @@ class MECOrderDetailFragment : MecBaseFragment() {
     override fun processError(mecError: MecError?, showDialog: Boolean) {
         super.processError(mecError, showDialog)
         dismissProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
+    }
+
+    override fun onItemClick(item: Any) {
+       showTrackUrlFragment(item as String)
     }
 
 
