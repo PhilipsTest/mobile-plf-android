@@ -93,7 +93,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        android:layout_marginTop="10dp"
         fontPath="fonts/centralesansbook.ttf"
         android:text="Overall rating (required)"
         android:textColor="?attr/uidLabelRegularNormalTextColor"
@@ -218,6 +217,7 @@
                 android:id="@+id/dcc_rb_no"
                 fontPath="fonts/centralesansbook.ttf"
                 android:textColor="?attr/uidLabelRegularNormalTextColor"
+                android:layout_marginStart="12dp"
                 android:textSize="16sp"
                 android:text="No"/>
 
