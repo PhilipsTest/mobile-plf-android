@@ -288,54 +288,63 @@ class MECutility {
 
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context?) {
-            var errorMessage: String = ""
+            var errorMessage: String=""
             if (mecError!!.ecsError!!.errorType.equals("No internet connection")) {
                 MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
             } else {
-                try {
-                    //tag all techinical defect except "No internet connection"
-                    var errorString: String = COMPONENT_NAME + ":"
-                    if (mecError!!.ecsError!!.errorcode == 1000) {
-                        errorString += bazaarVoice + ":"
-                    } else if (mecError!!.ecsError!!.errorcode in 5000..5999) {
-                        errorString += hybris + ":"
-                    } else if (mecError.mECRequestType!!.category.equals(MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)) {
-                        errorString += wtb + ":"
-                    } else {
-                        //
-                        errorString += prx + ":"
-                    }
-                    errorString += mecError.mECRequestType!!.category + ":"// Error_Category
-
-                    if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
-                        errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
-                    } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
-                        // No Internet: Information Error
-                        //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
-                        //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
-                        errorMessage = Acontext!!.getString(R.string.mec_no_internet)
-                    } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
-                        //voucher apply fail:  User error
-                        val errorMsg = mecError!!.exception!!.message.toString()
-                        errorString +=errorMsg
-                        MECAnalytics.trackUserError(errorString)
-                        errorMessage=mecError!!.exception!!.message.toString()
-                    }else{
-                        // Remaining all errors: Technical errors
-                        errorMessage = mecError!!.exception!!.message.toString()
-                        errorString += errorMessage
-                        errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
-                        MECAnalytics.trackTechnicalError(errorString)
-                    }
-
-                } catch (e: Exception) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
-                }
+                errorMessage = getErrorString(mecError,Acontext)
             }
             if (showDialog.equals(true)) {
                 aFragmentManager?.let { Acontext?.let { it1 -> MECutility.showErrorDialog(it1, it, Acontext!!.getString(R.string.mec_ok), "Error", errorMessage) } }
             }
+
+        }
+
+        @JvmStatic
+        fun getErrorString(mecError: MecError?, Acontext: Context?):String{
+            var errorMessage: String = ""
+            try {
+                //tag all techinical defect except "No internet connection"
+                var errorString: String = COMPONENT_NAME + ":"
+                if (mecError!!.ecsError!!.errorcode == 1000) {
+                    errorString += bazaarVoice + ":"
+                } else if (mecError!!.ecsError!!.errorcode in 5000..5999) {
+                    errorString += hybris + ":"
+                } else if (mecError.mECRequestType!!.category.equals(MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)) {
+                    errorString += wtb + ":"
+                } else {
+                    //
+                    errorString += prx + ":"
+                }
+                errorString += mecError.mECRequestType!!.category + ":"// Error_Category
+
+                if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
+                    errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
+                } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+                    // No Internet: Information Error
+                    //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
+                    //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
+                    MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
+                    errorMessage = Acontext!!.getString(R.string.mec_no_internet)
+                } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                    //voucher apply fail:  User error
+                    val errorMsg = mecError!!.exception!!.message.toString()
+                    errorString +=errorMsg
+                    MECAnalytics.trackUserError(errorString)
+                    errorMessage=mecError!!.exception!!.message.toString()
+                }else{
+                    // Remaining all errors: Technical errors
+                    errorMessage = mecError!!.exception!!.message.toString()
+                    errorString += errorMessage
+                    errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
+                    MECAnalytics.trackTechnicalError(errorString)
+                }
+
+            } catch (e: Exception) {
+                MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+            }
+            return errorMessage
+
 
         }
 
