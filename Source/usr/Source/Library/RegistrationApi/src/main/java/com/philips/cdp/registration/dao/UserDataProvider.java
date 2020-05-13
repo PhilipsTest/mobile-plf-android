@@ -114,7 +114,7 @@ public class UserDataProvider extends User implements UserDataInterface {
 
     @Override
     public void logoutHSDP(LogoutSessionListener logoutSessionListener) {
-        logoutHsdpOnly(getLogoutHandler(logoutSessionListener));
+        logoutHsdp(getLogoutHandler(logoutSessionListener));
     }
 
     @Override
