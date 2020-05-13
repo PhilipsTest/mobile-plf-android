@@ -4,16 +4,20 @@ import android.content.Context
 import com.philips.cdp.prxclient.PRXDependencies
 import com.philips.cdp.prxclient.RequestManager
 import com.philips.cdp.prxclient.request.CustomerCareContactsRequest
+import com.philips.platform.appinfra.AppInfraInterface
+import com.philips.platform.ecs.integration.ECSOAuthProvider
+import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
-@PrepareForTest(CustomerCareContactsRequest::class, RequestManager::class, PRXDependencies::class)
+@PrepareForTest(CustomerCareContactsRequest::class, RequestManager::class, PRXDependencies::class,PRXContactsResponseCallback::class)
 @RunWith(PowerMockRunner::class)
 class MECOrderDetailRepositoryTest {
 
@@ -24,13 +28,12 @@ class MECOrderDetailRepositoryTest {
 
 
     @Mock
-    lateinit var mContext : Context
+    lateinit var mContextMock : Context
+
+
 
     @Mock
-    lateinit var mCustomerCareContactsRequest :CustomerCareContactsRequest
-
-    @Mock
-     var mRequestManager =RequestManager()
+    lateinit var mRequestManagerMock  : RequestManager
 
 
 
@@ -38,11 +41,20 @@ class MECOrderDetailRepositoryTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         mECOrderDetailRepository=MECOrderDetailRepository()
+        mECOrderDetailRepository.mRequestManager = mRequestManagerMock
+        MECDataHolder.INSTANCE.appinfra = appinfraMock
     }
+
+
+    @Mock
+    lateinit var appinfraMock: AppInfraInterface
+
+    @Mock
+    lateinit var customerCareContactsRequestMock: CustomerCareContactsRequest
 
     @Test
     fun fetchContacts() {
-       mECOrderDetailRepository.fetchContacts(mContext,"",mPRXContactsResponseCallback)
-       Mockito.verify( mRequestManager).executeRequest(mCustomerCareContactsRequest,mPRXContactsResponseCallback)
+       mECOrderDetailRepository.fetchContacts(mContextMock,customerCareContactsRequestMock,mPRXContactsResponseCallback)
+       Mockito.verify( mRequestManagerMock).executeRequest(customerCareContactsRequestMock,mPRXContactsResponseCallback)
     }
 }

@@ -15,6 +15,7 @@ package com.philips.platform.mec.screens.history.orderDetail
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.philips.cdp.prxclient.datamodels.contacts.ContactPhone
+import com.philips.cdp.prxclient.request.CustomerCareContactsRequest
 import com.philips.platform.mec.common.CommonViewModel
 import com.philips.platform.mec.utils.MECDataHolder
 
@@ -22,10 +23,10 @@ class MECOrderDetailViewModel : CommonViewModel() {
 
     var contactPhone = MutableLiveData<ContactPhone>()
     var prxContactsResponseCallback = PRXContactsResponseCallback(this)
-    var ecsService = MECDataHolder.INSTANCE.eCSServices
     var mecOrderDetailRepository = MECOrderDetailRepository()
 
     fun fetchContacts(context: Context,productCategory : String){
-       MECOrderDetailRepository().fetchContacts(context,productCategory,prxContactsResponseCallback)
+        val customerCareContactsRequest  = CustomerCareContactsRequest(productCategory)
+        mecOrderDetailRepository.fetchContacts(context,customerCareContactsRequest,prxContactsResponseCallback)
     }
 }

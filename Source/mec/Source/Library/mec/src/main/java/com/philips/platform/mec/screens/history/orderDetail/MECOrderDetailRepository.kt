@@ -21,10 +21,9 @@ import com.philips.platform.mec.utils.MECDataHolder
 
 class MECOrderDetailRepository{
 
-    fun fetchContacts(context: Context ,productCategory: String, prxContactsResponseCallback: PRXContactsResponseCallback) {
+    var mRequestManager = RequestManager()
 
-        var customerCareContactsRequest  = CustomerCareContactsRequest(productCategory)
-        val mRequestManager = RequestManager()
+    fun fetchContacts(context: Context ,customerCareContactsRequest: CustomerCareContactsRequest, prxContactsResponseCallback: PRXContactsResponseCallback) {
         val prxDependencies = PRXDependencies(context, MECDataHolder.INSTANCE.appinfra, MECConstant.COMPONENT_NAME)
         mRequestManager.init(prxDependencies)
         mRequestManager.executeRequest(customerCareContactsRequest, prxContactsResponseCallback)
