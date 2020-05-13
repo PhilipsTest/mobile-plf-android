@@ -41,6 +41,7 @@ class GetProductSummaryRequest(val ecsProducts:List<ECSProduct>, private val ecs
     }
 
     override fun onErrorResponse(error: VolleyError) {
+        //TODO to check parsing
         var prxError = error.getJsonError()?.getData(PRXError::class.java)
         Log.d("GetProductAsset",prxError.toString())
         val ecsError = ECSError(prxError?.ERROR?.errorMessage ?: "",prxError?.ERROR?.statusCode,null)

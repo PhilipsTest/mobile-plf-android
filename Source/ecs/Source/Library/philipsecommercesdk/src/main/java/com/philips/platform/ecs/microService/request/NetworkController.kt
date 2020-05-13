@@ -13,7 +13,7 @@ package com.philips.platform.ecs.microService.request
 
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
-class NetworkController() {
+class NetworkController {
 
     fun executeRequest(ecsRequest: ECSRequestInterface) {
 

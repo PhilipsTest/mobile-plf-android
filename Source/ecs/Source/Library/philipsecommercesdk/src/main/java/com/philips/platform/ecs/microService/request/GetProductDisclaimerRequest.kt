@@ -38,6 +38,7 @@ class GetProductDisclaimerRequest(val ecsProduct: ECSProduct, private val ecsCal
 
     override fun onErrorResponse(error: VolleyError) {
 
+        //TODO to check parsing
         var prxError = error.getJsonError()?.getData(PRXError::class.java)
         Log.d("GetProductDisclaimer",prxError.toString())
         val ecsError = ECSError(prxError?.ERROR?.errorMessage ?: "",prxError?.ERROR?.statusCode,null)
