@@ -858,7 +858,7 @@ public class User {
         HsdpUser hsdpUser = new HsdpUser(mContext);
         if (RegistrationConfiguration.getInstance().isHsdpFlow() && null != hsdpUser.getHsdpUserRecord()) {
             RLog.d(TAG, "logout : isUserSign logout from HSDP");
-            logoutHsdp(logoutHandler);
+            logoutHsdpWithClearData(logoutHandler);
         } else {
             if (!RegistrationConfiguration.getInstance().isHsdpFlow())
                 AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
@@ -912,12 +912,12 @@ public class User {
         }
     }
 
-    private void logoutHsdp(final LogoutHandler logoutHandler) {
+    private void logoutHsdpWithClearData(final LogoutHandler logoutHandler) {
         final HsdpUser hsdpUser = new HsdpUser(mContext);
         hsdpUser.logOut(new LogoutHandler() {
             @Override
             public void onLogoutSuccess() {
-                RLog.d(TAG, "logoutHsdp clearData");
+                RLog.d(TAG, "logoutHsdpWithClearData clearData");
                 clearData();
                 if (logoutHandler != null) {
                     ThreadUtils.postInMainThread(mContext, logoutHandler::onLogoutSuccess);
@@ -931,14 +931,14 @@ public class User {
                 if (responseCode == ErrorCodes.HSDP_INPUT_ERROR_1009
                         || responseCode == ErrorCodes.HSDP_INPUT_ERROR_1151) {
                     clearData();
-                    RLog.e(TAG, "onLogoutFailure logout INVALID_ACCESS_TOKEN_CODE and INVALID_REFRESH_TOKEN_CODE:" + responseCode);
+                    RLog.e(TAG, "logoutHsdpWithClearData: onLogoutFailure logout INVALID_ACCESS_TOKEN_CODE and INVALID_REFRESH_TOKEN_CODE:" + responseCode);
                     if (logoutHandler != null) {
                         ThreadUtils.postInMainThread(mContext, logoutHandler::onLogoutSuccess);
                     }
                     RegistrationHelper.getInstance().getUserRegistrationListener()
                             .notifyOnLogoutSuccessWithInvalidAccessToken();
                 } else {
-                    RLog.e(TAG, "onLogoutFailure logout :" + responseCode);
+                    RLog.e(TAG, "logoutHsdpWithClearData: onLogoutFailure logout :" + responseCode);
 
                     if (logoutHandler != null) {
                         ThreadUtils.postInMainThread(mContext, () ->
@@ -951,12 +951,12 @@ public class User {
         });
     }
 
-    public void logoutHsdpOnly(final LogoutHandler logoutHandler) {
+    protected void logoutHsdp(final LogoutHandler logoutHandler) {
         final HsdpUser hsdpUser = new HsdpUser(mContext);
         hsdpUser.logOut(new LogoutHandler() {
             @Override
             public void onLogoutSuccess() {
-                RLog.d(TAG, "logoutHsdp clearData");
+                RLog.d(TAG, "logoutHsdp: clearData");
                 if (logoutHandler != null) {
                     ThreadUtils.postInMainThread(mContext, logoutHandler::onLogoutSuccess);
                 }
@@ -968,14 +968,14 @@ public class User {
             public void onLogoutFailure(int responseCode, String message) {
                 if (responseCode == ErrorCodes.HSDP_INPUT_ERROR_1009
                         || responseCode == ErrorCodes.HSDP_INPUT_ERROR_1151) {
-                    RLog.e(TAG, "onLogoutFailure logout INVALID_ACCESS_TOKEN_CODE and INVALID_REFRESH_TOKEN_CODE:" + responseCode);
+                    RLog.e(TAG, "logoutHsdp: onLogoutFailure logout INVALID_ACCESS_TOKEN_CODE and INVALID_REFRESH_TOKEN_CODE:" + responseCode);
                     if (logoutHandler != null) {
                         ThreadUtils.postInMainThread(mContext, logoutHandler::onLogoutSuccess);
                     }
                     RegistrationHelper.getInstance().getUserRegistrationListener()
                             .notifyOnLogoutSuccessWithInvalidAccessToken();
                 } else {
-                    RLog.e(TAG, "onLogoutFailure logout :" + responseCode);
+                    RLog.e(TAG, "logoutHsdp: onLogoutFailure logout :" + responseCode);
 
                     if (logoutHandler != null) {
                         ThreadUtils.postInMainThread(mContext, () ->
