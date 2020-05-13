@@ -59,7 +59,7 @@ class GetProductDisclaimerRequest(val ecsProduct: ECSProduct, private val ecsCal
         val replaceUrl: MutableMap<String, String> = HashMap()
         replaceUrl["sector"] = PrxConstants.Sector.B2C.toString()
         replaceUrl["catalog"] = PrxConstants.Catalog.CONSUMER.toString()
-        replaceUrl["ctn"] = ecsProduct.id ?: ""
+        replaceUrl["ctn"] = ecsProduct.id
         return replaceUrl
     }
 

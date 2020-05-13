@@ -43,6 +43,8 @@ import com.ecs.demotestuapp.fragments.PILConfigureECSToGetConfigurationFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductDetailsFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductForCtnFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductSummariesFragment;
+import com.ecs.demotestuapp.fragments.PILFetchRetailersForProductFragment;
+import com.ecs.demotestuapp.fragments.PILFetchRetailersFragment;
 import com.ecs.demotestuapp.fragments.RemoveVoucherFragment;
 import com.ecs.demotestuapp.fragments.SetAndFetchDeliveryAddressFragment;
 import com.ecs.demotestuapp.fragments.SetDeliveryAddressFragment;
@@ -222,6 +224,10 @@ public class InputActivity extends AppCompatActivity {
 
             case 48:
                 return new PILFetchProductSummariesFragment();
+            case 68:
+                return new PILFetchRetailersFragment();
+            case 69:
+                return new PILFetchRetailersForProductFragment();
 
             default:
                 return null;
