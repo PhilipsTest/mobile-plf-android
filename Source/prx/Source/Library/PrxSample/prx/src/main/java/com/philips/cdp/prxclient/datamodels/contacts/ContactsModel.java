@@ -35,6 +35,10 @@ public class ContactsModel extends ResponseData implements Serializable {
         return data;
     }
 
+    public void setData(Data data) {
+        this.data = data;
+    }
+
     public boolean isSuccess() {
         return success;
     }

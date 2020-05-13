@@ -60,5 +60,4 @@ public interface MECDataInterface {
     void removeCartUpdateListener(MECCartUpdateListener mecCartUpdateListener);
 
 
-    //void fetchOrderHistory(MECFetchCartListener mecFetchCartListener)throws MECException;
 }

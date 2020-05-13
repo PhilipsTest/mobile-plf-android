@@ -117,18 +117,6 @@ class MECOrderDetailTrackUrlFragment : MecBaseFragment() {
                 || errorCode == WebViewClient.ERROR_HOST_LOOKUP)
     }
 
-    fun getPhilipsFormattedUrl(url: String): String {
-
-        val appName = MECDataHolder.INSTANCE.appinfra.appIdentity.appName
-        val localeTag = MECDataHolder.INSTANCE.appinfra.internationalization.uiLocaleString
-        val builder = Uri.Builder().appendQueryParameter("origin", String.format(com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkParameter, localeTag, appName, appName))
-
-        return if (isParameterizedURL(url)) {
-            url + "&" + builder.toString().replace("?", "")
-        } else {
-            url + builder.toString()
-        }
-    }
 
     private fun isParameterizedURL(url: String): Boolean {
 

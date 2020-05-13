@@ -74,9 +74,6 @@ class MECCancelOrderFragment : MecBaseFragment() {
             myintent.data = Uri.parse("tel:" + phone!!)
             myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(myintent)
-            /* val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone))
-             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-             context?.let { startActivity(it, intent, null) }*/
         } catch (e: NullPointerException) {
 
         }

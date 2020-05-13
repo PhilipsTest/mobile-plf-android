@@ -117,8 +117,8 @@ project(':pimApp').projectDir = new File('./Source/pim/Source/DemoApp/app')
 //include(':mecUApp')
 //project(':mecUApp').projectDir = new File('./Source/mec/Source/DemoUApp')
 
-include(':mecApp')
-project(':mecApp').projectDir = new File('./Source/mec/Source/DemoApp/app')
+//include(':mecApp')
+//project(':mecApp').projectDir = new File('./Source/mec/Source/DemoApp/app')
 
 
 //include(':philipsecommercesdk')

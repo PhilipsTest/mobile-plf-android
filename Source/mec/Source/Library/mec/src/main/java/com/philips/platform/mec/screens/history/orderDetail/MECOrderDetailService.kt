@@ -32,11 +32,7 @@ class MECOrderDetailService {
         // name should come instead of code
         if (orderDetail.appliedOrderPromotions.size > 0) {
             for (i in 0 until orderDetail.appliedOrderPromotions.size) {
-                name = if (orderDetail.appliedOrderPromotions[i].promotion.code == null) {
-                    " "
-                } else {
-                    orderDetail.appliedOrderPromotions[i].promotion.code
-                }
+                name = if (orderDetail.appliedOrderPromotions[i].promotion.code == null) " " else orderDetail.appliedOrderPromotions[i].promotion.code
                 price = "-" + orderDetail.orderDiscounts.formattedValue
                 cartSummaryList.add(MECCartSummary(name, price))
             }
@@ -47,11 +43,7 @@ class MECOrderDetailService {
         var name: String
         var price: String
         for (i in 0 until orderDetail.appliedVouchers.size) {
-            name = if (orderDetail.appliedVouchers[i].code == null) {
-                " "
-            } else {
-                orderDetail.appliedVouchers[i].code
-            }
+            name = if(orderDetail.appliedVouchers[i].code == null) " " else orderDetail.appliedVouchers[i].code
             price = "-" + orderDetail.appliedVouchers?.get(i)?.appliedValue?.formattedValue
             cartSummaryList.add(MECCartSummary(name, price))
         }
@@ -69,7 +61,7 @@ class MECOrderDetailService {
 
     // methods to get product corresponding track url fro ECSOrder
      fun getEntriesFromConsignMent(detail: ECSOrderDetail, ctn: String): ConsignmentEntries? {
-        if (detail.consignments == null) return null
+        if (detail.consignments.isNullOrEmpty()) return null
         for (consignment in detail.consignments) {
             for (entries in consignment.entries) {
                 val consignmentCtn = entries.orderEntry.product.code

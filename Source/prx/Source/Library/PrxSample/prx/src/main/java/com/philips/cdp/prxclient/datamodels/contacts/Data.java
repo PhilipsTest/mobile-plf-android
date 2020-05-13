@@ -22,6 +22,9 @@ public class Data {
     public List<ContactPhone> getPhone() {
         return phone;
     }
+    public void setPhone(List<ContactPhone> phone) {
+        this.phone = phone;
+    }
 
     public List<ChatData> getChat() {
         return chat;

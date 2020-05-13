@@ -31,7 +31,7 @@ class MECOrderDetailProductsAdapter(private val ecsOrderDetail: ECSOrderDetail?,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val trackURLstring = mecOrderDetailService.getOrderTrackUrl(mecOrderDetailService.getEntriesFromConsignMent(ecsOrderDetail!!, ecsOrderDetail.entries[position].product.code))
-        val entries = ecsOrderDetail!!.entries[position]
+        val entries = ecsOrderDetail.entries[position]
         val viewHolder = holder as MECOrderDetailViewHolder
         viewHolder.bind(entries,trackURLstring)
         viewHolder.itemView.mec_order_detail_tracking_btn.setOnClickListener{

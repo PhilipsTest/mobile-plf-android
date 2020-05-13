@@ -13,4 +13,4 @@ package com.philips.platform.mec.screens.history
 
 import com.philips.platform.ecs.model.orders.ECSOrders
 
-class MECDateOrdersHolder (var date:String, var ordersList: MutableList<ECSOrders>)
+class MECDateOrdersHolder (val date:String, val ordersList: MutableList<ECSOrders>)
