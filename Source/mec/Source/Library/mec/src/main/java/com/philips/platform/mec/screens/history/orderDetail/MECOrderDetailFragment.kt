@@ -126,7 +126,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
 
     fun onCancelOrder() {
         var mECCancelOrderFragment : MECCancelOrderFragment = MECCancelOrderFragment()
-        if( mContactphone!=null && mContactphone!!.openingHoursWeekdays!! !=null && mContactphone!!.openingHoursSaturday!! !=null) {
+        if( mContactphone!=null ) {
             var arguments: Bundle = Bundle()
             arguments.putString(MEC_ORDER_NUMBER,  binding.ecsOrders?.code)
             arguments.putSerializable(MEC_ORDER_CUSTOMER_CARE_PHONE, mContactphone)
@@ -148,7 +148,6 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         try {
             val myintent = Intent(Intent.ACTION_DIAL)
             myintent.data = Uri.parse("tel:" + phone!!)
-            //myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(myintent)
         } catch (e: NullPointerException) {
         }
