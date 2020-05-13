@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 public class ReviewStatistics implements Serializable {
 
+    private static final long serialVersionUID = 2989240374419077569L;
     @SerializedName("averageOverallRating")
     @Expose
     private double averageOverallRating;

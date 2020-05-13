@@ -21,6 +21,7 @@ import java.io.Serializable;
  */
 public class ECSProduct implements Serializable {
 
+    private static final long serialVersionUID = 8891698781011215830L;
     private boolean availableForPickup;
     private String code;
     private DiscountPriceEntity discountPrice;

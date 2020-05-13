@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Consignment  implements Serializable {
+    private static final long serialVersionUID = -5527159704462204430L;
     private String code;
 
     private ECSAddress shippingAddress;

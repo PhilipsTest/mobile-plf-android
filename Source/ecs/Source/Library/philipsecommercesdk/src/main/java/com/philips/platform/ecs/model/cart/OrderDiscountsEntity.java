@@ -11,6 +11,7 @@ import java.io.Serializable;
  * The type Order discounts entity which contains discount data
  */
 public class OrderDiscountsEntity implements Serializable {
+    private static final long serialVersionUID = 2694519472858559106L;
     private String currencyIso;
     private String formattedValue;
     private String priceType;

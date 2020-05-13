@@ -14,6 +14,7 @@ import java.io.Serializable;
  * Created by 310228564 on 2/9/2016.
  */
 public class Entry implements Serializable {
+    private static final long serialVersionUID = 656133068428902971L;
     private int entryNumber;
     private ECSProduct product;
     private int quantity;

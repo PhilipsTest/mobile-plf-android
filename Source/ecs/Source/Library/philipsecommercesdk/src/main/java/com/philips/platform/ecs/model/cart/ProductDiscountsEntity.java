@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 
 public class ProductDiscountsEntity  implements Serializable {
+    private static final long serialVersionUID = 8388815318841988644L;
     private String currencyIso;
     private String formattedValue;
     private String priceType;

@@ -10,6 +10,7 @@ import com.philips.platform.ecs.model.products.ECSProduct;
 import java.io.Serializable;
 
 public class Entries implements Serializable {
+    private static final long serialVersionUID = -2922644423462768633L;
     private int entryNumber;
 
     private ECSProduct product;

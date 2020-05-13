@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.orders;
 import java.io.Serializable;
 
 public class Pagination  implements Serializable {
+    private static final long serialVersionUID = -7079581698960968959L;
     private int currentPage;
     private int pageSize;
     private String sort;

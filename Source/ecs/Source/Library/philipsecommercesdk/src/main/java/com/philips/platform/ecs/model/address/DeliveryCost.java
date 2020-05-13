@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.address;
 import java.io.Serializable;
 
 public class DeliveryCost implements Serializable {
+    private static final long serialVersionUID = -6560538947189764715L;
     private String currencyIso;
     private String formattedValue;
     private String priceType;

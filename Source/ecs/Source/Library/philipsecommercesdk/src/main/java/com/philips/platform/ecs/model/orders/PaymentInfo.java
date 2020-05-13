@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class PaymentInfo  implements Serializable {
 
 
+    private static final long serialVersionUID = 4215127411026286981L;
     private ECSAddress billingAddress;
     private String cardNumber;
     private CardType cardType;

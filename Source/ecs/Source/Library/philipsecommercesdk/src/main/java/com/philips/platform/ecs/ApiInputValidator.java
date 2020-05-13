@@ -90,7 +90,7 @@ import java.util.List;
     }
 
     private boolean isINValidList(List list){
-        return list==null || list.isEmpty();
+        return (list == null) || list.isEmpty();
     }
 
     public ECSErrorWrapper getProductSummaryAPIValidateError(List<String> ctns) {

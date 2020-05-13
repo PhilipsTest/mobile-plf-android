@@ -10,6 +10,7 @@ import java.util.List;
 
 public class TextsEntity implements Serializable {
 
+    private static final long serialVersionUID = -1771324386322637052L;
     private List<TextEntity> Text;
 
     public List<TextEntity> getText() {

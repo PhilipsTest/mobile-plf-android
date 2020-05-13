@@ -9,6 +9,8 @@ package com.philips.platform.ecs.model.products;
 import java.io.Serializable;
 
 public class PriceEntity implements Serializable {
+    private static final long serialVersionUID = 8456574265800383229L;
+
     public String getCurrencyIso() {
         return currencyIso;
     }

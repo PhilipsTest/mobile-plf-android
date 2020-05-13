@@ -16,6 +16,7 @@ import java.util.List;
  * The type Disclaimers contains list of disclaimers.
  */
 public class Disclaimers implements Serializable {
+    private static final long serialVersionUID = 1952635667341845013L;
     @SerializedName("disclaimer")
     @Expose
     private List<Disclaimer> disclaimer = new ArrayList<Disclaimer>();
