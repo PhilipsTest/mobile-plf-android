@@ -73,6 +73,7 @@ import static com.philips.cdp.registration.app.tagging.AppTagingConstants.FIREBA
 import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_FACEBOOK;
 import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_GOOGLEPLUS;
 import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_WECHAT;
+import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_APPLE;
 
 
 public class HomeFragment extends RegistrationBaseFragment implements NetworkStateListener, HomeContract {
@@ -401,7 +402,8 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
                     showProgressDialog();
                     homePresenter.setProvider(providerName);
                     startFaceBookLogin();
-                } else {
+                }
+                    else {
                     showProgressDialog();
                     homePresenter.setProvider(providerName);
                     homePresenter.startSocialLogin();
@@ -781,6 +783,8 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
                 drawableId = R.drawable.uid_social_media_google_icon;
             } else if (provider.equals(SOCIAL_PROVIDER_WECHAT)) {
                 drawableId = R.drawable.uid_social_media_wechat_icon;
+            } else if (provider.equals(SOCIAL_PROVIDER_APPLE)) {
+                drawableId = R.drawable.ic_social_media_apple_icon;
             }
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

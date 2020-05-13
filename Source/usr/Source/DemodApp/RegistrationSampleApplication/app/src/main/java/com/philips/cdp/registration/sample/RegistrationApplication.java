@@ -96,6 +96,7 @@ public class RegistrationApplication extends Application {
                 configError);
 
         ArrayList<String> providers = new ArrayList<String>();
+        providers.add("apple");
         providers.add("facebook");
         providers.add("googleplus");
         mAppInfraInterface.
