@@ -20,6 +20,8 @@
             name="ecsOrders"
             type="com.philips.platform.ecs.model.orders.ECSOrders" />
 
+
+
         <variable
             name="mECOrderHistoryService"
             type="com.philips.platform.mec.screens.history.MECOrderHistoryService" />
@@ -336,7 +338,7 @@
                     android:visibility="@{ecsOrders.orderDetail.appliedVouchers.size() > 0 ? View.VISIBLE : View.GONE, default = gone}" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mec_accepted_code_recycler_view"
+                    android:id="@+id/mec_order_history_detail_accepted_codes_recycler_view"
                     android:layout_below="@+id/tv_applied_voucher_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -346,7 +348,7 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_cart_Summary"
-                    android:layout_below="@+id/mec_accepted_code_recycler_view"
+                    android:layout_below="@+id/mec_order_history_detail_accepted_codes_recycler_view"
                     style="@style/mec_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -356,7 +358,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mec_cart_summary_recycler_view"
+                    android:id="@+id/mec_order_history_detail_product_recycler_view"
                     android:layout_below="@+id/mec_cart_Summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -364,8 +366,8 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mec_price_summary_recycler_view"
-                    android:layout_below="@+id/mec_cart_summary_recycler_view"
+                    android:id="@+id/mec_order_history_detail_price_recycler_view"
+                    android:layout_below="@+id/mec_order_history_detail_product_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"

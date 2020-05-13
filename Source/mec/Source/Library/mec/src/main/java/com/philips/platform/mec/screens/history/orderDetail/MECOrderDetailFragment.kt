@@ -32,7 +32,7 @@ import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.history.MECOrderHistoryService
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
-import com.philips.platform.mec.screens.shoppingCart.MECCartSummaryAdapter
+import com.philips.platform.mec.screens.shoppingCart.MECOrderDetailPriceAdapter
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_NUMBER
@@ -45,7 +45,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     private var ecsOrders: ECSOrders? = null
     private lateinit var mecOrderDetailViewModel: MECOrderDetailViewModel
     private var mecOrderDetailService = MECOrderDetailService()
-    private var cartSummaryAdapter: MECCartSummaryAdapter? = null
+    private var priceAdapter: MECOrderDetailPriceAdapter? = null
     private var productsAdapter: MECOrderDetailProductsAdapter? = null
     private var vouchersAdapter: MECOrderDetailVouchersAdapter? = null
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
@@ -68,13 +68,13 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     private fun  updateUI(){
 
         cartSummaryList.clear()
-        cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
+        priceAdapter = MECOrderDetailPriceAdapter(addCartSummaryList(ecsOrders?.orderDetail))
         productsAdapter = ecsOrders?.orderDetail?.let { MECOrderDetailProductsAdapter(it, this) }
         vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
 
-        binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
-        binding.mecCartSummaryRecyclerView.adapter = productsAdapter
-        binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
+        binding.mecOrderHistoryDetailAcceptedCodesRecyclerView.adapter = vouchersAdapter
+        binding.mecOrderHistoryDetailProductRecyclerView.adapter = productsAdapter
+        binding.mecOrderHistoryDetailPriceRecyclerView.adapter = priceAdapter
 
 
     }

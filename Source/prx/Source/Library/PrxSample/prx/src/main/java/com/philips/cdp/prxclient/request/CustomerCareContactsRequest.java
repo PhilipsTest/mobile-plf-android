@@ -34,7 +34,7 @@ public class CustomerCareContactsRequest extends PrxRequest {
 
     /**
      * Instantiates a new Product summary request.
-     * @since 2001.0.0
+     * @since 2002.0.0
      * @param productCategory product Category
      */
     public CustomerCareContactsRequest(String productCategory) {
