@@ -69,7 +69,7 @@ public class CloudLogSyncManager implements Observer<Integer>, RestInterface.Net
                 mSyncDataWorkQueue);
         dbLogCount = AILCloudLogDBManager.getInstance(appInfra).getLogCount();
         //TODO: With latest update of livedata library, calling observeForever is not allowed on background thread.
-        // Currently business is not consuming cloud logging. SO, there will be no impact. Need to move this to main thread later.
+        // Currently business is not consuming cloud logging. So, there would not be any impact. Need to handle this from main thread later.
         dbLogCount.observeForever(this);
         secretKey = loggingConfiguration.getCLSecretKey();
         sharedKey = loggingConfiguration.getCLSharedKey();
