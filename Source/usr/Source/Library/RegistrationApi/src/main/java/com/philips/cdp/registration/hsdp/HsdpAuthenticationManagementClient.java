@@ -73,7 +73,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
             SecretKeySpec secret = new SecretKeySpec(refreshSecret, mac.getAlgorithm());
             mac.init(secret);
             hash = mac.doFinal(stringToSign.getBytes("UTF-8"));
-            RLog.e(TAG, "createRefreshSignature");
+            RLog.d(TAG, "createRefreshSignature");
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException | InvalidKeyException e) {
             RLog.e(TAG, "Error occurred while creating refresh signature: " + e.getMessage());

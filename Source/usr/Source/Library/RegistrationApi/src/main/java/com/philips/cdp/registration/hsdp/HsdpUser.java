@@ -104,6 +104,7 @@ public class HsdpUser {
             final Handler handler = new Handler(Looper.getMainLooper());
 
             String name = hsdpConfiguration.getHsdpAppName();
+            RLog.d(TAG, "refreshToken:  "+name);
 
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient
@@ -186,10 +187,13 @@ public class HsdpUser {
      */
     public void refreshToken(final RefreshLoginSessionHandler refreshHandler) {
         final Handler handler = new Handler(Looper.getMainLooper());
-        if (networkUtility.isNetworkAvailable()) {
+        RLog.d(TAG, "refreshToken:  ");
+
+    if (networkUtility.isNetworkAvailable()) {
 
             String name = hsdpConfiguration.getHsdpAppName();
-            new Thread(() -> {
+            RLog.d(TAG, "refreshToken:  "+name);
+        new Thread(() -> {
 
                 HsdpAuthenticationManagementClient authenticationManagementClient =
                         new HsdpAuthenticationManagementClient(hsdpConfiguration, name);
@@ -407,6 +411,7 @@ public class HsdpUser {
         if (networkUtility.isNetworkAvailable()) {
             final Handler handler = new Handler(Looper.getMainLooper());
             String name = hsdpConfiguration.getHsdpAppName();
+            RLog.d(TAG, "refreshToken:  "+name);
 
             new Thread(() -> {
                 HsdpAuthenticationManagementClient authenticationManagementClient =
