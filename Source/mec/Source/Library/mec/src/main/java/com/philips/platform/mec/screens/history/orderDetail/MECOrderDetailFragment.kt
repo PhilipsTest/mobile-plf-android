@@ -126,12 +126,12 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
 
     fun onCancelOrder() {
         var mECCancelOrderFragment : MECCancelOrderFragment = MECCancelOrderFragment()
+        var arguments: Bundle = Bundle()
+        arguments.putString(MEC_ORDER_NUMBER,  binding.ecsOrders?.code)
         if( mContactphone!=null ) {
-            var arguments: Bundle = Bundle()
-            arguments.putString(MEC_ORDER_NUMBER,  binding.ecsOrders?.code)
             arguments.putSerializable(MEC_ORDER_CUSTOMER_CARE_PHONE, mContactphone)
-            mECCancelOrderFragment.arguments = arguments
         }
+        mECCancelOrderFragment.arguments = arguments
         replaceFragment(mECCancelOrderFragment,mECCancelOrderFragment.getFragmentTag(),true)
     }
 
