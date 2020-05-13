@@ -42,7 +42,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     private lateinit var binding: MecOrderHistoryFragmentBinding
 
     private var pageNumber = 0
-    private var pageSize = 10
+    private var pageSize = 20
     private var totalPage = 0
 
 
@@ -59,11 +59,11 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
     private val orderHistoryObserver: Observer<ECSOrderHistory> = Observer { ecsOrderHistory ->
 
-        if (ecsOrderHistory.pagination.totalResults == 0) {
+        if (ecsOrderHistory?.pagination?.totalResults == 0) {
             showOrderEmptyMessage()
         } else {
-            totalPage = ecsOrderHistory.pagination.totalPages
-            pageNumber = ecsOrderHistory.pagination.currentPage
+            totalPage = ecsOrderHistory?.pagination?.totalPages ?: 0
+            pageNumber = ecsOrderHistory?.pagination?.currentPage ?:0
 
             ordersList = mutableListOf<ECSOrders>()
             ordersList.addAll(ecsOrderHistory.orders)
