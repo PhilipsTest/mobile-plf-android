@@ -101,7 +101,7 @@ class ECSManager {
 
     void getHybrisConfigResponse(ECSCallback<ECSConfig, Exception> ecsCallback) {
 
-        ECSCallback ecsCallback1 = new ECSCallback<ECSConfig, Exception>() {
+        ECSCallback<ECSConfig, Exception> ecsCallback1 = new ECSCallback<ECSConfig, Exception>() {
             @Override
             public void onResponse(ECSConfig result) {
                 ECSConfiguration.INSTANCE.setSiteId(result.getSiteId());
@@ -163,7 +163,7 @@ class ECSManager {
 
     void getProductFor(String ctn, ECSCallback<ECSProduct, Exception> eCSCallback) {
         if (null != ECSConfiguration.INSTANCE.getSiteId()) { // hybris flow
-            ECSCallback ecsCallback1 = new ECSCallback<ECSProduct, Exception>() {
+            ECSCallback<ECSProduct, Exception> ecsCallback1 = new ECSCallback<ECSProduct, Exception>() {
                 @Override
                 public void onResponse(ECSProduct result) {
                     getSummaryForCTN(ctn, result, eCSCallback);
@@ -402,7 +402,7 @@ class ECSManager {
     //=====================================================Start of Shopping Cart ===========================================================
 
     void getECSShoppingCart(ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
-        ECSCallback ecsCallback1 = new ECSCallback<ECSShoppingCart, Exception>() {
+        ECSCallback<ECSShoppingCart, Exception> ecsCallback1 = new ECSCallback<ECSShoppingCart, Exception>() {
             @Override
             public void onResponse(ECSShoppingCart ecsShoppingCart) {
                 if (ecsShoppingCart.getEntries() != null && ecsShoppingCart.getEntries().size() != 0) {
