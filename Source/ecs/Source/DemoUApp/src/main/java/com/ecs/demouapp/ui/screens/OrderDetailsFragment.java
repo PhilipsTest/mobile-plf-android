@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -42,12 +41,12 @@ import com.ecs.demouapp.ui.utils.ECSUtility;
 import com.ecs.demouapp.ui.utils.NetworkUtility;
 import com.ecs.demouapp.ui.utils.Utility;
 import com.google.gson.Gson;
-import com.philips.platform.ecs.model.orders.ConsignmentEntries;
-import com.philips.platform.ecs.model.orders.Entries;
-import com.philips.platform.ecs.model.orders.ECSOrderDetail;
-import com.philips.platform.ecs.util.ECSConfiguration;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.platform.appinfra.rest.request.JsonObjectRequest;
+import com.philips.platform.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.orders.ConsignmentEntries;
+import com.philips.platform.ecs.model.orders.ECSOrderDetail;
+import com.philips.platform.ecs.util.ECSConfiguration;
 
 import org.json.JSONObject;
 
@@ -277,7 +276,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
             getPhoneContact(mOrderDetail.getEntries().get(0).getProduct().getSummary().getSubcategory());
         }
 
-        for (final Entries entries : mOrderDetail.getEntries()) {
+        for (final ECSEntries entries : mOrderDetail.getEntries()) {
             View productInfo = View.inflate(mContext, R.layout.ecs_order_details_item, null);
             mProductListView.addView(productInfo);
             ((TextView) productInfo.findViewById(R.id.tv_productName)).setText(entries.getProduct().getSummary().getProductTitle());
@@ -304,7 +303,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
         }
 
         int totalQuantity = 0;
-        for (Entries entries : mOrderDetail.getEntries()) {
+        for (ECSEntries entries : mOrderDetail.getEntries()) {
             totalQuantity += entries.getQuantity();
         }
         mTvQuantity.setText(String.format(mContext.getString(R.string.iap_no_of_products), totalQuantity + ""));
@@ -318,7 +317,7 @@ public class OrderDetailsFragment extends InAppBaseFragment implements OrderCont
 
     private void populateProductNameQuantityAndPrice(ECSOrderDetail mOrderDetail) {
 
-        for (Entries entries : mOrderDetail.getEntries()) {
+        for (ECSEntries entries : mOrderDetail.getEntries()) {
 
             View v = View.inflate(mContext, R.layout.ecs_order_detail_summary_product, null);
             TextView product_quantity_name = v.findViewById(R.id.tv_product_quantity_name);

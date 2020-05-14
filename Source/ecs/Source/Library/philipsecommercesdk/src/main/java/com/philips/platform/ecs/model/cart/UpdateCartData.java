@@ -11,13 +11,13 @@ import java.io.Serializable;
  * Created by 310228564 on 2/9/2016.
  */
 public class UpdateCartData implements Serializable {
-    private Entry entry;
+    private ECSEntries entry;
     private int quantity;
     private int quantityAdded;
     private String statusCode;
 
 
-    public Entry getEntry() {
+    public ECSEntries getEntry() {
         return entry;
     }
 

@@ -278,7 +278,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onResume() {
         super.onResume();
-        if (!userDataInterface.isOIDCToken() && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+
+        if(userDataInterface== null) userDataInterface = PIMDemoUAppApplication.getInstance().getUserDataInterface();
+
+        if (userDataInterface!=null && !userDataInterface.isOIDCToken() && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
             btnLaunchAsFragment.setEnabled(false);
         }
     }
@@ -395,7 +398,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void logoutSessionFailed(Error error) {
-                        showToast("Logout Failed due to " + error.getErrCode() + " and error message :" + error.getErrDesc());
+                        showToast("Logout Failed with error code " + error.getErrCode());
                     }
                 });
             } else {
@@ -484,7 +487,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onRefetchFailure(Error error) {
-                        showToast("Refetch failed");
+                        showToast("Refetch failed with error code : " + error.getErrCode());
                     }
                 });
             } else {

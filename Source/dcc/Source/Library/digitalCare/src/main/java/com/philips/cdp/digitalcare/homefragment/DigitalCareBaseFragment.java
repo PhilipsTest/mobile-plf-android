@@ -24,11 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +37,11 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.philips.cdp.digitalcare.DigitalCareConfigManager;
 import com.philips.cdp.digitalcare.R;
@@ -96,6 +97,20 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
             @TargetApi(Build.VERSION_CODES.N)
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
+                if (request.getUrl() != null && ( request.getUrl().toString().startsWith("https://m.me")
+                        || request.getUrl().toString().contains("com.facebook.katana")
+                        || url.contains("com.facebook.lite"))) {
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(request.getUrl().toString()));
+                        view.getContext().startActivity(intent);
+                        return true;
+                    } catch (Exception e) {
+                        Log.i(TAG, "shouldOverrideUrlLoading Exception:" + e);
+                        return true;
+                    }
+                }
+
                 if (request.getUrl().toString().startsWith("tel:")) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse(request.getUrl().toString()));
@@ -109,12 +124,26 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
             @SuppressWarnings("deprecation")
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null && ( url.startsWith("https://m.me") || url.contains("com.facebook.katana")
+                        || url.contains("com.facebook.lite"))) {
+                try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        view.getContext().startActivity(intent);
+                        return true;
+                    } catch (Exception e) {
+                        Log.i(TAG, "shouldOverrideUrlLoading Exception:" + e);
+                        return true;
+                    }
+                }
+
                 if (url.startsWith("tel:")) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse(url));
                     startActivity(intent);
                     return true;
                 }
+
+
                 view.loadUrl(url);
                 return true;
             }
@@ -139,7 +168,7 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
-            Bitmap videoPoster = BitmapFactory.decodeResource(getResources(), R.drawable.ic_media_video_poster);
+            
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
