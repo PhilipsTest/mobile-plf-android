@@ -56,6 +56,9 @@ public interface UserDataInterface extends Serializable {
     @Deprecated
     String getHSDPUUID();
 
+    void logoutHSDP(LogoutSessionListener logoutSessionListener);
+
+
     /**
      * {@code getUserSignInState} method checks a user is logged in state
      *

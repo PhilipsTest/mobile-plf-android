@@ -286,6 +286,11 @@ public class PIMDataImplementation implements UserDataInterface {
     }
 
     @Override
+    public void logoutHSDP(LogoutSessionListener logoutSessionListener) {
+
+    }
+
+    @Override
     public UserLoggedInState getUserLoggedInState() {
         if (pimUserManager != null)
             return pimUserManager.getUserLoggedInState();

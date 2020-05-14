@@ -19,7 +19,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
 
     private String TAG = HsdpAuthenticationManagementClient.class.getSimpleName();
     private HSDPConfiguration hsdpConfiguration;
-    String  appName = "";
+    private String  appName = "";
 
     HsdpAuthenticationManagementClient(HSDPConfiguration hsdpConfiguration, String hsdpAppName) {
         super(hsdpConfiguration);
@@ -36,6 +36,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
         headers.put("Api-version", "2");
         Map<String, String> body = new LinkedHashMap<String, String>();
         body.put("loginId", email);
+        RLog.d(TAG,"loginSocialProviders: "+ apiEndpoint +" "+ queryParams +" "+ socialAccessToken +" "+ secret +" "+ email);
         return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, body);
     }
 
@@ -44,6 +45,8 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
         String queryParams = "applicationName=" + appName;
         Map<String, String> headers = new LinkedHashMap<String, String>();
         headers.put("accessToken", accessToken);
+        RLog.d(TAG,"logout: "+ apiEndpoint +" "+ queryParams +" "+ accessToken);
+
         return sendRestRequest(apiEndpoint, queryParams, headers, null);
     }
 
@@ -58,7 +61,7 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
         headers.put("refreshSignatureDate", date);
         headers.put("api-version", "2");
         headers.put("accessToken", accessToken);
-
+        RLog.d(TAG,"refreshSecret: "+ apiEndpoint +" "+ queryParams +" "+ accessToken);
         return sendSignedRequestForSocialLogin("POST", apiEndpoint, queryParams, headers, null);
     }
 
@@ -70,6 +73,8 @@ public class HsdpAuthenticationManagementClient extends HsdpRequestClient {
             SecretKeySpec secret = new SecretKeySpec(refreshSecret, mac.getAlgorithm());
             mac.init(secret);
             hash = mac.doFinal(stringToSign.getBytes("UTF-8"));
+            RLog.d(TAG, "createRefreshSignature");
+
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException | InvalidKeyException e) {
             RLog.e(TAG, "Error occurred while creating refresh signature: " + e.getMessage());
         }
