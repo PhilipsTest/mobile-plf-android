@@ -68,7 +68,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     private fun  updateUI(){
 
         cartSummaryList.clear()
-        priceAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsOrders?.orderDetail))
+        priceAdapter = ecsOrders?.orderDetail?.let { addCartSummaryList(it) }?.let { MECCartSummaryAdapter(it) }
         productsAdapter = ecsOrders?.orderDetail?.let { MECOrderDetailProductsAdapter(it, this) }
         vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
 
@@ -117,8 +117,8 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     }
 
 
-    private fun addCartSummaryList(orderDetail: ECSOrderDetail?): MutableList<MECCartSummary> {
-        mecOrderDetailService.addAppliedOrderPromotionsToCartSummaryList(orderDetail!!, cartSummaryList)
+    private fun addCartSummaryList(orderDetail: ECSOrderDetail): MutableList<MECCartSummary> {
+        mecOrderDetailService.addAppliedOrderPromotionsToCartSummaryList(orderDetail, cartSummaryList)
         mecOrderDetailService.addAppliedVoucherToCartSummaryList(orderDetail, cartSummaryList)
         mecOrderDetailService.addDeliveryCostToCartSummaryList(binding.mecDeliveryModeDescription.context, orderDetail, cartSummaryList)
         return cartSummaryList
@@ -147,7 +147,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     fun callPhone(phone: String) {
         try {
             val myintent = Intent(Intent.ACTION_DIAL)
-            myintent.data = Uri.parse("tel:" + phone!!)
+            myintent.data = Uri.parse("tel:" + phone)
             startActivity(myintent)
         } catch (e: NullPointerException) {
         }

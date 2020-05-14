@@ -12,7 +12,6 @@
 
 package com.philips.platform.mec.screens.history.orderDetail
 
-import androidx.lifecycle.MutableLiveData
 import com.philips.cdp.prxclient.datamodels.cdls.CDLSDataModel
 import com.philips.cdp.prxclient.error.PrxError
 import com.philips.cdp.prxclient.response.ResponseData
@@ -26,12 +25,13 @@ import com.philips.platform.mec.utils.MECLog
 class PRXContactsResponseCallback(private val mecOrderDetailViewModel: MECOrderDetailViewModel)  : ResponseListener {
 
     override fun onResponseError(prxError: PrxError?) {
-        MECLog.d("pabitra",prxError?.description)
-        val exception = Exception(prxError?.description)
-        var ecsError= ECSError(5999, ECSErrorEnum.ECSsomethingWentWrong.localizedErrorString)
-        val mecError = MecError(exception, ecsError, MECRequestType.MEC_FETCH_ORDER_HISTORY)
-        var mMecErrorLiveData = MutableLiveData(mecError)
-        mecOrderDetailViewModel.mecError=mMecErrorLiveData
+        try {
+            MECLog.d("pabitra", prxError?.description)
+            val exception = Exception(prxError?.description)
+            var ecsError = ECSError(5999, ECSErrorEnum.ECSsomethingWentWrong.localizedErrorString)
+            val mecError = MecError(exception, ecsError, MECRequestType.MEC_FETCH_ORDER_HISTORY)
+            mecOrderDetailViewModel.mecError.value = mecError
+        }catch(e: Exception){}
     }
 
     override fun onResponseSuccess(responseData: ResponseData?) {
