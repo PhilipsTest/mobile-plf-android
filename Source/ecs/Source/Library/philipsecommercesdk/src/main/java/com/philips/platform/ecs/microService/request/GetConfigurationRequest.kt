@@ -20,6 +20,7 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.getJsonError
 import org.json.JSONObject
+import java.util.HashMap
 
 class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, ECSError>) : ECSJsonRequest() {
 
@@ -34,7 +35,8 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, EC
 
 
     override fun getReplaceURLMap(): MutableMap<String, String> {
-        TODO("Not yet implemented")
+        val replaceUrl: MutableMap<String, String> = HashMap()
+        return replaceUrl
     }
 
     override fun onErrorResponse(error: VolleyError?) {
@@ -45,14 +47,11 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, EC
     }
     override fun onResponse(response: JSONObject?) {
         val config = response?.getData(ECSConfig::class.java)
-
-        if(config?.rootCategory!= null && config.siteId!=null ) { //TODO to use kotlin if let
-            config.isHybris = true
-        }
+        if(config?.rootCategory!= null && config.siteId!=null ) config.isHybris = true
 
         config?.locale = ECSDataHolder.locale
         config?.let { ECSDataHolder.config = config }
-        config?.let { eCSCallback.onResponse(it) } ?: kotlin.run {   } // TODO send error
+        config?.let { eCSCallback.onResponse(it) }
     }
 
     //TODO remove this method
