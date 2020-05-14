@@ -83,7 +83,7 @@ public abstract class PrxRequest {
      * @param serviceID PRX ServiceId
      * @param sector sector
      * @param catalog catalog
-     * @since 20.0.2
+     * @since 2003
      */
     public PrxRequest(String serviceID, PrxConstants.Sector sector, PrxConstants.Catalog catalog) {
         this.mServiceId = serviceID;

@@ -26,7 +26,7 @@ import com.philips.platform.uappframework.uappinput.UappSettings
 
 /**
  * MECInterface is the public class for any proposition to consume MEC micro app. Its the starting initialization point.
- * @since 1.0.0
+ * @since 2001.0
  */
 class MECInterface : UappInterface {
     private var mMECSettings: MECSettings? = null

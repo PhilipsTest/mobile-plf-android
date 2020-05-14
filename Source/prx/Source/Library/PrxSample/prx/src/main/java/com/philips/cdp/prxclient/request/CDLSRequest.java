@@ -38,9 +38,9 @@ public class CDLSRequest extends PrxRequest {
     private String mProductCategory;
 
     /**
-     * Instantiates a new Product summary request.
+     * Instantiates a new CDLS request.
      * @since 2003.0
-     * @param productCategory product Category
+     * @param productCategory : category of the product
      */
     public CDLSRequest(String productCategory) {
         super(PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID, PrxConstants.Sector.B2C, PrxConstants.Catalog.CARE);
@@ -48,7 +48,7 @@ public class CDLSRequest extends PrxRequest {
     }
 
     /**
-     * Instantiates a new Product summary request.
+     * Instantiates a new Product CDLS request.
      * @since 2003.0
      * @param productCategory         product Category
      * @param sector      sector
