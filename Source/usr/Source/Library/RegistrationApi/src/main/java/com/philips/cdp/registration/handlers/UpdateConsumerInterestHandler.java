@@ -14,7 +14,7 @@ package com.philips.cdp.registration.handlers;
  * @since 1.0.0
  * @deprecated since 1903
  */
-@Deprecated
+//@Deprecated
 public interface UpdateConsumerInterestHandler {
 
 	/**

@@ -19,7 +19,7 @@ import org.json.JSONObject;
  * @since 1.0.0
  * @deprecated since 1903
  */
-@Deprecated
+//@Deprecated
 public interface SocialLoginProviderHandler extends LoginHandler {
 
     /**

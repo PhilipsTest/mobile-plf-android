@@ -15,7 +15,7 @@ package com.philips.cdp.registration.handlers;
  *
  * @deprecated since 1903
  */
-@Deprecated
+//@Deprecated
 public interface UpdateUserDetailsHandler {
 
 	/**

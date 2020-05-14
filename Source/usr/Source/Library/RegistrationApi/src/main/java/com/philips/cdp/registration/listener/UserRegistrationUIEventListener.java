@@ -15,7 +15,7 @@ import android.app.Activity;
  *
  * @deprecated since 1903
  */
-@Deprecated
+//@Deprecated
 public interface UserRegistrationUIEventListener {
     /**
      * When user complete the registration process completed

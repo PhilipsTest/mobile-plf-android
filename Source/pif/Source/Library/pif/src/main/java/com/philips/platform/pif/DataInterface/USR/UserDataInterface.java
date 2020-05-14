@@ -43,7 +43,7 @@ public interface UserDataInterface extends Serializable {
      * @since 2018.1.0
      * @deprecated since 1903
      */
-    @Deprecated
+   // @Deprecated
     String getHSDPAccessToken();
 
     /**
@@ -53,7 +53,7 @@ public interface UserDataInterface extends Serializable {
      * @since 2018.1.0
      * @deprecated since 1903
      */
-    @Deprecated
+    //@Deprecated
     String getHSDPUUID();
 
     /**
@@ -71,7 +71,7 @@ public interface UserDataInterface extends Serializable {
      * @since 1804.0
      * @deprecated since 1903
      */
-    @Deprecated
+    //@Deprecated
     void authorizeHsdp(HSDPAuthenticationListener hsdpAuthenticationListener);
 
     /**

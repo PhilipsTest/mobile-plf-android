@@ -14,7 +14,7 @@ package com.philips.cdp.registration.listener;
  *
  * @deprecated since 1903
  */
-@Deprecated
+//@Deprecated
 public interface UserRegistrationListener {
     /**
      * Callback when user is logged out

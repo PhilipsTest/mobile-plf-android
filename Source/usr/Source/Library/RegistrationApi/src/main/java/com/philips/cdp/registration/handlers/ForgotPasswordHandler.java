@@ -16,7 +16,7 @@ import com.philips.cdp.registration.dao.UserRegistrationFailureInfo;
  * @since 1.0.0
  * @deprecated since 1903
  */
-@Deprecated
+//@Deprecated
 public interface ForgotPasswordHandler {
 
     /**
