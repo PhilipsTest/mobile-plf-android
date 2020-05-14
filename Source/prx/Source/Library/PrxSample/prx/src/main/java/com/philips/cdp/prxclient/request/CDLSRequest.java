@@ -29,7 +29,7 @@ import java.util.Map;
 
 
 /**
- * The type Product summary request.
+ * The type Product CDLS request.
  */
 public class CDLSRequest extends PrxRequest {
 
@@ -39,7 +39,7 @@ public class CDLSRequest extends PrxRequest {
 
     /**
      * Instantiates a new Product summary request.
-     * @since 2002.0.0
+     * @since 2003.0
      * @param productCategory product Category
      */
     public CDLSRequest(String productCategory) {
@@ -49,7 +49,7 @@ public class CDLSRequest extends PrxRequest {
 
     /**
      * Instantiates a new Product summary request.
-     * @since 2001.0.0
+     * @since 2003.0
      * @param productCategory         product Category
      * @param sector      sector
      * @param catalog     catalog

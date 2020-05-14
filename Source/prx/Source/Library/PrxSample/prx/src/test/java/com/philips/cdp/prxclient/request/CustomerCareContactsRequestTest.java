@@ -20,6 +20,10 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -84,4 +88,17 @@ public class CustomerCareContactsRequestTest {
             }
         }
 
+    @Test
+    public void testURLParam() {
+        CDLSRequest cdlsRequest = new CDLSRequest("AIRFRYER_SU", PrxConstants.Sector.B2C, PrxConstants.Catalog.CARE, "REQUEST_TAG");
+
+        Map<String, String> expectedMap = new HashMap<>();
+        expectedMap.put("productCategory", "AIRFRYER_SU");
+        expectedMap.put("productSector", PrxConstants.Sector.B2C.name());
+        expectedMap.put("productCatalog", PrxConstants.Catalog.CARE.name());
+
+
+        Map<String, String> realMap = cdlsRequest.getReplaceURLMap();
+        assertEquals(expectedMap,realMap);
+    }
 }
