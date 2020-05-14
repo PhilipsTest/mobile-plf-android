@@ -784,7 +784,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
             } else if (provider.equals(SOCIAL_PROVIDER_WECHAT)) {
                 drawableId = R.drawable.uid_social_media_wechat_icon;
             } else if (provider.equals(SOCIAL_PROVIDER_APPLE)) {
-                drawableId = R.drawable.ic_social_media_apple_icon;
+                drawableId = R.drawable.ic_apple_icon;
             }
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
