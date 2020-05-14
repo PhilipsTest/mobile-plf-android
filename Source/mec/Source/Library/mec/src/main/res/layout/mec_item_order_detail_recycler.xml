@@ -18,7 +18,7 @@
 
         <variable
             name="ecsEntries"
-            type="com.philips.platform.ecs.model.orders.Entries" />
+            type="com.philips.platform.ecs.model.cart.ECSEntries" />
 
     </data>
 
