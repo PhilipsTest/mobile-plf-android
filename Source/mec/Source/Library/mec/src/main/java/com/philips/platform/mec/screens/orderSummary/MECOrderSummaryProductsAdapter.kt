@@ -17,7 +17,7 @@ import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.databinding.MecOrderSummaryCartItemsBinding
 
 
-class MECOrderSummaryProductsAdapter(private val mecCart: com.philips.platform.ecs.model.cart.ECSShoppingCart) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MECOrderSummaryProductsAdapter(private val mecCart: ECSShoppingCart) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MECOrderSummaryViewHolder(MecOrderSummaryCartItemsBinding.inflate(LayoutInflater.from(parent.context)))

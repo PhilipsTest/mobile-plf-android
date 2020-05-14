@@ -24,6 +24,7 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
 import com.philips.platform.mec.analytics.MECAnalyticServer.hybris
@@ -149,6 +150,23 @@ class MECutility {
             }
         }
 
+        fun showPositiveActionDialog(context: Context, btnText: String, errorTitle: String, errorDescription: String, fragmentManager: FragmentManager, alertListener: AlertListener) {
+
+            val builder = AlertDialogFragment.Builder(context)
+            builder.setDialogType(DialogConstants.TYPE_ALERT)
+            builder.setTitle(errorTitle)
+            builder.setMessage(errorDescription)
+            builder.setPositiveButton(btnText) {
+                alertListener.onPositiveBtnClick()
+                dismissAlertFragmentDialog(alertDialogFragment, fragmentManager)
+            }
+
+            alertDialogFragment = builder.setCancelable(false).create()
+            if (!alertDialogFragment!!.isVisible) {
+                alertDialogFragment!!.show(fragmentManager, ALERT_DIALOG_TAG)
+            }
+        }
+
 
         private fun isCallingFragmentVisible(fragmentManager: FragmentManager?): Boolean {
 
@@ -247,8 +265,6 @@ class MECutility {
         fun getQuantity(carts: ECSShoppingCart): Int {
             val totalItems = carts.totalItems
             var quantity = 0
-
-
             if (carts.entries != null) {
                 val entries = carts.entries
                 if (totalItems != 0 && null != entries) {
@@ -394,7 +410,6 @@ class MECutility {
         }
 
 
-
     }
 
     fun constructShippingAddressDisplayField(ecsAddress: ECSAddress): String {
@@ -419,10 +434,27 @@ class MECutility {
         return formattedCardDetail
     }
 
+    fun constructCardDetails(paymentInfo: PaymentInfo): CharSequence? {
+        var formattedCardDetail = ""
+        val cardType = if (paymentInfo.cardType != null) paymentInfo.cardType.code else ""
+        val cardNumber = if (paymentInfo.cardNumber != null) paymentInfo.cardNumber else ""
+        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
+        return formattedCardDetail
+    }
+
     fun constructCardValidityDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardValidityDetail = ""
         val cardExpMon =  ( mecPayment.ecsPayment.expiryMonth.validateStr())
         val cardExpYear =  ( mecPayment.ecsPayment.expiryYear.validateStr())
+        if (cardExpMon == "" || cardExpYear == "") return null
+        formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
+        return formattedCardValidityDetail
+    }
+
+    fun constructCardValidityDetails(paymentInfo: PaymentInfo): CharSequence? {
+        var formattedCardValidityDetail = ""
+        val cardExpMon = if (paymentInfo.expiryMonth != null) paymentInfo.expiryMonth else ""
+        val cardExpYear = if (paymentInfo.expiryYear != null) paymentInfo.expiryYear else ""
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail

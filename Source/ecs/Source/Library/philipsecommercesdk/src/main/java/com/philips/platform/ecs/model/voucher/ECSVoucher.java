@@ -25,6 +25,9 @@ public class ECSVoucher implements Serializable {
     public String getCode() {
         return code;
     }
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public boolean isFreeShipping() {
         return freeShipping;
@@ -48,5 +51,8 @@ public class ECSVoucher implements Serializable {
 
     public AppliedValue getAppliedValue() {
         return appliedValue;
+    }
+    public void setAppliedValue(AppliedValue appliedValue) {
+        this.appliedValue = appliedValue;
     }
 }

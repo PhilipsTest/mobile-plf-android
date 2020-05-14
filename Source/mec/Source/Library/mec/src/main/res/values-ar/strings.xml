@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">تتبّع الطلب</string>
   <string name="mec_accept_terms">من خلال وضع الطلب، أوافق على سياسة Philips</string>
   <string name="mec_accepted_codes">الرموز المقبولة</string>
   <string name="mec_add">إضافة</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">عنوان إرسال الفاتورة</string>
   <string name="mec_blank_cvv_error">يرجى إدخال رقم CVV صالح</string>
   <string name="mec_buy_from_retailers">الشراء من بائع التجزئة</string>
+  <string name="mec_call">المكالمة</string>
   <string name="mec_cancel">إلغاء</string>
+  <string name="mec_cancel_order">إلغاء طلبي</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">لغرض المعلومات فحسب، إن رقم طلبك هو %s</string>
+  <string name="mec_cancel_order_dls_msg">يمكنك إلغاء طلبك قبل شحنه. يمكن لفريق خدمة المستهلك مساعدتك في تنفيذ هذا الأمر.</string>
+  <string name="mec_cancel_order_number">إلغاء رقم الطلب </string>
   <string name="mec_cancel_payment">هل تريد إلغاء عملية الدفع؟ ستصبح عربة التسوق فارغة.</string>
+  <string name="mec_cancel_your_order">[ar]Cancel your order</string>
   <string name="mec_card_holder_first_name">الاسم الأول لحامل البطاقة</string>
   <string name="mec_card_holder_last_name">اسم الشهر لحامل البطاقة</string>
   <string name="mec_cart_count_exceed_message">تتعذّر إضافة أكثر من %d من المنتجات إلى العربة</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">تأكيد</string>
   <string name="mec_confirmation_email_msg">ستتلقى رسالة بريد إلكتروني للتأكيد  بعد فترة وجيزة على</string>
   <string name="mec_contact_details">تفاصيل جهة الاتصال</string>
+  <string name="mec_contact_philips_consumer_care">يرجى الاتصال بقسم خدمة المستهلك التابع لشركة Philips‏ %s لمزيد من الدعم.</string>
   <string name="mec_continue">متابعة</string>
   <string name="mec_continue_checkout">متابعة إلى دفع الحساب المطلوب</string>
   <string name="mec_continue_shopping">متابعة التسوق</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">طريقة التسليم</string>
   <string name="mec_discount">الخصم</string>
   <string name="mec_empty_cart">عربة التسوق فارغة حاليًا</string>
+  <string name="mec_empty_purchase_history">إذا قدّمت طلبك مستخدمًا هذا التطبيق، فيرجى التحقق من أنك تلقيت بريدًا إلكترونيًا لتأكيد الطلب.</string>
   <string name="mec_enter_code">إدخال رمز هدية</string>
   <string name="mec_faq">الأسئلة الشائعة</string>
   <string name="mec_features">المميزات</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">للحصول على مزيد من المعلومات</string>
   <string name="mec_mr">السيد</string>
   <string name="mec_mrs">الآنسة</string>
+  <string name="mec_my_orders">طلباتي</string>
   <string name="mec_new_card_text">بطاقة جديدة</string>
   <string name="mec_new_payment_disclaimer">سيتم حفظ تفاصيل الدفع هذه بعد إجراء طلب</string>
   <string name="mec_no_address_select_message">يرجى تحديد عنوان للشحن</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">موافق</string>
   <string name="mec_online_retailers">البائعون عبر الإنترنت</string>
   <string name="mec_only">فقط</string>
+  <string name="mec_order_detail_unavailable">[ar]Order Detail is unavailable</string>
+  <string name="mec_order_details">تفاصيل الطلب</string>
+  <string name="mec_order_not_received_items">لم يتم استلام الطلب</string>
+  <string name="mec_order_number_msg">رقم الطلب: %s</string>
   <string name="mec_order_pay">الطلب والدفع</string>
+  <string name="mec_order_state">طلبك هو %s</string>
   <string name="mec_order_summary">ملخّص الطلب</string>
   <string name="mec_order_summary_shipping">معلومات التسليم</string>
+  <string name="mec_orders">الطلبات</string>
+  <string name="mec_other_channel_purchase">إذا قدمت طلبك عبر بائع تجزئة آخر، فقد لا يظهر طلبك هنا.</string>
   <string name="mec_out_of_stock">غير متوفر في المخزن</string>
   <string name="mec_page">الصفحة </string>
   <string name="mec_payment">الدفع</string>
