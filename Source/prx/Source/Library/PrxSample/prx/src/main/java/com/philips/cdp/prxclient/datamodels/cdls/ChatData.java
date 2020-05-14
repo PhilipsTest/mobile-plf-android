@@ -10,20 +10,12 @@
  *
  */
 
-package com.philips.cdp.prxclient.datamodels.contacts;
+package com.philips.cdp.prxclient.datamodels.cdls;
 
-import android.os.Parcelable;
-
-import java.io.Serializable;
-
-public class ContactPhone implements Serializable {
-    private String phoneNumber;
+public class ChatData {
     private String openingHoursWeekdays;
     private String openingHoursSaturday;
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    private String content;
 
     public void setOpeningHoursWeekdays(String openingHoursWeekdays) {
         this.openingHoursWeekdays = openingHoursWeekdays;
@@ -33,8 +25,8 @@ public class ContactPhone implements Serializable {
         this.openingHoursSaturday = openingHoursSaturday;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getOpeningHoursWeekdays() {
@@ -43,5 +35,9 @@ public class ContactPhone implements Serializable {
 
     public String getOpeningHoursSaturday() {
         return openingHoursSaturday;
+    }
+
+    public String getContent() {
+        return content;
     }
 }

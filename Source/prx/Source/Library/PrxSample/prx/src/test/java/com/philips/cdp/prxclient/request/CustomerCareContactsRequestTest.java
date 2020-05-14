@@ -32,19 +32,19 @@ public class CustomerCareContactsRequestTest {
 
         @Before
         public void setUp() throws Exception {
-            mCustomerCareContactsRequest = new CustomerCareContactsRequest("AIRFRYER_SU");
+            mCustomerCareContactsRequest = new CDLSRequest("AIRFRYER_SU");
 
         }
 
         @Test
         public void testPrxBuilderObjectWithOneParameter() {
-            mCustomerCareContactsRequest = new CustomerCareContactsRequest("AIRFRYER_SU");
+            mCustomerCareContactsRequest = new CDLSRequest("AIRFRYER_SU");
             assertNotNull(mCustomerCareContactsRequest);
         }
 
     @Test
     public void testPrxBuilderObjectWithAllParameter() {
-        mCustomerCareContactsRequest = new CustomerCareContactsRequest("AIRFRYER_SU", PrxConstants.Sector.B2C, PrxConstants.Catalog.CARE,"REQUEST_TAG");
+        mCustomerCareContactsRequest = new CDLSRequest("AIRFRYER_SU", PrxConstants.Sector.B2C, PrxConstants.Catalog.CARE,"REQUEST_TAG");
         assertNotNull(mCustomerCareContactsRequest);
     }
 

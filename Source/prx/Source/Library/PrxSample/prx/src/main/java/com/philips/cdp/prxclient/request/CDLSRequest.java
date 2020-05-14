@@ -14,11 +14,16 @@ package com.philips.cdp.prxclient.request;
 
 
 import com.philips.cdp.prxclient.PrxConstants;
-import com.philips.cdp.prxclient.datamodels.contacts.ContactsModel;
+import com.philips.cdp.prxclient.datamodels.cdls.CDLSDataModel;
 import com.philips.cdp.prxclient.response.ResponseData;
+import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.appinfra.logging.LoggingInterface;
+import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
+import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +31,7 @@ import java.util.Map;
 /**
  * The type Product summary request.
  */
-public class CustomerCareContactsRequest extends PrxRequest {
+public class CDLSRequest extends PrxRequest {
 
     private static final String PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID = "cc.cdls";
     private String mRequestTag = null;
@@ -37,7 +42,7 @@ public class CustomerCareContactsRequest extends PrxRequest {
      * @since 2002.0.0
      * @param productCategory product Category
      */
-    public CustomerCareContactsRequest(String productCategory) {
+    public CDLSRequest(String productCategory) {
         super(PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID, PrxConstants.Sector.B2C, PrxConstants.Catalog.CARE);
         mProductCategory = productCategory;
     }
@@ -50,7 +55,7 @@ public class CustomerCareContactsRequest extends PrxRequest {
      * @param catalog     catalog
      * @param requestTag  request tag
      */
-    public CustomerCareContactsRequest(String productCategory, PrxConstants.Sector sector, PrxConstants.Catalog catalog, String requestTag) {
+    public CDLSRequest(String productCategory, PrxConstants.Sector sector, PrxConstants.Catalog catalog, String requestTag) {
         super(PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID, sector, catalog);
         this.mRequestTag = requestTag;
         mProductCategory = productCategory;
@@ -58,10 +63,31 @@ public class CustomerCareContactsRequest extends PrxRequest {
 
     @Override
     public ResponseData getResponseData(JSONObject jsonObject) {
-        return new ContactsModel().parseJsonResponseData(jsonObject);
+        return new CDLSDataModel().parseJsonResponseData(jsonObject);
     }
 
-    @Override
+    public void getRequestUrlFromAppInfra(final AppInfraInterface appInfra, final OnUrlReceived listener) {
+
+
+        ArrayList<String> serviceIDList = new ArrayList<>();
+        serviceIDList.add(PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID);
+        appInfra.getServiceDiscovery().getServicesWithCountryPreference(serviceIDList, new ServiceDiscoveryInterface.OnGetServiceUrlMapListener() {
+            @Override
+            public void onSuccess(Map<String, ServiceDiscoveryService> urlMap) {
+                appInfra.getLogging().log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, "prx SUCCESS Url "+urlMap.get(PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID));
+                listener.onSuccess(urlMap.get(PRX_CONSUMER_CARE_DIGITAL_SERVICE_ID).getConfigUrls());
+            }
+
+            @Override
+            public void onError(ERRORVALUES error, String message) {
+                appInfra.getLogging().log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, "prx ERRORVALUES "+ message);
+                listener.onError(error, message);
+            }
+        },getReplaceURLMap());
+    }
+
+
+
     public Map<String, String> getReplaceURLMap() {
         Map<String, String> replaceUrl = new HashMap<>();
         replaceUrl.put("productCategory", mProductCategory);

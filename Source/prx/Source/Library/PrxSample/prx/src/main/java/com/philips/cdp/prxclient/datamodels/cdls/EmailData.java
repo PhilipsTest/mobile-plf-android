@@ -10,7 +10,7 @@
  *
  */
 
-package com.philips.cdp.prxclient.datamodels.contacts;
+package com.philips.cdp.prxclient.datamodels.cdls;
 
 public class EmailData {
     private String label;

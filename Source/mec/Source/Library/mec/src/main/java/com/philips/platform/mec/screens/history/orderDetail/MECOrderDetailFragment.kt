@@ -21,7 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.philips.cdp.prxclient.datamodels.contacts.ContactPhone
+import com.philips.cdp.prxclient.datamodels.cdls.ContactPhone
 import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.orders.ECSOrders

@@ -9,7 +9,7 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.philips.cdp.prxclient.datamodels.contacts.ContactPhone
+import com.philips.cdp.prxclient.datamodels.cdls.ContactPhone
 import com.philips.platform.mec.R
 import com.philips.platform.mec.databinding.MecCancelOrderFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment

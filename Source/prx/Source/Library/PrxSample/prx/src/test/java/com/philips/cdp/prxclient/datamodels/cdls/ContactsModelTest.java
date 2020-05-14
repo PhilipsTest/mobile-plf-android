@@ -10,9 +10,9 @@
  *
  */
 
-package com.philips.cdp.prxclient.datamodels.contacts;
+package com.philips.cdp.prxclient.datamodels.cdls;
 
-import com.philips.cdp.prxclient.request.CustomerCareContactsRequest;
+import com.philips.cdp.prxclient.request.CDLSRequest;
 import com.philips.cdp.prxclient.response.ResponseData;
 
 import org.json.JSONException;
@@ -25,12 +25,12 @@ import static org.junit.Assert.fail;
 
 public class ContactsModelTest {
 
-    CustomerCareContactsRequest mCustomercareRequestBuilder;
+    CDLSRequest mCustomercareRequestBuilder;
 
 
     @Before
     public void setUp() throws Exception {
-        mCustomercareRequestBuilder = new CustomerCareContactsRequest("AIRFRYER_SU");
+        mCustomercareRequestBuilder = new CDLSRequest("AIRFRYER_SU");
 
     }
 
@@ -39,7 +39,7 @@ public class ContactsModelTest {
     public void testDisclaimerDataLoad() {
         try {
             JSONObject mJsonObject = new JSONObject(getCustomerCareContactResponse());
-            ContactsModel contactsModel = new ContactsModel();
+            CDLSDataModel contactsModel = new CDLSDataModel();
             ResponseData responseData = contactsModel.parseJsonResponseData(mJsonObject);
             assertNotNull(responseData);
         } catch (JSONException e) {
@@ -54,7 +54,7 @@ public class ContactsModelTest {
         try {
             JSONObject mJsonObject = new JSONObject(getCustomerCareContactResponse());
             ResponseData mResponseData = mCustomercareRequestBuilder.getResponseData(mJsonObject);
-            ContactsModel contactsModel = (ContactsModel) mResponseData;
+            CDLSDataModel contactsModel = (CDLSDataModel) mResponseData;
             assertNotNull(contactsModel.getData().getPhone());
             assertNotNull(contactsModel.getData().getChat());
         } catch (JSONException e) {

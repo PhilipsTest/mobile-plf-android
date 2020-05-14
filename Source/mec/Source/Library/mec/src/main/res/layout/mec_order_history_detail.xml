@@ -28,7 +28,7 @@
 
         <variable
             name="contactPhone"
-            type="com.philips.cdp.prxclient.datamodels.contacts.ContactPhone" />
+            type="com.philips.cdp.prxclient.datamodels.cdls.ContactPhone" />
 
         <variable
             name="CardInfo"

@@ -149,7 +149,11 @@ public abstract class PrxRequest {
      * @since 1.0.0
      */
     public void getRequestUrlFromAppInfra(final AppInfraInterface appInfra, final OnUrlReceived listener) {
-
+        Map<String, String> replaceUrl = new HashMap<>();
+        replaceUrl.put("ctn", mCtn);
+        replaceUrl.put("sector", getSector().toString());
+        replaceUrl.put("catalog", getCatalog().toString());
+        // replaceUrl.put("locale", locale);
 
         ArrayList<String> serviceIDList = new ArrayList<>();
         serviceIDList.add(mServiceId);
@@ -165,19 +169,7 @@ public abstract class PrxRequest {
                 appInfra.getLogging().log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, "prx ERRORVALUES "+ message);
                 listener.onError(error, message);
             }
-        },getReplaceURLMap());
-    }
-
-    /**
-     * @since 20.0.2
-     * @return map of values which is replaced on URL query
-     */
-    public Map<String, String> getReplaceURLMap(){
-        Map<String, String> replaceUrl = new HashMap<>();
-        replaceUrl.put("ctn", mCtn);
-        replaceUrl.put("sector", getSector().toString());
-        replaceUrl.put("catalog", getCatalog().toString());
-        return replaceUrl;
+        },replaceUrl);
     }
 
 

@@ -3,21 +3,19 @@ package com.philips.platform.mec.screens.history.orderDetail
 import android.content.Context
 import com.philips.cdp.prxclient.PRXDependencies
 import com.philips.cdp.prxclient.RequestManager
-import com.philips.cdp.prxclient.request.CustomerCareContactsRequest
+import com.philips.cdp.prxclient.request.CDLSRequest
 import com.philips.platform.appinfra.AppInfraInterface
-import com.philips.platform.ecs.integration.ECSOAuthProvider
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
-@PrepareForTest(CustomerCareContactsRequest::class, RequestManager::class, PRXDependencies::class,PRXContactsResponseCallback::class)
+@PrepareForTest(CDLSRequest::class, RequestManager::class, PRXDependencies::class,PRXContactsResponseCallback::class)
 @RunWith(PowerMockRunner::class)
 class MECOrderDetailRepositoryTest {
 
@@ -50,11 +48,11 @@ class MECOrderDetailRepositoryTest {
     lateinit var appinfraMock: AppInfraInterface
 
     @Mock
-    lateinit var customerCareContactsRequestMock: CustomerCareContactsRequest
+    lateinit var CDLSRequestMock: CDLSRequest
 
     @Test
     fun fetchContacts() {
-       mECOrderDetailRepository.fetchContacts(mContextMock,customerCareContactsRequestMock,mPRXContactsResponseCallback)
-       Mockito.verify( mRequestManagerMock).executeRequest(customerCareContactsRequestMock,mPRXContactsResponseCallback)
+       mECOrderDetailRepository.fetchContacts(mContextMock,CDLSRequestMock,mPRXContactsResponseCallback)
+       Mockito.verify( mRequestManagerMock).executeRequest(CDLSRequestMock,mPRXContactsResponseCallback)
     }
 }

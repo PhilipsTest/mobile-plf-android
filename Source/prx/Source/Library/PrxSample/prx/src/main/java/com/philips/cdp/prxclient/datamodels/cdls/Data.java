@@ -10,7 +10,7 @@
  *
  */
 
-package com.philips.cdp.prxclient.datamodels.contacts;
+package com.philips.cdp.prxclient.datamodels.cdls;
 
 import java.util.List;
 

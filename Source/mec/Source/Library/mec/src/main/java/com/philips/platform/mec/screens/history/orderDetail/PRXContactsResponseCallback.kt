@@ -12,7 +12,7 @@
 
 package com.philips.platform.mec.screens.history.orderDetail
 
-import com.philips.cdp.prxclient.datamodels.contacts.ContactsModel
+import com.philips.cdp.prxclient.datamodels.cdls.CDLSDataModel
 import com.philips.cdp.prxclient.error.PrxError
 import com.philips.cdp.prxclient.response.ResponseData
 import com.philips.cdp.prxclient.response.ResponseListener
@@ -33,7 +33,7 @@ class PRXContactsResponseCallback(private val mecOrderDetailViewModel: MECOrderD
     }
 
     override fun onResponseSuccess(responseData: ResponseData?) {
-        var contactsModel:  ContactsModel=  responseData as ContactsModel
-        mecOrderDetailViewModel.contactPhone.value = contactsModel.data.phone.get(0)
+        var CDLSDataModel: CDLSDataModel =  responseData as CDLSDataModel
+        mecOrderDetailViewModel.contactPhone.value = CDLSDataModel.data.phone.get(0)
     }
 }

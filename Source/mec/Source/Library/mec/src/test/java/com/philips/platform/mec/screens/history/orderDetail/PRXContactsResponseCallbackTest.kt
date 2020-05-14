@@ -2,8 +2,8 @@ package com.philips.platform.mec.screens.history.orderDetail
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.prxclient.datamodels.contacts.ContactPhone
-import com.philips.cdp.prxclient.datamodels.contacts.ContactsModel
+import com.philips.cdp.prxclient.datamodels.cdls.ContactPhone
+import com.philips.cdp.prxclient.datamodels.cdls.CDLSDataModel
 import com.philips.cdp.prxclient.error.PrxError
 import com.philips.cdp.prxclient.response.ResponseData
 import com.philips.platform.mec.common.MecError
@@ -32,7 +32,7 @@ class PRXContactsResponseCallbackTest {
     var errorLiveDataMock = MutableLiveData<MecError>()
 
     @Mock
-    var mContactsModel = ContactsModel()
+    var mContactsModel = CDLSDataModel()
 
 
     @Mock
@@ -61,7 +61,7 @@ class PRXContactsResponseCallbackTest {
 
 
 
-        mResponseData = mContactsModel as ContactsModel
+        mResponseData = mContactsModel as CDLSDataModel
         // mecOrderDetailViewModel.contactPhone  = mContactsModel.value.data.phone.get(0)
         pRXContactsResponseCallback = PRXContactsResponseCallback(mecOrderDetailViewModelMock)
     }

@@ -10,7 +10,7 @@
  *
  */
 
-package com.philips.cdp.prxclient.datamodels.contacts;
+package com.philips.cdp.prxclient.datamodels.cdls;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class ContactsModel extends ResponseData implements Serializable {
+public class CDLSDataModel extends ResponseData implements Serializable {
 
     @SerializedName("data")
     @Expose
@@ -46,7 +46,7 @@ public class ContactsModel extends ResponseData implements Serializable {
     @Override
     public ResponseData parseJsonResponseData(JSONObject response) {
         if (response != null) {
-            return new Gson().fromJson(response.toString(), ContactsModel.class);
+            return new Gson().fromJson(response.toString(), CDLSDataModel.class);
 
         }
         return null;
