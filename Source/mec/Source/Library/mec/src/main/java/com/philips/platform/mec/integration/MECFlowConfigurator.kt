@@ -21,7 +21,7 @@ class MECFlowConfigurator : Serializable {
     /**
      * returns product array of CTN number
      * @return productCTNs  returns array of product CTNs
-     * @since 1.0.0
+     * @since 2003.0
      */
     var productCTNs: ArrayList<String>? =null
 
