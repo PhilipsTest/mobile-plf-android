@@ -1,6 +1,7 @@
 package com.philips.platform.mec.screens.history.orderDetail
 
 import android.content.Context
+import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.orders.*
 import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.model.voucher.AppliedValue
@@ -25,7 +26,7 @@ class MECOrderDetailServiceTest {
 
 
     lateinit var  mCSOrderDetail : ECSOrderDetail
-    var  mList =  mutableListOf<Entries>()
+    var  mList =  mutableListOf<ECSEntries>()
     var cartSummary : MutableList<MECCartSummary> = mutableListOf<MECCartSummary>()
 
     @Mock
@@ -42,7 +43,7 @@ class MECOrderDetailServiceTest {
 
     @Test
     fun getProductSubcategory() {
-        var entries : Entries = Entries()
+        var entries : ECSEntries = ECSEntries()
         assertNull(mMECOrderDetailService.getProductSubcategory(mCSOrderDetail))
 
 

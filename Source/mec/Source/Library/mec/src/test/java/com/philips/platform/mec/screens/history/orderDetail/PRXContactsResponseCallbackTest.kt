@@ -2,10 +2,14 @@ package com.philips.platform.mec.screens.history.orderDetail
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.philips.cdp.prxclient.datamodels.cdls.ContactPhone
 import com.philips.cdp.prxclient.datamodels.cdls.CDLSDataModel
+import com.philips.cdp.prxclient.datamodels.cdls.ContactPhone
+import com.philips.cdp.prxclient.datamodels.cdls.Data
 import com.philips.cdp.prxclient.error.PrxError
 import com.philips.cdp.prxclient.response.ResponseData
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSErrorEnum
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import org.junit.Before
 import org.junit.Test
@@ -22,17 +26,17 @@ class PRXContactsResponseCallbackTest {
     lateinit var pRXContactsResponseCallback: PRXContactsResponseCallback
 
 
-    lateinit var mecOrderDetailViewModelMock: MECOrderDetailViewModel
+    lateinit var mecOrderDetailViewModel: MECOrderDetailViewModel
+
+    @Mock
+    lateinit var mecOrderDetailViewModelMOCK: MECOrderDetailViewModel
 
 
     @Mock
-    lateinit var mResponseData: ResponseData
+    lateinit var mResponseData:  ResponseData
 
 
-    var errorLiveDataMock = MutableLiveData<MecError>()
-
-    @Mock
-    var mContactsModel = CDLSDataModel()
+    lateinit var mMecError : MutableLiveData<MecError>
 
 
     @Mock
@@ -41,46 +45,68 @@ class PRXContactsResponseCallbackTest {
     @Mock
     lateinit var productCategory: String
 
-    @Mock
+
     lateinit var mPrxError: PrxError
+
 
 
     @Before
     fun setUp() {
-        // MockitoAnnotations.initMocks(this)
-        var contactPhone = MutableLiveData<ContactPhone>()
+//        MockitoAnnotations.initMocks(this)
+        var contactPhoneLiveData = MutableLiveData<ContactPhone>()
+        var contactPhone = ContactPhone()
+        contactPhone.openingHoursSaturday="open hours"
+        contactPhone.openingHoursWeekdays="week day"
+        contactPhone.phoneNumber="12334"
 
-        var phoneList: MutableList<MutableLiveData<ContactPhone>> = mutableListOf()
+        contactPhoneLiveData = MutableLiveData(contactPhone)
+        var phoneList: MutableList<ContactPhone> = mutableListOf()
         phoneList.add(contactPhone)
+        var mData = Data()
+        mData.phone=phoneList
+        var mCDLSDataModel = CDLSDataModel()
+        mCDLSDataModel.data=mData
 
-        mecOrderDetailViewModelMock = MECOrderDetailViewModel()
-
-        mecOrderDetailViewModelMock.contactPhone = contactPhone
-        mecOrderDetailViewModelMock.mecError = errorLiveDataMock
+        mecOrderDetailViewModel = MECOrderDetailViewModel()
+        mecOrderDetailViewModel.contactPhone = contactPhoneLiveData
 
 
+        val exception = Exception("exception")
+        var ecsError= ECSError(5999, ECSErrorEnum.ECSsomethingWentWrong.toString())
+        val mecError = MecError(exception, ecsError, MECRequestType.MEC_FETCH_ORDER_HISTORY)
+        mMecError = MutableLiveData(mecError)
+        mecOrderDetailViewModel.mecError=mMecError
 
 
-        mResponseData = mContactsModel as CDLSDataModel
-        // mecOrderDetailViewModel.contactPhone  = mContactsModel.value.data.phone.get(0)
-        pRXContactsResponseCallback = PRXContactsResponseCallback(mecOrderDetailViewModelMock)
+        pRXContactsResponseCallback=PRXContactsResponseCallback(mecOrderDetailViewModel)
+        mPrxError= PrxError("ERROR",1)
+
     }
 
     @Test
     fun onResponseError() {
-        pRXContactsResponseCallback.onResponseError(mPrxError)
-        assertNotNull(mecOrderDetailViewModelMock.mecError)
+        pRXContactsResponseCallback.onResponseError( mPrxError)
+        assertNotNull(mecOrderDetailViewModel.mecError)
     }
 
     @Test
     fun onResponseSuccess() {
-        //  pRXContactsResponseCallback.onResponseSuccess(mResponseData)
-        assertNotNull(mecOrderDetailViewModelMock.contactPhone)
-
+      /* pRXContactsResponseCallback=PRXContactsResponseCallback(mecOrderDetailViewModelMOCK)
+        mecOrderDetailViewModelMOCK.contactPhone=contactPhoneMock
+        Mockito.verify(pRXContactsResponseCallback).onResponseSuccess(mResponseData)*/
+        //todo
     }
 
     @Test
     fun fetchContactsTest() {
-        assertNotNull(mecOrderDetailViewModelMock.fetchContacts(mContext, productCategory))
+        assertNotNull(mecOrderDetailViewModelMOCK.fetchContacts(mContext, productCategory))
+    }
+
+    @Test
+    fun MecOrderDeatilViewModel(){
+        assertNotNull(mecOrderDetailViewModel.mecError)
+        assertNotNull(mecOrderDetailViewModel.contactPhone)
+        assertNotNull(mecOrderDetailViewModel.mecOrderDetailRepository)
+        assertNotNull(mecOrderDetailViewModel.prxContactsResponseCallback)
     }
 }
