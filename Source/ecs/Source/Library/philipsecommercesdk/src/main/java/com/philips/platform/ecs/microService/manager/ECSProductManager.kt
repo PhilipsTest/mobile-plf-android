@@ -19,7 +19,7 @@ import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.request.GetProductAssetRequest
 import com.philips.platform.ecs.microService.request.GetProductDisclaimerRequest
 import com.philips.platform.ecs.microService.request.GetProductForRequest
-import com.philips.platform.ecs.microService.request.GetProductSummaryRequest
+import com.philips.platform.ecs.microService.request.GetSummariesForProductsRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class ECSProductManager {
@@ -40,7 +40,7 @@ class ECSProductManager {
     }
 
     fun getSummaryForSingleProduct(ecsProduct: ECSProduct, eCSCallback: ECSCallback<ECSProduct?, ECSError>) {
-        GetProductSummaryRequest(listOf(ecsProduct), object : ECSCallback<List<ECSProduct>, ECSError> {
+        GetSummariesForProductsRequest(listOf(ecsProduct), object : ECSCallback<List<ECSProduct>, ECSError> {
             override fun onResponse(result: List<ECSProduct>) {
 
                 if (!result.isNullOrEmpty()) {
@@ -71,7 +71,7 @@ class ECSProductManager {
                 var ecsProduct = ECSProduct(null, ctn, null)
                 ecsProductList.add(ecsProduct)
             }
-            GetProductSummaryRequest(ecsProductList, ecsCallback).executeRequest()
+            GetSummariesForProductsRequest(ecsProductList, ecsCallback).executeRequest()
         }
     }
 

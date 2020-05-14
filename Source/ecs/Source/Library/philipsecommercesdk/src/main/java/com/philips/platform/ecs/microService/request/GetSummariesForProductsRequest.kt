@@ -12,7 +12,6 @@
 package com.philips.platform.ecs.microService.request
 
 import android.text.TextUtils
-import android.util.Log
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
@@ -20,10 +19,8 @@ import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.summary.ECSProductSummary
 import com.philips.platform.ecs.microService.model.summary.Summary
-import com.philips.platform.ecs.microService.prx.PRXError
 import com.philips.platform.ecs.microService.prx.PrxConstants
 import com.philips.platform.ecs.microService.util.getData
-import com.philips.platform.ecs.microService.util.getJsonError
 import org.json.JSONObject
 import kotlin.collections.HashMap
 import kotlin.collections.List
@@ -31,7 +28,7 @@ import kotlin.collections.MutableMap
 import kotlin.collections.mutableListOf
 import kotlin.collections.set
 
-class GetProductSummaryRequest(val ecsProducts:List<ECSProduct>, private val ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) : ECSJsonRequest() {
+class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private val ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) : ECSJsonRequest() {
 
     override fun getServiceID(): String {
         return ECSConstants.SERVICEID_PRX_SUMMARY_LIST
@@ -50,7 +47,8 @@ class GetProductSummaryRequest(val ecsProducts:List<ECSProduct>, private val ecs
             updateProductsWithSummary(ecsProducts, ecsProductSummary)
             ecsCallback.onResponse(ecsProducts)
         }else{
-            ecsCallback.onFailure(ECSError(ecsProductSummary?.failureReason?:"",null,null))
+            var ecsError : ECSError= ECSError(ecsProductSummary?.failureReason?:"",null,null)
+            ecsCallback.onFailure(ecsError)
         }
 
     }
@@ -60,18 +58,18 @@ class GetProductSummaryRequest(val ecsProducts:List<ECSProduct>, private val ecs
         val replaceUrl: MutableMap<String, String> = HashMap()
         replaceUrl["sector"] = PrxConstants.Sector.B2C.toString()
         replaceUrl["catalog"] = PrxConstants.Catalog.CONSUMER.toString()
-        replaceUrl["ctns"] = getString(getCTNsFromProducts())
+        replaceUrl["ctns"] = getCTNsFromProducts().joinToString(",")
         return replaceUrl
     }
 
-    fun getString(ctns: List<String>): String{
-        return TextUtils.join(",", ctns)
+    override fun getHeader(): MutableMap<String, String>? {
+        return null
     }
 
     private fun getCTNsFromProducts():List<String>{
         var arrayList = mutableListOf<String>()
         for (product in ecsProducts){
-            product.id?.let { arrayList.add(it) }
+            product.id.let { arrayList.add(it) }
         }
         return arrayList
     }

@@ -11,17 +11,14 @@
  */
 package com.philips.platform.ecs.microService.request
 
-import android.util.Log
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.disclaimer.DisclaimerModel
 import com.philips.platform.ecs.microService.model.product.ECSProduct
-import com.philips.platform.ecs.microService.prx.PRXError
 import com.philips.platform.ecs.microService.prx.PrxConstants
 import com.philips.platform.ecs.microService.util.getData
-import com.philips.platform.ecs.microService.util.getJsonError
 import org.json.JSONObject
 import java.util.HashMap
 
@@ -33,7 +30,7 @@ class GetProductDisclaimerRequest(val ecsProduct: ECSProduct, private val ecsCal
 
     override fun onErrorResponse(error: VolleyError) {
         //TODO
-        val ecsError = ECSError(error?.message ?: "",null,null)
+        val ecsError = ECSError(error.message ?: "",null,null)
         ecsCallback.onFailure(ecsError)
     }
 
