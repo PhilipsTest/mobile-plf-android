@@ -11,7 +11,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 public class ProductSpecificationRequestTest {
-
     private static final String TAG = ProductSpecificationRequestTest.class.getSimpleName();
 
     private PrxRequest mProductSpecificationRequest = null;
@@ -28,6 +27,26 @@ public class ProductSpecificationRequestTest {
         assertNotNull(mProductSpecificationRequest);
     }
 
+    @Test
+    public void testSpecificationResponseObject() {
+        try {
+            JSONObject mJsonObject = new JSONObject(getSpecificationResponse());
+            assertNotNull(mJsonObject);
+            ResponseData mResponseData = mProductSpecificationRequest.getResponseData(mJsonObject);
+            assertNotNull(mResponseData);
+        } catch (JSONException e) {
+            fail();
+
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+   /*
+   * This is sample response for disclaimer request:
+   * Below url is used to fetch sample response data and can be verified in browser
+   * https://www.philips.com/prx/product/B2C/en_CA/CONSUMER/products/HX8331/01.disclaimers
+   * */
     private String getSpecificationResponse() {
         String str = "{\n" +
                 "\"success\": true,\n" +
@@ -567,23 +586,4 @@ public class ProductSpecificationRequestTest {
         return str;
     }
 
-    @Test
-    public void testSpecificationResponseObject() {
-        try {
-            JSONObject mJsonObject = new JSONObject(getSpecificationResponse());
-            assertNotNull(mJsonObject);
-            ResponseData mResponseData = mProductSpecificationRequest.getResponseData(mJsonObject);
-            assertNotNull(mResponseData);
-        } catch (JSONException e) {
-            fail();
-
-        } catch (Exception e) {
-            fail();
-        }
-    }
-    /*
-     * This is sample response for disclaimer request:
-     * Below url is used to fetch sample response data and can be verified in browser
-     * https://www.philips.com/prx/product/B2C/en_CA/CONSUMER/products/HX8331/01.disclaimers
-     * */
 }

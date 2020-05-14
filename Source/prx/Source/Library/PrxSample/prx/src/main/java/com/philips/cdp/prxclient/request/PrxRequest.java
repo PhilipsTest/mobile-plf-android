@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +26,16 @@ public abstract class PrxRequest {
     private int requestTimeOut = 15000;
     private String mCtn;
     private final String mServiceId;
+
+    public List<String> getCtns() {
+        return mCtns;
+    }
+
+    public void setCtns(List<String> mCtns) {
+        this.mCtns = mCtns;
+    }
+
+    private List<String> mCtns;
 
     /**
      * PRX request constructor.
@@ -47,6 +58,21 @@ public abstract class PrxRequest {
      */
     public PrxRequest(String ctn, String serviceID, PrxConstants.Sector sector, PrxConstants.Catalog catalog) {
         this.mCtn = ctn;
+        this.mServiceId = serviceID;
+        this.mSector = sector;
+        this.mCatalog = catalog;
+    }
+
+    /**
+     * PRX request constructor.
+     * @param ctns ctns of the products
+     * @param serviceID PRX ServiceId
+     * @param sector sector
+     * @param catalog catalog
+     * @since 1.0.0
+     */
+    public PrxRequest(List<String> ctns, String serviceID, PrxConstants.Sector sector, PrxConstants.Catalog catalog) {
+        this.mCtns = ctns;
         this.mServiceId = serviceID;
         this.mSector = sector;
         this.mCatalog = catalog;
