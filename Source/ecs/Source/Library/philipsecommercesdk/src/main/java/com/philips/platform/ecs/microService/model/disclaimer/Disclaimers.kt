@@ -22,4 +22,4 @@ import java.util.*
  * The type Disclaimers contains list of disclaimers.
  */
 @Parcelize
-data class Disclaimers(var disclaimer: List<Disclaimer> = ArrayList()) : Parcelable
+data class Disclaimers(var disclaimer: List<Disclaimer>?) : Parcelable

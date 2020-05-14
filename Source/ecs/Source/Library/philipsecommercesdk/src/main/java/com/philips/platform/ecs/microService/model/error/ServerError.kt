@@ -9,9 +9,10 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.error
+package com.philips.platform.ecs.microService.model.error
 
 import android.os.Parcelable
+import com.philips.platform.ecs.microService.model.error.ConfigError
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

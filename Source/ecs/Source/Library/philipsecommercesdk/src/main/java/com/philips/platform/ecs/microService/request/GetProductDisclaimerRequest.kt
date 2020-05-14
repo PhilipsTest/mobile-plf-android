@@ -16,17 +16,12 @@ import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.error.ECSErrorType
-import com.philips.platform.ecs.microService.error.ServerError
 import com.philips.platform.ecs.microService.model.disclaimer.DisclaimerModel
-import com.philips.platform.ecs.microService.model.disclaimer.Disclaimers
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.prx.PRXError
 import com.philips.platform.ecs.microService.prx.PrxConstants
-import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.getJsonError
-import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 import java.util.HashMap
 
@@ -37,12 +32,8 @@ class GetProductDisclaimerRequest(val ecsProduct: ECSProduct, private val ecsCal
     }
 
     override fun onErrorResponse(error: VolleyError) {
-
-        //TODO to check parsing
-        var prxError = error.getJsonError()?.getData(PRXError::class.java)
-        Log.d("GetProductDisclaimer",prxError.toString())
-        val ecsError = ECSError(prxError?.ERROR?.errorMessage ?: "",prxError?.ERROR?.statusCode,null)
-
+        //TODO
+        val ecsError = ECSError(error?.message ?: "",null,null)
         ecsCallback.onFailure(ecsError)
     }
 
@@ -59,8 +50,12 @@ class GetProductDisclaimerRequest(val ecsProduct: ECSProduct, private val ecsCal
         val replaceUrl: MutableMap<String, String> = HashMap()
         replaceUrl["sector"] = PrxConstants.Sector.B2C.toString()
         replaceUrl["catalog"] = PrxConstants.Catalog.CONSUMER.toString()
-        replaceUrl["ctn"] = ecsProduct.id
+        replaceUrl["ctn"] = ecsProduct.id.replace('/', '_')
         return replaceUrl
+    }
+
+    override fun getHeader(): MutableMap<String, String>? {
+        return null
     }
 
 

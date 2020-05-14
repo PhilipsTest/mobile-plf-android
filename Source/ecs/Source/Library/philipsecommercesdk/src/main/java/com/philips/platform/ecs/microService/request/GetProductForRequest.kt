@@ -44,10 +44,9 @@ class GetProductForRequest(private val ctn: String, private val ecsCallback: ECS
     }
 
     override fun onErrorResponse(error: VolleyError) {
-        //TODO to check parsing
-        val jsonError = error.getJsonError()
-        val hybrisError = jsonError?.getData(HybrisError::class.java)
-        ecsCallback.onFailure(ECSError(hybrisError.toString(),null,null))
+        //TODO
+        val ecsError = ECSError(error?.message ?: "",null,null)
+        ecsCallback.onFailure(ecsError)
     }
 
     override fun onResponse(response: JSONObject) {

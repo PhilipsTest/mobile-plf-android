@@ -14,7 +14,7 @@ package com.philips.platform.ecs.microService.request
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.error.ServerError
+import com.philips.platform.ecs.microService.model.error.ServerError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
@@ -38,9 +38,10 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, EC
     }
 
     override fun onErrorResponse(error: VolleyError?) {
-        val jsonError = error?.getJsonError()
-        val hybrisError = jsonError?.getData(ServerError::class.java)
-        eCSCallback.onFailure(ECSError(hybrisError.toString(),null,null))
+
+        //TODO
+        val ecsError = ECSError(error?.message ?: "",null,null)
+        eCSCallback.onFailure(ecsError)
     }
     override fun onResponse(response: JSONObject?) {
         val config = response?.getData(ECSConfig::class.java)

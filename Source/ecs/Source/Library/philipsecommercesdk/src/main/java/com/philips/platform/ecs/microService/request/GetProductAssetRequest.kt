@@ -35,10 +35,8 @@ class GetProductAssetRequest(val ecsProduct: ECSProduct, private val ecsCallback
     }
 
     override fun onErrorResponse(error: VolleyError) {
-        //TODO to check parsing
-        var prxError = error.getJsonError()?.getData(PRXError::class.java)
-        Log.d("GetProductAsset",prxError.toString())
-        val ecsError = ECSError(prxError?.ERROR?.errorMessage ?: "",prxError?.ERROR?.statusCode,null)
+        //TODO
+        val ecsError = ECSError(error?.message ?: "",null,null)
 
         ecsCallback.onFailure(ecsError)
     }
@@ -56,7 +54,7 @@ class GetProductAssetRequest(val ecsProduct: ECSProduct, private val ecsCallback
         val replaceUrl: MutableMap<String, String> = HashMap()
         replaceUrl["sector"] = PrxConstants.Sector.B2C.toString()
         replaceUrl["catalog"] = PrxConstants.Catalog.CONSUMER.toString()
-        replaceUrl["ctn"] = ecsProduct.id ?: ""
+        replaceUrl["ctn"] = ecsProduct.id.replace('/', '_')
         return replaceUrl
     }
 
