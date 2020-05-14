@@ -20,7 +20,6 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -85,9 +84,4 @@ public class CustomerCareContactsRequestTest {
             }
         }
 
-    @Test
-    public void testReplaceURL() {
-        assertNotNull(mCustomerCareContactsRequest.getReplaceURLMap());
-        assertEquals(3,mCustomerCareContactsRequest.getReplaceURLMap().size());
-    }
 }
