@@ -50,7 +50,9 @@ import com.philips.platform.uid.view.widget.AlertDialogFragment;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.RecyclerViewSeparatorItemDecoration;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -286,10 +288,14 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     }
 
     private void writeEmail() {
+
+        Date d=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
+        String currentDateTimeString = sdf.format(d);
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
        // intent.setType("plain/text");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "ranju.92s@gmail.com" });
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "" });
         intent.putExtra(Intent.EXTRA_SUBJECT, "Philips Consumer care");
         intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.dcc_email_text));
         startActivity(Intent.createChooser(intent, ""));

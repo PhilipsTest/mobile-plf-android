@@ -209,6 +209,7 @@
     <string name="dcc_Opening_Hours">Opening hours</string>
     <string name="dcc_email_text">Dear Customer,\n\nThank you for writing to Philips Consumer care. We\'re here to help and answer any questions you may have.\n\n Please share the following details:\n\n<b>Product model no: </b>\n<b>Product serial no: </b>\n<b>Date of purchase: </b>\n<b>Your Question/s: </b>\n<b>Call preference if any: </b>\n\n
     Please confirm your address and telephone no. For any modifications please respond to this email with updates.\n\n<b>Telephone: </b>\n<b>Address: </b>\n\nBest Regards,\nPhilips Consumer care</string>
+    <string name="dcc_email_subject">"Philips Consumer care\\nn Today at "</string>
     <string name="dcc_review">Review</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
