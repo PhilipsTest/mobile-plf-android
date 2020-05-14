@@ -120,7 +120,7 @@ class ECSShoppingCartCallbackTest {
         ecsShoppingCartViewModelMock.updateQuantityEntries= updateQuantityEntriesMock
         ecsShoppingCartCallback.mECRequestType =  MECRequestType.MEC_UPDATE_SHOPPING_CART
         ecsShoppingCartCallback.onResponse(ecsShoppingCartMock)
-        Mockito.verify(ecsShoppingCartViewModelMock).tagProductIfDeleted()
+        Mockito.verify(ecsShoppingCartViewModelMock).tagProductAddedOrDeleted()
     }*/
 
     @Test

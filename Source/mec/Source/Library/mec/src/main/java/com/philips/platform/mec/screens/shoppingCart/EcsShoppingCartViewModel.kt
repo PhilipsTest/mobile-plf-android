@@ -28,6 +28,7 @@ import com.philips.platform.ecs.model.voucher.ECSVoucher
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.scAdd
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.scRemove
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCode
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeApplied
@@ -62,6 +63,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
     var ecsVoucherCallback = ECSVoucherCallback(this)
 
     fun getShoppingCart(){
+        ecsVoucherCallback.mECRequestType = MECRequestType.MEC_FETCH_SHOPPING_CART
         ecsShoppingCartRepository.fetchShoppingCart()
     }
 
@@ -111,14 +113,18 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
             actionMap.put(MECAnalyticsConstant.specialEvents, voucherCodeRevoked)
             actionMap.put(voucherCode, deleteVoucherString)
         }
-        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,ecsShoppingCart.value)
+        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, ecsShoppingCart.value!!.entries)
     }
 
-    fun tagProductIfDeleted(){
+    fun tagProductAddedOrDeleted(){
+        var actionMap = HashMap<String, String>()
         if(updateQuantityNumber< updateQuantityEntries?.quantity!!){ // if product quantity is reduced or deleted(updateQuantityNumber=0)
-            var actionMap = HashMap<String, String>()
             actionMap.put(MECAnalyticsConstant.specialEvents, scRemove)
-            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfo(updateQuantityEntries?.product!!))
+            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(updateQuantityEntries?.product!!, updateQuantityEntries?.basePrice!!, updateQuantityEntries?.quantity!!-updateQuantityNumber))
+            MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
+        } else{// if product quantity is added
+            actionMap.put(MECAnalyticsConstant.specialEvents, scAdd)
+            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(updateQuantityEntries?.product!!, updateQuantityEntries?.basePrice!!, updateQuantityNumber-updateQuantityEntries?.quantity!!))
             MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
         }
 

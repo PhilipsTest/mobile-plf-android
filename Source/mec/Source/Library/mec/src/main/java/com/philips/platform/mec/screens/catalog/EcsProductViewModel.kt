@@ -18,9 +18,8 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
-import com.philips.platform.ecs.model.products.ECSProduct
-import com.philips.platform.ecs.model.products.ECSProducts
 import com.philips.platform.mec.R
+import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.uid.view.widget.Label
 
@@ -40,15 +39,18 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
 
     fun init(pageNumber: Int, pageSize: Int) {
+        ecsProductListCallback.mECRequestType=MECRequestType.MEC_FETCH_PRODUCTS
         ecsCatalogRepository.getProducts(pageNumber, pageSize,ecsProductsCallback,ecsServices)
     }
 
     fun initCategorizedRetailer(ctn: MutableList<String>) {
+        ecsProductListCallback.mECRequestType=MECRequestType.MEC_FETCH_PRODUCTS
         ecsCatalogRepository.getCategorizedProductsForRetailer(ctn,ecsProductListCallback ,ecsServices)
     }
 
 
     fun initCategorized(pageNumber: Int, pageSize: Int, ctns: List<String>) {
+        ecsProductListCallback.mECRequestType=MECRequestType.MEC_FETCH_PRODUCTS
         ecsCatalogRepository.getCategorizedProducts(pageNumber, pageSize,ctns.size, ctns,this.ecsProductsList.value, this)
     }
 

@@ -5,6 +5,8 @@
  */
 package com.philips.platform.ecs.model.orders;
 
+import com.philips.platform.ecs.model.cart.ECSEntries;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,13 +14,13 @@ public class DeliveryOrderGroups implements Serializable {
 
     private Cost totalPriceWithTax;
 
-    private List<Entries> entries;
+    private List<ECSEntries> entries;
 
     public Cost getTotalPriceWithTax() {
         return totalPriceWithTax;
     }
 
-    public List<Entries> getEntries() {
+    public List<ECSEntries> getEntries() {
         return entries;
     }
 

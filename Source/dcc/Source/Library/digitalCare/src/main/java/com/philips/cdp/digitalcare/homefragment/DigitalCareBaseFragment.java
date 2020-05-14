@@ -168,7 +168,7 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
-            Bitmap videoPoster = BitmapFactory.decodeResource(getResources(), R.drawable.ic_media_video_poster);
+            
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

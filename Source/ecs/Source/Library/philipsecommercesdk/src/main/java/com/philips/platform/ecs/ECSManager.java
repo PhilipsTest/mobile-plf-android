@@ -23,7 +23,6 @@ import com.philips.platform.ecs.model.oauth.ECSOAuthData;
 import com.philips.platform.ecs.model.orders.ECSOrderDetail;
 import com.philips.platform.ecs.model.orders.ECSOrderHistory;
 import com.philips.platform.ecs.model.orders.ECSOrders;
-import com.philips.platform.ecs.model.orders.Entries;
 import com.philips.platform.ecs.model.payment.ECSPayment;
 import com.philips.platform.ecs.model.payment.ECSPaymentProvider;
 import com.philips.platform.ecs.model.products.ECSProduct;
@@ -409,7 +408,7 @@ class ECSManager {
                     //Preparing products to get summary Data
                     List<ECSProduct> productList = new ArrayList<>();
 
-                    for (ECSEntries entriesEntity : ecsShoppingCart.getEntries()) {
+                    for (com.philips.platform.ecs.model.cart.ECSEntries entriesEntity : ecsShoppingCart.getEntries()) {
                         productList.add(entriesEntity.getProduct());
                     }
                     ECSProducts products = new ECSProducts();
@@ -493,7 +492,7 @@ class ECSManager {
         return new AddProductToECSShoppingCartRequest(code, ecsCallback);
     }
 
-    void updateQuantity(int quantity, ECSEntries entriesEntity, ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
+    void updateQuantity(int quantity, com.philips.platform.ecs.model.cart.ECSEntries entriesEntity, ECSCallback<ECSShoppingCart, Exception> ecsCallback) {
         ECSCallback<Boolean, Exception> ecsCallback1 = new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean result) {
@@ -508,7 +507,7 @@ class ECSManager {
         updateECSShoppingCartQuantityRequestObject(ecsCallback1, entriesEntity, quantity).executeRequest();
     }
 
-    UpdateECSShoppingCartQuantityRequest updateECSShoppingCartQuantityRequestObject(ECSCallback<Boolean, Exception> ecsCallback, ECSEntries entriesEntity, int quantity) {
+    UpdateECSShoppingCartQuantityRequest updateECSShoppingCartQuantityRequestObject(ECSCallback<Boolean, Exception> ecsCallback, com.philips.platform.ecs.model.cart.ECSEntries entriesEntity, int quantity) {
         return new UpdateECSShoppingCartQuantityRequest(ecsCallback, entriesEntity, quantity);
     }
 
@@ -701,11 +700,11 @@ class ECSManager {
                 ArrayList<String> ctns = new ArrayList<>();
                 ArrayList<ECSProduct> productsFromDirectEntry = new ArrayList<>();
                 ArrayList<ECSProduct> productsFromDeliveryGroupEntry = new ArrayList<>();
-                for (Entries entries : orderDetail.getDeliveryOrderGroups().get(0).getEntries()) {
+                for (ECSEntries entries : orderDetail.getDeliveryOrderGroups().get(0).getEntries()) {
                     productsFromDeliveryGroupEntry.add(entries.getProduct());
                 }
                 //Products found in direct Entries
-                for (Entries entries : orderDetail.getEntries()) {
+                for (ECSEntries entries : orderDetail.getEntries()) {
                     productsFromDirectEntry.add(entries.getProduct());
                     ctns.add(entries.getProduct().getCode());
                 }
