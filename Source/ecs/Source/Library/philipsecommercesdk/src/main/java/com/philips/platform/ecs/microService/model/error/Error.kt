@@ -17,9 +17,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Error(
-    val code: String,
-    val id: String,
-    val source: Source,
-    val status: String,
-    val title: String
+    val code: String?,
+    val id: String?,
+    val source: Source?,
+    val status: String?,
+    val title: String?
 ) : Parcelable

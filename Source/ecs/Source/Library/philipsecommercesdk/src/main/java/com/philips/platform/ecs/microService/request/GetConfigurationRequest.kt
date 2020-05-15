@@ -14,6 +14,7 @@ package com.philips.platform.ecs.microService.request
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.error.ServerError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
@@ -39,11 +40,12 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, EC
         return replaceUrl
     }
 
-    override fun onErrorResponse(error: VolleyError?) {
+    override fun getHeader(): MutableMap<String, String>? {
+        return null
+    }
 
-        //TODO
-        val ecsError = ECSError(error?.message ?: "",null,null)
-        eCSCallback.onFailure(ecsError)
+    override fun onErrorResponse(error: VolleyError?) {
+        eCSCallback.onFailure(VolleyHandler().getECSError(error))
     }
     override fun onResponse(response: JSONObject?) {
         val config = response?.getData(ECSConfig::class.java)

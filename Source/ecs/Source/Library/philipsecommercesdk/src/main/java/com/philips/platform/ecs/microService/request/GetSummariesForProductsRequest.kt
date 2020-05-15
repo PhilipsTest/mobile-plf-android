@@ -16,6 +16,7 @@ import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.summary.ECSProductSummary
 import com.philips.platform.ecs.microService.model.summary.Summary
@@ -35,10 +36,7 @@ class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private v
     }
 
     override fun onErrorResponse(error: VolleyError) {
-        //TODO
-        val ecsError = ECSError(error?.message ?: "",null,null)
-
-        ecsCallback.onFailure(ecsError)
+        ecsCallback.onFailure(VolleyHandler().getECSError(error))
     }
 
     override fun onResponse(response: JSONObject) {

@@ -45,4 +45,11 @@
   <string name="ECSsessionCart">Please select your delivery address, delivery mode and payment method before submitting an order</string>
   <string name="ECSsomethingWentWrong">We have encountered technical glitch. Please try after some time</string>
   <string name="ECSunsupported_grant_type">We have encountered technical glitch (Unsupported grant type). Please re-login</string>
+
+<!--  PIL services-->
+
+  <string name="ECSPILlanguage">"Please provide valid language code"</string>
+  <string name="ECSPILsiteId">"Philips shop is not available for the selected country, only retailer mode is available"</string>
+  <string name="ECSPILcountry">"Please provide valid country code"</string>
+
 </resources>

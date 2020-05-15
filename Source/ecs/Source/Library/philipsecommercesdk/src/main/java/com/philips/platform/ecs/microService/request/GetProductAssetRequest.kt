@@ -15,6 +15,7 @@ import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.asset.AssetModel
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.prx.PrxConstants
@@ -30,18 +31,13 @@ class GetProductAssetRequest(val ecsProduct: ECSProduct, private val ecsCallback
     }
 
     override fun onErrorResponse(error: VolleyError?) {
-        //TODO
-        val ecsError = ECSError(error?.message ?: "",null,null)
-
-        ecsCallback.onFailure(ecsError)
+        ecsCallback.onFailure(VolleyHandler().getECSError(error))
     }
-
     override fun onResponse(response: JSONObject) {
         var resp = response.getData(AssetModel::class.java)
         val assets = resp?.data?.assets
         ecsProduct.assets =assets
         ecsCallback.onResponse(ecsProduct)
-
     }
 
     override fun getHeader(): MutableMap<String, String>? {

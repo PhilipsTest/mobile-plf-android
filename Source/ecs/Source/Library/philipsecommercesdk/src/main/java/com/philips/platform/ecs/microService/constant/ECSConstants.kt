@@ -25,6 +25,7 @@ class ECSConstants {
         const val SERVICEID_PRX_ASSETS = "prxclient.assets"
         const val SERVICEID_PRX_DISCLAIMERS= "prxclient.disclaimers"
         const val SERVICEID_PRX_SUMMARY_LIST = "prxclient.summarylist"
+        const val SERVICEID_ECS_PRODUCT_DETAILS = "ecs.productDetails"
     }
 
     fun getListOfServiceID() : ArrayList<String> {

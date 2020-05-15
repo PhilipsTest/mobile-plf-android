@@ -16,6 +16,7 @@ package com.philips.platform.ecs.microService.request
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
@@ -52,9 +53,7 @@ class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECS
     }
 
     override fun onErrorResponse(error: VolleyError?) {
-        ///TODO
-        val ecsError = ECSError(error?.message ?: "",null,null)
-        ecsCallback.onFailure(ecsError)
+        ecsCallback.onFailure(VolleyHandler().getECSError(error))
     }
 
     override fun onResponse(response: JSONObject?) {

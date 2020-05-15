@@ -22,6 +22,8 @@ import org.json.JSONObject
 
 interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
 
+    //TODO retry and time out
+
     fun  getMethod(): Int{
         return Request.Method.GET
     }

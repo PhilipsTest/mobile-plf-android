@@ -26,12 +26,12 @@ class ECSProductManager {
 
     fun getProductFor(ctn: String, eCSCallback: ECSCallback<ECSProduct?, ECSError>) {
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
+
         ecsException?.let { throw ecsException } ?: kotlin.run {
 
             if(ECSDataHolder.config.isHybris) {
                 GetProductForRequest(ctn, eCSCallback).executeRequest()
             }else{
-
                 var ecsProduct = ECSProduct(null,ctn,null)
                 getSummaryForSingleProduct(ecsProduct, eCSCallback)
             }

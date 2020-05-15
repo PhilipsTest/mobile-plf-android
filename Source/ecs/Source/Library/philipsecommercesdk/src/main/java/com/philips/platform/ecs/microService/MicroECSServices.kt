@@ -35,6 +35,7 @@ class MicroECSServices(appInfra: AppInfra) {
         ECSDataHolder.appInfra = appInfra
     }
 
+    //TODO refactor service discovery call code
     fun configureECS(ecsCallback: ECSCallback<Boolean, ECSError>) {
         ecsConfigManager.configureECS(ecsCallback)
     }

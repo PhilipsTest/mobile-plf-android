@@ -24,4 +24,6 @@ data class ECSProduct(var attributes: Attributes?,var id: String,var type: Strin
     var summary: Summary? =null
     var assets: Assets?=null
     var disclaimers: Disclaimers?=null
+
+    //TODO id to ctn
 }

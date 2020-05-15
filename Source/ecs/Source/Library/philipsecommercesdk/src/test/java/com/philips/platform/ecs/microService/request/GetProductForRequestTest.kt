@@ -52,9 +52,10 @@ class GetProductForRequestTest {
         getProductForRequest = GetProductForRequest(ctn,ecsCallbackMock)
     }
 
+
     @Test
-    fun `get url should not be  null`() {
-        assertNotNull(getProductForRequest.getURL())
+    fun `service id should be as expected`() {
+        assertEquals("ecs.productDetails",getProductForRequest.getServiceID())
     }
 
     @Test
