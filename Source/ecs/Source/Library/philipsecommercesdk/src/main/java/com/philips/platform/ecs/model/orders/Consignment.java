@@ -43,5 +43,9 @@ public class Consignment  implements Serializable {
         return entries;
     }
 
+    public void setEntries(List<ConsignmentEntries> entries) {
+        this.entries = entries;
+    }
+
 
 }

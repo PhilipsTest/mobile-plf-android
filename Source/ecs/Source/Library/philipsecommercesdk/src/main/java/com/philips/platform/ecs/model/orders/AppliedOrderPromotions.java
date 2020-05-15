@@ -19,4 +19,8 @@ public class AppliedOrderPromotions implements Serializable {
     public Promotion getPromotion() {
         return promotion;
     }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
 }

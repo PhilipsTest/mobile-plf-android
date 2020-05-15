@@ -126,9 +126,9 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     fun setCartIconVisibility(shouldShow: Boolean) {
         if (MECDataHolder.INSTANCE.mecCartUpdateListener != null) {
             if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
-                MECDataHolder.INSTANCE.mecCartUpdateListener!!.shouldShowCart(shouldShow)
+                MECDataHolder.INSTANCE.mecCartUpdateListener?.shouldShowCart(shouldShow)
             } else {
-                MECDataHolder.INSTANCE.mecCartUpdateListener!!.shouldShowCart(false)
+                MECDataHolder.INSTANCE.mecCartUpdateListener?.shouldShowCart(false)
             }
         }
     }
@@ -235,7 +235,7 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
             }
     }
 
-    private fun exitMEC() {
+    fun exitMEC() {
         removeMECFragments()
         finishActivity()
     }

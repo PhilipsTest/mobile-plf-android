@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Sledenje naročilu</string>
   <string name="mec_accept_terms">Z oddajo naročila sprejmem Philipsove pogoje</string>
   <string name="mec_accepted_codes">Sprejete kode</string>
   <string name="mec_add">Dodaj</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Naslov za izstavitev računa</string>
   <string name="mec_blank_cvv_error">Vnesite veljavno številko CVV</string>
   <string name="mec_buy_from_retailers">Kupite pri prodajalcu</string>
+  <string name="mec_call">Kliči</string>
   <string name="mec_cancel">Prekliči</string>
+  <string name="mec_cancel_order">Prekliči naročilo</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Številka vašega naročila je %s</string>
+  <string name="mec_cancel_order_dls_msg">Naročilo lahko prekličete, preden je odpremljeno. Pri tem vam bo pomagala naša ekipa za pomoč uporabnikom.</string>
+  <string name="mec_cancel_order_number">Prekliči številko naročila </string>
   <string name="mec_cancel_payment">Ali želite preklicati plačilo? Vaša nakupovalna košarica bo izpraznjena.</string>
+  <string name="mec_cancel_your_order">[sl]Cancel your order</string>
   <string name="mec_card_holder_first_name">Ime imetnika kartice</string>
   <string name="mec_card_holder_last_name">Priimek imetnika kartice</string>
   <string name="mec_cart_count_exceed_message">V košarico je mogoče dodati največ %d izdelkov</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Potrditev</string>
   <string name="mec_confirmation_email_msg">Kmalu boste prejeli potrditveno e-poštno sporočilo na naslov</string>
   <string name="mec_contact_details">Podrobnosti stika</string>
+  <string name="mec_contact_philips_consumer_care">Za dodatno pomoč se obrnite na Philipsov oddelek za pomoč uporabnikom na telefonsko številko %s.</string>
   <string name="mec_continue">Naprej</string>
   <string name="mec_continue_checkout">Nadaljuj na blagajno</string>
   <string name="mec_continue_shopping">Nadaljuj z nakupovanjem</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Način dostave</string>
   <string name="mec_discount">popust</string>
   <string name="mec_empty_cart">Vaša nakupovalna košarica je trenutno prazna</string>
+  <string name="mec_empty_purchase_history">Če ste oddali naročilo s to aplikacijo, preverite, ali ste prejeli e-poštno obvestilo o potrditvi naročila.</string>
   <string name="mec_enter_code">Vnesite darilno kodo</string>
   <string name="mec_faq">Pogosta vprašanja</string>
   <string name="mec_features">Značilnosti</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">za dodatne inf.</string>
   <string name="mec_mr">G.</string>
   <string name="mec_mrs">Gdč.</string>
+  <string name="mec_my_orders">Naročila</string>
   <string name="mec_new_card_text">Nova kartica</string>
   <string name="mec_new_payment_disclaimer">Podrobnosti o tem plačilu bodo shranjene ob izdaji naročila</string>
   <string name="mec_no_address_select_message">Izberite naslov za dostavo</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">V redu</string>
   <string name="mec_online_retailers">Spletni trgovci</string>
   <string name="mec_only">Samo</string>
+  <string name="mec_order_detail_unavailable">[sl]Order Detail is unavailable</string>
+  <string name="mec_order_details">Podrobnosti o naročilu</string>
+  <string name="mec_order_not_received_items">Naročilo ni prejeto</string>
+  <string name="mec_order_number_msg">Številka naročila: %s</string>
   <string name="mec_order_pay">Naroči in plačaj</string>
+  <string name="mec_order_state">Stanje vašega naročila je: %s</string>
   <string name="mec_order_summary">Povzetek naročila</string>
   <string name="mec_order_summary_shipping">Podatki o dostavi</string>
+  <string name="mec_orders">Naročila</string>
+  <string name="mec_other_channel_purchase">Če za oddajo naročila uporabili drugega prodajalca, se vaše naročilo tukaj morda ne prikaže.</string>
   <string name="mec_out_of_stock">Ni na zalogi</string>
   <string name="mec_page">stran</string>
   <string name="mec_payment">Plačilo</string>

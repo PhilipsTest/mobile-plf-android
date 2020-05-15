@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Παρακολούθηση παραγγελίας</string>
   <string name="mec_accept_terms">Υποβάλλοντας την παραγγελία, αποδέχομαι της Philips</string>
   <string name="mec_accepted_codes">Αποδεκτοί κωδικοί</string>
   <string name="mec_add">Προσθήκη</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Διεύθυνση χρέωσης</string>
   <string name="mec_blank_cvv_error">Εισαγάγετε έγκυρο CVV</string>
   <string name="mec_buy_from_retailers">Αγορά από κατάστημα λιανικής</string>
+  <string name="mec_call">Κλήση</string>
   <string name="mec_cancel">Ακύρωση</string>
+  <string name="mec_cancel_order">Ακύρωση της παραγγελίας μου</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Ο αριθμός παραγγελίας σας είναι %s</string>
+  <string name="mec_cancel_order_dls_msg">Μπορείτε να ακυρώσετε την παραγγελία σας πριν αυτή αποσταλεί. Η ομάδα εξυπηρέτησης καταναλωτών μπορεί να σας βοηθήσει.</string>
+  <string name="mec_cancel_order_number">Ακύρωση παραγγελίας αρ. </string>
   <string name="mec_cancel_payment">Θέλετε να ακυρώσετε την πληρωμή; Το καλάθι σας θα μείνει άδειο.</string>
+  <string name="mec_cancel_your_order">[el]Cancel your order</string>
   <string name="mec_card_holder_first_name">Όνομα κατόχου κάρτας</string>
   <string name="mec_card_holder_last_name">Επώνυμο κατόχου κάρτας</string>
   <string name="mec_cart_count_exceed_message">Δεν είναι δυνατή η προσθήκη περισσότερων από %d προϊόντων στο καλάθι</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Επιβεβαίωση</string>
   <string name="mec_confirmation_email_msg">Σύντομα θα λάβετε ένα email επιβεβαίωσης στη διεύθυνση</string>
   <string name="mec_contact_details">Στοιχεία επικοινωνίας</string>
+  <string name="mec_contact_philips_consumer_care">Για περισσότερη βοήθεια, επικοινωνήστε με την Εξυπηρέτηση Καταναλωτών της Philips %s.</string>
   <string name="mec_continue">Συνέχεια</string>
   <string name="mec_continue_checkout">Συνέχεια στην ολοκλήρωση αγοράς</string>
   <string name="mec_continue_shopping">Συνέχιση αγορών</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Τρόπος παράδοσης</string>
   <string name="mec_discount">έκπτωση</string>
   <string name="mec_empty_cart">Το καλάθι αγορών είναι άδειο</string>
+  <string name="mec_empty_purchase_history">Αν υποβάλατε την παραγγελία σας από αυτήν την εφαρμογή, βεβαιωθείτε ότι έχετε λάβει ένα email επιβεβαίωσης παραγγελίας.</string>
   <string name="mec_enter_code">Εισαγωγή κωδικού δώρου</string>
   <string name="mec_faq">τη σελίδα</string>
   <string name="mec_features">Χαρακτηριστικά</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">για περισσότερες πληροφορίες</string>
   <string name="mec_mr">Κος</string>
   <string name="mec_mrs">Κα</string>
+  <string name="mec_my_orders">Οι παραγγελίες μου</string>
   <string name="mec_new_card_text">Νέα κάρτα</string>
   <string name="mec_new_payment_disclaimer">Αυτά τα στοιχεία πληρωμής θα αποθηκευτούν μόλις πραγματοποιήσετε μια παραγγελία</string>
   <string name="mec_no_address_select_message">Επιλέξτε διεύθυνση αποστολής</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">ΟΚ</string>
   <string name="mec_online_retailers">Διαδικτυακά καταστήματα λιανικής πώλησης</string>
   <string name="mec_only">Μόνο</string>
+  <string name="mec_order_detail_unavailable">[el]Order Detail is unavailable</string>
+  <string name="mec_order_details">Λεπτομέρειες παραγγελίας</string>
+  <string name="mec_order_not_received_items">Η παραγγελία δεν ελήφθη</string>
+  <string name="mec_order_number_msg">Αριθμός παραγγελίας: %s</string>
   <string name="mec_order_pay">Παραγγελία και πληρωμή</string>
+  <string name="mec_order_state">Η παραγγελία σας %s</string>
   <string name="mec_order_summary">Σύνοψη παραγγελιών</string>
   <string name="mec_order_summary_shipping">Στοιχεία παράδοσης</string>
+  <string name="mec_orders">Παραγγελίες</string>
+  <string name="mec_other_channel_purchase">Αν υποβάλατε την παραγγελία σας από άλλο κατάστημα λιανικής, μπορεί να μην εμφανιστεί εδώ.</string>
   <string name="mec_out_of_stock">Εξαντλήθηκε</string>
   <string name="mec_page">Συχνές ερωτήσεις</string>
   <string name="mec_payment">Πληρωμή</string>

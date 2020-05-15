@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Jälgi tellimust</string>
   <string name="mec_accept_terms">Tellimuse esitamisega nõustun järgmiste Philipsi tingimustega:</string>
   <string name="mec_accepted_codes">Tunnustatud koodid</string>
   <string name="mec_add">Lisa</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Arve esitamise aadress</string>
   <string name="mec_blank_cvv_error">Sisestage õige CVV kood</string>
   <string name="mec_buy_from_retailers">Osta jaemüüjalt</string>
+  <string name="mec_call">Helistamine</string>
   <string name="mec_cancel">Tühista</string>
+  <string name="mec_cancel_order">Tühista minu tellimus</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Teie tellimuse number on %s</string>
+  <string name="mec_cancel_order_dls_msg">Tellimuse saab tühistada enne selle väljasaatmist. Meie klienditeeninduse töötajad aitavad teil seda teha.</string>
+  <string name="mec_cancel_order_number">Tühista tellimus numbriga </string>
   <string name="mec_cancel_payment">Kas soovite makse tühistada? Teie ostukorv tühjendatakse.</string>
+  <string name="mec_cancel_your_order">[et]Cancel your order</string>
   <string name="mec_card_holder_first_name">Kaardi omaniku eesnimi</string>
   <string name="mec_card_holder_last_name">Kaardi omaniku perekonnanimi</string>
   <string name="mec_cart_count_exceed_message">Ostukorvi ei saa üle %d toote lisada</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Kinnitus</string>
   <string name="mec_confirmation_email_msg">Teile saadetakse peagi kinnitav e-kiri aadressile</string>
   <string name="mec_contact_details">Kontaktandmed</string>
+  <string name="mec_contact_philips_consumer_care">Täiendava tugiteenuse kasutamiseks võtke ühendust Philipsi klienditeenindusega, helistades numbril %s.</string>
   <string name="mec_continue">Jätka</string>
   <string name="mec_continue_checkout">Liigu kassasse</string>
   <string name="mec_continue_shopping">Jätka ostmist</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Tarneviis</string>
   <string name="mec_discount">allahindlus</string>
   <string name="mec_empty_cart">Teie ostukorv on hetkel tühi</string>
+  <string name="mec_empty_purchase_history">Kui esitasite tellimuse selle äpi kaudu, kontrollige, kas teile saadeti tellimust kinnitav e-kiri.</string>
   <string name="mec_enter_code">Sisestage kingikood</string>
   <string name="mec_faq">KKK-de</string>
   <string name="mec_features">Omadused</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">.</string>
   <string name="mec_mr">Hr</string>
   <string name="mec_mrs">Prl</string>
+  <string name="mec_my_orders">Minu arved</string>
   <string name="mec_new_card_text">Uus kaart</string>
   <string name="mec_new_payment_disclaimer">Need makseandmed salvestatakse pärast tellimuse esitamist</string>
   <string name="mec_no_address_select_message">Valige tarneaadress</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Veebimüüjad</string>
   <string name="mec_only">Ainult</string>
+  <string name="mec_order_detail_unavailable">[et]Order Detail is unavailable</string>
+  <string name="mec_order_details">Tellimuse andmed</string>
+  <string name="mec_order_not_received_items">Tellimust ei võetud vastu</string>
+  <string name="mec_order_number_msg">Tellimuse number: %s</string>
   <string name="mec_order_pay">Telli ja maksa</string>
+  <string name="mec_order_state">Teie tellimus on %s</string>
   <string name="mec_order_summary">Tellimuse kokkuvõte</string>
   <string name="mec_order_summary_shipping">Tarneinfo</string>
+  <string name="mec_orders">Tellimused</string>
+  <string name="mec_other_channel_purchase">Kui esitasite tellimuse teise jaemüüja kaudu, ei pruugi teie tellimus siin nähtav olla.</string>
   <string name="mec_out_of_stock">Ei ole laos</string>
   <string name="mec_page">lehekülge</string>
   <string name="mec_payment">Tasumine</string>

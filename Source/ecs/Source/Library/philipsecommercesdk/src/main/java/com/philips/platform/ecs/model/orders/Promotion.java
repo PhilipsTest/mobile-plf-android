@@ -24,4 +24,8 @@ public class Promotion implements Serializable {
     public String getEndDate() {
         return endDate;
     }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

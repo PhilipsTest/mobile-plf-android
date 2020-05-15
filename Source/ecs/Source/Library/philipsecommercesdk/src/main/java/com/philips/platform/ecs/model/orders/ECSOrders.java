@@ -16,6 +16,11 @@ public class ECSOrders implements Serializable {
     private static final long serialVersionUID = 3064853641860214379L;
     private String code;
     private String guid;
+
+    public void setPlaced(String placed) {
+        this.placed = placed;
+    }
+
     private String placed;
     private String status;
     private String statusDisplay;
