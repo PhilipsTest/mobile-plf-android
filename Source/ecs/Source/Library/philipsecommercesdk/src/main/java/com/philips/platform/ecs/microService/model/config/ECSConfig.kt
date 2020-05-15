@@ -20,16 +20,16 @@ import org.json.JSONObject
  * The type Ecs config which contains philips e-commerce configuration data. This object is returned when configureECS is called.
  */
 @Parcelize
-class ECSConfig : Parcelable  {
+data class ECSConfig (
 
-    var locale: String? = null
-    val catalogId: String? = null
-    val faqUrl: String? = null
-    val helpDeskEmail: String? = null
-    val helpDeskPhone: String? = null
-    val helpUrl: String? = null
-    val rootCategory: String? = null
-    val siteId: String? = "DE_Pub"
-    var isHybris = false
+    var locale: String?,
+    val catalogId: String?,
+    val faqUrl: String?,
+    val helpDeskEmail: String?,
+    val helpDeskPhone: String?,
+    val helpUrl: String?,
+    val rootCategory: String?,
+    val siteId: String?,
+    var isHybris :Boolean = false
 
-}
+):Parcelable

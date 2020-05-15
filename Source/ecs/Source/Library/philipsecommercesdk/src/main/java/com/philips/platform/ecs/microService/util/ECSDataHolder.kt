@@ -25,6 +25,8 @@ object ECSDataHolder {
 
     var baseURL: String? = null
     var locale: String? = null
+    var lang = locale?.split("_")?.get(0)
+    var country = locale?.split("_")?.get(1)
     var appInfra : AppInfra? = null
 
     var urlMap: MutableMap<String, ServiceDiscoveryService>? = null
@@ -32,7 +34,7 @@ object ECSDataHolder {
     private val configError = AppConfigurationInterface.AppConfigurationError()
 
 
-    var config = ECSConfig()
+    var config = ECSConfig(locale,null,null,null,null,null,null,null,false)
 
     var eCSOAuthData : ECSOAuthData?=null
 

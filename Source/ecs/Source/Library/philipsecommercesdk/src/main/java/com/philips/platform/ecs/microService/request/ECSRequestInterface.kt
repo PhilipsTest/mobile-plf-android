@@ -57,7 +57,7 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
     }
 
     fun  getHeader(): MutableMap<String, String>?{
-        var headerMap = HashMap<String,String>()
+        val headerMap = HashMap<String,String>()
         headerMap["Accept"] = "application/json"
         headerMap["Api-Key"] = "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
         headerMap["Api-Version"] = "1"

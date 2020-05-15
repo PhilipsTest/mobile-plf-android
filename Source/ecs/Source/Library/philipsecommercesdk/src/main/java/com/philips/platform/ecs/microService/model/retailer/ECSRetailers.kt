@@ -9,15 +9,13 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.model.retailers
+
+package com.philips.platform.ecs.microService.model.retailer
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-@Parcelize
-data class OnlineStoresForProductEntity (
-    val excludePhilipsShopInWTB: String?,
-    val showPrice: String?,
-    val ctn: String?,
-    val stores: ECSRetailers?
 
+@Parcelize
+data class ECSRetailers(
+    val Store: List<ECSRetailer>?
 ):Parcelable

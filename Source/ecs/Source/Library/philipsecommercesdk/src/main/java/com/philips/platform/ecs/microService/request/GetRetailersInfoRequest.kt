@@ -16,10 +16,9 @@ package com.philips.platform.ecs.microService.request
 import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.model.error.HybrisError
-import com.philips.platform.ecs.microService.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
+import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
-import com.philips.platform.ecs.microService.util.getJsonError
 
 
 import org.json.JSONObject
@@ -27,7 +26,7 @@ import org.json.JSONObject
 class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) : ECSJsonRequest() {
 
     val PREFIX_RETAILERS = "www.philips.com/api/wtb/v1"
-    val RETAILERS_ALTER = "online-retailers?product=%s&lang=en"
+    val RETAILERS_ALTER = "online-retailers?product=%s&lang=%s"
     val PRX_SECTOR_CODE = "B2C"
 
 
@@ -43,9 +42,13 @@ class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECS
             val builder = StringBuilder("https://")
             builder.append(PREFIX_RETAILERS).append("/")
             builder.append(PRX_SECTOR_CODE).append("/")
-            builder.append(com.philips.platform.ecs.util.ECSConfiguration.INSTANCE.locale).append("/")
+            builder.append(ECSDataHolder.locale).append("/")
             builder.append(RETAILERS_ALTER)
-            return String.format(builder.toString(), ctn)
+            return String.format(builder.toString(), ctn,ECSDataHolder.lang)
+    }
+
+    override fun getHeader(): MutableMap<String, String>? {
+        return null
     }
 
     override fun onErrorResponse(error: VolleyError?) {

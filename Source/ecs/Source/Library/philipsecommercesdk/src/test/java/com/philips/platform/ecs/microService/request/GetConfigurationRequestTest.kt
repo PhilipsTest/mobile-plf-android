@@ -64,9 +64,7 @@ class GetConfigurationRequestTest {
     @Test
     fun `should send hybris enable locale and success Response`() {
         getConfigurationRequest.onResponse(JSONObject(hysbrisSuccessResponse))
-
-        val ecsConfig = any(ECSConfig::class.java)
-        Mockito.verify(eCSCallbackMock).onResponse(ecsConfig)
+        Mockito.verify(eCSCallbackMock).onResponse(any(ECSConfig::class.java))
 
     }
 

@@ -14,7 +14,7 @@ package com.philips.platform.ecs.microService.manager
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.request.GetRetailersInfoRequest
 
 class ECSRetailerManager {

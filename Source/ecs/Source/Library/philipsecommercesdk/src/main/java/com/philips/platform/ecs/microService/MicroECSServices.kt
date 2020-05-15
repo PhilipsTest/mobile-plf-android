@@ -21,7 +21,7 @@ import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.product.ECSProduct
-import com.philips.platform.ecs.microService.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 

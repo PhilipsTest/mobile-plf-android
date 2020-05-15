@@ -9,11 +9,14 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.model.retailers
+
+package com.philips.platform.ecs.microService.model.retailer
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
 
 @Parcelize
-data class TextsEntity(val Text: List<TextEntity>?):Parcelable
+data class Text(
+    val Key: String?,
+    val Value: String?
+):Parcelable
