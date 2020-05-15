@@ -19,6 +19,7 @@ import java.util.HashMap;
  */
 public class PIMLaunchInput extends UappLaunchInput {
 
+    private static final long serialVersionUID = 1355617433017768480L;
     private UserLoginListener userLoginListener;
 
     private HashMap<PIMParameterToLaunchEnum, Object> parameterToLaunch;

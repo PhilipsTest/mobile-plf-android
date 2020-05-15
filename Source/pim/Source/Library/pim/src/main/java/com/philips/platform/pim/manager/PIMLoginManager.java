@@ -39,10 +39,10 @@ public class PIMLoginManager {
     private PIMLoginListener mPimLoginListener;
     private AppTaggingInterface mTaggingInterface;
     private PIMUserManager mPimUserManager;
-    private HashMap consentParameterMap;
+    private HashMap<PIMParameterToLaunchEnum, Object> consentParameterMap;
     private PIMSecureStorageHelper pimSecureStorageHelper;
 
-    public PIMLoginManager(Context context, PIMOIDCConfigration pimoidcConfigration, HashMap consentParameterMap) {
+    public PIMLoginManager(Context context, PIMOIDCConfigration pimoidcConfigration, HashMap<PIMParameterToLaunchEnum, Object> consentParameterMap) {
         mPimoidcConfigration = pimoidcConfigration;
         mPimAuthManager = new PIMAuthManager(context);
         mLoggingInterface = PIMSettingManager.getInstance().getLoggingInterface();

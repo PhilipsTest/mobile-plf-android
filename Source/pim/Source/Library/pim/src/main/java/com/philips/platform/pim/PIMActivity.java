@@ -26,6 +26,7 @@ import java.util.HashMap;
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 
 public class PIMActivity extends UIDActivity implements ActionBarListener, UserLoginListener {
+    private static final long serialVersionUID = 7597306052659846772L;
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
     private final String TAG = PIMActivity.class.getSimpleName();
     private LoggingInterface mLoggingInterface;
@@ -69,7 +70,7 @@ public class PIMActivity extends UIDActivity implements ActionBarListener, UserL
     private void launchASFragment(Bundle bundle) {
         PIMFragment pimFragment = new PIMFragment();
         pimFragment.setActionbarListener(this, this);
-        HashMap consentParameterMap = (HashMap) bundle.get(PIMInterface.PIM_KEY_CONSENTS);
+        HashMap<PIMParameterToLaunchEnum, Object> consentParameterMap = (HashMap<PIMParameterToLaunchEnum, Object>) bundle.get(PIMInterface.PIM_KEY_CONSENTS);
         bundle.putSerializable(PIMInterface.PIM_KEY_CONSENTS, consentParameterMap);
         pimFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
