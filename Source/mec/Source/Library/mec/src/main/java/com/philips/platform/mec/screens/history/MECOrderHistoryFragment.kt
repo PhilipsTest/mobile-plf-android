@@ -13,6 +13,7 @@
 package com.philips.platform.mec.screens.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +21,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.model.orders.ECSOrderHistory
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.ItemClickListener
-import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
@@ -46,10 +48,12 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     private var totalPage = 0
 
 
-    private lateinit var ordersList : MutableList<ECSOrders>
+    private var mOrdersList = mutableListOf<ECSOrders>()
     private var dateOrdersMap = LinkedHashMap<String, MutableList<ECSOrders>>()
 
     private var isCallOnProgress = false
+
+    private var numberOFDetailsFetched = 0
 
     private var mecOrderHistoryService = MECOrderHistoryService()
 
@@ -65,31 +69,37 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
             totalPage = ecsOrderHistory?.pagination?.totalPages ?: 0
             pageNumber = ecsOrderHistory?.pagination?.currentPage ?:0
 
-            ordersList = mutableListOf<ECSOrders>()
+            val ordersList = mutableListOf<ECSOrders>()
             ordersList.addAll(ecsOrderHistory.orders)
-            ordersList.sortByDescending { it.placed }
             fetchOrderDetailForOrders(ordersList)
         }
     }
 
-    private val orderDetailObserver: Observer<ECSOrders> = Observer { ecsOrders ->
-
-        if(mecOrderHistoryViewModel.callCount == 0){
-            showData()
-        }
-    }
-
     private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
-        mecOrderHistoryViewModel.setThreadCount(orderList.size)
+        val numberOFDetailsTobeFetched = orderList.size
 
         for (orders in orderList) {
-            mecOrderHistoryViewModel.fetchOrderDetail(orders)
+            mecOrderHistoryViewModel.fetchOrderDetail(orders,object :ECSCallback<ECSOrders, Exception>{
+                override fun onResponse(result: ECSOrders) {
+                     mOrdersList.add(result)
+                    numberOFDetailsFetched ++
+                    if(numberOFDetailsTobeFetched == numberOFDetailsFetched) showData()
+                }
+                override fun onFailure(error: Exception?, ecsError: ECSError?) {
+                    mOrdersList.add(orders)
+                    numberOFDetailsFetched ++
+                    if(numberOFDetailsTobeFetched == numberOFDetailsFetched) showData()
+                }
+            })
+
         }
     }
 
 
     private fun showData(){
-        mecOrderHistoryService.getDateOrderMap(dateOrdersMap,ordersList)
+        numberOFDetailsFetched = 0
+        mOrdersList.sortByDescending { it.placed }
+        mecOrderHistoryService.getDateOrderMap(dateOrdersMap,mOrdersList)
         hidePaginationProgressBar()
         hideFullScreenProgressBar()
         isCallOnProgress = false
@@ -104,7 +114,6 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
             mecOrderHistoryViewModel = ViewModelProvider(this).get(MECOrderHistoryViewModel::class.java)
             mecOrderHistoryViewModel.ecsOrderHistory.observe(viewLifecycleOwner, orderHistoryObserver)
-            mecOrderHistoryViewModel.ecsOrders.observe(viewLifecycleOwner,orderDetailObserver)
             mecOrderHistoryViewModel.mecError.observe(viewLifecycleOwner, this)
 
             mecOrderHistoryAdapter = MECOrderHistoryAdapter(dateOrdersMap,this )
@@ -149,13 +158,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     override fun processError(mecError: MecError?, showDialog: Boolean) {
         super.processError(mecError, false)
         isCallOnProgress = false
-
-        if(mecError?.mECRequestType==MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS){
-            if(mecOrderHistoryViewModel.callCount == 0) showData()
-        }else{
-            showErrorDialog(mecError)
-        }
-
+        showErrorDialog(mecError)
     }
 
 
