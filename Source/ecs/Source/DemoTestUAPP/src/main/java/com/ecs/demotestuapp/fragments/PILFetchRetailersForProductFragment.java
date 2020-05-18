@@ -61,9 +61,9 @@ public class PILFetchRetailersForProductFragment extends BaseAPIFragment {
 
 
         try {
-            microECSServices.fetchRetailers(ecsProduct1, new com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.retailers.ECSRetailerList, com.philips.platform.ecs.microService.error.ECSError>() {
+            microECSServices.fetchRetailers(ecsProduct1, new com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.retailer.ECSRetailerList, com.philips.platform.ecs.microService.error.ECSError>() {
                 @Override
-                public void onResponse(com.philips.platform.ecs.microService.model.retailers.ECSRetailerList result) {
+                public void onResponse(com.philips.platform.ecs.microService.model.retailer.ECSRetailerList result) {
 
                     gotoResultActivity(getJsonStringFromObject(result));
                     getProgressBar().setVisibility(View.GONE);

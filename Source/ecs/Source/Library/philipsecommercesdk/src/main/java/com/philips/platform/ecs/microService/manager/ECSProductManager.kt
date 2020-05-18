@@ -16,13 +16,21 @@ import android.util.Log
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
-import com.philips.platform.ecs.microService.request.GetProductAssetRequest
-import com.philips.platform.ecs.microService.request.GetProductDisclaimerRequest
-import com.philips.platform.ecs.microService.request.GetProductForRequest
-import com.philips.platform.ecs.microService.request.GetSummariesForProductsRequest
+import com.philips.platform.ecs.microService.model.product.ECSProducts
+import com.philips.platform.ecs.microService.request.*
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class ECSProductManager {
+
+    fun getProducts(  currentPage:Int,   pageSize:Int,  ecsCallback :ECSCallback<ECSProducts, ECSError>){
+        val ecsException = ECSApiValidator().getECSException(APIType.Locale)
+
+        ecsException?.let { throw ecsException } ?: kotlin.run {
+
+            GetProductsRequest(currentPage,pageSize, ecsCallback).executeRequest()
+
+        }
+    }
 
     fun getProductFor(ctn: String, eCSCallback: ECSCallback<ECSProduct?, ECSError>) {
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
