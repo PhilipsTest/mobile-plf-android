@@ -27,7 +27,7 @@ import org.json.JSONObject
 class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) : ECSJsonRequest() {
 
     val PREFIX_RETAILERS = "www.philips.com/api/wtb/v1"
-    val RETAILERS_ALTER = "online-retailers?product=%s&lang=%s"
+    val RETAILERS_ALTER = "online-retailers?product=%s"
     val PRX_SECTOR_CODE = "B2C"
 
 
@@ -45,7 +45,7 @@ class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECS
             builder.append(PRX_SECTOR_CODE).append("/")
             builder.append(ECSDataHolder.locale).append("/")
             builder.append(RETAILERS_ALTER)
-            return String.format(builder.toString(), ctn,ECSDataHolder.lang)
+            return String.format(builder.toString(), ctn)
     }
 
     override fun getHeader(): MutableMap<String, String>? {
