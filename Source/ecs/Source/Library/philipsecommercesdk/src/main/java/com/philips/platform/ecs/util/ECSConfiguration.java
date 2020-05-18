@@ -42,6 +42,16 @@ public enum ECSConfiguration {
 
     String baseURL;
 
+    public String getPrxSummaryListURL() {
+        return prxSummaryListURL;
+    }
+
+    public void setPrxSummaryListURL(String prxSummaryListURL) {
+        this.prxSummaryListURL = prxSummaryListURL;
+    }
+
+    String prxSummaryListURL;
+
     public String getLocale() {
         return locale;
     }

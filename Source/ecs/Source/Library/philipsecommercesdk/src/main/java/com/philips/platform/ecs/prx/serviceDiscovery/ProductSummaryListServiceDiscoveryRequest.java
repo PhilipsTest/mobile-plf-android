@@ -12,6 +12,8 @@ import com.philips.platform.ecs.util.ECSConfiguration;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,10 +34,7 @@ public class ProductSummaryListServiceDiscoveryRequest extends ServiceDiscoveryR
     }
 
     public void getRequestUrlFromAppInfra(final OnUrlReceived listener) {
-        Map<String, String> replaceUrl = new HashMap<>();
-        replaceUrl.put("ctns", getString(ctns));
-        replaceUrl.put("sector", getSector().toString());
-        replaceUrl.put("catalog", getCatalog().toString());
+        Map<String, String> replaceUrl = getReplaceURLMap();
 
         ArrayList<String> serviceIDList = new ArrayList<>();
         serviceIDList.add(PRXSummaryDataServiceID);
@@ -51,6 +50,16 @@ public class ProductSummaryListServiceDiscoveryRequest extends ServiceDiscoveryR
             }
         }, replaceUrl);
     }
+
+    @NotNull
+    public Map<String, String> getReplaceURLMap() {
+        Map<String, String> replaceUrl = new HashMap<>();
+        replaceUrl.put("ctns", getString(ctns));
+        replaceUrl.put("sector", getSector().toString());
+        replaceUrl.put("catalog", getCatalog().toString());
+        return replaceUrl;
+    }
+
 
     private String getString(List<String> ctns) {
         return TextUtils.join(",", ctns);

@@ -6,7 +6,6 @@
 package com.philips.platform.ecs.request;
 
 import com.android.volley.Response;
-import com.philips.platform.ecs.network.NetworkController;
 import com.philips.platform.appinfra.rest.TokenProviderInterface;
 import com.philips.platform.ecs.network.NetworkController;
 
@@ -17,13 +16,8 @@ import java.util.Map;
 public abstract class AppInfraAbstractRequest implements APPInfraRequest {
 
     public void executeRequest(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new NetworkController(AppInfraAbstractRequest.this).executeRequest();
-            }
-        }).start();
 
+        new NetworkController(AppInfraAbstractRequest.this).executeRequest();
     }
 
     @Override

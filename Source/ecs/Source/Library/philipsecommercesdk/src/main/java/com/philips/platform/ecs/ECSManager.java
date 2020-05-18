@@ -71,6 +71,7 @@ import com.philips.platform.ecs.util.ECSConfiguration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedErrorMessage;
 
@@ -356,7 +357,13 @@ class ECSManager {
     }
 
     void getProductSummary(String url, ECSCallback<ECSProductSummary, Exception> eCSCallback) {
-        new GetProductSummaryListRequest(url, eCSCallback).executeRequest();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                new GetProductSummaryListRequest(url, eCSCallback).executeRequest();
+            }
+        }).start();
+
     }
 
     void getProductAsset(String url, ECSCallback<Assets, Exception> eCSCallback) {
@@ -708,33 +715,31 @@ class ECSManager {
                     productsFromDirectEntry.add(entries.getProduct());
                     ctns.add(entries.getProduct().getCode());
                 }
+
+                String prxSummaryListURL = ECSConfiguration.INSTANCE.getPrxSummaryListURL();
+
                 ProductSummaryListServiceDiscoveryRequest productSummaryListServiceDiscoveryRequest = prepareProductSummaryListRequest(ctns);
+                Map<String, String> replaceURLMap = productSummaryListServiceDiscoveryRequest.getReplaceURLMap();
 
-                //get PRX summary URL
-                productSummaryListServiceDiscoveryRequest.getRequestUrlFromAppInfra(new ServiceDiscoveryRequest.OnUrlReceived() {
-                    @Override
-                    public void onSuccess(String url) {
+                String summaryListURL = applyURLParameters(prxSummaryListURL, replaceURLMap);
 
-                        getProductSummary(url, new ECSCallback<ECSProductSummary, Exception>() {
-                            @Override
-                            public void onResponse(ECSProductSummary ecsProductSummary) {
-                                setSummaryToProductsFromDirectEntry(ecsProductSummary, productsFromDirectEntry);
-                                setSummaryToProductsDeliveryGroupEntry(ecsProductSummary, productsFromDeliveryGroupEntry);
-                                ecsCallback.onResponse(orderDetail);
-                            }
+                if(summaryListURL!=null) {
 
-                            @Override
-                            public void onFailure(Exception error, ECSError ecsError) {
-                                ecsCallback.onFailure(error, ecsError);
-                            }
-                        });
-                    }
+                    getProductSummary(summaryListURL, new ECSCallback<ECSProductSummary, Exception>() {
+                        @Override
+                        public void onResponse(ECSProductSummary ecsProductSummary) {
+                            setSummaryToProductsFromDirectEntry(ecsProductSummary, productsFromDirectEntry);
+                            setSummaryToProductsDeliveryGroupEntry(ecsProductSummary, productsFromDeliveryGroupEntry);
+                            ecsCallback.onResponse(orderDetail);
+                        }
 
-                    @Override
-                    public void onError(ERRORVALUES errorvalues, String s) {
-                        ecsCallback.onFailure(new Exception(errorvalues.name()), new ECSError(ECSErrorEnum.ECSUnknownIdentifierError.getErrorCode(),s));
-                    }
-                });
+                        @Override
+                        public void onFailure(Exception error, ECSError ecsError) {
+                            ecsCallback.onFailure(error, ecsError);
+                        }
+                    });
+
+                }
             }
 
             @Override
@@ -822,6 +827,21 @@ class ECSManager {
         });
     }
 
+
+
+    public String applyURLParameters(String url, Map<String, String> parameters) {
+
+        if (parameters != null && parameters.size() > 0) {
+            for (Map.Entry<String, String> param : parameters.entrySet()) {
+                final String key = param.getKey();
+                final String value = param.getValue();
+                if (key != null && value != null)
+                    url = url.replace('%' + key + '%', value);
+            }
+        }
+        return url;
+
+    }
 
 }
 
