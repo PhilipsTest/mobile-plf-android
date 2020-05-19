@@ -45,7 +45,7 @@ class NetworkControllerTest {
 
     @Mock
     private lateinit var ecsRequestMock: ECSRequestInterface
-    
+
     @Mock
     private lateinit var jsonObjectRequestMock : JsonObjectRequest
 
