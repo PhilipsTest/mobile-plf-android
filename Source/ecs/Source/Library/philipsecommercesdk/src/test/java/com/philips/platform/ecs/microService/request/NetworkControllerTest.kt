@@ -45,12 +45,13 @@ class NetworkControllerTest {
 
     @Mock
     private lateinit var ecsRequestMock: ECSRequestInterface
+    
+    @Mock
+    private lateinit var jsonObjectRequestMock : JsonObjectRequest
 
     @Mock
-    private lateinit var responseJSONListenerMock : Response.Listener<JSONObject>
+    private lateinit var stringRequestMock : StringRequest
 
-    @Mock
-    private lateinit var responseStringListenerMock : Response.Listener<String>
 
     @Before
     fun setUp() {
@@ -62,18 +63,6 @@ class NetworkControllerTest {
         networkController = NetworkController()
     }
 
-
-    @Test
-    fun `getAppInfraJsonObject method should not return null`() {
-        Mockito.`when`(ecsRequestMock.getJSONSuccessResponseListener()).thenReturn(responseJSONListenerMock)
-        assertNotNull(ecsRequestMock.getAppInfraJSONObject())
-    }
-
-    @Test
-    fun `getAppInfraStringRequest method should not return null`() {
-        Mockito.`when`(ecsRequestMock.getStringSuccessResponseListener()).thenReturn(responseStringListenerMock)
-        assertNotNull(ecsRequestMock.getAppInfraStringRequest())
-    }
 
 
 
@@ -98,12 +87,12 @@ class NetworkControllerTest {
         Mockito.`when`(appInfraMock.restClient).thenReturn(restClientMock)
         ECSDataHolder.appInfra = appInfraMock
 
-        Mockito.`when`(ecsRequestMock.getJSONSuccessResponseListener()).thenReturn(responseJSONListenerMock)
+        Mockito.`when`(ecsRequestMock.getAppInfraJSONObject()).thenReturn(jsonObjectRequestMock)
         Mockito.`when`(ecsRequestMock.getRequestType()).thenReturn(RequestType.JSON)
         networkController.executeRequest(ecsRequestMock)
 
         //JsonObjectRequest
-        Mockito.verify(requestQueueMock).add(Mockito.any(JsonObjectRequest::class.java))
+        Mockito.verify(requestQueueMock).add(any(JsonObjectRequest::class.java))
     }
 
     @Test
@@ -113,10 +102,10 @@ class NetworkControllerTest {
         Mockito.`when`(appInfraMock.restClient).thenReturn(restClientMock)
         ECSDataHolder.appInfra = appInfraMock
 
-        Mockito.`when`(ecsRequestMock.getStringSuccessResponseListener()).thenReturn(responseStringListenerMock)
+        Mockito.`when`(ecsRequestMock.getAppInfraStringRequest()).thenReturn(stringRequestMock)
         Mockito.`when`(ecsRequestMock.getRequestType()).thenReturn(RequestType.STRING)
         networkController.executeRequest(ecsRequestMock)
 
-        Mockito.verify(requestQueueMock).add(Mockito.any(StringRequest::class.java))
+        Mockito.verify(requestQueueMock).add(any(StringRequest::class.java))
     }
 }

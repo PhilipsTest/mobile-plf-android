@@ -12,6 +12,7 @@
 
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.NetworkError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.manager.ECSProductManager
@@ -99,6 +100,14 @@ class GetProductForRequestTest {
         assertNull(getProductForRequest.getStringSuccessResponseListener())
     }
 
+    @Mock
+    lateinit var networkErrorMock :NetworkError
+    @Test
+    fun `should do error callback when VolleyErrorComes`() {
+        getProductForRequest.onErrorResponse(networkErrorMock)
+        Mockito.verify(ecsCallbackMock).onFailure(any(ECSError::class.java))
+    }
+
     @Test
     fun `should give null product call back on empty or null response`() {
         getProductForRequest.onResponse(JSONObject(emptyResponse))
@@ -141,12 +150,4 @@ class GetProductForRequestTest {
             "  }\n" +
             "}"
 
-
-    //TODO centralize
-    private fun <T> any(type : Class<T>): T {
-        Mockito.any(type)
-        return uninitialized()
-    }
-
-    private fun <T> uninitialized(): T = null as T
 }

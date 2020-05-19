@@ -14,6 +14,7 @@ package com.philips.platform.ecs.microService.request
 
 import android.text.TextUtils
 import android.util.Log
+import com.android.volley.NetworkError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -117,6 +118,14 @@ class GetSummariesForProductsRequestTest {
         assertNotNull(productList[1].summary)
         assertNull(productList[2].summary)
         Mockito.verify(ecsCallbackMock).onResponse(productList)
+    }
+
+    @Mock
+    lateinit var networkErrorMock : NetworkError
+    @Test
+    fun `should do error callback when VolleyErrorComes`() {
+        getSummariesForProductsRequest.onErrorResponse(networkErrorMock)
+        Mockito.verify(ecsCallbackMock).onFailure(any(ECSError::class.java))
     }
 
 
@@ -667,13 +676,5 @@ class GetSummariesForProductsRequestTest {
             "]\n" +
             "}"
 
-
-    //TODO centralize
-    private fun <T> any(type : Class<T>): T {
-        Mockito.any(type)
-        return uninitialized()
-    }
-
-    private fun <T> uninitialized(): T = null as T
 
 }

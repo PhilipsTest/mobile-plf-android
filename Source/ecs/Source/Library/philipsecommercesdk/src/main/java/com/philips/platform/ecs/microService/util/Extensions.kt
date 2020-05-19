@@ -15,6 +15,7 @@ package com.philips.platform.ecs.microService.util
 import android.util.Base64
 import com.android.volley.VolleyError
 import com.google.gson.Gson
+import org.json.JSONException
 import org.json.JSONObject
 import kotlin.Exception
 
@@ -32,8 +33,8 @@ fun String.replaceParam(replaceMap:Map<String,String>): String{
     var convertedString = this
 
     for(entries in replaceMap.entries){
-        var key = entries.key
-        var value = entries.value
+        val key = entries.key
+        val value = entries.value
         convertedString =  convertedString.replace("%$key%", value)
     }
     return convertedString
@@ -41,12 +42,20 @@ fun String.replaceParam(replaceMap:Map<String,String>): String{
 
 fun VolleyError.getJsonError():JSONObject?{
     var errorJSON :JSONObject? = null
-    var data = this.networkResponse?.data
+    val data = this.networkResponse?.data
+    println("byte array : "+data)
+
     data?.let {
-        val encodedString = Base64.encodeToString(it, Base64.DEFAULT)
-        val decode: ByteArray = Base64.decode(encodedString, Base64.DEFAULT)
-        var errorString = String(decode)
-        JSONObject(errorString)
+        try {
+            val encodedString = Base64.encodeToString(it, Base64.DEFAULT)
+            val decode: ByteArray = Base64.decode(encodedString, Base64.DEFAULT)
+            val errorString = String(decode)
+
+            println("error json string : " + data)
+            errorJSON = JSONObject(errorString)
+        }catch (exception : JSONException){
+            return errorJSON
+        }
     }
     return errorJSON
 }
