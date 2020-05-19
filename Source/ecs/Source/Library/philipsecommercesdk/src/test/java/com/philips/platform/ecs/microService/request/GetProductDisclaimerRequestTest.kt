@@ -12,6 +12,7 @@
 
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.NetworkError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -66,6 +67,14 @@ class GetProductDisclaimerRequestTest {
         Mockito.verify(ecsCallbackMock).onResponse(ecsProduct)
     }
 
+    @Mock
+    lateinit var networkErrorMock : NetworkError
+    @Test
+    fun `should do error callback when VolleyErrorComes`() {
+        getProductDisclaimerRequest.onErrorResponse(networkErrorMock)
+        Mockito.verify(ecsCallbackMock).onFailure(any(ECSError::class.java))
+    }
+
     @Test
     fun `url mapper should have 3 value and ctn should present`() {
         assertEquals(3,getProductDisclaimerRequest.getReplaceURLMap().size)
@@ -91,6 +100,8 @@ class GetProductDisclaimerRequestTest {
     fun `get header should be null`() {
         assertNull(getProductDisclaimerRequest.getHeader())
     }
+
+
 
     val errorResponseCTNNotFound = "{\n" +
             "\"ERROR\": {\n" +

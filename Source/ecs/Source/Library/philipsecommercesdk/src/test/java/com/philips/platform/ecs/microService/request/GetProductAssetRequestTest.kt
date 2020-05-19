@@ -12,6 +12,7 @@
 
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.NetworkError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -79,6 +80,14 @@ class GetProductAssetRequestTest {
 
         assertNotNull(ecsProduct.assets)
         Mockito.verify(ecsCallbackMock).onResponse(ecsProduct)
+    }
+
+    @Mock
+    lateinit var networkErrorMock : NetworkError
+    @Test
+    fun `should do error callback when VolleyErrorComes`() {
+        getProductAssetRequest.onErrorResponse(networkErrorMock)
+        Mockito.verify(ecsCallbackMock).onFailure(com.philips.platform.ecs.microService.request.any(ECSError::class.java))
     }
 
     var errorJSONCTNNotFoun = "{\n" +

@@ -14,6 +14,7 @@ package com.philips.platform.ecs.microService.error
 
 import com.android.volley.*
 import com.android.volley.NetworkError
+import com.philips.platform.ecs.error.ECSNetworkError
 import com.philips.platform.ecs.microService.model.error.OCCServerError
 import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.util.getData
@@ -49,7 +50,6 @@ class VolleyHandler {
     private fun handleServerError(volleyError: ServerError, ecsError: ECSError) {
 
         val jsonErrorObject = volleyError.getJsonError()
-
         //For PIL
         val pilError = jsonErrorObject?.getData(HybrisError::class.java)
         if (pilError?.errors?.size ?: 0 > 0) {
@@ -57,13 +57,16 @@ class VolleyHandler {
         }
 
         //for OCC Hybris config TODO - to be removed
-        val occError = jsonErrorObject?.getData(OCCServerError::class.java)
-        if (occError?.errors?.size ?: 0 > 0) {
 
-            val localizedStringID = occError?.errors?.get(0)?.type
-            localizedStringID?.let {
-                val ecsErrorType = ECSErrorType.valueOf("ECS$localizedStringID")
-                setEcsError(ecsError, ecsErrorType)
+        if(pilError==null) {
+            val occError = jsonErrorObject?.getData(OCCServerError::class.java)
+            if (occError?.errors?.size ?: 0 > 0) {
+
+                val localizedStringID = occError?.errors?.get(0)?.type
+                localizedStringID?.let {
+                    val ecsErrorType = ECSErrorType.valueOf("ECS$localizedStringID")
+                    setEcsError(ecsError, ecsErrorType)
+                }
             }
         }
     }

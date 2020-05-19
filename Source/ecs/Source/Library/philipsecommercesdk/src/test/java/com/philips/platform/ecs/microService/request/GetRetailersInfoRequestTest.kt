@@ -12,6 +12,7 @@
 
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.NetworkError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
@@ -54,6 +55,14 @@ class GetRetailersInfoRequestTest {
         assertEquals(RequestType.JSON,getRetailersInfoRequest.getRequestType())
     }
 
+    @Mock
+    lateinit var networkErrorMock : NetworkError
+    @Test
+    fun `should do error callback when VolleyErrorComes`() {
+        getRetailersInfoRequest.onErrorResponse(networkErrorMock)
+        Mockito.verify(ecsCallbackMock).onFailure(any(ECSError::class.java))
+    }
+
     @Test
     fun `JSON Success Response Listener should not be null`() {
         assertNotNull(getRetailersInfoRequest.getJSONSuccessResponseListener())
@@ -72,7 +81,7 @@ class GetRetailersInfoRequestTest {
     @Test
     fun `url should be as expected`() {
 
-        val expectedURL = "https://www.philips.com/api/wtb/v1/B2C/en_US/online-retailers?product=HX3631/06&lang=en"
+        val expectedURL = "https://www.philips.com/api/wtb/v1/B2C/en_US/online-retailers?product=HX3631/06"
         assertEquals(expectedURL,getRetailersInfoRequest.getURL())
     }
 
@@ -211,12 +220,4 @@ class GetRetailersInfoRequestTest {
             "\"RetailStoreAvailableFlag\": true\n" +
             "}\n" +
             "}"
-
-    //TODO centralize
-    private fun <T> any(type : Class<T>): T {
-        Mockito.any(type)
-        return uninitialized()
-    }
-
-    private fun <T> uninitialized(): T = null as T
 }

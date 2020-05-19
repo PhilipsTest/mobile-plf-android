@@ -12,6 +12,7 @@
 
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.NetworkError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
@@ -68,13 +69,13 @@ class GetConfigurationRequestTest {
 
     }
 
-    //TODO centralize
-    private fun <T> any(type : Class<T>): T {
-        Mockito.any(type)
-        return uninitialized()
+    @Mock
+    lateinit var networkErrorMock : NetworkError
+    @Test
+    fun `should do error callback when VolleyErrorComes`() {
+        getConfigurationRequest.onErrorResponse(networkErrorMock)
+        Mockito.verify(eCSCallbackMock).onFailure(any(ECSError::class.java))
     }
-
-    private fun <T> uninitialized(): T = null as T
 
     var hysbrisSuccessResponse = "{\n" +
             "   \"catalogId\": \"US_PubProductCatalog\",\n" +
