@@ -1,0 +1,77 @@
+package com.philips.platform.ecs.microService.manager
+
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProducts
+import com.philips.platform.ecs.microService.request.GetProductsRequest
+import com.philips.platform.ecs.microService.util.ECSDataHolder
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.powermock.modules.junit4.PowerMockRunner
+
+
+@RunWith(PowerMockRunner::class)
+class ECSProductManagerTest {
+
+    lateinit var mECSProductManager : ECSProductManager
+
+    lateinit var ecsCallback : ECSCallback<ECSProducts, ECSError>
+
+    @Mock
+    lateinit var mGetProductsRequestMock : GetProductsRequest
+
+    @Mock
+    lateinit var mECSApiValidator: ECSApiValidator
+
+
+    @Before
+    fun setUp() {
+        ECSDataHolder.locale = "en_US"
+        mECSProductManager=ECSProductManager()
+
+    }
+
+    @Test
+    fun getProducts() {
+
+        ecsCallback=object : ECSCallback<ECSProducts, ECSError>{
+
+            override fun onResponse(result: ECSProducts) {
+              assert(true)
+            }
+            
+            override fun onFailure(ecsError: ECSError) {
+                assert(false)
+            }
+
+
+        }
+
+       // `when`( mECSApiValidator.getECSException(APIType.Locale)).thenReturn(null)
+        var commerceProducts= ArrayList<ECSProduct>()
+        var mECSProduct = ECSProducts(commerceProducts)
+        Mockito.`when`(mGetProductsRequestMock.executeRequest()).then { ecsCallback.onResponse(mECSProduct) }
+        mGetProductsRequestMock= GetProductsRequest(1,2,ecsCallback)
+        mECSProductManager.getProducts(1,2,ecsCallback)
+    }
+
+    @Test
+    fun getProductFor() {
+    }
+
+    @Test
+    fun getSummaryForSingleProduct() {
+    }
+
+    @Test
+    fun fetchProductSummaries() {
+    }
+
+    @Test
+    fun fetchProductDetails() {
+    }
+}
