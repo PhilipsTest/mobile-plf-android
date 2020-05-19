@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">|Megrendelés nyomon követése|</string>
   <string name="mec_accept_terms">|Zadaním objednávky akceptujem zmluvné podmienky spoločnosti Philips|</string>
   <string name="mec_accepted_codes">|コードが承諾されました|</string>
   <string name="mec_add">|Hinzufügen|</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">|Адреса для надсилання рахунку|</string>
   <string name="mec_blank_cvv_error">|Моля, въведете валидна стойност за проверка на картата (CVV)|</string>
   <string name="mec_buy_from_retailers">|Perakende Satış Mağazalarından Satın Alın|</string>
+  <string name="mec_call">|Зателефонувати|</string>
   <string name="mec_cancel">|Скасувати|</string>
+  <string name="mec_cancel_order">|Ακύρωση της παραγγελίας μου|</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">|Pour votre information, votre commande porte le numéro %s|</string>
+  <string name="mec_cancel_order_dls_msg">|Ви можете скасувати замовлення перед тим, як його буде відправлено. Наша команда обслуговування клієнтів рада допомогти Вам у цьому.|</string>
+  <string name="mec_cancel_order_number">|Número de cancelamento da encomenda |</string>
   <string name="mec_cancel_payment">|Möchten Sie den Zahlungsvorgang wirklich abbrechen? Ihr Warenkorb ist anschließend leer.|</string>
+  <string name="mec_cancel_your_order">|[zh-TW]Cancel your order|</string>
   <string name="mec_card_holder_first_name">|Собствено име на притежателя на картата|</string>
   <string name="mec_card_holder_last_name">|Фамилно име на притежателя на картата|</string>
   <string name="mec_cart_count_exceed_message">|Не е възможно добавянето на повече от %d продукта в количката за пазаруване|</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">|Подтверждение|</string>
   <string name="mec_confirmation_email_msg">|Незабаром Ви отримаєте листа з підтвердженням за електронною адресою|</string>
   <string name="mec_contact_details">|Kontaktpersonas informācija|</string>
+  <string name="mec_contact_philips_consumer_care">|Comuníquese a través de los %s con el servicio de atención al consumidor de Philips para obtener asistencia adicional.|</string>
   <string name="mec_continue">|Продовжити|</string>
   <string name="mec_continue_checkout">|Продовжити оформлення замовлення|</string>
   <string name="mec_continue_shopping">|Продължете пазаруването|</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">|Phương thức giao hàng|</string>
   <string name="mec_discount">|árengedmény|</string>
   <string name="mec_empty_cart">|В момента вашата количка за пазаруване е празна|</string>
+  <string name="mec_empty_purchase_history">|Якщо Ви розмістили своє замовлення за допомогою цього додатка, перевірте, чи Ви отримали електронного листа для підтвердження замовлення.|</string>
   <string name="mec_enter_code">|Wprowadź kod podarunkowy|</string>
   <string name="mec_faq">|страницу часто задаваемых|</string>
   <string name="mec_features">|Funktionsweisen|</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">|для получения дополнительной информации|</string>
   <string name="mec_mr">|Ponas|</string>
   <string name="mec_mrs">|Dl / D-na / Dra|</string>
+  <string name="mec_my_orders">|As minhas encomendas|</string>
   <string name="mec_new_card_text">|Nouvelle carte|</string>
   <string name="mec_new_payment_disclaimer">|Информацията относно плащането ще се запази веднага след като направите поръчка|</string>
   <string name="mec_no_address_select_message">|Veuillez sélectionner une adresse de livraison|</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">|Aceptar|</string>
   <string name="mec_online_retailers">|Διαδικτυακά καταστήματα λιανικής πώλησης|</string>
   <string name="mec_only">|다음 항목만 해당:|</string>
+  <string name="mec_order_detail_unavailable">|[zh-TW]Order Detail is unavailable|</string>
+  <string name="mec_order_details">|Подробности за поръчката|</string>
+  <string name="mec_order_not_received_items">|A megrendelés nem érkezett meg|</string>
+  <string name="mec_order_number_msg">|Número da encomenda: %s|</string>
   <string name="mec_order_pay">|Παραγγελία και πληρωμή|</string>
+  <string name="mec_order_state">|สถานะรายการสั่งซื้อของคุณคือ %s|</string>
   <string name="mec_order_summary">|Zusammenfassung der Bestellung|</string>
   <string name="mec_order_summary_shipping">|Информация относно доставката|</string>
+  <string name="mec_orders">|Controles del dispositivo|</string>
+  <string name="mec_other_channel_purchase">|Якщо Ви розмістили своє замовлення через іншого продавця, тоді Ваше замовлення тут може не відображатися.|</string>
   <string name="mec_out_of_stock">|Loppunut varastosta|</string>
   <string name="mec_page">|delle domande frequenti|</string>
   <string name="mec_payment">|Поставщики платежных услуг|</string>

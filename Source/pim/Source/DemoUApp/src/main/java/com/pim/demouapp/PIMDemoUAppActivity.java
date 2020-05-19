@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,6 +33,7 @@ import com.philips.cdp.di.iap.integration.IAPInterface;
 import com.philips.cdp.di.iap.integration.IAPLaunchInput;
 import com.philips.cdp.di.iap.integration.IAPListener;
 import com.philips.cdp.di.iap.integration.IAPSettings;
+import com.philips.cdp.prodreg.util.ProgressAlertDialog;
 import com.philips.cdp.registration.configuration.RegistrationLaunchMode;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;
@@ -64,8 +64,9 @@ import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListene
 import com.philips.platform.pif.DataInterface.USR.listeners.RefetchUserDetailsListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserMigrationListener;
+import com.philips.platform.pim.UDIRedirectReceiverActivity;
+import com.philips.platform.pim.listeners.UserLoginListener;
+import com.philips.platform.pim.listeners.UserMigrationListener;
 import com.philips.platform.pim.PIMInterface;
 import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
@@ -99,9 +100,11 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     public static final String SELECTED_COUNTRY = "SELECTED_COUNTRY";
 
 
-    private Button btnLaunchAsActivity, btnLaunchAsFragment, btnLogout, btn_ECS, btn_MCS, btnRefreshSession, btnISOIDCToken, btnMigrator, btnGetUserDetail, btn_RefetchUserDetails, btn_RegistrationPR, btn_IAP;
+    private Button btnLaunchAsActivity, btnLaunchAsFragment, btnLogout, btn_ECS, btn_MCS, btnRefreshSession, btnISOIDCToken, btnMigrator, btnGetUserDetail,
+            btn_RefetchUserDetails, btn_RegistrationPR, btn_IAP, btnUpdateMarketingOptin;
     private Switch aSwitch, abTestingSwitch, marketingOptedSwitch;
     private UserDataInterface userDataInterface;
+    private PIMInterface pimInterface;
     private boolean isUSR;
     private Context mContext;
     private Spinner spinnerCountrySelection;
@@ -120,6 +123,9 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private MECBazaarVoiceInput mecBazaarVoiceInput;
     private PIMDemoUAppApplication uAppApplication;
     private boolean isOptedIn;
+    private ProgressAlertDialog progresDialog;
+    private EcsDemoTestUAppInterface iapDemoUAppInterface;
+    private MECInterface mMecInterface;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,6 +155,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         btnISOIDCToken = findViewById(R.id.btn_IsOIDCToken);
         btnISOIDCToken.setOnClickListener(this);
         btnMigrator = findViewById(R.id.btn_MigrateUser);
+        btnUpdateMarketingOptin = findViewById(R.id.btn_UpdateMarketingOptin);
         btnMigrator.setOnClickListener(this);
         aSwitch = findViewById(R.id.switch_cookies_consent);
         abTestingSwitch = findViewById(R.id.switch_ab_testing_consent);
@@ -161,6 +168,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         btn_ECS.setOnClickListener(this);
         btn_MCS = findViewById(R.id.btn_MEC);
         btn_MCS.setOnClickListener(this);
+        btnUpdateMarketingOptin.setOnClickListener(this);
         PIMDemoUAppDependencies pimDemoUAppDependencies = new PIMDemoUAppDependencies(appInfraInterface);
         PIMDemoUAppSettings pimDemoUAppSettings = new PIMDemoUAppSettings(this);
 
@@ -177,37 +185,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             setABTestingStatus(isChecked);
         });
 
-        marketingOptedSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if ((!isNetworkConnected()) || buttonView.getTag() != null) {
-                    if (buttonView.isPressed()) {
-                        marketingOptedSwitch.setChecked(isOptedIn);
-                    }
-                    return;
-                }
-
-                if (userDataInterface.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN) {
-                    marketingOptedSwitch.setChecked(false);
-                    showToast("User is not loged-in, Please login!");
-                    return;
-                }
-                userDataInterface.updateReceiveMarketingEmail(new UpdateUserDetailsHandler() {
-                    @Override
-                    public void onUpdateSuccess() {
-                        showToast("Marketing Opted-In updated successfully.");
-                        updateMarketingOptinStatus();
-                    }
-
-                    @Override
-                    public void onUpdateFailedWithError(Error error) {
-                        showToast("Updating marketing opted-in failed with error code : " + error.getErrCode());
-                        updateMarketingOptinStatus();
-                    }
-                }, isChecked);
-            }
-        });
-
         viewInitlization(pimDemoUAppDependencies, pimDemoUAppSettings);
 
         sharedPreferences = getApplicationContext().getSharedPreferences("MyPref", 0);
@@ -215,7 +192,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         spinnerCountrySelection = findViewById(R.id.spinner_CountrySelection);
         spinnerCountryText = findViewById(R.id.spinner_Text);
 
-        if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_NOT_LOGGED_IN) {
+        if (userDataInterface != null && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_NOT_LOGGED_IN) {
             spinnerCountrySelection.setVisibility(View.VISIBLE);
             spinnerCountryText.setVisibility(View.GONE);
             String[] stringArray = getResources().getStringArray(R.array.countries_array);
@@ -223,7 +200,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             List<String> countryList = new ArrayList<>(Arrays.asList(stringArray));
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, countryList);
             spinnerCountrySelection.setAdapter(arrayAdapter);
-            if(!TextUtils.isEmpty(getSavedCountry())) {
+            if (!TextUtils.isEmpty(getSavedCountry())) {
                 int index = countryList.indexOf(getSavedCountry());
                 spinnerCountrySelection.setSelection(index);
             }
@@ -237,6 +214,9 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                         editor.apply();
                         uAppApplication.initialisePim();
                         userDataInterface = uAppApplication.getUserDataInterface();
+                        pimInterface = uAppApplication.getPIMInterface();
+                        if (pimInterface != null)
+                            pimInterface.setLoginListener(PIMDemoUAppActivity.this);
                     }
                 }
 
@@ -251,23 +231,19 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             spinnerCountryText.setText(selectedCountry);
             spinnerCountrySelection.setVisibility(View.GONE);
         }
+
+        if (getIntent().hasExtra(UDIRedirectReceiverActivity.REDIRECT_TO_CLOSED_APP)) {
+            showProgressDialog();
+        }
     }
 
 
     private void initMEC() {
-//        ignorelistedRetailer.add("Frys.com");
-//        ignorelistedRetailer.add("Amazon - US");
-//        ignorelistedRetailer.add("BestBuy.com");
-
         mMecInterface = new MECInterface();
-
         MECDependencies mMecDependencies = new MECDependencies(appInfraInterface, userDataInterface);
-
         mMecInterface.init(mMecDependencies, new MECSettings(mContext));
-
         mMecLaunchInput = new MECLaunchInput();
         mMecLaunchInput.setMecCartUpdateListener(this);
-
 
         mMecLaunchInput.setMecBannerConfigurator(this);
         mMecLaunchInput.setSupportsHybris(true);
@@ -278,7 +254,11 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onResume() {
         super.onResume();
-        if (!userDataInterface.isOIDCToken() && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+
+        if (userDataInterface == null)
+            userDataInterface = PIMDemoUAppApplication.getInstance().getUserDataInterface();
+
+        if (userDataInterface != null && !userDataInterface.isOIDCToken() && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
             btnLaunchAsFragment.setEnabled(false);
         }
     }
@@ -296,38 +276,24 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             btn_ECS.setVisibility(View.GONE);
             btnGetUserDetail.setVisibility(View.GONE);
             btnLaunchAsFragment.setText("Launch USR");
+            aSwitch.setVisibility(View.GONE);
+            abTestingSwitch.setVisibility(View.GONE);
             userDataInterface = uAppApplication.getUserDataInterface();
         } else {
             isUSR = false;
             Log.i(TAG, "Selected Liberary : PIM");
             userDataInterface = uAppApplication.getUserDataInterface();
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            pimInterface = uAppApplication.getPIMInterface();
+            if (pimInterface != null)
+                pimInterface.setLoginListener(this);
+            if (isUserLoggedIn()) {
                 btnLaunchAsActivity.setVisibility(View.GONE);
                 btnLaunchAsFragment.setText("Launch User Profile");
                 updateMarketingOptinStatus();
             } else {
-                btnLaunchAsActivity.setText("Launch PIM As Activity");
-                btnLaunchAsFragment.setText("Launch PIM As Fragment");
+                btnLaunchAsActivity.setText("Launch UDI As Activity");
+                btnLaunchAsFragment.setText("Launch UDI As Fragment");
             }
-            IAPDependencies mIapDependencies = new IAPDependencies(appInfraInterface, userDataInterface);
-            mIAPSettings = new IAPSettings(this);
-            mIapInterface = new IAPInterface();
-            mIapInterface.init(mIapDependencies, mIAPSettings);
-            mServiceDiscoveryInterface = appInfraInterface.getServiceDiscovery();
-            receiver = new HomeCountryUpdateReceiver(appInfraInterface);
-            mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
-//            mIAPSettings = new IAPSettings(this);
-            mCategorizedProductList = new ArrayList<>();
-            mCategorizedProductList.add("HD9745/90000");
-            mCategorizedProductList.add("HD9630/90");
-            mCategorizedProductList.add("HD9240/90");
-            mCategorizedProductList.add("HD9621/90");
-//            mIapInterface.init(mIapDependencies, mIAPSettings);
-            mIapLaunchInput = new IAPLaunchInput();
-            mIapLaunchInput.setHybrisSupported(true);
-            mIapLaunchInput.setIapListener(this);
-            initializeBazaarVoice();
-            initMEC();
         }
     }
 
@@ -342,14 +308,13 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             name = locale.getDisplayCountry();
             countryMap.put(name, code);
         }
-
         return countryMap.get(countryName);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        //finish();
     }
 
     private void initTheme() {
@@ -369,14 +334,14 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         if (v == btnLaunchAsActivity) {
             if (!isUSR) {
                 PIMLaunchInput launchInput = new PIMLaunchInput();
-                launchInput.setUserLoginListener(this);
 
                 HashMap<PIMParameterToLaunchEnum, Object> map = new HashMap<>();
                 map.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, isABTestingStatus);
 
                 launchInput.setParameterToLaunch(map);
                 ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
-                new PIMInterface().launch(activityLauncher, launchInput);
+                if (pimInterface != null)
+                    pimInterface.launch(activityLauncher, launchInput);
             }
         } else if (v == btnLaunchAsFragment) {
             if (isUSR) {
@@ -385,7 +350,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 launchPIM();
             }
         } else if (v == btnLogout) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
                 userDataInterface.logoutSession(new LogoutSessionListener() {
                     @Override
                     public void logoutSessionSuccess() {
@@ -395,44 +360,48 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void logoutSessionFailed(Error error) {
-                        showToast("Logout Failed due to " + error.getErrCode() + " and error message :" + error.getErrDesc());
+                        showToast("Logout Failed with error code " + error.getErrCode());
                     }
                 });
             } else {
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btnRefreshSession) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
+                showProgressDialog();
                 userDataInterface.refreshSession(new RefreshSessionListener() {
                     @Override
                     public void refreshSessionSuccess() {
                         updateMarketingOptinStatus();
+                        cancelProgressDialog();
                         showToast("Refresh session success");
                     }
 
                     @Override
                     public void refreshSessionFailed(Error error) {
+                        cancelProgressDialog();
                         showToast("Refresh session failed due to :" + error.getErrCode() + " and error message :" + error.getErrDesc());
                     }
 
                     @Override
                     public void forcedLogout() {
-
+                        cancelProgressDialog();
                     }
                 });
             } else {
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_RegistrationPR) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
                 Fragment fragment = new PRGFragment(userDataInterface, appInfraInterface);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.pimDemoU_mainFragmentContainer, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                        .replace(R.id.demoAppMenus, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+
             } else {
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_IAP) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
                 if (mCategorizedProductList.size() > 0) {
                     IAPFlowInput input = new IAPFlowInput(mCategorizedProductList);
                     launchIAP(IAPLaunchInput.IAPFlows.IAP_PRODUCT_CATALOG_VIEW, input, null);
@@ -443,13 +412,13 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_ECS) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
                 launchECS();
             } else {
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_MCS) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
                 MECFlowConfigurator pMecFlowConfigurator = new MECFlowConfigurator();
                 pMecFlowConfigurator.setLandingView(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW);
                 launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, pMecFlowConfigurator, null);
@@ -457,41 +426,50 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btnMigrator) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-                showToast("User is already logged-in!");
+            if (isUserLoggedIn()) {
+                updateUIOnUserLoggedIn();
+                showToast("User is already migrated or logged-in into UDI!");
             } else {
-                userDataInterface.migrateUserToPIM(new UserMigrationListener() {
-                    @Override
-                    public void onUserMigrationSuccess() {
-                        showToast("User migrated succesfully");
-                    }
+                if (pimInterface != null) {
+                    showProgressDialog();
+                    pimInterface.migrateJanrainUserToPIM(new UserMigrationListener() {
+                        @Override
+                        public void onUserMigrationSuccess() {
+                            updateUIOnUserLoggedIn();
+                            cancelProgressDialog();
+                            showToast("User migrated succesfully");
+                        }
 
-                    @Override
-                    public void onUserMigrationFailed(Error error) {
-                        showToast("user migration failed error code = " + error.getErrCode() + " error message : " + error.getErrDesc());
-                    }
-                });
+                        @Override
+                        public void onUserMigrationFailed(Error error) {
+                            cancelProgressDialog();
+                            showToast("user migration failed error code = " + error.getErrCode() + " error message : " + error.getErrDesc());
+                        }
+                    });
+                }
             }
-
         } else if (v == btn_RefetchUserDetails) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
+                showProgressDialog();
                 userDataInterface.refetchUserDetails(new RefetchUserDetailsListener() {
                     @Override
                     public void onRefetchSuccess() {
                         updateMarketingOptinStatus();
+                        cancelProgressDialog();
                         showToast("Refetch Success!!");
                     }
 
                     @Override
                     public void onRefetchFailure(Error error) {
-                        showToast("Refetch failed");
+                        cancelProgressDialog();
+                        showToast("Refetch failed with error code : " + error.getErrCode());
                     }
                 });
             } else {
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btnGetUserDetail) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
                 try {
                     ArrayList<String> detailKeys = new ArrayList<>();
                     detailKeys.add(UserDetailConstants.FAMILY_NAME);
@@ -507,6 +485,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                     detailKeys.add(UserDetailConstants.EXPIRES_IN);
                     detailKeys.add(UserDetailConstants.TOKEN_TYPE);
                     HashMap<String, Object> userDetails = userDataInterface.getUserDetails(detailKeys);
+                    Log.i(TAG, "User userDetails : " + userDetails);
                     showToast("User Details  are :" + userDetails.toString());
                 } catch (UserDataInterfaceException e) {
                     e.printStackTrace();
@@ -517,18 +496,42 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             }
 
         } else if (v == btnISOIDCToken) {
-            if (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            if (isUserLoggedIn()) {
                 boolean oidcToken = userDataInterface.isOIDCToken();
                 showToast("isOIDCToken : " + oidcToken);
             } else {
                 showToast("User is not loged-in, Please login!");
             }
+        } else if (v == btnUpdateMarketingOptin) {
+            if ((!isNetworkConnected())) {
+                return;
+            }
+
+            if (!isUserLoggedIn()) {
+                marketingOptedSwitch.setChecked(false);
+                showToast("User is not loged-in, Please login!");
+                return;
+            }
+
+            showProgressDialog();
+            userDataInterface.updateReceiveMarketingEmail(new UpdateUserDetailsHandler() {
+                @Override
+                public void onUpdateSuccess() {
+                    cancelProgressDialog();
+                    showToast("Marketing Opted-In updated successfully.");
+                    updateMarketingOptinStatus();
+                }
+
+                @Override
+                public void onUpdateFailedWithError(Error error) {
+                    cancelProgressDialog();
+                    showToast("Updating marketing opted-in failed with error code : " + error.getErrCode());
+                    updateMarketingOptinStatus();
+                }
+            }, marketingOptedSwitch.isChecked());
         }
 
     }
-
-    private EcsDemoTestUAppInterface iapDemoUAppInterface;
-    private MECInterface mMecInterface;
 
     private void launchECS() {
         iapDemoUAppInterface = new EcsDemoTestUAppInterface();
@@ -538,6 +541,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
 
     private void launchMECasFragment(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {
+        initializeBazaarVoice();
+        initMEC();
         pMecFlowConfigurator.setLandingView(mecLandingView);
         mMecLaunchInput.setFlowConfigurator(pMecFlowConfigurator);
         try {
@@ -547,11 +552,28 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         } catch (MECException e) {
             e.printStackTrace();
         }
-
     }
 
     private void launchIAP(int pLandingViews, IAPFlowInput pIapFlowInput, ArrayList<String> pIgnoreRetailerList) {
         try {
+            IAPDependencies mIapDependencies = new IAPDependencies(appInfraInterface, userDataInterface);
+            mIAPSettings = new IAPSettings(this);
+            mIapInterface = new IAPInterface();
+            mIapInterface.init(mIapDependencies, mIAPSettings);
+            mServiceDiscoveryInterface = appInfraInterface.getServiceDiscovery();
+            receiver = new HomeCountryUpdateReceiver(appInfraInterface);
+            mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
+//            mIAPSettings = new IAPSettings(this);
+            mCategorizedProductList = new ArrayList<>();
+            mCategorizedProductList.add("HD9745/90000");
+            mCategorizedProductList.add("HD9630/90");
+            mCategorizedProductList.add("HD9240/90");
+            mCategorizedProductList.add("HD9621/90");
+//            mIapInterface.init(mIapDependencies, mIAPSettings);
+            mIapLaunchInput = new IAPLaunchInput();
+            mIapLaunchInput.setHybrisSupported(true);
+            mIapLaunchInput.setIapListener(this);
+
             mIapInterface.launch(new ActivityLauncher
                             (this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_PORTRAIT, null, 0, null),
                     mIapLaunchInput);
@@ -564,11 +586,11 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private void launchPIM() {
         PIMLaunchInput launchInput = new PIMLaunchInput();
         FragmentLauncher fragmentLauncher = new FragmentLauncher(this, R.id.pimDemoU_mainFragmentContainer, null);
-        launchInput.setUserLoginListener(this);
         HashMap<PIMParameterToLaunchEnum, Object> parameter = new HashMap<>();
         parameter.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, isABTestingStatus());
         launchInput.setParameterToLaunch(parameter);
-        new PIMInterface().launch(fragmentLauncher, launchInput);
+        if (pimInterface != null)
+            pimInterface.launch(fragmentLauncher, launchInput);
     }
 
     private void launchUSR() {
@@ -582,7 +604,77 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         urLaunchInput.setRegistrationContentConfiguration(getRegistrationContentConfiguration());
         if (userDataInterface.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN)
             new URInterface().launch(fragmentLauncher, urLaunchInput);
+    }
 
+
+    private void updateUIOnUserLoggedIn() {
+        btnLaunchAsActivity.setVisibility(View.GONE);
+        String selectedCountry = sharedPreferences.getString(SELECTED_COUNTRY, "");
+        spinnerCountryText.setVisibility(View.VISIBLE);
+        spinnerCountryText.setText(selectedCountry);
+        spinnerCountrySelection.setVisibility(View.GONE);
+        btnLaunchAsFragment.setText("Launch User Profile");
+        updateMarketingOptinStatus();
+    }
+
+    private Boolean isABTestingStatus() {
+        return isABTestingStatus;
+    }
+
+    private void setABTestingStatus(Boolean ABTestingStatus) {
+        isABTestingStatus = ABTestingStatus;
+    }
+
+    private void updateMarketingOptinStatus() {
+        ArrayList<String> keyList = new ArrayList<>();
+        keyList.add(UserDetailConstants.RECEIVE_MARKETING_EMAIL);
+        try {
+            final HashMap<String, Object> userDetails = userDataInterface.getUserDetails(keyList);
+            isOptedIn = (boolean) userDetails.get(UserDetailConstants.RECEIVE_MARKETING_EMAIL);
+            marketingOptedSwitch.setChecked(isOptedIn);
+        } catch (UserDataInterfaceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (mContext != null && !NetworkUtility.getInstance().isNetworkAvailable(connectivityManager)) {
+            PIMNetworkUtility.getInstance().showErrorDialog(mContext,
+                    getSupportFragmentManager(), "OK",
+                    "You are offline", "Your internet connection does not seem to be working. Please check and try again");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private String getSavedCountry() {
+        return sharedPreferences.getString(SELECTED_COUNTRY, "");
+    }
+
+    private void showProgressDialog() {
+        progresDialog = new ProgressAlertDialog(this, R.style.prg_Custom_loaderTheme);
+        progresDialog.show();
+    }
+
+    private void cancelProgressDialog() {
+        if (progresDialog != null && progresDialog.isShowing())
+            progresDialog.dismiss();
+    }
+
+    private boolean isUserLoggedIn(){
+        return userDataInterface != null && (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN);
+    }
+
+    private void showToast(final String toastMsg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(mContext, toastMsg, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public RegistrationContentConfiguration getRegistrationContentConfiguration() {
@@ -606,15 +698,18 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void showToast(final String toastMsg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(mContext, toastMsg, Toast.LENGTH_LONG).show();
-            }
-        });
+    @Override
+    public void onLoginSuccess() {
+        showToast("PIM Login Success");
+        updateUIOnUserLoggedIn();
+        cancelProgressDialog();
     }
 
+    @Override
+    public void onLoginFailed(Error error) {
+        showToast("PIM Login Failed :" + error.getErrCode() + " and reason is" + error.getErrDesc());
+        cancelProgressDialog();
+    }
 
     @Override
     public void onUserRegistrationComplete(Activity activity) {
@@ -640,79 +735,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     public void onPersonalConsentClick(Activity activity) {
 
     }
-
-    @Override
-    public void onLoginSuccess() {
-        showToast("PIM Login Success");
-        btnLaunchAsActivity.setVisibility(View.GONE);
-        String selectedCountry = sharedPreferences.getString(SELECTED_COUNTRY, "");
-        spinnerCountryText.setVisibility(View.VISIBLE);
-        spinnerCountryText.setText(selectedCountry);
-        spinnerCountrySelection.setVisibility(View.GONE);
-        btnLaunchAsFragment.setText("Launch User Profile");
-        IAPDependencies mIapDependencies = new IAPDependencies(appInfraInterface, userDataInterface);
-        mIAPSettings = new IAPSettings(this);
-        mIapInterface.init(mIapDependencies, mIAPSettings);
-        MECDependencies mecDependencies = new MECDependencies(appInfraInterface, userDataInterface);
-        mMecInterface = new MECInterface();
-        mMecInterface.init(mecDependencies, new MECSettings(mContext));
-        updateMarketingOptinStatus();
-        initializeBazaarVoice();
-    }
-
-    @Override
-    public void onLoginFailed(Error error) {
-        showToast("PIM Login Failed :" + error.getErrCode() + " and reason is" + error.getErrDesc());
-    }
-
-    @Override
-    public void onGetCartCount(int count) {
-
-    }
-
-    @Override
-    public void onUpdateCartCount() {
-
-    }
-
-    @Override
-    public void updateCartIconVisibility(boolean shouldShow) {
-
-    }
-
-    @Override
-    public void shouldShowCart(Boolean shouldShow) {
-
-    }
-
-    @Override
-    public void onGetCompleteProductList(ArrayList<String> productList) {
-
-    }
-
-    @Override
-    public void onSuccess() {
-
-    }
-
-    @Override
-    public void onSuccess(boolean bool) {
-
-    }
-
-    @Override
-    public void onFailure(int errorCode) {
-
-    }
-
-    public Boolean isABTestingStatus() {
-        return isABTestingStatus;
-    }
-
-    public void setABTestingStatus(Boolean ABTestingStatus) {
-        isABTestingStatus = ABTestingStatus;
-    }
-
 
     private void initializeBazaarVoice() {
         SharedPreferences shared = this.getSharedPreferences("bvEnv", MODE_PRIVATE);
@@ -786,34 +808,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         return null;
     }
 
-    private void updateMarketingOptinStatus() {
-        ArrayList<String> keyList = new ArrayList<>();
-        keyList.add(UserDetailConstants.RECEIVE_MARKETING_EMAIL);
-        try {
-            final HashMap<String, Object> userDetails = userDataInterface.getUserDetails(keyList);
-            isOptedIn = (boolean) userDetails.get(UserDetailConstants.RECEIVE_MARKETING_EMAIL);
-            marketingOptedSwitch.setTag(false);
-            marketingOptedSwitch.setChecked(isOptedIn);
-            marketingOptedSwitch.setTag(null);
-        } catch (UserDataInterfaceException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected boolean isNetworkConnected() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (mContext != null && !NetworkUtility.getInstance().isNetworkAvailable(connectivityManager)) {
-            PIMNetworkUtility.getInstance().showErrorDialog(mContext,
-                    getSupportFragmentManager(), "OK",
-                    "You are offline", "Your internet connection does not seem to be working. Please check and try again");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
     @Override
     public void onFailure(@NotNull Exception exception) {
 
@@ -824,7 +818,43 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private String getSavedCountry() {
-        return sharedPreferences.getString(SELECTED_COUNTRY, "");
+    @Override
+    public void onGetCartCount(int count) {
+
+    }
+
+    @Override
+    public void onUpdateCartCount() {
+
+    }
+
+    @Override
+    public void updateCartIconVisibility(boolean shouldShow) {
+
+    }
+
+    @Override
+    public void shouldShowCart(Boolean shouldShow) {
+
+    }
+
+    @Override
+    public void onGetCompleteProductList(ArrayList<String> productList) {
+
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onSuccess(boolean bool) {
+
+    }
+
+    @Override
+    public void onFailure(int errorCode) {
+
     }
 }

@@ -1,5 +1,7 @@
 package com.philips.platform.pim.rest;
 
+import com.android.volley.Request;
+
 import java.util.HashMap;
 import java.util.Map;
 

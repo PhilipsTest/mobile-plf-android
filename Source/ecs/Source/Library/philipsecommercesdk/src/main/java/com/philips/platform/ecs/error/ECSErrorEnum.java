@@ -90,8 +90,9 @@ public enum ECSErrorEnum {
     }
 
     public  String getLocalizedErrorString(){
-        String localizedError= ECSConfiguration.INSTANCE.getAppInfra().getAppInfraContext().getString(R.string.ECSsomethingWentWrong);
+        String localizedError= "";
         try{
+            localizedError= ECSConfiguration.INSTANCE.getAppInfra().getAppInfraContext().getString(R.string.ECSsomethingWentWrong);
             localizedError =   ECSConfiguration.INSTANCE.getAppInfra().getAppInfraContext().getResources().getString(getResourceID());
         } catch(Exception e){
             Log.e("RES_NOT_FOUND", e.getMessage());

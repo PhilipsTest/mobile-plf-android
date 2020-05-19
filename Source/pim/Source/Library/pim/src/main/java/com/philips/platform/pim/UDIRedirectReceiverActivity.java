@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.pim.manager.PIMSettingManager;
@@ -25,7 +26,9 @@ public class UDIRedirectReceiverActivity extends Activity {
             startActivity(AuthorizationManagementActivity.createResponseHandlingIntent(
                     this, getIntent().getData()));
         } else if (getIntent().getData() != null) {
-            PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(new AppInfra.Builder().build(this));
+            AppInfra appInfra = new AppInfra.Builder().build(this);
+            PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(appInfra);
+            Log.i("PIM","intent => "+getIntent().getData().toString());
             pimSecureStorageHelper.saveAuthorizationResponse(getIntent().getData().toString());
             launchAppOnRedirect(this);
         }

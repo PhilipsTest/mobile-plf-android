@@ -85,6 +85,7 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mECSOrderDetail)
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, paymentCompleted)
+        bundle.putString(paymentType, new)
         return bundle
     }
 
@@ -105,6 +106,7 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
 
     private fun verifyResultCallBacks(url: String): Boolean {
         val actionMapPaymentSuccess = HashMap<String, String>()
+        actionMapPaymentSuccess.put(paymentType, new)
         val actionMapPaymentFailure = HashMap<String, String>()
         actionMapPaymentFailure.put(paymentType, new)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call

@@ -37,7 +37,6 @@ import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uid.view.widget.Button;
 
@@ -52,7 +51,7 @@ import java.util.HashMap;
 //import com.philips.platform.pim.PIMParameterToLaunchEnum;
 
 
-public class EcsDemoTestActivity extends FragmentActivity implements View.OnClickListener, UserLoginListener,
+public class EcsDemoTestActivity extends FragmentActivity implements View.OnClickListener,
         UserRegistrationUIEventListener {
 
     private Button mRegister;
@@ -328,16 +327,6 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-    }
-
-    @Override
-    public void onLoginSuccess() {
-
-    }
-
-    @Override
-    public void onLoginFailed(Error error) {
 
     }
 }

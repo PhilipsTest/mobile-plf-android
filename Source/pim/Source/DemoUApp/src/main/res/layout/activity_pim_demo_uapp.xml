@@ -20,8 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginTop="5dp" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner_CountrySelection"
@@ -45,7 +44,7 @@
                 android:layout_below="@+id/spinner_CountrySelection"
                 android:layout_centerInParent="true"
                 android:layout_margin="2dp"
-                android:text="Launch As Activity" />
+                android:text="Launch UDI As Activity" />
 
             <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_login_fragment"
@@ -54,7 +53,7 @@
                 android:layout_below="@+id/btn_login_activity"
                 android:layout_centerInParent="true"
                 android:layout_margin="2dp"
-                android:text="Launch As Fragment" />
+                android:text="Launch UDI As Fragment" />
 
             <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_logout"
@@ -81,7 +80,7 @@
                 android:layout_below="@+id/btn_RefreshSession"
                 android:layout_centerInParent="true"
                 android:layout_margin="2dp"
-                android:text="Migrate UR User" />
+                android:text="Migrate User To UDI" />
 
             <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_GetUserDetail"
@@ -108,7 +107,7 @@
                 android:layout_below="@+id/btn_RefetchUserDetails"
                 android:layout_centerInParent="true"
                 android:layout_margin="2dp"
-                android:text="Check OIDC Token" />
+                android:text="Check UDI Token" />
 
             <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_InvalidateUDIToken"
@@ -126,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn_InvalidateUDIToken"
                 android:layout_centerInParent="true"
+                android:visibility="gone"
                 android:layout_margin="2dp"
                 android:text="Launch PR" />
 
@@ -163,7 +163,7 @@
                 android:layout_centerInParent="true"
                 android:layout_margin="2dp">
 
-                <com.philips.platform.uid.view.widget.CheckBox
+                <com.philips.platform.uid.view.widget.Switch
                     android:id="@+id/switch_marketing_optedin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,6 +184,7 @@
                 android:id="@+id/switch_cookies_consent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:text="Analytics Consent"
@@ -195,6 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginLeft="5dp"
                 android:text="A/B Testing Consent"
                 app:switchPadding="30dp" />
 

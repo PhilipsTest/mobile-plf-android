@@ -56,7 +56,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         var actionMap = HashMap<String, String>()
         actionMap.put(paymentType, old)
         actionMap.put(specialEvents, paymentFailure)
-        MECAnalytics.tagActionsWithCartProductsInfo(actionMap,mEcsShoppingCart)
+        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,mEcsShoppingCart.entries)
         MECutility.tagAndShowError(mecError, false, fragmentManager, context)
         showErrorDialog()
         binding.root.mec_progress.visibility = View.GONE
@@ -101,6 +101,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mEcsOrderDetail)
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, java.lang.Boolean.TRUE)
+        bundle.putString(paymentType,old)
         mecPaymentConfirmationFragment.arguments = bundle
         replaceFragment(mecPaymentConfirmationFragment, false)
     }

@@ -11,7 +11,7 @@ import com.philips.platform.appinfra.securestorage.SecureStorage;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserMigrationListener;
+import com.philips.platform.pim.listeners.UserMigrationListener;
 import com.philips.platform.pim.listeners.RefreshUSRTokenListener;
 import com.philips.platform.pim.manager.PIMSettingManager;
 
@@ -22,7 +22,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;

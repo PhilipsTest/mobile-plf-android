@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Sipariş takibi</string>
   <string name="mec_accept_terms">Siparişi vererek Philips\'in şu şartlarını kabul ediyorum:</string>
   <string name="mec_accepted_codes">Kabul edilen kodlar</string>
   <string name="mec_add">Ekle</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Fatura adresi</string>
   <string name="mec_blank_cvv_error">Lütfen geçerli bir CVV girin</string>
   <string name="mec_buy_from_retailers">Perakende Satış Mağazalarından Satın Alın</string>
+  <string name="mec_call">Arama</string>
   <string name="mec_cancel">İptal</string>
+  <string name="mec_cancel_order">Siparişimi iptal et</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Sipariş numaranız: %s</string>
+  <string name="mec_cancel_order_dls_msg">Siparişinizi gönderilmeden önce iptal edebilirsiniz. Müşteri desteği ekibimiz bu konuda size yardımcı olabilir.</string>
+  <string name="mec_cancel_order_number">Sipariş iptal numarası </string>
   <string name="mec_cancel_payment">Ödemeyi iptal etmek mi istiyorsunuz? Sepetiniz boşaltılacaktır.</string>
+  <string name="mec_cancel_your_order">[tr]Cancel your order</string>
   <string name="mec_card_holder_first_name">Kart Sahibinin Adı</string>
   <string name="mec_card_holder_last_name">Kart Sahibinin Soyadı</string>
   <string name="mec_cart_count_exceed_message">Sepete en fazla %d ürün eklenebilir</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Onay</string>
   <string name="mec_confirmation_email_msg">Kısa süre sonra şu adrese bir onay e-postası alacaksınız:</string>
   <string name="mec_contact_details">İletişim ayrıntıları</string>
+  <string name="mec_contact_philips_consumer_care">Daha fazla destek için lütfen Philips Müşteri Desteği %s ile iletişime geçin.</string>
   <string name="mec_continue">Devam et</string>
   <string name="mec_continue_checkout">Ödemeye devam et</string>
   <string name="mec_continue_shopping">Alışverişe devam et</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Teslimat Yöntemi</string>
   <string name="mec_discount">indirim</string>
   <string name="mec_empty_cart">Alışveriş sepetinizde ürün bulunmamaktadır</string>
+  <string name="mec_empty_purchase_history">Siparişinizi bu uygulama üzerinden verdiyseniz lütfen sipariş onay e-postası alıp almadığınızı kontrol edin.</string>
   <string name="mec_enter_code">Hediye kodu gir</string>
   <string name="mec_faq">Sıkça Sorulan Sorular</string>
   <string name="mec_features">Özellikler</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">okuyun.</string>
   <string name="mec_mr">Bay</string>
   <string name="mec_mrs">Bayan</string>
+  <string name="mec_my_orders">Siparişlerim</string>
   <string name="mec_new_card_text">Yeni Kart</string>
   <string name="mec_new_payment_disclaimer">Sipariş verdiğinizde bu ödeme bilgileri kaydedilir</string>
   <string name="mec_no_address_select_message">Lütfen bir Teslimat Adresi seçin</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">Tamam</string>
   <string name="mec_online_retailers">Çevrimiçi Perakende Satış Mağazaları</string>
   <string name="mec_only">Sadece</string>
+  <string name="mec_order_detail_unavailable">[tr]Order Detail is unavailable</string>
+  <string name="mec_order_details">Sipariş ayrıntıları</string>
+  <string name="mec_order_not_received_items">Sipariş alınmadı</string>
+  <string name="mec_order_number_msg">Sipariş numarası: %s</string>
   <string name="mec_order_pay">Sipariş ver ve öde</string>
+  <string name="mec_order_state">Siparişiniz %s</string>
   <string name="mec_order_summary">Sipariş Özeti</string>
   <string name="mec_order_summary_shipping">Teslimat bilgileri</string>
+  <string name="mec_orders">Siparişler</string>
+  <string name="mec_other_channel_purchase">Farklı bir satış kanalından verdiğiniz siparişler burada görünmeyebilir.</string>
   <string name="mec_out_of_stock">Stokta yok</string>
   <string name="mec_page">sayfa</string>
   <string name="mec_payment">Ödeme</string>

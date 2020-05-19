@@ -1,10 +1,10 @@
 package com.ecs.demouapp.ui.response.orders;
 
-import com.philips.platform.ecs.model.orders.Entries;
+import com.philips.platform.ecs.model.cart.ECSEntries;
 
 public class ProductData {
 
-    private Entries mEntry;
+    private ECSEntries mEntry;
     private String mOrderCode;
     private String mCtnNumber;
     private String mProductTitle;
@@ -27,7 +27,7 @@ public class ProductData {
     public ProductData() {
     }
 
-    public ProductData(Entries entry) {
+    public ProductData(ECSEntries entry) {
         mEntry = entry;
     }
 

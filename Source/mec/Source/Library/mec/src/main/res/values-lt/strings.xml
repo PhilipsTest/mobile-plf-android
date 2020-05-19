@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Sekti užsakymą</string>
   <string name="mec_accept_terms">Pateikdamas užsakymą sutinku su „Philips“</string>
   <string name="mec_accepted_codes">Priimti kodai</string>
   <string name="mec_add">Įtr.</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Išdavimo adresas</string>
   <string name="mec_blank_cvv_error">Įveskite galiojantį CVV kodą</string>
   <string name="mec_buy_from_retailers">Įsigyti iš pardavėjo</string>
+  <string name="mec_call">Skambinti</string>
   <string name="mec_cancel">Atšaukti</string>
+  <string name="mec_cancel_order">Atšaukti mano užsakymą</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Informuojame, kad jūsų užsakymo numeris yra %s</string>
+  <string name="mec_cancel_order_dls_msg">Galite atšaukti užsakymą iki jo išsiuntimo. Mūsų klientų aptarnavimo tarnyba jums padės tai padaryti.</string>
+  <string name="mec_cancel_order_number">Atšaukti užsakymą nr. </string>
   <string name="mec_cancel_payment">Ar norite atšaukti apmokėjimą? Jūsų prekių krepšelis bus tuščias.</string>
+  <string name="mec_cancel_your_order">[lt]Cancel your order</string>
   <string name="mec_card_holder_first_name">Kortelės savininko vardas</string>
   <string name="mec_card_holder_last_name">Kortelės savininko pavardė</string>
   <string name="mec_cart_count_exceed_message">Negalite į krepšelį įdėti daugiau nei %d produktų</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Patvirtinimas</string>
   <string name="mec_confirmation_email_msg">Netrukus gausite patvirtinimo el. laišką adresu</string>
   <string name="mec_contact_details">Kontaktinė informacija</string>
+  <string name="mec_contact_philips_consumer_care">Susisiekite su „Philips“ klientų aptarnavimo tarnyba %s dėl tolesnės pagalbos.</string>
   <string name="mec_continue">Tęsti</string>
   <string name="mec_continue_checkout">Tęskite, kad išsiregistruotumėte</string>
   <string name="mec_continue_shopping">Tęsti apsipirkimą</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Pristatymo būdas</string>
   <string name="mec_discount">nuolaida</string>
   <string name="mec_empty_cart">Šiuo metu jūsų pirkinių krepšelis tuščias</string>
+  <string name="mec_empty_purchase_history">Jei pateikėte užsakymą per šią programą, patikrinkite, ar gavote užsakymo patvirtinimo el. laišką.</string>
   <string name="mec_enter_code">Įvesti dovanos kodą</string>
   <string name="mec_faq">DUK</string>
   <string name="mec_features">Savybės</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">norėdami sužinoti daugiau informacijos</string>
   <string name="mec_mr">Ponas</string>
   <string name="mec_mrs">Ponia</string>
+  <string name="mec_my_orders">Mano užsakymai</string>
   <string name="mec_new_card_text">Nauja kortelė</string>
   <string name="mec_new_payment_disclaimer">Šio mokėjimo informacija bus išsaugota, kai tik pateiksite užsakymą</string>
   <string name="mec_no_address_select_message">Pasirinkite pristatymo adresą</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">Gerai</string>
   <string name="mec_online_retailers">Mažmenininkai internete</string>
   <string name="mec_only">Tik</string>
+  <string name="mec_order_detail_unavailable">[lt]Order Detail is unavailable</string>
+  <string name="mec_order_details">Užsakymo informacija</string>
+  <string name="mec_order_not_received_items">Užsakymas negautas</string>
+  <string name="mec_order_number_msg">Užsakymo numeris: %s</string>
   <string name="mec_order_pay">Užsakyti ir mokėti</string>
+  <string name="mec_order_state">Jūsų užsakymas yra %s</string>
   <string name="mec_order_summary">Užsakymo suvestinė</string>
   <string name="mec_order_summary_shipping">Pristatymo informacija</string>
+  <string name="mec_orders">Užsakymai</string>
+  <string name="mec_other_channel_purchase">Jei pateikėte užsakymą per kitą mažmenininką, jūsų užsakymo čia gali nerodyti.</string>
   <string name="mec_out_of_stock">Išparduota</string>
   <string name="mec_page">psl.</string>
   <string name="mec_payment">Pavedimas</string>

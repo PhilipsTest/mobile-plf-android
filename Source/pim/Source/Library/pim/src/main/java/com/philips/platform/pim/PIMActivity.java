@@ -9,8 +9,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
 import com.philips.platform.pim.fragment.PIMFragment;
+import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.uappframework.listener.ActionBarListener;
 import com.philips.platform.uappframework.listener.BackEventListener;
@@ -25,11 +25,11 @@ import java.util.HashMap;
 
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 
-public class PIMActivity extends UIDActivity implements ActionBarListener, UserLoginListener {
+public class PIMActivity extends UIDActivity implements ActionBarListener, PIMLoginListener {
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
     private final String TAG = PIMActivity.class.getSimpleName();
     private LoggingInterface mLoggingInterface;
-    private UserLoginListener mUserLoginListener;
+    private PIMLoginListener mUserLoginListener;
 
 
     @Override

@@ -22,7 +22,6 @@ import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
 import com.philips.platform.pim.PIMInterface;
 import com.philips.platform.pim.R;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
@@ -57,7 +56,7 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
     private ProgressBar pimLoginProgreassBar;
     private boolean isInitRequiredAgain = true;
     private MutableLiveData<PIMInitState> liveData;
-    private UserLoginListener mUserLoginListener;
+    private PIMLoginListener mUserLoginListener;
     private final String USER_PROFILE_URL = "userreg.janrainoidc.userprofile";
     private HashMap consentParameterMap;
     private boolean isTokenReqInProcess;
@@ -84,7 +83,7 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
         return view;
     }
 
-    public void setActionbarListener(ActionBarListener actionbarListener, UserLoginListener userLoginListener) {
+    public void setActionbarListener(ActionBarListener actionbarListener, PIMLoginListener userLoginListener) {
         mUserLoginListener = userLoginListener;
     }
 
@@ -219,6 +218,8 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
             mUserLoginListener.onLoginFailed(error);
         } else {
             disableProgressBar();
+            Error error = new Error(PIMErrorCodes.INVALID_REGISTRATION_RESPONSE, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorCodes.INVALID_REGISTRATION_RESPONSE));
+            mUserLoginListener.onLoginFailed(error);
         }
     }
 

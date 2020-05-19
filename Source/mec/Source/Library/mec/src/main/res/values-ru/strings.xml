@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Отследить заказ</string>
   <string name="mec_accept_terms">Размещая заказ, я принимаю условия Philips</string>
   <string name="mec_accepted_codes">Примененные коды</string>
   <string name="mec_add">Добавить</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Адрес выставления счета</string>
   <string name="mec_blank_cvv_error">Введите действительный код CVV</string>
   <string name="mec_buy_from_retailers">Приобрести в магазине</string>
+  <string name="mec_call">Позвонить</string>
   <string name="mec_cancel">Отмена</string>
+  <string name="mec_cancel_order">Отменить мой заказ</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Номер вашего заказа — %s</string>
+  <string name="mec_cancel_order_dls_msg">Вы можете отменить заказ до его отправки. Специалисты службы поддержки потребителей помогут вам сделать это.</string>
+  <string name="mec_cancel_order_number">Отменить заказ под номером </string>
   <string name="mec_cancel_payment">Вы хотите отменить оплату? Из корзины будут удалены все элементы.</string>
+  <string name="mec_cancel_your_order">[ru]Cancel your order</string>
   <string name="mec_card_holder_first_name">Имя держателя карты</string>
   <string name="mec_card_holder_last_name">Фамилия держателя карты</string>
   <string name="mec_cart_count_exceed_message">В корзину нельзя добавить более %d товаров</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Подтверждение</string>
   <string name="mec_confirmation_email_msg">Вы вскоре получите электронное письмо с подтверждением по адресу</string>
   <string name="mec_contact_details">Контактные данные</string>
+  <string name="mec_contact_philips_consumer_care">Для получения дополнительной информации обратитесь в центр поддержки потребителей Philips (%s).</string>
   <string name="mec_continue">Продолжить</string>
   <string name="mec_continue_checkout">Перейти к оформлению заказа</string>
   <string name="mec_continue_shopping">Продолжить покупки</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Способ доставки</string>
   <string name="mec_discount">скидка</string>
   <string name="mec_empty_cart">Ваша корзина пуста</string>
+  <string name="mec_empty_purchase_history">Если вы оформили заказ в этом приложении, убедитесь, что вы получили электронное письмо с подтверждением заказа.</string>
   <string name="mec_enter_code">Введите подарочный код</string>
   <string name="mec_faq">страницу часто задаваемых</string>
   <string name="mec_features">Особенности</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">для получения дополнительной информации</string>
   <string name="mec_mr">Г-н</string>
   <string name="mec_mrs">Г-жа</string>
+  <string name="mec_my_orders">Мои заказы</string>
   <string name="mec_new_card_text">Новая карта</string>
   <string name="mec_new_payment_disclaimer">Эти платежные данные будут сохранены после размещения заказа</string>
   <string name="mec_no_address_select_message">Выберите адрес доставки</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Интернет-магазины</string>
   <string name="mec_only">Только</string>
+  <string name="mec_order_detail_unavailable">[ru]Order Detail is unavailable</string>
+  <string name="mec_order_details">Данные заказа</string>
+  <string name="mec_order_not_received_items">Заказ не получен</string>
+  <string name="mec_order_number_msg">Номер заказа: %s</string>
   <string name="mec_order_pay">Заказать и оплатить</string>
+  <string name="mec_order_state">Статус заказа: %s</string>
   <string name="mec_order_summary">Содержание заказа</string>
   <string name="mec_order_summary_shipping">Информация о доставке</string>
+  <string name="mec_orders">Заказы</string>
+  <string name="mec_other_channel_purchase">Если вы оформили заказ в другом магазине, он может не отображаться здесь.</string>
   <string name="mec_out_of_stock">Нет в наличии</string>
   <string name="mec_page">вопросов</string>
   <string name="mec_payment">Поставщики платежных услуг</string>

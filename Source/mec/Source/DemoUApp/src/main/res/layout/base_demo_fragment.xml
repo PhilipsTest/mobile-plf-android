@@ -242,6 +242,16 @@
                 android:layout_marginTop="2dp"
                 android:text="@string/categorized_shop_now"
                 />
+            <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/btn_order_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btn_buy_direct"
+                android:layout_marginTop="2dp"
+                android:text="Order History"
+
+                />
+
 
             <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_buy_direct"

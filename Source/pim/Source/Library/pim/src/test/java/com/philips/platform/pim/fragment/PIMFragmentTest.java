@@ -13,7 +13,7 @@ import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryServ
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
+import com.philips.platform.pim.listeners.UserLoginListener;
 import com.philips.platform.pim.PIMActivity;
 import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
