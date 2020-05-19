@@ -89,7 +89,7 @@ import java.util.List;
         return inputString==null || inputString.isEmpty();
     }
 
-    private boolean isINValidList(List list){
+    private boolean isINValidList(List<String>  list){
         return (list == null) || list.isEmpty();
     }
 

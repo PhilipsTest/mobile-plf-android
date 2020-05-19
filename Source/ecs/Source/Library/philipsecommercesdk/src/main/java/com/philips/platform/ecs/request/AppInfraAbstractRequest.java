@@ -16,6 +16,8 @@ import java.util.Map;
 
 public abstract class AppInfraAbstractRequest implements APPInfraRequest {
 
+    private static final long serialVersionUID = 1183996798851295038L;
+
     public void executeRequest(){
         new Thread(new Runnable() {
             @Override

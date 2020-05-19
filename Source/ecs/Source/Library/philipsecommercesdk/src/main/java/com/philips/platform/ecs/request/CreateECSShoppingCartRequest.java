@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedErrorMessage;
 
 public class CreateECSShoppingCartRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<JSONObject>{
+    private static final long serialVersionUID = 6764885485986333550L;
     private final ECSCallback<ECSShoppingCart, Exception> eCSCallback;
 
 

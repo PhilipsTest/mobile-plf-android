@@ -34,6 +34,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 
 public class GetAddressRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<JSONObject> {
 
+    private static final long serialVersionUID = 8012664086881344220L;
     private final ECSCallback<List<ECSAddress>, Exception> ecsCallback;
 
     public GetAddressRequest(ECSCallback<List<ECSAddress>, Exception> ecsCallback) {

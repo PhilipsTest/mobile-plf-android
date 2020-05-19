@@ -55,9 +55,9 @@ public class OAuthRequest extends AppInfraAbstractRequest  implements Response.L
     * Note: These janrain details should not be passed in request url as query string
     *
     * */
-    private Map getJanrainDetail(){
+    private Map<String,String> getJanrainDetail(){
 
-        Map map = new HashMap<String,String>();
+        Map<String,String> map = new HashMap<String,String>();
         if(oAuthID !=null)
         map.put(grantType.getType(), oAuthID);
         map.put("grant_type",grantType.getType());

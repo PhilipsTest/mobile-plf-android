@@ -32,6 +32,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 
 public class GetDeliveryModesRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<JSONObject> {
 
+    private static final long serialVersionUID = -4164618518447189962L;
     private final ECSCallback<List<ECSDeliveryMode>, Exception> ecsCallback;
 
     public GetDeliveryModesRequest(ECSCallback<List<ECSDeliveryMode>, Exception> ecsCallback) {

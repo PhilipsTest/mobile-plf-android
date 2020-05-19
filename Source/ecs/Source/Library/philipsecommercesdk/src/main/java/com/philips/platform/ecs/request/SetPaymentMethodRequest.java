@@ -29,6 +29,7 @@ import java.util.Map;
 
 public class SetPaymentMethodRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String> {
 
+    private static final long serialVersionUID = 5768135407388645525L;
     private final String paymentDetailsId;
     private final ECSCallback<Boolean,Exception> ecsCallback;
 

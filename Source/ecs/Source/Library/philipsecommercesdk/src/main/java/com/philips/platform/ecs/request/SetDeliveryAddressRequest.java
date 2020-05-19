@@ -32,6 +32,7 @@ public class SetDeliveryAddressRequest  extends OAuthAppInfraAbstractRequest imp
 
 
     public static final String ADDRESS_ID = "addressId";
+    private static final long serialVersionUID = -1978474753621849837L;
 
     private final ECSCallback<Boolean,Exception> ecsCallback;
     private final String addressID;
