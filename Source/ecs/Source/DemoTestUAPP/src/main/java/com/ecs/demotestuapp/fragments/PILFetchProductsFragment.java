@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.MicroECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
@@ -58,6 +59,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             microECSServices.fetchProducts(pageNumber, pageSize, new ECSCallback<ECSProducts, ECSError>() {
                 @Override
                 public void onResponse(ECSProducts result) {
+                    PILDataHolder.INSTANCE.setProductList(result);
                     gotoResultActivity(getJsonStringFromObject(result));
                     getProgressBar().setVisibility(View.GONE);
 
