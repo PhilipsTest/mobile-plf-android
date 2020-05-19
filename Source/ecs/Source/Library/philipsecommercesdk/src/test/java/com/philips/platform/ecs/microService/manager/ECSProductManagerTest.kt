@@ -4,7 +4,9 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
+import com.philips.platform.ecs.microService.request.GetProductForRequest
 import com.philips.platform.ecs.microService.request.GetProductsRequest
+import com.philips.platform.ecs.microService.request.GetSummariesForProductsRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import org.junit.Before
 import org.junit.Test
@@ -24,9 +26,15 @@ class ECSProductManagerTest {
     @Mock
     lateinit var mGetProductsRequestMock : GetProductsRequest
 
-    @Mock
-    lateinit var mECSApiValidator: ECSApiValidator
+////////////////////
 
+    lateinit var eCSCallback: ECSCallback<ECSProduct?, ECSError>
+
+    @Mock
+    lateinit var mGetProductForRequestMock: GetProductForRequest
+
+    @Mock
+    lateinit var mGetSummariesForProductsRequestMock : GetSummariesForProductsRequest
 
     @Before
     fun setUp() {
@@ -43,7 +51,7 @@ class ECSProductManagerTest {
             override fun onResponse(result: ECSProducts) {
               assert(true)
             }
-            
+
             override fun onFailure(ecsError: ECSError) {
                 assert(false)
             }
@@ -60,7 +68,45 @@ class ECSProductManagerTest {
     }
 
     @Test
-    fun getProductFor() {
+    fun getProductForHybrisON() {
+
+        eCSCallback = object : ECSCallback<ECSProduct?, ECSError>{
+
+            override fun onResponse(result: ECSProduct?) {
+                assert(true)
+            }
+
+            override fun onFailure(ecsError: ECSError) {
+                assert(false)
+            }
+        }
+
+        var mECSProduct = ECSProduct(null,"id","type")
+        ECSDataHolder.config.isHybris=true
+        Mockito.`when`(mGetProductForRequestMock.executeRequest()).then { eCSCallback.onResponse(mECSProduct) }
+        mECSProductManager.getProductFor("CTN",eCSCallback)
+
+    }
+
+    @Test
+    fun getProductForHybrisOFF() {
+        eCSCallback = object : ECSCallback<ECSProduct?, ECSError>{
+
+            override fun onResponse(result: ECSProduct?) {
+                assert(true)
+            }
+
+            override fun onFailure(ecsError: ECSError) {
+                assert(false)
+            }
+        }
+
+        var mECSProduct = ECSProduct(null,"id","type")
+        mECSProduct.id="new id"
+        ECSDataHolder.config.isHybris=false
+        Mockito.`when`(mGetSummariesForProductsRequestMock.executeRequest()).then { eCSCallback.onResponse(mECSProduct) }
+
+
     }
 
     @Test
