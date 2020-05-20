@@ -17,6 +17,7 @@ import android.text.TextUtils
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.fragment.app.FragmentManager
+import androidx.room.util.StringUtil
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.google.gson.Gson
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
@@ -416,14 +417,18 @@ class MECutility {
 
         var formattedAddress = ""
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
-        val countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
+        var countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
+        var countryName = countryDisplayName?:""
         val houseNumber = ecsAddress.houseNumber
-        val line1 = ecsAddress.line1
-        val line2 = ecsAddress.line2
-        val town = ecsAddress.town
-        val postalCode = ecsAddress.postalCode
+        val line1 = ecsAddress.line1?:""
+        val line2 = ecsAddress.line2?:""
+        val town = ecsAddress.town?:""
+        val postalCode = ecsAddress.postalCode?:""
         formattedAddress = (houseNumber.validateStr()) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
-        formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+(countryDisplayName.validateStr())
+        formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+countryName
+
+        //Remove last comma
+
         return formattedAddress
     }
     fun constructCardDetails(mecPayment: MECPayment): CharSequence? {
@@ -460,8 +465,13 @@ class MECutility {
         return formattedCardValidityDetail
     }
 
-    fun Any?.validateStr(): String {
-        return (this?.let { "$this,\n" } ?: run { "" })
+    private fun String?.validateStr(): String {
+
+        if(this == null) return ""
+        if(this.trim().equals("")){
+            return this
+        }
+        return  "$this,\n"
     }
 
 }
