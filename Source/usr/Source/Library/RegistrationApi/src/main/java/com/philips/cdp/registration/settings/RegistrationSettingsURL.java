@@ -291,11 +291,12 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
             private void initialize() {
                 try {
-                    RLog.d(TAG, "jumpConfig : " + jumpConfig.toString());
+                    RLog.d(TAG, "initialize : jumpConfig" + jumpConfig.toString());
                     String s = secureStorage.fetchValueForKey("jr_capture_flow", new SecureStorageInterface.SecureStorageError());
                     Jump.reinitialize(mContext, jumpConfig);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RLog.d(TAG, "initialize : Exception" + e.getLocalizedMessage());
+                    
                     if (e instanceof RuntimeException && (!(e instanceof IllegalStateException))) {
                         mContext.deleteFile("jr_capture_flow");
                         Jump.reinitialize(mContext, jumpConfig);
