@@ -12,9 +12,8 @@ import android.app.Activity;
 /**
  * It is a callback class for proposition to notify UI event in USR
  * @since 1.0.0
- *
+ * Not used for PIM
  */
-// Deprecated  since 1903
 public interface UserRegistrationUIEventListener {
     /**
      * When user complete the registration process completed
