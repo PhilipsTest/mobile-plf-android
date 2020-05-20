@@ -10,10 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.volley.DefaultRetryPolicy;
-import com.philips.platform.appinfra.AppInfra;
-import com.philips.platform.appinfra.BuildConfig;
-import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
-import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.ecs.error.ECSErrorEnum;
 import com.philips.platform.ecs.error.ECSErrorWrapper;
 import com.philips.platform.ecs.integration.ECSCallback;
@@ -36,8 +32,13 @@ import com.philips.platform.ecs.model.region.ECSRegion;
 import com.philips.platform.ecs.model.retailers.ECSRetailerList;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
 import com.philips.platform.ecs.util.ECSConfiguration;
+import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.appinfra.BuildConfig;
+import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
+import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +48,7 @@ public class ECSServices implements ECSServiceProvider {
 
    // private ECSManager mECSManager;
 
-    private static final String SERVICE_ID_IAP_BASE_URL = "iap.baseurl";
-    private static final String SERVICE_ID_PRX_SUMMARY_LIST = "prxclient.summarylist";
-    private static final String SERVICE_ID_PRX_DISCLAIMERS = "prxclient.disclaimers";
-    private static final String SERVICE_ID_PRX_ASSET = "prxclient.assets";
-
+    public static final String SERVICE_ID = "iap.baseurl";
     public static final String ECS_NOTATION = "ecs";
 
     private ECSCallValidator ecsCallValidator;
@@ -73,8 +70,7 @@ public class ECSServices implements ECSServiceProvider {
     public void configureECS(ECSCallback<Boolean,Exception> ecsCallback){
 
         ArrayList<String> listOfServiceId = new ArrayList<>();
-        listOfServiceId.add(SERVICE_ID_IAP_BASE_URL);
-        listOfServiceId.add(SERVICE_ID_PRX_SUMMARY_LIST);
+        listOfServiceId.add(SERVICE_ID);
 
         ServiceDiscoveryInterface.OnGetServiceUrlMapListener onGetServiceUrlMapListener = new ServiceDiscoveryInterface.OnGetServiceUrlMapListener() {
             @Override
@@ -87,17 +83,15 @@ public class ECSServices implements ECSServiceProvider {
             @Override
             public void onSuccess(Map<String, ServiceDiscoveryService> map) {
 
-                ServiceDiscoveryService serviceDiscoveryServiceConfigSummaryList = map.get(SERVICE_ID_PRX_SUMMARY_LIST);
-                assert serviceDiscoveryServiceConfigSummaryList != null;
-                String summaryListURL = serviceDiscoveryServiceConfigSummaryList.getConfigUrls();
-                ECSConfiguration.INSTANCE.setPrxSummaryListURL(summaryListURL);
+                Collection<ServiceDiscoveryService> values = map.values();
 
-                ServiceDiscoveryService serviceDiscoveryServiceConfig = map.get(SERVICE_ID_IAP_BASE_URL);
+                ArrayList<ServiceDiscoveryService> serviceDiscoveryServiceArrayList = new ArrayList<>(values);
 
-                assert serviceDiscoveryServiceConfig != null;
-                String locale = serviceDiscoveryServiceConfig.getLocale();
+                ServiceDiscoveryService serviceDiscoveryService = serviceDiscoveryServiceArrayList.get(0);
+
+                String locale = serviceDiscoveryService.getLocale();
                 ECSConfiguration.INSTANCE.setLocale(locale);
-                String configUrls = serviceDiscoveryServiceConfig.getConfigUrls();
+                String configUrls = serviceDiscoveryService.getConfigUrls();
 
                 if(configUrls!=null){
                     ECSConfiguration.INSTANCE.setBaseURL(configUrls+"/");
@@ -122,9 +116,7 @@ public class ECSServices implements ECSServiceProvider {
     public void configureECSToGetConfiguration(@NonNull ECSCallback<ECSConfig, Exception> ecsCallback) {
 
         ArrayList<String> listOfServiceId = new ArrayList<>();
-        listOfServiceId.add(SERVICE_ID_IAP_BASE_URL);
-        listOfServiceId.add(SERVICE_ID_PRX_SUMMARY_LIST);
-
+        listOfServiceId.add(SERVICE_ID);
 
         ServiceDiscoveryInterface.OnGetServiceUrlMapListener onGetServiceUrlMapListener = new ServiceDiscoveryInterface.OnGetServiceUrlMapListener() {
             @Override
@@ -137,18 +129,15 @@ public class ECSServices implements ECSServiceProvider {
             @Override
             public void onSuccess(Map<String, ServiceDiscoveryService> map) {
 
-                ServiceDiscoveryService serviceDiscoveryServiceConfigSummaryList = map.get(SERVICE_ID_PRX_SUMMARY_LIST);
-                assert serviceDiscoveryServiceConfigSummaryList != null;
-                String summaryListURL = serviceDiscoveryServiceConfigSummaryList.getConfigUrls();
-                ECSConfiguration.INSTANCE.setPrxSummaryListURL(summaryListURL);
+                Collection<ServiceDiscoveryService> values = map.values();
 
+                ArrayList<ServiceDiscoveryService> serviceDiscoveryServiceArrayList = new ArrayList<>(values);
 
-                ServiceDiscoveryService serviceDiscoveryServiceConfig = map.get(SERVICE_ID_IAP_BASE_URL);
-                assert serviceDiscoveryServiceConfig != null;
-                String locale = serviceDiscoveryServiceConfig.getLocale();
+                ServiceDiscoveryService serviceDiscoveryService = serviceDiscoveryServiceArrayList.get(0);
 
+                String locale = serviceDiscoveryService.getLocale();
                 ECSConfiguration.INSTANCE.setLocale(locale);
-                String configUrls = serviceDiscoveryServiceConfig.getConfigUrls();
+                String configUrls = serviceDiscoveryService.getConfigUrls();
 
                 if(configUrls!=null){
                     ECSConfiguration.INSTANCE.setBaseURL(configUrls+"/");

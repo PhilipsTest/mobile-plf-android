@@ -16,8 +16,13 @@ import java.util.Map;
 public abstract class AppInfraAbstractRequest implements APPInfraRequest {
 
     public void executeRequest(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                new NetworkController(AppInfraAbstractRequest.this).executeRequest();
+            }
+        }).start();
 
-        new NetworkController(AppInfraAbstractRequest.this).executeRequest();
     }
 
     @Override
