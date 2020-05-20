@@ -82,7 +82,7 @@ import static com.philips.cdp.registration.ui.utils.RegPreferenceUtility.getPref
  * @since 1.0.0
  * @deprecated since 1903
  */
-//Deprecated
+@Deprecated
 public class User {
 
     private final String TAG = "User";
