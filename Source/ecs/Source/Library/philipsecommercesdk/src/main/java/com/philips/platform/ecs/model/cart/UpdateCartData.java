@@ -11,6 +11,7 @@ import java.io.Serializable;
  * Created by 310228564 on 2/9/2016.
  */
 public class UpdateCartData implements Serializable {
+    private static final long serialVersionUID = 5670850251604918243L;
     private ECSEntries entry;
     private int quantity;
     private int quantityAdded;
