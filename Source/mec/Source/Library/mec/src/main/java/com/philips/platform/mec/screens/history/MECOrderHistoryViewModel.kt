@@ -29,6 +29,7 @@ class MECOrderHistoryViewModel : CommonViewModel() , ECSCallback<ECSOAuthData, E
     private var ecsService = MECDataHolder.INSTANCE.eCSServices
     var mecOrderHistoryRepository = MECOrderHistoryRepository(ecsService)
     var ecsOrderHistoryCallback = ECSOrderHistoryCallback(this)
+    var ecsOrderDetailForOrdersCallback = ECSOrderDetailForOrdersCallback(this)
     var mECOrderHistoryService = MECOrderHistoryService()
 
     var ecsOrderHistory = MutableLiveData<ECSOrderHistory>()
@@ -37,6 +38,17 @@ class MECOrderHistoryViewModel : CommonViewModel() , ECSCallback<ECSOAuthData, E
 
     var mPageNumber = 0
     var mPageSize = 20
+    var mECSOrders : ECSOrders? = null
+
+    var callCount :Int = 0
+
+    fun setThreadCount(threadCount:Int) {
+        callCount = threadCount
+    }
+
+    fun countDownThread() {
+         callCount --
+    }
 
     fun retryAPI(mECRequestType: MECRequestType) {
 
@@ -49,6 +61,7 @@ class MECOrderHistoryViewModel : CommonViewModel() , ECSCallback<ECSOAuthData, E
         lateinit  var APIcall: () -> Unit
         when(mECRequestType) {
             MECRequestType.MEC_FETCH_ORDER_HISTORY  -> APIcall = { fetchOrderHistory(mPageNumber,mPageSize) }
+            MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS  -> APIcall = { mECSOrders?.let { fetchOrderDetail(it) } }
         }
         return APIcall
     }
@@ -65,8 +78,9 @@ class MECOrderHistoryViewModel : CommonViewModel() , ECSCallback<ECSOAuthData, E
 
 
 
-    fun fetchOrderDetail(ecsOrders : ECSOrders,ecsCallback: ECSCallback<ECSOrders, Exception>){
-        mecOrderHistoryRepository.fetchOrderDetail(ecsOrders,ecsCallback )
+    fun fetchOrderDetail(ecsOrders : ECSOrders){
+        mECSOrders = ecsOrders
+        mecOrderHistoryRepository.fetchOrderDetail(mECSOrders!!,ecsOrderDetailForOrdersCallback )
     }
 
     override fun onResponse(result: ECSOAuthData?) {

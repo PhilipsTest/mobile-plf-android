@@ -106,13 +106,26 @@ class ECSOrderDetailForOrdersCallbackTest {
     }
 
     @Test
+    fun shouldTestCountDownOnResponse() {
+        mecOrderHistoryViewModelMock.setThreadCount(5)
+        eCSOrderDetailForOrdersCallback.onResponse(eCSOrdersMock)
+        assertEquals(4,mecOrderHistoryViewModelMock.callCount)
+    }
+
+    @Test
     fun onFailure() {
         //TODO check if live error data is updated
         eCSOrderDetailForOrdersCallback.onFailure(errorMock,ecsErrorMock)
         assertNotNull(mecOrderHistoryViewModelMock.mecError)
     }
 
-
+    @Test
+    fun shouldTestCountDownOnFail() {
+        setAuthNotRequired()
+        mecOrderHistoryViewModelMock.setThreadCount(5)
+        eCSOrderDetailForOrdersCallback.onFailure(errorMock,ecsErrorMock)
+        assertEquals(4,mecOrderHistoryViewModelMock.callCount)
+    }
 
     private fun setAuthNotRequired() {
         Mockito.`when`(userDataInterfaceMock.userLoggedInState).thenReturn(UserLoggedInState.USER_LOGGED_IN)

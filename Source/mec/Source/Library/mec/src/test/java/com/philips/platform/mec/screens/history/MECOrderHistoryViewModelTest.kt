@@ -17,7 +17,6 @@ import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.integration.ECSOAuthProvider
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.ecs.model.orders.ECSOrders
@@ -73,6 +72,8 @@ class MECOrderHistoryViewModelTest {
     @Mock
     lateinit var ecsOrdersMock: ECSOrders
 
+    @Mock
+    lateinit var ecsOrderDetailForOrdersCallbackMock : ECSOrderDetailForOrdersCallback
 
     @Mock
     lateinit var errorMock: Exception
@@ -95,6 +96,7 @@ class MECOrderHistoryViewModelTest {
         mECOrderHistoryRepositoryMock.ecsService = ecsServiceMock
         mecOrderHistoryViewModel.mecOrderHistoryRepository = mECOrderHistoryRepositoryMock
         mecOrderHistoryViewModel.ecsOrderHistoryCallback = ecsOrderHistoryCallback
+        mecOrderHistoryViewModel.ecsOrderDetailForOrdersCallback = ecsOrderDetailForOrdersCallbackMock
 
         mecOrderHistoryViewModel.mecError = errorLiveDataMock
 
@@ -106,7 +108,11 @@ class MECOrderHistoryViewModelTest {
         assertNotNull(selectAPIcall)
     }
 
-
+    @Test
+    fun returnedFunctionUnitShouldNotBeNullForFOrderDetailCall() {
+        val selectAPIcall = mecOrderHistoryViewModel.selectAPIcall(MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS)
+        assertNotNull(selectAPIcall)
+    }
 
     @Test
     fun shouldDoAuthForOrderHistory() {
@@ -141,14 +147,12 @@ class MECOrderHistoryViewModelTest {
         ECSConfiguration.INSTANCE.setAuthToken("123")
     }
 
-    @Mock
-    lateinit var ecsCallbackMock: ECSCallback<ECSOrders, Exception>
 
     @Test
     fun shouldFetchOrderDetail() {
 
-        mecOrderHistoryViewModel.fetchOrderDetail(ecsOrdersMock,ecsCallbackMock)
-        Mockito.verify(ecsServiceMock).fetchOrderDetail(ecsOrdersMock,ecsCallbackMock)
+        mecOrderHistoryViewModel.fetchOrderDetail(ecsOrdersMock)
+        Mockito.verify(ecsServiceMock).fetchOrderDetail(ecsOrdersMock,ecsOrderDetailForOrdersCallbackMock)
     }
 
     @Mock
