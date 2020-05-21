@@ -23,6 +23,7 @@ import java.io.Serializable;
 
 public class CDLSDataModel extends ResponseData implements Serializable {
 
+    private static final long serialVersionUID = 196535050662856749L;
     @SerializedName("data")
     @Expose
     private Data data;

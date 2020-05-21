@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 public class SpecificationModel extends ResponseData implements Serializable {
 
+	private static final long serialVersionUID = -4223759915273396007L;
 	@SerializedName("data")
 	@Expose
 	public Data data;

@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data implements Serializable {
 
+	private static final long serialVersionUID = 6960659089260274640L;
 	public static List videoExtensionList;
 	public static String[] videoExtensions = {"WEBM","MPG","MP2","MPEG","MPE","MPV","OGG","MP4","M4P","M4V","AVI","WMV","MOV","QT","FLV","SWF","AVCHD"};
 
