@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 public class ABTestClientManager implements ABTestClientInterface {
 
 
+    private static final long serialVersionUID = 4871907868231020300L;
+
     @Override
     public CACHESTATUS getCacheStatus() {
         return CACHESTATUS.EXPERIENCE_NOT_UPDATED;

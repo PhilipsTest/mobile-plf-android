@@ -28,6 +28,7 @@ import java.util.ArrayList;
  */
 public class SecureStorage implements SecureStorageInterface {
 
+    private static final long serialVersionUID = -5421636289315757999L;
     private AppInfraInterface mAppInfra;
 
 

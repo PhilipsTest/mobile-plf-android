@@ -46,6 +46,7 @@ import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DE
 public class PIMInterface implements UappInterface {
     static final String PIM_KEY_ACTIVITY_THEME = "PIM_KEY_ACTIVITY_THEME";
     public static final String PIM_KEY_CONSENTS = "PIM_KEY_CONSENTS";
+    private static final long serialVersionUID = 4160247155579172330L;
     private final String TAG = PIMInterface.class.getSimpleName();
 
     private Context context;
