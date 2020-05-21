@@ -10,7 +10,6 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
 import com.philips.platform.ecs.microService.model.filter.ECSSortType;
-import com.philips.platform.ecs.microService.model.filter.ECSStockLevel;
 import com.philips.platform.ecs.microService.model.filter.ProductFilter;
 import com.philips.platform.ecs.microService.model.product.ECSProducts;
 
@@ -40,29 +39,16 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         if(!etPageNumber.getText().toString().trim().isEmpty()){
             pageNumber = Integer.valueOf(etPageNumber.getText().toString().trim());
         }
-/*
-        ECSDataHolder.INSTANCE.getEcsServices().fetchProducts(pageNumber, pageSize, new ECSCallback<ECSProducts, Exception>() {
-            @Override
-            public void onResponse(ECSProducts ecsProducts) {
-                gotoResultActivity(getJsonStringFromObject(ecsProducts));
-                ECSDataHolder.INSTANCE.setEcsProducts(ecsProducts);
-                getProgressBar().setVisibility(View.GONE);
-            }
 
-            @Override
-            public void onFailure(Exception e, ECSError ecsError) {
-
-                String errorString = getFailureString(e,ecsError);
-                gotoResultActivity(errorString);
-                getProgressBar().setVisibility(View.GONE);
-            }
-        });*/
         MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
         try {
+            /*todo
+            * These inputs to move in DemoUApp UI
+            * */
             ProductFilter productFilter= new ProductFilter();
-            productFilter.setSortType(ECSSortType.priceAscending);
-            productFilter.setStockLevel( ECSStockLevel.InStock);
-            microECSServices.fetchProducts(null,pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
+            productFilter.setSortType(ECSSortType.priceDescending);
+           // productFilter.setStockLevel( ECSStockLevel.InStock);
+            microECSServices.fetchProducts("FOOD_PREPARATION_CA2",pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
                 @Override
                 public void onResponse(ECSProducts result) {
                     PILDataHolder.INSTANCE.setProductList(result);

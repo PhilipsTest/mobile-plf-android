@@ -13,14 +13,14 @@ import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 
 
-class GetProductsRequest(private val  productCategory:String?, private val limit:Int, private val offset:Int, private val productFilter: ProductFilter, private val  ecsCallback :ECSCallback<ECSProducts, ECSError> ) : ECSJsonRequest() {
+class GetProductsRequest(private val  productCategory:String?, private val limit:Int, private val offset:Int, private val productFilter: ProductFilter?, private val  ecsCallback :ECSCallback<ECSProducts, ECSError> ) : ECSJsonRequest() {
 
-    val limitKey = "limit"
-    val offsetKey = "offset"
-    val categoryKey= "category"
-    val sortKey ="sort"
-    val stockLevelKey ="stockLevel"
-    val modifiedSinceKey = "modifiedSince"
+    val limitKey             = "limit"
+    val offsetKey            = "offset"
+    val categoryKey          = "category"
+    val sortKey              = "sort"
+    val stockLevelKey        = "stockLevel"
+    val modifiedSinceKey     = "modifiedSince"
     val limitThreshold =50 // limit threshhold as PRX supports only 5o product detaiil at a time
     
     var url ="https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%&limit=%limit%&offset=%offset%"
@@ -36,6 +36,9 @@ class GetProductsRequest(private val  productCategory:String?, private val limit
     override fun getReplaceURLMap(): MutableMap<String, String> {
         val replaceURLMap = super.getReplaceURLMap()
         var actualLimit :Int= if (limit<limitThreshold) limit else limitThreshold
+        // todo log
+
+        // todo default 20 limit and 0
         replaceURLMap.put(limitKey, offset.toString())
         replaceURLMap.put(offsetKey, actualLimit.toString())
         return  replaceURLMap

@@ -48,7 +48,7 @@ class MicroECSServices(appInfra: AppInfra) {
 
 
     @Throws(ECSException::class)
-    fun fetchProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter, ecsCallback :ECSCallback<ECSProducts, ECSError>) {
+    fun fetchProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter?, ecsCallback :ECSCallback<ECSProducts, ECSError>) {
         ecsProductManager.getProducts(productCategory,limit,offset,productFilter,ecsCallback)
     }
 

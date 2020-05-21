@@ -23,7 +23,7 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class ECSProductManager {
 
-    fun getProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter, ecsCallback :ECSCallback<ECSProducts, ECSError>){
+    fun getProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter?, ecsCallback :ECSCallback<ECSProducts, ECSError>){
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
