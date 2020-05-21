@@ -116,6 +116,13 @@ public class PIMMigratorTest extends TestCase {
     }
 
     @Test
+    public void isMigrationRequired(){
+        when(mockUsrTokenManager.isUSRUserAvailable()).thenReturn(true);
+        boolean migrationRequired = pimMigrator.isMigrationRequired();
+        assertEquals(true,migrationRequired);
+    }
+
+    @Test
     public void testUserMigrationSuccess() {
         pimMigrator.onUserMigrationSuccess();
         verify(mockUserMigrationListener).onUserMigrationSuccess();

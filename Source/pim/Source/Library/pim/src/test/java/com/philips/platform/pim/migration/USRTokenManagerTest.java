@@ -3,6 +3,7 @@ package com.philips.platform.pim.migration;
 import android.net.Uri;
 import androidx.core.util.Pair;
 import android.text.Html;
+import android.text.TextUtils;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -35,6 +36,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -64,13 +67,14 @@ import static org.powermock.api.mockito.PowerMockito.verifyPrivate;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
-@PrepareForTest({Uri.class, PIMSettingManager.class, USRTokenManager.class, Html.class})
+@PrepareForTest({Uri.class, PIMSettingManager.class, USRTokenManager.class, Html.class, TextUtils.class})
 @PowerMockIgnore({"javax.crypto.*"})
 @RunWith(PowerMockRunner.class)
 public class USRTokenManagerTest extends TestCase {
     private static final String JR_CAPTURE_REFRESH_SECRET = "jr_capture_refresh_secret";
     private static final String JR_CAPTURE_SIGNED_IN_USER = "jr_capture_signed_in_user";
     private static final String JR_CAPTURE_FLOW = "jr_capture_flow";
+    private static final String JR_CAPTURE_FLOW_VERSION = "jr_capture_flow_version";
     private USRTokenManager usrTokenManager;
     @Mock
     private ServiceDiscoveryInterface mockServiceDiscoveryInterface;
@@ -321,6 +325,15 @@ public class USRTokenManagerTest extends TestCase {
         verify(mockSecureStorageInterface).removeValueForKey(JR_CAPTURE_SIGNED_IN_USER);
         verify(mockSecureStorageInterface).removeValueForKey(JR_CAPTURE_FLOW);
         verify(mockSecureStorageInterface).removeValueForKey(JR_CAPTURE_REFRESH_SECRET);
+    }
+
+    @Test
+    public void testGetFlowVersion() throws Exception {
+        mockStatic(TextUtils.class);
+        when(TextUtils.isEmpty(null)).thenReturn(true);
+        when(mockSecureStorageInterface.fetchValueForKey(JR_CAPTURE_FLOW_VERSION, mockSecureStorageError)).thenReturn(null);
+        String flowVersion = Whitebox.invokeMethod(spyUsrTokenManager, "getFlowVersion");
+        assertEquals("HEAD",flowVersion);
     }
 
     private String signedUserData() {

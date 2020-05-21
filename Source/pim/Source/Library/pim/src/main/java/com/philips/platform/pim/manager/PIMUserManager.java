@@ -310,7 +310,6 @@ public class PIMUserManager {
                     requestUpdateOptinAndDownloadUserprofile(updateUserDetailsHandler, requestData);
                 } else
                     updateUserDetailsHandler.onUpdateFailedWithError(new Error(PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode)));
-
             }
 
             @Override

@@ -109,12 +109,4 @@ public class PIMSettingManager {
     public PIMLoginListener getPimUserLoginListener() {
         return pimUserLoginListener;
     }
-
-    public void setMigrationState(PIMMigrationState migrationState){
-        this.migrationState = migrationState;
-    }
-
-    public PIMMigrationState getMigrationState() {
-        return migrationState;
-    }
 }

@@ -15,12 +15,17 @@ import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.appinfra.rest.request.RequestQueue;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
+import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
+import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscovery;
+import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
+import com.philips.platform.pif.DataInterface.USR.listeners.RefetchUserDetailsListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener;
+import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
 import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.listeners.PIMTokenRequestListener;
@@ -58,11 +63,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
@@ -93,19 +101,21 @@ public class PIMUserManagerTest extends TestCase {
     @Mock
     PIMRestClient mockPimRestClient;
     @Mock
+    PIMSettingManager mockPimSettingManager;
+    @Mock
     PIMAuthManager mockPimAuthManager;
     @Mock
     SecureStorageInterface mockStorageInterface;
     @Mock
     private MutableLiveData<PIMInitState> mockPimInitViewModel;
-
-
     @Captor
     ArgumentCaptor<Response.Listener> responseArgumentCaptor;
     @Captor
     ArgumentCaptor<Response.ErrorListener> errorArgumentCaptor;
     @Captor
     ArgumentCaptor<PIMTokenRequestListener> tokenRequestArgumentCaptor;
+    @Captor
+    ArgumentCaptor<ServiceDiscoveryInterface.OnGetServiceUrlMapListener> captoUrlMapListener;
 
     private PIMUserManager pimUserManager;
 
@@ -117,7 +127,6 @@ public class PIMUserManagerTest extends TestCase {
         mockStatic(PIMErrorEnums.class);
         mockStatic(PIMSettingManager.class);
         RestInterface mockRestInterface = mock(RestInterface.class);
-        PIMSettingManager mockPimSettingManager = mock(PIMSettingManager.class);
 
         Mockito.when(PIMSettingManager.getInstance()).thenReturn(mockPimSettingManager);
         when(mockPimSettingManager.getPimInitLiveData()).thenReturn(mockPimInitViewModel);
@@ -376,6 +385,41 @@ public class PIMUserManagerTest extends TestCase {
         assertNotNull(tokenType);
         assertNotNull(expiresIn);
         assertNotNull(idToken);
+    }
+
+    @Test
+    public void testRefetchUserProfile(){
+        RefetchUserDetailsListener mockUserDetailsListener = mock(RefetchUserDetailsListener.class);
+        pimUserManager.refetchUserProfile(mockUserDetailsListener);
+    }
+
+    @Test
+    public void testUpdateMarketingOptin() {
+        ServiceDiscoveryInterface mockServiceDiscovery = mock(ServiceDiscoveryInterface.class);
+        when(mockAppInfraInterface.getServiceDiscovery()).thenReturn(mockServiceDiscovery);
+        PIMOIDCConfigration mockOidcConfig = mock(PIMOIDCConfigration.class);
+        when(mockPimSettingManager.getPimOidcConfigration()).thenReturn(mockOidcConfig);
+        when(mockOidcConfig.getMarketingOptinAPIKey()).thenReturn("kwSyJKK3gg5NHSmjeq1OD5BBdyOCKtyK7XVIuq5I");
+        UpdateUserDetailsHandler mockUpdateUser = mock(UpdateUserDetailsHandler.class);
+        pimUserManager.updateMarketingOptIn(mockUpdateUser,true);
+
+        Map<String, ServiceDiscoveryService> serviceMap = new HashMap<>();
+        ServiceDiscoveryService serviceDiscoveryService = new ServiceDiscoveryService();
+        serviceDiscoveryService.setConfigUrl("https://stg.eu-west-1.api.philips.com/consumerIdentityService/users");
+        serviceMap.put("userreg.janrainoidc.marketingoptin", serviceDiscoveryService);
+
+        verify(mockServiceDiscovery).getServicesWithCountryPreference(any(ArrayList.class),captoUrlMapListener.capture(),eq(null));
+        ServiceDiscoveryInterface.OnGetServiceUrlMapListener value = captoUrlMapListener.getValue();
+        value.onSuccess(serviceMap);
+        value.onError(ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES.CONNECTION_TIMEOUT,"SD FAILED");
+        verify(mockUpdateUser).onUpdateFailedWithError(any(Error.class));
+    }
+
+    @Test
+    public void testRequestUpdateOptin() throws Exception {
+        UpdateUserDetailsHandler mockUpdateUser = mock(UpdateUserDetailsHandler.class);
+        PIMUserManager spyUserManager = PowerMockito.spy(pimUserManager);
+        Whitebox.invokeMethod(spyUserManager,"requestUpdateOptinAndDownloadUserprofile",mockUpdateUser,null);
     }
 
     private String readUserProfileResponseJson() {

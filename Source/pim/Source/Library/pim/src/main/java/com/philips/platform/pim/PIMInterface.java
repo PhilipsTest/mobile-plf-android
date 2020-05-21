@@ -32,7 +32,6 @@ import com.philips.platform.pim.manager.PIMUserManager;
 import com.philips.platform.pim.migration.PIMMigrator;
 import com.philips.platform.pim.models.PIMInitViewModel;
 import com.philips.platform.pim.utilities.PIMInitState;
-import com.philips.platform.pim.utilities.PIMMigrationState;
 import com.philips.platform.pim.utilities.PIMSecureStorageHelper;
 import com.philips.platform.uappframework.UappInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
@@ -159,8 +158,8 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
                 } else if (pimSecureStorageHelper.getAuthorizationResponse() != null) {
                     loginRedirectToClosedApp();
                 } else if (pimMigrator.isMigrationRequired()) {
-                    PIMSettingManager.getInstance().setMigrationState(PIMMigrationState.MIGRATION_IN_PROGRESS);
-                    //pimMigrator.migrateUSRToPIM();
+                    //PIMSettingManager.getInstance().setMigrationState(PIMMigrationState.MIGRATION_IN_PROGRESS);
+                    pimMigrator.migrateUSRToPIM();
                 }
                 PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
             } else if (pimInitState == PIMInitState.INIT_FAILED) {
