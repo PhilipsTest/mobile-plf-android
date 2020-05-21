@@ -21,7 +21,7 @@ import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject
 import java.util.HashMap
 
-class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, ECSError>) : ECSJsonRequest() {
+class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, ECSError>) : ECSJsonRequest(eCSCallback) {
 
 
     override fun getURL(): String {
@@ -42,9 +42,6 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, EC
         return null
     }
 
-    override fun onErrorResponse(error: VolleyError?) {
-        eCSCallback.onFailure(VolleyHandler().getECSError(error))
-    }
     override fun onResponse(response: JSONObject?) {
         val config = response?.getData(ECSConfig::class.java)
         if(config?.rootCategory!= null && config.siteId!=null ) config.isHybris = true

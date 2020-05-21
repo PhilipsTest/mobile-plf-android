@@ -32,9 +32,6 @@ class ECSConstants {
     fun getListOfServiceID() : ArrayList<String> {
         val listOFServiceID = mutableListOf<String>()
         listOFServiceID.add(SERVICEID_IAP_BASEURL)
-        listOFServiceID.add(SERVICEID_PRX_ASSETS)
-        listOFServiceID.add(SERVICEID_PRX_DISCLAIMERS)
-        listOFServiceID.add(SERVICEID_PRX_SUMMARY_LIST)
         return listOFServiceID as ArrayList<String>
     }
 }

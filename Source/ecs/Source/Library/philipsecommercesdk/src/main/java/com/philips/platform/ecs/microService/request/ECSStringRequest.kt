@@ -13,10 +13,11 @@
 package com.philips.platform.ecs.microService.request
 
 import com.android.volley.Response
-import com.philips.platform.appinfra.rest.request.JsonObjectRequest
 import com.philips.platform.appinfra.rest.request.StringRequest
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
 
-abstract class ECSStringRequest : ECSRequestInterface , Response.Listener<String>{
+abstract class ECSStringRequest(ecsErrorCallback: ECSCallback<*, ECSError>) : ECSAbstractRequest(ecsErrorCallback) , Response.Listener<String>{
 
     override fun getRequestType(): RequestType {
         return RequestType.STRING

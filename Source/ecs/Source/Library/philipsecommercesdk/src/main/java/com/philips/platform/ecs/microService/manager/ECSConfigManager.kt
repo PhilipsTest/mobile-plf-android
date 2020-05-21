@@ -35,12 +35,13 @@ class ECSConfigManager {
     }
 
     fun getConfigObject(ecsCallback: ECSCallback<ECSConfig, ECSError>){
-        GetConfigurationRequest(ecsCallback).executeRequest()
+        val getConfigurationRequest = GetConfigurationRequest(ecsCallback)
+        RequestHandler(getConfigurationRequest).handleRequest()
     }
 
     fun getConfigBoolean(ecsCallback: ECSCallback<Boolean, ECSError>){
 
-        GetConfigurationRequest(object : ECSCallback<ECSConfig, ECSError>{
+        val getConfigurationRequest = GetConfigurationRequest(object : ECSCallback<ECSConfig, ECSError> {
             override fun onResponse(result: ECSConfig) {
                 ecsCallback.onResponse(result.isHybris)
             }
@@ -50,7 +51,8 @@ class ECSConfigManager {
             }
 
 
-        }).executeRequest()
+        })
+        RequestHandler(getConfigurationRequest).handleRequest()
     }
 
 }

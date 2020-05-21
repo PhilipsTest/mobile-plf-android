@@ -24,7 +24,8 @@ class ECSRetailerManager {
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
-         GetRetailersInfoRequest(ctn,ecsCallback)
+            val getRetailersInfoRequest = GetRetailersInfoRequest(ctn, ecsCallback)
+            RequestHandler(getRetailersInfoRequest).handleRequest()
         }
     }
 }

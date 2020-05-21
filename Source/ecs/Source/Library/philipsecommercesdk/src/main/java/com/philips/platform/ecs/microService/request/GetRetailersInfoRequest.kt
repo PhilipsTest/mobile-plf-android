@@ -24,7 +24,7 @@ import com.philips.platform.ecs.microService.util.getData
 
 import org.json.JSONObject
 
-class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) : ECSJsonRequest() {
+class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) : ECSJsonRequest(ecsCallback) {
 
     val PREFIX_RETAILERS = "www.philips.com/api/wtb/v1"
     val RETAILERS_ALTER = "online-retailers?product=%s"
@@ -50,10 +50,6 @@ class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECS
 
     override fun getHeader(): MutableMap<String, String>? {
         return null
-    }
-
-    override fun onErrorResponse(error: VolleyError?) {
-        ecsCallback.onFailure(VolleyHandler().getECSError(error))
     }
 
     override fun onResponse(response: JSONObject?) {

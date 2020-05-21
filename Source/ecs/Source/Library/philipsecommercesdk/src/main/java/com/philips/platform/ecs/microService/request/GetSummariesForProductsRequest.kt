@@ -11,12 +11,9 @@
  */
 package com.philips.platform.ecs.microService.request
 
-import android.text.TextUtils
-import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.summary.ECSProductSummary
 import com.philips.platform.ecs.microService.model.summary.Summary
@@ -29,14 +26,10 @@ import kotlin.collections.MutableMap
 import kotlin.collections.mutableListOf
 import kotlin.collections.set
 
-class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private val ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) : ECSJsonRequest() {
+class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private val ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) : ECSJsonRequest(ecsCallback) {
 
     override fun getServiceID(): String {
         return ECSConstants.SERVICEID_PRX_SUMMARY_LIST
-    }
-
-    override fun onErrorResponse(error: VolleyError) {
-        ecsCallback.onFailure(VolleyHandler().getECSError(error))
     }
 
     override fun onResponse(response: JSONObject) {
