@@ -85,6 +85,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
                 }
 
                 override fun onFailure(error: Exception?, ecsError: ECSError?) {
+                    mOrdersList.add(orders)
                     val decrementAndGet = numberOfDetailsToBeFetched.decrementAndGet()
                     if(decrementAndGet == 0) showData()
                 }
