@@ -9,6 +9,8 @@ import com.philips.cdp.di.iap.integration.IAPListener;
 
 public class LocalHandler extends IAPInterface implements IAPExposedAPI {
 
+    private static final long serialVersionUID = -5556664923393420473L;
+
     @Override
     public void getProductCartCount(final IAPListener iapListener) {
         iapListener.onGetCartCount(-1);

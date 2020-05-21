@@ -59,6 +59,7 @@ public class ShoppingCartFragment extends InAppBaseFragment
         OnSetDeliveryModeListener, AlertListener, VoucherController.VoucherListener, IAPCartListener {
 
     public static final String TAG = ShoppingCartFragment.class.getName();
+    private static final long serialVersionUID = 7808687710273269379L;
     private Button mCheckoutBtn;
     private Button mContinuesBtn;
     private RelativeLayout mParentLayout;

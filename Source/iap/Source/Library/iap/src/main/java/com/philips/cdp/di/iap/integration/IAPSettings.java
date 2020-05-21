@@ -16,6 +16,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public class IAPSettings extends UappSettings {
+    private static final long serialVersionUID = 2010576805451898226L;
     private boolean mUseLocalData;
     private String mProposition;
     private String mHostPort;

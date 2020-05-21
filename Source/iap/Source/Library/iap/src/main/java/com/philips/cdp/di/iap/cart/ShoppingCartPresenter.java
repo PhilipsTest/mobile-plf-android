@@ -377,7 +377,7 @@ public class ShoppingCartPresenter extends AbstractShoppingCartPresenter
     }
 
     public ArrayList<ShoppingCartData> getShoppingCartDatas(CartsEntity cartsEntity, List<EntriesEntity> entries) {
-        final ArrayList<Data> list = (ArrayList<Data>) CartModelContainer.getInstance().getPRXSummaryList();
+        final ArrayList<Data> list =  CartModelContainer.getInstance().getPRXSummaryList();
         final ArrayList<ShoppingCartData> products = new ArrayList<>();
         String ctn;
         for (EntriesEntity entry : entries) {

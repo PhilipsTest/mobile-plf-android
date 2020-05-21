@@ -20,6 +20,7 @@ import com.philips.cdp.di.iap.session.RequestListener;
 import com.philips.cdp.di.iap.utils.IAPConstant;
 
 public class HybrisHandler extends IAPInterface implements IAPExposedAPI {
+    private static final long serialVersionUID = -3158097808313878846L;
     private Context mContext;
 
     public HybrisHandler(Context context) {

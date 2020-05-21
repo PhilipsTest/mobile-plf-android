@@ -24,6 +24,7 @@ import com.philips.cdp.di.iap.utils.Utility;
 public class WebPaymentFragment extends WebFragment implements AlertListener {
 
     public static final String TAG = WebPaymentFragment.class.getName();
+    private static final long serialVersionUID = -8434184807980808098L;
     private Context mContext;
     private boolean mIsPaymentFailed;
 

@@ -32,6 +32,7 @@ import java.util.Map;
 
 public class OAuthRequest extends AppInfraAbstractRequest  implements Response.Listener<JSONObject>{
 
+    private static final long serialVersionUID = -824664256235194622L;
     private final ECSCallback<ECSOAuthData,Exception> ecsCallback;
     private final ECSOAuthProvider oAuthInput;
     String oAuthID;

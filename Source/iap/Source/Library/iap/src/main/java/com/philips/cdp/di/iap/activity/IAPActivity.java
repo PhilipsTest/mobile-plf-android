@@ -50,6 +50,7 @@ import java.util.Locale;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class IAPActivity extends UIDActivity implements ActionBarListener, IAPListener {
+    private static final long serialVersionUID = -1126266810189652512L;
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
     private TextView mTitleTextView;
     private TextView mCountText;
