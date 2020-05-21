@@ -34,6 +34,7 @@ import java.util.List;
 public class PaymentSelectionFragment extends InAppBaseFragment
         implements EventListener, PaymentController.PaymentListener {
     public static final String TAG = PaymentSelectionFragment.class.getName();
+    private static final long serialVersionUID = 2998872356511710059L;
     private Context mContext;
     private RecyclerView mPaymentMethodsRecyclerView;
     private PaymentMethodsAdapter mPaymentMethodsAdapter;

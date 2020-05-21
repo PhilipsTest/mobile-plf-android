@@ -18,6 +18,7 @@ import com.philips.cdp.di.iap.session.NetworkConstants;
 public class EmptyPurchaseHistoryFragment extends InAppBaseFragment
         implements View.OnClickListener {
     public static final String TAG = EmptyPurchaseHistoryFragment.class.getName();
+    private static final long serialVersionUID = -5954433745026762067L;
     private Button mContinueShoppingBtn;
 
     public static EmptyPurchaseHistoryFragment createInstance

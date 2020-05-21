@@ -31,6 +31,7 @@ import java.util.HashMap;
 public class PaymentConfirmationFragment extends InAppBaseFragment
         implements AlertListener {
     public static final String TAG = PaymentConfirmationFragment.class.getName();
+    private static final long serialVersionUID = -5089099528051826847L;
     private Context mContext;
 
     private TextView mConfirmationText;

@@ -80,6 +80,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
 
 
     public static final String TAG = ProductDetailFragment.class.getName();
+    private static final long serialVersionUID = 1923024120624495257L;
     private Context mContext;
     private Bundle mBundle;
     private Data mProductSummary;

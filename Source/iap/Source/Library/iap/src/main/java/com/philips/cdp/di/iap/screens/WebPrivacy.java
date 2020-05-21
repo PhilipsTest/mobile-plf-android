@@ -21,6 +21,7 @@ import java.net.URL;
 
 public class WebPrivacy extends WebFragment {
     public static final String TAG = WebPrivacy.class.getName();
+    private static final long serialVersionUID = -3779144707231623502L;
     private String mUrl, termsUrl, faqUrl;
 
     @Override

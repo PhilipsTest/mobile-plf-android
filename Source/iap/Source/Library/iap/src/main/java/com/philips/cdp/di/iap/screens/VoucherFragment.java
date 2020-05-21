@@ -37,6 +37,7 @@ import java.util.List;
 public class VoucherFragment extends InAppBaseFragment implements View.OnClickListener,VoucherController.VoucherListener ,EventListener ,AlertListener{
 
 
+    private static final long serialVersionUID = -7541758644971065684L;
     VoucherController mVoucherController;
     Button mApplyVoucherButton;
     Context mContext;
