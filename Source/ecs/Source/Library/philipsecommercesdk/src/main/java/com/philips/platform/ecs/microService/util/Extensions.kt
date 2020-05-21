@@ -17,7 +17,6 @@ import com.android.volley.VolleyError
 import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
-import kotlin.Exception
 
 fun<T> JSONObject.getData(classOfT: Class<T>) : T?{
     try {
@@ -26,6 +25,15 @@ fun<T> JSONObject.getData(classOfT: Class<T>) : T?{
         return null
     }
 
+}
+
+fun String.addQueryParam( key:String, param :String ) : String{
+    var sb  = StringBuilder (this)
+    sb.append("&")
+    sb.append(key)
+    sb.append("=")
+    sb.append(param)
+    return  sb.toString()
 }
 
 fun String.replaceParam(replaceMap:Map<String,String>): String{

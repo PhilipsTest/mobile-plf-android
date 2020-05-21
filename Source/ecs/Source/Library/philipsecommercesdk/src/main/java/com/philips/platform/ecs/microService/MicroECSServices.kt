@@ -20,6 +20,7 @@ import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
 import com.philips.platform.ecs.microService.model.config.ECSConfig
+import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
@@ -47,8 +48,8 @@ class MicroECSServices(appInfra: AppInfra) {
 
 
     @Throws(ECSException::class)
-    fun fetchProducts(currentPage: Int, pageSize: Int, ecsCallback :ECSCallback<ECSProducts, ECSError>) {
-        ecsProductManager.getProducts(currentPage,pageSize,ecsCallback)
+    fun fetchProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter, ecsCallback :ECSCallback<ECSProducts, ECSError>) {
+        ecsProductManager.getProducts(productCategory,limit,offset,productFilter,ecsCallback)
     }
 
     @Throws(ECSException::class)

@@ -9,6 +9,9 @@ import com.philips.platform.ecs.microService.MicroECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
+import com.philips.platform.ecs.microService.model.filter.ECSSortType;
+import com.philips.platform.ecs.microService.model.filter.ECSStockLevel;
+import com.philips.platform.ecs.microService.model.filter.ProductFilter;
 import com.philips.platform.ecs.microService.model.product.ECSProducts;
 
 public class PILFetchProductsFragment extends BaseAPIFragment {
@@ -56,7 +59,10 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         });*/
         MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
         try {
-            microECSServices.fetchProducts(pageNumber, pageSize, new ECSCallback<ECSProducts, ECSError>() {
+            ProductFilter productFilter= new ProductFilter();
+            productFilter.setSortType(ECSSortType.priceAscending);
+            productFilter.setStockLevel( ECSStockLevel.InStock);
+            microECSServices.fetchProducts(null,pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
                 @Override
                 public void onResponse(ECSProducts result) {
                     PILDataHolder.INSTANCE.setProductList(result);
