@@ -13,6 +13,7 @@
 package com.philips.platform.mec.screens.history
 
 import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.model.orders.ECSOrders
 import org.junit.Before
 import org.junit.Test
@@ -24,7 +25,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 import kotlin.test.assertNotNull
 
-@PrepareForTest(MECOrderHistoryViewModel::class,ECSOrderDetailForOrdersCallback::class,ECSOrderHistoryCallback::class)
+@PrepareForTest(MECOrderHistoryViewModel::class,ECSOrderHistoryCallback::class)
 @RunWith(PowerMockRunner::class)
 class MECOrderHistoryRepositoryTest {
 
@@ -39,8 +40,9 @@ class MECOrderHistoryRepositoryTest {
     @Mock
     lateinit var ecsOrderHistoryCallbackMock: ECSOrderHistoryCallback
 
+
     @Mock
-    lateinit var ecsOrderDetailForOrdersCallbackMock: ECSOrderDetailForOrdersCallback
+    lateinit var ecsCallbackMock: ECSCallback<ECSOrders, Exception>
 
     @Before
     fun setUp() {
@@ -56,8 +58,8 @@ class MECOrderHistoryRepositoryTest {
 
     @Test
     fun fetchOrderDetail() {
-        mECOrderHistoryRepository.fetchOrderDetail(ecsOrdersMock,ecsOrderDetailForOrdersCallbackMock)
-        Mockito.verify(ecServiceMock).fetchOrderDetail(ecsOrdersMock,ecsOrderDetailForOrdersCallbackMock)
+        mECOrderHistoryRepository.fetchOrderDetail(ecsOrdersMock,ecsCallbackMock)
+        Mockito.verify(ecServiceMock).fetchOrderDetail(ecsOrdersMock,ecsCallbackMock)
     }
 
     @Test

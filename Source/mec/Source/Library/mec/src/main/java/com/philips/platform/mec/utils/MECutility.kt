@@ -468,8 +468,8 @@ class MECutility {
     private fun String?.validateStr(): String {
 
         if(this == null) return ""
-        if(this.trim().equals("")){
-            return this
+        if(this.trim() == ""){
+            return this.trim()
         }
         return  "$this,\n"
     }
