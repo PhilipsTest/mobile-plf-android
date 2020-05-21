@@ -37,6 +37,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * callback methods on completion of request.
  */
 public class PIMDataImplementation implements UserDataInterface {
+    private static final long serialVersionUID = 4695244289900239541L;
     private PIMUserManager pimUserManager;
     private Context mContext;
     private boolean isInitRequiredAgain;
@@ -189,7 +190,7 @@ public class PIMDataImplementation implements UserDataInterface {
                         isInitRequiredAgain = false;
                     } else {
                         pimInitLiveData.removeObserver(this);
-                        userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(mContext, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
+                        userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
                     }
                 }
             }
