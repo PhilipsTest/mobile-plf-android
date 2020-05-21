@@ -39,9 +39,7 @@ public interface UserDataInterface extends Serializable {
      *
      * @return returns the HSDP access token
      * @since 2018.1.0
-     * @deprecated since 1903
      */
-    @Deprecated
     String getHSDPAccessToken();
 
     /**
@@ -49,9 +47,7 @@ public interface UserDataInterface extends Serializable {
      *
      * @return returns the HSDP UUID
      * @since 2018.1.0
-     * @deprecated since 1903
      */
-    @Deprecated
     String getHSDPUUID();
 
     void logoutHSDP(LogoutSessionListener logoutSessionListener);
@@ -70,9 +66,7 @@ public interface UserDataInterface extends Serializable {
      *
      * @param hsdpAuthenticationListener
      * @since 1804.0
-     * @deprecated since 1903
      */
-    @Deprecated
     void authorizeHsdp(HSDPAuthenticationListener hsdpAuthenticationListener);
 
     /**

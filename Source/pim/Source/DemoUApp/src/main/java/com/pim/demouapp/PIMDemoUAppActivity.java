@@ -238,19 +238,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-    private void initMEC() {
-        mMecInterface = new MECInterface();
-        MECDependencies mMecDependencies = new MECDependencies(appInfraInterface, userDataInterface);
-        mMecInterface.init(mMecDependencies, new MECSettings(mContext));
-        mMecLaunchInput = new MECLaunchInput();
-        mMecLaunchInput.setMecCartUpdateListener(this);
-
-        mMecLaunchInput.setMecBannerConfigurator(this);
-        mMecLaunchInput.setSupportsHybris(true);
-        mMecLaunchInput.setSupportsRetailer(true);
-        mMecLaunchInput.setMecBazaarVoiceInput(mecBazaarVoiceInput);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -294,7 +281,41 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 btnLaunchAsActivity.setText("Launch UDI As Activity");
                 btnLaunchAsFragment.setText("Launch UDI As Fragment");
             }
+            initIAP();
+            initializeBazaarVoice();
+            initMEC();
         }
+    }
+
+    private void initIAP(){
+        IAPDependencies mIapDependencies = new IAPDependencies(appInfraInterface, userDataInterface);
+        mIAPSettings = new IAPSettings(this);
+        mIapInterface = new IAPInterface();
+        mIapInterface.init(mIapDependencies, mIAPSettings);
+        mServiceDiscoveryInterface = appInfraInterface.getServiceDiscovery();
+        receiver = new HomeCountryUpdateReceiver(appInfraInterface);
+        mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
+        mCategorizedProductList = new ArrayList<>();
+        mCategorizedProductList.add("HD9745/90000");
+        mCategorizedProductList.add("HD9630/90");
+        mCategorizedProductList.add("HD9240/90");
+        mCategorizedProductList.add("HD9621/90");
+        mIapLaunchInput = new IAPLaunchInput();
+        mIapLaunchInput.setHybrisSupported(true);
+        mIapLaunchInput.setIapListener(this);
+    }
+
+    private void initMEC() {
+        mMecInterface = new MECInterface();
+        MECDependencies mMecDependencies = new MECDependencies(appInfraInterface, userDataInterface);
+        mMecInterface.init(mMecDependencies, new MECSettings(mContext));
+        mMecLaunchInput = new MECLaunchInput();
+        mMecLaunchInput.setMecCartUpdateListener(this);
+
+        mMecLaunchInput.setMecBannerConfigurator(this);
+        mMecLaunchInput.setSupportsHybris(true);
+        mMecLaunchInput.setSupportsRetailer(true);
+        mMecLaunchInput.setMecBazaarVoiceInput(mecBazaarVoiceInput);
     }
 
     public String getCountryCode(String countryName) {
@@ -404,7 +425,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             if (isUserLoggedIn()) {
                 if (mCategorizedProductList.size() > 0) {
                     IAPFlowInput input = new IAPFlowInput(mCategorizedProductList);
-                    launchIAP(IAPLaunchInput.IAPFlows.IAP_PRODUCT_CATALOG_VIEW, input, null);
+                    launchIAP();
                 } else {
                     Toast.makeText(this, "Please add CTN", Toast.LENGTH_SHORT).show();
                 }
@@ -539,10 +560,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         iapDemoUAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), new EcsLaunchInput());
     }
 
-
     private void launchMECasFragment(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {
-        initializeBazaarVoice();
-        initMEC();
         pMecFlowConfigurator.setLandingView(mecLandingView);
         mMecLaunchInput.setFlowConfigurator(pMecFlowConfigurator);
         try {
@@ -554,7 +572,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void launchIAP(int pLandingViews, IAPFlowInput pIapFlowInput, ArrayList<String> pIgnoreRetailerList) {
+    private void launchIAP( ) {
         try {
             IAPDependencies mIapDependencies = new IAPDependencies(appInfraInterface, userDataInterface);
             mIAPSettings = new IAPSettings(this);
@@ -563,13 +581,11 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             mServiceDiscoveryInterface = appInfraInterface.getServiceDiscovery();
             receiver = new HomeCountryUpdateReceiver(appInfraInterface);
             mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
-//            mIAPSettings = new IAPSettings(this);
             mCategorizedProductList = new ArrayList<>();
             mCategorizedProductList.add("HD9745/90000");
             mCategorizedProductList.add("HD9630/90");
             mCategorizedProductList.add("HD9240/90");
             mCategorizedProductList.add("HD9621/90");
-//            mIapInterface.init(mIapDependencies, mIAPSettings);
             mIapLaunchInput = new IAPLaunchInput();
             mIapLaunchInput.setHybrisSupported(true);
             mIapLaunchInput.setIapListener(this);
@@ -605,7 +621,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         if (userDataInterface.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN)
             new URInterface().launch(fragmentLauncher, urLaunchInput);
     }
-
 
     private void updateUIOnUserLoggedIn() {
         btnLaunchAsActivity.setVisibility(View.GONE);

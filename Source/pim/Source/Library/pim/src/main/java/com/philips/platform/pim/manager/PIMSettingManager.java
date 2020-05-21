@@ -11,7 +11,6 @@ import com.philips.platform.pim.BuildConfig;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
 import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.utilities.PIMInitState;
-import com.philips.platform.pim.utilities.PIMMigrationState;
 import com.philips.platform.uappframework.uappinput.UappDependencies;
 
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
@@ -32,7 +31,6 @@ public class PIMSettingManager {
     private String locale;
     private MutableLiveData<PIMInitState> pimInitLiveData;
     private PIMLoginListener pimUserLoginListener;
-    private PIMMigrationState migrationState;
 
     private PIMSettingManager() {
     }

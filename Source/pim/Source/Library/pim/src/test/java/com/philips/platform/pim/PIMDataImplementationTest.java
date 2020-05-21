@@ -71,7 +71,6 @@ public class PIMDataImplementationTest extends TestCase {
         when(mockUserManager.getUserLoggedInState()).thenReturn(UserLoggedInState.USER_NOT_LOGGED_IN);
         pimDataImplementation.logoutSession(mockLogoutSessionListener);
         verify(mockLogoutSessionListener).logoutSessionFailed(any(Error.class));
-
     }
 
     @Test
