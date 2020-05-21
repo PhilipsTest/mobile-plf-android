@@ -82,7 +82,7 @@ class MECOrderHistoryServiceTest {
 
     private fun setAuthNotRequired() {
         Mockito.`when`(userDataInterfaceMock.userLoggedInState).thenReturn(UserLoggedInState.USER_LOGGED_IN)
-        var hashMap = HashMap<String, Any>()
+        val hashMap = HashMap<String, Any>()
         hashMap.put(UserDetailConstants.EMAIL, "NONE")
         Mockito.`when`(userDataInterfaceMock.getUserDetails(ArgumentMatchers.any())).thenReturn(hashMap)
         MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
@@ -93,7 +93,7 @@ class MECOrderHistoryServiceTest {
 
     private fun setAuthRequired() {
         Mockito.`when`(userDataInterfaceMock.userLoggedInState).thenReturn(UserLoggedInState.USER_LOGGED_IN)
-        var hashMap = HashMap<String, Any>()
+        val hashMap = HashMap<String, Any>()
         hashMap.put(UserDetailConstants.EMAIL, "NONE")
         Mockito.`when`(userDataInterfaceMock.getUserDetails(ArgumentMatchers.any())).thenReturn(hashMap)
         MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
@@ -106,22 +106,27 @@ class MECOrderHistoryServiceTest {
     @Test
     fun shouldTestGetOrderMapForSameDayOrder() {
 
-        var dateOrdersMap =LinkedHashMap<String, MutableList<ECSOrders>>()
 
-        var ecsOrderList = mutableListOf<ECSOrders>()
+        val dateOrdersMap =LinkedHashMap<String, MutableList<ECSOrders>>()
 
-        var ecsOrders1 = ECSOrders()
+
+
+        val ecsOrderList = mutableListOf<ECSOrders>()
+
+        val ecsOrders1 = ECSOrders()
         ecsOrders1.placed = "2020-03-12T05:12:23+0000"
 
-        var ecsOrders2 = ECSOrders()
+        val ecsOrders2 = ECSOrders()
         ecsOrders2.placed = "2020-03-12T05:12:23+0000"
 
-        var ecsOrders3 = ECSOrders()
+        val ecsOrders3 = ECSOrders()
         ecsOrders3.placed = "2020-03-13T05:12:23+0000"
 
         ecsOrderList.add(ecsOrders1)
         ecsOrderList.add(ecsOrders2)
         ecsOrderList.add(ecsOrders3)
+
+        dateOrdersMap.put(mECOrderHistoryService.getFormattedDate("2020-03-12T05:12:23+0000"),ecsOrderList)
 
         mECOrderHistoryService.getDateOrderMap(dateOrdersMap,ecsOrderList)
 

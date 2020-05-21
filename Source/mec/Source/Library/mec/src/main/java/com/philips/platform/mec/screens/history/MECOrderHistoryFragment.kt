@@ -49,7 +49,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     private var totalPage = 0
 
 
-    private lateinit var mOrdersList : MutableList<ECSOrders>
+    private  var mOrdersList : MutableList<ECSOrders> = mutableListOf<ECSOrders>()
     private var dateOrdersMap = LinkedHashMap<String, MutableList<ECSOrders>>()
 
     private var isCallOnProgress = false
@@ -73,7 +73,6 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
     private fun fetchOrderDetailForOrders(orderList: MutableList<ECSOrders>) {
 
-        mOrdersList = mutableListOf<ECSOrders>()
         val numberOfDetailsToBeFetched = AtomicInteger()
         numberOfDetailsToBeFetched.set(orderList.size)
 
@@ -95,6 +94,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
 
 
     private fun showData(){
+        mOrdersList.sortByDescending { it.placed }
         mecOrderHistoryService.getDateOrderMap(dateOrdersMap,mOrdersList)
         hidePaginationProgressBar()
         hideFullScreenProgressBar()
