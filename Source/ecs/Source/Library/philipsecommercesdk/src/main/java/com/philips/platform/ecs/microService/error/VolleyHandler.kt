@@ -82,6 +82,7 @@ class VolleyHandler {
         val commaSeparatedParameterString = parameter?.replace("[", "")?.replace("]", "")
         val firstFailureString = commaSeparatedParameterString?.split(",")?.get(0)
 
+
         firstFailureString?.let {
 
             val localizedStringID = "ECS$firstFailureString"

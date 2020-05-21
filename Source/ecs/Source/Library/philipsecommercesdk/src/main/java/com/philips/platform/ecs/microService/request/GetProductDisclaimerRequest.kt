@@ -11,11 +11,9 @@
  */
 package com.philips.platform.ecs.microService.request
 
-import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.disclaimer.DisclaimerModel
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.prx.PrxConstants
@@ -23,14 +21,10 @@ import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject
 import java.util.HashMap
 
-class GetProductDisclaimerRequest(val ecsProduct: ECSProduct, private val ecsCallback: ECSCallback<ECSProduct, ECSError>) : ECSJsonRequest() {
+class GetProductDisclaimerRequest(val ecsProduct: ECSProduct, private val ecsCallback: ECSCallback<ECSProduct, ECSError>) : ECSJsonRequest(ecsCallback) {
 
     override fun getServiceID(): String {
         return ECSConstants.SERVICEID_PRX_DISCLAIMERS
-    }
-
-    override fun onErrorResponse(error: VolleyError) {
-        ecsCallback.onFailure(VolleyHandler().getECSError(error))
     }
 
     override fun onResponse(response: JSONObject) {

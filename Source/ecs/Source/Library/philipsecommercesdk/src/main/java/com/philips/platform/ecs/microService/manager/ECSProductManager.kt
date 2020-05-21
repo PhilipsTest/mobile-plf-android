@@ -30,9 +30,10 @@ class ECSProductManager {
         ecsException?.let { throw ecsException } ?: kotlin.run {
 
             if(ECSDataHolder.config.isHybris) {
-                GetProductForRequest(ctn, eCSCallback).executeRequest()
+                val getProductForRequest = GetProductForRequest(ctn, eCSCallback)
+                RequestHandler(getProductForRequest).handleRequest()
             }else{
-                var ecsProduct = ECSProduct(null,ctn,null)
+                val ecsProduct = ECSProduct(null,ctn,null)
                 getSummaryForSingleProduct(ecsProduct, eCSCallback)
             }
 
@@ -40,7 +41,7 @@ class ECSProductManager {
     }
 
     fun getSummaryForSingleProduct(ecsProduct: ECSProduct, eCSCallback: ECSCallback<ECSProduct?, ECSError>) {
-        GetSummariesForProductsRequest(listOf(ecsProduct), object : ECSCallback<List<ECSProduct>, ECSError> {
+        val getSummariesForProductsRequest = GetSummariesForProductsRequest(listOf(ecsProduct), object : ECSCallback<List<ECSProduct>, ECSError> {
             override fun onResponse(result: List<ECSProduct>) {
 
                 if (!result.isNullOrEmpty()) {
@@ -52,13 +53,14 @@ class ECSProductManager {
 
             override fun onFailure(ecsError: ECSError) {
 
-                when(ECSDataHolder.config.isHybris){
+                when (ECSDataHolder.config.isHybris) {
                     true -> eCSCallback.onResponse(ecsProduct)
-                    false ->  eCSCallback.onFailure(ecsError) //note for non hybris flow ..we only fetch summary ...no pint of sending success , if it is not found
+                    false -> eCSCallback.onFailure(ecsError) //note for non hybris flow ..we only fetch summary ...no pint of sending success , if it is not found
                 }
 
             }
-        }).executeRequest()
+        })
+        RequestHandler(getSummariesForProductsRequest).handleRequest()
     }
 
     fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
@@ -71,7 +73,8 @@ class ECSProductManager {
                 var ecsProduct = ECSProduct(null, ctn, null)
                 ecsProductList.add(ecsProduct)
             }
-            GetSummariesForProductsRequest(ecsProductList, ecsCallback).executeRequest()
+            val getSummariesForProductsRequest = GetSummariesForProductsRequest(ecsProductList, ecsCallback)
+            RequestHandler(getSummariesForProductsRequest).handleRequest()
         }
     }
 
@@ -89,38 +92,41 @@ class ECSProductManager {
     }
 
     private fun fetchProductAsset(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>, callBacks: MutableList<ECSCallback<ECSProduct, ECSError>?>){
-        GetProductAssetRequest(product,object : ECSCallback<ECSProduct, ECSError>{
+        val getProductAssetRequest = GetProductAssetRequest(product, object : ECSCallback<ECSProduct, ECSError> {
             override fun onResponse(result: ECSProduct) {
-                Log.d("ECSProductManager",result.toString())
+                Log.d("ECSProductManager", result.toString())
 
                 callBacks.add(this)
 
-                if(callBacks.size >1) ecsCallback.onResponse(result)
+                if (callBacks.size > 1) ecsCallback.onResponse(result)
 
             }
 
             override fun onFailure(ecsError: ECSError) {
                 //do nothing : error is already logged
                 callBacks.add(this)
-                if(callBacks.size >1) ecsCallback.onResponse(product)
+                if (callBacks.size > 1) ecsCallback.onResponse(product)
             }
-        }).executeRequest()
+        })
+        RequestHandler(getProductAssetRequest).handleRequest()
     }
 
     private fun fetchProductDisclaimer(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>, callBacks: MutableList<ECSCallback<ECSProduct, ECSError>?>){
-        GetProductDisclaimerRequest(product,object : ECSCallback<ECSProduct, ECSError>{
+        val getProductDisclaimerRequest = GetProductDisclaimerRequest(product, object : ECSCallback<ECSProduct, ECSError> {
             override fun onResponse(result: ECSProduct) {
-                Log.d("ECSProductManager",result.toString())
+                Log.d("ECSProductManager", result.toString())
                 callBacks.add(this)
-                if(callBacks.size >1) ecsCallback.onResponse(result)
+                if (callBacks.size > 1) ecsCallback.onResponse(result)
             }
 
             override fun onFailure(ecsError: ECSError) {
                 //do nothing : error is already logged
                 callBacks.add(this)
-                if(callBacks.size >1) ecsCallback.onResponse(product)
+                if (callBacks.size > 1) ecsCallback.onResponse(product)
             }
-        }).executeRequest()
+        })
+
+        RequestHandler(getProductDisclaimerRequest).handleRequest()
     }
 
 }

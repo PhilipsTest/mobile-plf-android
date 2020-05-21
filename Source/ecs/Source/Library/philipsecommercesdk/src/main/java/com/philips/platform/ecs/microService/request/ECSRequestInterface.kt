@@ -24,24 +24,14 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
 
     //TODO retry and time out
 
+
     fun  getMethod(): Int{
         return Request.Method.GET
     }
-    fun  getURL(): String{
-        var url = ECSDataHolder.urlMap?.get(getServiceID())?.configUrls ?: ""
-        return url.replaceParam(getReplaceURLMap())
-    }
+    fun  getURL(): String
     fun  getServiceID():String
 
-
-    fun  getReplaceURLMap():MutableMap<String,String>{
-
-        val map = HashMap<String,String>()
-        ECSDataHolder.config.siteId?.let { map.put("siteId", it) }
-        ECSDataHolder.locale?.split("_")?.get(0)?.let { map.put("language", it) }
-        ECSDataHolder.locale?.split("_")?.get(1)?.let { map.put("country", it) }
-        return map
-    }
+    fun  getReplaceURLMap():MutableMap<String,String>
     fun  getRequestType():RequestType
 
     fun  getJSONRequest(): JSONObject?{
@@ -74,10 +64,6 @@ interface ECSRequestInterface : Response.ErrorListener,TokenProviderInterface {
 
     override fun getToken(): TokenProviderInterface.Token? {
         return null
-    }
-
-    fun executeRequest(){
-         NetworkController().executeRequest(this)
     }
 
     fun getAppInfraJSONObject(): JsonObjectRequest?{

@@ -11,11 +11,9 @@
  */
 package com.philips.platform.ecs.microService.request
 
-import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.asset.AssetModel
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.prx.PrxConstants
@@ -23,25 +21,18 @@ import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject
 import java.util.HashMap
 
-class GetProductAssetRequest(val ecsProduct: ECSProduct, private val ecsCallback: ECSCallback<ECSProduct, ECSError>) : ECSJsonRequest() {
+class GetProductAssetRequest(val ecsProduct: ECSProduct, val ecsCallback: ECSCallback<ECSProduct, ECSError>) : ECSJsonRequest(ecsCallback) {
 
 
     override fun getServiceID(): String {
         return ECSConstants.SERVICEID_PRX_ASSETS
     }
 
-    override fun onErrorResponse(error: VolleyError?) {
-        ecsCallback.onFailure(VolleyHandler().getECSError(error))
-    }
     override fun onResponse(response: JSONObject) {
         var resp = response.getData(AssetModel::class.java)
         val assets = resp?.data?.assets
         ecsProduct.assets =assets
         ecsCallback.onResponse(ecsProduct)
-    }
-
-    override fun getHeader(): MutableMap<String, String>? {
-        return null
     }
 
     override fun getReplaceURLMap(): MutableMap<String, String> {
@@ -53,5 +44,7 @@ class GetProductAssetRequest(val ecsProduct: ECSProduct, private val ecsCallback
         return replaceUrl
     }
 
-
+    override fun getHeader(): MutableMap<String, String>? {
+        return null
+    }
 }
