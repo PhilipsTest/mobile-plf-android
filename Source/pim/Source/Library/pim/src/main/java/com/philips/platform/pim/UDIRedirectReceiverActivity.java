@@ -28,7 +28,6 @@ public class UDIRedirectReceiverActivity extends Activity {
         } else if (getIntent().getData() != null) {
             AppInfra appInfra = new AppInfra.Builder().build(this);
             PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(appInfra);
-            Log.i("PIM","intent => "+getIntent().getData().toString());
             pimSecureStorageHelper.saveAuthorizationResponse(getIntent().getData().toString());
             launchAppOnRedirect(this);
         }

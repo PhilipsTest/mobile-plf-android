@@ -224,8 +224,6 @@ public class PIMAuthManager {
     }
 
     public Intent extractResponseData(String responseData, AuthorizationRequest authorizationRequest) {
-
-
         Uri responseUri = Uri.parse(responseData);
         if (responseUri.getQueryParameterNames().contains(AuthorizationException.PARAM_ERROR)) {
             return AuthorizationException.fromOAuthRedirect(responseUri).toIntent();
@@ -241,7 +239,6 @@ public class PIMAuthManager {
 
                 return AuthorizationException.AuthorizationRequestErrors.STATE_MISMATCH.toIntent();
             }
-
             return response.toIntent();
         }
     }
