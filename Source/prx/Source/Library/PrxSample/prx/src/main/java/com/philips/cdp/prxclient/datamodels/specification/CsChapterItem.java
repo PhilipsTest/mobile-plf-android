@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class CsChapterItem implements Serializable {
 
+	private static final long serialVersionUID = 5009770779919717578L;
 	@SerializedName("csChapterCode")
 	@Expose
 	public String csChapterCode;
