@@ -38,6 +38,9 @@ import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
+import com.philips.platform.pim.PIMInterface;
+import com.philips.platform.pim.PIMLaunchInput;
+import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uid.view.widget.Button;
 
@@ -46,10 +49,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-//import com.philips.platform.pim.PIMInterface;
-//import com.philips.platform.pim.PIMLaunchInput;
-//import com.philips.platform.pim.PIMParameterToLaunchEnum;
 
 
 public class EcsDemoTestActivity extends FragmentActivity implements View.OnClickListener, UserLoginListener,
@@ -67,6 +66,7 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
     AutoCompleteTextView atPropositionID;
 
     String[] propositionIDs = {"Tuscany2016", "IAP_MOB_DKA", "IAP_MOB_OHC", "IAP_MOB_PHC"};
+    private PIMInterface pimInterface;
 
 
     public static String getApplicationName(Context context) {
@@ -93,16 +93,20 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
         showAppVersion();
 
-        if (!getApplicationName(getApplicationContext()).equals("PIM Demo App")) {
+        if (getApplicationName(getApplicationContext()).equals("PIM Demo App")) {
+
+            pimInterface = new PIMInterface();
+            pimInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
+            mUserDataInterface = pimInterface.getUserDataInterface();
+
+        }else{
+
             urInterface = new URInterface();
             urInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
             mUserDataInterface = urInterface.getUserDataInterface();
         }
-//        else {
-//            pimInterface = new PIMInterface();
-//            pimInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
-//            mUserDataInterface = pimInterface.getUserDataInterface();
-//        }
+
+        ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
         ECSServices ecsServices = new ECSServices(null, new AppInfra.Builder().build(getApplicationContext()));
 
 
@@ -135,7 +139,6 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
     private void initializeRegistrationComponant() {
         if (isUserLoggedIn()) {
             setJanRainID();
-            ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
             mRegister.setText("Log out");
         } else {
             mRegister.setText("Log in");
@@ -153,9 +156,21 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
     }
 
-    private void gotoUSRLogInScreen() {
+    private void gotoLogInScreen() {
 
-        if (getApplicationName(getApplicationContext()) == "pimApp") {
+        if (getApplicationName(getApplicationContext()).equals("PIM Demo App")) {
+
+            PIMLaunchInput launchInput = new PIMLaunchInput();
+            launchInput.setUserLoginListener(this);
+            ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
+                    ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
+            HashMap<PIMParameterToLaunchEnum, Object> parameter = new HashMap<>();
+            parameter.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, Boolean.TRUE);
+            launchInput.setParameterToLaunch(parameter);
+            if(pimInterface!=null)pimInterface.launch(activityLauncher, launchInput);
+        }
+        else {
+
             URLaunchInput urLaunchInput = new URLaunchInput();
             urLaunchInput.setUserRegistrationUIEventListener(this);
             urLaunchInput.enableAddtoBackStack(true);
@@ -169,19 +184,8 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
             ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
                     ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
-            urInterface.launch(activityLauncher, urLaunchInput);
+            if(urInterface!=null)urInterface.launch(activityLauncher, urLaunchInput);
         }
-//        else {
-//            PIMLaunchInput launchInput = new PIMLaunchInput();
-////            FragmentLauncher fragmentLauncher = new FragmentLauncher(this, R.id.pimDemoU_mainFragmentContainer, null);
-//            launchInput.setUserLoginListener(this);
-//            ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
-//                    ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
-//            HashMap<PIMParameterToLaunchEnum, Object> parameter = new HashMap<>();
-//            parameter.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, Boolean.TRUE);
-//            launchInput.setParameterToLaunch(parameter);
-//            pimInterface.launch(activityLauncher, launchInput);
-//        }
 
 
     }
@@ -295,7 +299,7 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
                 Toast.makeText(EcsDemoTestActivity.this, "User is not logged in", Toast.LENGTH_SHORT).show();
             }
         } else {
-            gotoUSRLogInScreen();
+            gotoLogInScreen();
         }
 
     }
