@@ -18,9 +18,7 @@ import com.philips.platform.ecs.microService.callBack.ServiceDiscoveryForConfigO
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
-import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.request.GetConfigurationRequest
-import com.philips.platform.ecs.microService.request.GetProductForRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 
@@ -36,7 +34,7 @@ class ECSConfigManager {
 
     fun getConfigObject(ecsCallback: ECSCallback<ECSConfig, ECSError>){
         val getConfigurationRequest = GetConfigurationRequest(ecsCallback)
-        RequestHandler(getConfigurationRequest).handleRequest()
+        RequestHandler().handleRequest(getConfigurationRequest)
     }
 
     fun getConfigBoolean(ecsCallback: ECSCallback<Boolean, ECSError>){
@@ -52,7 +50,7 @@ class ECSConfigManager {
 
 
         })
-        RequestHandler(getConfigurationRequest).handleRequest()
+        RequestHandler().handleRequest(getConfigurationRequest)
     }
 
 }

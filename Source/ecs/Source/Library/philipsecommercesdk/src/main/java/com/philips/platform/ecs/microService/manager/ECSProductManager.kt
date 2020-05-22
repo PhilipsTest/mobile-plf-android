@@ -23,13 +23,15 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class ECSProductManager {
 
+    var requestHandler = RequestHandler()
+
     fun getProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter?, ecsCallback :ECSCallback<ECSProducts, ECSError>){
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
 
             val getProductsRequest= GetProductsRequest(productCategory,limit,offset,productFilter, ecsCallback)
-            RequestHandler(getProductsRequest).handleRequest()
+            requestHandler.handleRequest(getProductsRequest)
 
         }
     }
@@ -41,7 +43,7 @@ class ECSProductManager {
 
             if(ECSDataHolder.config.isHybris) {
                 val getProductForRequest = GetProductForRequest(ctn, eCSCallback)
-                RequestHandler(getProductForRequest).handleRequest()
+                requestHandler.handleRequest(getProductForRequest)
             }else{
                 val ecsProduct = ECSProduct(null,ctn,null)
                 getSummaryForSingleProduct(ecsProduct, eCSCallback)
@@ -70,7 +72,7 @@ class ECSProductManager {
 
             }
         })
-        RequestHandler(getSummariesForProductsRequest).handleRequest()
+        requestHandler.handleRequest(getSummariesForProductsRequest)
     }
 
     fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
@@ -84,7 +86,7 @@ class ECSProductManager {
                 ecsProductList.add(ecsProduct)
             }
             val getSummariesForProductsRequest = GetSummariesForProductsRequest(ecsProductList, ecsCallback)
-            RequestHandler(getSummariesForProductsRequest).handleRequest()
+            requestHandler.handleRequest(getSummariesForProductsRequest)
         }
     }
 
@@ -118,7 +120,7 @@ class ECSProductManager {
                 if (callBacks.size > 1) ecsCallback.onResponse(product)
             }
         })
-        RequestHandler(getProductAssetRequest).handleRequest()
+        requestHandler.handleRequest(getProductAssetRequest)
     }
 
     private fun fetchProductDisclaimer(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>, callBacks: MutableList<ECSCallback<ECSProduct, ECSError>?>){
@@ -136,7 +138,7 @@ class ECSProductManager {
             }
         })
 
-        RequestHandler(getProductDisclaimerRequest).handleRequest()
+        requestHandler.handleRequest(getProductDisclaimerRequest)
     }
 
 }

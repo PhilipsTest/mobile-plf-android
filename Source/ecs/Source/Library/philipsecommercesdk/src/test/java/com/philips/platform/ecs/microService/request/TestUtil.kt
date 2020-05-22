@@ -14,7 +14,7 @@ package com.philips.platform.ecs.microService.request
 
 import org.mockito.Mockito
 
-public fun <T> any(type : Class<T>): T {
+fun <T> any(type : Class<T>): T {
     Mockito.any(type)
     return uninitialized()
 }

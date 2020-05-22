@@ -19,13 +19,15 @@ import com.philips.platform.ecs.microService.request.GetRetailersInfoRequest
 
 class ECSRetailerManager {
 
+    var requestHandler = RequestHandler()
+
     fun fetchRetailers(ctn: String, ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) {
 
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
             val getRetailersInfoRequest = GetRetailersInfoRequest(ctn, ecsCallback)
-            RequestHandler(getRetailersInfoRequest).handleRequest()
+            requestHandler.handleRequest(getRetailersInfoRequest)
         }
     }
 }

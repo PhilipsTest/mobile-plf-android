@@ -2,6 +2,7 @@ package com.philips.platform.ecs.microService.manager
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.request.GetProductForRequest
@@ -26,6 +27,12 @@ class ECSProductManagerTest {
     @Mock
     lateinit var mGetProductsRequestMock : GetProductsRequest
 
+    @Mock
+    lateinit var requestHandlerMock: RequestHandler
+
+    @Mock
+    lateinit var  productFilterMock: ProductFilter
+
 ////////////////////
 
     lateinit var eCSCallback: ECSCallback<ECSProduct?, ECSError>
@@ -40,6 +47,7 @@ class ECSProductManagerTest {
     fun setUp() {
         ECSDataHolder.locale = "en_US"
         mECSProductManager=ECSProductManager()
+        mECSProductManager.requestHandler = requestHandlerMock
 
     }
 
@@ -62,9 +70,9 @@ class ECSProductManagerTest {
        // `when`( mECSApiValidator.getECSException(APIType.Locale)).thenReturn(null)
         var commerceProducts= ArrayList<ECSProduct>()
         var mECSProduct = ECSProducts(commerceProducts)
-        Mockito.`when`(mGetProductsRequestMock.executeRequest()).then { ecsCallback.onResponse(mECSProduct) }
-        mGetProductsRequestMock= GetProductsRequest(1,2,ecsCallback)
-        mECSProductManager.getProducts(1,2,ecsCallback)
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetProductsRequestMock)).then { ecsCallback.onResponse(mECSProduct) }
+        mGetProductsRequestMock= GetProductsRequest("category",1,2,productFilterMock,ecsCallback)
+        mECSProductManager.getProducts("category",1,2,productFilterMock,ecsCallback)
     }
 
     @Test
@@ -83,7 +91,7 @@ class ECSProductManagerTest {
 
         var mECSProduct = ECSProduct(null,"id","type")
         ECSDataHolder.config.isHybris=true
-        Mockito.`when`(mGetProductForRequestMock.executeRequest()).then { eCSCallback.onResponse(mECSProduct) }
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetProductForRequestMock)).then { eCSCallback.onResponse(mECSProduct) }
         mECSProductManager.getProductFor("CTN",eCSCallback)
 
     }
@@ -104,7 +112,7 @@ class ECSProductManagerTest {
         var mECSProduct = ECSProduct(null,"id","type")
         mECSProduct.id="new id"
         ECSDataHolder.config.isHybris=false
-        Mockito.`when`(mGetSummariesForProductsRequestMock.executeRequest()).then { eCSCallback.onResponse(mECSProduct) }
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallback.onResponse(mECSProduct) }
 
 
     }

@@ -20,32 +20,36 @@ import com.philips.platform.ecs.microService.request.NetworkController
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import java.util.ArrayList
 
-class RequestHandler (private val ecsAbstractRequest: ECSAbstractRequest){
+class RequestHandler{
 
+    internal var networkController = NetworkController()
 
-    private val serviceURLListener = object:ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
-        override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
-            val url = urlMap?.get(ecsAbstractRequest.getServiceID())?.configUrls
-
-            url?.let {
-                ecsAbstractRequest.url = it
-                ecsAbstractRequest.locale = urlMap.get(ecsAbstractRequest.getServiceID())?.locale ?: ""
-                NetworkController().executeRequest(ecsAbstractRequest)
-            }?:run {
-
-                ecsAbstractRequest.ecsErrorCallback.onFailure(ECSError(urlMap?.get(ecsAbstractRequest.getServiceID())?.getmError()?:"",null,null))
-            }
-
-        }
-
-        override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
-            ecsAbstractRequest.ecsErrorCallback.onFailure(ECSError(message?:"",null,null))
-        }
-    }
-
-    fun handleRequest(){
+    fun handleRequest(ecsAbstractRequest: ECSAbstractRequest){
         val serviceIDList = mutableListOf<String>()
         serviceIDList.add(ecsAbstractRequest.getServiceID())
-        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(serviceIDList as ArrayList<String>?, serviceURLListener, ecsAbstractRequest.getReplaceURLMap())
+        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(serviceIDList as ArrayList<String>, getServiceListener(ecsAbstractRequest), ecsAbstractRequest.getReplaceURLMap())
+    }
+
+    internal fun getServiceListener(ecsAbstractRequest: ECSAbstractRequest):ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
+
+       return object:ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
+            override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
+                val url = urlMap?.get(ecsAbstractRequest.getServiceID())?.configUrls
+
+                url?.let {
+                    ecsAbstractRequest.url = it
+                    ecsAbstractRequest.locale = urlMap.get(ecsAbstractRequest.getServiceID())?.locale ?: ""
+                    networkController.executeRequest(ecsAbstractRequest)
+                }?:run {
+
+                    ecsAbstractRequest.ecsErrorCallback.onFailure(ECSError(urlMap?.get(ecsAbstractRequest.getServiceID())?.getmError()?:"",null,null))
+                }
+
+            }
+
+            override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
+                ecsAbstractRequest.ecsErrorCallback.onFailure(ECSError(message?:"",null,null))
+            }
+        }
     }
 }
