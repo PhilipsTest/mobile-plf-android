@@ -29,7 +29,7 @@ class RequestHandler (private val ecsAbstractRequest: ECSAbstractRequest){
 
             url?.let {
                 ecsAbstractRequest.url = it
-                ecsAbstractRequest.locale = urlMap?.get(ecsAbstractRequest.getServiceID())?.locale ?: ""
+                ecsAbstractRequest.locale = urlMap.get(ecsAbstractRequest.getServiceID())?.locale ?: ""
                 NetworkController().executeRequest(ecsAbstractRequest)
             }?:run {
 
@@ -44,6 +44,8 @@ class RequestHandler (private val ecsAbstractRequest: ECSAbstractRequest){
     }
 
     fun handleRequest(){
-        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(listOf(ecsAbstractRequest.getServiceID()) as ArrayList<String>?, serviceURLListener, ecsAbstractRequest.getReplaceURLMap())
+        val serviceIDList = mutableListOf<String>()
+        serviceIDList.add(ecsAbstractRequest.getServiceID())
+        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(serviceIDList as ArrayList<String>?, serviceURLListener, ecsAbstractRequest.getReplaceURLMap())
     }
 }
