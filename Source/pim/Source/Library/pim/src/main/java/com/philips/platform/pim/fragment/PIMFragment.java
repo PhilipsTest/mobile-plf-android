@@ -156,10 +156,7 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
     private void launchUserProfilePage(String userProfileUrl) {
         String clientId;
         PIMSettingManager pimSettingManager = PIMSettingManager.getInstance();
-        if (pimSettingManager.getPimUserManager().getLoginFlow() == PIMUserManager.LOGIN_FLOW.MIGRATION) {
-            clientId = pimoidcConfigration.getMigrationClientId();
-        } else
-            clientId = pimoidcConfigration.getClientId();
+        clientId = pimoidcConfigration.getClientId();
         String urlString = "http://www.philips.com";
         String[] urlStringWithVisitorId = pimSettingManager.getTaggingInterface().getVisitorIDAppendToURL(urlString).split("=");
         mLoggingInterface.log(DEBUG, TAG, "External URL with Adobe_mc : " + urlStringWithVisitorId[1]);

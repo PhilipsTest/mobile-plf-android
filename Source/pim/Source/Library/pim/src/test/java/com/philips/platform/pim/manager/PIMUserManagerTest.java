@@ -241,6 +241,8 @@ public class PIMUserManagerTest extends TestCase {
         Mockito.when(mockAuthorizationServiceDiscovery.getIssuer()).thenReturn("https://stg.accounts.philips.com/c2a48310-9715-3beb-895e-000000000000/login");
 
         whenNew(LogoutRequest.class).withArguments(mockAuthState, "94e28300-565d-4110-8919-42dc4f817393").thenReturn(mockLogoutRequest);
+        when(mockPimSettingManager.getPimOidcConfigration()).thenReturn(mockPimoidcConfigration);
+        when(mockPimoidcConfigration.getClientId()).thenReturn("94e28300-565d-4110-8919-42dc4f817393");
         pimUserManager.logoutSession(mockLogoutListener);
         verify(mockPimRestClient).invokeRequest(eq(mockLogoutRequest), responseArgumentCaptor.capture(), errorArgumentCaptor.capture());
 
@@ -251,49 +253,6 @@ public class PIMUserManagerTest extends TestCase {
         Response.ErrorListener errorListener = errorArgumentCaptor.getValue();
         VolleyError volleyError = new VolleyError();
         errorListener.onErrorResponse(volleyError);
-        verify(mockLogoutListener).logoutSessionFailed(any(Error.class));
-    }
-
-    @Test
-    public void testLogoutMigratedSession() throws Exception {
-        AppConfigurationInterface mockConfigurationInterface = mock(AppConfigurationInterface.class);
-        AppConfigurationInterface.AppConfigurationError mockConfigurationError = mock(AppConfigurationInterface.AppConfigurationError.class);
-        PIMOIDCConfigration mockPimoidcConfigration = mock(PIMOIDCConfigration.class);
-        LogoutSessionListener mockLogoutListener = mock(LogoutSessionListener.class);
-        LogoutRequest mockLogoutRequest = mock(LogoutRequest.class);
-        SecureStorageInterface mockStorageInterface = mock(SecureStorageInterface.class);
-
-        whenNew(AppConfigurationInterface.AppConfigurationError.class).withNoArguments().thenReturn(mockConfigurationError);
-        Mockito.when(mockAppInfraInterface.getConfigInterface()).thenReturn(mockConfigurationInterface);
-        Mockito.when(mockConfigurationInterface.getPropertyForKey("PIM.default", "PIM", mockConfigurationError)).thenReturn(new Object());
-        Mockito.when(mockPimoidcConfigration.getMigrationClientId()).thenReturn("7602c06b-c547-4aae-8f7c-f89e8c887a21");
-        whenNew(PIMOIDCConfigration.class).withNoArguments().thenReturn(mockPimoidcConfigration);
-        Mockito.when(mockSharedPreferences.getString("LOGIN_FLOW", PIMUserManager.LOGIN_FLOW.DEFAULT.toString())).thenReturn(PIMUserManager.LOGIN_FLOW.MIGRATION.toString());
-        Mockito.when(mockAppInfraInterface.getSecureStorage()).thenReturn(mockStorageInterface);
-
-        AuthorizationResponse mockAuthorizationResponse = mock(AuthorizationResponse.class);
-        AuthorizationRequest mockAuthorizationRequest = mock(AuthorizationRequest.class);
-        AuthorizationServiceConfiguration mockAuthorizationServiceConfiguration = mock(AuthorizationServiceConfiguration.class);
-        AuthorizationServiceDiscovery mockAuthorizationServiceDiscovery = mock(AuthorizationServiceDiscovery.class);
-
-        Mockito.when(mockAuthState.getLastAuthorizationResponse()).thenReturn(mockAuthorizationResponse);
-
-        Whitebox.setInternalState(pimUserManager, "authState", mockAuthState);
-        Whitebox.setInternalState(mockAuthorizationResponse, "request", mockAuthorizationRequest);
-        Whitebox.setInternalState(mockAuthorizationRequest, "configuration", mockAuthorizationServiceConfiguration);
-        Whitebox.setInternalState(mockAuthorizationServiceConfiguration, "discoveryDoc", mockAuthorizationServiceDiscovery);
-        Mockito.when(mockAuthorizationServiceDiscovery.getIssuer()).thenReturn("https://stg.accounts.philips.com/c2a48310-9715-3beb-895e-000000000000/login");
-
-        whenNew(LogoutRequest.class).withArguments(mockAuthState, "7602c06b-c547-4aae-8f7c-f89e8c887a21").thenReturn(mockLogoutRequest);
-        pimUserManager.logoutSession(mockLogoutListener);
-        verify(mockPimRestClient).invokeRequest(eq(mockLogoutRequest), responseArgumentCaptor.capture(), errorArgumentCaptor.capture());
-
-        Response.Listener reponselistener = responseArgumentCaptor.getValue();
-        reponselistener.onResponse(new JsonObject().toString());
-        verify(mockLogoutListener).logoutSessionSuccess();
-
-        Response.ErrorListener errorListener = errorArgumentCaptor.getValue();
-        errorListener.onErrorResponse(new VolleyError());
         verify(mockLogoutListener).logoutSessionFailed(any(Error.class));
     }
 

@@ -143,11 +143,7 @@ public class PIMUserManager {
     }
 
     public void logoutSession(LogoutSessionListener logoutSessionListener) {
-        String clientID;
-        if (getLoginFlow() == LOGIN_FLOW.MIGRATION)
-            clientID = new PIMOIDCConfigration().getMigrationClientId();
-        else
-            clientID = new PIMOIDCConfigration().getClientId();
+        String clientID = PIMSettingManager.getInstance().getPimOidcConfigration().getClientId();
 
         LogoutRequest logoutRequest = new LogoutRequest(authState, clientID);
         pimRestClient.invokeRequest(logoutRequest, response -> {
