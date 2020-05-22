@@ -9,7 +9,7 @@ BranchName = env.BRANCH_NAME
 String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS" : ""
 
 //label for pipeline
-def nodes = 'test'
+def nodes = '9043'
 
 if (BranchName == "develop") {
     nodes = nodes + " && TICS"
@@ -553,7 +553,7 @@ def BuildHPFortify() {
         set -e
         chmod -R 755 .
         ./gradlew --refresh-dependencies
-        declare -A ARRAY=( [ail]=AppInfra_Android [dcc]=CC_Android [prg]=PR_Android )
+        /*declare -A ARRAY=( [ail]=AppInfra_Android [dcc]=CC_Android [prg]=PR_Android )
         for KEY in "${!ARRAY[@]}"; do
             echo "*** sourceanalyzer -b $KEY -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
             sourceanalyzer -b "$KEY" -source 1.8 -debug-verbose -logfile "Test\${ARRAY[$KEY]}.txt" ./gradlew assembleRelease
@@ -561,7 +561,27 @@ def BuildHPFortify() {
             sourceanalyzer -b "$KEY" -scan -f "${ARRAY[$KEY]}.fpr"
             echo "*** fortifyclient -url https://fortify.philips.com/ssc ${ARRAY[$KEY]}***"
             fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file ${ARRAY[$KEY]}.fpr -project EMS -version ${ARRAY[$KEY]}
-        done
+        done*/
+        echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
+        sourceanalyzer -b "ail" -source 1.8 -debug-verbose -logfile "Test\AppInfra_Android.txt" ./gradlew assembleRelease
+        echo "*** sourceanalyzer -b ail -scan -f AppInfra_Android.fpr ***"
+        sourceanalyzer -b "ail" -scan -f "AppInfra_Android.fpr"
+        echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
+        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file AppInfra_Android.fpr -project EMS -version AppInfra_Android
+        
+        echo "*** sourceanalyzer -b dcc -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
+        sourceanalyzer -b "dcc" -source 1.8 -debug-verbose -logfile "Test\CC_Android.txt" ./gradlew assembleRelease
+        echo "*** sourceanalyzer -b dcc -scan -f CC_Android.fpr ***"
+        sourceanalyzer -b "dcc" -scan -f "CC_Android.fpr"
+        echo "*** fortifyclient -url https://fortify.philips.com/ssc CC_Android***"
+        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file CC_Android.fpr -project EMS -version CC_Android
+
+        echo "*** sourceanalyzer -b prg -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
+        sourceanalyzer -b "prg -source 1.8 -debug-verbose -logfile "Test\PR_Android.txt" ./gradlew assembleRelease
+        echo "*** sourceanalyzer -b $KEY -scan -f PR_Android.fpr ***"
+        sourceanalyzer -b "prg" -scan -f "PR_Android.fpr"
+        echo "*** fortifyclient -url https://fortify.philips.com/ssc PR_Android***"
+        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file PR_Android.fpr -project EMS -version PR_Android
     '''
 }
 
