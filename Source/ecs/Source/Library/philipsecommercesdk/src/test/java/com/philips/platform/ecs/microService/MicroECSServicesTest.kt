@@ -19,12 +19,14 @@ import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
 import com.philips.platform.ecs.microService.model.config.ECSConfig
+import com.philips.platform.ecs.microService.model.filter.ECSSortType
+import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
+import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -65,6 +67,9 @@ class MicroECSServicesTest {
     @Mock
     lateinit var appInfraMock: AppInfra
 
+    @Mock
+    lateinit var ecsCallback : ECSCallback<ECSProducts, ECSError>
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -89,7 +94,11 @@ class MicroECSServicesTest {
 
     @Test
     fun `fetchProducts api should call corresponding manager method`() {
-        microECSServices.fetchProducts(0,1) //TODO
+
+        var productFilter= ProductFilter()
+        productFilter.sortType= ECSSortType.priceAscending
+        productFilter.stockLevel=ECSStockLevel.InStock
+        microECSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsCallback) //TODO
     }
 
     @Test

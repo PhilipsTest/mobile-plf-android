@@ -13,10 +13,8 @@
 package com.philips.platform.ecs.microService.error
 
 import com.android.volley.*
-import com.android.volley.NetworkError
-import com.philips.platform.ecs.error.ECSNetworkError
-import com.philips.platform.ecs.microService.model.error.OCCServerError
 import com.philips.platform.ecs.microService.model.error.HybrisError
+import com.philips.platform.ecs.microService.model.error.OCCServerError
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.getJsonError
 
@@ -86,7 +84,10 @@ class VolleyHandler {
         firstFailureString?.let {
 
             val localizedStringID = "ECS$firstFailureString"
-            val ecsErrorType = ECSErrorType.valueOf(localizedStringID)
+            var ecsErrorType= ECSErrorType.ECSsomethingWentWrong // default error
+            try {
+                ecsErrorType = ECSErrorType.valueOf(localizedStringID)
+            }catch(e:Exception){}
             setEcsError(ecsError, ecsErrorType)
         }
 

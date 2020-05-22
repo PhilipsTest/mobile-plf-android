@@ -15,14 +15,24 @@ package com.philips.platform.ecs.microService.manager
 import android.util.Log
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
-import com.philips.platform.ecs.microService.request.GetProductAssetRequest
-import com.philips.platform.ecs.microService.request.GetProductDisclaimerRequest
-import com.philips.platform.ecs.microService.request.GetProductForRequest
-import com.philips.platform.ecs.microService.request.GetSummariesForProductsRequest
+import com.philips.platform.ecs.microService.model.product.ECSProducts
+import com.philips.platform.ecs.microService.request.*
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class ECSProductManager {
+
+    fun getProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter?, ecsCallback :ECSCallback<ECSProducts, ECSError>){
+        val ecsException = ECSApiValidator().getECSException(APIType.Locale)
+
+        ecsException?.let { throw ecsException } ?: kotlin.run {
+
+            val getProductsRequest= GetProductsRequest(productCategory,limit,offset,productFilter, ecsCallback)
+            RequestHandler(getProductsRequest).handleRequest()
+
+        }
+    }
 
     fun getProductFor(ctn: String, eCSCallback: ECSCallback<ECSProduct?, ECSError>) {
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
