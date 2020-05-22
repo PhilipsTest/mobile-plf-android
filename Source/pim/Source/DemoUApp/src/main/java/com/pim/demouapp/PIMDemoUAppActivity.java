@@ -3,6 +3,7 @@ package com.pim.demouapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -12,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -77,6 +80,8 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
+import com.philips.platform.uid.utils.DialogConstants;
+import com.philips.platform.uid.view.widget.AlertDialogFragment;
 import com.philips.platform.uid.view.widget.Button;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.Switch;
@@ -287,7 +292,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void initIAP(){
+    private void initIAP() {
         IAPDependencies mIapDependencies = new IAPDependencies(appInfraInterface, userDataInterface);
         mIAPSettings = new IAPSettings(this);
         mIapInterface = new IAPInterface();
@@ -507,7 +512,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                     detailKeys.add(UserDetailConstants.TOKEN_TYPE);
                     HashMap<String, Object> userDetails = userDataInterface.getUserDetails(detailKeys);
                     Log.i(TAG, "User userDetails : " + userDetails);
-                    showToast("User Details  are :" + userDetails.toString());
+                    showInfoDialog(userDetails.toString());
                 } catch (UserDataInterfaceException e) {
                     e.printStackTrace();
                     showToast("Error code:" + e.getError().getErrCode() + " Error message :" + e.getError().getErrDesc());
@@ -519,7 +524,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         } else if (v == btnISOIDCToken) {
             if (isUserLoggedIn()) {
                 boolean oidcToken = userDataInterface.isOIDCToken();
-                showToast("isOIDCToken : " + oidcToken);
+                if (oidcToken)
+                    showToast("User is logged in via UDI");
+                else
+                    showToast("User is logged in via USR");
             } else {
                 showToast("User is not loged-in, Please login!");
             }
@@ -572,7 +580,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void launchIAP( ) {
+    private void launchIAP() {
         try {
             IAPDependencies mIapDependencies = new IAPDependencies(appInfraInterface, userDataInterface);
             mIAPSettings = new IAPSettings(this);
@@ -679,7 +687,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             progresDialog.dismiss();
     }
 
-    private boolean isUserLoggedIn(){
+    private boolean isUserLoggedIn() {
         return userDataInterface != null && (userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN);
     }
 
@@ -690,6 +698,26 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 Toast.makeText(mContext, toastMsg, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void showInfoDialog(String text) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+        alertDialogBuilder.setMessage(text);
+        alertDialogBuilder.setTitle("Message");
+        alertDialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.show();
+        android.widget.Button button = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        ViewGroup.LayoutParams params = button.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        button.setBackgroundColor(getResources().getColor(R.color.uid_blue_level_50,null));
+        button.setTextColor(getResources().getColor(R.color.uidColorWhite, null));
+        button.setTextSize(18);
+        button.setLayoutParams(params);
     }
 
     public RegistrationContentConfiguration getRegistrationContentConfiguration() {
@@ -715,14 +743,14 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onLoginSuccess() {
-        showToast("PIM Login Success");
+        showToast("UDI Login Success");
         updateUIOnUserLoggedIn();
         cancelProgressDialog();
     }
 
     @Override
     public void onLoginFailed(Error error) {
-        showToast("PIM Login Failed :" + error.getErrCode() + " and reason is" + error.getErrDesc());
+        showToast("UDI Login Failed :" + error.getErrCode() + " and reason is" + error.getErrDesc());
         cancelProgressDialog();
     }
 
