@@ -52,8 +52,5 @@ public class PIMErrorCodes {
     public static final int ACCESS_TOKEN_EXPIRED = 7604;
     public static final int NO_REQUEST_FOR_REDIRECTION = 7605;
     public static final int INVALID_REDIRECTION_URL = 7606;
-    public static final int UDI_SERVER_ERROR = 7607;  //TODO: NEED TO CHECK WITH IOS
-
-
-
+    public static final int UDI_SERVER_ERROR = 7607;
 }

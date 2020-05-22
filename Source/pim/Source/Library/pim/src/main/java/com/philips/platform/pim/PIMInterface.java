@@ -55,6 +55,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
     private PIMMigrator pimMigrator;
     private UserMigrationListener userMigrationListener;
     private UserLoginListener userLoginListener;
+    private boolean isMigrationInProgress;
 
 
     /**
@@ -96,7 +97,6 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
      */
     @Override
     public void launch(UiLauncher uiLauncher, UappLaunchInput uappLaunchInput) {
-
         if (uiLauncher instanceof ActivityLauncher) {
             launchAsActivity(((ActivityLauncher) uiLauncher), (PIMLaunchInput) uappLaunchInput);
             PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Launch : Launched as activity");
@@ -117,6 +117,11 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
         return new PIMDataImplementation(context, PIMSettingManager.getInstance().getPimUserManager());
     }
 
+    /**
+     * To migrate user from USR to PIM
+     *
+     * @param userMigrationListener listener for migration
+     */
     public void migrateJanrainUserToPIM(UserMigrationListener userMigrationListener) {
         final PIMUserManager pimUserManager = PIMSettingManager.getInstance().getPimUserManager();
         if (pimUserManager == null) {
@@ -128,15 +133,21 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
             return;
         }
         this.userMigrationListener = userMigrationListener;
+        if(isMigrationInProgress){
+            PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Migration is already in progress!!");
+            return;
+        }
+
         MutableLiveData<PIMInitState> pimInitLiveData = PIMSettingManager.getInstance().getPimInitLiveData();
-        // new PIMConfigManager(pimUserManager).init(context, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
         pimInitLiveData.observeForever(new Observer<PIMInitState>() {
             @Override
             public void onChanged(@Nullable PIMInitState pimInitState) {
                 if (pimInitState == PIMInitState.INIT_SUCCESS) {
                     pimInitLiveData.removeObserver(this);
+                    isMigrationInProgress = true;
                     pimMigrator.migrateUSRToPIM();
                 } else if (pimInitState == PIMInitState.INIT_FAILED) {
+                    isMigrationInProgress = false;
                     pimInitLiveData.removeObserver(this);
                     userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
                 }
@@ -158,7 +169,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
                 } else if (pimSecureStorageHelper.getAuthorizationResponse() != null) {
                     loginRedirectToClosedApp();
                 } else if (pimMigrator.isMigrationRequired()) {
-                    //PIMSettingManager.getInstance().setMigrationState(PIMMigrationState.MIGRATION_IN_PROGRESS);
+                    isMigrationInProgress = true;
                     pimMigrator.migrateUSRToPIM();
                 }
                 PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
@@ -202,12 +213,14 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
 
     @Override
     public void onUserMigrationSuccess() {
+        isMigrationInProgress = false;
         if (userMigrationListener != null)
             userMigrationListener.onUserMigrationSuccess();
     }
 
     @Override
     public void onUserMigrationFailed(Error error) {
+        isMigrationInProgress = false;
         if (userMigrationListener != null)
             userMigrationListener.onUserMigrationFailed(error);
     }
