@@ -12,6 +12,7 @@
 package com.philips.platform.ecs.microService.request
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
@@ -23,11 +24,11 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, EC
 
 
     override fun getURL(): String {
-        return getRawConfigUrl()
+        return getRawConfigUrl(url)
     }
 
     override fun getServiceID(): String {
-        TODO("Not yet implemented")
+       return ECSConstants.SERVICEID_IAP_BASEURL
     }
 
 
@@ -49,9 +50,8 @@ class GetConfigurationRequest(private val eCSCallback: ECSCallback<ECSConfig, EC
         config?.let { eCSCallback.onResponse(it) }
     }
 
-    //TODO remove this method
-    private fun getRawConfigUrl(): String {
-        return ECSDataHolder.baseURL +"/"+ "pilcommercewebservices"+"/" + "v2" + "/" +
+    private fun getRawConfigUrl(url: String): String {
+        return  url +"/"+ "pilcommercewebservices"+"/" + "v2" + "/" +
                 "inAppConfig" + "/" +
                 ECSDataHolder.locale + "/" +
                 ECSDataHolder.getPropositionId()

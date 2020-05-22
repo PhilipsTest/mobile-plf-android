@@ -25,9 +25,17 @@ class RequestHandler (private val ecsAbstractRequest: ECSAbstractRequest){
 
     private val serviceURLListener = object:ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
         override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
-            ecsAbstractRequest.url = urlMap?.get(ecsAbstractRequest.getServiceID())?.configUrls ?: ""
-            ecsAbstractRequest.locale = urlMap?.get(ecsAbstractRequest.getServiceID())?.locale ?: ""
-            NetworkController().executeRequest(ecsAbstractRequest)
+            val url = urlMap?.get(ecsAbstractRequest.getServiceID())?.configUrls
+
+            url?.let {
+                ecsAbstractRequest.url = it
+                ecsAbstractRequest.locale = urlMap?.get(ecsAbstractRequest.getServiceID())?.locale ?: ""
+                NetworkController().executeRequest(ecsAbstractRequest)
+            }?:run {
+
+                ecsAbstractRequest.ecsErrorCallback.onFailure(ECSError(urlMap?.get(ecsAbstractRequest.getServiceID())?.getmError()?:"",null,null))
+            }
+
         }
 
         override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
