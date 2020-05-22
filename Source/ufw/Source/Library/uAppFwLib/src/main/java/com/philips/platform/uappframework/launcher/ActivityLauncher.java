@@ -78,6 +78,7 @@ public class ActivityLauncher extends UiLauncher {
      @param bundle bundle object
      @since 2.2.0
      */
+    @Deprecated
     public ActivityLauncher(ActivityLauncher.ActivityOrientation screenOrientation, ThemeConfiguration dlsThemeConfiguration,
                             int dlsUiKitTheme, Bundle bundle) {
         mScreenOrientation = screenOrientation;

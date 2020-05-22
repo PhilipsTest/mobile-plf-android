@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MyaLaunchInput extends UappLaunchInput implements Serializable {
 
-    private static final long serialVersionUID = 1584414650805244556L;
+    private static final long serialVersionUID = -1122999835641536577L;
     private transient Context context;
     private MyaListener myaListener;
     private MyaTabConfig myaTabConfig;
