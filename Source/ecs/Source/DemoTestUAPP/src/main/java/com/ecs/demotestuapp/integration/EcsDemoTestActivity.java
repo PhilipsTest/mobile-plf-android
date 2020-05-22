@@ -39,6 +39,7 @@ import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
+import com.philips.platform.pim.PIMInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uid.view.widget.Button;
 
@@ -111,15 +112,18 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
         showAppVersion();
 
         if (!getApplicationName(getApplicationContext()).equals("PIM Demo App")) {
-            urInterface = new URInterface();
-            urInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
-            mUserDataInterface = urInterface.getUserDataInterface();
+
+            try {
+                urInterface = new URInterface();
+                urInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
+                mUserDataInterface = urInterface.getUserDataInterface();
+            }catch (Exception e){
+                PIMInterface pimInterface = new PIMInterface();
+                pimInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
+                mUserDataInterface = pimInterface.getUserDataInterface();
+            }
         }
-//        else {
-//            pimInterface = new PIMInterface();
-//            pimInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
-//            mUserDataInterface = pimInterface.getUserDataInterface();
-//        }
+
         ECSServices ecsServices = new ECSServices(null, new AppInfra.Builder().build(getApplicationContext()));
 
 
