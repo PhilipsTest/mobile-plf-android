@@ -553,15 +553,6 @@ def BuildHPFortify() {
         set -e
         chmod -R 755 .
         ./gradlew --refresh-dependencies
-        /*declare -A ARRAY=( [ail]=AppInfra_Android [dcc]=CC_Android [prg]=PR_Android )
-        for KEY in "${!ARRAY[@]}"; do
-            echo "*** sourceanalyzer -b $KEY -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-            sourceanalyzer -b "$KEY" -source 1.8 -debug-verbose -logfile "Test\${ARRAY[$KEY]}.txt" ./gradlew assembleRelease
-            echo "*** sourceanalyzer -b $KEY -scan -f ${ARRAY[$KEY]}.fpr ***"
-            sourceanalyzer -b "$KEY" -scan -f "${ARRAY[$KEY]}.fpr"
-            echo "*** fortifyclient -url https://fortify.philips.com/ssc ${ARRAY[$KEY]}***"
-            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file ${ARRAY[$KEY]}.fpr -project EMS -version ${ARRAY[$KEY]}
-        done*/
         echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
         sourceanalyzer -b "ail" -source 1.8 -debug-verbose -logfile "Test\AppInfra_Android.txt" ./gradlew assembleRelease
         echo "*** sourceanalyzer -b ail -scan -f AppInfra_Android.fpr ***"
