@@ -559,6 +559,12 @@ def BuildHPFortify() {
         sourceanalyzer -b ail -scan -f AppInfra_Android.fpr
         echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
         fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file AppInfra_Android.fpr -project EMS -version AppInfra_Android
+        echo "*** sourceanalyzer -b dcc -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
+        sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew assembleRelease
+        echo "*** sourceanalyzer -b dcc -scan -f CC_Android.fpr ***"
+        sourceanalyzer -b dcc -scan -f CC_Android.fpr
+        echo "*** fortifyclient -url https://fortify.philips.com/ssc CC_Android***"
+        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file CC_Android.fpr -project EMS -version CC_Android
     '''
 }
 
