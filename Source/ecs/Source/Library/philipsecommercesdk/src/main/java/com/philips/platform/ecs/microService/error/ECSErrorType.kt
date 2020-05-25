@@ -57,9 +57,9 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSorderIdNil(R.string.ECSorderIdNil, 5060),
     ECSsomethingWentWrong(R.string.ECSsomethingWentWrong, 5999),
 
-    ECSPILlanguage(R.string.ECSPILlanguage, 6000),
-    ECSPILsiteId(R.string.ECSPILsiteId, 6001),
-    ECSPILcountry(R.string.ECSPILcountry, 6001);
+    ECSPIL_MISSING_PARAMETER_language(R.string.ECSPIL_MISSING_PARAMETER_country, 6000),
+    ECSPIL_MISSING_PARAMETER_siteId(R.string.ECSPIL_MISSING_PARAMETER_siteId, 6001),
+    ECSPIL_MISSING_PARAMETER_country(R.string.ECSPIL_MISSING_PARAMETER_country, 6002);
 
     //PIL Service
 

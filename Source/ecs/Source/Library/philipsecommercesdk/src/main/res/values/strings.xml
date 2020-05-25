@@ -4,7 +4,7 @@
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="ECS_volley_error">Volley rest Error!</string>
   <string name="ECSAppInfraNotFound">Please provide app infra object</string>
   <string name="ECSBaseURLNotFound">Base URL not found</string>
@@ -48,8 +48,8 @@
 
 <!--  PIL services-->
 
-  <string name="ECSPILlanguage">"Please provide valid language code"</string>
-  <string name="ECSPILsiteId">"Philips shop is not available for the selected country, only retailer mode is available"</string>
-  <string name="ECSPILcountry">"Please provide valid country code"</string>
+  <string name="ECSPIL_MISSING_PARAMETER_language" tools:ignore="MissingTranslation">"Please provide valid language code"</string>
+  <string name="ECSPIL_MISSING_PARAMETER_siteId" tools:ignore="MissingTranslation">"Philips shop is not available for the selected country, only retailer mode is available"</string>
+  <string name="ECSPIL_MISSING_PARAMETER_country" tools:ignore="MissingTranslation">"Please provide valid country code"</string>
 
 </resources>

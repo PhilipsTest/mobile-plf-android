@@ -13,10 +13,13 @@
 package com.philips.platform.ecs.microService.error
 
 import android.util.Base64
+import android.util.Log
 import com.android.volley.*
+import com.google.common.io.Resources.getResource
 import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.util.ECSDataHolder
-import com.philips.platform.ecs.microService.util.getJsonError
+import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject
 import org.junit.Assert.*
 import org.junit.Before
@@ -32,6 +35,7 @@ import org.mockito.stubbing.Answer
 import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
+import java.io.InputStream
 
 
 @PrepareForTest(Base64::class,ServerError::class,VolleyError::class,JSONObject::class)
@@ -159,9 +163,47 @@ class VolleyHandlerTest {
     }
 
     @Test
-    fun getECSError() {
+    fun `When error string is not present `() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNInvalidAPIKeyError.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(5999,ecsDefaultError.errorcode)
+    }
 
+    @Test
+    fun `ecs Error when country is missing`() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNNoCountryError.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(6002,ecsDefaultError.errorcode)
+    }
 
+    @Test
+    fun `ecs Error when site ID is missing`() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNNoSiteIDError.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(6001,ecsDefaultError.errorcode)
+    }
+
+    @Test
+    fun `ecs Error when site language is missing`() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNNoLanguageError.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(6000,ecsDefaultError.errorcode)
     }
 
     fun byteArrayOfInts(vararg ints: Int) = ByteArray(ints.size) { pos -> ints[pos].toByte() }

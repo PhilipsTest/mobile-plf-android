@@ -1,0 +1,10 @@
+{
+   "errors":[
+      {
+         "id":"ab8fd0e5-4a68-45d0-bf0b-c8d1e703852d",
+         "status":"400",
+         "code":"INVALID_API_VERSION",
+         "title":"Invalid API version"
+      }
+   ]
+}

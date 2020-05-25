@@ -14,31 +14,34 @@ package com.philips.platform.ecs.microService.error
 
 import com.android.volley.*
 import com.philips.platform.ecs.microService.model.error.HybrisError
-import com.philips.platform.ecs.microService.model.error.OCCServerError
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.getJsonError
 
 class VolleyHandler {
 
 
-    fun getECSError(volleyError: VolleyError?) : ECSError{
+    fun getECSError(volleyError: VolleyError?): ECSError {
 
-       var ecsError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(),ECSErrorType.ECSsomethingWentWrong.errorCode,ECSErrorType.ECSsomethingWentWrong)
-       if(volleyError==null) return ecsError
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        if (volleyError == null) return ecsDefaultError
 
         val ecsVolleyError = ECSError(ECSErrorType.ECS_volley_error.getLocalizedErrorString(), ECSErrorType.ECS_volley_error.errorCode, ECSErrorType.ECS_volley_error)
 
-        when(volleyError){
+        when (volleyError) {
 
-            is NoConnectionError -> ecsError = ecsVolleyError
-            is TimeoutError -> ecsError = ecsVolleyError
-            is AuthFailureError -> { handleAuthError()}
-            is NetworkError -> ecsError = ecsVolleyError
-            is ParseError -> ecsError = ecsVolleyError
-            is ServerError ->{ handleServerError(volleyError, ecsError) }
+            is NoConnectionError -> ecsDefaultError = ecsVolleyError
+            is TimeoutError -> ecsDefaultError = ecsVolleyError
+            is AuthFailureError -> {
+                handleAuthError()
+            }
+            is NetworkError -> ecsDefaultError = ecsVolleyError
+            is ParseError -> ecsDefaultError = ecsVolleyError
+            is ServerError -> {
+                handleServerError(volleyError, ecsDefaultError)
+            }
 
         }
-        return ecsError
+        return ecsDefaultError
     }
 
     private fun handleAuthError() {
@@ -46,26 +49,10 @@ class VolleyHandler {
     }
 
     private fun handleServerError(volleyError: ServerError, ecsError: ECSError) {
-
         val jsonErrorObject = volleyError.getJsonError()
-        //For PIL
         val pilError = jsonErrorObject?.getData(HybrisError::class.java)
         if (pilError?.errors?.size ?: 0 > 0) {
             setPILECSError(pilError, ecsError)
-        }
-
-        //for OCC Hybris config TODO - to be removed
-
-        if(pilError==null) {
-            val occError = jsonErrorObject?.getData(OCCServerError::class.java)
-            if (occError?.errors?.size ?: 0 > 0) {
-
-                val localizedStringID = occError?.errors?.get(0)?.type
-                localizedStringID?.let {
-                    val ecsErrorType = ECSErrorType.valueOf("ECS$localizedStringID")
-                    setEcsError(ecsError, ecsErrorType)
-                }
-            }
         }
     }
 
@@ -75,20 +62,22 @@ class VolleyHandler {
         ecsError.errorType = ecsErrorType
     }
 
-    private fun setPILECSError(pilError: HybrisError?, ecsError: ECSError) {
+    internal fun setPILECSError(pilError: HybrisError?, ecsError: ECSError) {
         val parameter = pilError?.errors?.get(0)?.source?.parameter
+        val code = pilError?.errors?.get(0)?.code
         val commaSeparatedParameterString = parameter?.replace("[", "")?.replace("]", "")
-        val firstFailureString = commaSeparatedParameterString?.split(",")?.get(0)
+        val firstFailureParameterString = commaSeparatedParameterString?.split(",")?.get(0)
 
 
-        firstFailureString?.let {
+        code?.let {
 
-            val localizedStringID = "ECS$firstFailureString"
-            var ecsErrorType= ECSErrorType.ECSsomethingWentWrong // default error
+            val localizedStringID = "ECSPIL"+"_"+code+"_"+firstFailureParameterString
             try {
-                ecsErrorType = ECSErrorType.valueOf(localizedStringID)
-            }catch(e:Exception){}
-            setEcsError(ecsError, ecsErrorType)
+                val ecsErrorType = ECSErrorType.valueOf(localizedStringID)
+                setEcsError(ecsError, ecsErrorType)
+            } catch (e: Exception) {
+            }
+
         }
 
     }
