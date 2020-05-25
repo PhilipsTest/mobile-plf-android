@@ -108,7 +108,7 @@
       "subgroup": [{
         "name": "fetchProducts",
         "apiNumber": 45,
-        "editText": 2,
+        "editText": 4,
         "spinner": 0,
         "button": 0,
         "editTexts": [{
@@ -121,6 +121,18 @@
             "text": "secret",
             "inputType": 2,
             "hint": "enter page size"
+          },
+          {
+            "tag": "et_three",
+            "text": "FOOD_PREPARATION_CA2",
+            "inputType": 2,
+            "hint": "enter category"
+          },
+          {
+            "tag": "et_four",
+            "text": "2017-10-31T20:34:55Z",
+            "inputType": 2,
+            "hint": "enter modified timestamp since"
           }
         ],
         "spinners": [],

@@ -17,8 +17,9 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
 
 
 
-    EditText etPageNumber,etPageSize;
+    EditText etPageNumber,etPageSize, etModifiedSince, etCategory;
     int  pageSize = 20,pageNumber =0;
+    String modifiedSince , category;
 
     @Override
     public void onResume() {
@@ -28,6 +29,9 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         etPageNumber.setText(pageNumber+"");
         etPageSize = getLinearLayout().findViewWithTag("et_two");
         etPageSize.setText(pageSize+"");
+        etCategory = getLinearLayout().findViewWithTag("et_three");
+        etModifiedSince = getLinearLayout().findViewWithTag("et_four");
+
     }
 
     public void executeRequest() {
@@ -40,6 +44,14 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             pageNumber = Integer.valueOf(etPageNumber.getText().toString().trim());
         }
 
+        if(!etCategory.getText().toString().trim().isEmpty()){
+            category = etCategory.getText().toString().trim();
+        }
+
+        if(!etModifiedSince.getText().toString().trim().isEmpty()){
+            modifiedSince = etModifiedSince.getText().toString().trim();
+        }
+
         MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
         try {
             /*todo
@@ -47,8 +59,9 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             * */
             ProductFilter productFilter= new ProductFilter();
             productFilter.setSortType(ECSSortType.priceDescending);
+            if(null!=modifiedSince)productFilter.setModifiedSince(modifiedSince);
            // productFilter.setStockLevel( ECSStockLevel.InStock);
-            microECSServices.fetchProducts("FOOD_PREPARATION_CA2",pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
+            microECSServices.fetchProducts(category,pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
                 @Override
                 public void onResponse(ECSProducts result) {
                     PILDataHolder.INSTANCE.setProductList(result);
