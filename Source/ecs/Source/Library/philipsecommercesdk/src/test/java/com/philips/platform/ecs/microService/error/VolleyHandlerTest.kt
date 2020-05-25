@@ -163,7 +163,7 @@ class VolleyHandlerTest {
     }
 
     @Test
-    fun `When error string is not present `() {
+    fun `test When error string is not present `() {
         //volleyHandler.setPILECSError()
         val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNInvalidAPIKeyError.json").readText()
         val jsonObject = JSONObject(errorString)
@@ -174,36 +174,47 @@ class VolleyHandlerTest {
     }
 
     @Test
-    fun `ecs Error when country is missing`() {
+    fun `test ecs Error when country is missing`() {
         //volleyHandler.setPILECSError()
         val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNNoCountryError.json").readText()
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(6002,ecsDefaultError.errorcode)
+        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorcode)
     }
 
     @Test
-    fun `ecs Error when site ID is missing`() {
+    fun `test ecs Error when site ID is missing`() {
         //volleyHandler.setPILECSError()
         val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNNoSiteIDError.json").readText()
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(6001,ecsDefaultError.errorcode)
+        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_siteId.errorCode,ecsDefaultError.errorcode)
     }
 
     @Test
-    fun `ecs Error when site language is missing`() {
+    fun `test ecs Error when language is missing`() {
         //volleyHandler.setPILECSError()
         val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNNoLanguageError.json").readText()
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(6000,ecsDefaultError.errorcode)
+        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_language.errorCode,ecsDefaultError.errorcode)
+    }
+
+    @Test
+    fun `test ecs Error when multiple  parameters are missing`() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNNoQueryParamsError.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorcode)
     }
 
     fun byteArrayOfInts(vararg ints: Int) = ByteArray(ints.size) { pos -> ints[pos].toByte() }
