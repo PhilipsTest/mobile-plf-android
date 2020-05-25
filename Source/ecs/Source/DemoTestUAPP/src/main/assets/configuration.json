@@ -109,7 +109,7 @@
         "name": "fetchProducts",
         "apiNumber": 45,
         "editText": 4,
-        "spinner": 0,
+        "spinner": 2,
         "button": 0,
         "editTexts": [{
           "tag": "et_one",
@@ -135,7 +135,17 @@
             "hint": "enter modified timestamp since"
           }
         ],
-        "spinners": [],
+        "spinners": [{
+          "tag": "spinner_sort_type",
+          "text": "Sort",
+          "hint": "Sort by"
+        },
+          {
+            "tag": "spinner_stock_level",
+            "text": "Stock",
+            "hint": "Stock level"
+          }
+        ],
         "switches": []
       },
         {
