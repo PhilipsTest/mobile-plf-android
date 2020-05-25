@@ -40,6 +40,8 @@ class MECOrderHistoryService {
 
     fun getDateOrderMap(dateOrdersMap: LinkedHashMap<String, MutableList<ECSOrders>>, ordersList: MutableList<ECSOrders>) {
 
+        dateOrdersMap.clear() // clearing the map as we are arranging the detail in descending order on whole list
+
         for(ecsOrders in ordersList){
             val formattedDate = getFormattedDate(ecsOrders.placed)
             if(dateOrdersMap.containsKey(formattedDate)){
