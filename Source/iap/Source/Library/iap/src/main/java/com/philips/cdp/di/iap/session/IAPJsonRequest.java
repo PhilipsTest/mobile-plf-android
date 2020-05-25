@@ -19,9 +19,11 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,6 +35,8 @@ public class IAPJsonRequest extends Request<JSONObject> {
     private ErrorListener mErrorListener;
     private Map<String, String> params;
     protected Handler mHandler;
+
+    private static final String PIM_401_UNAUTHORISED=  "401 Unauthorized";
 
     public IAPJsonRequest(int method, String url, Map<String, String> params,
                           Listener<JSONObject> responseListener, ErrorListener errorListener) {
@@ -60,9 +64,7 @@ public class IAPJsonRequest extends Request<JSONObject> {
     @Override
     public Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
         try {
-            final String encodedString = Base64.encodeToString(response.data, Base64.DEFAULT);
-            final byte[] decode = Base64.decode(encodedString, Base64.DEFAULT);
-            final String jsonString = new String(decode);
+            final String jsonString = getNetworkResponseString(response);
             JSONObject result = null;
             if (jsonString.length() > 0)
                 result = new JSONObject(jsonString);
@@ -71,6 +73,13 @@ public class IAPJsonRequest extends Request<JSONObject> {
         } catch (JSONException je) {
             return Response.error(new ParseError(je));
         }
+    }
+
+    @NotNull
+    private String getNetworkResponseString(NetworkResponse response) {
+        final String encodedString = Base64.encodeToString(response.data, Base64.DEFAULT);
+        final byte[] decode = Base64.decode(encodedString, Base64.DEFAULT);
+        return new String(decode);
     }
 
     @Override
@@ -95,22 +104,45 @@ public class IAPJsonRequest extends Request<JSONObject> {
 
     protected void handleMiscErrors(final VolleyError error) {
         if (error instanceof AuthFailureError) {
-            HybrisDelegate.getNetworkController().refreshOAuthToken(new RequestListener() {
-                @Override
-                public void onSuccess(final Message msg) {
-                    postSelfAgain();
-                }
-
-                @Override
-                public void onError(final Message msg) {
-                    postErrorResponseOnUIThread(error);
-                }
-            });
-        } else {
+            refreshOAuth(error);
+        }else if (isPIMUnAuthorizedError(error)){
+            refreshOAuth(error);
+        } else{
             postErrorResponseOnUIThread(error);
         }
 
 
+    }
+
+    private void refreshOAuth(VolleyError error) {
+        HybrisDelegate.getNetworkController().refreshOAuthToken(new RequestListener() {
+            @Override
+            public void onSuccess(final Message msg) {
+                postSelfAgain();
+            }
+
+            @Override
+            public void onError(final Message msg) {
+                postErrorResponseOnUIThread(error);
+            }
+        });
+    }
+
+    private boolean isPIMUnAuthorizedError(VolleyError error) {
+        if(error instanceof ServerError && error.networkResponse!=null){
+            String networkResponseString = getNetworkResponseString(error.networkResponse);
+            try {
+                JSONObject networkResponseJsonObject = new JSONObject(networkResponseString);
+                String errorDescription=networkResponseJsonObject.optString("error_description","");
+                if(errorDescription.equalsIgnoreCase(PIM_401_UNAUTHORISED)){
+                    return true;
+                }
+            } catch (JSONException e) {
+
+            }
+        }
+
+        return false;
     }
 
     private void postSelfAgain() {
