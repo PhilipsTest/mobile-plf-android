@@ -16,12 +16,14 @@ public class PIMDemoUAppApplication extends Application {
     @NonNull
     private AppInfraInterface appInfraInterface;
     private UserDataInterface userDataInterface;
+    private  PIMInterface pimInterface;
 
     @Override
     public void onCreate() {
         setInstance(this);
         super.onCreate();
         appInfraInterface = new AppInfra.Builder().build(this);
+        initialisePim();
     }
 
     public static PIMDemoUAppApplication getInstance() {
@@ -47,13 +49,17 @@ public class PIMDemoUAppApplication extends Application {
     public void initialisePim() {
         PIMDemoUAppDependencies pimDemoUAppDependencies = new PIMDemoUAppDependencies(appInfraInterface);
         PIMDemoUAppSettings pimDemoUAppSettings = new PIMDemoUAppSettings(this);
-        PIMInterface pimInterface = new PIMInterface();
+        pimInterface = new PIMInterface();
         pimInterface.init(pimDemoUAppDependencies, pimDemoUAppSettings);
         userDataInterface = pimInterface.getUserDataInterface();
     }
 
     public UserDataInterface getUserDataInterface() {
         return userDataInterface;
+    }
+
+    public PIMInterface getPIMInterface(){
+        return pimInterface;
     }
 
 }

@@ -38,7 +38,7 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
         }
 
         etClient = getLinearLayout().findViewWithTag("et_two");
-        if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
+        if (ECSDataHolder.INSTANCE.getUserDataInterface()!=null && ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
             etClient.setText(ClientID.OIDC.getType());
         else
             etClient.setText(ClientID.JANRAIN.getType());
@@ -86,9 +86,13 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
 
             @Override
             public ClientID getClientID() {
-                if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()){
-                    return ClientID.OIDC;
+                if(ECSDataHolder.INSTANCE.getUserDataInterface()!=null){
+
+                    if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()){
+                        return ClientID.OIDC;
+                    }
                 }
+
                 return ClientID.JANRAIN;
             }
 
@@ -99,9 +103,12 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
 
             @Override
             public GrantType getGrantType() {
-                if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()) {
-                    return GrantType.OIDC;
+                if(ECSDataHolder.INSTANCE.getUserDataInterface()!=null){
+                    if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()) {
+                        return GrantType.OIDC;
+                    }
                 }
+
                 return GrantType.JANRAIN;
             }
         };

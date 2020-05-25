@@ -80,7 +80,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     private EditText mEtCTN, mEtPropositionId,mEtVoucherCode;
 
     private Button mRegister;
-    private Button mShopNow;
+    private Button mShopNow,mBtnOrderHistory;
     private Button mShopNowCategorized;
     private Button mLaunchProductDetail;
     private Button mAddCtn, mBtnSetPropositionId,mBtn_add_voucher,mbtnSetMaxCount;
@@ -116,6 +116,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     private TextView versionView;
     private View rootView;
     private AppInfraInterface mAppInfraInterface;
+
 
 
     @Override
@@ -235,6 +236,9 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
             mShopNow = rootView.findViewById(R.id.btn_shop_now);
             mShopNow.setOnClickListener(this);
+
+            mBtnOrderHistory = rootView.findViewById(R.id.btn_order_history);
+            mBtnOrderHistory.setOnClickListener(this);
 
             mLaunchProductDetail = rootView.findViewById(R.id.btn_launch_product_detail);
             mLaunchProductDetail.setOnClickListener(this);
@@ -465,7 +469,20 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             } else {
                 Toast.makeText(getActivity(), "Please add CTN", Toast.LENGTH_SHORT).show();
             }
-        } else if (view == mShopNowCategorized) {
+        }
+
+        else if (view == mBtnOrderHistory) {
+
+                MECFlowConfigurator input = new MECFlowConfigurator();
+                if (getActivity() instanceof LaunchAsActivity) {
+                    launchMEC(MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY, input, null);
+                } else if (getActivity() instanceof LaunchAsFragment) {
+                    launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY, input, null);
+                }
+
+        }
+
+        else if (view == mShopNowCategorized) {
             if (mCategorizedProductList.size() > 0) {
                 MECFlowConfigurator input = new MECFlowConfigurator();
                 input.setCTNs(mCategorizedProductList);

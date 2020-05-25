@@ -239,7 +239,6 @@ public class PIMAuthManager {
 
                 return AuthorizationException.AuthorizationRequestErrors.STATE_MISMATCH.toIntent();
             }
-
             return response.toIntent();
         }
     }

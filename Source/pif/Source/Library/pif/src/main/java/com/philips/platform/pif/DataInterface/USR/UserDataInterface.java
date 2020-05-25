@@ -12,8 +12,6 @@ import com.philips.platform.pif.DataInterface.USR.listeners.RefetchUserDetailsLi
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserDataListener;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserMigrationListener;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,9 +39,7 @@ public interface UserDataInterface extends Serializable {
      *
      * @return returns the HSDP access token
      * @since 2018.1.0
-     * @deprecated since 1903
      */
-    @Deprecated
     String getHSDPAccessToken();
 
     /**
@@ -51,10 +47,11 @@ public interface UserDataInterface extends Serializable {
      *
      * @return returns the HSDP UUID
      * @since 2018.1.0
-     * @deprecated since 1903
      */
-    @Deprecated
     String getHSDPUUID();
+
+    void logoutHSDP(LogoutSessionListener logoutSessionListener);
+
 
     /**
      * {@code getUserSignInState} method checks a user is logged in state
@@ -69,9 +66,7 @@ public interface UserDataInterface extends Serializable {
      *
      * @param hsdpAuthenticationListener
      * @since 1804.0
-     * @deprecated since 1903
      */
-    @Deprecated
     void authorizeHsdp(HSDPAuthenticationListener hsdpAuthenticationListener);
 
     /**
@@ -97,13 +92,6 @@ public interface UserDataInterface extends Serializable {
      * @return true if the current access token is from OIDC else return false
      */
     boolean isOIDCToken();
-
-    /**
-     * To migrate user from USR to PIM
-     *
-     * @param userMigrationListener listener for migration
-     */
-    void migrateUserToPIM(UserMigrationListener userMigrationListener);
 
     /**
      * log out the user

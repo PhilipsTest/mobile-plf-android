@@ -239,8 +239,8 @@
     </style>
 
     <style name="orderNetworkImage">
-        <item name="android:layout_width">@dimen/iap_network_image_width_height</item>
-        <item name="android:layout_height">@dimen/iap_network_image_width_height</item>
+        <item name="android:layout_width">@dimen/iap_list_header</item>
+        <item name="android:layout_height">@dimen/iap_list_header</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:src">@drawable/no_icon</item>
         <item name="android:includeFontPadding">false</item>
@@ -311,7 +311,7 @@
 
     <style name="mec_list_header">
         <item name="fontPath">fonts/centralesansmedium.ttf</item>
-        <item name="android:background">?attr/uidContentSecondaryBackgroundColor</item>
+        <item name="android:background">?attr/uidContentSecondaryNeutralBackgroundColor</item>
         <item name="android:minHeight">@dimen/iap_list_height_height</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:gravity">center_vertical</item>
@@ -322,6 +322,22 @@
         <item name="android:textColor">?attr/uidContentItemPrimaryNormalTextColor</item>
 
     </style>
+
+    <style name="mec_history_list_header">
+        <item name="fontPath">fonts/centralesansmedium.ttf</item>
+        <item name="android:background">?attr/uidContentSecondaryNeutralBackgroundColor</item>
+        <item name="android:minHeight">@dimen/iap_list_height_height</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/iap_body_text</item>
+        <item name="android:paddingBottom">@dimen/iap_title_padding</item>
+        <item name="android:paddingTop">@dimen/iap_title_padding</item>
+        <item name="android:spacing">@dimen/iap_body_text_line_spacing_extra</item>
+        <item name="android:textColor">?attr/uidContentItemTertiaryNormalTextColor</item>
+
+    </style>
+
+
 
     <style name="mec_address_header">
         <item name="fontPath">fonts/centralesansmedium.ttf</item>

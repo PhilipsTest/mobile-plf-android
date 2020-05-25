@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.philips.cdp.prxclient.PrxConstants;
 import com.philips.cdp.prxclient.datamodels.summary.PRXSummaryListResponse;
-import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.cdp.prxclient.response.ResponseData;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.logging.LoggingInterface;
@@ -14,7 +13,6 @@ import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryServ
 
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

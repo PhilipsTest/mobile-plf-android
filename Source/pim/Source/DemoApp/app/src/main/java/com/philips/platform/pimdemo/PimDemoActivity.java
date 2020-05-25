@@ -4,15 +4,14 @@ package com.philips.platform.pimdemo;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.AppCompatSpinner;
-
-import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import com.philips.platform.pim.UDIRedirectReceiverActivity;
 import com.philips.platform.uid.utils.UIDActivity;
@@ -41,10 +40,12 @@ public class PimDemoActivity extends UIDActivity {
         libraryList.add("USR");
         ArrayAdapter libraryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, libraryList);
         selectLibrary.setAdapter(libraryAdapter);
+        selectLibrary.setSelection(0,false);
         selectLibrary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String selectedLib = libraryList.get(position);
+                Log.i("PimDemoActivity","selectedLib"+selectedLib);
                 if (selectedLib.equalsIgnoreCase("USR"))
                     PIMDemoUAppApplication.getInstance().intialiseUR();
                 else
@@ -57,29 +58,19 @@ public class PimDemoActivity extends UIDActivity {
         });
 
         launchUApp.setOnClickListener(v -> {
-            launchUApp();
+            launchUApp(false);
         });
 
         if (getIntent().hasExtra(UDIRedirectReceiverActivity.REDIRECT_TO_CLOSED_APP)) {
-            progressBar.setVisibility(View.VISIBLE);
-            selectLibrary.setVisibility(View.INVISIBLE);
-            launchUApp.setVisibility(View.INVISIBLE);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    launchUApp();
-                    progressBar.setVisibility(View.INVISIBLE);
-                    selectLibrary.setVisibility(View.VISIBLE);
-                    launchUApp.setVisibility(View.VISIBLE
-                    );
-                }
-            }, 5000);
+            launchUApp(true);
         }
     }
 
-    private void launchUApp() {
+    private void launchUApp(boolean isRedirectToClosedApp) {
         Intent intent = new Intent(PimDemoActivity.this, PIMDemoUAppActivity.class);
         intent.putExtra("SelectedLib", selectLibrary.getSelectedItem().toString());
+        if(isRedirectToClosedApp)
+            intent.putExtra(UDIRedirectReceiverActivity.REDIRECT_TO_CLOSED_APP,true);
         SharedPreferences preferences = this.getSharedPreferences("chuckEnabled", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("CHUCK", enableChuck.isChecked());

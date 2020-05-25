@@ -20,6 +20,9 @@ import androidx.lifecycle.Observer;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
+import com.philips.platform.pim.listeners.UserLoginListener;
+import com.philips.platform.pim.listeners.UserMigrationListener;
+import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.fragment.PIMFragment;
 import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.manager.PIMConfigManager;
@@ -43,12 +46,17 @@ import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DE
 /**
  * Used to initialize and launch PIM
  */
-public class PIMInterface implements UappInterface {
+public class PIMInterface implements UappInterface, UserMigrationListener,PIMLoginListener {
     static final String PIM_KEY_ACTIVITY_THEME = "PIM_KEY_ACTIVITY_THEME";
     public static final String PIM_KEY_CONSENTS = "PIM_KEY_CONSENTS";
     private final String TAG = PIMInterface.class.getSimpleName();
 
     private Context context;
+    private PIMMigrator pimMigrator;
+    private UserMigrationListener userMigrationListener;
+    private UserLoginListener userLoginListener;
+    private boolean isMigrationInProgress;
+
 
     /**
      * API to initialize PIM. Please make sure no propositions are being used before PIMInterface$init.
@@ -75,28 +83,10 @@ public class PIMInterface implements UappInterface {
         PIMConfigManager pimConfigManager = new PIMConfigManager(pimUserManager);
         pimConfigManager.init(uappSettings.getContext(), uappDependencies.getAppInfra().getServiceDiscovery());
 
+        pimMigrator = new PIMMigrator(context, this);
+
         PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "PIMInterface init called.");
     }
-
-    private final Observer<PIMInitState> observer = new Observer<PIMInitState>() {
-        @Override
-        public void onChanged(@Nullable PIMInitState pimInitState) {
-            PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(PIMSettingManager.getInstance().getAppInfraInterface());
-            PIMMigrator pimMigrator = new PIMMigrator(context);
-            if (pimInitState == PIMInitState.INIT_SUCCESS) {
-                if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-                    PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "User is already logged in");
-                } else if (pimSecureStorageHelper.getAuthorizationResponse() != null) {
-                    loginRedirectToClosedApp();
-                } else if (pimMigrator.isMigrationRequired()) {
-                    pimMigrator.migrateUSRToPIM();
-                }
-                PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
-            } else if (pimInitState == PIMInitState.INIT_FAILED) {
-                PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
-            }
-        }
-    };
 
     /**
      * Launches the PIM user interface. The component can be launched either with an ActivityLauncher or a FragmentLauncher.
@@ -107,7 +97,6 @@ public class PIMInterface implements UappInterface {
      */
     @Override
     public void launch(UiLauncher uiLauncher, UappLaunchInput uappLaunchInput) {
-
         if (uiLauncher instanceof ActivityLauncher) {
             launchAsActivity(((ActivityLauncher) uiLauncher), (PIMLaunchInput) uappLaunchInput);
             PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Launch : Launched as activity");
@@ -117,21 +106,82 @@ public class PIMInterface implements UappInterface {
         }
     }
 
-    private void loginRedirectToClosedApp() {
-        PIMLoginManager pimLoginManager = new PIMLoginManager(context, PIMSettingManager.getInstance().getPimOidcConfigration(), null);
-        pimLoginManager.exchangeCodeOnEmailVerify(new PIMLoginListener() {
-            @Override
-            public void onLoginSuccess() {
-                if (PIMSettingManager.getInstance().getPimUserLoginListener() != null)
-                    PIMSettingManager.getInstance().getPimUserLoginListener().onLoginSuccess();
-            }
+    /**
+     * Get the User Data Interface
+     */
+    public UserDataInterface getUserDataInterface() {
+        if (context == null) {
+            PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "getUserDataInterface: Context is null");
+            return null;
+        }
+        return new PIMDataImplementation(context, PIMSettingManager.getInstance().getPimUserManager());
+    }
 
+    /**
+     * To migrate user from USR to PIM
+     *
+     * @param userMigrationListener listener for migration
+     */
+    public void migrateJanrainUserToPIM(UserMigrationListener userMigrationListener) {
+        final PIMUserManager pimUserManager = PIMSettingManager.getInstance().getPimUserManager();
+        if (pimUserManager == null) {
+            userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
+            return;
+        }
+        if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            userMigrationListener.onUserMigrationSuccess();
+            return;
+        }
+        this.userMigrationListener = userMigrationListener;
+        if(isMigrationInProgress){
+            PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Migration is already in progress!!");
+            return;
+        }
+
+        MutableLiveData<PIMInitState> pimInitLiveData = PIMSettingManager.getInstance().getPimInitLiveData();
+        pimInitLiveData.observeForever(new Observer<PIMInitState>() {
             @Override
-            public void onLoginFailed(Error error) {
-                if (PIMSettingManager.getInstance().getPimUserLoginListener() != null)
-                    PIMSettingManager.getInstance().getPimUserLoginListener().onLoginFailed(error);
+            public void onChanged(@Nullable PIMInitState pimInitState) {
+                if (pimInitState == PIMInitState.INIT_SUCCESS) {
+                    pimInitLiveData.removeObserver(this);
+                    isMigrationInProgress = true;
+                    pimMigrator.migrateUSRToPIM();
+                } else if (pimInitState == PIMInitState.INIT_FAILED) {
+                    isMigrationInProgress = false;
+                    pimInitLiveData.removeObserver(this);
+                    userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
+                }
             }
         });
+    }
+
+    public void setLoginListener(UserLoginListener userLoginListener){
+        this.userLoginListener = userLoginListener;
+    }
+
+    private final Observer<PIMInitState> observer = new Observer<PIMInitState>() {
+        @Override
+        public void onChanged(@Nullable PIMInitState pimInitState) {
+            PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(PIMSettingManager.getInstance().getAppInfraInterface());
+            if (pimInitState == PIMInitState.INIT_SUCCESS) {
+                if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+                    PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "User is already logged in");
+                } else if (pimSecureStorageHelper.getAuthorizationResponse() != null) {
+                    loginRedirectToClosedApp();
+                } else if (pimMigrator.isMigrationRequired()) {
+                    isMigrationInProgress = true;
+                    pimMigrator.migrateUSRToPIM();
+                }
+                PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
+            } else if (pimInitState == PIMInitState.INIT_FAILED) {
+                PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
+            }
+        }
+    };
+
+    private void loginRedirectToClosedApp() {
+        PIMLoginManager pimLoginManager = new PIMLoginManager(context, PIMSettingManager.getInstance().getPimOidcConfigration(), null);
+        pimLoginManager.exchangeCodeOnEmailVerify(this);
     }
 
     private void launchAsFragment(FragmentLauncher uiLauncher, PIMLaunchInput pimLaunchInput) {
@@ -139,7 +189,7 @@ public class PIMInterface implements UappInterface {
         Bundle bundle = new Bundle();
         bundle.putSerializable(PIM_KEY_CONSENTS, pimLaunchInput.getParameterToLaunch());
         pimFragment.setArguments(bundle);
-        pimFragment.setActionbarListener(uiLauncher.getActionbarListener(), pimLaunchInput.getUserLoginListener());
+        pimFragment.setActionbarListener(uiLauncher.getActionbarListener(), this);
         addFragment(uiLauncher, pimFragment);
     }
 
@@ -156,22 +206,34 @@ public class PIMInterface implements UappInterface {
             Intent intent = new Intent(uiLauncher.getActivityContext(), PIMActivity.class);
             intent.putExtra(PIM_KEY_ACTIVITY_THEME, uiLauncher.getUiKitTheme());
             intent.putExtra(PIM_KEY_CONSENTS, pimLaunchInput.getParameterToLaunch());
-            PIMSettingManager.getInstance().setUserLoginInerface(pimLaunchInput.getUserLoginListener());
-
+            PIMSettingManager.getInstance().setUserLoginInerface(this);
             uiLauncher.getActivityContext().startActivity(intent);
         }
     }
 
-    /**
-     * Get the User Data Interface
-     *
-     * @since TODO: Update PIM version
-     */
-    public UserDataInterface getUserDataInterface() {
-        if (context == null) {
-            PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "getUserDataInterface: Context is null");
-            return null;
-        }
-        return new PIMDataImplementation(context, PIMSettingManager.getInstance().getPimUserManager());
+    @Override
+    public void onUserMigrationSuccess() {
+        isMigrationInProgress = false;
+        if (userMigrationListener != null)
+            userMigrationListener.onUserMigrationSuccess();
+    }
+
+    @Override
+    public void onUserMigrationFailed(Error error) {
+        isMigrationInProgress = false;
+        if (userMigrationListener != null)
+            userMigrationListener.onUserMigrationFailed(error);
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        if(userLoginListener != null)
+            userLoginListener.onLoginSuccess();
+    }
+
+    @Override
+    public void onLoginFailed(Error error) {
+        if(userLoginListener != null)
+            userLoginListener.onLoginFailed(error);
     }
 }

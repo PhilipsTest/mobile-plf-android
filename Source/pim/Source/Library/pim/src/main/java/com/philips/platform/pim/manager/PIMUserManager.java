@@ -143,11 +143,7 @@ public class PIMUserManager {
     }
 
     public void logoutSession(LogoutSessionListener logoutSessionListener) {
-        String clientID;
-        if (getLoginFlow() == LOGIN_FLOW.MIGRATION)
-            clientID = new PIMOIDCConfigration().getMigrationClientId();
-        else
-            clientID = new PIMOIDCConfigration().getClientId();
+        String clientID = PIMSettingManager.getInstance().getPimOidcConfigration().getClientId();
 
         LogoutRequest logoutRequest = new LogoutRequest(authState, clientID);
         pimRestClient.invokeRequest(logoutRequest, response -> {
@@ -310,7 +306,6 @@ public class PIMUserManager {
                     requestUpdateOptinAndDownloadUserprofile(updateUserDetailsHandler, requestData);
                 } else
                     updateUserDetailsHandler.onUpdateFailedWithError(new Error(PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode)));
-
             }
 
             @Override

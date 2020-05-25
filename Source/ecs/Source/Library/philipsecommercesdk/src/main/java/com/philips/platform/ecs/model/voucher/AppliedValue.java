@@ -30,4 +30,8 @@ public class AppliedValue implements Serializable {
     public String getValue() {
         return value;
     }
+
+    public void setFormattedValue(String formattedValue) {
+        this.formattedValue = formattedValue;
+    }
 }

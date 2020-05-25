@@ -55,6 +55,7 @@ public enum ECSErrorEnum {
     ECSPropositionIdNotFound( R.string.ECSPropositionIdNotFound, 5053),
     ECSSiteIdNotFound( R.string.ECSSiteIdNotFound, 5054),
     ECSHybrisNotAvailable( R.string.ECSHybrisNotAvailable, 5055),
+    ECSUnsupportedLanguageError(R.string.ECSHybrisNotAvailable, 5055),
     ECSCtnNotProvided( R.string.ECSCtnNotProvided, 5056),
     ECSOAuthNotCalled( R.string.ECSOAuthNotCalled, 5057),
     ECSOAuthDetailError( R.string.ECSOAuthDetailError, 5058),
@@ -90,8 +91,9 @@ public enum ECSErrorEnum {
     }
 
     public  String getLocalizedErrorString(){
-        String localizedError= ECSConfiguration.INSTANCE.getAppInfra().getAppInfraContext().getString(R.string.ECSsomethingWentWrong);
+        String localizedError= "";
         try{
+            localizedError= ECSConfiguration.INSTANCE.getAppInfra().getAppInfraContext().getString(R.string.ECSsomethingWentWrong);
             localizedError =   ECSConfiguration.INSTANCE.getAppInfra().getAppInfraContext().getResources().getString(getResourceID());
         } catch(Exception e){
             Log.e("RES_NOT_FOUND", e.getMessage());

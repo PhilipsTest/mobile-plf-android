@@ -52,6 +52,5 @@ public class PIMSecureStorageHelper {
 
     public boolean deleteAuthorizationResponse() {
         return appInfra.getSecureStorage().removeValueForKey(AUTHORIZATION_RESPONSE);
-
     }
 }

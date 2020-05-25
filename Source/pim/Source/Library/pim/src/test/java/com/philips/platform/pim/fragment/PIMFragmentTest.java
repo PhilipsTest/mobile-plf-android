@@ -13,7 +13,8 @@ import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryServ
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
+import com.philips.platform.pim.listeners.PIMLoginListener;
+import com.philips.platform.pim.listeners.UserLoginListener;
 import com.philips.platform.pim.PIMActivity;
 import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
@@ -116,7 +117,7 @@ public class PIMFragmentTest extends TestCase {
     @Test
     public void testLoginSuccess() {
         ActionBarListener actionBarListener = mock(ActionBarListener.class);
-        UserLoginListener mockUserLoginListener = mock(UserLoginListener.class);
+        PIMLoginListener mockUserLoginListener = mock(PIMLoginListener.class);
         pimFragment.setActionbarListener(actionBarListener, mockUserLoginListener);
         pimFragment.onLoginSuccess();
         verify(mockUserLoginListener).onLoginSuccess();
@@ -125,7 +126,7 @@ public class PIMFragmentTest extends TestCase {
     @Test
     public void testLoginFailed() {
         ActionBarListener actionBarListener = mock(ActionBarListener.class);
-        UserLoginListener mockUserLoginListener = mock(UserLoginListener.class);
+        PIMLoginListener mockUserLoginListener = mock(PIMLoginListener.class);
         pimFragment.setActionbarListener(actionBarListener, mockUserLoginListener);
         Error error = mock(Error.class);
         pimFragment.onLoginFailed(error);

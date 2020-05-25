@@ -117,6 +117,7 @@ dependencies {
         implementation project(strings.iap.projectName)
         implementation project(strings.pif.projectName)
         implementation project(strings.usr.projectName)
+        implementation project(strings.prguapp.projectName)
         implementation project(strings.ecsuapp.projectName)
         implementation project(strings.ecstestuapp.projectName)
         implementation project(strings.mec.projectName)

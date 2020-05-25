@@ -13,6 +13,8 @@ import com.philips.platform.mec.R
 
 object MECConstant {
 
+    const val MEC_DETAIL_NOT_AVAILABLE = "MEC_DETAIL_NOT_AVAILABLE"
+    const val MEC_ORDERS: String = "MEC_ORDERS"
     const val NEW_CARD_PAYMENT = "NEW_CARD_PAYMENT"
     const val KEY_ECS_BILLING_ADDRESS = "KEY_ECS_BILLING_ADDRESS"
     const val BUNDLE_BILLING_ADDRESS = "BUNDLE_BILLING_ADDRESS"
@@ -48,6 +50,7 @@ object MECConstant {
     val MEC_KEY_RETAILERS ="mec_key_product"
     val MEC_PRODUCT_CTN ="mec_product_ctn"
     val MEC_PRIVACY_URL = "MEC_PRIVACY_URL";
+    val MEC_TRACK_ORDER_URL = "MEC_TRACK_ORDER_URL";
     val MEC_SHOPPING_CART = "MEC_SHOPPING_CART";
     val MEC_BUY_URL = "MEC_BUY_URL";
     val MEC_IS_PHILIPS_SHOP = "MEC_IS_PHILIPS_SHOP";
@@ -87,9 +90,11 @@ object MECConstant {
 
     val HTTP_REDIRECT = 307
     val WEB_PAY_URL = "webpay_url"
-    val ORDER_NUMBER = "order_number"
+    val MEC_ORDER_NUMBER = "mec_order_number"
     val MEC_ORDER_DETAIL = "MEC_order_detail"
     val PAYMENT_SUCCESS_STATUS = "payment_success_status"
     val PAYMENT_CANCELLED = "PAYMENT_CANCELLED"
+    val MEC_ORDER_CUSTOMER_CARE_PHONE = "MEC_ORDER_CUSTOMER_CARE_PHONE"
+
 
 }
