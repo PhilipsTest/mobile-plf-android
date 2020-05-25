@@ -30,13 +30,7 @@ class GetProductsRequest(private val productCategory: String?, private val limit
     }
 
     override fun getURL(): String {
-        return addParamsToURL(url.replaceParam(getReplaceURLMap()))
-    }
-
-    override fun getReplaceURLMap(): MutableMap<String, String> {
-        val replaceURLMap = super.getReplaceURLMap()
-        return replaceURLMap
-
+        return addParamsToURL(url)
     }
 
     private fun addParamsToURL(url: String): String {
@@ -57,13 +51,11 @@ class GetProductsRequest(private val productCategory: String?, private val limit
         return urlWithParams
     }
 
-
     /** Called when a response is received.  */
     override fun onResponse(response: JSONObject) {
         val productList = response.getData(ECSProducts::class.java)
         productList?.let { ecsCallback.onResponse(it) }
     }
-
 
 }
 
