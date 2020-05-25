@@ -1,11 +1,6 @@
 package com.philips.platform.pim;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-
 import android.content.Context;
-
-import androidx.annotation.Nullable;
 
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterfaceException;
@@ -18,14 +13,8 @@ import com.philips.platform.pif.DataInterface.USR.listeners.RefetchUserDetailsLi
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserDataListener;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserMigrationListener;
-import com.philips.platform.pim.errors.PIMErrorEnums;
-import com.philips.platform.pim.manager.PIMConfigManager;
-import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.pim.manager.PIMUserManager;
-import com.philips.platform.pim.migration.PIMMigrator;
 import com.philips.platform.pim.models.PIMOIDCUserProfile;
-import com.philips.platform.pim.utilities.PIMInitState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -167,36 +156,6 @@ public class PIMDataImplementation implements UserDataInterface {
     }
 
     @Override
-    public void migrateUserToPIM(UserMigrationListener userMigrationListener) {
-        if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-            userMigrationListener.onUserMigrationSuccess();
-            return;
-        }
-        PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
-
-        isInitRequiredAgain = true;
-        MutableLiveData<PIMInitState> pimInitLiveData = PIMSettingManager.getInstance().getPimInitLiveData();
-        new PIMConfigManager(PIMSettingManager.getInstance().getPimUserManager()).init(mContext, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
-        pimInitLiveData.observeForever(new Observer<PIMInitState>() {
-            @Override
-            public void onChanged(@Nullable PIMInitState pimInitState) {
-                if (pimInitState == PIMInitState.INIT_SUCCESS) {
-                    pimInitLiveData.removeObserver(this);
-                    pimMigrator.migrateUSRToPIM();
-                } else if (pimInitState == PIMInitState.INIT_FAILED) {
-                    if (isInitRequiredAgain) {
-                        new PIMConfigManager(PIMSettingManager.getInstance().getPimUserManager()).init(mContext, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
-                        isInitRequiredAgain = false;
-                    } else {
-                        pimInitLiveData.removeObserver(this);
-                        userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(mContext, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
-                    }
-                }
-            }
-        });
-    }
-
-    @Override
     public void refetchUserDetails(RefetchUserDetailsListener userDetailsListener) {
         if (pimUserManager.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN) {
             userDetailsListener.onRefetchFailure(new Error(Error.UserDetailError.NotLoggedIn));
@@ -241,7 +200,7 @@ public class PIMDataImplementation implements UserDataInterface {
             if (allValidKeys.contains(key))
                 validDetailsKey.add(key);
             else
-                throw new UserDataInterfaceException(new Error(Error.UserDetailError.InvalidUserDetailsKeys));
+                throw new UserDataInterfaceException(new Error(Error.UserDetailError.InvalidFields));
         }
         return validDetailsKey;
     }

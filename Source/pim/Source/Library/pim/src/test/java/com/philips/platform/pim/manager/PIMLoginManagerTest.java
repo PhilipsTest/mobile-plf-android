@@ -14,6 +14,7 @@ import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
+import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.listeners.PIMTokenRequestListener;
 import com.philips.platform.pim.listeners.PIMUserMigrationListener;
@@ -54,7 +55,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 @PrepareForTest({Uri.class, Analytics.class, PIMSettingManager.class, AuthorizationRequest.class, AuthorizationRequest.Builder.class, AuthorizationServiceConfiguration.class, AuthorizationResponse.class,
-        AuthorizationException.class, PIMAuthManager.class, PIMLoginManager.class})
+        AuthorizationException.class, PIMAuthManager.class, PIMErrorEnums.class,PIMLoginManager.class})
 @RunWith(PowerMockRunner.class)
 public class PIMLoginManagerTest extends TestCase {
 
@@ -94,6 +95,7 @@ public class PIMLoginManagerTest extends TestCase {
 
         mockStatic(PIMSettingManager.class);
         mockStatic(Analytics.class);
+        mockStatic(PIMErrorEnums.class);
         HashMap consentParameterMap = new HashMap<PIMParameterToLaunchEnum, Object>();
         consentParameterMap.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, true);
         consentParameterMap.put(PIMParameterToLaunchEnum.PIM_ANALYTICS_CONSENT, true);
@@ -217,6 +219,12 @@ public class PIMLoginManagerTest extends TestCase {
     public void testCreateAuthReqForMigration() {
         pimLoginManager.createAuthRequestUriForMigration(anyMap());
         verify(mockAuthManager).createAuthRequestUriForMigration(anyMap());
+    }
+
+    @Test
+    public void testExchangeCodeOnEmailVerify() {
+        pimLoginManager.exchangeCodeOnEmailVerify(mockPimLoginListener);
+        verify(mockPimLoginListener).onLoginFailed(any(Error.class));
     }
 
     public void tearDown() throws Exception {
