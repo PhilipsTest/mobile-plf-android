@@ -281,8 +281,4 @@
     <!-- Facebook Keys-->
     <string name="facebook_app_id" translatable="false">107243606103710</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb107243606103710demoApp</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>
