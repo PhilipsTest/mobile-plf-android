@@ -31,7 +31,9 @@ class ECSProductManager {
         ecsException?.let { throw ecsException } ?: kotlin.run {
 
             val getProductsRequest= GetProductsRequest(productCategory,limit,offset,productFilter, ecsCallback)
-            requestHandler.handleRequest(getProductsRequest)
+           // requestHandler.handleRequest(getProductsRequest)
+            var networkController= NetworkController()
+            networkController.executeRequest(getProductsRequest)
 
         }
     }

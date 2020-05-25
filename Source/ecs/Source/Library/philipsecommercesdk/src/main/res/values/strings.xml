@@ -51,5 +51,6 @@
   <string name="ECSPIL_MISSING_PARAMETER_language" tools:ignore="MissingTranslation">"Please provide valid language code"</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId" tools:ignore="MissingTranslation">"Philips shop is not available for the selected country, only retailer mode is available"</string>
   <string name="ECSPIL_MISSING_PARAMETER_country" tools:ignore="MissingTranslation">"Please provide valid country code"</string>
+  <string name="ECSPIL_INTEGRATION_TIMEOUT">Network timeout reached!</string>
 
 </resources>
