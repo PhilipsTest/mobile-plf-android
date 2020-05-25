@@ -23,6 +23,4 @@ public class PIMInitViewModel extends AndroidViewModel {
         }
         return pimInitState;
     }
-
-
 }

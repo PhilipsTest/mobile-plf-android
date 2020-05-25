@@ -52,10 +52,16 @@ public enum PIMErrorEnums {
 
 
     //Service Discovery Error
-    SERVICE_DISCOVERY_ERROR(PIMErrorCodes.SERVICE_DISCOVERY_ERROR, R.string.PIM_Error_Msg),
+    SD_DOWNLOAD_ERROR(PIMErrorCodes.SD_DOWNLOAD_ERROR, R.string.PIM_Error_Msg),
 
     //OIDC download failed
-    OIDC_DOWNLOAD_FAILED_ERROR(PIMErrorCodes.OIDC_DOWNLOAD_FAILED_ERROR, R.string.PIM_Error_Msg);
+    OIDC_DOWNLOAD_ERROR(PIMErrorCodes.OIDC_DOWNLOAD_ERROR, R.string.PIM_Error_Msg),
+    INVALID_REFRESH_TOKEN(PIMErrorCodes.INVALID_REFRESH_TOKEN, R.string.PIM_Error_Msg),
+    REFRESH_TOKEN_FAILED(PIMErrorCodes.REFRESH_TOKEN_FAILED, R.string.PIM_Error_Msg),
+    ACCESS_TOKEN_EXPIRED(PIMErrorCodes.ACCESS_TOKEN_EXPIRED, R.string.PIM_Error_Msg),
+    NO_REQUEST_FOR_REDIRECTION(PIMErrorCodes.NO_REQUEST_FOR_REDIRECTION, R.string.PIM_Error_Msg),
+    INVALID_REDIRECTION_URL(PIMErrorCodes.INVALID_REDIRECTION_URL, R.string.PIM_Error_Msg),
+    UDI_SERVER_ERROR(PIMErrorCodes.UDI_SERVER_ERROR, R.string.PIM_Error_Msg);
 
     public int errorCode;
     public int stringId;
