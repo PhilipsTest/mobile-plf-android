@@ -114,13 +114,13 @@
         "editTexts": [{
           "tag": "et_one",
           "inputType": 2,
-          "hint": "enter current pagee"
+          "hint": "enter offset"
         },
           {
             "tag": "et_two",
             "text": "secret",
             "inputType": 2,
-            "hint": "enter page size"
+            "hint": "enter limit"
           },
           {
             "tag": "et_three",

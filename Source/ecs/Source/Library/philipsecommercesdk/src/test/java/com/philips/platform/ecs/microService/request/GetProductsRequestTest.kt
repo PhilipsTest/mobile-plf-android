@@ -7,7 +7,6 @@ import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.util.ECSDataHolder
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,9 +15,14 @@ import org.powermock.modules.junit4.PowerMockRunner
 @RunWith(PowerMockRunner::class)
 class GetProductsRequestTest {
 
-    val category :String = "category"
+    val defaultOffset = 0
+    val limit = 20
+    val limitThreshold = 50
+    val category :String = "FOOD_PREPARATION_CA2"
+    val modifiedSince = "2019-10-31T20:34:55Z"
      var mGetProductsRequest : GetProductsRequest?=null
      var mProductFilter : ProductFilter?=null
+
 
     var essCallback = object: ECSCallback<ECSProducts, ECSError> {
 
@@ -32,33 +36,59 @@ class GetProductsRequestTest {
     }
 
 
-        var url1="https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
+    var url1="https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
 
     @Before
     fun setUp() {
         ECSDataHolder.locale = "en_US"
         mProductFilter= ProductFilter()
-        mProductFilter!!.stockLevel= ECSStockLevel.OutOfStock
-        mProductFilter!!.sortType=ECSSortType.priceAscending
-        mProductFilter!!.modifiedSince="2019-10-31T20:34:55Z"
-        mGetProductsRequest=GetProductsRequest(category,10,0,mProductFilter, essCallback)
-    }
-
-
-    @Test
-    fun testAddParams(){
-       val modifiedURL:String? =  mGetProductsRequest?.addParamsToURL(url1)
-        assert(modifiedURL!!.contains(category))
-        Assert.assertEquals
 
     }
+
+
 
     @Test
     fun getServiceID() {
     }
 
     @Test
-    fun getURL() {
+    fun getURL() {// this method will internally test method addParams()
+        mProductFilter!!.stockLevel= ECSStockLevel.OutOfStock
+        mProductFilter!!.sortType=ECSSortType.priceAscending
+        mProductFilter!!.modifiedSince=modifiedSince
+        mGetProductsRequest=GetProductsRequest(category,limit,defaultOffset,mProductFilter, essCallback)
+        val modifiedURL:String? =  mGetProductsRequest?.getURL()
+        //https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=OUT_OF_STOCK&modifiedSince=2019-10-31T20:34:55Z
+        assert(modifiedURL!!.contains(category))
+        assert(modifiedURL!!.contains(limit.toString()))
+        assert(modifiedURL!!.contains(defaultOffset.toString()))
+        assert(modifiedURL!!.contains(modifiedSince))
+        assert(modifiedURL!!.contains(ECSStockLevel.OutOfStock.toString()))
+        assert(modifiedURL!!.contains(ECSSortType.priceAscending.toString()))
+    }
+
+    @Test
+    fun getURLwithNegativeLimitAndOffset() {// this method will internally test method addParams()
+        mProductFilter!!.stockLevel= ECSStockLevel.OutOfStock
+        mProductFilter!!.sortType=ECSSortType.priceAscending
+        mProductFilter!!.modifiedSince=modifiedSince
+
+        var modifiedURL:String?=""
+       // if limit is given negative, it will be become 0. If defaultOffset given is negative it will become default 0
+        mGetProductsRequest=GetProductsRequest(category,-limit,-5,mProductFilter, essCallback)
+        modifiedURL=  mGetProductsRequest?.getURL()
+        //https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=OUT_OF_STOCK&modifiedSince=2019-10-31T20:34:55Z
+        assert(modifiedURL!!.contains(limit.toString()))
+        assert(modifiedURL!!.contains(defaultOffset.toString()))
+
+
+        // if limit given is more than 50 then it will change to threshold 50
+        mGetProductsRequest=GetProductsRequest(category,1000,5,mProductFilter, essCallback)
+         modifiedURL=  mGetProductsRequest?.getURL()
+        //https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=50&offset=5&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=OUT_OF_STOCK&modifiedSince=2019-10-31T20:34:55Z
+        assert(modifiedURL!!.contains(limitThreshold.toString()))
+        assert(modifiedURL!!.contains("5"))
+
     }
 
     @Test

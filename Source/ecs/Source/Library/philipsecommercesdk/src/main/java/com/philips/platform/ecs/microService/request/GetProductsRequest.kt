@@ -35,8 +35,8 @@ class GetProductsRequest(private val productCategory: String?, private val limit
 
     private fun addParamsToURL(url: String): String {
         var urlWithParams = url
-        var actualLimit: Int = if (limit < limitThreshold) limit else limitThreshold
-        actualLimit = if (limit > 0) limit else limitDefault
+        var actualLimit: Int = if (limit > 0) limit else limitDefault
+        actualLimit = if (actualLimit < limitThreshold) limit else limitThreshold
         urlWithParams = urlWithParams.addQueryParam(limitKey, actualLimit.toString())
 
         var actualOffset: Int = if (offset > 0) offset else offsetDefault

@@ -27,8 +27,8 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
     String modifiedSince , category;
     Spinner spinnerSortType, spinnerStockLevel;
 
-    String stockLevelOptions[] = {"None","InStock","OutOfStock","LowStock"};
-    String sortOptions[] = {"None","topRated","priceAscending","priceDescending","discountPercentageAscending","discountPercentageDescending"};
+    String stockLevelOptions[] = {"( Select - Stock Level )","InStock","OutOfStock","LowStock"};
+    String sortOptions[] = {"( Select - Sort By )","topRated","priceAscending","priceDescending","discountPercentageAscending","discountPercentageDescending"};
 
     @Override
     public void onResume() {
@@ -39,9 +39,12 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         etPageSize = getLinearLayout().findViewWithTag("et_two");
         etPageSize.setText(pageSize+"");
         etCategory = getLinearLayout().findViewWithTag("et_three");
+        etCategory.setText("FOOD_PREPARATION_CA2");
         etModifiedSince = getLinearLayout().findViewWithTag("et_four");
+        etModifiedSince.setText("2019-10-31T20:34:55Z");
 
         spinnerSortType  = getLinearLayout().findViewWithTag("spinner_sort_type");
+
         List<String> sortList = Arrays.asList(sortOptions);
         fillSpinner(spinnerSortType,sortList);
 
