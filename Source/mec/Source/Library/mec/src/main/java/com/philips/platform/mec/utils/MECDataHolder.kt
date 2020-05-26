@@ -137,7 +137,7 @@ enum class MECDataHolder {
     }
 
     fun isInternetActive(): Boolean {
-        return appinfra.restClient.isInternetReachable
+        return appinfra.restClient?.isInternetReachable ?:false
     }
 
     fun initECSSDK() {
