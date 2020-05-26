@@ -27,7 +27,7 @@ import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 
-class MicroECSServices(appInfra: AppInfra) {
+class ECSServices(appInfra: AppInfra) {
 
     internal var ecsConfigManager = ECSConfigManager()
     internal var ecsProductManager = ECSProductManager()

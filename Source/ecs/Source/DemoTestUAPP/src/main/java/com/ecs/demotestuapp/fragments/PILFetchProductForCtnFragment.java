@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
 import com.philips.platform.ecs.microService.model.product.ECSProduct;
@@ -39,12 +39,12 @@ public class PILFetchProductForCtnFragment extends BaseAPIFragment {
 
     public void executeRequest() {
 
-        MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
+        ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
         String ctn = etCTN.getText().toString().trim();
 
         try {
-            microECSServices.fetchProduct(ctn, new com.philips.platform.ecs.microService.callBack.ECSCallback<ECSProduct, ECSError>() {
+            ECSServices.fetchProduct(ctn, new com.philips.platform.ecs.microService.callBack.ECSCallback<ECSProduct, ECSError>() {
                 @Override
                 public void onResponse(ECSProduct result) {
                     gotoResultActivity(getJsonStringFromObject(result));

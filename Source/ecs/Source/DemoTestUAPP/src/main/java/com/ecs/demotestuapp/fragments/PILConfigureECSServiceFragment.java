@@ -14,16 +14,16 @@ package com.ecs.demotestuapp.fragments;
 
 import android.view.View;
 
-import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.error.ECSError;
 
 public class PILConfigureECSServiceFragment extends BaseAPIFragment {
 
     public void executeRequest() {
 
-        MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
+        ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
-        microECSServices.configureECS(new com.philips.platform.ecs.microService.callBack.ECSCallback<Boolean, ECSError>() {
+        ECSServices.configureECS(new com.philips.platform.ecs.microService.callBack.ECSCallback<Boolean, ECSError>() {
             @Override
             public void onResponse(Boolean result) {
                 gotoResultActivity(""+result);

@@ -13,9 +13,7 @@
 package com.philips.platform.ecs.microService.error
 
 import android.util.Base64
-import android.util.Log
 import com.android.volley.*
-import com.google.common.io.Resources.getResource
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.util.ECSDataHolder
@@ -35,7 +33,6 @@ import org.mockito.stubbing.Answer
 import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
-import java.io.InputStream
 
 
 @PrepareForTest(Base64::class,ServerError::class,VolleyError::class,JSONObject::class)
@@ -158,7 +155,7 @@ class VolleyHandlerTest {
     private fun verifyECSError(ecsError: ECSError, ecsErrorType: ECSErrorType) {
         assertNotNull(ecsError)
         assertNotNull(ecsError.errorMessage)
-        assertEquals(ecsErrorType.errorCode, ecsError.errorcode)
+        assertEquals(ecsErrorType.errorCode, ecsError.errorCode)
         assertEquals(ecsErrorType, ecsError.errorType)
     }
 
@@ -170,7 +167,7 @@ class VolleyHandlerTest {
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(5999,ecsDefaultError.errorcode)
+        assertEquals(5999,ecsDefaultError.errorCode)
     }
 
     @Test
@@ -181,7 +178,7 @@ class VolleyHandlerTest {
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorcode)
+        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorCode)
     }
 
     @Test
@@ -192,7 +189,7 @@ class VolleyHandlerTest {
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_siteId.errorCode,ecsDefaultError.errorcode)
+        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_siteId.errorCode,ecsDefaultError.errorCode)
     }
 
     @Test
@@ -203,7 +200,7 @@ class VolleyHandlerTest {
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_language.errorCode,ecsDefaultError.errorcode)
+        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_language.errorCode,ecsDefaultError.errorCode)
     }
 
     @Test
@@ -214,7 +211,7 @@ class VolleyHandlerTest {
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorcode)
+        assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorCode)
     }
 
     fun byteArrayOfInts(vararg ints: Int) = ByteArray(ints.size) { pos -> ints[pos].toByte() }

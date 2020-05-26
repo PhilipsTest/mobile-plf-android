@@ -5,7 +5,7 @@ import android.widget.EditText;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.ecs.demotestuapp.util.PILDataHolder;
-import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
@@ -40,7 +40,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             pageNumber = Integer.valueOf(etPageNumber.getText().toString().trim());
         }
 
-        MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
+        ECSServices ECSServices = new ECSServices(mAppInfraInterface);
         try {
             /*todo
             * These inputs to move in DemoUApp UI
@@ -48,7 +48,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             ProductFilter productFilter= new ProductFilter();
             productFilter.setSortType(ECSSortType.priceDescending);
            // productFilter.setStockLevel( ECSStockLevel.InStock);
-            microECSServices.fetchProducts("FOOD_PREPARATION_CA2",pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
+            ECSServices.fetchProducts("FOOD_PREPARATION_CA2",pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
                 @Override
                 public void onResponse(ECSProducts result) {
                     PILDataHolder.INSTANCE.setProductList(result);
