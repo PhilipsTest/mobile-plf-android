@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">追蹤訂單</string>
   <string name="mec_accept_terms">訂購即表示我接受 Philips 的</string>
   <string name="mec_accepted_codes">已接受代碼</string>
   <string name="mec_add">新增</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">帳單地址</string>
   <string name="mec_blank_cvv_error">請輸入有效的 CVV</string>
   <string name="mec_buy_from_retailers">透過零售商選購</string>
+  <string name="mec_call">[zh-HK]Call</string>
   <string name="mec_cancel">取消</string>
+  <string name="mec_cancel_order">取消我的訂單</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">您的訂單編號是 %s，以供參考</string>
+  <string name="mec_cancel_order_dls_msg">產品寄出前您都可以取消訂單。我們的客戶服務團隊將為您提供協助。</string>
+  <string name="mec_cancel_order_number">取消訂單編號 </string>
   <string name="mec_cancel_payment">您是否想取消付款？您的購物車將被會清空。</string>
+  <string name="mec_cancel_your_order">[zh-HK]Cancel your order</string>
   <string name="mec_card_holder_first_name">持卡人名字</string>
   <string name="mec_card_holder_last_name">持卡人姓氏</string>
   <string name="mec_cart_count_exceed_message">購物車內不可新增多於 %d 件產品</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">確認</string>
   <string name="mec_confirmation_email_msg">我們會在短時間內將確認電郵發送至</string>
   <string name="mec_contact_details">聯絡詳細資料</string>
+  <string name="mec_contact_philips_consumer_care">請聯絡 Philips 客戶服務 %s 以獲得進一步支援。</string>
   <string name="mec_continue">繼續</string>
   <string name="mec_continue_checkout">繼續前往結賬</string>
   <string name="mec_continue_shopping">繼續購物</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">送貨方式</string>
   <string name="mec_discount">折扣</string>
   <string name="mec_empty_cart">您的購物車目前並無內容</string>
+  <string name="mec_empty_purchase_history">如您透過此應用程式訂購，請檢查是否已收到訂單確認電郵。</string>
   <string name="mec_enter_code">輸入禮品代碼</string>
   <string name="mec_faq">常見問題解答</string>
   <string name="mec_features">功能特點</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">了解更多資訊</string>
   <string name="mec_mr">先生</string>
   <string name="mec_mrs">女士</string>
+  <string name="mec_my_orders">我的訂單</string>
   <string name="mec_new_card_text">新卡</string>
   <string name="mec_new_payment_disclaimer">訂購後，此付款詳情將被儲存</string>
   <string name="mec_no_address_select_message">請選擇送貨地址</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">確定</string>
   <string name="mec_online_retailers">網上零售商</string>
   <string name="mec_only">僅限於</string>
+  <string name="mec_order_detail_unavailable">[zh-HK]Order Detail is unavailable</string>
+  <string name="mec_order_details">訂單資料</string>
+  <string name="mec_order_not_received_items">未收到訂單</string>
+  <string name="mec_order_number_msg">訂單編號：%s</string>
   <string name="mec_order_pay">訂購並付款</string>
+  <string name="mec_order_state">您的訂單是 %s</string>
   <string name="mec_order_summary">訂單摘要</string>
   <string name="mec_order_summary_shipping">送貨資料</string>
+  <string name="mec_orders">訂單</string>
+  <string name="mec_other_channel_purchase">如您透過其他零售商訂購，您的訂單可能不會在此顯示。</string>
   <string name="mec_out_of_stock">缺貨</string>
   <string name="mec_page">頁面</string>
   <string name="mec_payment">付款</string>

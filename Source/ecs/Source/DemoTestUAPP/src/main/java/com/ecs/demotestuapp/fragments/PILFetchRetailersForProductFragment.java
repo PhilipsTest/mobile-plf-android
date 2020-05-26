@@ -17,7 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.error.ECSException;
 import com.philips.platform.ecs.model.products.ECSProduct;
 
@@ -45,7 +45,7 @@ public class PILFetchRetailersForProductFragment extends BaseAPIFragment {
             ctn = spinner.getSelectedItem().toString();
         }
 
-        MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
+        ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
         ECSProduct ecsProduct = getECSProductFromID(ctn);
 
@@ -61,7 +61,7 @@ public class PILFetchRetailersForProductFragment extends BaseAPIFragment {
 
 
         try {
-            microECSServices.fetchRetailers(ecsProduct1, new com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.retailer.ECSRetailerList, com.philips.platform.ecs.microService.error.ECSError>() {
+            ECSServices.fetchRetailers(ecsProduct1, new com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.retailer.ECSRetailerList, com.philips.platform.ecs.microService.error.ECSError>() {
                 @Override
                 public void onResponse(com.philips.platform.ecs.microService.model.retailer.ECSRetailerList result) {
 

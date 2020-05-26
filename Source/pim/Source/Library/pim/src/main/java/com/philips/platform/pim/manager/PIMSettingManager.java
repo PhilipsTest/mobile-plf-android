@@ -7,9 +7,9 @@ import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
 import com.philips.platform.pim.BuildConfig;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
+import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.utilities.PIMInitState;
 import com.philips.platform.uappframework.uappinput.UappDependencies;
 
@@ -30,7 +30,7 @@ public class PIMSettingManager {
     private final String TAG = PIMSettingManager.class.getSimpleName();
     private String locale;
     private MutableLiveData<PIMInitState> pimInitLiveData;
-    private UserLoginListener pimUserLoginListener;
+    private PIMLoginListener pimUserLoginListener;
 
     private PIMSettingManager() {
     }
@@ -100,11 +100,11 @@ public class PIMSettingManager {
         return pimInitLiveData;
     }
 
-    public void setUserLoginInerface(UserLoginListener userLoginListener) {
+    public void setUserLoginInerface(PIMLoginListener userLoginListener) {
         this.pimUserLoginListener = userLoginListener;
     }
 
-    public UserLoginListener getPimUserLoginListener() {
+    public PIMLoginListener getPimUserLoginListener() {
         return pimUserLoginListener;
     }
 }

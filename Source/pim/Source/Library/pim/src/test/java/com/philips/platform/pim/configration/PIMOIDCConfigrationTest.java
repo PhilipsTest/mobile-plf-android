@@ -167,6 +167,14 @@ public class PIMOIDCConfigrationTest extends TestCase {
         verify(mockLoggingInterface).log(DEBUG, "PIMOIDCConfigration", "PIM_KEY_CUSTOM_CLAIMS: " + jsonString);
     }
 
+    @Test
+    public void testGetMarketingOptinKey(){
+        when(mockAppConfigurationInterface.getPropertyForKey("marketingOptinApiKey", "PIM", mockAppConfigurationError)).thenReturn("kwSyJKK3gg5NHSmjeq1OD5BBdyOCKtyK7XVIuq5I");
+        String apiKey = pimoidcConfigration.getMarketingOptinAPIKey();
+        assertNotNull(apiKey);
+        assertEquals("kwSyJKK3gg5NHSmjeq1OD5BBdyOCKtyK7XVIuq5I", apiKey);
+    }
+
     @After
     public void tearDown() throws Exception {
         mockAppConfigurationInterface = null;

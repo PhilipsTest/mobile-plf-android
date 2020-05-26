@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
@@ -59,10 +59,10 @@ public class PILFetchProductSummariesFragment extends BaseAPIFragment {
         List<String> al = new ArrayList<String>();
         al = Arrays.asList(split);
 
-        MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
+        ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
         try {
-            microECSServices.fetchProductSummaries(al, new ECSCallback<List<ECSProduct>, ECSError>() {
+            ECSServices.fetchProductSummaries(al, new ECSCallback<List<ECSProduct>, ECSError>() {
                 @Override
                 public void onResponse(List<ECSProduct> ecsProducts) {
                     gotoResultActivity(getJsonStringFromObject(ecsProducts));

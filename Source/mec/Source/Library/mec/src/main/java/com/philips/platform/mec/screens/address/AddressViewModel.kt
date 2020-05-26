@@ -317,8 +317,8 @@ class AddressViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
         @JvmStatic
         @BindingAdapter("shippingAddress")
-        fun setShippingAddress(lebel: Label, ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
-            lebel.text = MECutility().constructShippingAddressDisplayField(ecsAddress)
+        fun setShippingAddress(lebel: Label, ecsAddress: com.philips.platform.ecs.model.address.ECSAddress?) {
+            if(ecsAddress!=null) lebel.text = MECutility().constructShippingAddressDisplayField(ecsAddress)
         }
 
         @JvmStatic

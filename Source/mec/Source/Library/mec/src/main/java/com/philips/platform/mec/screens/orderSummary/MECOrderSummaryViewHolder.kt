@@ -17,7 +17,7 @@ import com.philips.platform.mec.databinding.MecOrderSummaryCartItemsBinding
 
 class MECOrderSummaryViewHolder(val binding: MecOrderSummaryCartItemsBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(orderEntries: com.philips.platform.ecs.model.cart.ECSEntries) {
+    fun bind(orderEntries: ECSEntries) {
         binding.ecsEntries = orderEntries
     }
 

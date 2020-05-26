@@ -9,7 +9,6 @@ import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryServ
 
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +73,19 @@ public abstract class PrxRequest {
      */
     public PrxRequest(List<String> ctns, String serviceID, PrxConstants.Sector sector, PrxConstants.Catalog catalog) {
         this.mCtns = ctns;
+        this.mServiceId = serviceID;
+        this.mSector = sector;
+        this.mCatalog = catalog;
+    }
+
+    /**
+     * PRX request constructor.
+     * @param serviceID PRX ServiceId
+     * @param sector sector
+     * @param catalog catalog
+     * @since 2003
+     */
+    public PrxRequest(String serviceID, PrxConstants.Sector sector, PrxConstants.Catalog catalog) {
         this.mServiceId = serviceID;
         this.mSector = sector;
         this.mCatalog = catalog;

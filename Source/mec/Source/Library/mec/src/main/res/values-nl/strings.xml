@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Bestelling volgen</string>
   <string name="mec_accept_terms">Door de bestelling te plaatsen, accepteer ik Philips\'</string>
   <string name="mec_accepted_codes">Geaccepteerde codes</string>
   <string name="mec_add">Toevoegen</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Factuuradres</string>
   <string name="mec_blank_cvv_error">Voer een geldige CVV in</string>
   <string name="mec_buy_from_retailers">Kopen in de winkel</string>
+  <string name="mec_call">Telefoon</string>
   <string name="mec_cancel">Annuleren</string>
+  <string name="mec_cancel_order">Annuleer mijn bestelling</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Uw bestelnummer is %s</string>
+  <string name="mec_cancel_order_dls_msg">U kunt uw bestelling annuleren voordat deze wordt verzonden. Onze klantenservice helpt u hier graag bij.</string>
+  <string name="mec_cancel_order_number">Annuleer bestelling met nummer </string>
   <string name="mec_cancel_payment">Wilt u uw betaling annuleren? Uw winkelwagentje wordt gewist.</string>
+  <string name="mec_cancel_your_order">[nl]Cancel your order</string>
   <string name="mec_card_holder_first_name">Voornaam kaarthouder</string>
   <string name="mec_card_holder_last_name">Achternaam kaarthouder</string>
   <string name="mec_cart_count_exceed_message">Er kunnen niet meer dan %d producten worden toegevoegd aan de winkelwagen</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Bevestiging</string>
   <string name="mec_confirmation_email_msg">U ontvangt binnenkort een bevestigingse-mail op</string>
   <string name="mec_contact_details">Contactgegevens</string>
+  <string name="mec_contact_philips_consumer_care">Neem contact op met Philips Consumer Care via %s voor verdere ondersteuning.</string>
   <string name="mec_continue">Doorgaan</string>
   <string name="mec_continue_checkout">Ga door naar betalen</string>
   <string name="mec_continue_shopping">Verder winkelen</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Levermethode</string>
   <string name="mec_discount">korting</string>
   <string name="mec_empty_cart">Uw winkelwagen is momenteel leeg</string>
+  <string name="mec_empty_purchase_history">Als u uw bestelling hebt geplaatst via deze app, controleer dan of u een bevestigingsmail hebt ontvangen.</string>
   <string name="mec_enter_code">Voer cadeaucode in</string>
   <string name="mec_faq">pagina met</string>
   <string name="mec_features">Kenmerken</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">voor meer info</string>
   <string name="mec_mr">Dhr.</string>
   <string name="mec_mrs">Mw.</string>
+  <string name="mec_my_orders">Mijn bestellingen</string>
   <string name="mec_new_card_text">Nieuwe kaart</string>
   <string name="mec_new_payment_disclaimer">Deze betalingsgegevens worden opgeslagen zodra u een bestelling plaatst</string>
   <string name="mec_no_address_select_message">Selecteer een leveringsadres</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Online retailers</string>
   <string name="mec_only">Nog maar</string>
+  <string name="mec_order_detail_unavailable">[nl]Order Detail is unavailable</string>
+  <string name="mec_order_details">Bestelgegevens</string>
+  <string name="mec_order_not_received_items">Bestelling niet ontvangen</string>
+  <string name="mec_order_number_msg">Bestelnummer: %s</string>
   <string name="mec_order_pay">Bestellen en betalen</string>
+  <string name="mec_order_state">Uw bestelling is %s</string>
   <string name="mec_order_summary">Besteloverzicht</string>
   <string name="mec_order_summary_shipping">Leveringsinformatie</string>
+  <string name="mec_orders">Bestellingen</string>
+  <string name="mec_other_channel_purchase">Als u uw bestelling hebt geplaatst bij een andere retailer, wordt uw bestelling mogelijk niet hier weergegeven.</string>
   <string name="mec_out_of_stock">Niet op voorraad</string>
   <string name="mec_page">veelgestelde vragen</string>
   <string name="mec_payment">Betaling</string>

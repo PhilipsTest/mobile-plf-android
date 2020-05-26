@@ -3,7 +3,9 @@ package com.philips.platform.pim.manager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 
+import com.google.gson.JsonObject;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pim.R;
@@ -26,6 +28,7 @@ import net.openid.appauth.TokenRequest;
 import net.openid.appauth.TokenResponse;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +45,7 @@ import org.powermock.reflect.Whitebox;
 import java.util.HashMap;
 import java.util.Map;
 
+import static androidx.constraintlayout.motion.widget.MotionScene.TAG;
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
@@ -54,7 +58,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 @PrepareForTest({Uri.class, AuthorizationServiceConfiguration.class, PIMSettingManager.class, PIMAuthManager.class, AuthorizationResponse.class, AuthorizationRequest.Builder.class,
-        AuthorizationRequest.class, AuthorizationException.class, PIMErrorEnums.class})
+        AuthorizationRequest.class, AuthorizationException.class, PIMErrorEnums.class, TextUtils.class})
 @RunWith(PowerMockRunner.class)
 public class PIMAuthManagerTest extends TestCase {
 
@@ -284,6 +288,27 @@ public class PIMAuthManagerTest extends TestCase {
         Whitebox.setInternalState(pimAuthManager, "mAuthState", mockAuthState);
         AuthState authState = pimAuthManager.getAuthState();
         assertSame(mockAuthState, authState);
+    }
+
+    @Test
+    public void testExtractResponseData(){
+        String authResponse = "com.philips.apps.94e28300-565d-4110-8919-42dc4f817393://oauthredirect?code=2qcS7-xDXlkbbCEV&state=NXKhU1Ygk72QmG7SMwQznQ";
+        when(mockAuthorizationServiceConfiguration.toJson()).thenReturn(mock(JSONObject.class));
+        when(mockPimoidcConfigration.getClientId()).thenReturn("94e28300-565d-4110-8919-42dc4f817393");
+        when(mockPimoidcConfigration.getRedirectUrl()).thenReturn("com.philips.apps.94e28300-565d-4110-8919-42dc4f817393://oauthredirect");
+        AuthorizationRequest authorizationRequest = pimAuthManager.createAuthorizationRequest(PIMSettingManager.getInstance().getPimOidcConfigration(), new HashMap<>());
+        Uri authUri = Uri.parse(authResponse);
+
+        AuthorizationResponse.Builder mockAuthResBuilder = mock(AuthorizationResponse.Builder.class);
+        AuthorizationResponse mockAuthorizationResponse = mock(AuthorizationResponse.class);
+        when(mockAuthResBuilder.fromUri(authUri)).thenReturn(mockAuthResBuilder);
+        when(mockAuthResBuilder.build()).thenReturn(mockAuthorizationResponse);
+        when(mockAuthorizationResponse.toIntent()).thenReturn(mockIntent);
+
+        mockStatic(TextUtils.class);
+        when(TextUtils.isEmpty(null)).thenReturn(true);
+
+        pimAuthManager.extractResponseData(authResponse,authorizationRequest);
     }
 
     @After

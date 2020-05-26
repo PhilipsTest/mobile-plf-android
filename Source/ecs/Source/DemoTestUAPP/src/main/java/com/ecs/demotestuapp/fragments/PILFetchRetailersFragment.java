@@ -15,7 +15,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.error.ECSException;
 
 public class PILFetchRetailersFragment extends BaseAPIFragment {
@@ -36,10 +36,10 @@ public class PILFetchRetailersFragment extends BaseAPIFragment {
              ctn = etCtn.getText().toString();
          }
 
-        MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
+        ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
         try {
-            microECSServices.fetchRetailers(ctn, new com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.retailer.ECSRetailerList, com.philips.platform.ecs.microService.error.ECSError>() {
+            ECSServices.fetchRetailers(ctn, new com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.retailer.ECSRetailerList, com.philips.platform.ecs.microService.error.ECSError>() {
                 @Override
                 public void onResponse(com.philips.platform.ecs.microService.model.retailer.ECSRetailerList result) {
                     gotoResultActivity(getJsonStringFromObject(result));

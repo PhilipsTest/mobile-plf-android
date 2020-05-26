@@ -15,6 +15,7 @@ import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 import com.philips.platform.ecs.model.cart.ECSEntries;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
  * This object is returned when order is submitted
  * It returns the order detail by passing the orderId for fetchOrderDetail
  */
-public class ECSOrderDetail implements Parcelable{
+public class ECSOrderDetail implements Parcelable, Serializable {
 
 
     private String type;
@@ -155,6 +156,9 @@ public class ECSOrderDetail implements Parcelable{
     public Cost getDeliveryCost() {
         return deliveryCost;
     }
+    public void setDeliveryCost(Cost deliveryCost) {
+        this.deliveryCost = deliveryCost;
+    }
 
     public int getDeliveryItemsQuantity() {
         return deliveryItemsQuantity;
@@ -174,6 +178,9 @@ public class ECSOrderDetail implements Parcelable{
 
     public Cost getOrderDiscounts() {
         return orderDiscounts;
+    }
+    public void setOrderDiscounts(Cost orderDiscounts) {
+        this.orderDiscounts = orderDiscounts;
     }
 
     public PaymentInfo getPaymentInfo() {
@@ -247,10 +254,17 @@ public class ECSOrderDetail implements Parcelable{
     public List<ECSVoucher> getAppliedVouchers() {
         return appliedVouchers;
     }
+    public void setAppliedVouchers(List<ECSVoucher> appliedVouchers) {
+        this.appliedVouchers = appliedVouchers;
+    }
 
     public List<AppliedOrderPromotions> getAppliedOrderPromotions() {
         return appliedOrderPromotions;
     }
+    public void setAppliedOrderPromotions(List<AppliedOrderPromotions> appliedOrderPromotions) {
+        this.appliedOrderPromotions = appliedOrderPromotions;
+    }
+
     public List<DeliveryOrderGroups> getDeliveryOrderGroups() {
         return deliveryOrderGroups;
     }
@@ -261,6 +275,9 @@ public class ECSOrderDetail implements Parcelable{
 
     public List<Consignment> getConsignments() {
         return consignments;
+    }
+    public void setConsignments(List<Consignment> consignments) {
+        this.consignments = consignments;
     }
 
 }

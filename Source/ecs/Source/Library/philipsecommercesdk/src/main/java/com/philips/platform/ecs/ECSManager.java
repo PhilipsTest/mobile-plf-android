@@ -732,6 +732,7 @@ class ECSManager {
 
                     @Override
                     public void onError(ERRORVALUES errorvalues, String s) {
+                        ecsCallback.onFailure(new Exception(errorvalues.name()), new ECSError(ECSErrorEnum.ECSUnknownIdentifierError.getErrorCode(),s));
                     }
                 });
             }
@@ -784,6 +785,8 @@ class ECSManager {
             }
         });
     }
+
+
 
     public void refreshAuth(ECSOAuthProvider oAuthInput, ECSCallback<ECSOAuthData, Exception> ecsListener) {
         new OAuthRequest(GrantType.REFRESH_TOKEN, oAuthInput, ecsListener).executeRequest();

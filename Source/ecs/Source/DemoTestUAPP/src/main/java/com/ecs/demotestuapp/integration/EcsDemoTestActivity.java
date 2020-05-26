@@ -1,7 +1,6 @@
 
 package com.ecs.demotestuapp.integration;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -24,7 +23,6 @@ import com.ecs.demotestuapp.jsonmodel.JSONConfiguration;
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.google.gson.Gson;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
-import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;
 import com.philips.cdp.registration.ui.utils.RegistrationContentConfiguration;
 import com.philips.cdp.registration.ui.utils.URInterface;
@@ -38,8 +36,11 @@ import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
 import com.philips.platform.pim.PIMInterface;
+import com.philips.platform.pim.PIMInterface;
+import com.philips.platform.pim.PIMLaunchInput;
+import com.philips.platform.pim.PIMParameterToLaunchEnum;
+import com.philips.platform.pim.listeners.UserLoginListener;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uid.view.widget.Button;
 
@@ -50,13 +51,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//import com.philips.platform.pim.PIMInterface;
-//import com.philips.platform.pim.PIMLaunchInput;
-//import com.philips.platform.pim.PIMParameterToLaunchEnum;
 
-
-public class EcsDemoTestActivity extends FragmentActivity implements View.OnClickListener, UserLoginListener,
-        UserRegistrationUIEventListener {
+public class EcsDemoTestActivity extends FragmentActivity implements View.OnClickListener,
+        UserLoginListener {
 
     private Button mRegister;
 
@@ -73,6 +70,8 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
     private AppConfigurationInterface.AppConfigurationError configError;
 
     //String[] propositionIDs = {"Tuscany2016", "IAP_MOB_DKA", "IAP_MOB_OHC", "IAP_MOB_PHC"};
+    String[] propositionIDs = {"Tuscany2016", "IAP_MOB_DKA", "IAP_MOB_OHC", "IAP_MOB_PHC"};
+    private PIMInterface pimInterface;
 
 
     public static String getApplicationName(Context context) {
@@ -111,19 +110,21 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
         showAppVersion();
 
-        if (!getApplicationName(getApplicationContext()).equals("PIM Demo App")) {
+        if (getApplicationName(getApplicationContext()).equals("PIM Demo App")) {
 
-            try {
-                urInterface = new URInterface();
-                urInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
-                mUserDataInterface = urInterface.getUserDataInterface();
-            }catch (Exception e){
-                PIMInterface pimInterface = new PIMInterface();
-                pimInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
-                mUserDataInterface = pimInterface.getUserDataInterface();
-            }
+            pimInterface = new PIMInterface();
+            pimInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
+            mUserDataInterface = pimInterface.getUserDataInterface();
+
+        }else{
+
+            urInterface = new URInterface();
+            urInterface.init(new EcsDemoTestUAppDependencies(new AppInfra.Builder().build(this)), new EcsDemoTestAppSettings(this));
+            mUserDataInterface = urInterface.getUserDataInterface();
         }
 
+
+        ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
         ECSServices ecsServices = new ECSServices(null, new AppInfra.Builder().build(getApplicationContext()));
 
 
@@ -170,7 +171,6 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
     private void initializeRegistrationComponant() {
         if (isUserLoggedIn()) {
             setJanRainID();
-            ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
             mRegister.setText("Log out");
         } else {
             mRegister.setText("Log in");
@@ -188,11 +188,22 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
     }
 
-    private void gotoUSRLogInScreen() {
+    private void gotoLogInScreen() {
 
-        if (getApplicationName(getApplicationContext()) == "pimApp") {
+        if (getApplicationName(getApplicationContext()).equals("PIM Demo App")) {
+
+            PIMLaunchInput launchInput = new PIMLaunchInput();
+            launchInput.setUserLoginListener(this);
+            ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
+                    ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
+            HashMap<PIMParameterToLaunchEnum, Object> parameter = new HashMap<>();
+            parameter.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, Boolean.TRUE);
+            launchInput.setParameterToLaunch(parameter);
+            if(pimInterface!=null)pimInterface.launch(activityLauncher, launchInput);
+        }
+        else {
+
             URLaunchInput urLaunchInput = new URLaunchInput();
-            urLaunchInput.setUserRegistrationUIEventListener(this);
             urLaunchInput.enableAddtoBackStack(true);
             RegistrationContentConfiguration contentConfiguration = new RegistrationContentConfiguration();
             contentConfiguration.enableLastName(true);
@@ -204,19 +215,8 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
             ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
                     ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
-            urInterface.launch(activityLauncher, urLaunchInput);
+            if(urInterface!=null)urInterface.launch(activityLauncher, urLaunchInput);
         }
-//        else {
-//            PIMLaunchInput launchInput = new PIMLaunchInput();
-////            FragmentLauncher fragmentLauncher = new FragmentLauncher(this, R.id.pimDemoU_mainFragmentContainer, null);
-//            launchInput.setUserLoginListener(this);
-//            ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
-//                    ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
-//            HashMap<PIMParameterToLaunchEnum, Object> parameter = new HashMap<>();
-//            parameter.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, Boolean.TRUE);
-//            launchInput.setParameterToLaunch(parameter);
-//            pimInterface.launch(activityLauncher, launchInput);
-//        }
 
 
     }
@@ -231,28 +231,6 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
         }
         TextView versionView = findViewById(R.id.appversion);
         versionView.setText(String.valueOf(code));
-    }
-
-    //User Registration interface functions
-    @Override
-    public void onUserRegistrationComplete(Activity activity) {
-        activity.finish();
-        mRegister.setText("Log out");
-        setJanRainID();
-        initializeRegistrationComponant();
-    }
-
-    @Override
-    public void onPrivacyPolicyClick(Activity activity) {
-    }
-
-    @Override
-    public void onTermsAndConditionClick(Activity activity) {
-    }
-
-    @Override
-    public void onPersonalConsentClick(Activity activity) {
-
     }
 
     @Override
@@ -330,7 +308,7 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
                 Toast.makeText(EcsDemoTestActivity.this, "User is not logged in", Toast.LENGTH_SHORT).show();
             }
         } else {
-            gotoUSRLogInScreen();
+            gotoLogInScreen();
         }
 
     }
@@ -376,7 +354,10 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
     @Override
     public void onLoginSuccess() {
-
+        finish();
+        mRegister.setText("Log out");
+        setJanRainID();
+        initializeRegistrationComponant();
     }
 
     @Override

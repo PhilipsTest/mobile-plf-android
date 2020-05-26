@@ -12,7 +12,7 @@
 package com.philips.platform.ecs.microService.callBack
 
 /**
- * The is a callback interface for ECS.
+ * The is a callback interface to give back result to caller .
  */
 interface ECSCallback<R, E> {
     /**
@@ -24,7 +24,7 @@ interface ECSCallback<R, E> {
 
     /**
      * On failure.
-     * @param ecsError the error with exception ,error code and message
+     * @param ecsError the error with  message (mandatory) , error code (optional) and enum of error type (optional)
      */
     fun onFailure(ecsError: E)
 }

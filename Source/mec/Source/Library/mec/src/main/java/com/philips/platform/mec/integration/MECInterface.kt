@@ -26,7 +26,7 @@ import com.philips.platform.uappframework.uappinput.UappSettings
 
 /**
  * MECInterface is the public class for any proposition to consume MEC micro app. Its the starting initialization point.
- * @since 1.0.0
+ * @since 2001.0
  */
 class MECInterface : UappInterface {
     private var mMECSettings: MECSettings? = null
@@ -83,7 +83,7 @@ class MECInterface : UappInterface {
             val mecLaunchInput = uappLaunchInput as MECLaunchInput
             MECDataHolder.INSTANCE.hybrisEnabled = mecLaunchInput.supportsHybris
 
-            if(mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW){
+            if(isLogInRequired(mecLaunchInput)){
 
                 if(MECDataHolder.INSTANCE.isUserLoggedIn()){
                     if(mecLaunchInput.supportsHybris) {
@@ -105,6 +105,9 @@ class MECInterface : UappInterface {
             throw MECException(mMECSettings?.context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
+
+    private fun isLogInRequired(mecLaunchInput: MECLaunchInput) =
+            mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW || mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY
 
 
     private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {

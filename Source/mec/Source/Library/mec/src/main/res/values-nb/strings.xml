@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Spor bestillingen</string>
   <string name="mec_accept_terms">Ved å legge inn bestillingen godtar jeg Philips’</string>
   <string name="mec_accepted_codes">Godkjente koder</string>
   <string name="mec_add">Legg til</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Fakturaadresse</string>
   <string name="mec_blank_cvv_error">Angi en gyldig CVV</string>
   <string name="mec_buy_from_retailers">Kjøp fra forhandler</string>
+  <string name="mec_call">Ring</string>
   <string name="mec_cancel">Avbryt</string>
+  <string name="mec_cancel_order">Kanseller bestillingen</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Til referanse er bestillingsnummeret ditt %s</string>
+  <string name="mec_cancel_order_dls_msg">Du kan avbryte bestillingen før den sendes. Forbrukerteamet vårt kan hjelpe deg med dette.</string>
+  <string name="mec_cancel_order_number">Avbryt bestillingsnummer </string>
   <string name="mec_cancel_payment">Vil du avbryte betalingen? Handlevognen vil bli tømt.</string>
+  <string name="mec_cancel_your_order">[nb]Cancel your order</string>
   <string name="mec_card_holder_first_name">Kortholderens fornavn</string>
   <string name="mec_card_holder_last_name">Kortholderens etternavn</string>
   <string name="mec_cart_count_exceed_message">Kan ikke legge til flere enn %d produkter i handlekurven</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Bekreftelse</string>
   <string name="mec_confirmation_email_msg">Du vil motta en e-postbekreftelse om kort tid på</string>
   <string name="mec_contact_details">Kontaktinformasjon</string>
+  <string name="mec_contact_philips_consumer_care">Kontakt Philips\' forbrukerstøtte på %s hvis du vil ha ytterligere hjelp.</string>
   <string name="mec_continue">Fortsett</string>
   <string name="mec_continue_checkout">Fortsett til betaling</string>
   <string name="mec_continue_shopping">Fortsett å handle</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Leveringsmetode</string>
   <string name="mec_discount">rabatt</string>
   <string name="mec_empty_cart">Handlevognen er tom</string>
+  <string name="mec_empty_purchase_history">Hvis du la inn bestillingen ved hjelp av denne appen, må du kontrollere at du har mottatt en e-post med bestillingsbekreftelse.</string>
   <string name="mec_enter_code">Skriv inn gavekode</string>
   <string name="mec_faq">Spørsmål og svar</string>
   <string name="mec_features">Egenskaper</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">for å få mer info</string>
   <string name="mec_mr">Herr</string>
   <string name="mec_mrs">Ms</string>
+  <string name="mec_my_orders">Mine bestillinger</string>
   <string name="mec_new_card_text">Nytt kort</string>
   <string name="mec_new_payment_disclaimer">Denne betalingsmetoden lagres når du har lagt inn en bestilling</string>
   <string name="mec_no_address_select_message">Velg leveringsadresse</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">Ok</string>
   <string name="mec_online_retailers">Nettbutikker</string>
   <string name="mec_only">Bare</string>
+  <string name="mec_order_detail_unavailable">[nb]Order Detail is unavailable</string>
+  <string name="mec_order_details">Bestillingsopplysninger</string>
+  <string name="mec_order_not_received_items">Bestilling ikke mottatt</string>
+  <string name="mec_order_number_msg">Bestillingsnummer: %s</string>
   <string name="mec_order_pay">Bestill og betal</string>
+  <string name="mec_order_state">Bestillingen er %s</string>
   <string name="mec_order_summary">Bestillingssammendrag</string>
   <string name="mec_order_summary_shipping">Leveringsinformasjon</string>
+  <string name="mec_orders">Bestillinger</string>
+  <string name="mec_other_channel_purchase">Hvis du la inn bestillingen ved hjelp av en annen forhandler, vises bestillingen kanskje ikke her.</string>
   <string name="mec_out_of_stock">Ikke på lager</string>
   <string name="mec_page">side</string>
   <string name="mec_payment">Betaling</string>

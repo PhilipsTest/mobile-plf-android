@@ -45,13 +45,12 @@ public class PIMErrorCodes {
     public static final int MIGRATION_FAILED = 7500;
     public static final int MARKETING_OPTIN_ERROR = 7501;
 
-    //Service Discovery Error
-    public static final int SERVICE_DISCOVERY_ERROR = 7600;
-
-    //OIDC download failed
-    public static final int OIDC_DOWNLOAD_FAILED_ERROR = 7700;
-
-    //OIDC access token expire error
-    public static final int ACCESS_TOKEN_EXPIRED = 1012;
-
+    public static final int SD_DOWNLOAD_ERROR = 7600;
+    public static final int OIDC_DOWNLOAD_ERROR = 7601;
+    public static final int INVALID_REFRESH_TOKEN = 7602;
+    public static final int REFRESH_TOKEN_FAILED = 7603;
+    public static final int ACCESS_TOKEN_EXPIRED = 7604;
+    public static final int NO_REQUEST_FOR_REDIRECTION = 7605;
+    public static final int INVALID_REDIRECTION_URL = 7606;
+    public static final int UDI_SERVER_ERROR = 7607;
 }

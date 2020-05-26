@@ -1,4 +1,4 @@
-package com.philips.platform.pif.DataInterface.USR.listeners;
+package com.philips.platform.pim.listeners;
 
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 

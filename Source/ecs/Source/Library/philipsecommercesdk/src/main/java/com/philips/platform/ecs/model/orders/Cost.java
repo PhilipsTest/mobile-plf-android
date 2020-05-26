@@ -28,4 +28,8 @@ public class Cost implements Serializable {
     public double getValue() {
         return value;
     }
+
+    public void setFormattedValue(String formattedValue) {
+        this.formattedValue = formattedValue;
+    }
 }

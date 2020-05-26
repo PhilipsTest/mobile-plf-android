@@ -17,6 +17,7 @@ import android.text.TextUtils
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.fragment.app.FragmentManager
+import androidx.room.util.StringUtil
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.google.gson.Gson
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
@@ -24,6 +25,7 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
 import com.philips.platform.mec.analytics.MECAnalyticServer.hybris
@@ -149,6 +151,23 @@ class MECutility {
             }
         }
 
+        fun showPositiveActionDialog(context: Context, btnText: String, errorTitle: String, errorDescription: String, fragmentManager: FragmentManager, alertListener: AlertListener) {
+
+            val builder = AlertDialogFragment.Builder(context)
+            builder.setDialogType(DialogConstants.TYPE_ALERT)
+            builder.setTitle(errorTitle)
+            builder.setMessage(errorDescription)
+            builder.setPositiveButton(btnText) {
+                alertListener.onPositiveBtnClick()
+                dismissAlertFragmentDialog(alertDialogFragment, fragmentManager)
+            }
+
+            alertDialogFragment = builder.setCancelable(false).create()
+            if (!alertDialogFragment!!.isVisible) {
+                alertDialogFragment!!.show(fragmentManager, ALERT_DIALOG_TAG)
+            }
+        }
+
 
         private fun isCallingFragmentVisible(fragmentManager: FragmentManager?): Boolean {
 
@@ -247,8 +266,6 @@ class MECutility {
         fun getQuantity(carts: ECSShoppingCart): Int {
             val totalItems = carts.totalItems
             var quantity = 0
-
-
             if (carts.entries != null) {
                 val entries = carts.entries
                 if (totalItems != 0 && null != entries) {
@@ -394,21 +411,24 @@ class MECutility {
         }
 
 
-
     }
 
     fun constructShippingAddressDisplayField(ecsAddress: ECSAddress): String {
 
         var formattedAddress = ""
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
-        val countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
+        var countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
+        var countryName = countryDisplayName?:""
         val houseNumber = ecsAddress.houseNumber
-        val line1 = ecsAddress.line1
-        val line2 = ecsAddress.line2
-        val town = ecsAddress.town
-        val postalCode = ecsAddress.postalCode
+        val line1 = ecsAddress.line1?:""
+        val line2 = ecsAddress.line2?:""
+        val town = ecsAddress.town?:""
+        val postalCode = ecsAddress.postalCode?:""
         formattedAddress = (houseNumber.validateStr()) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
-        formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+(countryDisplayName.validateStr())
+        formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+countryName
+
+        //Remove last comma
+
         return formattedAddress
     }
     fun constructCardDetails(mecPayment: MECPayment): CharSequence? {
@@ -416,6 +436,14 @@ class MECutility {
         val cardType = (mecPayment.ecsPayment.cardType?.let { it.name } ?: run { "" })
         val cardNumber = (mecPayment.ecsPayment.cardNumber?.validateStr())
         formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber?.takeLast(8)}"
+        return formattedCardDetail
+    }
+
+    fun constructCardDetails(paymentInfo: PaymentInfo): CharSequence? {
+        var formattedCardDetail = ""
+        val cardType = if (paymentInfo.cardType != null) paymentInfo.cardType.code else ""
+        val cardNumber = if (paymentInfo.cardNumber != null) paymentInfo.cardNumber else ""
+        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
         return formattedCardDetail
     }
 
@@ -428,8 +456,22 @@ class MECutility {
         return formattedCardValidityDetail
     }
 
-    fun Any?.validateStr(): String {
-        return (this?.let { "$this,\n" } ?: run { "" })
+    fun constructCardValidityDetails(paymentInfo: PaymentInfo): CharSequence? {
+        var formattedCardValidityDetail = ""
+        val cardExpMon = if (paymentInfo.expiryMonth != null) paymentInfo.expiryMonth else ""
+        val cardExpYear = if (paymentInfo.expiryYear != null) paymentInfo.expiryYear else ""
+        if (cardExpMon == "" || cardExpYear == "") return null
+        formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
+        return formattedCardValidityDetail
+    }
+
+    private fun String?.validateStr(): String {
+
+        if(this == null) return ""
+        if(this.trim() == ""){
+            return this.trim()
+        }
+        return  "$this,\n"
     }
 
 }

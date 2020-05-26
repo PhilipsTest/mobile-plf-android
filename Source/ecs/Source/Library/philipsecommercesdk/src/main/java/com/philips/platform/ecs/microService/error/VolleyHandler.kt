@@ -58,7 +58,7 @@ class VolleyHandler {
 
     private fun setEcsError(ecsError: ECSError, ecsErrorType: ECSErrorType) {
         ecsError.errorMessage = ecsErrorType.getLocalizedErrorString()
-        ecsError.errorcode = ecsErrorType.errorCode
+        ecsError.errorCode = ecsErrorType.errorCode
         ecsError.errorType = ecsErrorType
     }
 
