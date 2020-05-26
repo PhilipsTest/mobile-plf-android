@@ -138,7 +138,7 @@ class GetProductsRequestTest {
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var actualError = ECSError(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT)
         volleyHandler.setPILECSError(hybrisError,actualError)
-        Assert.assertEquals(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, actualError.errorcode)
+        Assert.assertEquals(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, actualError.errorCode)
 
 
     }
