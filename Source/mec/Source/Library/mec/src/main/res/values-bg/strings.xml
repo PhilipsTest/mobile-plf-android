@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Проследяване на поръчка</string>
   <string name="mec_accept_terms">Чрез подаването на поръчката приемам на Philips</string>
   <string name="mec_accepted_codes">Приети кодове</string>
   <string name="mec_add">Добави</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Адрес на фактура</string>
   <string name="mec_blank_cvv_error">Моля, въведете валидна стойност за проверка на картата (CVV)</string>
   <string name="mec_buy_from_retailers">Купуване от търговец на дребно</string>
+  <string name="mec_call">Избери</string>
   <string name="mec_cancel">Отказ</string>
+  <string name="mec_cancel_order">Отмяна на поръчката ми</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">За ваша справка номерът на поръчката ви е %s</string>
+  <string name="mec_cancel_order_dls_msg">Можете да се откажете от поръчката си, преди да бъде изпратена. Нашият отдел за помощ на клиенти може да ви помогне с това.</string>
+  <string name="mec_cancel_order_number">Отмяна на номера на поръчката </string>
   <string name="mec_cancel_payment">Искате ли да отмените плащането? Вашата количка ще бъде празна.</string>
+  <string name="mec_cancel_your_order">[bg]Cancel your order</string>
   <string name="mec_card_holder_first_name">Собствено име на притежателя на картата</string>
   <string name="mec_card_holder_last_name">Фамилно име на притежателя на картата</string>
   <string name="mec_cart_count_exceed_message">Не е възможно добавянето на повече от %d продукта в количката за пазаруване</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Потвърждение</string>
   <string name="mec_confirmation_email_msg">Ще получите скоро имейл за потвърждение на</string>
   <string name="mec_contact_details">Данни за контакт</string>
+  <string name="mec_contact_philips_consumer_care">За допълнителна помощ, моля, свържете се с отдела за помощ на клиенти на Philips %s.</string>
   <string name="mec_continue">Продължи</string>
   <string name="mec_continue_checkout">Продължаване към финализиране</string>
   <string name="mec_continue_shopping">Продължете пазаруването</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Начин на доставка</string>
   <string name="mec_discount">отстъпка</string>
   <string name="mec_empty_cart">В момента вашата количка за пазаруване е празна</string>
+  <string name="mec_empty_purchase_history">Ако сте направили поръчката чрез това приложение, моля, проверете дали сте получили имейл за потвърждение.</string>
   <string name="mec_enter_code">Добавете код за подарък</string>
   <string name="mec_faq">ЧЗВ</string>
   <string name="mec_features">Функции</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">за повече информация</string>
   <string name="mec_mr">Г-н</string>
   <string name="mec_mrs">Г-жа</string>
+  <string name="mec_my_orders">Мои поръчки</string>
   <string name="mec_new_card_text">Нова карта</string>
   <string name="mec_new_payment_disclaimer">Информацията относно плащането ще се запази веднага след като направите поръчка</string>
   <string name="mec_no_address_select_message">Моля, изберете адрес за доставка</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Онлайн търговци на дребно</string>
   <string name="mec_only">Само</string>
+  <string name="mec_order_detail_unavailable">[bg]Order Detail is unavailable</string>
+  <string name="mec_order_details">Подробности за поръчката</string>
+  <string name="mec_order_not_received_items">Поръчката не е получена</string>
+  <string name="mec_order_number_msg">Номер на поръчка: %s</string>
   <string name="mec_order_pay">Поръчка и плащане</string>
+  <string name="mec_order_state">Поръчката ви е %s</string>
   <string name="mec_order_summary">Обобщение на поръчките</string>
   <string name="mec_order_summary_shipping">Информация относно доставката</string>
+  <string name="mec_orders">Поръчки</string>
+  <string name="mec_other_channel_purchase">Ако сте направили поръчката, като сте използвали друг търговец, поръчката ви може да не се покаже тук.</string>
   <string name="mec_out_of_stock">Няма наличност</string>
   <string name="mec_page">стр.</string>
   <string name="mec_payment">Плащане</string>

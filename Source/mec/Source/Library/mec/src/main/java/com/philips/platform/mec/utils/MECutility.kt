@@ -17,6 +17,7 @@ import android.text.TextUtils
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.fragment.app.FragmentManager
+import androidx.room.util.StringUtil
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.google.gson.Gson
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
@@ -24,6 +25,7 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
 import com.philips.platform.mec.analytics.MECAnalyticServer.hybris
@@ -146,6 +148,23 @@ class MECutility {
             alertDialogFragment = builder.setCancelable(false).create()
             if (!alertDialogFragment!!.isVisible) {
                 alertDialogFragment!!.show(pFragmentManager, ALERT_DIALOG_TAG)
+            }
+        }
+
+        fun showPositiveActionDialog(context: Context, btnText: String, errorTitle: String, errorDescription: String, fragmentManager: FragmentManager, alertListener: AlertListener) {
+
+            val builder = AlertDialogFragment.Builder(context)
+            builder.setDialogType(DialogConstants.TYPE_ALERT)
+            builder.setTitle(errorTitle)
+            builder.setMessage(errorDescription)
+            builder.setPositiveButton(btnText) {
+                alertListener.onPositiveBtnClick()
+                dismissAlertFragmentDialog(alertDialogFragment, fragmentManager)
+            }
+
+            alertDialogFragment = builder.setCancelable(false).create()
+            if (!alertDialogFragment!!.isVisible) {
+                alertDialogFragment!!.show(fragmentManager, ALERT_DIALOG_TAG)
             }
         }
 
@@ -286,54 +305,63 @@ class MECutility {
 
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context?) {
-            var errorMessage: String = ""
+            var errorMessage: String=""
             if (mecError!!.ecsError!!.errorType.equals("No internet connection")) {
                 MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
             } else {
-                try {
-                    //tag all techinical defect except "No internet connection"
-                    var errorString: String = COMPONENT_NAME + ":"
-                    if (mecError!!.ecsError!!.errorcode == 1000) {
-                        errorString += bazaarVoice + ":"
-                    } else if (mecError!!.ecsError!!.errorcode in 5000..5999) {
-                        errorString += hybris + ":"
-                    } else if (mecError.mECRequestType!!.category.equals(MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)) {
-                        errorString += wtb + ":"
-                    } else {
-                        //
-                        errorString += prx + ":"
-                    }
-                    errorString += mecError.mECRequestType!!.category + ":"// Error_Category
-
-                    if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
-                        errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
-                    } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
-                        // No Internet: Information Error
-                        //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
-                        //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                        MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
-                        errorMessage = Acontext!!.getString(R.string.mec_no_internet)
-                    } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
-                        //voucher apply fail:  User error
-                        val errorMsg = mecError!!.exception!!.message.toString()
-                        errorString +=errorMsg
-                        MECAnalytics.trackUserError(errorString)
-                        errorMessage=mecError!!.exception!!.message.toString()
-                    }else{
-                        // Remaining all errors: Technical errors
-                        errorMessage = mecError!!.exception!!.message.toString()
-                        errorString += errorMessage
-                        errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
-                        MECAnalytics.trackTechnicalError(errorString)
-                    }
-
-                } catch (e: Exception) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
-                }
+                errorMessage = getErrorString(mecError,Acontext)
             }
             if (showDialog.equals(true)) {
                 aFragmentManager?.let { Acontext?.let { it1 -> MECutility.showErrorDialog(it1, it, Acontext!!.getString(R.string.mec_ok), "Error", errorMessage) } }
             }
+
+        }
+
+        @JvmStatic
+        fun getErrorString(mecError: MecError?, Acontext: Context?):String{
+            var errorMessage: String = ""
+            try {
+                //tag all techinical defect except "No internet connection"
+                var errorString: String = COMPONENT_NAME + ":"
+                if (mecError!!.ecsError!!.errorcode == 1000) {
+                    errorString += bazaarVoice + ":"
+                } else if (mecError!!.ecsError!!.errorcode in 5000..5999) {
+                    errorString += hybris + ":"
+                } else if (mecError.mECRequestType!!.category.equals(MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)) {
+                    errorString += wtb + ":"
+                } else {
+                    //
+                    errorString += prx + ":"
+                }
+                errorString += mecError.mECRequestType!!.category + ":"// Error_Category
+
+                if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
+                    errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
+                } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+                    // No Internet: Information Error
+                    //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
+                    //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
+                    MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
+                    errorMessage = Acontext!!.getString(R.string.mec_no_internet)
+                } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                    //voucher apply fail:  User error
+                    val errorMsg = mecError!!.exception!!.message.toString()
+                    errorString +=errorMsg
+                    MECAnalytics.trackUserError(errorString)
+                    errorMessage=mecError!!.exception!!.message.toString()
+                }else{
+                    // Remaining all errors: Technical errors
+                    errorMessage = mecError!!.exception!!.message.toString()
+                    errorString += errorMessage
+                    errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
+                    MECAnalytics.trackTechnicalError(errorString)
+                }
+
+            } catch (e: Exception) {
+                MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+            }
+            return errorMessage
+
 
         }
 
@@ -383,48 +411,67 @@ class MECutility {
         }
 
 
-
     }
 
     fun constructShippingAddressDisplayField(ecsAddress: ECSAddress): String {
 
         var formattedAddress = ""
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
-        val countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
+        var countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
+        var countryName = countryDisplayName?:""
         val houseNumber = ecsAddress.houseNumber
-        val line1 = ecsAddress.line1
-        val line2 = ecsAddress.line2
-        val town = ecsAddress.town
-        val postalCode = ecsAddress.postalCode
+        val line1 = ecsAddress.line1?:""
+        val line2 = ecsAddress.line2?:""
+        val town = ecsAddress.town?:""
+        val postalCode = ecsAddress.postalCode?:""
+        formattedAddress = (houseNumber.validateStr()) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
+        formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+countryName
 
-        formattedAddress = if (!houseNumber.isNullOrEmpty()) "$formattedAddress$houseNumber," else formattedAddress
-        formattedAddress = if (!line1.isNullOrEmpty()) "$formattedAddress$line1,\n" else formattedAddress
-        formattedAddress = if (!line2.isNullOrEmpty()) "$formattedAddress$line2,\n" else formattedAddress
-        formattedAddress = if (!town.isNullOrEmpty()) "$formattedAddress$town,\n" else formattedAddress
-        formattedAddress = if (!regionDisplayName.isNullOrEmpty()) "$formattedAddress$regionDisplayName, " else formattedAddress
-        formattedAddress = if (!postalCode.isNullOrEmpty()) "$formattedAddress$postalCode, " else formattedAddress
-        formattedAddress = if (!countryDisplayName.isNullOrEmpty()) formattedAddress + countryDisplayName else formattedAddress
+        //Remove last comma
 
         return formattedAddress
     }
-
-
     fun constructCardDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardDetail = ""
-        val cardType = if (mecPayment.ecsPayment.cardType != null) mecPayment.ecsPayment.cardType.name else ""
-        val cardNumber = if (mecPayment.ecsPayment.cardNumber != null) mecPayment.ecsPayment.cardNumber else ""
+        val cardType = (mecPayment.ecsPayment.cardType?.let { it.name } ?: run { "" })
+        val cardNumber = (mecPayment.ecsPayment.cardNumber?.validateStr())
+        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber?.takeLast(8)}"
+        return formattedCardDetail
+    }
+
+    fun constructCardDetails(paymentInfo: PaymentInfo): CharSequence? {
+        var formattedCardDetail = ""
+        val cardType = if (paymentInfo.cardType != null) paymentInfo.cardType.code else ""
+        val cardNumber = if (paymentInfo.cardNumber != null) paymentInfo.cardNumber else ""
         formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
         return formattedCardDetail
     }
 
     fun constructCardValidityDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardValidityDetail = ""
-        val cardExpMon = if (mecPayment.ecsPayment.expiryMonth != null) mecPayment.ecsPayment.expiryMonth else ""
-        val cardExpYear = if (mecPayment.ecsPayment.expiryYear != null) mecPayment.ecsPayment.expiryYear else ""
+        val cardExpMon =  ( mecPayment.ecsPayment.expiryMonth.validateStr())
+        val cardExpYear =  ( mecPayment.ecsPayment.expiryYear.validateStr())
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
     }
 
+    fun constructCardValidityDetails(paymentInfo: PaymentInfo): CharSequence? {
+        var formattedCardValidityDetail = ""
+        val cardExpMon = if (paymentInfo.expiryMonth != null) paymentInfo.expiryMonth else ""
+        val cardExpYear = if (paymentInfo.expiryYear != null) paymentInfo.expiryYear else ""
+        if (cardExpMon == "" || cardExpYear == "") return null
+        formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
+        return formattedCardValidityDetail
+    }
+
+    private fun String?.validateStr(): String {
+
+        if(this == null) return ""
+        if(this.trim() == ""){
+            return this.trim()
+        }
+        return  "$this,\n"
+    }
 
 }

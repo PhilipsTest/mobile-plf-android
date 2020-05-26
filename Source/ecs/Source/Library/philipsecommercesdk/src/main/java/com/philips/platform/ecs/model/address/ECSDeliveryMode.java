@@ -8,11 +8,13 @@ package com.philips.platform.ecs.model.address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * The type Ecs delivery mode which contains all delivery details like cost, name and description.
  * The values are set in setDeliveryMode and it is returned with updated data in fetchDeliveryModes
  */
-public class ECSDeliveryMode implements Parcelable {
+public class ECSDeliveryMode implements Parcelable, Serializable {
     private String code;
     private DeliveryCost deliveryCost;
     private String description;

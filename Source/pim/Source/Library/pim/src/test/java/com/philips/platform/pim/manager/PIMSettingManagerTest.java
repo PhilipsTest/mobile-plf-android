@@ -6,7 +6,8 @@ import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
+import com.philips.platform.pim.listeners.PIMLoginListener;
+import com.philips.platform.pim.listeners.UserLoginListener;
 import com.philips.platform.pim.BuildConfig;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
 import com.philips.platform.pim.utilities.PIMInitState;
@@ -38,7 +39,7 @@ public class PIMSettingManagerTest extends TestCase {
     @Mock
     AppTaggingInterface mockAppTaggingInterface;
     @Mock
-    UserLoginListener mockUserLoginListener;
+    PIMLoginListener mockUserLoginListener;
     @Mock
     MutableLiveData<PIMInitState> mockPimInitLiveData;
 
@@ -114,7 +115,7 @@ public class PIMSettingManagerTest extends TestCase {
     @Test
     public void testGetPimUserLoginListener() {
         pimSettingManager.setUserLoginInerface(mockUserLoginListener);
-        UserLoginListener pimUserLoginListener = pimSettingManager.getPimUserLoginListener();
+        PIMLoginListener pimUserLoginListener = pimSettingManager.getPimUserLoginListener();
         assertSame(mockUserLoginListener, pimUserLoginListener);
     }
 

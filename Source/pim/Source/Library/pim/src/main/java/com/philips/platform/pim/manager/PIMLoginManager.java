@@ -13,6 +13,8 @@ import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
+import com.philips.platform.pim.errors.PIMErrorCodes;
+import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.listeners.PIMTokenRequestListener;
 import com.philips.platform.pim.listeners.PIMUserMigrationListener;
@@ -41,8 +43,10 @@ public class PIMLoginManager {
     private PIMUserManager mPimUserManager;
     private HashMap consentParameterMap;
     private PIMSecureStorageHelper pimSecureStorageHelper;
+    private Context context;
 
     public PIMLoginManager(Context context, PIMOIDCConfigration pimoidcConfigration, HashMap consentParameterMap) {
+        this.context = context;
         mPimoidcConfigration = pimoidcConfigration;
         mPimAuthManager = new PIMAuthManager(context);
         mLoggingInterface = PIMSettingManager.getInstance().getLoggingInterface();
@@ -152,7 +156,7 @@ public class PIMLoginManager {
                 (Boolean) consentParameterMap.get(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT))
             consentList.add(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT.pimConsent);
 
-        String consents = TextUtils.join(",",consentList);
+        String consents = TextUtils.join(",", consentList);
 
         mLoggingInterface.log(DEBUG, TAG, "consent list parameters : " + consents);
         return consents;
@@ -162,8 +166,12 @@ public class PIMLoginManager {
         mPimLoginListener = pimLoginListener;
         Intent authIntent = mPimAuthManager.extractResponseData(pimSecureStorageHelper.getAuthorizationResponse(), pimSecureStorageHelper.getAuthorizationRequest());
         pimSecureStorageHelper.deleteAuthorizationResponse();
-        if (mPimAuthManager.isAuthorizationSuccess(authIntent))
+        if (mPimAuthManager.isAuthorizationSuccess(authIntent)) {
             exchangeAuthorizationCode(authIntent);
+        } else {
+            Error error = new Error(PIMErrorCodes.USER_CANCELED_AUTH_FLOW, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorCodes.USER_CANCELED_AUTH_FLOW));
+            pimLoginListener.onLoginFailed(error);
+        }
     }
 }
 

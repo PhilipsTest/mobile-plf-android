@@ -5,6 +5,7 @@
    - consent of the copyright holder. -->
 
 <resources>
+  <string name="mec_track_order">Rastrear pedido</string>
   <string name="mec_accept_terms">Ao fazer o pedido, eu aceito os</string>
   <string name="mec_accepted_codes">Códigos aceitos</string>
   <string name="mec_add">Adicionar</string>
@@ -29,8 +30,14 @@
   <string name="mec_billing_address">Endereço de cobrança</string>
   <string name="mec_blank_cvv_error">Insira um CVV válido</string>
   <string name="mec_buy_from_retailers">Comprar do revendedor</string>
+  <string name="mec_call">Chamada</string>
   <string name="mec_cancel">Cancelar</string>
+  <string name="mec_cancel_order">Cancelar meu pedido</string>
+  <string name="mec_cancel_order_dls_for_your_ref_sg">Para sua referência, o número do seu pedido é %s</string>
+  <string name="mec_cancel_order_dls_msg">Você pode cancelar seu pedido antes de ele ser enviado. Nossa equipe de atendimento ao consumidor pode ajudar com isso.</string>
+  <string name="mec_cancel_order_number">Cancelar número do pedido </string>
   <string name="mec_cancel_payment">Deseja cancelar o pagamento? Seu carrinho ficará vazio.</string>
+  <string name="mec_cancel_your_order">[pt-BR]Cancel your order</string>
   <string name="mec_card_holder_first_name">Nome do titular do cartão</string>
   <string name="mec_card_holder_last_name">Sobrenome do titular do cartão</string>
   <string name="mec_cart_count_exceed_message">Não é possível adicionar mais de %d produtos no carrinho</string>
@@ -45,6 +52,7 @@
   <string name="mec_confirmation">Confirmação</string>
   <string name="mec_confirmation_email_msg">Em breve, você receberá um e-mail de confirmação em</string>
   <string name="mec_contact_details">Detalhes de contato</string>
+  <string name="mec_contact_philips_consumer_care">Entre em contato com a Central de Atendimento ao Consumidor da Philips em %s para obter suporte.</string>
   <string name="mec_continue">Continuar</string>
   <string name="mec_continue_checkout">Continuar para finalizar a compra</string>
   <string name="mec_continue_shopping">Continuar a compra</string>
@@ -61,6 +69,7 @@
   <string name="mec_delivery_method">Forma de entrega</string>
   <string name="mec_discount">desconto</string>
   <string name="mec_empty_cart">Seu carrinho de compras está vazio</string>
+  <string name="mec_empty_purchase_history">Se você fez o pedido usando este aplicativo, verifique se recebeu um e-mail de confirmação do pedido.</string>
   <string name="mec_enter_code">Inserir código de presente</string>
   <string name="mec_faq">FAQ</string>
   <string name="mec_features">Recursos</string>
@@ -84,6 +93,7 @@
   <string name="mec_more_info">para obter mais informações</string>
   <string name="mec_mr">Sr.</string>
   <string name="mec_mrs">Sr(a).</string>
+  <string name="mec_my_orders">Meus pedidos</string>
   <string name="mec_new_card_text">Novo cartão</string>
   <string name="mec_new_payment_disclaimer">Estes detalhes de pagamento serão salvos quando você fizer um pedido</string>
   <string name="mec_no_address_select_message">Selecione um endereço de envio</string>
@@ -98,9 +108,16 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Revendedores on-line</string>
   <string name="mec_only">Apenas</string>
+  <string name="mec_order_detail_unavailable">[pt-BR]Order Detail is unavailable</string>
+  <string name="mec_order_details">Detalhes do pedido</string>
+  <string name="mec_order_not_received_items">Pedido não recebido</string>
+  <string name="mec_order_number_msg">Número do pedido: %s</string>
   <string name="mec_order_pay">Fazer pedido e pagar</string>
+  <string name="mec_order_state">Seu pedido foi %s</string>
   <string name="mec_order_summary">Resumo do pedido</string>
   <string name="mec_order_summary_shipping">Informações de entrega</string>
+  <string name="mec_orders">Pedidos</string>
+  <string name="mec_other_channel_purchase">Se você fez o pedido usando outro varejista, o pedido pode não ser exibido aqui.</string>
   <string name="mec_out_of_stock">Fora de estoque</string>
   <string name="mec_page">página</string>
   <string name="mec_payment">Pagamento</string>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="itemClickListener"
+            type="com.philips.platform.mec.common.ItemClickListener" />
+
+        <variable
+            name="ecsOrders"
+            type="com.philips.platform.ecs.model.orders.ECSOrders" />
+
+        <variable
+            name="service"
+            type="com.philips.platform.mec.screens.history.MECOrderHistoryService" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_order_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/border12_margin">
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/iv_info"
+                fontPath="fonts/iconfont.ttf"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="@dimen/iap_margin_4dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/dls_exclamationcircle"
+                android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
+                android:textSize="@dimen/iap_text_size_16sp" />
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_order_state"
+                style="@style/mecCentralesansBoldFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/iv_info"
+                android:gravity="center_vertical"
+                android:text="@{String.format(@string/mec_order_state, ecsOrders.statusDisplay.substring(0, 1).toUpperCase() + ecsOrders.statusDisplay.substring(1))}"
+                android:textColor="?attr/uidContentItemSignalNormalTextInfoColor"
+                android:textSize="@dimen/iap_text_size_16sp" />
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_order_number"
+                style="@style/mecCentralesansBookFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_order_state"
+                android:layout_marginTop="@dimen/iap_margin_10dp"
+                android:text="@{String.format(@string/mec_order_number_msg,ecsOrders.code)}"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:textSize="@dimen/iap_text_size_12" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iap_divider_height"
+            android:layout_marginStart="@dimen/border16_margin_left_right"
+            android:layout_marginEnd="@dimen/border16_margin_left_right"
+            android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_product_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ecsOrders="@{ecsOrders}"
+                app:itemClickListener="@{itemClickListener}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_no_detail"
+                style="@style/mecCentralesansMediumFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/border16_margin_left_right"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/mec_order_detail_unavailable"
+                android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                android:textSize="@dimen/iap_text_size_16sp"
+                android:visibility="@{ecsOrders.orderDetail !=null &amp;&amp; ecsOrders.orderDetail.entries!=null &amp;&amp;  ecsOrders.orderDetail.entries.size()!=0 ? View.GONE : View.VISIBLE}" />
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/arrow"
+                style="@style/mec_right_arrow_product_catalog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/border16_margin_left_right"
+                android:textColor="?attr/uidListItemDefaultNormalOffIconColor"
+                android:textSize="@dimen/iap_text_size_16sp"
+                app:rotation="@{ecsOrders.code}"
+                android:textDirection="locale"
+                android:visibility="@{ecsOrders.orderDetail !=null &amp;&amp; ecsOrders.orderDetail.entries!=null &amp;&amp;  ecsOrders.orderDetail.entries.size()!=0 ? View.VISIBLE : View.GONE}"
+                 />
+            
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iap_divider_height"
+            android:layout_marginStart="@dimen/border16_margin_left_right"
+            android:layout_marginEnd="@dimen/border16_margin_left_right"
+            android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
+
+        <RelativeLayout
+            android:id="@+id/quantity_count_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/border16_margin_left_right"
+            android:paddingTop="@dimen/border16_margin_left_right"
+            android:paddingEnd="@dimen/border16_margin_left_right"
+            android:paddingBottom="@dimen/border16_margin_left_right">
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/total_item_text"
+                style="@style/mecCentralesansBookFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/mec_cart_total"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:textSize="@dimen/iap_text_size_16sp" />
+
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_total_price"
+                style="@style/iapCentralesansMediumFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@{ecsOrders.total.formattedValue}"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:textSize="@dimen/iap_text_size_16sp" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/tv_total_price"
+            android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.philips.platform.ecs.model.products.ECSProduct" />
+    </data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="@dimen/border16_margin_left_right"
+    android:paddingLeft="@dimen/border16_margin_left_right"
+    android:paddingBottom="@dimen/border16_margin_left_right"
+    android:background="?attr/uidContentSecondaryNeutralBackgroundColor">
+
+
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/mec_product_description"
+            style="@style/mecCentralesansBookFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/uidContentItemSecondaryNormalTextColor"
+            android:text='@{ product.summary.marketingTextHeader ?? ""}'
+            android:textSize="16sp"
+            android:paddingRight="8dp"
+            android:layout_marginTop="28dp" />
+
+
+        <com.philips.platform.uid.view.widget.Label
+            android:id="@+id/mec_product_disclaimer"
+            style="@style/mecCentralesansBookFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mec_product_description"
+            android:includeFontPadding="false"
+            android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+            app:setDisclaimer="@{product}"
+            android:textSize="12sp"
+            android:paddingTop="16dp"
+            android:paddingRight="8dp"
+            android:visibility="visible"
+            />
+
+
+</RelativeLayout>
+
+</layout>
