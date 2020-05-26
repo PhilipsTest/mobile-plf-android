@@ -2,13 +2,18 @@ package com.philips.platform.ecs.microService.request
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
+import com.philips.platform.ecs.microService.error.VolleyHandler
+import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import com.philips.platform.ecs.microService.util.getData
 import junit.framework.Assert.*
 import org.json.JSONObject
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,13 +29,12 @@ class GetProductsRequestTest {
     val modifiedSince = "2019-10-31T20:34:55Z"
     var mGetProductsRequest: GetProductsRequest? = null
     var mProductFilter: ProductFilter? = null
+    private lateinit var  volleyHandler: VolleyHandler
 
     var eCSCallback = object : ECSCallback<ECSProducts, ECSError> {
-
         override fun onResponse(result: ECSProducts) {
 
         }
-
         override fun onFailure(ecsError: ECSError) {
 
         }
@@ -41,7 +45,7 @@ class GetProductsRequestTest {
     fun setUp() {
         ECSDataHolder.locale = "en_US"
         mProductFilter = ProductFilter()
-
+        volleyHandler = VolleyHandler()
     }
 
     @Test
@@ -90,14 +94,11 @@ class GetProductsRequestTest {
 
     @Test
     fun onResponseSuccess() {
-
         var ecsCallback = object : ECSCallback<ECSProducts, ECSError> {
-
             override fun onResponse(result: ECSProducts) {
                 assertNotNull(result)
                 assertEquals(100, result.commerceProducts.size) // 100 products
             }
-
             override fun onFailure(ecsError: ECSError) {
                 fail()
             }
@@ -113,15 +114,11 @@ class GetProductsRequestTest {
 
     @Test
     fun onResponseEmpty() {
-
         var ecsCallback = object : ECSCallback<ECSProducts, ECSError> {
-
             override fun onResponse(result: ECSProducts) {
                 assertNotNull(result)
                 assertEquals(0, result.commerceProducts.size) // 0 products
-
             }
-
             override fun onFailure(ecsError: ECSError) {
                 fail()
             }
@@ -131,6 +128,17 @@ class GetProductsRequestTest {
         val errorString = ClassLoader.getSystemResource("pil/fetchProductsPILwithEmptyResponse.json").readText()
         val jsonObject = JSONObject(errorString)
         mGetProductsRequest!!.onResponse(jsonObject)
+    }
+
+    @Test
+    fun onFailure(){
+
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductsPILwithTimeoutFailure.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var actualError = ECSError(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT)
+        volleyHandler.setPILECSError(hybrisError,actualError)
+        Assert.assertEquals(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, actualError.errorcode)
 
 
     }
