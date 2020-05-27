@@ -5,6 +5,7 @@ import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
+import com.philips.platform.ecs.microService.request.ECSAbstractRequest
 import com.philips.platform.ecs.microService.request.GetProductForRequest
 import com.philips.platform.ecs.microService.request.GetProductsRequest
 import com.philips.platform.ecs.microService.request.GetSummariesForProductsRequest
@@ -102,8 +103,12 @@ class ECSProductManagerTest {
 
     @Mock
     lateinit var  eCSCallbackMock : ECSCallback<ECSProduct?, ECSError>
+
+    @Mock
+    lateinit var eCSAbstractRequestMock: ECSAbstractRequest
     @Test
     fun getProductForHybrisOFF() {
+
         eCSCallback = object : ECSCallback<ECSProduct?, ECSError>{
 
             override fun onResponse(result: ECSProduct?) {
@@ -118,8 +123,12 @@ class ECSProductManagerTest {
         var mECSProduct = ECSProduct(null,"id","type")
         mECSProduct.id="new id"
         ECSDataHolder.config.isHybris=false
-        Mockito.`when`(mECSProductManager.getSummaryForSingleProduct(ecsProductMock,eCSCallback)).then { eCSCallback.onResponse(ecsProductMock) }
+
+        Mockito.`when`(mECSProductManager.getSummaryForSingleProduct(mECSProduct,eCSCallback)).then { eCSCallback.onResponse(mECSProduct) }
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallback.onResponse(mECSProduct) }
                 mECSProductManager.getProductFor("CTN",eCSCallback)
+     // Mockito.verify(mECSProductManager, atLeastOnce()).getProductFor("CTN",eCSCallback)
+       //(requestHandlerMock).handleRequest(mGetSummariesForProductsRequestMock)
 //        Mockito.verify(eCSCallback).onResponse(ecsProductMock)
 
     }
