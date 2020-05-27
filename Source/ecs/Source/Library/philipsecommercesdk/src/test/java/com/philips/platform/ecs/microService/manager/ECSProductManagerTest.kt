@@ -27,6 +27,11 @@ class ECSProductManagerTest {
 
     lateinit var ecsCallback: ECSCallback<ECSProducts, ECSError>
 
+
+
+    @Mock
+    lateinit var ecsCallbackMock: ECSCallback<ECSProduct, ECSError>
+
     @Mock
     lateinit var mGetProductsRequestMock: GetProductsRequest
 
@@ -35,6 +40,9 @@ class ECSProductManagerTest {
 
     @Mock
     lateinit var productFilterMock: ProductFilter
+
+    @Mock
+    lateinit var eCSCallbackGetSummaryForSingleProductMock : ECSCallback<List<ECSProduct>, ECSError>
 
 ////////////////////
 
@@ -59,7 +67,7 @@ class ECSProductManagerTest {
     @Test
     fun getProducts() {
 
-        ecsCallback = object : ECSCallback<ECSProducts, ECSError> {
+      var  ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {
 
             override fun onResponse(result: ECSProducts) {
                 assert(true)
@@ -75,9 +83,10 @@ class ECSProductManagerTest {
         // `when`( mECSApiValidator.getECSException(APIType.Locale)).thenReturn(null)
         var commerceProducts = ArrayList<ECSProduct>()
         var mECSProduct = ECSProducts(commerceProducts)
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetProductsRequestMock)).then { ecsCallbackGetProducts.onResponse(mECSProduct) }
+        mGetProductsRequestMock = GetProductsRequest("category", 1, 2, productFilterMock, ecsCallbackGetProducts)
+        mECSProductManager.getProducts("category", 1, 2, productFilterMock, ecsCallbackGetProducts)
         Mockito.`when`(requestHandlerMock.handleRequest(mGetProductsRequestMock)).then { ecsCallback.onResponse(mECSProduct) }
-        mGetProductsRequestMock = GetProductsRequest("category", 1, 2, productFilterMock, ecsCallback)
-        mECSProductManager.getProducts("category", 1, 2, productFilterMock, ecsCallback)
     }
 
     //======================================================================================================================================================================
@@ -85,10 +94,11 @@ class ECSProductManagerTest {
     @Test
     fun getProductForHybrisON() {
 
-        eCSCallback = object : ECSCallback<ECSProduct?, ECSError> {
+        var eCSCallbackGetProductForHybrisON = object : ECSCallback<ECSProduct?, ECSError> {
 
             override fun onResponse(result: ECSProduct?) {
-                assert(true)
+                assertNotNull(result)
+                assertEquals("id", result?.id)
             }
 
             override fun onFailure(ecsError: ECSError) {
@@ -98,8 +108,9 @@ class ECSProductManagerTest {
 
         var mECSProduct = ECSProduct(null, "id", "type")
         ECSDataHolder.config.isHybris = true
-        Mockito.`when`(requestHandlerMock.handleRequest(mGetProductForRequestMock)).then { eCSCallback.onResponse(mECSProduct) }
-        mECSProductManager.getProductFor("CTN", eCSCallback)
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetProductForRequestMock)).then { eCSCallbackGetProductForHybrisON.onResponse(mECSProduct) }
+        mECSProductManager.getProductFor("CTN", eCSCallbackGetProductForHybrisON)
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetProductForRequestMock)).then { ecsCallbackMock.onResponse(mECSProduct) }
 
     }
 
@@ -110,10 +121,11 @@ class ECSProductManagerTest {
     @Test
     fun getProductForHybrisOFF() {
 
-        eCSCallback = object : ECSCallback<ECSProduct?, ECSError> {
+      var   eCSCallbackGetProductForHybrisOFF = object : ECSCallback<ECSProduct?, ECSError> {
 
             override fun onResponse(result: ECSProduct?) {
-                assert(true)
+                assertNotNull(result)
+                assertEquals("id", result?.id)
             }
 
             override fun onFailure(ecsError: ECSError) {
@@ -125,12 +137,10 @@ class ECSProductManagerTest {
         mECSProduct.id = "new id"
         ECSDataHolder.config.isHybris = false
 
-        Mockito.`when`(mECSProductManager.getSummaryForSingleProduct(mECSProduct, eCSCallback)).then { eCSCallback.onResponse(mECSProduct) }
-        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallback.onResponse(mECSProduct) }
-        mECSProductManager.getProductFor("CTN", eCSCallback)
-        // Mockito.verify(mECSProductManager, atLeastOnce()).getProductFor("CTN",eCSCallback)
-        //(requestHandlerMock).handleRequest(mGetSummariesForProductsRequestMock)
-//        Mockito.verify(eCSCallback).onResponse(ecsProductMock)
+        Mockito.`when`(mECSProductManager.getSummaryForSingleProduct(mECSProduct, eCSCallbackGetProductForHybrisOFF)).then { eCSCallbackGetProductForHybrisOFF.onResponse(mECSProduct) }
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetProductForHybrisOFF.onResponse(mECSProduct) }
+        mECSProductManager.getProductFor("CTN", eCSCallbackGetProductForHybrisOFF)
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetProductForHybrisOFF.onResponse(mECSProduct) }
 
     }
 //======================================================================================================================================================================
@@ -138,12 +148,19 @@ class ECSProductManagerTest {
     @Mock
     lateinit var jsonObjectMock: JSONObject
 
+    @Mock
+    lateinit var ecsProductmock :ECSProduct
+
+    @Mock
+    lateinit var productListMock: ArrayList<ECSProduct>
+
     @Test
     fun getSummaryForSingleProduct() {
-        eCSCallback = object : ECSCallback<ECSProduct?, ECSError> {
+        var eCSCallbackGetSummaryForSingleProduct = object : ECSCallback<ECSProduct?, ECSError> {
 
             override fun onResponse(result: ECSProduct?) {
-                assert(true)
+                assertNotNull(result)
+                assertEquals("new id", result?.id)
             }
 
             override fun onFailure(ecsError: ECSError) {
@@ -154,17 +171,20 @@ class ECSProductManagerTest {
         var mECSProduct = ECSProduct(null, "id", "type")
         mECSProduct.id = "new id"
         ECSDataHolder.config.isHybris = false
-        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { mGetSummariesForProductsRequestMock.onResponse(jsonObjectMock) }
-        mECSProductManager.getSummaryForSingleProduct(mECSProduct, eCSCallback)
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetSummaryForSingleProduct.onResponse(mECSProduct) }
+
+        mECSProductManager.getSummaryForSingleProduct(mECSProduct, eCSCallbackGetSummaryForSingleProduct)
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetSummaryForSingleProductMock.onResponse(productListMock) }
+
+
+
     }
 
     //======================================================================================================================================================================
 
-    @Mock
-    lateinit var productListMock: ArrayList<ECSProduct>
 
-    @Mock
-    lateinit var eCSCallbackGetSummaryForSingleProductMock : ECSCallback<List<ECSProduct>, ECSError>
+
+
 
     @Test
     fun fetchProductSummaries() {
@@ -196,8 +216,16 @@ class ECSProductManagerTest {
 
 
     }
+   //======================================================================================================================================================================
+
 
     @Test
     fun fetchProductDetails() {
     }
+
+    //======================================================================================================================================================================
+
+
+    //======================================================================================================================================================================
+
 }
