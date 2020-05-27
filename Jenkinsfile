@@ -9,7 +9,7 @@ BranchName = env.BRANCH_NAME
 String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS" : ""
 
 //label for pipeline
-def nodes = '9043'
+def nodes = 'test'
 
 if (BranchName == "feature/serialVersionId") {
     nodes = nodes + " && TICS"
