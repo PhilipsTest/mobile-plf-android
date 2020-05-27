@@ -96,6 +96,12 @@ class ECSProductManagerTest {
 
     }
 
+
+    @Mock
+    lateinit var ecsProductMock :ECSProduct
+
+    @Mock
+    lateinit var  eCSCallbackMock : ECSCallback<ECSProduct?, ECSError>
     @Test
     fun getProductForHybrisOFF() {
         eCSCallback = object : ECSCallback<ECSProduct?, ECSError>{
@@ -112,8 +118,9 @@ class ECSProductManagerTest {
         var mECSProduct = ECSProduct(null,"id","type")
         mECSProduct.id="new id"
         ECSDataHolder.config.isHybris=false
-        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallback.onResponse(mECSProduct) }
-
+        Mockito.`when`(mECSProductManager.getSummaryForSingleProduct(ecsProductMock,eCSCallback)).then { eCSCallback.onResponse(ecsProductMock) }
+                mECSProductManager.getProductFor("CTN",eCSCallback)
+//        Mockito.verify(eCSCallback).onResponse(ecsProductMock)
 
     }
 
