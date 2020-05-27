@@ -26,7 +26,6 @@ class PRXContactsResponseCallback(private val mecOrderDetailViewModel: MECOrderD
 
     override fun onResponseError(prxError: PrxError?) {
         try {
-            MECLog.d("pabitra", prxError?.description)
             val exception = Exception(prxError?.description)
             var ecsError = ECSError(5999, ECSErrorEnum.ECSsomethingWentWrong.localizedErrorString)
             val mecError = MecError(exception, ecsError, MECRequestType.MEC_FETCH_ORDER_HISTORY)

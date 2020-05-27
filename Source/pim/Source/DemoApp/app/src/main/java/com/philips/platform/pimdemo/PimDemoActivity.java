@@ -4,15 +4,14 @@ package com.philips.platform.pimdemo;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.AppCompatSpinner;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import com.philips.platform.pim.UDIRedirectReceiverActivity;
 import com.philips.platform.uid.utils.UIDActivity;
