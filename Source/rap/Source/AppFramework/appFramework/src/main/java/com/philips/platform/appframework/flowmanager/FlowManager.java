@@ -25,6 +25,7 @@ import com.philips.platform.baseapp.condition.ConditionCookiesConsent;
 import com.philips.platform.baseapp.condition.ConditionIsDonePressed;
 import com.philips.platform.baseapp.condition.ConditionIsLoggedIn;
 import com.philips.platform.baseapp.screens.cookiesconsent.CookiesConsentState;
+import com.philips.platform.countryselection.CountrySelectionState;
 
 import java.util.Map;
 
@@ -45,6 +46,7 @@ public class FlowManager extends BaseFlowManager {
 //        uiStateMap.put(AppStates.TESTPIM, new DemoPIMState());
         uiStateMap.put(AppStates.TESTCC, new DemoDCCState());
         uiStateMap.put(AppStates.COOKIES_CONSENT, new CookiesConsentState());
+        uiStateMap.put(AppStates.COUNTRY_SELECTION,new CountrySelectionState());
 
     }
 

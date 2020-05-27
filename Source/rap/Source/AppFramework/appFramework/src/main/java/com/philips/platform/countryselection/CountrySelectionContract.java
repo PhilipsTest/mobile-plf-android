@@ -1,5 +1,4 @@
-package com.philips.cdp.registration.ui.traditional;
-
+package com.philips.platform.countryselection;
 
 import com.philips.cdp.registration.dao.Country;
 
