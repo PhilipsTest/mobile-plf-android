@@ -1,22 +1,21 @@
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.TimeoutError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.VolleyHandler
-import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.util.ECSDataHolder
-import com.philips.platform.ecs.microService.util.getData
 import junit.framework.Assert.*
 import org.json.JSONObject
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
 import org.powermock.modules.junit4.PowerMockRunner
 
 @RunWith(PowerMockRunner::class)
@@ -51,12 +50,13 @@ class GetProductsRequestTest {
     @Test
     fun getServiceID() {
     }
-
+    
     @Test
     fun getURL() {// this method will internally test method addParams()
         mProductFilter!!.stockLevel = ECSStockLevel.OutOfStock
         mProductFilter!!.sortType = ECSSortType.priceAscending
         mProductFilter!!.modifiedSince = modifiedSince
+
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, eCSCallback)
         val modifiedURL: String? = mGetProductsRequest?.getURL()
         //https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=OUT_OF_STOCK&modifiedSince=2019-10-31T20:34:55Z
@@ -130,15 +130,23 @@ class GetProductsRequestTest {
         mGetProductsRequest!!.onResponse(jsonObject)
     }
 
-    @Test
+    @Mock
+     lateinit var ecsCallbackMock :ECSCallback<ECSProducts, ECSError>
+    @Mock
+    lateinit var timeoutErrorMock :TimeoutError
+
+            @Test
     fun onFailure(){
 
-        val errorString =   ClassLoader.getSystemResource("pil/fetchProductsPILwithTimeoutFailure.json").readText()
+  /*      val errorString =   ClassLoader.getSystemResource("pil/fetchProductsPILwithTimeoutFailure.json").readText()
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var actualError = ECSError(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT)
         volleyHandler.setPILECSError(hybrisError,actualError)
-        Assert.assertEquals(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, actualError.errorCode)
+        Assert.assertEquals(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, actualError.errorCode)*/
+
+        mGetProductsRequest!!.onErrorResponse(timeoutErrorMock)
+        Mockito.verify(ecsCallbackMock).onFailure(any(ECSError::class.java))
 
 
     }
