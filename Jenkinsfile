@@ -559,21 +559,13 @@ def BuildHPFortify() {
             'ecs::ECS_Android'
             'iap::IAP_Android'
             'mec::MEC_Android'
-            'mya::MYA_Android'
-            'pim::PIM_Android'
-            'plf::plf_android'
-            'prg::PR_Android'
-            'prx::PRX_Android'
-            'rap::RefApp_Android'
-            'sdb::SecureDB_Android'
-            'ufw::uAppFwLib_Android'
-            'usr::UR_Android'
         )
         for index in "${array[@]}" ; do
             KEY="${index%%::*}"
             VALUE="${index##*::}"
           echo "*** sourceanalyzer -b $KEY -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
           sourceanalyzer -b $KEY -source 1.8 -debug-verbose -logfile $VALUE.txt ./gradlew assembleRelease
+          sleep 5
           echo "*** sourceanalyzer -b $KEY -scan -f $VALUE.fpr ***"
           sourceanalyzer -b $KEY -scan -f $VALUE.fpr
           echo "*** fortifyclient -url https://fortify.philips.com/ssc $VALUE***"
