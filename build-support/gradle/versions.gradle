@@ -167,7 +167,6 @@ ext.deps = [
                 espresso_core        : 'androidx.test.espresso:espresso-core:3.2.0',
                 espresso_web         : 'androidx.test.espresso:espresso-web:3.2.0',
                 multidex             : 'androidx.multidex:multidex:2.0.1',
-                fragment_testing     : "androidx.fragment:fragment-testing:1.2.4"
         ],
 
         design                        : "com.google.android.material:material:1.0.0",
@@ -180,7 +179,6 @@ ext.deps = [
 
         dexmaker_mockito              : 'com.linkedin.dexmaker:dexmaker-mockito:2.25.1', // Compiled against sdk 25
 
-        immutables                    : 'org.immutables:value:2.8.8',
         jackson_annotations           : 'com.fasterxml.jackson.core:jackson-annotations:2.11.0',
         jackson_core                  : 'com.fasterxml.jackson.core:jackson-core:2.11.0',
         jackson_databind              : 'com.fasterxml.jackson.core:jackson-databind:2.11.0',
