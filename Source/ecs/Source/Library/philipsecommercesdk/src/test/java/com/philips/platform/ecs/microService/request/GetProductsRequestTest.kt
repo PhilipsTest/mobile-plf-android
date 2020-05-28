@@ -23,7 +23,6 @@ class GetProductsRequestTest {
 
     val defaultOffset = 0
     val limit = 20
-    val limitThreshold = 50
     val category: String = "FOOD_PREPARATION_CA2"
     val modifiedSince = "2019-10-31T20:34:55Z"
     var mGetProductsRequest: GetProductsRequest? = null
@@ -87,7 +86,6 @@ class GetProductsRequestTest {
         mGetProductsRequest = GetProductsRequest(category, 1000, 5, mProductFilter, eCSCallback)
         modifiedURL = mGetProductsRequest?.getURL()
         //https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=50&offset=5&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=OUT_OF_STOCK&modifiedSince=2019-10-31T20:34:55Z
-        assert(modifiedURL!!.contains(limitThreshold.toString()))
         assert(modifiedURL!!.contains("5"))
 
     }

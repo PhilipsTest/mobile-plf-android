@@ -2,6 +2,8 @@ package com.philips.platform.ecs.microService.manager
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
+import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
@@ -81,6 +83,30 @@ class ECSProductManagerTest {
         mGetProductsRequestMock = GetProductsRequest("category", 1, 2, productFilterMock, ecsCallbackGetProducts)
         mECSProductManager.getProducts("category", 1, 2, productFilterMock, ecsCallbackGetProducts)
         Mockito.`when`(requestHandlerMock.handleRequest(mGetProductsRequestMock)).then { ecsCallback.onResponse(mECSProduct) }
+    }
+
+
+    @Test
+    fun `getProducts With limit greater than 50`() {
+
+        var ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {
+            override fun onResponse(result: ECSProducts) {
+                assertNotNull(result)
+                // assertEquals("id", result?.id)
+            }
+
+            override fun onFailure(ecsError: ECSError) {
+                fail()
+            }
+        }
+
+        var mProductFilter : ProductFilter = ProductFilter()
+        try {
+            mECSProductManager.getProducts("category", 51, 2, mProductFilter, ecsCallbackGetProducts)
+        }catch(e: ECSException){
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.errorCode,e.errorCode)
+        }
+
     }
 
     //======================================================================================================================================================================

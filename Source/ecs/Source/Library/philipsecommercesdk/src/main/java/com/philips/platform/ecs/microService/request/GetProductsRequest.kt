@@ -19,7 +19,6 @@ class GetProductsRequest(private val productCategory: String?, private val limit
     val sortKey = "sort"
     val stockLevelKey = "stockLevel"
     val modifiedSinceKey = "modifiedSince"
-    val limitThreshold = 50   // limit threshhold as PRX supports only 5o product detaiil at a time
     val limitDefault = 20   // default limit
     val offsetDefault = 0    // default Offset
 
@@ -36,7 +35,6 @@ class GetProductsRequest(private val productCategory: String?, private val limit
     private fun addParamsToURL(url: String): String {
         var urlWithParams = url
         var actualLimit: Int = if (limit > 0) limit else limitDefault
-        actualLimit = if (actualLimit < limitThreshold) limit else limitThreshold
         urlWithParams = urlWithParams.addQueryParam(limitKey, actualLimit.toString())
 
         var actualOffset: Int = if (offset > 0) offset else offsetDefault
