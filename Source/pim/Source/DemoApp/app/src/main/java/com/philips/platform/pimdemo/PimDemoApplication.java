@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.uid.thememanager.UIDHelper;
+import com.squareup.leakcanary.LeakCanary;
 
 public class PimDemoApplication extends Application {
     private AppInfraInterface mAppInfraInterface;
@@ -21,6 +22,7 @@ public class PimDemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LeakCanary.install(this);
 //        mAppInfraInterface = new AppInfra.Builder().build(this);
 
     }
