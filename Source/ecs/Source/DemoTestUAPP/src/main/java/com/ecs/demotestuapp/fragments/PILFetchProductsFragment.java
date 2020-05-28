@@ -6,7 +6,7 @@ import android.widget.Spinner;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.ecs.demotestuapp.util.PILDataHolder;
-import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
@@ -22,9 +22,9 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
 
 
 
-    EditText etPageNumber,etPageSize, etModifiedSince, etCategory;
+    EditText etPageNumber,etPageSize, etCategory;
     int  pageSize = 20,pageNumber =0;
-    String modifiedSince , category;
+    String  category;
     Spinner spinnerSortType, spinnerStockLevel;
 
     String stockLevelOptions[] = {"( Select - Stock Level )","InStock","OutOfStock","LowStock"};
@@ -40,8 +40,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         etPageSize.setText(pageSize+"");
         etCategory = getLinearLayout().findViewWithTag("et_three");
         etCategory.setText("FOOD_PREPARATION_CA2");
-        etModifiedSince = getLinearLayout().findViewWithTag("et_four");
-        etModifiedSince.setText("2019-10-31T20:34:55Z");
+
 
         spinnerSortType  = getLinearLayout().findViewWithTag("spinner_sort_type");
 
@@ -67,11 +66,8 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             category = etCategory.getText().toString().trim();
         }
 
-        if(!etModifiedSince.getText().toString().trim().isEmpty()){
-            modifiedSince = etModifiedSince.getText().toString().trim();
-        }
 
-        MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
+        ECSServices microECSServices = new ECSServices(mAppInfraInterface);
         try {
 
             ProductFilter productFilter= new ProductFilter();
@@ -85,7 +81,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
                 productFilter.setStockLevel(eCSStockLevel);
             }
 
-            if(null!=modifiedSince)productFilter.setModifiedSince(modifiedSince);
+           
            // productFilter.setStockLevel( ECSStockLevel.InStock);
             microECSServices.fetchProducts(category,pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
                 @Override

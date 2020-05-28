@@ -45,4 +45,11 @@ class ECSApiValidator {
         if (ECSDataHolder.eCSOAuthData == null) return ECSException(ECSErrorType.ECSOAuthDetailError.getLocalizedErrorString(), ECSErrorType.ECSOAuthDetailError.errorCode)
         return null
     }
+
+     fun validatePageLimit(limitSize:Int): ECSException? {
+        return if(limitSize>50) ECSException(ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.errorCode) else null
+
+
+    }
+
 }

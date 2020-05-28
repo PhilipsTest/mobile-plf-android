@@ -64,7 +64,8 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
 
     ECSPIL_INTEGRATION_TIMEOUT(R.string.ECSPIL_INTEGRATION_TIMEOUT, 6003),
     ECSPIL_INVALID_API_VERSION(R.string.ECSsomethingWentWrong, 6004),
-    ECSPIL_INVALID_API_KEY(R.string.ECSsomethingWentWrong, 6005);
+    ECSPIL_INVALID_API_KEY(R.string.ECSsomethingWentWrong, 6005),
+    ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT(R.string.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT, 6006);
 
 
 
