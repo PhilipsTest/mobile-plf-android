@@ -33,7 +33,7 @@ public class UserRegistrationSettingsState extends UserRegistrationState {
         super(AppStates.SETTINGS_REGISTRATION);
     }
 
-    @Override
+    /*@Override
     public void logoutSessionSuccess() {
         try {
             BaseFlowManager targetFlowManager = getApplicationContext().getTargetFlowManager();
@@ -46,7 +46,7 @@ public class UserRegistrationSettingsState extends UserRegistrationState {
             RALog.d(TAG, e.getMessage());
             Toast.makeText(getFragmentActivity(), getFragmentActivity().getString(R.string.RA_something_wrong), Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     protected AppFrameworkApplication getApplicationContext() {
         return (AppFrameworkApplication) getFragmentActivity().getApplication();

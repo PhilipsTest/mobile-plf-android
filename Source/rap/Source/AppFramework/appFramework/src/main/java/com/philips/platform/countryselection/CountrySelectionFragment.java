@@ -1,8 +1,6 @@
 package com.philips.platform.countryselection;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,13 +11,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.philips.cdp.registration.R;
 import com.philips.cdp.registration.R2;
-import com.philips.cdp.registration.app.tagging.AppTaggingPages;
-import com.philips.cdp.registration.dao.Country;
-import com.philips.cdp.registration.ui.traditional.RegistrationBaseFragment;
-import com.philips.cdp.registration.ui.utils.RLog;
-import com.philips.cdp.registration.ui.utils.RegConstants;
+import com.philips.platform.appframework.R;
+import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.baseapp.base.AbstractAppFrameworkBaseFragment;
+import com.philips.platform.baseapp.base.AppFrameworkApplication;
+import com.philips.platform.uid.view.widget.Button;
 import com.philips.platform.uid.view.widget.RecyclerViewSeparatorItemDecoration;
 
 import java.util.ArrayList;
@@ -27,12 +24,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CountrySelectionFragment extends RegistrationBaseFragment implements CountrySelectionContract {
+public class CountrySelectionFragment extends AbstractAppFrameworkBaseFragment implements CountrySelectionContract, View.OnClickListener {
 
-    private String TAG = "CountrySelectionFragment";
+    public static String TAG = "CountrySelectionFragment";
 
     @BindView(R2.id.country_recycler_view)
     RecyclerView countryListView;
+
+    private Button continueButton;
 
     private CountrySelectionAdapter countryListAdapter;
 
@@ -45,39 +44,22 @@ public class CountrySelectionFragment extends RegistrationBaseFragment implement
         super.onConfigurationChanged(config);
     }
 
-
-    @Override
-    protected void setViewParams(Configuration config, int width) {
-    }
-
-    @Override
-    protected void handleOrientation(View view) {
-        handleOrientationOnView(view);
-
-    }
-
-    @Override
-    public int getTitleResourceId() {
-        return R.string.USR_DLS_Country_Selection_Nav_Title_Text;
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        RLog.i(TAG,"Screen name is "+ TAG);
 
         View view = inflater.inflate(R.layout.country_selection_layout, null);
         ButterKnife.bind(this, view);
         initUI(view);
 
-        countrySelectionPresenter = new CountrySelectionPresenter(this);
+        countrySelectionPresenter = new CountrySelectionPresenter(context,this);
         countrySelectionPresenter.fetchSupportedCountryList(context);
         return view;
     }
 
     private void initUI(View view) {
-        handleOrientationOnView(view);
+        continueButton = (Button) view.findViewById(R.id.countrySelectionButton);
+        continueButton.setOnClickListener(this);
         initRecyclerView();
     }
 
@@ -106,31 +88,35 @@ public class CountrySelectionFragment extends RegistrationBaseFragment implement
 
     @Override
     public void popCountrySelectionFragment() {
-        getRegistrationFragment().onBackPressed();
+        //getRegistrationFragment().onBackPressed();
     }
 
     @Override
     public void notifyCountryChange(Country country) {
-        Intent intent = new Intent();
         if (country.getCode().equalsIgnoreCase("TW")) {
             countrySelectionPresenter.changeCountryNameToTaiwan(context, country);
         }
-        intent.putExtra(RegConstants.KEY_BUNDLE_COUNTRY_CODE, country.getCode());
-        intent.putExtra(RegConstants.KEY_BUNDLE_COUNTRY_NAME, country.getName());
-        getTargetFragment().onActivityResult(
-                getTargetRequestCode(),
-                Activity.RESULT_OK,
-                intent);
+        AppFrameworkApplication application = (AppFrameworkApplication) getActivity().getApplication();
+        AppInfraInterface appInfra = application.getAppInfra();
+        appInfra.getServiceDiscovery().setHomeCountry(country.getCode());
+
+    }
+
+    @Override
+    public String getActionbarTitle() {
+        return getResources().getString(R.string.USR_DLS_Country_Selection_Nav_Title_Text);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        trackPage(AppTaggingPages.COUNTRY);
     }
 
+
     @Override
-    public void notificationInlineMsg(String msg) {
-        //NOP
+    public void onClick(View v) {
+        if(v == continueButton){
+            countrySelectionPresenter.navigate();
+        }
     }
 }

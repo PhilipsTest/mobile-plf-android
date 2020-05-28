@@ -226,6 +226,7 @@ dependencies {
 
         implementation project(strings.pif.projectName)
         implementation project(strings.ufw.projectName)
+        implementation project(strings.pim.projectName)
 
         implementation project(strings.ail.projectName)
 
@@ -271,6 +272,7 @@ dependencies {
         implementation philipsdeps.registrationApi
         implementation philipsdeps.digitalCare
         implementation philipsdeps.iap
+        implementation philipsdeps.pim
         implementation(philipsdeps.digitalCareUApp)
         implementation(philipsdeps.iapUApp)
         implementation(philipsdeps.product_registration_libUApp)

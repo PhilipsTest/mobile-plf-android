@@ -151,6 +151,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.philips.platform.pim.UDIRedirectReceiverActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.philips.apps.94e28300-565d-4110-8919-42dc4f817393" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

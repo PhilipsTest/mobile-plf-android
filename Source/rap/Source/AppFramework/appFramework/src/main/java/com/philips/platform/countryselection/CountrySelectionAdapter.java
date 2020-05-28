@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.philips.cdp.registration.R;
-import com.philips.cdp.registration.dao.Country;
 import com.philips.platform.uid.view.widget.Label;
 
 import java.util.List;

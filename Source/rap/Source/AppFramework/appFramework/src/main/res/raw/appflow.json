@@ -51,7 +51,7 @@
             "nextStates": [
               {
                 "condition": [],
-                "nextState": "onBoarding_registration"
+                "nextState": "country_selection"
               }
             ]
           },
@@ -60,7 +60,7 @@
             "nextStates": [
               {
                 "condition": [],
-                "nextState": "onBoarding_registration"
+                "nextState": "country_selection"
               }
             ]
           },
@@ -70,6 +70,38 @@
               {
                 "condition": [],
                 "nextState": "AbTesting_web_view"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "state": "country_selection",
+        "events": [
+          {
+            "eventId": "launchUR",
+            "nextStates": [
+              {
+                "condition": [],
+                "nextState": "onBoarding_registration"
+              }
+            ]
+          },
+          {
+            "eventId": "launchUDI",
+            "nextStates": [
+              {
+                "condition": [],
+                "nextState": "onBoarding_registration"
+              }
+            ]
+          },
+          {
+            "eventId": "back",
+            "nextStates": [
+              {
+                "condition": [],
+                "nextState": "home"
               }
             ]
           }
@@ -127,7 +159,7 @@
               },
               {
                 "condition": [],
-                "nextState": "onBoarding_registration"
+                "nextState": "country_selection"
               }
             ]
           },
@@ -148,7 +180,7 @@
               },
               {
                 "condition": [],
-                "nextState": "onBoarding_registration"
+                "nextState": "country_selection"
               }
             ]
           },

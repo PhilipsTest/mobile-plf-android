@@ -1,6 +1,5 @@
 package com.philips.platform.countryselection;
 
-import com.philips.cdp.registration.dao.Country;
 
 import java.util.ArrayList;
 

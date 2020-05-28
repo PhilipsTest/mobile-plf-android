@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.fragment.app.FragmentActivity;
+
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
@@ -41,6 +43,11 @@ import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserDataListener;
 import com.philips.platform.pif.chi.datamodel.ConsentDefinition;
 import com.philips.platform.pif.chi.datamodel.ConsentStates;
+import com.philips.platform.pim.PIMDependencies;
+import com.philips.platform.pim.PIMInterface;
+import com.philips.platform.pim.PIMLaunchInput;
+import com.philips.platform.pim.PIMSettings;
+import com.philips.platform.pim.listeners.UserLoginListener;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
 import com.philips.platform.uappframework.listener.ActionBarListener;
@@ -58,7 +65,7 @@ import static com.philips.platform.baseapp.screens.Optin.MarketingOptin.AB_TEST_
  * We do not have revceived China Keys for TEST and DEV AppState.
  * China Keys are available for STAGE only.
  */
-public abstract class UserRegistrationState extends BaseState implements UserDataListener, UserRegistrationUIEventListener {
+public abstract class UserRegistrationState extends BaseState implements UserLoginListener, UserRegistrationUIEventListener {
 
     private static final String TAG = UserRegistrationState.class.getSimpleName();
 
@@ -75,7 +82,12 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
     protected static final String CHINA_CODE = "CN";
     protected static final String DEFAULT = "default";
     private URInterface urInterface;
+    private PIMInterface pimInterface;
     public static String AB_TEST_UR_PRIORITY_KEY = "ur_priority";
+    private enum RegistrationModule {
+        USR,
+        UDI
+    }
 
     /**
      * AppFlowState constructor
@@ -93,7 +105,10 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
     public void navigate(UiLauncher uiLauncher) {
         fragmentLauncher = (FragmentLauncher) uiLauncher;
         updateDataModel();
-        launchUR();
+        if(getRegistrationModule() == RegistrationModule.USR)
+            launchUR();
+        else if(getRegistrationModule() == RegistrationModule.UDI)
+            launchUDI();
     }
 
     public FragmentActivity getFragmentActivity() {
@@ -103,7 +118,18 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
     @Override
     public void init(Context context) {
         this.applicationContext = context;
-        initializeUserRegistrationLibrary();
+        if(getRegistrationModule() == RegistrationModule.USR)
+            initializeUserRegistrationLibrary();
+        else
+            initUDILibrary();
+    }
+
+    private RegistrationModule getRegistrationModule(){
+        String homeCountry = getAppInfra().getServiceDiscovery().getHomeCountry();
+        if(homeCountry != null && homeCountry.equalsIgnoreCase("CN"))
+            return RegistrationModule.USR;
+        else
+            return RegistrationModule.UDI;
     }
 
 
@@ -142,8 +168,13 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
     }
 
     public UserDataInterface getUserDataInterface() {
+        if(getRegistrationModule() == RegistrationModule.USR &&  urInterface != null)
+            return urInterface.getUserDataInterface();
 
-        return urInterface.getUserDataInterface();
+        if(getRegistrationModule() == RegistrationModule.UDI && pimInterface != null)
+            return pimInterface.getUserDataInterface();
+
+        return null;
     }
     private static final String USR_PERSONAL_CONSENT = "USR_PERSONAL_CONSENT";
 
@@ -152,7 +183,7 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
      */
     private void launchUR() {
         RALog.d(TAG, " LaunchUr called ");
-        getUserDataInterface().addUserDataInterfaceListener(this);
+        //getUserDataInterface().addUserDataInterfaceListener(this);
         URLaunchInput urLaunchInput = new URLaunchInput();
         urLaunchInput.setUserRegistrationUIEventListener(this);
         urLaunchInput.enableAddtoBackStack(true);
@@ -198,6 +229,28 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
         urLaunchInput.setUserPersonalConsentStatus(ConsentStates.inactive);
         URInterface urInterface = new URInterface();
         urInterface.launch(fragmentLauncher, urLaunchInput);
+    }
+
+    public void initUDILibrary(){
+        PIMDependencies pimDemoUAppDependencies = new PIMDependencies(getAppInfra());
+        PIMSettings pimDemoUAppSettings = new PIMSettings(applicationContext);
+        pimInterface = new PIMInterface();
+
+        new Handler(applicationContext.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                pimInterface.init(pimDemoUAppDependencies,pimDemoUAppSettings);
+                pimInterface.setLoginListener(UserRegistrationState.this);
+            }
+        });
+
+        //pimInterface.init(pimDemoUAppDependencies, pimDemoUAppSettings);
+    }
+
+    private void launchUDI() {
+        PIMLaunchInput launchInput = new PIMLaunchInput();
+        //.launchInput.setUserLoginListener(this);
+        new PIMInterface().launch(fragmentLauncher, launchInput);
     }
 
     /**
@@ -268,38 +321,24 @@ public abstract class UserRegistrationState extends BaseState implements UserDat
     }
 
     @Override
-    public void logoutSessionSuccess() {
-        RALog.d(TAG, " User Logout success  ");
-        getAppInfra().getRestClient().clearCacheResponse();
+    public void onLoginSuccess() {
+        BaseFlowManager targetFlowManager = getApplicationContext().getTargetFlowManager();
+        BaseState baseState = null;
+        try {
+            baseState = targetFlowManager.getNextState(targetFlowManager.getCurrentState(), UR_COMPLETE);
+        } catch (NoEventFoundException | NoStateException | NoConditionFoundException | StateIdNotSetException | ConditionIdNotSetException
+                e) {
+            RALog.d(TAG, e.getMessage());
+            Toast.makeText(getFragmentActivity(), getFragmentActivity().getString(R.string.RA_something_wrong), Toast.LENGTH_SHORT).show();
+        }
+        if (null != baseState) {
+            getFragmentActivity().finish();
+            baseState.navigate(new FragmentLauncher(getFragmentActivity(), R.id.frame_container, (ActionBarListener) getFragmentActivity()));
+        }
     }
 
     @Override
-    public void logoutSessionFailed(Error error) {
-        RALog.d(TAG, "User logout failed");
-    }
+    public void onLoginFailed(Error error) {
 
-    @Override
-    public void onRefetchSuccess() {
-        //NOP
-    }
-
-    @Override
-    public void onRefetchFailure(Error error) {
-        //NOP
-    }
-
-    @Override
-    public void refreshSessionSuccess() {
-        //NOP
-    }
-
-    @Override
-    public void refreshSessionFailed(Error error) {
-        //NOP
-    }
-
-    @Override
-    public void forcedLogout() {
-        //NOP
     }
 }

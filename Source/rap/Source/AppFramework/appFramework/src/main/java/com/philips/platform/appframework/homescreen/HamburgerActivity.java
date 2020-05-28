@@ -293,7 +293,6 @@ public class HamburgerActivity extends AbstractAppFrameworkBaseActivity implemen
             }
             if (!appState.name().equalsIgnoreCase(AppIdentityInterface.AppState.STAGING.name()))
                 envInfo.setText(appState.name());
-
         }
     }
 
