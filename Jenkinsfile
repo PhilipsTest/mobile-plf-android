@@ -7,7 +7,7 @@ BranchName = env.BRANCH_NAME
  * Applicable for develop branch and build type is Java API doc at 9:00 pm to 10:00 pm
  */
 //String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS \nH H(10-11) */2 * 5 %buildType=HPFortify" : ""
-String param_string_cron = BranchName == "HPFortify_Android" ? "H H(11-12) * * 5 %buildType=HPFortify" : ""
+String param_string_cron = BranchName == "HPFortify_Android" ? "H H(16-17) * * * %buildType=HPFortify" : ""
 
 //label for pipeline
 def nodes = 'test'
@@ -554,23 +554,36 @@ def BuildHPFortify() {
         set -e
         chmod -R 755 .
         ./gradlew --refresh-dependencies
-        array=(
-            'ail::AppInfra_Android'
-            'dcc::CC_Android'
-            'ecs::ECS_Android'
-            'iap::IAP_Android'
-            'mec::MEC_Android'
-        )
-        for index in "${array[@]}" ; do
-            KEY="${index%%::*}"
-            VALUE="${index##*::}"
-          echo "*** sourceanalyzer -b $KEY -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-          sourceanalyzer -b $KEY -source 1.8 -debug-verbose -logfile $VALUE.txt ./gradlew clean assembleRelease
-          sleep 5
-          echo "*** sourceanalyzer -b $KEY -scan -f $VALUE.fpr ***"
-          sourceanalyzer -b $KEY -scan -f $VALUE.fpr
-          echo "*** fortifyclient -url https://fortify.philips.com/ssc $VALUE***"
-          fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file $VALUE.fpr -project EMS -version $VALUE
+        echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
+        sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew clean assembleRelease
+        echo "*** sourceanalyzer -b ail -scan -f AppInfra_Android.fpr ***"
+        sourceanalyzer -b ail -scan -f AppInfra_Android.fpr
+        echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
+        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file AppInfra_Android.fpr -project EMS -version AppInfra_Android
+		sleep 5
+        ./gradlew --refresh-dependencies
+        echo "*** sourceanalyzer -b dcc -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
+        sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew clean assembleRelease
+        echo "*** sourceanalyzer -b dcc -scan -f CC_Android.fpr ***"
+        sourceanalyzer -b dcc -scan -f CC_Android.fpr
+        echo "*** fortifyclient -url https://fortify.philips.com/ssc CC_Android***"
+        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file CC_Android.fpr -project EMS -version CC_Android
+        sleep 5
+        ./gradlew --refresh-dependencies
+        echo "*** sourceanalyzer -b ecs -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
+        sourceanalyzer -b ecs -source 1.8 -debug-verbose -logfile ECS_Android.txt ./gradlew clean assembleRelease
+        echo "*** sourceanalyzer -b ecs -scan -f ECS_Android.fpr ***"
+        sourceanalyzer -b ecs -scan -f ECS_Android.fpr
+        echo "*** fortifyclient -url https://fortify.philips.com/ssc ECS_Android***"
+        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file ECS_Android.fpr -project EMS -version ECS_Android
+		sleep 5
+        ./gradlew --refresh-dependencies
+        echo "*** sourceanalyzer -b iap -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
+        sourceanalyzer -b iap -source 1.8 -debug-verbose -logfile IAP_Android.txt ./gradlew clean assembleRelease
+        echo "*** sourceanalyzer -b iap -scan -f IAP_Android.fpr ***"
+        sourceanalyzer -b iap -scan -f IAP_Android.fpr
+        echo "*** fortifyclient -url https://fortify.philips.com/ssc IAP_Android***"
+        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file IAP_Android.fpr -project EMS -version IAP_Android
         done
     '''
 }
