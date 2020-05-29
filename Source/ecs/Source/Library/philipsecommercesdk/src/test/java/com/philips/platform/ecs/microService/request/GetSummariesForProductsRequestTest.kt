@@ -72,21 +72,6 @@ class GetSummariesForProductsRequestTest {
     }
 
     @Test
-    fun `request type should be jSON`() {
-        assertEquals(RequestType.JSON,getSummariesForProductsRequest.getRequestType())
-    }
-
-    @Test
-    fun `JSON Success Response Listener should not be null`() {
-        assertNotNull(getSummariesForProductsRequest.getJSONSuccessResponseListener())
-    }
-
-    @Test
-    fun `String Success Response Listener should  be null`() {
-        assertNull(getSummariesForProductsRequest.getStringSuccessResponseListener())
-    }
-
-    @Test
     fun `get header should be null`() {
         assertNull(getSummariesForProductsRequest.getHeader())
     }

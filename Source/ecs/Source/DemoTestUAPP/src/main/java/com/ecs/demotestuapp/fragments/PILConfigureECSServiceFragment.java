@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.error.ECSError;
+import com.philips.platform.ecs.microService.model.config.ECSConfig;
 
 public class PILConfigureECSServiceFragment extends BaseAPIFragment {
 
@@ -23,10 +24,10 @@ public class PILConfigureECSServiceFragment extends BaseAPIFragment {
 
         ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
-        ECSServices.configureECS(new com.philips.platform.ecs.microService.callBack.ECSCallback<Boolean, ECSError>() {
+        ECSServices.configureECS(new com.philips.platform.ecs.microService.callBack.ECSCallback<ECSConfig, ECSError>() {
             @Override
-            public void onResponse(Boolean result) {
-                gotoResultActivity(""+result);
+            public void onResponse(ECSConfig result) {
+                gotoResultActivity(getJsonStringFromObject(result));
                 getProgressBar().setVisibility(View.GONE);
             }
 

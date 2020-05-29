@@ -16,13 +16,11 @@ import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.request.ECSAbstractRequest
-import com.philips.platform.ecs.microService.request.NetworkController
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import java.util.ArrayList
 
 class RequestHandler{
 
-    internal var networkController = NetworkController()
 
     fun handleRequest(ecsAbstractRequest: ECSAbstractRequest){
         val serviceIDList = mutableListOf<String>()
@@ -38,8 +36,8 @@ class RequestHandler{
 
                 url?.let {
                     ecsAbstractRequest.url = it
-                    ecsAbstractRequest.locale = urlMap.get(ecsAbstractRequest.getServiceID())?.locale ?: ""
-                    networkController.executeRequest(ecsAbstractRequest)
+                    ecsAbstractRequest.locale = urlMap[ecsAbstractRequest.getServiceID()]?.locale ?: ""
+                    ecsAbstractRequest.executeRequest()
                 }?:run {
 
                     ecsAbstractRequest.ecsErrorCallback.onFailure(ECSError(urlMap?.get(ecsAbstractRequest.getServiceID())?.getmError()?:"",null,null))

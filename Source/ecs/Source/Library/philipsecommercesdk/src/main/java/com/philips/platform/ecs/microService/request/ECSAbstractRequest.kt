@@ -12,18 +12,30 @@
 
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.Request
+import com.android.volley.Response
 import com.android.volley.VolleyError
+import com.philips.platform.appinfra.rest.TokenProviderInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import org.json.JSONObject
 
-abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>) : ECSRequestInterface {
+abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>) :  Response.ErrorListener {
 
     lateinit var url: String
     lateinit var locale: String
+    var requestMethod = Request.Method.GET
 
-    override fun getURL(): String {
+    var tokenProviderInterface : TokenProviderInterface? = null
+    var jsonObjectForRequest : JSONObject? = null
+
+
+    abstract fun getServiceID():String
+    abstract fun executeRequest()
+
+    open fun getURL():String{
         return url
     }
 
@@ -31,7 +43,7 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
         ecsErrorCallback.onFailure(VolleyHandler().getECSError(error))
     }
 
-    override fun getReplaceURLMap(): MutableMap<String, String> {
+    open fun getReplaceURLMap(): MutableMap<String, String> {
         val map = HashMap<String, String>()
         ECSDataHolder.config.siteId?.let { map.put("siteId", it) }
         ECSDataHolder.locale?.let {
@@ -43,4 +55,17 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
         }
         return map
     }
+
+    open fun  getHeader(): MutableMap<String, String>?{
+        val headerMap = HashMap<String,String>()
+        headerMap["Accept"] = "application/json"
+        headerMap["Api-Key"] = "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
+        headerMap["Api-Version"] = "1"
+        return headerMap
+    }
+
+    open fun  getParams(): Map<String, String>?{
+        return null
+    }
+
 }

@@ -6,7 +6,7 @@ import android.widget.Spinner;
 
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.ecs.demotestuapp.util.PILDataHolder;
-import com.philips.platform.ecs.microService.MicroECSServices;
+import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
@@ -71,7 +71,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             modifiedSince = etModifiedSince.getText().toString().trim();
         }
 
-        MicroECSServices microECSServices = new MicroECSServices(mAppInfraInterface);
+        ECSServices microECSServices = new ECSServices(mAppInfraInterface);
         try {
 
             ProductFilter productFilter= new ProductFilter();

@@ -55,21 +55,6 @@ class GetProductAssetRequestTest {
     }
 
     @Test
-    fun `request type should be jSON`() {
-        assertEquals(RequestType.JSON,getProductAssetRequest.getRequestType())
-    }
-
-    @Test
-    fun `JSON Success Response Listener should not be null`() {
-        assertNotNull(getProductAssetRequest.getJSONSuccessResponseListener())
-    }
-
-    @Test
-    fun `String Success Response Listener should  be null`() {
-        assertNull(getProductAssetRequest.getStringSuccessResponseListener())
-    }
-
-    @Test
     fun `get header should be null`() {
         assertNull(getProductAssetRequest.getHeader())
     }

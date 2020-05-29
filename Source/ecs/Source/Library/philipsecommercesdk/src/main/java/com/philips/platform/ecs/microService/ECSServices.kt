@@ -37,13 +37,8 @@ class ECSServices(appInfra: AppInfra) {
         ECSDataHolder.appInfra = appInfra
     }
 
-    //TODO refactor service discovery call code
-    fun configureECS(ecsCallback: ECSCallback<Boolean, ECSError>) {
-        ecsConfigManager.configureECS(ecsCallback)
-    }
-
-    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, ECSError>) {
-        ecsConfigManager.configureECSToGetConfiguration(ecsCallback)
+    fun configureECS(ecsCallback: ECSCallback<ECSConfig, ECSError>) {
+        ecsConfigManager.getConfigObject(ecsCallback)
     }
 
 

@@ -29,9 +29,5 @@ class ECSConstants {
         const val SERVICEID_ECS_PRODUCTS = "ecs.products"
     }
 
-    fun getListOfServiceID() : ArrayList<String> {
-        val listOFServiceID = mutableListOf<String>()
-        listOFServiceID.add(SERVICEID_IAP_BASEURL)
-        return listOFServiceID as ArrayList<String>
-    }
+
 }

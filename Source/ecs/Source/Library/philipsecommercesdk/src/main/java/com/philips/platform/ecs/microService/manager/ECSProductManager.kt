@@ -32,8 +32,7 @@ class ECSProductManager {
 
             val getProductsRequest= GetProductsRequest(productCategory,limit,offset,productFilter, ecsCallback)
            // requestHandler.handleRequest(getProductsRequest)
-            var networkController= NetworkController()
-            networkController.executeRequest(getProductsRequest)
+            getProductsRequest.executeRequest()
 
         }
     }
