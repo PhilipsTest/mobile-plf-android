@@ -565,7 +565,7 @@ def BuildHPFortify() {
             KEY="${index%%::*}"
             VALUE="${index##*::}"
           echo "*** sourceanalyzer -b $KEY -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-          sourceanalyzer -b $KEY -source 1.8 -debug-verbose -logfile $VALUE.txt ./gradlew assembleRelease
+          sourceanalyzer -b $KEY -source 1.8 -debug-verbose -logfile $VALUE.txt ./gradlew clean assembleRelease
           sleep 5
           echo "*** sourceanalyzer -b $KEY -scan -f $VALUE.fpr ***"
           sourceanalyzer -b $KEY -scan -f $VALUE.fpr
