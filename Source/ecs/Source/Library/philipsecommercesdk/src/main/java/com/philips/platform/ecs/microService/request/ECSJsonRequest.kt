@@ -16,25 +16,20 @@ import com.android.volley.Response
 import com.philips.platform.appinfra.rest.request.JsonObjectRequest
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.util.ECSDataHolder
 import org.json.JSONObject
 
 abstract class ECSJsonRequest(ecsErrorCallback: ECSCallback<*, ECSError>) : ECSAbstractRequest(ecsErrorCallback) , Response.Listener<JSONObject>{
 
 
-    override fun getRequestType(): RequestType {
-       return RequestType.JSON
+    override fun executeRequest() {
+        ECSDataHolder.appInfra?.restClient?.requestQueue?.add(getJsonObjectRequest())
     }
 
-    override fun getJSONSuccessResponseListener(): Response.Listener<JSONObject> {
-        return this
-    }
-
-    override fun getAppInfraJSONObject(): JsonObjectRequest? {
-
-        return JsonObjectRequest(getMethod(), getURL(), getJSONRequest()
-                , getJSONSuccessResponseListener(), getJSONFailureResponseListener(),
-                getHeader(), getParams(), getTokenProviderInterface())
+    private fun getJsonObjectRequest():JsonObjectRequest{
+        return JsonObjectRequest(requestMethod , getURL(), jsonObjectForRequest
+                , this, this,
+                getHeader(), getParams(),tokenProviderInterface)
     }
 
 }

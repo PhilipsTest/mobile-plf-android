@@ -9,11 +9,15 @@
  *
  *
  */
-
 package com.philips.platform.ecs.microService.request
 
-enum class RequestType {
+import com.android.volley.Response
+import org.json.JSONObject
 
-    JSON,
-    STRING
+class JsonSuccessResponseListener : Response.Listener<JSONObject> {
+
+    override fun onResponse(response: JSONObject?) {
+        TODO("Not yet implemented")
+    }
+
 }

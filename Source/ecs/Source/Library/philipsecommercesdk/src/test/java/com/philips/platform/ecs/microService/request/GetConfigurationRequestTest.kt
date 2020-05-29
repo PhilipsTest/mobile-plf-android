@@ -40,6 +40,7 @@ class GetConfigurationRequestTest {
         MockitoAnnotations.initMocks(this)
 
         getConfigurationRequest = GetConfigurationRequest(eCSCallbackMock)
+        getConfigurationRequest.locale = "en_US"
     }
 
     @Test

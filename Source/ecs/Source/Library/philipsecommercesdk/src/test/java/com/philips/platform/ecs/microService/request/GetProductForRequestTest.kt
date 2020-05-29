@@ -85,21 +85,6 @@ class GetProductForRequestTest {
         assertEquals(expectedMap,getProductForRequest.getHeader())
     }
 
-    @Test
-    fun `request type should be jSON`() {
-        assertEquals(RequestType.JSON,getProductForRequest.getRequestType())
-    }
-
-    @Test
-    fun `JSON Success Response Listener should not be null`() {
-        assertNotNull(getProductForRequest.getJSONSuccessResponseListener())
-    }
-
-    @Test
-    fun `String Success Response Listener should  be null`() {
-        assertNull(getProductForRequest.getStringSuccessResponseListener())
-    }
-
     @Mock
     lateinit var networkErrorMock :NetworkError
     @Test

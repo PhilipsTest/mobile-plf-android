@@ -20,8 +20,6 @@ import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryServ
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.request.ECSAbstractRequest
-import com.philips.platform.ecs.microService.request.NetworkController
-import com.philips.platform.ecs.microService.request.RequestType
 import com.philips.platform.ecs.microService.request.any
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import org.junit.Before
@@ -54,9 +52,6 @@ class RequestHandlerTest {
     lateinit var requestQueueMock : RequestQueue
 
     @Mock
-    lateinit var networkControllerMock: NetworkController
-
-    @Mock
     lateinit var ecsErrorCallbackMock: ECSCallback<*, ECSError>
 
     @Before
@@ -67,7 +62,6 @@ class RequestHandlerTest {
         map["siteId"] = "IAP_MOB_DKA_SITE"
         Mockito.`when`(ecsAbstractRequestMock.ecsErrorCallback).thenReturn(ecsErrorCallbackMock)
         Mockito.`when`(ecsAbstractRequestMock.getServiceID()).thenReturn("MEC_BASE_URL")
-        Mockito.`when`(ecsAbstractRequestMock.getRequestType()).thenReturn(RequestType.JSON)
         Mockito.`when`(ecsAbstractRequestMock.getReplaceURLMap()).thenReturn(map)
         Mockito.`when`(appInfraMock.serviceDiscovery).thenReturn(serviceDiscoveryInterfaceMock)
 
@@ -76,8 +70,6 @@ class RequestHandlerTest {
         Mockito.`when`(appInfraMock.restClient).thenReturn(restClientMock)
         ECSDataHolder.appInfra = appInfraMock
         ECSDataHolder.appInfra = appInfraMock
-
-        requestHandler.networkController = networkControllerMock
 
 
     }
@@ -105,7 +97,7 @@ class RequestHandlerTest {
         serviceDiscoveryService.init( "en_US","http://acc.iap.baseURL")
         map.put("MEC_BASE_URL",serviceDiscoveryService)
         serviceListener.onSuccess(map)
-        Mockito.verify(networkControllerMock).executeRequest(ecsAbstractRequestMock)
+        Mockito.verify(ecsAbstractRequestMock).executeRequest()
     }
 
     @Test
@@ -118,7 +110,7 @@ class RequestHandlerTest {
         serviceDiscoveryService.init( "en_US",null)
         map.put("MEC_BASE_URL",serviceDiscoveryService)
         serviceListener.onSuccess(map)
-        Mockito.verify(networkControllerMock,Mockito.never()).executeRequest(ecsAbstractRequestMock)
+        Mockito.verify(ecsAbstractRequestMock,Mockito.never()).executeRequest()
         Mockito.verify(ecsErrorCallbackMock).onFailure(any(ECSError::class.java))
     }
 

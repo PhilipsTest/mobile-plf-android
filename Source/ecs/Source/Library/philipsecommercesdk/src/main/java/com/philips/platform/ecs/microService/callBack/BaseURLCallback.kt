@@ -17,28 +17,33 @@ import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryServ
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.manager.ECSConfigManager
+import com.philips.platform.ecs.microService.model.config.ECSConfig
+import com.philips.platform.ecs.microService.request.GetConfigurationRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
-class ServiceDiscoveryForConfigBoolCallback(val ecsConfigManager: ECSConfigManager, val ecsCallback: ECSCallback<Boolean, ECSError>) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
+class BaseURLCallback(val getConfigurationRequest: GetConfigurationRequest) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
 
     override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
 
         ECSDataHolder.urlMap = urlMap
 
         val serviceDiscoveryService =urlMap?.get(ECSConstants.SERVICEID_IAP_BASEURL)
-        val locale = serviceDiscoveryService?.locale
+        val locale = serviceDiscoveryService?.locale ?:""
         ECSDataHolder.locale = locale
         val configUrls = serviceDiscoveryService?.configUrls
         ECSDataHolder.baseURL = configUrls
 
         if(configUrls==null || ECSDataHolder.getPropositionId() == null){
-            ecsCallback.onResponse(false)
+            val ecsConfig = ECSConfig(locale)
+            getConfigurationRequest.eCSCallback.onResponse(ecsConfig)
         }else{
-            ecsConfigManager.getConfigBoolean(ecsCallback)
+            getConfigurationRequest.url = configUrls
+            getConfigurationRequest.locale = locale
+            getConfigurationRequest.executeRequest()
         }
     }
 
     override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
-        ecsCallback.onFailure(ECSError(message?:"",null,null))
+        getConfigurationRequest.eCSCallback.onFailure(ECSError(message?:"",null,null))
     }
 }

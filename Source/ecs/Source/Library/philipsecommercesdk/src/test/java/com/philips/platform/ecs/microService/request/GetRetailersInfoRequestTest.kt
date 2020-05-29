@@ -50,10 +50,6 @@ class GetRetailersInfoRequestTest {
         getRetailersInfoRequest  = GetRetailersInfoRequest(ctn,ecsCallbackMock)
     }
 
-    @Test
-    fun `request type should be jSON`() {
-        assertEquals(RequestType.JSON,getRetailersInfoRequest.getRequestType())
-    }
 
     @Mock
     lateinit var networkErrorMock : NetworkError
@@ -63,15 +59,6 @@ class GetRetailersInfoRequestTest {
         Mockito.verify(ecsCallbackMock).onFailure(any(ECSError::class.java))
     }
 
-    @Test
-    fun `JSON Success Response Listener should not be null`() {
-        assertNotNull(getRetailersInfoRequest.getJSONSuccessResponseListener())
-    }
-
-    @Test
-    fun `String Success Response Listener should  be null`() {
-        assertNull(getRetailersInfoRequest.getStringSuccessResponseListener())
-    }
 
     @Test
     fun `get header should be null`() {

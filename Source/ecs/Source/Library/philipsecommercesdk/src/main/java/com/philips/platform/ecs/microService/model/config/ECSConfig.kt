@@ -22,14 +22,14 @@ import org.json.JSONObject
 @Parcelize
 data class ECSConfig (
 
-    var locale: String?,
-    val catalogId: String?,
-    val faqUrl: String?,
-    val helpDeskEmail: String?,
-    val helpDeskPhone: String?,
-    val helpUrl: String?,
-    val rootCategory: String?,
-    val siteId: String?,
+    var locale: String? = null,
+    val catalogId: String? = null,
+    val faqUrl: String?=null,
+    val helpDeskEmail: String?=null,
+    val helpDeskPhone: String?=null,
+    val helpUrl: String?=null,
+    val rootCategory: String?=null,
+    val siteId: String?=null,
     var isHybris :Boolean = false
 
 ):Parcelable

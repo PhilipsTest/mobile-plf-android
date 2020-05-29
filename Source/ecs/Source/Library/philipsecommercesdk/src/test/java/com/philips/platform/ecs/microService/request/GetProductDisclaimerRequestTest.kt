@@ -82,21 +82,6 @@ class GetProductDisclaimerRequestTest {
     }
 
     @Test
-    fun `request type should be jSON`() {
-        assertEquals(RequestType.JSON,getProductDisclaimerRequest.getRequestType())
-    }
-
-    @Test
-    fun `JSON Success Response Listener should not be null`() {
-       assertNotNull(getProductDisclaimerRequest.getJSONSuccessResponseListener())
-    }
-
-    @Test
-    fun `String Success Response Listener should  be null`() {
-        assertNull(getProductDisclaimerRequest.getStringSuccessResponseListener())
-    }
-
-    @Test
     fun `get header should be null`() {
         assertNull(getProductDisclaimerRequest.getHeader())
     }

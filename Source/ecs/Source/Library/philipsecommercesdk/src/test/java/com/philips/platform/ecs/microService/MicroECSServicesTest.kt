@@ -80,15 +80,9 @@ class MicroECSServicesTest {
     }
 
     @Test
-    fun `configureECS api should call corresponding manager method`() {
-        ECSServices.configureECS(ecsCallBackBooleanMock)
-        Mockito.verify(ecsConfigManagerMock).configureECS(ecsCallBackBooleanMock)
-    }
-
-    @Test
     fun `configureECSToGetConfiguration api should call corresponding manager method`() {
-        ECSServices.configureECSToGetConfiguration(ecsCallbackConfigMock)
-        Mockito.verify(ecsConfigManagerMock).configureECSToGetConfiguration(ecsCallbackConfigMock)
+        ECSServices.configureECS(ecsCallbackConfigMock)
+        Mockito.verify(ecsConfigManagerMock).getConfigObject(ecsCallbackConfigMock)
 
     }
 

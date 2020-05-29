@@ -24,7 +24,7 @@ public class PILConfigureECSToGetConfigurationFragment extends BaseAPIFragment {
 
         ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
-        ECSServices.configureECSToGetConfiguration(new ECSCallback<ECSConfig, ECSError>() {
+        ECSServices.configureECS(new ECSCallback<ECSConfig, ECSError>() {
             @Override
             public void onResponse(ECSConfig result) {
 

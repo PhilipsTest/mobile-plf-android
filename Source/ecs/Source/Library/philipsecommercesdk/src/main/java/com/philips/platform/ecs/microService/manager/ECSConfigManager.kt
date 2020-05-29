@@ -13,44 +13,27 @@
 package com.philips.platform.ecs.microService.manager
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
-import com.philips.platform.ecs.microService.callBack.ServiceDiscoveryForConfigBoolCallback
-import com.philips.platform.ecs.microService.callBack.ServiceDiscoveryForConfigObjectCallback
+import com.philips.platform.ecs.microService.callBack.BaseURLCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.request.GetConfigurationRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import java.util.ArrayList
 
 
 class ECSConfigManager {
 
-    fun configureECS(ecsCallback: ECSCallback<Boolean, ECSError>) {
-        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryForConfigBoolCallback(this,ecsCallback), null)
-    }
-
-    fun configureECSToGetConfiguration(ecsCallback: ECSCallback<ECSConfig, ECSError>) {
-        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(ECSConstants().getListOfServiceID(), ServiceDiscoveryForConfigObjectCallback(this,ecsCallback), null)
-    }
 
     fun getConfigObject(ecsCallback: ECSCallback<ECSConfig, ECSError>){
         val getConfigurationRequest = GetConfigurationRequest(ecsCallback)
-        RequestHandler().handleRequest(getConfigurationRequest)
+        ECSDataHolder.appInfra?.serviceDiscovery?.getServicesWithCountryPreference(getBaseURLServiceID(),BaseURLCallback(getConfigurationRequest), null)
+
     }
 
-    fun getConfigBoolean(ecsCallback: ECSCallback<Boolean, ECSError>){
-
-        val getConfigurationRequest = GetConfigurationRequest(object : ECSCallback<ECSConfig, ECSError> {
-            override fun onResponse(result: ECSConfig) {
-                ecsCallback.onResponse(result.isHybris)
-            }
-
-            override fun onFailure(ecsError: ECSError) {
-                ecsCallback.onFailure(ecsError)
-            }
-
-
-        })
-        RequestHandler().handleRequest(getConfigurationRequest)
+    fun getBaseURLServiceID() : ArrayList<String> {
+        val listOFServiceID = mutableListOf<String>()
+        listOFServiceID.add(ECSConstants.SERVICEID_IAP_BASEURL)
+        return listOFServiceID as ArrayList<String>
     }
-
 }
