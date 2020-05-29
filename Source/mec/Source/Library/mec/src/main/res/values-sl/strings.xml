@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Sledenje naročilu</string>
   <string name="mec_accept_terms">Z oddajo naročila sprejmem Philipsove pogoje</string>
   <string name="mec_accepted_codes">Sprejete kode</string>
   <string name="mec_add">Dodaj</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Naročilo lahko prekličete, preden je odpremljeno. Pri tem vam bo pomagala naša ekipa za pomoč uporabnikom.</string>
   <string name="mec_cancel_order_number">Prekliči številko naročila </string>
   <string name="mec_cancel_payment">Ali želite preklicati plačilo? Vaša nakupovalna košarica bo izpraznjena.</string>
-  <string name="mec_cancel_your_order">[sl]Cancel your order</string>
+  <string name="mec_cancel_your_order">Prekličite naročilo</string>
   <string name="mec_card_holder_first_name">Ime imetnika kartice</string>
   <string name="mec_card_holder_last_name">Priimek imetnika kartice</string>
   <string name="mec_cart_count_exceed_message">V košarico je mogoče dodati največ %d izdelkov</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">V redu</string>
   <string name="mec_online_retailers">Spletni trgovci</string>
   <string name="mec_only">Samo</string>
-  <string name="mec_order_detail_unavailable">[sl]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Podrobnosti o naročilu niso na voljo</string>
   <string name="mec_order_details">Podrobnosti o naročilu</string>
   <string name="mec_order_not_received_items">Naročilo ni prejeto</string>
   <string name="mec_order_number_msg">Številka naročila: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Mesto/kraj</string>
   <string name="mec_town_error">Vnesite veljavno mesto</string>
   <string name="mec_town_hint">Vnesite mesto ali kraj</string>
+  <string name="mec_track_order">Sledenje naročilu</string>
   <string name="mec_use_as_billing_address">Ta naslov uporabi kot moj naslov za račun</string>
   <string name="mec_valid_until">Veljavno do</string>
   <string name="mec_your_order_number">Številka vašega naročila je</string>

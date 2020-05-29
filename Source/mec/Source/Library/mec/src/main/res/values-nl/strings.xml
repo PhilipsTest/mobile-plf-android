@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Bestelling volgen</string>
   <string name="mec_accept_terms">Door de bestelling te plaatsen, accepteer ik Philips\'</string>
   <string name="mec_accepted_codes">Geaccepteerde codes</string>
   <string name="mec_add">Toevoegen</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">U kunt uw bestelling annuleren voordat deze wordt verzonden. Onze klantenservice helpt u hier graag bij.</string>
   <string name="mec_cancel_order_number">Annuleer bestelling met nummer </string>
   <string name="mec_cancel_payment">Wilt u uw betaling annuleren? Uw winkelwagentje wordt gewist.</string>
-  <string name="mec_cancel_your_order">[nl]Cancel your order</string>
+  <string name="mec_cancel_your_order">Annuleer uw bestelling</string>
   <string name="mec_card_holder_first_name">Voornaam kaarthouder</string>
   <string name="mec_card_holder_last_name">Achternaam kaarthouder</string>
   <string name="mec_cart_count_exceed_message">Er kunnen niet meer dan %d producten worden toegevoegd aan de winkelwagen</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Online retailers</string>
   <string name="mec_only">Nog maar</string>
-  <string name="mec_order_detail_unavailable">[nl]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Bestelgegevens zijn niet beschikbaar</string>
   <string name="mec_order_details">Bestelgegevens</string>
   <string name="mec_order_not_received_items">Bestelling niet ontvangen</string>
   <string name="mec_order_number_msg">Bestelnummer: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Plaats</string>
   <string name="mec_town_error">Voer een geldige stad in</string>
   <string name="mec_town_hint">Voer uw woonplaats in</string>
+  <string name="mec_track_order">Bestelling volgen</string>
   <string name="mec_use_as_billing_address">Gebruik dit adres als mijn factuuradres</string>
   <string name="mec_valid_until">Geldig tot</string>
   <string name="mec_your_order_number">Uw bestelnummer is</string>

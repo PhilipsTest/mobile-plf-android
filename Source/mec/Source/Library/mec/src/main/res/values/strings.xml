@@ -4,7 +4,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-    <string name="mec_track_order">Track order</string>
     <string name="mec_accept_terms">By placing the order, I accept Philips’</string>
     <string name="mec_accepted_codes">Accepted codes</string>
     <string name="mec_add">Add</string>
@@ -45,6 +44,7 @@
     <string name="mec_cart_summary">Cart summary</string>
     <string name="mec_cart_tax_message">Price including %s VAT</string>
     <string name="mec_cart_total">Total</string>
+    <string name="mec_check_internet_connection">Please check your Internet Connection.</string>
     <string name="mec_checkout">Checkout</string>
     <string name="mec_choose_address_text">Choose Shipping Address from below list</string>
     <string name="mec_confirmation">Confirmation</string>
@@ -160,6 +160,7 @@
     <string name="mec_town">Town/City</string>
     <string name="mec_town_error">Please enter a valid town</string>
     <string name="mec_town_hint">Enter your town or city</string>
+    <string name="mec_track_order">Track order</string>
     <string name="mec_use_as_billing_address">Use this address as my billing address</string>
     <string name="mec_valid_until">Valid until</string>
     <string name="mec_your_order_number">Your order number is</string>
@@ -177,7 +178,7 @@
     <string name="mec_bazaarVoice_link" translatable="false">http://www.bazaarvoice.com/trustmark</string>
 
     <!--unused Strings -->
-    <string name="mec_check_internet_connection" translatable="false">Please check your Internet Connection.</string>
+
 
 
 
