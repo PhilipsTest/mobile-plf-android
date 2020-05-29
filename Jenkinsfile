@@ -6,7 +6,8 @@ BranchName = env.BRANCH_NAME
  * Applicable for develop branch and build type is PSRA at 8:00 pm to 9:00 pm
  * Applicable for develop branch and build type is Java API doc at 9:00 pm to 10:00 pm
  */
-String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS \nH H(10-11) */2 * 5 %buildType=HPFortify" : ""
+//String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS \nH H(10-11) */2 * 5 %buildType=HPFortify" : ""
+String param_string_cron = BranchName == "HPFortify_Android" ? "H H(11-12) * * 5 %buildType=HPFortify" : ""
 
 //label for pipeline
 def nodes = 'test'
