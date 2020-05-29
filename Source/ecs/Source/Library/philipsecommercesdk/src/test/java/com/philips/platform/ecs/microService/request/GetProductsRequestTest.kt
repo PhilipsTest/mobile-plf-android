@@ -1,8 +1,9 @@
 package com.philips.platform.ecs.microService.request
 
-import com.android.volley.TimeoutError
+import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
@@ -27,12 +28,13 @@ class GetProductsRequestTest {
     val modifiedSince = "2019-10-31T20:34:55Z"
     var mGetProductsRequest: GetProductsRequest? = null
     var mProductFilter: ProductFilter? = null
-    private lateinit var  volleyHandler: VolleyHandler
+    private lateinit var volleyHandler: VolleyHandler
 
     var eCSCallback = object : ECSCallback<ECSProducts, ECSError> {
         override fun onResponse(result: ECSProducts) {
 
         }
+
         override fun onFailure(ecsError: ECSError) {
 
         }
@@ -49,7 +51,7 @@ class GetProductsRequestTest {
     @Test
     fun getServiceID() {
     }
-    
+
     @Test
     fun getURL() {// this method will internally test method addParams()
         mProductFilter!!.stockLevel = ECSStockLevel.OutOfStock
@@ -97,6 +99,7 @@ class GetProductsRequestTest {
                 assertNotNull(result)
                 assertEquals(100, result.commerceProducts.size) // 100 products
             }
+
             override fun onFailure(ecsError: ECSError) {
                 fail()
             }
@@ -117,6 +120,7 @@ class GetProductsRequestTest {
                 assertNotNull(result)
                 assertEquals(0, result.commerceProducts.size) // 0 products
             }
+
             override fun onFailure(ecsError: ECSError) {
                 fail()
             }
@@ -128,23 +132,31 @@ class GetProductsRequestTest {
         mGetProductsRequest!!.onResponse(jsonObject)
     }
 
+
     @Mock
-     lateinit var ecsCallbackMock :ECSCallback<ECSProducts, ECSError>
-    @Mock
-    lateinit var timeoutErrorMock :TimeoutError
+    lateinit var ecsCallbackMock: ECSCallback<ECSProducts, ECSError>
 
-            @Test
-    fun onFailure(){
+    lateinit var volleyError: VolleyError
 
-  /*      val errorString =   ClassLoader.getSystemResource("pil/fetchProductsPILwithTimeoutFailure.json").readText()
-        val jsonObject = JSONObject(errorString)
-        val hybrisError = jsonObject.getData(HybrisError::class.java)
-        var actualError = ECSError(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT)
-        volleyHandler.setPILECSError(hybrisError,actualError)
-        Assert.assertEquals(ECSErrorType.ECSPIL_INTEGRATION_TIMEOUT.errorCode, actualError.errorCode)*/
+    @Test
+    fun onFailure() {
 
-        mGetProductsRequest!!.onErrorResponse(timeoutErrorMock)
+        volleyError = VolleyError("some exception")
+        mGetProductsRequest = GetProductsRequest("Category Does Not Exist", limit, defaultOffset, mProductFilter, ecsCallbackMock)
+        mGetProductsRequest!!.onErrorResponse(volleyError)
         Mockito.verify(ecsCallbackMock).onFailure(any(ECSError::class.java))
+
+        var eCSCallbackOnFailure = object : ECSCallback<ECSProducts, ECSError> {
+            override fun onResponse(result: ECSProducts) {
+                fail()
+            }
+            override fun onFailure(ecsError: ECSError) {
+                assertNotNull(ecsError)
+                assertEquals(ECSErrorType.ECSsomethingWentWrong.errorCode, ecsError.errorCode)
+            }
+        }
+        mGetProductsRequest = GetProductsRequest("Category Does Not Exist", limit, defaultOffset, mProductFilter, eCSCallbackOnFailure)
+        mGetProductsRequest!!.onErrorResponse(volleyError)
 
 
     }
