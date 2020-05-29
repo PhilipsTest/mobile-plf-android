@@ -57,7 +57,6 @@ public class IAPActivity extends UIDActivity implements ActionBarListener, IAPLi
     private ImageView mBackImage;
     private FrameLayout mCartContainer;
     private String mTitle;
-    private ProgressDialog mProgressDialog = null;
 
     public IAPActivity(){
         setLanguagePackNeeded(false);
@@ -178,7 +177,6 @@ public class IAPActivity extends UIDActivity implements ActionBarListener, IAPLi
 
     @Override
     protected void onDestroy() {
-        dismissProgressDialog();
         NetworkUtility.getInstance().dismissErrorDialog();
         IAPAnalytics.clearAppTaggingInterface();
         super.onDestroy();
@@ -301,23 +299,19 @@ public class IAPActivity extends UIDActivity implements ActionBarListener, IAPLi
 
     @Override
     public void onGetCompleteProductList(ArrayList<String> productList) {
-        dismissProgressDialog();
     }
 
     @Override
     public void onSuccess() {
-        dismissProgressDialog();
     }
 
     @Override
     public void onSuccess(boolean bool) {
-        dismissProgressDialog();
     }
 
     @Override
     public void onFailure(int errorCode) {
         showToast(errorCode);
-        dismissProgressDialog();
     }
 
     private void showToast(int errorCode) {
@@ -341,26 +335,5 @@ public class IAPActivity extends UIDActivity implements ActionBarListener, IAPLi
             toast.show();
         }
     }
-    public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.setMessage(getString(R.string.iap_please_wait) + "...");
-        }
-        if ((!mProgressDialog.isShowing()) && !isFinishing()) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mProgressDialog.show();
-                }
-            });
-        }
-    }
 
-    public void dismissProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing() && !isFinishing()) {
-            mProgressDialog.dismiss();
-            mProgressDialog = null;
-        }
-    }
 }

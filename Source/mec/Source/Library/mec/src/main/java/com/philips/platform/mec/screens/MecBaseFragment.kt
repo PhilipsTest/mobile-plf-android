@@ -9,7 +9,6 @@
  */
 package com.philips.platform.mec.screens
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.view.View
 import android.view.WindowManager
@@ -40,7 +39,6 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     protected val SMALL = 0
     protected val MEDIUM = 1
     protected val BIG = 2
-    private var mProgressDialog: ProgressDialog? = null
     private var mMECBaseFragmentProgressBar: ProgressBar? = null
 
     enum class AnimationType {
