@@ -99,6 +99,17 @@ class MicroECSServicesTest {
         productFilter.sortType= ECSSortType.priceAscending
         productFilter.stockLevel=ECSStockLevel.InStock
         ECSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsCallback) //TODO
+
+
+/*
+        ECSServices.fetchProducts( ecsCallback =  ecsCallback)
+        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",ecsCallback =  ecsCallback)
+        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",7,ecsCallback =  ecsCallback)
+        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",7,8,ecsCallback =  ecsCallback)
+        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",offset = 8,ecsCallback =  ecsCallback)
+        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",7,8,productFilter,ecsCallback =  ecsCallback)
+        ECSServices.fetchProducts(ecsCallback =  ecsCallback,limit = 4)
+        ECSServices.fetchProducts(ecsCallback =  ecsCallback,productFilter = productFilter)*/
     }
 
     @Test

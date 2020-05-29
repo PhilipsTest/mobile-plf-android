@@ -11,7 +11,7 @@ import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 
 
-class GetProductsRequest(private val productCategory: String?, private val limit: Int, private val offset: Int, private val productFilter: ProductFilter?, private val ecsCallback: ECSCallback<ECSProducts, ECSError>) : ECSJsonRequest(ecsCallback) {
+class GetProductsRequest  (private val productCategory: String?, private val limit: Int, private val offset: Int, private val productFilter: ProductFilter?, private val ecsCallback: ECSCallback<ECSProducts, ECSError>) : ECSJsonRequest(ecsCallback) {
 
     val limitKey = "limit"
     val offsetKey = "offset"

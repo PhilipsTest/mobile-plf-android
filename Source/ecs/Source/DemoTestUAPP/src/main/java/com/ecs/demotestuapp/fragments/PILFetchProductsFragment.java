@@ -23,7 +23,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
 
 
     EditText etPageNumber,etPageSize, etCategory;
-    int  pageSize = 20,pageNumber =0;
+    int offset = 20, limit =0;
     String  category;
     Spinner spinnerSortType, spinnerStockLevel;
 
@@ -35,9 +35,9 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         super.onResume();
 
         etPageNumber = getLinearLayout().findViewWithTag("et_one");
-        etPageNumber.setText(pageNumber+"");
+        etPageNumber.setText(limit +"");
         etPageSize = getLinearLayout().findViewWithTag("et_two");
-        etPageSize.setText(pageSize+"");
+        etPageSize.setText(offset +"");
         etCategory = getLinearLayout().findViewWithTag("et_three");
         etCategory.setText("FOOD_PREPARATION_CA2");
 
@@ -55,11 +55,11 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
     public void executeRequest() {
 
         if(!etPageSize.getText().toString().trim().isEmpty()){
-            pageSize = Integer.valueOf(etPageSize.getText().toString().trim());
+            offset = Integer.valueOf(etPageSize.getText().toString().trim());
         }
 
         if(!etPageNumber.getText().toString().trim().isEmpty()){
-            pageNumber = Integer.valueOf(etPageNumber.getText().toString().trim());
+            limit = Integer.valueOf(etPageNumber.getText().toString().trim());
         }
 
         if(!etCategory.getText().toString().trim().isEmpty()){
@@ -81,9 +81,8 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
                 productFilter.setStockLevel(eCSStockLevel);
             }
 
-           
-           // productFilter.setStockLevel( ECSStockLevel.InStock);
-            microECSServices.fetchProducts(category,pageNumber, pageSize,productFilter, new ECSCallback<ECSProducts, ECSError>() {
+
+            ECSCallback ecsCallback=  new ECSCallback<ECSProducts, ECSError>() {
                 @Override
                 public void onResponse(ECSProducts result) {
                     PILDataHolder.INSTANCE.setProductList(result);
@@ -98,7 +97,17 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
                     gotoResultActivity(errorString);
                     getProgressBar().setVisibility(View.GONE);
                 }
-            });
+            };
+
+            microECSServices.fetchProducts(category, limit, offset,productFilter,ecsCallback );
+
+
+         /*   microECSServices.fetchProducts(ecsCallback);
+            microECSServices.fetchProducts(ecsCallback,category);
+            microECSServices.fetchProducts(ecsCallback,category, limit);
+            microECSServices.fetchProducts(ecsCallback,category, limit, offset);
+            microECSServices.fetchProducts(ecsCallback,category, limit, offset,productFilter);*/
+
         } catch (ECSException e) {
             e.printStackTrace();
             gotoResultActivity(e.getMessage());
@@ -106,7 +115,12 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         }
 
     }
+    public void testMethod(ECSCallback<ECSProducts, ECSError> ecsCallback) {
+        //productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter?, ecsCallback :ECSCallback<ECSProducts, ECSError>
 
+
+
+    }
 
     @Override
     public void clearData() {
