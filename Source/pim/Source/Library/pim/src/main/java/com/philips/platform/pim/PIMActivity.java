@@ -71,7 +71,7 @@ public class PIMActivity extends UIDActivity implements ActionBarListener, PIMLo
     private void launchASFragment(Bundle bundle) {
         PIMFragment pimFragment = new PIMFragment();
         pimFragment.setActionbarListener(this, this);
-        HashMap consentParameterMap = (HashMap) bundle.get(PIMInterface.PIM_KEY_CONSENTS);
+        HashMap<PIMParameterToLaunchEnum, Object> consentParameterMap = (HashMap<PIMParameterToLaunchEnum, Object>) bundle.get(PIMInterface.PIM_KEY_CONSENTS);
         bundle.putSerializable(PIMInterface.PIM_KEY_CONSENTS, consentParameterMap);
         pimFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()

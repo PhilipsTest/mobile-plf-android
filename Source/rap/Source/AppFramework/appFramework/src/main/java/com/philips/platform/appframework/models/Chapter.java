@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 
 public class Chapter implements Serializable{
+    private static final long serialVersionUID = -1038722280847305323L;
     @SerializedName("chapterName")
     private String chapterName;
 

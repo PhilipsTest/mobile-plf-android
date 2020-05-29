@@ -26,6 +26,7 @@ import java.util.Map;
 public class AbTestingImpl implements ABTestClientInterface, ConsentStatusChangedListener, ABTestClientInterface.OnRefreshListener {
 
     public final static String AB_TESTING_CONSENT = "abTestConsent";
+    private static final long serialVersionUID = 4472431475221633849L;
     private Context context;
     private FireBaseWrapper fireBaseWrapper;
     private AbTestingLocalCache abTestingLocalCache;

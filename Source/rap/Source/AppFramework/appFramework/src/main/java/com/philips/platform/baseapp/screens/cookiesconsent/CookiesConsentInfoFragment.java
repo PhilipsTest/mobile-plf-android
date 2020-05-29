@@ -33,6 +33,7 @@ import com.philips.platform.uappframework.listener.BackEventListener;
  */
 public class CookiesConsentInfoFragment extends AbstractOnboardingBaseFragment implements BackEventListener {
 
+    private static final long serialVersionUID = 8648360584382156578L;
     public static String TAG = CookiesConsentInfoFragment.class.getSimpleName();
 
     private AbstractUIBasePresenter presenter;

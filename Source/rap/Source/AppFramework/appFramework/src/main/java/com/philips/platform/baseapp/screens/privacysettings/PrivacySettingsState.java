@@ -37,6 +37,8 @@ import java.util.List;
 
 public class PrivacySettingsState extends BaseState implements MyAccountUIEventListener {
 
+    private static final long serialVersionUID = 3700147972673050370L;
+
     public PrivacySettingsState() {
         super(AppStates.PRIVACY_SETTINGS_STATE);
     }

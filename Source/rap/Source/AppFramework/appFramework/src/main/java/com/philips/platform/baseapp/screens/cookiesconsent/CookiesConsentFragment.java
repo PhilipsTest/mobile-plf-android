@@ -47,6 +47,7 @@ import com.philips.platform.uid.view.widget.ProgressBarButton;
 public class CookiesConsentFragment extends AbstractOnboardingBaseFragment implements View.OnClickListener,
         CookiesConsentFragmentView, BackEventListener, View.OnLongClickListener {
 
+    private static final long serialVersionUID = 6130771609546338200L;
     public static String TAG = CookiesConsentFragment.class.getSimpleName();
 
     private AbstractUIBasePresenter presenter;
