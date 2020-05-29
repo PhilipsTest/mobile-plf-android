@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">追踪订单</string>
   <string name="mec_accept_terms">下达订单即表示我接受飞利浦的条款和条件</string>
   <string name="mec_accepted_codes">已接受的代码</string>
   <string name="mec_add">添加</string>
@@ -30,14 +29,14 @@
   <string name="mec_billing_address">帐单地址</string>
   <string name="mec_blank_cvv_error">请输入有效的信用卡验证值 (CVV)</string>
   <string name="mec_buy_from_retailers">从零售商处购买</string>
-  <string name="mec_call">[zh-CN]Call</string>
+  <string name="mec_call">通话</string>
   <string name="mec_cancel">取消</string>
   <string name="mec_cancel_order">取消我的订单</string>
   <string name="mec_cancel_order_dls_for_your_ref_sg">您的订单编号是 %s，供您参考</string>
   <string name="mec_cancel_order_dls_msg">在发货前，您可以取消订单。我们的客户服务团队将帮助您执行此操作。</string>
   <string name="mec_cancel_order_number">取消订单编号 </string>
   <string name="mec_cancel_payment">是否要取消付款？您的购物车将清空。</string>
-  <string name="mec_cancel_your_order">[zh-CN]Cancel your order</string>
+  <string name="mec_cancel_your_order">取消您的订单</string>
   <string name="mec_card_holder_first_name">持卡人名字</string>
   <string name="mec_card_holder_last_name">持卡人姓氏</string>
   <string name="mec_cart_count_exceed_message">无法在购物车中加入 %d 件以上产品</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">确定</string>
   <string name="mec_online_retailers">在线零售商</string>
   <string name="mec_only">只有</string>
-  <string name="mec_order_detail_unavailable">[zh-CN]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">订单详情不可用</string>
   <string name="mec_order_details">订单详情</string>
   <string name="mec_order_not_received_items">未收到订单</string>
   <string name="mec_order_number_msg">订单编号：%s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">镇/城市</string>
   <string name="mec_town_error">请输入有效城镇</string>
   <string name="mec_town_hint">输入您所在的城镇或城市</string>
+  <string name="mec_track_order">追踪订单</string>
   <string name="mec_use_as_billing_address">使用此地址作为我的账单地址</string>
   <string name="mec_valid_until">有效期至</string>
   <string name="mec_your_order_number">您的订单编号是</string>

@@ -168,36 +168,6 @@ public class PIMDataImplementation implements UserDataInterface {
     }
 
     @Override
-    public void migrateUserToPIM(UserMigrationListener userMigrationListener) {
-        if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-            userMigrationListener.onUserMigrationSuccess();
-            return;
-        }
-        PIMMigrator pimMigrator = new PIMMigrator(mContext, userMigrationListener);
-
-        isInitRequiredAgain = true;
-        MutableLiveData<PIMInitState> pimInitLiveData = PIMSettingManager.getInstance().getPimInitLiveData();
-        new PIMConfigManager(PIMSettingManager.getInstance().getPimUserManager()).init(mContext, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
-        pimInitLiveData.observeForever(new Observer<PIMInitState>() {
-            @Override
-            public void onChanged(@Nullable PIMInitState pimInitState) {
-                if (pimInitState == PIMInitState.INIT_SUCCESS) {
-                    pimInitLiveData.removeObserver(this);
-                    pimMigrator.migrateUSRToPIM();
-                } else if (pimInitState == PIMInitState.INIT_FAILED) {
-                    if (isInitRequiredAgain) {
-                        new PIMConfigManager(PIMSettingManager.getInstance().getPimUserManager()).init(mContext, PIMSettingManager.getInstance().getAppInfraInterface().getServiceDiscovery());
-                        isInitRequiredAgain = false;
-                    } else {
-                        pimInitLiveData.removeObserver(this);
-                        userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
-                    }
-                }
-            }
-        });
-    }
-
-    @Override
     public void refetchUserDetails(RefetchUserDetailsListener userDetailsListener) {
         if (pimUserManager.getUserLoggedInState() != UserLoggedInState.USER_LOGGED_IN) {
             userDetailsListener.onRefetchFailure(new Error(Error.UserDetailError.NotLoggedIn));
@@ -242,7 +212,7 @@ public class PIMDataImplementation implements UserDataInterface {
             if (allValidKeys.contains(key))
                 validDetailsKey.add(key);
             else
-                throw new UserDataInterfaceException(new Error(Error.UserDetailError.InvalidUserDetailsKeys));
+                throw new UserDataInterfaceException(new Error(Error.UserDetailError.InvalidFields));
         }
         return validDetailsKey;
     }

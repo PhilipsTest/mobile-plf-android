@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">注文を追跡</string>
   <string name="mec_accept_terms">注文することにより、私は次に同意します：フィリップスの</string>
   <string name="mec_accepted_codes">コードが承諾されました</string>
   <string name="mec_add">追加</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">ご注文は出荷前ならキャンセル可能です。お客様サポートチームがお手伝いいたします。</string>
   <string name="mec_cancel_order_number">次の注文をキャンセル： </string>
   <string name="mec_cancel_payment">支払いをキャンセルしますか？カートは空になります。</string>
-  <string name="mec_cancel_your_order">[ja]Cancel your order</string>
+  <string name="mec_cancel_your_order">注文をキャンセル</string>
   <string name="mec_card_holder_first_name">カード所有者氏名（名）</string>
   <string name="mec_card_holder_last_name">カード所有者氏名（姓）</string>
   <string name="mec_cart_count_exceed_message">ショッピングカートに %d 件を超える製品は追加できません</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">オンライン小売店</string>
   <string name="mec_only">のみ</string>
-  <string name="mec_order_detail_unavailable">[ja]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">注文詳細は利用できません</string>
   <string name="mec_order_details">注文詳細</string>
   <string name="mec_order_not_received_items">未達のご注文</string>
   <string name="mec_order_number_msg">注文番号：%s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">市区町村</string>
   <string name="mec_town_error">有効な市区町村を入力してください</string>
   <string name="mec_town_hint">市区町村を入力</string>
+  <string name="mec_track_order">注文を追跡</string>
   <string name="mec_use_as_billing_address">この住所を請求先住所として使用</string>
   <string name="mec_valid_until">有効期限：</string>
   <string name="mec_your_order_number">注文番号：</string>

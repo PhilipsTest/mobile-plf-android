@@ -55,6 +55,7 @@ public enum ECSErrorEnum {
     ECSPropositionIdNotFound( R.string.ECSPropositionIdNotFound, 5053),
     ECSSiteIdNotFound( R.string.ECSSiteIdNotFound, 5054),
     ECSHybrisNotAvailable( R.string.ECSHybrisNotAvailable, 5055),
+    ECSUnsupportedLanguageError(R.string.ECSHybrisNotAvailable, 5055),
     ECSCtnNotProvided( R.string.ECSCtnNotProvided, 5056),
     ECSOAuthNotCalled( R.string.ECSOAuthNotCalled, 5057),
     ECSOAuthDetailError( R.string.ECSOAuthDetailError, 5058),

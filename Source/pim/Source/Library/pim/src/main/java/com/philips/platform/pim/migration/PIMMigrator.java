@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
-import com.philips.platform.pif.DataInterface.USR.listeners.UserMigrationListener;
+import com.philips.platform.pim.listeners.UserMigrationListener;
 import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.listeners.PIMUserMigrationListener;
 import com.philips.platform.pim.listeners.RefreshUSRTokenListener;
@@ -20,7 +20,7 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
     private USRTokenManager usrTokenManager;
     private UserMigrationListener userMigrationListener;
 
-    public PIMMigrator(Context context) {
+    private PIMMigrator(Context context) {
         this.context = context;
         PIMSettingManager pimSettingManager = PIMSettingManager.getInstance();
         mLoggingInterface = pimSettingManager.getLoggingInterface();

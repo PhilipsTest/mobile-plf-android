@@ -17,6 +17,7 @@ import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.integration.ECSOAuthProvider
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.ecs.model.orders.ECSOrders
@@ -39,7 +40,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 import java.util.*
 import kotlin.test.assertNotNull
 
-@PrepareForTest(MECOrderHistoryService::class,ECSOrderDetailForOrdersCallback::class,AppInfraInterface::class,ECSOrderHistoryCallback::class,MECOrderHistoryRepository::class)
+@PrepareForTest(MECOrderHistoryService::class,AppInfraInterface::class,ECSOrderHistoryCallback::class,MECOrderHistoryRepository::class)
 @RunWith(PowerMockRunner::class)
 class MECOrderHistoryViewModelTest {
 
@@ -73,9 +74,6 @@ class MECOrderHistoryViewModelTest {
     lateinit var ecsOrdersMock: ECSOrders
 
     @Mock
-    lateinit var ecsOrderDetailForOrdersCallbackMock : ECSOrderDetailForOrdersCallback
-
-    @Mock
     lateinit var errorMock: Exception
 
     @Mock
@@ -96,8 +94,6 @@ class MECOrderHistoryViewModelTest {
         mECOrderHistoryRepositoryMock.ecsService = ecsServiceMock
         mecOrderHistoryViewModel.mecOrderHistoryRepository = mECOrderHistoryRepositoryMock
         mecOrderHistoryViewModel.ecsOrderHistoryCallback = ecsOrderHistoryCallback
-        mecOrderHistoryViewModel.ecsOrderDetailForOrdersCallback = ecsOrderDetailForOrdersCallbackMock
-
         mecOrderHistoryViewModel.mecError = errorLiveDataMock
 
     }
@@ -105,12 +101,6 @@ class MECOrderHistoryViewModelTest {
     @Test
     fun returnedFunctionUnitShouldNotBeNullForFOrderHistortyCall() {
         val selectAPIcall = mecOrderHistoryViewModel.selectAPIcall(MECRequestType.MEC_FETCH_ORDER_HISTORY)
-        assertNotNull(selectAPIcall)
-    }
-
-    @Test
-    fun returnedFunctionUnitShouldNotBeNullForFOrderDetailCall() {
-        val selectAPIcall = mecOrderHistoryViewModel.selectAPIcall(MECRequestType.MEC_FETCH_ORDER_DETAILS_FOR_ORDERS)
         assertNotNull(selectAPIcall)
     }
 
@@ -147,12 +137,14 @@ class MECOrderHistoryViewModelTest {
         ECSConfiguration.INSTANCE.setAuthToken("123")
     }
 
+    @Mock
+    lateinit var ecsCallbackMock: ECSCallback<ECSOrders, Exception>
 
     @Test
     fun shouldFetchOrderDetail() {
 
-        mecOrderHistoryViewModel.fetchOrderDetail(ecsOrdersMock)
-        Mockito.verify(ecsServiceMock).fetchOrderDetail(ecsOrdersMock,ecsOrderDetailForOrdersCallbackMock)
+        mecOrderHistoryViewModel.fetchOrderDetail(ecsOrdersMock,ecsCallbackMock)
+        Mockito.verify(ecsServiceMock).fetchOrderDetail(ecsOrdersMock,ecsCallbackMock)
     }
 
     @Mock

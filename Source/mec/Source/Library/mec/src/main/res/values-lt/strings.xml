@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Sekti užsakymą</string>
   <string name="mec_accept_terms">Pateikdamas užsakymą sutinku su „Philips“</string>
   <string name="mec_accepted_codes">Priimti kodai</string>
   <string name="mec_add">Įtr.</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Galite atšaukti užsakymą iki jo išsiuntimo. Mūsų klientų aptarnavimo tarnyba jums padės tai padaryti.</string>
   <string name="mec_cancel_order_number">Atšaukti užsakymą nr. </string>
   <string name="mec_cancel_payment">Ar norite atšaukti apmokėjimą? Jūsų prekių krepšelis bus tuščias.</string>
-  <string name="mec_cancel_your_order">[lt]Cancel your order</string>
+  <string name="mec_cancel_your_order">Atšaukti jūsų užsakymą</string>
   <string name="mec_card_holder_first_name">Kortelės savininko vardas</string>
   <string name="mec_card_holder_last_name">Kortelės savininko pavardė</string>
   <string name="mec_cart_count_exceed_message">Negalite į krepšelį įdėti daugiau nei %d produktų</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">Gerai</string>
   <string name="mec_online_retailers">Mažmenininkai internete</string>
   <string name="mec_only">Tik</string>
-  <string name="mec_order_detail_unavailable">[lt]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Užsakymo informacija nepasiekiama</string>
   <string name="mec_order_details">Užsakymo informacija</string>
   <string name="mec_order_not_received_items">Užsakymas negautas</string>
   <string name="mec_order_number_msg">Užsakymo numeris: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Miestas</string>
   <string name="mec_town_error">Įveskite tikrą miestą</string>
   <string name="mec_town_hint">Įveskite miestą</string>
+  <string name="mec_track_order">Sekti užsakymą</string>
   <string name="mec_use_as_billing_address">Naudokite šį adresą kaip adresą sąskaitai siųsti</string>
   <string name="mec_valid_until">Galioja iki</string>
   <string name="mec_your_order_number">Jūsų užsakymo numeris yra</string>

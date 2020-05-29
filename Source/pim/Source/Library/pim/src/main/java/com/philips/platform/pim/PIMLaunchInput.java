@@ -7,7 +7,7 @@
 package com.philips.platform.pim;
 
 
-import com.philips.platform.pif.DataInterface.USR.listeners.UserLoginListener;
+import com.philips.platform.pim.listeners.UserLoginListener;
 import com.philips.platform.uappframework.uappinput.UappLaunchInput;
 
 import java.util.HashMap;

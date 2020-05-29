@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Urmărire comandă</string>
   <string name="mec_accept_terms">Prin plasarea comenzii, accept</string>
   <string name="mec_accepted_codes">Coduri acceptate</string>
   <string name="mec_add">Adaugă</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Poţi anula comanda înainte de a fi livrată. Echipa noastră de asistenţă pentru clienţi te poate ajuta.</string>
   <string name="mec_cancel_order_number">Anulare număr comandă </string>
   <string name="mec_cancel_payment">Vrei să anulezi plata? Coşul de cumpărături va fi gol.</string>
-  <string name="mec_cancel_your_order">[ro]Cancel your order</string>
+  <string name="mec_cancel_your_order">Anulează-ţi comanda</string>
   <string name="mec_card_holder_first_name">Prenumele titularului cardului</string>
   <string name="mec_card_holder_last_name">Numele de familie al titularului cardului</string>
   <string name="mec_cart_count_exceed_message">Nu se pot adăuga mai mult de %d produse în coşul de cumpărături</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Comercianţi online</string>
   <string name="mec_only">Numai</string>
-  <string name="mec_order_detail_unavailable">[ro]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Detaliile comenzii nu sunt disponibile</string>
   <string name="mec_order_details">Detaliile comenzii</string>
   <string name="mec_order_not_received_items">Comanda nu a fost primită</string>
   <string name="mec_order_number_msg">Numărul comenzii: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Localitate/Oraş</string>
   <string name="mec_town_error">Introdu un oraş valid</string>
   <string name="mec_town_hint">Introdu oraşul sau localitatea</string>
+  <string name="mec_track_order">Urmărire comandă</string>
   <string name="mec_use_as_billing_address">Foloseşte această adresă ca adresă de facturare</string>
   <string name="mec_valid_until">Valabil până la</string>
   <string name="mec_your_order_number">Numărul comenzii tale este</string>
