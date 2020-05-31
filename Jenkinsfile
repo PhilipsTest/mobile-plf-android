@@ -10,7 +10,7 @@ BranchName = env.BRANCH_NAME
 String param_string_cron = BranchName == "HPFortify_Android" ? "H H(16-17) * * * %buildType=HPFortify" : ""
 
 //label for pipeline
-def nodes = 'test'
+def nodes = '9043'
 
 if (BranchName == "develop") {
     nodes = nodes + " && TICS"
