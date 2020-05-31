@@ -555,7 +555,7 @@ def BuildHPFortify() {
         chmod -R 755 .
         ./gradlew --refresh-dependencies
         echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-        sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew clean assembleRelease
+        sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew --full-stacktrace assembleRelease
         echo "*** sourceanalyzer -b ail -scan -f AppInfra_Android.fpr ***"
         sourceanalyzer -b ail -scan -f AppInfra_Android.fpr
         echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
@@ -563,7 +563,7 @@ def BuildHPFortify() {
 		sleep 5
         ./gradlew --refresh-dependencies
         echo "*** sourceanalyzer -b dcc -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-        sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew clean assembleRelease
+        sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew --full-stacktrace assembleRelease
         echo "*** sourceanalyzer -b dcc -scan -f CC_Android.fpr ***"
         sourceanalyzer -b dcc -scan -f CC_Android.fpr
         echo "*** fortifyclient -url https://fortify.philips.com/ssc CC_Android***"
@@ -571,7 +571,7 @@ def BuildHPFortify() {
         sleep 5
         ./gradlew --refresh-dependencies
         echo "*** sourceanalyzer -b ecs -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-        sourceanalyzer -b ecs -source 1.8 -debug-verbose -logfile ECS_Android.txt ./gradlew clean assembleRelease
+        sourceanalyzer -b ecs -source 1.8 -debug-verbose -logfile ECS_Android.txt ./gradlew --full-stacktrace assembleRelease
         echo "*** sourceanalyzer -b ecs -scan -f ECS_Android.fpr ***"
         sourceanalyzer -b ecs -scan -f ECS_Android.fpr
         echo "*** fortifyclient -url https://fortify.philips.com/ssc ECS_Android***"
@@ -579,7 +579,7 @@ def BuildHPFortify() {
 		sleep 5
         ./gradlew --refresh-dependencies
         echo "*** sourceanalyzer -b iap -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-        sourceanalyzer -b iap -source 1.8 -debug-verbose -logfile IAP_Android.txt ./gradlew clean assembleRelease
+        sourceanalyzer -b iap -source 1.8 -debug-verbose -logfile IAP_Android.txt ./gradlew --full-stacktrace assembleRelease
         echo "*** sourceanalyzer -b iap -scan -f IAP_Android.fpr ***"
         sourceanalyzer -b iap -scan -f IAP_Android.fpr
         echo "*** fortifyclient -url https://fortify.philips.com/ssc IAP_Android***"
