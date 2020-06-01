@@ -14,10 +14,10 @@ package com.philips.platform.ecs.microService.util
 
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
+import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
-import java.lang.Exception
 
 object ECSDataHolder {
 
@@ -28,6 +28,7 @@ object ECSDataHolder {
     var lang = locale?.split("_")?.get(0)
     var country = locale?.split("_")?.get(1)
     var appInfra : AppInfra? = null
+    lateinit var loggingInterface: LoggingInterface
 
     var urlMap: MutableMap<String, ServiceDiscoveryService>? = null
 

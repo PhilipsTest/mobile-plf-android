@@ -13,7 +13,9 @@
 package com.philips.platform.ecs.microService.error
 
 import com.android.volley.*
+import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.ecs.microService.model.error.HybrisError
+import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.getJsonError
 
@@ -72,6 +74,7 @@ class VolleyHandler {
         code?.let {
 
             val localizedStringID = "ECSPIL"+"_"+code+"_"+firstFailureParameterString
+            ECSDataHolder.loggingInterface.log(LoggingInterface.LogLevel.VERBOSE,"setPILECSError",localizedStringID)
             try {
                 val ecsErrorType = ECSErrorType.valueOf(localizedStringID)
                 setEcsError(ecsError, ecsErrorType)

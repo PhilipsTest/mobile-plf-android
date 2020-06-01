@@ -12,7 +12,7 @@
 
 package com.philips.platform.ecs.microService.manager
 
-import android.util.Log
+import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
@@ -108,7 +108,7 @@ class ECSProductManager {
     private fun fetchProductAsset(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>, callBacks: MutableList<ECSCallback<ECSProduct, ECSError>?>){
         val getProductAssetRequest = GetProductAssetRequest(product, object : ECSCallback<ECSProduct, ECSError> {
             override fun onResponse(result: ECSProduct) {
-                Log.d("ECSProductManager", result.toString())
+                ECSDataHolder.loggingInterface.log(LoggingInterface.LogLevel.VERBOSE,"ECSProductManager", result.toString())
 
                 callBacks.add(this)
 
@@ -128,7 +128,7 @@ class ECSProductManager {
     private fun fetchProductDisclaimer(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>, callBacks: MutableList<ECSCallback<ECSProduct, ECSError>?>){
         val getProductDisclaimerRequest = GetProductDisclaimerRequest(product, object : ECSCallback<ECSProduct, ECSError> {
             override fun onResponse(result: ECSProduct) {
-                Log.d("ECSProductManager", result.toString())
+                ECSDataHolder.loggingInterface.log(LoggingInterface.LogLevel.VERBOSE,"ECSProductManager", result.toString())
                 callBacks.add(this)
                 if (callBacks.size > 1) ecsCallback.onResponse(result)
             }

@@ -13,6 +13,7 @@
 package com.philips.platform.ecs.microService
 
 import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
@@ -29,12 +30,15 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class ECSServices(appInfra: AppInfra) {
 
+    val PIL_ECS_NOTATION = "pecs"
+
     internal var ecsConfigManager = ECSConfigManager()
     internal var ecsProductManager = ECSProductManager()
     internal var ecsRetailerManager = ECSRetailerManager()
 
     init {
         ECSDataHolder.appInfra = appInfra
+        ECSDataHolder.loggingInterface= appInfra.logging.createInstanceForComponent(PIL_ECS_NOTATION, BuildConfig.VERSION_NAME)
     }
 
     fun configureECS(ecsCallback: ECSCallback<ECSConfig, ECSError>) {
