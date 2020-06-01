@@ -32,6 +32,7 @@ class MECInterface : UappInterface {
     private var mMECSettings: MECSettings? = null
     private var mUappDependencies: UappDependencies? = null
     private var mUserDataInterface: UserDataInterface? = null
+
     val MEC_NOTATION = "mec"
     private val TAG: String = MECInterface::class.java.simpleName
 
@@ -45,15 +46,8 @@ class MECInterface : UappInterface {
     override fun init(uappDependencies: UappDependencies, uappSettings: UappSettings) {
         val MECDependencies = uappDependencies as MECDependencies
         mUserDataInterface = MECDependencies.userDataInterface
-
-
-        if (null == mUserDataInterface)
-            throw RuntimeException("UserDataInterface is not injected in MECDependencies.")
-
         mMECSettings = uappSettings as MECSettings
         mUappDependencies = uappDependencies
-
-
         MECDataHolder.INSTANCE.appinfra = MECDependencies.appInfra
 
         //enable appInfra logging
@@ -101,7 +95,7 @@ class MECInterface : UappInterface {
 
         }else{
             MECLog.e(TAG, "No Network or Internet not available")
-            MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!,R.string.mec_no_internet ))
+            context?.let { MECAnalytics.getDefaultString(it,R.string.mec_no_internet ) }
             throw MECException(mMECSettings?.context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
@@ -111,7 +105,7 @@ class MECInterface : UappInterface {
 
 
     private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {
-        val mecHandler = this.mMECSettings?.let { MECHandler((mUappDependencies as MECDependencies?)!!, it, uiLauncher, mecLaunchInput) }
+        val mecHandler = mMECSettings?.let { (mUappDependencies as MECDependencies?)?.let { it1 -> MECHandler(it1, it, uiLauncher, mecLaunchInput) } }
         mecHandler?.launchMEC()
     }
 

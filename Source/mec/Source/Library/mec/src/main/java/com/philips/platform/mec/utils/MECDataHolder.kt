@@ -45,12 +45,12 @@ enum class MECDataHolder {
     var mecOrderFlowCompletion: MECOrderFlowCompletion? = null
     lateinit var locale: String
     lateinit var propositionId: String
-    lateinit var voucherCode: String
+    var voucherCode: String?=null
     var maxCartCount: Int = 0
     lateinit var userDataInterface: UserDataInterface
     var refreshToken: String? = null //To avoid null check and Null pointer exception
     var blackListedRetailers: List<String>? = null
-    lateinit var mecBazaarVoiceInput: MECBazaarVoiceInput
+    var mecBazaarVoiceInput: MECBazaarVoiceInput?=null
     private var privacyUrl: String? = null
     private var faqUrl: String? = null
     private var termsUrl: String? = null

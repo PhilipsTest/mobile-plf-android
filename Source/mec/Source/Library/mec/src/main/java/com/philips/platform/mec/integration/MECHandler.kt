@@ -61,10 +61,9 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
         MECDataHolder.INSTANCE.mecBannerEnabler = mLaunchInput.mecBannerConfigurator
         MECDataHolder.INSTANCE.hybrisEnabled = mLaunchInput.supportsHybris
         MECDataHolder.INSTANCE.retailerEnabled = mLaunchInput.supportsRetailer
-        MECDataHolder.INSTANCE.mecBazaarVoiceInput = mLaunchInput.mecBazaarVoiceInput!!
+        MECDataHolder.INSTANCE.mecBazaarVoiceInput = mLaunchInput.mecBazaarVoiceInput
         MECDataHolder.INSTANCE.voucherCode = mLaunchInput.voucherCode
         MECDataHolder.INSTANCE.maxCartCount = mLaunchInput.maxCartCount
-        MECDataHolder.INSTANCE.mecBazaarVoiceInput = mLaunchInput.mecBazaarVoiceInput
         MECDataHolder.INSTANCE.mecOrderFlowCompletion = mLaunchInput.mecOrderFlowCompletion
 
         if (MECDataHolder.INSTANCE.bvClient == null) {
@@ -82,21 +81,20 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
 
         MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception> {
 
-            override fun onResponse(config: com.philips.platform.ecs.model.config.ECSConfig?) {
+            override fun onResponse(config: com.philips.platform.ecs.model.config.ECSConfig) {
 
 
                 //set config data to singleton
                 MECDataHolder.INSTANCE.config = config
 
                 if (MECDataHolder.INSTANCE.hybrisEnabled) {
-                    MECDataHolder.INSTANCE.hybrisEnabled = config?.isHybris ?: return
+                    MECDataHolder.INSTANCE.hybrisEnabled = config.isHybris
                 }
 
-                MECDataHolder.INSTANCE.locale = config!!.locale
+                MECDataHolder.INSTANCE.locale = config.locale
                 MECAnalytics.setCurrencyString(MECDataHolder.INSTANCE.locale)
-                if (null != config!!.rootCategory) {
-                    MECDataHolder.INSTANCE.rootCategory = config!!.rootCategory
-                }
+                MECDataHolder.INSTANCE.rootCategory = config.rootCategory
+
 
                 // Launch fragment or activity
                 if (mUiLauncher is ActivityLauncher) {

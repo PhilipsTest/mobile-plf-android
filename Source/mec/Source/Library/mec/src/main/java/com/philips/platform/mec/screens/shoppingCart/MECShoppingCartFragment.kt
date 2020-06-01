@@ -101,13 +101,13 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         }
         vouchersAdapter?.notifyDataSetChanged()
 
-        if (MECDataHolder.INSTANCE.voucherEnabled && !(MECDataHolder.INSTANCE.voucherCode.isEmpty()) && !(MECDataHolder.INSTANCE.voucherCode.equals("invalid_code"))) {
+        if (MECDataHolder.INSTANCE.voucherEnabled && !(MECDataHolder.INSTANCE.voucherCode?.isEmpty()) && !(MECDataHolder.INSTANCE.voucherCode.equals("invalid_code"))) {
             for (i in 0 until ecsShoppingCart.appliedVouchers.size) {
                 list?.add(ecsShoppingCart.appliedVouchers.get(i).voucherCode!!)
                 break
             }
             if (!list!!.contains(MECDataHolder.INSTANCE.voucherCode)) {
-                ecsShoppingCartViewModel.addVoucher(MECDataHolder.INSTANCE.voucherCode, MECRequestType.MEC_APPLY_VOUCHER_SILENT)
+                MECDataHolder.INSTANCE.voucherCode?.let { ecsShoppingCartViewModel.addVoucher(it, MECRequestType.MEC_APPLY_VOUCHER_SILENT) }
                 MECDataHolder.INSTANCE.voucherCode = ""
             }
         }
