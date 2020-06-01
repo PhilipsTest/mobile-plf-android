@@ -6,7 +6,6 @@ class ProductFilter {
 
     var stockLevel: ECSStockLevel?=null
 
-    var modifiedSince: String?=null
 }
 
 

@@ -25,7 +25,6 @@ class GetProductsRequestTest {
     val defaultOffset = 0
     val limit = 20
     val category: String = "FOOD_PREPARATION_CA2"
-    val modifiedSince = "2019-10-31T20:34:55Z"
     var mGetProductsRequest: GetProductsRequest? = null
     var mProductFilter: ProductFilter? = null
     private lateinit var volleyHandler: VolleyHandler
@@ -56,7 +55,7 @@ class GetProductsRequestTest {
     fun getURL() {// this method will internally test method addParams()
         mProductFilter!!.stockLevel = ECSStockLevel.OutOfStock
         mProductFilter!!.sortType = ECSSortType.priceAscending
-        mProductFilter!!.modifiedSince = modifiedSince
+
 
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, eCSCallback)
         val modifiedURL: String? = mGetProductsRequest?.getURL()
@@ -64,7 +63,7 @@ class GetProductsRequestTest {
         assert(modifiedURL!!.contains(category))
         assert(modifiedURL!!.contains(limit.toString()))
         assert(modifiedURL!!.contains(defaultOffset.toString()))
-        assert(modifiedURL!!.contains(modifiedSince))
+
         assert(modifiedURL!!.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL!!.contains(ECSSortType.priceAscending.toString()))
     }
@@ -73,7 +72,7 @@ class GetProductsRequestTest {
     fun getURLwithNegativeLimitAndOffset() {// this method will internally test method addParams()
         mProductFilter!!.stockLevel = ECSStockLevel.OutOfStock
         mProductFilter!!.sortType = ECSSortType.priceAscending
-        mProductFilter!!.modifiedSince = modifiedSince
+
 
         var modifiedURL: String? = ""
         // if limit is given negative, it will be become 0. If defaultOffset given is negative it will become default 0

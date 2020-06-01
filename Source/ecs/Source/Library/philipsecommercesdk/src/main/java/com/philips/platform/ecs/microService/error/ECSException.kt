@@ -14,6 +14,6 @@ package com.philips.platform.ecs.microService.error
 /**
  * @param message : Localized message of the exception
  * @param errorCode : error code attached to the exception
- * @since 1.0.0
+ * @since 2003.0
  */
 class ECSException(message: String?, val errorCode: Int) : Exception(message)

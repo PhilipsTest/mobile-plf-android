@@ -18,7 +18,6 @@ class GetProductsRequest  (private val productCategory: String?, private val lim
     val categoryKey = "category"
     val sortKey = "sort"
     val stockLevelKey = "stockLevel"
-    val modifiedSinceKey = "modifiedSince"
     val limitDefault = 20   // default limit
     val offsetDefault = 0    // default Offset
 
@@ -44,8 +43,7 @@ class GetProductsRequest  (private val productCategory: String?, private val lim
         productFilter?.let {
             productFilter.sortType?.let { urlWithParams = urlWithParams.addQueryParam(sortKey, productFilter.sortType.toString()) }
             productFilter.stockLevel?.let { urlWithParams = urlWithParams.addQueryParam(stockLevelKey, productFilter.stockLevel.toString()) }
-            productFilter.modifiedSince?.let { urlWithParams = urlWithParams.addQueryParam(modifiedSinceKey, productFilter.modifiedSince.toString()) }
-        }
+           }
         return urlWithParams
     }
 
