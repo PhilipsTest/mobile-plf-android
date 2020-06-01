@@ -84,7 +84,7 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
     private URInterface urInterface;
     private PIMInterface pimInterface;
     public static String AB_TEST_UR_PRIORITY_KEY = "ur_priority";
-    private enum RegistrationModule {
+    public enum RegistrationModule {
         USR,
         UDI
     }
@@ -124,9 +124,9 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
             initUDILibrary();
     }
 
-    private RegistrationModule getRegistrationModule(){
+    public RegistrationModule getRegistrationModule(){
         String homeCountry = getAppInfra().getServiceDiscovery().getHomeCountry();
-        if(homeCountry != null && homeCountry.equalsIgnoreCase("CN"))
+        if(homeCountry != null && homeCountry.equalsIgnoreCase("CN") || homeCountry.equalsIgnoreCase("IN"))
             return RegistrationModule.USR;
         else
             return RegistrationModule.UDI;
@@ -231,7 +231,7 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
         urInterface.launch(fragmentLauncher, urLaunchInput);
     }
 
-    public void initUDILibrary(){
+    private void initUDILibrary(){
         PIMDependencies pimDemoUAppDependencies = new PIMDependencies(getAppInfra());
         PIMSettings pimDemoUAppSettings = new PIMSettings(applicationContext);
         pimInterface = new PIMInterface();
@@ -240,7 +240,6 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
             @Override
             public void run() {
                 pimInterface.init(pimDemoUAppDependencies,pimDemoUAppSettings);
-                pimInterface.setLoginListener(UserRegistrationState.this);
             }
         });
 
@@ -249,8 +248,8 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
 
     private void launchUDI() {
         PIMLaunchInput launchInput = new PIMLaunchInput();
-        //.launchInput.setUserLoginListener(this);
-        new PIMInterface().launch(fragmentLauncher, launchInput);
+        pimInterface.setLoginListener(UserRegistrationState.this);
+        pimInterface.launch(fragmentLauncher, launchInput);
     }
 
     /**
@@ -322,6 +321,7 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
 
     @Override
     public void onLoginSuccess() {
+        RALog.d(TAG, "onLoginSuccess");
         BaseFlowManager targetFlowManager = getApplicationContext().getTargetFlowManager();
         BaseState baseState = null;
         try {
@@ -339,6 +339,6 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
 
     @Override
     public void onLoginFailed(Error error) {
-
+        RALog.d(TAG, error.getErrDesc());
     }
 }

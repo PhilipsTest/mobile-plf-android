@@ -17,6 +17,7 @@ import com.philips.platform.appframework.flowmanager.base.BaseState;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.abtestclient.ABTestClientInterface;
 import com.philips.platform.baseapp.base.AppFrameworkApplication;
+import com.philips.platform.baseapp.screens.userregistration.UserRegistrationState;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
 
@@ -34,16 +35,22 @@ public class MarketingOptin extends BaseState implements UserRegistrationUIEvent
     @Override
     public void navigate(UiLauncher uiLauncher) {
 
-        fragmentLauncher = (FragmentLauncher) uiLauncher;
-        URLaunchInput urLaunchInput = new URLaunchInput();
-        urLaunchInput.setEndPointScreen(RegistrationLaunchMode.MARKETING_OPT);
-        urLaunchInput.setRegistrationFunction(RegistrationFunction.Registration);
-        urLaunchInput.setRegistrationContentConfiguration(getRegistrationContentConfiguration());
-        urLaunchInput.setUIFlow(UIFlow.FLOW_B);
-        urLaunchInput.enableAddtoBackStack(true);
-        urLaunchInput.setUserRegistrationUIEventListener(this);
-        URInterface urInterface = new URInterface();
-        urInterface.launch(fragmentLauncher,urLaunchInput);
+        UserRegistrationState userRegistrationState = ((AppFrameworkApplication) context.getApplicationContext()).getUserRegistrationState();
+
+        if(userRegistrationState.getRegistrationModule() == UserRegistrationState.RegistrationModule.USR) {
+            fragmentLauncher = (FragmentLauncher) uiLauncher;
+            URLaunchInput urLaunchInput = new URLaunchInput();
+            urLaunchInput.setEndPointScreen(RegistrationLaunchMode.MARKETING_OPT);
+            urLaunchInput.setRegistrationFunction(RegistrationFunction.Registration);
+            urLaunchInput.setRegistrationContentConfiguration(getRegistrationContentConfiguration());
+            urLaunchInput.setUIFlow(UIFlow.FLOW_B);
+            urLaunchInput.enableAddtoBackStack(true);
+            urLaunchInput.setUserRegistrationUIEventListener(this);
+            URInterface urInterface = new URInterface();
+            urInterface.launch(fragmentLauncher, urLaunchInput);
+        }else {
+           // userRegistrationState.getUserDataInterface()
+        }
 
     }
 
