@@ -183,7 +183,7 @@ dependencies {
     androidTestImplementation deps.androidx.espresso_web
     implementation deps.kotlin_stdlib_jdk7
     implementation deps.kotlin_test
-    implementation deps.kotlinx_coroutines_core
+    implementation deps.kotlinx_coroutines_android
     annotationProcessor deps.androidx.livedata_compiler
 
     //Kotlin test
