@@ -17,7 +17,6 @@ import android.text.TextUtils
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.fragment.app.FragmentManager
-import androidx.room.util.StringUtil
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.google.gson.Gson
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
@@ -434,7 +433,7 @@ class MECutility {
     fun constructCardDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardDetail = ""
         val cardType = (mecPayment.ecsPayment.cardType?.let { it.name } ?: run { "" })
-        val cardNumber = (mecPayment.ecsPayment.cardNumber?.validateStr())
+        val cardNumber = (mecPayment.ecsPayment.cardNumber.validateStr())
         formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber?.takeLast(8)}"
         return formattedCardDetail
     }
