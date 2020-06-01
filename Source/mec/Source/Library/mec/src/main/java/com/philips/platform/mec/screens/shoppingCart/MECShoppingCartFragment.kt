@@ -78,8 +78,8 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     private var name: String = ""
     private var price: String = ""
     var validationEditText: ValidationEditText? = null
-    val list: ArrayList<String>? = ArrayList()
-     var mAtomicBoolean :AtomicBoolean = AtomicBoolean(true) // default false
+    val list: ArrayList<String> = ArrayList()
+    var mAtomicBoolean: AtomicBoolean = AtomicBoolean(true) // default false
 
     private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> { ecsShoppingCart ->
         binding.shoppingCart = ecsShoppingCart
@@ -101,15 +101,19 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         }
         vouchersAdapter?.notifyDataSetChanged()
 
-        if (MECDataHolder.INSTANCE.voucherEnabled && !(MECDataHolder.INSTANCE.voucherCode?.isEmpty()) && !(MECDataHolder.INSTANCE.voucherCode.equals("invalid_code"))) {
+        if (MECDataHolder.INSTANCE.voucherEnabled && MECDataHolder.INSTANCE.voucherCode?.isEmpty() == false && !(MECDataHolder.INSTANCE.voucherCode.equals("invalid_code"))) {
             for (i in 0 until ecsShoppingCart.appliedVouchers.size) {
-                list?.add(ecsShoppingCart.appliedVouchers.get(i).voucherCode!!)
+                list.add(ecsShoppingCart.appliedVouchers.get(i).voucherCode)
                 break
             }
-            if (!list!!.contains(MECDataHolder.INSTANCE.voucherCode)) {
-                MECDataHolder.INSTANCE.voucherCode?.let { ecsShoppingCartViewModel.addVoucher(it, MECRequestType.MEC_APPLY_VOUCHER_SILENT) }
-                MECDataHolder.INSTANCE.voucherCode = ""
+
+            MECDataHolder.INSTANCE.voucherCode?.let{
+            if (!list.contains(it)) {
+                    ecsShoppingCartViewModel.addVoucher(it, MECRequestType.MEC_APPLY_VOUCHER_SILENT)
+                    MECDataHolder.INSTANCE.voucherCode = ""
+                }
             }
+
         }
 
         if (ecsShoppingCart.appliedVouchers.size > 0) {
@@ -131,7 +135,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
 
-        if(mAtomicBoolean.compareAndSet(true,false)) { // scView should tag only once upon shopping cart screen visit
+        if (mAtomicBoolean.compareAndSet(true, false)) { // scView should tag only once upon shopping cart screen visit
             var actionMap = HashMap<String, String>()
             actionMap.put(specialEvents, scView)
             MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, binding.shoppingCart?.entries!!)
@@ -188,7 +192,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             binding.mecTotalPrice.visibility = View.VISIBLE
             binding.mecTotalProducts.visibility = View.VISIBLE
             binding.mecContinueShoppingBtn.visibility = View.VISIBLE
-            binding.mecContinueCheckoutBtn.visibility  = View.VISIBLE
+            binding.mecContinueCheckoutBtn.visibility = View.VISIBLE
         }
     }
 
@@ -298,7 +302,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     fun showDialog() {
         if (removeVoucher) {
-            MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete,R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_voucher_confirmation_title, fragmentManager!!, this)
+            MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_voucher_confirmation_title, fragmentManager!!, this)
         } else {
             MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_product_confirmation_title, fragmentManager!!, this)
         }
@@ -310,7 +314,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             removeVoucher = false
             ecsShoppingCartViewModel.removeVoucher(vouchersAdapter?.getVoucher()?.voucherCode.toString())
         } else {
-            if(shoppingCart.entries!= null &&  shoppingCart.entries.size > itemPosition) { // condition to be added to avoid ArrayIndex out of bound in case the
+            if (shoppingCart.entries != null && shoppingCart.entries.size > itemPosition) { // condition to be added to avoid ArrayIndex out of bound in case the
                 // delete button is clicked multiple times immediately
                 updateCartRequest(shoppingCart.entries.get(itemPosition), 0)
             }
@@ -362,7 +366,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     fun onCheckOutClick() {
         var actionMap = HashMap<String, String>()
         actionMap.put(specialEvents, scCheckout)
-        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,binding.shoppingCart?.entries!!)
+        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, binding.shoppingCart?.entries!!)
         if (MECDataHolder.INSTANCE.maxCartCount != 0 && shoppingCart.deliveryItemsQuantity > MECDataHolder.INSTANCE.maxCartCount) {
             fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it, getString(R.string.mec_ok), getString(R.string.mec_shopping_cart_title), String.format(getString(R.string.mec_cart_count_exceed_message), MECDataHolder.INSTANCE.maxCartCount)) } }
         } else {
@@ -374,7 +378,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     fun gotoProductCatalog() {
         var actionMap = HashMap<String, String>()
         actionMap.put(specialEvents, continueShoppingSelected)
-        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,binding.shoppingCart?.entries!!)
+        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, binding.shoppingCart?.entries!!)
         showProductCatalogFragment(TAG)
     }
 
@@ -410,7 +414,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
                 super.processError(mecError, false)
                 validationEditText = null
                 binding.mecVoucherEditText.startAnimation(addressViewModel.shakeError())
-                binding.llAddVoucher.setErrorMessage(MECutility.getErrorString(mecError,context))
+                binding.llAddVoucher.setErrorMessage(MECutility.getErrorString(mecError, context))
                 binding.llAddVoucher.showError()
                 validationEditText?.requestFocus()
             }

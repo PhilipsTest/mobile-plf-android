@@ -16,31 +16,33 @@ import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.rest.RestInterface
+import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.pif.DataInterface.MEC.MECException
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.uappframework.launcher.UiLauncher
-import com.philips.platform.uappframework.uappinput.UappDependencies
-import com.philips.platform.uappframework.uappinput.UappLaunchInput
-import com.philips.platform.uappframework.uappinput.UappSettings
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.After
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.validateMockitoUsage
 import org.mockito.MockitoAnnotations
-import org.mockito.internal.verification.VerificationModeFactory
 import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
+import java.util.ArrayList
+
 
 @PrepareForTest(MECDependencies::class,MECSettings::class,UserDataInterface::class,
-        MECAnalytics::class,UiLauncher::class,MECLaunchInput::class,MECException::class,MECFlowConfigurator::class)
+        MECAnalytics::class,UiLauncher::class,MECLaunchInput::class,MECException::class,MECFlowConfigurator::class,MECHandler::class)
 @RunWith(PowerMockRunner::class)
 class MECInterfaceTest {
 
@@ -62,6 +64,12 @@ class MECInterfaceTest {
     @Mock
     lateinit var mecAnalyticsMock: MECAnalytics
 
+    @Mock
+    lateinit var mecHandlerMock: MECHandler
+
+    @Mock
+    lateinit var serviceDiscoveryInterfaceMock : ServiceDiscoveryInterface
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -69,8 +77,10 @@ class MECInterfaceTest {
         Mockito.`when`(loggingInterfaceMock.createInstanceForComponent(any(String::class.java),any(String::class.java))).thenReturn(loggingInterfaceMock)
         Mockito.`when`(appInfraMock.logging).thenReturn(loggingInterfaceMock)
         Mockito.`when`(appInfraMock.configInterface).thenReturn(appConfigurationInterfaceMock)
+        Mockito.`when`(appInfraMock.serviceDiscovery).thenReturn(serviceDiscoveryInterfaceMock)
         uappDependenciesMock = MECDependencies(appInfraMock,userDataInterfaceMock)
         mecInterface = MECInterface()
+        mecInterface.mecHandler = mecHandlerMock
     }
 
     @Test
@@ -114,11 +124,14 @@ class MECInterfaceTest {
     @Mock
     lateinit var restInterfaceMock : RestInterface
     @Test
-    fun `should launch mec if internet is available and log in is not required`() {
+    fun `should launch  mec and configure if internet is available and log in is not required`() {
         makeInternetAvailable()
         makeLoginNotRequired()
         mecInterface.init(uappDependenciesMock,uappSettingsMock)
         mecInterface.launch(uiLauncherMock,mecLaunchInputMock)
+
+        Mockito.verify(mecHandlerMock).launchMEC(uappSettingsMock,uiLauncherMock,mecLaunchInputMock)
+        Mockito.verify(serviceDiscoveryInterfaceMock).getServicesWithCountryPreference(anyList(), any(ServiceDiscoveryInterface.OnGetServiceUrlMapListener::class.java), any())
 
     }
 
@@ -138,5 +151,10 @@ class MECInterfaceTest {
 
     @Test
     fun getMECDataInterface() {
+    }
+
+    @After
+    fun validate() {
+        validateMockitoUsage()
     }
 }

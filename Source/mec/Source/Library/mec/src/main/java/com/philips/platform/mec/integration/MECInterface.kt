@@ -32,6 +32,7 @@ class MECInterface : UappInterface {
     private var mMECSettings: MECSettings? = null
     private var mUappDependencies: UappDependencies? = null
     private var mUserDataInterface: UserDataInterface? = null
+    internal var mecHandler = MECHandler()
 
     val MEC_NOTATION = "mec"
     private val TAG: String = MECInterface::class.java.simpleName
@@ -100,13 +101,11 @@ class MECInterface : UappInterface {
         }
     }
 
-    private fun isLogInRequired(mecLaunchInput: MECLaunchInput) =
-            mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW || mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY
+    private fun isLogInRequired(mecLaunchInput: MECLaunchInput) = mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW || mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY
 
 
     private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {
-        val mecHandler = mMECSettings?.let { (mUappDependencies as MECDependencies?)?.let { it1 -> MECHandler(it1, it, uiLauncher, mecLaunchInput) } }
-        mecHandler?.launchMEC()
+        mMECSettings?.let { mecHandler.launchMEC(it,uiLauncher,mecLaunchInput) }
     }
 
 
