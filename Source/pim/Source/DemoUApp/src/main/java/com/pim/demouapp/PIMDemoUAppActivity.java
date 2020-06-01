@@ -272,7 +272,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             userDataInterface = uAppApplication.getUserDataInterface();
         } else {
             isUSR = false;
-            Log.i(TAG, "Selected Liberary : PIM");
+            Log.i(TAG, "Selected Liberary : UDI");
             userDataInterface = uAppApplication.getUserDataInterface();
             pimInterface = uAppApplication.getPIMInterface();
             if (pimInterface != null)
