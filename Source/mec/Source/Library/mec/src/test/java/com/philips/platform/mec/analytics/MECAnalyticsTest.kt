@@ -93,14 +93,61 @@ class MECAnalyticsTest {
 
     @Test
     fun tagProductList() {
+
+       var  productlist:MutableList<ECSProduct> = mutableListOf()
+        var mECSProduct1= ECSProduct()
+        mECSProduct1.code="HX1234/01"
+
+        var mECSProduct2= ECSProduct()
+        mECSProduct2.code="HX1290/03"
+        productlist.add(mECSProduct1)
+        productlist.add(mECSProduct2)
+
+        mECAnalytics.tagProductList(productlist)
+        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java),anyMap())
+        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
     }
 
     @Test
-    fun tagProductList1() {
+    fun tagProductListWithListORGrid() {
+        var  productlist:MutableList<ECSProduct> = mutableListOf()
+        var mECSProduct1= ECSProduct()
+        mECSProduct1.code="HX1234/01"
+
+        var mECSProduct2= ECSProduct()
+        mECSProduct2.code="HX1290/03"
+        productlist.add(mECSProduct1)
+        productlist.add(mECSProduct2)
+
+        mECAnalytics.tagProductList(productlist,"Grid")
+        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java),anyMap())
+        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
     }
 
     @Test
     fun tagActionsWithOrderProductsInfo() {
+        val map = HashMap<String, String>()
+        map.put("key1","value1")
+
+        var eCSentry  = ECSEntries()
+        var mECSProduct= ECSProduct()
+        mECSProduct.code="ConsignmentCode123ABC"
+        var priceEntity= PriceEntity()
+        priceEntity.value=12.9
+        mECSProduct.price=priceEntity
+
+        eCSentry.product=mECSProduct
+        eCSentry.quantity=2
+
+        var basePriceEntity= BasePriceEntity()
+        basePriceEntity.value=10.7
+        eCSentry.basePrice=basePriceEntity
+        var entries = ArrayList<ECSEntries>()
+        entries.add(eCSentry)
+
+        mECAnalytics.tagActionsWithOrderProductsInfo(map,entries)
+        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java),anyMap())
+        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
     }
 
     @Test
