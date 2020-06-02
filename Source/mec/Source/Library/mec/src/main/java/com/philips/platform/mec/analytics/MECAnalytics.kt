@@ -80,13 +80,6 @@ class MECAnalytics {
         }
 
 
-        @JvmStatic
-        fun trackAction(state: String, key: String, value: Any) {
-            val valueObject = value as String
-            MECLog.v(TAG, "trackAction$valueObject");
-            if (mAppTaggingInterface != null)
-                mAppTaggingInterface!!.trackActionWithInfo(state, key, valueObject)
-        }
 
         @JvmStatic
         fun trackMultipleActions(state: String, map: Map<String, String>) {

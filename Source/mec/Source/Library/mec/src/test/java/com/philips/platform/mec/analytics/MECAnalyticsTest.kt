@@ -1,6 +1,7 @@
 package com.philips.platform.mec.analytics
 
 import android.content.Context
+import android.content.res.Resources
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.ecs.model.address.ECSDeliveryMode
 import com.philips.platform.ecs.model.cart.BasePriceEntity
@@ -20,6 +21,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.atLeastOnce
 import org.mockito.Mockito.mock
+import kotlin.test.assertEquals
 
 class MECAnalyticsTest {
 
@@ -34,12 +36,17 @@ class MECAnalyticsTest {
 
 
     @Mock
-    lateinit var contextMock: Context
+     var contextMock: Context = mock(Context::class.java)
+
+    @Mock
+    var  ResourcesMock : Resources = mock(Resources::class.java)
+
+
 
     @Before
     fun setUp() {
 
-        MECAnalytics.setCurrencyString("USD")
+        mECAnalytics.setCurrencyString("en_US")
         mECAnalytics.mAppTaggingInterface =mAppTaggingInterfaceMock
         mECAnalytics.countryCode="US"
         mECAnalytics.currencyCode="USD"
@@ -56,15 +63,7 @@ class MECAnalyticsTest {
         Mockito.verify(mAppTaggingInterfaceMock).trackPageWithInfo(any(String::class.java),anyMap())
     }
 
-    @Test
-    fun trackAction() {
-        val map = HashMap<String, String>()
-        map.put("key1","value1")
-        val any: Any =   map
-        mECAnalytics.trackAction("state","key",any)
-        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java),anyMap())
-        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
-    }
+
 
     @Test
     fun trackMultipleActions() {
@@ -77,18 +76,34 @@ class MECAnalyticsTest {
 
     @Test
     fun trackInAppNotofication() {
+        val map = HashMap<String, String>()
+        map.put("key1","value1")
+        mECAnalytics.trackInAppNotofication("descriotion","response")
+        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java),anyMap())
+        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
+
     }
 
     @Test
     fun trackTechnicalError() {
+        mECAnalytics.trackTechnicalError("Technical Error")
+        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java),anyMap())
+        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
     }
 
     @Test
     fun trackUserError() {
+        mECAnalytics.trackUserError("User Error")
+        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java),anyMap())
+        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
     }
 
     @Test
     fun trackInformationError() {
+
+        mECAnalytics.trackInformationError("Information Error")
+        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java),anyMap())
+        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
     }
 
     @Test
@@ -150,17 +165,7 @@ class MECAnalyticsTest {
         Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java),anyMap())
     }
 
-    @Test
-    fun getProductInfo() {
-    }
 
-    @Test
-    fun getProductInfoWithChangedQuantity() {
-    }
-
-    @Test
-    fun getProductInfoWithChangedQuantity1() {
-    }
 
     @Test
     fun tagPurchaseOrder() {
@@ -214,7 +219,14 @@ class MECAnalyticsTest {
 
     }
 
+
+
     @Test
-    fun getDefaultString() {
+    fun setCurrencyString() {
+        mECAnalytics.setCurrencyString("en_US")
+        assertEquals("USD",mECAnalytics.currencyCode)
+
     }
+
+
 }
