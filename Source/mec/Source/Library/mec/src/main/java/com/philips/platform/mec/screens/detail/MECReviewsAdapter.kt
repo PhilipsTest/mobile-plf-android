@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
+import com.philips.platform.mec.R
 import com.philips.platform.mec.databinding.MecReviewRowBinding
 import com.philips.platform.mec.screens.reviews.MECReview
 
@@ -48,7 +49,7 @@ class MECReviewsAdapter(private val mecReviews: List<MECReview>?) : RecyclerView
         }
         if (position % 2 == 0) {
             //viewHolder.binding.root.setBackgroundColor(R.attr.uidContentPrimaryBackgroundColor)
-            viewHolder.binding.mecRetailerItemProductLayout.setBackgroundColor(getColor(viewHolder.binding.root.context, com.philips.platform.mec.R.color.uidColorWhite))
+            viewHolder.binding.mecRetailerItemProductLayout.setBackgroundColor(getColor(viewHolder.binding.root.context, R.color.uidColorWhite))
         } else {
             //viewHolder.binding.root.setBackgroundColor(R.attr.uidContentSecondaryNeutralBackgroundColor)
             viewHolder.binding.mecRetailerItemProductLayout.setBackgroundColor(Color.parseColor("#F5F5F5"))

@@ -14,6 +14,8 @@ import android.content.Intent
 import android.os.Bundle
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECLauncherActivity
@@ -82,7 +84,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
 
         MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception> {
 
-            override fun onResponse(config: com.philips.platform.ecs.model.config.ECSConfig?) {
+            override fun onResponse(config: ECSConfig?) {
 
 
                 //set config data to singleton
@@ -106,7 +108,7 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
                 }
             }
 
-            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+            override fun onFailure(error: Exception?, ecsError: ECSError?) {
                 MECLog.d(HybrisAuth.TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
             }
         })

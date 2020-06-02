@@ -151,7 +151,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
 
         val appName = MECDataHolder.INSTANCE.appinfra.appIdentity.appName
         val localeTag = MECDataHolder.INSTANCE.appinfra.internationalization.uiLocaleString
-        val builder = Uri.Builder().appendQueryParameter("origin", String.format(com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkParameter, localeTag, appName, appName))
+        val builder = Uri.Builder().appendQueryParameter("origin", String.format(MECAnalyticsConstant.exitLinkParameter, localeTag, appName, appName))
 
         return if (isParameterizedURL(url)) {
             url + "&" + builder.toString().replace("?", "")

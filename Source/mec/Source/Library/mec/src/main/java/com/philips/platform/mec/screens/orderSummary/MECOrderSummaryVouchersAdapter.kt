@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.mec.databinding.MecOrderSummaryVoucherItemBinding
 
-class MECOrderSummaryVouchersAdapter(private val voucherList: MutableList<com.philips.platform.ecs.model.cart.AppliedVoucherEntity>): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+class MECOrderSummaryVouchersAdapter(private val voucherList: MutableList<AppliedVoucherEntity>): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
 
-    private lateinit var voucher: com.philips.platform.ecs.model.cart.AppliedVoucherEntity
+    private lateinit var voucher: AppliedVoucherEntity
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MECOrderSummaryVoucherHolder(MecOrderSummaryVoucherItemBinding.inflate(LayoutInflater.from(parent.context)))
