@@ -23,10 +23,10 @@ class MECFlowConfigurator : Serializable {
     var productCTNs: ArrayList<String>? =null
 
      /**
-      * landingView: enum to set Landing View
+      * landingView: enum to set Landing View , by default it takes product list view
       * @since 2001.0
       */
-    var landingView: MECLandingView? =null
+    var landingView: MECLandingView = MECLandingView.MEC_PRODUCT_LIST_VIEW
 
 
     /**

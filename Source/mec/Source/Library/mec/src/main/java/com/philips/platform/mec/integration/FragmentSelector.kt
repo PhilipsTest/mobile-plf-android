@@ -23,8 +23,8 @@ import java.util.*
 
 class FragmentSelector {
 
-    fun getLandingFragment(isHybris: Boolean, mecFlowConfigurator: MECFlowConfigurator ,bundle: Bundle): MecBaseFragment? {
-        var fragment: MecBaseFragment? = null
+    fun getLandingFragment(isHybris: Boolean, mecFlowConfigurator: MECFlowConfigurator ,bundle: Bundle): MecBaseFragment {
+        var fragment: MecBaseFragment = MECProductCatalogFragment()
 
         when (mecFlowConfigurator.landingView) {
             MECFlowConfigurator.MECLandingView.MEC_PRODUCT_DETAILS_VIEW -> {
@@ -50,7 +50,7 @@ class FragmentSelector {
         return fragment
     }
 
-    private fun getCategorizedFragment(isHybris: Boolean): MecBaseFragment? {
+    private fun getCategorizedFragment(isHybris: Boolean): MecBaseFragment {
         return if (isHybris) {
             MECProductCatalogCategorizedFragment()
         } else {

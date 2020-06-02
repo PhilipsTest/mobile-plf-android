@@ -13,6 +13,9 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECLauncherActivity
@@ -28,7 +31,7 @@ import java.util.*
 
 
 class MECHandler{
-    private var listOfServiceId: ArrayList<String>? = null
+
     lateinit var serviceUrlMapListener: OnGetServiceUrlMapListener
     private val TAG: String = MECHandler::class.java.simpleName
 
@@ -42,15 +45,8 @@ class MECHandler{
     // mBundle.putSerializable(MECConstant.FLOW_INPUT,mLaunchInput.getFlowConfigurator());
     fun getBundle(mLaunchInput: MECLaunchInput): Bundle {
         val mBundle = Bundle()
-        if (mLaunchInput.flowConfigurator != null) {
-
-            mBundle.putSerializable(MECConstant.FLOW_INPUT, mLaunchInput.flowConfigurator)
-
-            if (mLaunchInput.flowConfigurator!!.productCTNs != null) {
-                mBundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS,
-                        mLaunchInput.flowConfigurator!!.productCTNs)
-            }
-        }
+        mBundle.putSerializable(MECConstant.FLOW_INPUT, mLaunchInput.flowConfigurator)
+        mBundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, mLaunchInput.flowConfigurator.productCTNs)
         return mBundle
     }
 
@@ -70,55 +66,42 @@ class MECHandler{
         }
 
         MECDataHolder.INSTANCE.blackListedRetailers = mLaunchInput.blackListedRetailerNames
-
-
-
         getUrl()
+        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(getConfigCallback(mUiLauncher, mMECSetting, mLaunchInput))
+    }
 
-        // get config
+    internal fun getConfigCallback(mUiLauncher: UiLauncher, mMECSetting: MECSettings, mLaunchInput: MECLaunchInput): ECSCallback<ECSConfig, Exception> {
+        return object : ECSCallback<ECSConfig, Exception> {
 
-        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception> {
+            override fun onResponse(config: ECSConfig) {
 
-            override fun onResponse(config: com.philips.platform.ecs.model.config.ECSConfig) {
-
-
-                //set config data to singleton
                 MECDataHolder.INSTANCE.config = config
-
                 if (MECDataHolder.INSTANCE.hybrisEnabled) {
                     MECDataHolder.INSTANCE.hybrisEnabled = config.isHybris
                 }
-
                 MECDataHolder.INSTANCE.locale = config.locale
                 MECAnalytics.setCurrencyString(MECDataHolder.INSTANCE.locale)
                 MECDataHolder.INSTANCE.rootCategory = config.rootCategory
-
-
-                // Launch fragment or activity
                 if (mUiLauncher is ActivityLauncher) {
-                    launchMECasActivity(MECDataHolder.INSTANCE.hybrisEnabled,mMECSetting,mUiLauncher,mLaunchInput)
+                    launchMECasActivity(MECDataHolder.INSTANCE.hybrisEnabled, mMECSetting, mUiLauncher, mLaunchInput)
                 } else {
-                    launchMECasFragment(MECDataHolder.INSTANCE.hybrisEnabled,mUiLauncher,mLaunchInput)
+                    launchMECasFragment(MECDataHolder.INSTANCE.hybrisEnabled, mUiLauncher, mLaunchInput)
                 }
             }
 
-            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+            override fun onFailure(error: Exception?, ecsError: ECSError?) {
                 MECLog.d(HybrisAuth.TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
             }
-        })
-
-
+        }
     }
 
-    //TODO
     private fun getUrl() {
-
-        listOfServiceId = ArrayList()
-        listOfServiceId!!.add(IAP_PRIVACY_URL)
-        listOfServiceId!!.add(IAP_FAQ_URL)
-        listOfServiceId!!.add(IAP_TERMS_URL)
+        val listOfServiceId = mutableListOf<String>()
+        listOfServiceId.add(IAP_PRIVACY_URL)
+        listOfServiceId.add(IAP_FAQ_URL)
+        listOfServiceId.add(IAP_TERMS_URL)
         serviceUrlMapListener = ServiceDiscoveryMapListener()
-        MECDataHolder.INSTANCE.appinfra.serviceDiscovery?.getServicesWithCountryPreference(listOfServiceId, serviceUrlMapListener, null)
+        MECDataHolder.INSTANCE.appinfra.serviceDiscovery?.getServicesWithCountryPreference(listOfServiceId as ArrayList<String>, serviceUrlMapListener, null)
     }
 
 
@@ -138,15 +121,15 @@ class MECHandler{
 
         val bundle = getBundle(mLaunchInput)
 
-        val mecLandingFragment = FragmentSelector().getLandingFragment(hybris, mLaunchInput.flowConfigurator!!, bundle)
+        val mecLandingFragment = FragmentSelector().getLandingFragment(hybris, mLaunchInput.flowConfigurator, bundle)
         val fragmentLauncher = mUiLauncher as FragmentLauncher
         bundle.putInt("fragment_container", fragmentLauncher.parentContainerResourceID) // frame_layout for fragment
-        mecLandingFragment?.arguments = bundle
+        mecLandingFragment.arguments = bundle
 
 
         MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
         val transaction = fragmentLauncher.fragmentActivity.supportFragmentManager.beginTransaction()
-        transaction.replace(fragmentLauncher.parentContainerResourceID, mecLandingFragment!!, mecLandingFragment.getFragmentTag())
+        transaction.replace(fragmentLauncher.parentContainerResourceID, mecLandingFragment, mecLandingFragment.getFragmentTag())
         transaction.addToBackStack(mecLandingFragment.getFragmentTag())
         transaction.commitAllowingStateLoss()
     }

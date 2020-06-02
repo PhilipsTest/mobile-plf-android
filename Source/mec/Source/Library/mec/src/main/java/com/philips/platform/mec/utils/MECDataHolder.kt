@@ -14,6 +14,8 @@ import com.bazaarvoice.bvandroidsdk.BVConversationsClient
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.mec.analytics.MECAnalyticServer
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -58,8 +60,8 @@ enum class MECDataHolder {
     var retailerEnabled: Boolean = true
     var voucherEnabled: Boolean = true
     var rootCategory: String = ""
-    var config: com.philips.platform.ecs.model.config.ECSConfig? = null
-    lateinit var eCSServices: com.philips.platform.ecs.ECSServices
+    var config: ECSConfig? = null
+    lateinit var eCSServices: ECSServices
 
     var mutableListOfPayments = mutableListOf<MECPayment>()
     var PAYMENT_HOLDER: MECPayments = MECPayments(mutableListOfPayments, false) //Default empty MECPayments
