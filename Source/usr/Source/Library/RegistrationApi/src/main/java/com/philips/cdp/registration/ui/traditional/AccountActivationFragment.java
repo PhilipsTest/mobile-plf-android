@@ -34,6 +34,7 @@ import com.philips.cdp.registration.errors.ErrorCodes;
 import com.philips.cdp.registration.errors.ErrorType;
 import com.philips.cdp.registration.errors.URError;
 import com.philips.cdp.registration.handlers.RefreshUserHandler;
+import com.philips.cdp.registration.handlers.RefreshandUpdateUserHandler;
 import com.philips.cdp.registration.settings.RegistrationHelper;
 import com.philips.cdp.registration.settings.UserRegistrationInitializer;
 import com.philips.cdp.registration.ui.customviews.XRegError;
@@ -257,6 +258,9 @@ public class AccountActivationFragment extends RegistrationBaseFragment implemen
             if (mUser.isEmailVerified()) {
                 mBtnResend.setVisibility(View.GONE);
                 mEMailVerifiedError.hideError();
+                if (RegistrationHelper.getInstance().isMobileFlow()) {
+                    new RefreshandUpdateUserHandler(getRegistrationFragment().getContext()).forceHsdpLogin(this);
+                }
                 trackActionStatus(AppTagingConstants.SEND_DATA,
                         AppTagingConstants.SPECIAL_EVENTS, AppTagingConstants.SUCCESS_USER_REGISTRATION);
                 getRegistrationFragment().userRegistrationComplete();

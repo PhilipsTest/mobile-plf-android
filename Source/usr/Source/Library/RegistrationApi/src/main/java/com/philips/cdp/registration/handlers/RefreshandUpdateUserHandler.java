@@ -9,6 +9,7 @@
 package com.philips.cdp.registration.handlers;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.janrain.android.Jump;
 import com.philips.cdp.registration.User;
@@ -55,6 +56,34 @@ public class RefreshandUpdateUserHandler implements JumpFlowDownloadStatusListen
         }
 
         refreshUpdateUser(handler, user);
+    }
+
+
+    public void forceHsdpLogin(final RefreshUserHandler handler){
+        final RegistrationConfiguration registrationConfiguration = RegistrationConfiguration.getInstance();
+        HsdpUser hsdpUser = new HsdpUser(mContext);
+        Log.d(TAG, "BeforeEmailVerification : accessToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getAccessToken());
+        Log.d(TAG, "BeforeEmailVerification : refreshToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getRefreshToken());
+        Log.d(TAG, "BeforeEmailVerification : UUID  "+hsdpUser.getHsdpUserRecord().getUserUUID());
+        LoginTraditional loginTraditional = new LoginTraditional(new LoginHandler() {
+            @Override
+            public void onLoginSuccess() {
+                Log.d(TAG, "AfterEmailVerification : accessToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getAccessToken());
+                Log.d(TAG, "AfterEmailVerification : refreshToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getRefreshToken());
+                Log.d(TAG, "AfterEmailVerification : UUID  "+hsdpUser.getHsdpUserRecord().getUserUUID());
+                handler.onRefreshUserSuccess();
+            }
+
+            @Override
+            public void onLoginFailedWithError(UserRegistrationFailureInfo userRegistrationFailureInfo) {
+                handler.onRefreshUserFailed(userRegistrationFailureInfo.getErrorCode());
+            }
+        }, mContext, null, null);
+        if (!registrationConfiguration.isHSDPSkipLoginConfigurationAvailable() && registrationConfiguration.isHsdpFlow()) {
+            loginTraditional.loginIntoHsdp();
+        }else {
+            handler.onRefreshUserSuccess();
+        }
     }
 
     private void refreshUpdateUser(final RefreshUserHandler handler, final User user) {

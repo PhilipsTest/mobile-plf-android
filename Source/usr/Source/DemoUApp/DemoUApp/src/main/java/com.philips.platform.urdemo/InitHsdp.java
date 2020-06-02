@@ -38,22 +38,22 @@ class InitHsdp{
                 AppConfigurationInterface anInterface = mAppInfraInterface.getConfigInterface();
 
                 Map<String, String> hsdpAppNames = new HashMap<>();
-                hsdpAppNames.put(CHINA_CODE, "OneBackend");
-                hsdpAppNames.put(DEFAULT, "uGrow");
+                hsdpAppNames.put(CHINA_CODE, "VitaSkin");
+                hsdpAppNames.put(DEFAULT, "VitaSkin");
 
                 anInterface.setPropertyForKey(HSDP_CONFIGURATION_APPLICATION_NAME,
                         UR, hsdpAppNames, configError);
 
                 Map<String, String> hsdpSecrets = new HashMap<>();
-                hsdpSecrets.put(CHINA_CODE, "a3a3d09e2c74b93a409bc242956a6101bd5ff78cfd21473faa7aa21a8ec8493b66fa905dd4916b8ba4325cb988b442f9c6054089b9b36d09bb1538f985b47b22");
-                hsdpSecrets.put(DEFAULT, "EB7D2C2358E4772070334CD868AA6A802164875D6BEE858D13226234350B156AC8C4917885B5552106DC7F9583CA52CB662110516F8AB02215D51778DE1EF1F3");
+                hsdpSecrets.put(CHINA_CODE, "1C09A7F74EB1C077698BB840C1649280A43C53A0EA2F68550BDAEB72F9C02D2495898F7E3B00A032FF593E951F1C5A188FE5579137EAF046B4A0448EB7165875");
+                hsdpSecrets.put(DEFAULT, "CF64A344832F0EDBDA99442ACF90246C1CEA3B0C86FBC13D0944F2426D1E1A34BA53053B90FF8885635AEC51E5BCBD37C273B342DA566CE77A2ED169B9DBBCFC");
 
                 anInterface.setPropertyForKey(HSDP_CONFIGURATION_SECRET,
                         UR, hsdpSecrets, configError);
 
                 Map<String, String> hsdpSharedIds = new HashMap<>();
-                hsdpSharedIds.put(CHINA_CODE, "6036461d-0914-4afe-9e6e-eefe27fb529a");
-                hsdpSharedIds.put(DEFAULT, "e95f5e71-c3c0-4b52-8b12-ec297d8ae960");
+                hsdpSharedIds.put(CHINA_CODE, "20c896af-5e92-49a6-bf4d-208f6b9657cb");
+                hsdpSharedIds.put(DEFAULT, "c4979fb2-66a4-464a-96bb-e6d9664248f8");
 
                 anInterface.setPropertyForKey(HSDP_CONFIGURATION_SHARED,
                         UR, hsdpSharedIds, configError);
@@ -62,7 +62,7 @@ class InitHsdp{
                 try {
 
                     hsdpBaseUrls.put(CHINA_CODE, URLEncoder.encode("https://user-registration-assembly-staging.cn1.philips-healthsuite.com.cn", URL_ENCODING));
-                    hsdpBaseUrls.put(DEFAULT, URLEncoder.encode("https://user-registration-assembly-staging.eu-west.philips-healthsuite.com", URL_ENCODING));
+                    hsdpBaseUrls.put(DEFAULT, URLEncoder.encode("https://vitaskin-ds-staging.eu-west.philips-healthsuite.com", URL_ENCODING));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }

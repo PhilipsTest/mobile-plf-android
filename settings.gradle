@@ -89,8 +89,8 @@ project(ext.strings.mecuapp.projectName).projectDir = new File('./Source/mec/Sou
 
 
 //demoapps to be published to artifactory
-//include ':UserRegistrationApp'
-//project(':UserRegistrationApp').projectDir = new File('./Source/usr/Source/DemoApp/app')
+include ':UserRegistrationApp'
+project(':UserRegistrationApp').projectDir = new File('./Source/usr/Source/DemoApp/app')
 
 
 include(':pimApp')
