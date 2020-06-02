@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Seguir encomenda</string>
   <string name="mec_accept_terms">Ao efetuar a encomenda, aceito as condições da Philips de</string>
   <string name="mec_accepted_codes">Códigos aceites</string>
   <string name="mec_add">Adicionar</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Pode cancelar a sua encomenda antes de ser enviada. Se necessário, a nossa equipa de apoio ao cliente pode ajudar a fazê-lo.</string>
   <string name="mec_cancel_order_number">Número de cancelamento da encomenda </string>
   <string name="mec_cancel_payment">Pretende cancelar o pagamento? O seu carrinho ficará vazio.</string>
-  <string name="mec_cancel_your_order">[pt]Cancel your order</string>
+  <string name="mec_cancel_your_order">Cancelar a sua encomenda</string>
   <string name="mec_card_holder_first_name">Nome próprio do titular do cartão</string>
   <string name="mec_card_holder_last_name">Apelido do titular do cartão</string>
   <string name="mec_cart_count_exceed_message">Não é possível adicionar mais de %d produtos ao carrinho</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Revendedores online</string>
   <string name="mec_only">Apenas</string>
-  <string name="mec_order_detail_unavailable">[pt]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Os detalhes da encomenda não estão disponíveis</string>
   <string name="mec_order_details">Detalhes da encomenda</string>
   <string name="mec_order_not_received_items">Encomenda não recebida</string>
   <string name="mec_order_number_msg">Número da encomenda: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Localidade/cidade</string>
   <string name="mec_town_error">Introduza uma localidade válida</string>
   <string name="mec_town_hint">Introduzir localidade ou cidade</string>
+  <string name="mec_track_order">Seguir encomenda</string>
   <string name="mec_use_as_billing_address">Utilizar este endereço como o meu endereço de faturação</string>
   <string name="mec_valid_until">Válido até</string>
   <string name="mec_your_order_number">O número da sua encomenda é</string>

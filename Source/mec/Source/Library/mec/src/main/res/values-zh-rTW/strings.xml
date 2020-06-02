@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">追踪订单</string>
   <string name="mec_accept_terms">下訂單即代表我接受飛利浦的</string>
   <string name="mec_accepted_codes">接受的代碼</string>
   <string name="mec_add">新增</string>
@@ -30,14 +29,14 @@
   <string name="mec_billing_address">帐单地址</string>
   <string name="mec_blank_cvv_error">請輸入有效 CVV</string>
   <string name="mec_buy_from_retailers">从零售商处购买</string>
-  <string name="mec_call">[zh-TW]Call</string>
+  <string name="mec_call">通話</string>
   <string name="mec_cancel">取消</string>
   <string name="mec_cancel_order">取消我的订单</string>
   <string name="mec_cancel_order_dls_for_your_ref_sg">為了方便參考，您的訂單號碼是 %s</string>
   <string name="mec_cancel_order_dls_msg">您可以在訂單運送前取消訂單。我們的客戶服務團隊能協助您處理相關事宜。</string>
   <string name="mec_cancel_order_number">取消訂單號碼 </string>
   <string name="mec_cancel_payment">是否要取消付款？您的购物车将清空。</string>
-  <string name="mec_cancel_your_order">[zh-TW]Cancel your order</string>
+  <string name="mec_cancel_your_order">取消您的訂單</string>
   <string name="mec_card_holder_first_name">持卡人名字</string>
   <string name="mec_card_holder_last_name">持卡人姓氏</string>
   <string name="mec_cart_count_exceed_message">購物車的產品無法超過 %d 個</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">确定</string>
   <string name="mec_online_retailers">線上零售商</string>
   <string name="mec_only">僅</string>
-  <string name="mec_order_detail_unavailable">[zh-TW]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">無法取得訂單詳細資料</string>
   <string name="mec_order_details">订单详情</string>
   <string name="mec_order_not_received_items">未收到訂單</string>
   <string name="mec_order_number_msg">訂單號碼：%s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">镇/城市</string>
   <string name="mec_town_error">请输入有效城镇</string>
   <string name="mec_town_hint">输入您所在的城镇或城市</string>
+  <string name="mec_track_order">追踪订单</string>
   <string name="mec_use_as_billing_address">將此地址用作我的帳單地址</string>
   <string name="mec_valid_until">有效期至</string>
   <string name="mec_your_order_number">您的订单编号是</string>

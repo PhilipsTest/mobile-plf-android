@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Проследяване на поръчка</string>
   <string name="mec_accept_terms">Чрез подаването на поръчката приемам на Philips</string>
   <string name="mec_accepted_codes">Приети кодове</string>
   <string name="mec_add">Добави</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Можете да се откажете от поръчката си, преди да бъде изпратена. Нашият отдел за помощ на клиенти може да ви помогне с това.</string>
   <string name="mec_cancel_order_number">Отмяна на номера на поръчката </string>
   <string name="mec_cancel_payment">Искате ли да отмените плащането? Вашата количка ще бъде празна.</string>
-  <string name="mec_cancel_your_order">[bg]Cancel your order</string>
+  <string name="mec_cancel_your_order">Отмяна на вашата поръчка</string>
   <string name="mec_card_holder_first_name">Собствено име на притежателя на картата</string>
   <string name="mec_card_holder_last_name">Фамилно име на притежателя на картата</string>
   <string name="mec_cart_count_exceed_message">Не е възможно добавянето на повече от %d продукта в количката за пазаруване</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Онлайн търговци на дребно</string>
   <string name="mec_only">Само</string>
-  <string name="mec_order_detail_unavailable">[bg]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Подробности за поръчката ви в момента не са налични</string>
   <string name="mec_order_details">Подробности за поръчката</string>
   <string name="mec_order_not_received_items">Поръчката не е получена</string>
   <string name="mec_order_number_msg">Номер на поръчка: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Град/село</string>
   <string name="mec_town_error">Въведете валиден град</string>
   <string name="mec_town_hint">Въведете вашия град или населено място</string>
+  <string name="mec_track_order">Проследяване на поръчка</string>
   <string name="mec_use_as_billing_address">Използвайте този адрес като адрес за фактуриране</string>
   <string name="mec_valid_until">Валидно до</string>
   <string name="mec_your_order_number">Вашият номер на поръчка е</string>
