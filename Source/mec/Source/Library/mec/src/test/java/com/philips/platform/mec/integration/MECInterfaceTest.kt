@@ -61,13 +61,17 @@ class MECInterfaceTest {
     lateinit var loggingInterfaceMock : LoggingInterface
 
     @Mock
-    lateinit var mecAnalyticsMock: MECAnalytics
+    lateinit var serviceDiscoveryInterfaceMock : ServiceDiscoveryInterface
+
+    @Mock
+    lateinit var appConfigurationInterfaceMock: AppConfigurationInterface
+
+
 
     @Mock
     lateinit var mecHandlerMock: MECHandler
 
-    @Mock
-    lateinit var serviceDiscoveryInterfaceMock : ServiceDiscoveryInterface
+
 
     @Before
     fun setUp() {
@@ -102,8 +106,7 @@ class MECInterfaceTest {
     @Mock
     lateinit var mecLaunchInputMock: MECLaunchInput
 
-    @Mock
-    lateinit var appConfigurationInterfaceMock: AppConfigurationInterface
+
 
     @Test(expected = MECException::class)
     fun `should instantiate ECS SDK on launch`() {

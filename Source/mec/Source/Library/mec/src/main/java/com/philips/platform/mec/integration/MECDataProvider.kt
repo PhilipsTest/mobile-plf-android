@@ -28,8 +28,9 @@ object MECDataProvider : MECDataInterface {
     private val TAG: String = MECDataProvider::class.java.simpleName
 
     internal var context: Context? = null
+    internal var mecManager = MECManager()
 
-    override fun addCartUpdateListener(mecCartUpdateListener: MECCartUpdateListener?) {
+    override fun addCartUpdateListener(mecCartUpdateListener: MECCartUpdateListener) {
         MECDataHolder.INSTANCE.mecCartUpdateListener = mecCartUpdateListener
     }
 
@@ -40,12 +41,11 @@ object MECDataProvider : MECDataInterface {
     @Throws(MECException::class)
     override fun fetchCartCount(mECFetchCartListener: MECFetchCartListener) {
         MECDataHolder.INSTANCE.initECSSDK()
-        //TODO Make error checking at a common place : Pabitra
+        //TODO Make error checking at a common place
         if (MECDataHolder.INSTANCE.isInternetActive()) {
             if (MECDataHolder.INSTANCE.isUserLoggedIn()) {
                 if (MECDataHolder.INSTANCE.hybrisEnabled) {
                     GlobalScope.launch {
-                        val mecManager = MECManager()
                         mecManager.getProductCartCountWorker(mECFetchCartListener)
                     }
                 } else {
@@ -58,7 +58,10 @@ object MECDataProvider : MECDataInterface {
             }
         } else {
             MECLog.d(TAG, "No Network or Internet")
-            MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!, R.string.mec_no_internet))
+            context?.let {
+                MECAnalytics.getDefaultString(it, R.string.mec_no_internet) }?.let {
+                MECAnalytics.trackInformationError(it)
+            }
             throw MECException(context?.getString(R.string.mec_no_internet), MECException.NO_INTERNET)
         }
     }
@@ -70,7 +73,6 @@ object MECDataProvider : MECDataInterface {
         if (MECDataHolder.INSTANCE.isInternetActive()) {
             if (MECDataHolder.INSTANCE.hybrisEnabled) {
                 GlobalScope.launch {
-                    val mecManager = MECManager()
                     mecManager.ishybrisavailableWorker(mECHybrisAvailabilityListener)
                 }
             } else {
@@ -79,8 +81,8 @@ object MECDataProvider : MECDataInterface {
             }
         } else {
             MECLog.d(TAG, "Internet not available")
-            MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!, R.string.mec_no_internet))
-            throw MECException(MECDataHolder.INSTANCE.appinfra.appInfraContext.getString(R.string.mec_no_internet), MECException.NO_INTERNET)
+            context?.let { MECAnalytics.getDefaultString(it, R.string.mec_no_internet) }?.let { MECAnalytics.trackInformationError(it) }
+            throw MECException(context?.getString(R.string.mec_no_internet), MECException.NO_INTERNET)
         }
     }
 
