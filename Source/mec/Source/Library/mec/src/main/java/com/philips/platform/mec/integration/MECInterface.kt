@@ -71,9 +71,7 @@ class MECInterface : UappInterface {
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
 
         MECDataHolder.INSTANCE.initECSSDK()
-
-
-        //TODO Make error checking at a common place : Pabitra
+        //TODO Make error checking at a common place
         if(MECDataHolder.INSTANCE.isInternetActive()) {
             val mecLaunchInput = uappLaunchInput as MECLaunchInput
             MECDataHolder.INSTANCE.hybrisEnabled = mecLaunchInput.supportsHybris
@@ -82,7 +80,7 @@ class MECInterface : UappInterface {
 
                 if(MECDataHolder.INSTANCE.isUserLoggedIn()){
                     if(mecLaunchInput.supportsHybris) {
-                        launchMEC(uiLauncher, mecLaunchInput)
+                        launchMEC(mMECSettings,uiLauncher, mecLaunchInput)
                     }else{
                         throw MECException(mMECSettings?.context?.getString(R.string.mec_no_philips_shop),MECException.HYBRIS_NOT_AVAILABLE)
                     }
@@ -91,7 +89,7 @@ class MECInterface : UappInterface {
                     throw MECException(mMECSettings?.context?.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
                 }
             }else{
-                launchMEC(uiLauncher,mecLaunchInput)
+                launchMEC(mMECSettings,uiLauncher,mecLaunchInput)
             }
 
         }else{
@@ -104,7 +102,7 @@ class MECInterface : UappInterface {
     private fun isLogInRequired(mecLaunchInput: MECLaunchInput) = mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW || mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY
 
 
-    private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {
+    private fun launchMEC(mMECSettings : MECSettings?,uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {
         mMECSettings?.let { mecHandler.launchMEC(it,uiLauncher,mecLaunchInput) }
     }
 

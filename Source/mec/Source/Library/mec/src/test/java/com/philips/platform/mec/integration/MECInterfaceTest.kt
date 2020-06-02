@@ -22,6 +22,7 @@ import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.pif.DataInterface.MEC.MECException
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
+import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState
 import com.philips.platform.uappframework.launcher.UiLauncher
 import org.junit.After
 import org.junit.Assert.assertNotNull
@@ -29,8 +30,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.validateMockitoUsage
@@ -129,10 +128,36 @@ class MECInterfaceTest {
         makeLoginNotRequired()
         mecInterface.init(uappDependenciesMock,uappSettingsMock)
         mecInterface.launch(uiLauncherMock,mecLaunchInputMock)
+       // Mockito.verify(mecHandlerMock).launchMEC(uappSettingsMock, uiLauncherMock,mecLaunchInputMock)
+    }
 
-        Mockito.verify(mecHandlerMock).launchMEC(uappSettingsMock,uiLauncherMock,mecLaunchInputMock)
-        Mockito.verify(serviceDiscoveryInterfaceMock).getServicesWithCountryPreference(anyList(), any(ServiceDiscoveryInterface.OnGetServiceUrlMapListener::class.java), any())
+    @Test(expected = MECException::class)
+    fun `should throw exception if internet is available and log in is  required but user is not logged in`() {
+        makeInternetAvailable()
+        makeLoginRequired()
+        mecInterface.init(uappDependenciesMock,uappSettingsMock)
+        mecInterface.launch(uiLauncherMock,mecLaunchInputMock)
+    }
 
+    @Test(expected = MECException::class)
+    fun `should throw exception if internet is available and log in is  required and  user is  logged in but hybris is not supported`() {
+        makeInternetAvailable()
+        makeLoginRequired()
+        makeUserLoggedIn()
+        mecInterface.init(uappDependenciesMock,uappSettingsMock)
+        mecInterface.launch(uiLauncherMock,mecLaunchInputMock)
+    }
+
+    @Test
+    fun `should launch  mec if internet is available ,user is  logged in and hybris is  supported`() {
+        makeInternetAvailable()
+        makeLoginRequired()
+        makeUserLoggedIn()
+        mecLaunchInputMock.supportsHybris = true
+        mecInterface.init(uappDependenciesMock,uappSettingsMock)
+        mecInterface.launch(uiLauncherMock,mecLaunchInputMock)
+        //todo
+        // Mockito.verify(mecHandlerMock).launchMEC(uappSettingsMock, uiLauncherMock,mecLaunchInputMock)
     }
 
     @Mock
@@ -143,6 +168,15 @@ class MECInterfaceTest {
         flowConfiguratorMock.landingView = MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW
     }
 
+    private fun makeLoginRequired() {
+        mecLaunchInputMock.flowConfigurator = flowConfiguratorMock
+        flowConfiguratorMock.landingView = MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW
+    }
+
+    private fun makeUserLoggedIn(){
+        Mockito.`when`(userDataInterfaceMock.userLoggedInState).thenReturn(UserLoggedInState.USER_LOGGED_IN)
+    }
+
     private fun makeInternetAvailable() {
         Mockito.`when`(restInterfaceMock.isInternetReachable).thenReturn(true)
         Mockito.`when`(appInfraMock.restClient).thenReturn(restInterfaceMock)
@@ -151,10 +185,23 @@ class MECInterfaceTest {
 
     @Test
     fun getMECDataInterface() {
+        assertNotNull(mecInterface.getMECDataInterface())
     }
 
     @After
     fun validate() {
         validateMockitoUsage()
+    }
+
+    fun <T> any(type : Class<T>): T {
+        Mockito.any(type)
+        return uninitialized()
+    }
+
+    private fun <T> uninitialized(): T = null as T
+
+    private fun <T> any(): T {
+        Mockito.any<T>()
+        return uninitialized()
     }
 }
