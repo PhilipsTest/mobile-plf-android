@@ -18,7 +18,7 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 
-class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProductDetailViewModel, val ecsServices: com.philips.platform.ecs.ECSServices) {
+class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProductDetailViewModel, val ecsServices: ECSServices) {
 
     var ecsProductDetailCallBack= ECSProductDetailCallback(ecsProductDetailViewModel)
     var mECAddToProductCallback = MECAddToProductCallback(ecsProductDetailViewModel,"AddToCart")
@@ -28,7 +28,7 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
     var reviewsCb = MECReviewConversationsDisplayCallback(ecsProductDetailViewModel)
     var ratingCb = MECDetailBulkRatingConversationsDisplayCallback(ecsProductDetailViewModel)
 
-    fun getProductDetail(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct){
+    fun getProductDetail(ecsProduct: ECSProduct){
         ecsProductDetailCallBack.mECRequestType=MECRequestType.MEC_FETCH_PRODUCT_DETAILS
         ecsServices.fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
     }
@@ -46,12 +46,12 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
         prepareCall.loadAsync(ratingCb)
     }
 
-    fun addTocart(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct){
+    fun addTocart(ecsProduct: ECSProduct){
         mECAddToProductCallback.mECRequestType= MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART
         ecsServices.addProductToShoppingCart(ecsProduct,mECAddToProductCallback)
     }
 
-    fun createCart(createShoppingCartCallback: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception>){
+    fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){
        ecsServices.createShoppingCart(createShoppingCartCallback)
     }
 

@@ -38,7 +38,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
     var mFeaturesModel: FeaturesModel?=null
     private lateinit var binding: MecProductFeaturesFragmentBinding
     private lateinit var productFeaturesViewModel: ProductFeaturesViewModel
-    private lateinit var mECSProduct : com.philips.platform.ecs.model.products.ECSProduct
+    private lateinit var mECSProduct : ECSProduct
 
     private val featuresObserver : Observer<FeaturesModel> = object : Observer<FeaturesModel> {
 
@@ -88,7 +88,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
 
         val bundle = arguments
         val productCtn = bundle!!.getString(MECConstant.MEC_PRODUCT_CTN,"INVALID")
-        mECSProduct =bundle!!.getSerializable(MEC_PRODUCT) as com.philips.platform.ecs.model.products.ECSProduct
+        mECSProduct =bundle!!.getSerializable(MEC_PRODUCT) as ECSProduct
 
         if(null==mFeaturesModel) {
             context?.let { productFeaturesViewModel.fetchProductFeatures(it, productCtn) }

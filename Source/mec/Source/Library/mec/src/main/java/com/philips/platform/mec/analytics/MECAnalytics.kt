@@ -80,13 +80,6 @@ class MECAnalytics {
         }
 
 
-        @JvmStatic
-        fun trackAction(state: String, key: String, value: Any) {
-            val valueObject = value as String
-            MECLog.v(TAG, "trackAction$valueObject");
-            if (mAppTaggingInterface != null)
-                mAppTaggingInterface!!.trackActionWithInfo(state, key, valueObject)
-        }
 
         @JvmStatic
         fun trackMultipleActions(state: String, map: Map<String, String>) {
@@ -231,26 +224,6 @@ class MECAnalytics {
             trackMultipleActions(sendData, productsMap)
         }
 
-      /*  *//*c
-        * This method is to tag passed Action(s) with shopping cart products details in format "[Category];[Product1];[Quantity];[Total Price]"
-        * *//*
-        @JvmStatic
-        fun tagActionsWithCartProductsInfo(actionMap: Map<String, String>, ecsShoppingCart: ECSShoppingCart?) {
-            var productsMap = HashMap<String, String>()
-            val entryList = ecsShoppingCart?.entries // ECSEntries
-            if (entryList != null && entryList.size > 0) {
-                val mutableEntryIterator = entryList.iterator()
-                var productListString: String = ""
-                for (entry in mutableEntryIterator) {
-                    productListString += "," + getProductInfoWithChangedQuantity(entry.product, entry.quantity)
-                }
-                productListString = productListString.substring(1, productListString.length - 1)
-                MECLog.v("MEC_LOG", "Cart prodList : " + productListString)
-                productsMap.put(mecProducts, productListString);
-            }
-            productsMap.putAll(actionMap)
-            trackMultipleActions(sendData, productsMap)
-        }*/
 
 
         /*
