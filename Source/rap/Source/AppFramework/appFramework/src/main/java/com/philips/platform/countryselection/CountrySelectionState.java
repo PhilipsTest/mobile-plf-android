@@ -1,6 +1,7 @@
 package com.philips.platform.countryselection;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.philips.platform.appframework.flowmanager.AppStates;
 import com.philips.platform.appframework.stateimpl.DemoBaseState;
@@ -20,8 +21,12 @@ public class CountrySelectionState extends DemoBaseState {
     public void navigate(UiLauncher uiLauncher) {
         RALog.d("CountrySelectionState"," navigate called ");
         final FragmentLauncher fragmentLauncher = (FragmentLauncher) uiLauncher;
+        CountrySelectionFragment countrySelectionFragment = new CountrySelectionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("eventId","launchRegistrationComponent");
+        countrySelectionFragment.setArguments(bundle);
         ((AbstractAppFrameworkBaseActivity) fragmentLauncher.getFragmentActivity()).
-                addFragment(new CountrySelectionFragment(), CountrySelectionFragment.TAG);
+                addFragment(countrySelectionFragment, CountrySelectionFragment.TAG);
     }
 
     @Override

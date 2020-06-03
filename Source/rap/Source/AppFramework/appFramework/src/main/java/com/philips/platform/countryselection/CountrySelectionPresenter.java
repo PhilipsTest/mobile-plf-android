@@ -104,7 +104,7 @@ public class CountrySelectionPresenter {
         BaseFlowManager targetFlowManager = getTargetFlowManager();
         BaseState baseState = null;
         try {
-            baseState = targetFlowManager.getNextState(targetFlowManager.getCurrentState(), "LaunchUR");
+            baseState = targetFlowManager.getNextState(targetFlowManager.getCurrentState(), "launchRegistrationComponent");
         } catch (NoEventFoundException | NoStateException | NoConditionFoundException | StateIdNotSetException | ConditionIdNotSetException
                 e) {
             Toast.makeText(mContext, mContext.getString(com.philips.platform.appframework.R.string.RA_something_wrong), Toast.LENGTH_SHORT).show();
