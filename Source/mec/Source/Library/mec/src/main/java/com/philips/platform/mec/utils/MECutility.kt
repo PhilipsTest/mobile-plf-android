@@ -278,7 +278,7 @@ class MECutility {
 
         fun isAuthError(ecsError: ECSError?): Boolean {
             var authError: Boolean = false
-            with(ecsError!!.errorcode) {
+            with(ecsError?.errorcode) {
                 if (this == ECSErrorEnum.ECSInvalidTokenError.errorCode
                         || this == ECSErrorEnum.ECSinvalid_grant.errorCode
                         || this == ECSErrorEnum.ECSinvalid_client.errorCode

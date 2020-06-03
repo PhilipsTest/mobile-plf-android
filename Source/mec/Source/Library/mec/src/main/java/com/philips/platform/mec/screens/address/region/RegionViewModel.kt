@@ -11,21 +11,22 @@ package com.philips.platform.mec.screens.address.region
 
 import androidx.lifecycle.MutableLiveData
 import com.philips.platform.ecs.model.region.ECSRegion
+import com.philips.platform.mec.common.CommonViewModel
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 
-class RegionViewModel : com.philips.platform.mec.common.CommonViewModel() {
+class RegionViewModel : CommonViewModel() {
 
-    private var ecsRegionListCallback = ECSRegionListCallback(this)
+    internal var ecsRegionListCallback = ECSRegionListCallback(this)
 
-    var regionsList = MutableLiveData<List<com.philips.platform.ecs.model.region.ECSRegion>>()
+    internal var regionsList = MutableLiveData<List<ECSRegion>>()
 
-    var ecsServices = MECDataHolder.INSTANCE.eCSServices
-    var regionRepository = RegionRepository(ecsServices)
+    internal var ecsServices = MECDataHolder.INSTANCE.eCSServices
+    internal var regionRepository = RegionRepository()
 
 
     fun fetchRegions() {
-        regionRepository.getRegions(ecsRegionListCallback)
+        regionRepository.getRegions(ecsServices,ecsRegionListCallback)
     }
 
     fun retryAPI(mecRequestType: MECRequestType) {
@@ -33,7 +34,7 @@ class RegionViewModel : com.philips.platform.mec.common.CommonViewModel() {
         authAndCallAPIagain(retryAPI, authFailCallback)
     }
 
-    fun selectAPIcall(mecRequestType: MECRequestType): () -> Unit {
+    private fun selectAPIcall(mecRequestType: MECRequestType): () -> Unit {
 
         lateinit var APIcall: () -> Unit
         when (mecRequestType) {
