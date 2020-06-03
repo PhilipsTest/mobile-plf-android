@@ -69,6 +69,7 @@ dependencies {
     implementation deps.design
     implementation deps.greenrobot
     implementation philipsdeps.uid
+    implementation deps.androidx.localbroadcastmanager
     if (useprojectdependencies) {
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)

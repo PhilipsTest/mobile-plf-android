@@ -115,6 +115,7 @@ dependencies {
     implementation deps.greenrobot
     implementation deps.wechat
     implementation deps.butterknife
+    implementation deps.androidx.localbroadcastmanager
 
     testImplementation deps.junit
 
