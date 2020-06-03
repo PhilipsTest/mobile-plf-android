@@ -10,8 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.philips.cdp.prxclient.datamodels.summary.Price;
+import com.philips.cdp.prxclient.datamodels.summary.ReviewStatistics;
+import com.philips.cdp.prxclient.datamodels.summary.Brand;
 
-public class Data implements Serializable {
+
+
+public class Data extends  com.philips.cdp.prxclient.datamodels.summary.Data implements Serializable  {
 
     private static final long serialVersionUID = 3102143091240290063L;
     private String locale;
@@ -329,7 +334,7 @@ public class Data implements Serializable {
     /**
      * @return The priority
      */
-    public int getPriority() {
+    public long getPriority() {
         return priority;
     }
 
