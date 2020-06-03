@@ -118,7 +118,6 @@ dependencies {
     implementation deps.jackson_databind
     implementation philipsdeps.uid
     implementation deps.jump
-    implementation deps.androidx.localbroadcastmanager
     if (useprojectdependencies) {
         implementation project(strings.ufw.projectName)
         implementation project(strings.pif.projectName)
