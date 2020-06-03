@@ -79,7 +79,7 @@
         "state": "country_selection",
         "events": [
           {
-            "eventId": "launchUR",
+            "eventId": "launchRegistrationComponent",
             "nextStates": [
               {
                 "condition": [],
@@ -88,16 +88,7 @@
             ]
           },
           {
-            "eventId": "launchUDI",
-            "nextStates": [
-              {
-                "condition": [],
-                "nextState": "onBoarding_registration"
-              }
-            ]
-          },
-          {
-            "eventId": "back",
+            "eventId": "launchHome",
             "nextStates": [
               {
                 "condition": [],
@@ -250,6 +241,16 @@
               {
                 "condition": [],
                 "nextState": "testmicroapp"
+              }
+            ]
+          },
+
+          {
+            "eventId": "country_selection",
+            "nextStates": [
+              {
+                "condition": [],
+                "nextState": "country_selection"
               }
             ]
           },

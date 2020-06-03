@@ -1,8 +1,8 @@
 /* Copyright (c) Koninklijke Philips N.V., 2016
-* All rights are reserved. Reproduction or dissemination
+ * All rights are reserved. Reproduction or dissemination
  * in whole or in part is prohibited without the prior written
  * consent of the copyright holder.
-*/
+ */
 package com.philips.platform.appframework.homescreen;
 
 import android.widget.Toast;
@@ -89,6 +89,8 @@ public class HamburgerActivityPresenter extends AbstractUIBasePresenter {
                 return HOME_SUPPORT;
             case MENU_OPTION_ABOUT:
                 return HOME_ABOUT;
+            case MENU_OPTION_SELECT_COUNTRY:
+                return HOME_COUNTRY_SELECTION;
             case Constants.SHOPPING_CART_CLICK:
                 return SHOPPING_CART;
             case MENU_OPTION_TEST_MICROAPP:

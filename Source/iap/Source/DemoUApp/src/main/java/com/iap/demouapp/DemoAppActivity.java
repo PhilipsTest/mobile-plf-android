@@ -52,6 +52,10 @@ import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
+import com.philips.platform.pim.PIMInterface;
+import com.philips.platform.pim.PIMLaunchInput;
+import com.philips.platform.pim.PIMParameterToLaunchEnum;
+import com.philips.platform.pim.listeners.UserLoginListener;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.uappinput.UappDependencies;
 import com.philips.platform.uappframework.uappinput.UappSettings;
@@ -69,12 +73,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.philips.cdp.di.iap.utils.Utility.hideKeypad;
 
 
 public class DemoAppActivity extends AppCompatActivity implements View.OnClickListener, IAPListener,
-        UserRegistrationUIEventListener, IAPMockInterface, IAPOrderFlowCompletion, IAPBannerEnabler {
+        UserLoginListener, IAPMockInterface, IAPOrderFlowCompletion, IAPBannerEnabler {
 
     private final String TAG = DemoAppActivity.class.getSimpleName();
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
@@ -105,7 +110,7 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
 
     private ArrayList<String> ignorelistedRetailer;
     private View mLL_propositionId;
-    URInterface urInterface;
+   // URInterface urInterface;
     private long mLastClickTime = 0;
     private ToggleButton toggleMock;
     private boolean enableMock = false;
@@ -122,9 +127,6 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         initTheme();
         super.onCreate(savedInstanceState);
-
-        urInterface = new URInterface();
-        urInterface.init(new IapDemoUAppDependencies(new AppInfra.Builder().build(getApplicationContext())), new IapDemoAppSettings(getApplicationContext()));
 
         ignorelistedRetailer = new ArrayList<>();
         IAPLog.enableLogging(true);
@@ -292,7 +294,7 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
         mCategorizedProductList.add("HD9621/70");
         mCategorizedProductList.add("HD9741/10");*/
 
-        mUserDataInterface = urInterface.getUserDataInterface();
+        mUserDataInterface = DemoAppUserHelper.getInstance().getUserDataInterface(this);
 
 
         //Integration interface
@@ -323,9 +325,9 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
         UappDependencies uappDependencies = new UappDependencies(new AppInfra.Builder().build(this));
         UappSettings uappSettings = new UappSettings(getApplicationContext());
 
-        urInterface.init(uappDependencies, uappSettings);
+        //urInterface.init(uappDependencies, uappSettings);
 
-        IAPDependencies mIapDependencies = new IAPDependencies(new AppInfra.Builder().build(this), urInterface.getUserDataInterface());
+        IAPDependencies mIapDependencies = new IAPDependencies(new AppInfra.Builder().build(this), mUserDataInterface);
 
         try {
             mIapInterface.init(mIapDependencies, mIAPSettings);
@@ -580,23 +582,7 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void gotoLogInScreen() {
-
-        URLaunchInput urLaunchInput = new URLaunchInput();
-        urLaunchInput.setUserRegistrationUIEventListener(this);
-        urLaunchInput.enableAddtoBackStack(true);
-        RegistrationContentConfiguration contentConfiguration = new RegistrationContentConfiguration();
-        contentConfiguration.enableLastName(true);
-        contentConfiguration.enableContinueWithouAccount(true);
-        RegistrationConfiguration.getInstance().setPrioritisedFunction(RegistrationFunction.Registration);
-        urLaunchInput.setRegistrationContentConfiguration(contentConfiguration);
-        urLaunchInput.setRegistrationFunction(RegistrationFunction.Registration);
-
-
-        ActivityLauncher activityLauncher = new ActivityLauncher(this, ActivityLauncher.
-                ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
-        urInterface.launch(activityLauncher, urLaunchInput);
-
-
+        DemoAppUserHelper.getInstance().launchRegistrationComponent(this,this);
     }
 
     private void displayViews() {
@@ -719,7 +705,7 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    //User Registration interface functions
+    /*//User Registration interface functions
     @Override
     public void onUserRegistrationComplete(Activity activity) {
         activity.finish();
@@ -738,7 +724,7 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onPersonalConsentClick(Activity activity) {
 
-    }
+    }*/
 
     void showScreenSizeInDp() {
 
@@ -878,5 +864,16 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
 
     boolean isUserLoggedIn(){
         return  mUserDataInterface != null && mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN ;
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        mRegister.setText(this.getString(R.string.log_out));
+        initializeIAPComponant();
+    }
+
+    @Override
+    public void onLoginFailed(Error error) {
+
     }
 }

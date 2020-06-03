@@ -92,6 +92,7 @@
         <item>@string/RA_HomeTab_Menu_Title</item>
         <item>@string/RA_Philips_Shop_Menu_Title</item>
         <item>@string/RA_Menu_title_Demo</item>
+        <item>Select Country</item>
         <item>@string/RA_Support_Menu_Title</item>
         <item>@string/RA_About_Menu_Title</item>
     </string-array>
@@ -100,6 +101,7 @@
         <item>@drawable/rap_home</item>
         <item>@drawable/rap_shop</item>
         <item>@drawable/rap_settings</item>
+        <item>@drawable/country_sel</item>
         <item>@drawable/rap_question_mark</item>
         <item>@drawable/rap_information</item>
     </array>

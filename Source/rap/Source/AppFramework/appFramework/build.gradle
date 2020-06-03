@@ -306,6 +306,7 @@ dependencies {
 
     //Kotlin test
     kaptAndroidTest deps.databinding_compiler
+    compile project(path: ':pimUApp')
 }
 
 task copyToLib(type: Copy) {

@@ -48,6 +48,7 @@ import com.philips.platform.pim.PIMInterface;
 import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.PIMSettings;
 import com.philips.platform.pim.listeners.UserLoginListener;
+import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
 import com.philips.platform.uappframework.listener.ActionBarListener;
@@ -126,7 +127,7 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
 
     public RegistrationModule getRegistrationModule(){
         String homeCountry = getAppInfra().getServiceDiscovery().getHomeCountry();
-        if(homeCountry != null && homeCountry.equalsIgnoreCase("CN") || homeCountry.equalsIgnoreCase("IN"))
+        if(homeCountry != null && (homeCountry.equalsIgnoreCase("CN") || homeCountry.equalsIgnoreCase("IN")))
             return RegistrationModule.USR;
         else
             return RegistrationModule.UDI;
@@ -234,7 +235,7 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
     private void initUDILibrary(){
         PIMDependencies pimDemoUAppDependencies = new PIMDependencies(getAppInfra());
         PIMSettings pimDemoUAppSettings = new PIMSettings(applicationContext);
-        pimInterface = new PIMInterface();
+        pimInterface = PIMInterface.getPIMInterface();
 
         new Handler(applicationContext.getMainLooper()).post(new Runnable() {
             @Override
@@ -242,8 +243,6 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
                 pimInterface.init(pimDemoUAppDependencies,pimDemoUAppSettings);
             }
         });
-
-        //pimInterface.init(pimDemoUAppDependencies, pimDemoUAppSettings);
     }
 
     private void launchUDI() {
@@ -252,6 +251,7 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
         pimInterface.launch(fragmentLauncher, launchInput);
     }
 
+    /**
     /**
      * For doing dynamic initialisation Of User registration
      */
@@ -340,5 +340,19 @@ public abstract class UserRegistrationState extends BaseState implements UserLog
     @Override
     public void onLoginFailed(Error error) {
         RALog.d(TAG, error.getErrDesc());
+        RALog.d(TAG, "onLoginSuccess");
+        BaseFlowManager targetFlowManager = getApplicationContext().getTargetFlowManager();
+        BaseState baseState = null;
+        try {
+            baseState = targetFlowManager.getNextState(targetFlowManager.getCurrentState(), UR_COMPLETE);
+        } catch (NoEventFoundException | NoStateException | NoConditionFoundException | StateIdNotSetException | ConditionIdNotSetException
+                e) {
+            RALog.d(TAG, e.getMessage());
+            Toast.makeText(getFragmentActivity(), getFragmentActivity().getString(R.string.RA_something_wrong), Toast.LENGTH_SHORT).show();
+        }
+        if (null != baseState) {
+            getFragmentActivity().finish();
+            baseState.navigate(new FragmentLauncher(getFragmentActivity(), R.id.frame_container, (ActionBarListener) getFragmentActivity()));
+        }
     }
 }

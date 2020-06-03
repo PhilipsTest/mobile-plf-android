@@ -46,7 +46,7 @@ import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DE
 /**
  * Used to initialize and launch PIM
  */
-public class PIMInterface implements UappInterface, UserMigrationListener,PIMLoginListener {
+public class PIMInterface implements UappInterface, UserMigrationListener, PIMLoginListener {
     static final String PIM_KEY_ACTIVITY_THEME = "PIM_KEY_ACTIVITY_THEME";
     public static final String PIM_KEY_CONSENTS = "PIM_KEY_CONSENTS";
     private final String TAG = PIMInterface.class.getSimpleName();
@@ -57,6 +57,15 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
     private UserLoginListener userLoginListener;
     private boolean isMigrationInProgress;
 
+    private static  final PIMInterface pimInterface = new PIMInterface();
+
+    private PIMInterface(){
+
+    }
+
+    public static PIMInterface getPIMInterface() {
+        return pimInterface;
+    }
 
     /**
      * API to initialize PIM. Please make sure no propositions are being used before PIMInterface$init.
@@ -133,7 +142,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
             return;
         }
         this.userMigrationListener = userMigrationListener;
-        if(isMigrationInProgress){
+        if (isMigrationInProgress) {
             PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Migration is already in progress!!");
             return;
         }
@@ -155,7 +164,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
         });
     }
 
-    public void setLoginListener(UserLoginListener userLoginListener){
+    public void setLoginListener(UserLoginListener userLoginListener) {
         this.userLoginListener = userLoginListener;
     }
 
@@ -227,13 +236,13 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
 
     @Override
     public void onLoginSuccess() {
-        if(userLoginListener != null)
+        if (userLoginListener != null)
             userLoginListener.onLoginSuccess();
     }
 
     @Override
     public void onLoginFailed(Error error) {
-        if(userLoginListener != null)
+        if (userLoginListener != null)
             userLoginListener.onLoginFailed(error);
     }
 }

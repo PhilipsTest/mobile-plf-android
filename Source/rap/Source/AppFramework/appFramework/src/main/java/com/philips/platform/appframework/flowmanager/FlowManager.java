@@ -15,6 +15,7 @@ import com.philips.platform.appframework.stateimpl.DemoECSState;
 import com.philips.platform.appframework.stateimpl.DemoECSTestState;
 import com.philips.platform.appframework.stateimpl.DemoIAPState;
 import com.philips.platform.appframework.stateimpl.DemoMECState;
+import com.philips.platform.appframework.stateimpl.DemoPIMState;
 import com.philips.platform.appframework.stateimpl.DemoPRGState;
 import com.philips.platform.appframework.stateimpl.DemoUSRState;
 import com.philips.platform.appframework.stateimpl.HamburgerActivityState;
@@ -43,7 +44,7 @@ public class FlowManager extends BaseFlowManager {
         uiStateMap.put(AppStates.TESTMEC, new DemoMECState());
         uiStateMap.put(AppStates.TESTECS, new DemoECSState());
         uiStateMap.put(AppStates.TESTECSTEST, new DemoECSTestState());
-//        uiStateMap.put(AppStates.TESTPIM, new DemoPIMState());
+        uiStateMap.put(AppStates.TESTPIM, new DemoPIMState());
         uiStateMap.put(AppStates.TESTCC, new DemoDCCState());
         uiStateMap.put(AppStates.COOKIES_CONSENT, new CookiesConsentState());
         uiStateMap.put(AppStates.COUNTRY_SELECTION,new CountrySelectionState());

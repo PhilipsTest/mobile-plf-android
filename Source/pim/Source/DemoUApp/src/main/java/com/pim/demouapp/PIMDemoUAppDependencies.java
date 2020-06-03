@@ -19,6 +19,10 @@ public class PIMDemoUAppDependencies extends UappDependencies {
     public PIMDemoUAppDependencies(AppInfraInterface appInfra) {
         super(appInfra);
         this.appInfra = appInfra;
+        PIMUtility.getInstance().setAppInfra(appInfra);
+    }
 
+    public AppInfraInterface getAppInfraInterface(){
+        return appInfra;
     }
 }

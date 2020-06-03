@@ -47,7 +47,8 @@ include ext.strings.ecstestuapp.projectName
 include ext.strings.iapuapp.projectName
 
 
-//opa archive references:
+//opa arc
+// hive references:
 project(ext.strings.ail.projectName).projectDir = new File('./Source/ail/Source/Library/AppInfra')
 project(ext.strings.ailuapp.projectName).projectDir = new File('./Source/ail/Source/DemoUApp/')
 project(ext.strings.prx.projectName).projectDir = new File('./Source/prx/Source/Library/PrxSample/prx')

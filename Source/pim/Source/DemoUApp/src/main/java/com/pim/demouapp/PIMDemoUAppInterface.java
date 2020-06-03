@@ -27,10 +27,13 @@ public class PIMDemoUAppInterface implements UappInterface {
 
     @Override
     public void launch(UiLauncher uiLauncher, UappLaunchInput uappLaunchInput) {
-
         if(uiLauncher instanceof ActivityLauncher){
             Intent intent=new Intent(mContext, PIMDemoUAppActivity.class);
             mContext.startActivity(intent);
         }
+    }
+
+    public AppInfraInterface getAppInfra(AppInfraInterface appInfraInterface) {
+        return mAppInfra;
     }
 }

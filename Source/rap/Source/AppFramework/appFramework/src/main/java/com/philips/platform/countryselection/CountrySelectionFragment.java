@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.philips.cdp.registration.R2;
 import com.philips.platform.appframework.R;
 import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.baseapp.base.AbstractAppFrameworkBaseActivity;
 import com.philips.platform.baseapp.base.AbstractAppFrameworkBaseFragment;
+import com.philips.platform.baseapp.base.AbstractOnboardingBaseFragment;
 import com.philips.platform.baseapp.base.AppFrameworkApplication;
 import com.philips.platform.uid.view.widget.Button;
 import com.philips.platform.uid.view.widget.RecyclerViewSeparatorItemDecoration;
@@ -24,7 +27,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CountrySelectionFragment extends AbstractAppFrameworkBaseFragment implements CountrySelectionContract, View.OnClickListener {
+public class CountrySelectionFragment extends AbstractOnboardingBaseFragment implements CountrySelectionContract, View.OnClickListener {
 
     public static String TAG = "CountrySelectionFragment";
 
@@ -102,9 +105,15 @@ public class CountrySelectionFragment extends AbstractAppFrameworkBaseFragment i
 
     }
 
-    @Override
+    /*@Override
     public String getActionbarTitle() {
-        return getResources().getString(R.string.USR_DLS_Country_Selection_Nav_Title_Text);
+        return getResources().getString(R.string.RA_HomeScreen_Title);
+    }*/
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ((AbstractAppFrameworkBaseActivity) getActivity()).updateActionBar(R.string.USR_DLS_Country_Selection_Nav_Title_Text, false);
     }
 
     @Override
@@ -119,4 +128,6 @@ public class CountrySelectionFragment extends AbstractAppFrameworkBaseFragment i
             countrySelectionPresenter.navigate();
         }
     }
+
+
 }

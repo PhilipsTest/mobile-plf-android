@@ -49,7 +49,7 @@ public class PIMDemoUAppApplication extends Application {
     public void initialisePim() {
         PIMDemoUAppDependencies pimDemoUAppDependencies = new PIMDemoUAppDependencies(appInfraInterface);
         PIMDemoUAppSettings pimDemoUAppSettings = new PIMDemoUAppSettings(this);
-        pimInterface = new PIMInterface();
+        pimInterface = PIMInterface.getPIMInterface();
         pimInterface.init(pimDemoUAppDependencies, pimDemoUAppSettings);
         userDataInterface = pimInterface.getUserDataInterface();
     }

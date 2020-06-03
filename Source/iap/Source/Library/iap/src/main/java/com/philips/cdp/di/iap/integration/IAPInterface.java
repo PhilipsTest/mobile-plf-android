@@ -119,7 +119,6 @@ public class IAPInterface implements UappInterface, IAPExposedAPI {
             iapListener.onSuccess(false);
             iapListener.onFailure(IAPConstant.IAP_ERROR_AUTHENTICATION_FAILURE);
         }
-
     }
 }
 

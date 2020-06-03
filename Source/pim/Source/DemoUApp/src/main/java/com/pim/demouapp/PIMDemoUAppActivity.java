@@ -9,13 +9,10 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -126,7 +123,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private Boolean isABTestingStatus = false;
     private MECLaunchInput mMecLaunchInput;
     private MECBazaarVoiceInput mecBazaarVoiceInput;
-    private PIMDemoUAppApplication uAppApplication;
+    //private AppFramewo uAppApplication;
     private boolean isOptedIn;
     private ProgressAlertDialog progresDialog;
     private EcsDemoTestUAppInterface iapDemoUAppInterface;
@@ -142,8 +139,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         Label appversion = findViewById(R.id.appversion);
         appversion.setText("Version : " + BuildConfig.VERSION_NAME);
 
-        uAppApplication = (PIMDemoUAppApplication) getApplicationContext();
-        appInfraInterface = uAppApplication.getAppInfra();
+        pimInterface = PIMInterface.getPIMInterface();
+        appInfraInterface = PIMUtility.getInstance().getAppInfra();
 
         btnGetUserDetail = findViewById(R.id.btn_GetUserDetail);
         btnGetUserDetail.setOnClickListener(this);
@@ -197,10 +194,14 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         spinnerCountrySelection = findViewById(R.id.spinner_CountrySelection);
         spinnerCountryText = findViewById(R.id.spinner_Text);
 
-        if (userDataInterface != null && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_NOT_LOGGED_IN) {
+        spinnerCountrySelection.setVisibility(View.GONE);
+        spinnerCountryText.setVisibility(View.GONE);
+
+        /*if (userDataInterface != null && userDataInterface.getUserLoggedInState() == UserLoggedInState.USER_NOT_LOGGED_IN) {
             spinnerCountrySelection.setVisibility(View.VISIBLE);
             spinnerCountryText.setVisibility(View.GONE);
             String[] stringArray = getResources().getStringArray(R.array.countries_array);
+
 
             List<String> countryList = new ArrayList<>(Arrays.asList(stringArray));
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, countryList);
@@ -217,7 +218,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                     if (!countryList.get(position).equals(getSavedCountry())) {
                         editor.putString(SELECTED_COUNTRY, countryList.get(position));
                         editor.apply();
-                        uAppApplication.initialisePim();
+                       // uAppApplication.initialisePim();
                         userDataInterface = uAppApplication.getUserDataInterface();
                         pimInterface = uAppApplication.getPIMInterface();
                         if (pimInterface != null)
@@ -235,7 +236,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             spinnerCountryText.setVisibility(View.VISIBLE);
             spinnerCountryText.setText(selectedCountry);
             spinnerCountrySelection.setVisibility(View.GONE);
-        }
+        }*/
 
         if (getIntent().hasExtra(UDIRedirectReceiverActivity.REDIRECT_TO_CLOSED_APP)) {
             showProgressDialog();
@@ -270,12 +271,12 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             btnLaunchAsFragment.setText("Launch USR");
             aSwitch.setVisibility(View.GONE);
             abTestingSwitch.setVisibility(View.GONE);
-            userDataInterface = uAppApplication.getUserDataInterface();
+            userDataInterface = new URInterface().getUserDataInterface();
         } else {
             isUSR = false;
             Log.i(TAG, "Selected Liberary : PIM");
-            userDataInterface = uAppApplication.getUserDataInterface();
-            pimInterface = uAppApplication.getPIMInterface();
+            userDataInterface = pimInterface.getUserDataInterface();
+            //pimInterface = uAppApplication.getPIMInterface();
             if (pimInterface != null)
                 pimInterface.setLoginListener(this);
             if (isUserLoggedIn()) {
