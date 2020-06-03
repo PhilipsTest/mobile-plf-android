@@ -257,6 +257,11 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
             appInfraTaggingAction.trackErrorAction(msg1, msg2);
     }
 
+    private void trackInformationalErrorAction(String msg1, String msg2) {
+        if (appInfraTaggingAction != null)
+            appInfraTaggingAction.trackInformationalErrorAction(msg1, msg2);
+    }
+
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     ServiceDiscovery downloadPropositionService(SD_REQUEST_TYPE requestType) {
         final String propositionURL = getSDURLForType(AISDURLTypeProposition);
@@ -276,7 +281,7 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
             ((AppInfra)mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.VERBOSE, "SD call", " NO_NETWORK");
             service.setError(new ServiceDiscovery.Error(OnErrorListener.ERRORVALUES.NO_NETWORK, " NO_NETWORK"));
             errorvalues = OnErrorListener.ERRORVALUES.NO_NETWORK;
-            trackErrorAction(SERVICE_DISCOVERY, " error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name())));
+            trackInformationalErrorAction(SERVICE_DISCOVERY, " error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name())));
         } else {
             if (urlBuild != null) {
                 service = mRequestItemManager.execute(urlBuild, aisdurlType);

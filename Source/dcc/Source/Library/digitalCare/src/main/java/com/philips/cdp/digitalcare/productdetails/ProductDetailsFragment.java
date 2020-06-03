@@ -522,7 +522,8 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
                             contextData.put(AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
                                     error.getMessage());
                             contextData.put(AnalyticsConstants.ACTION_KEY_URL,
-                                    mViewProductDetailsModel.getProductImage());
+                                    "DCC:".concat(mViewProductDetailsModel.getProductImage()));
+
                             DigitalCareConfigManager.getInstance().getTaggingInterface().
                                     trackActionWithInfo(AnalyticsConstants.ACTION_SET_ERROR,
                                             contextData);

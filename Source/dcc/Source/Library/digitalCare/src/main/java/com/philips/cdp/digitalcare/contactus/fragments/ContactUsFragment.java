@@ -378,10 +378,11 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     }
 
     private void tagTechnicalError() {
+        String val = "DCC:".concat(AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_RESPONSE_CDLS);
         DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo
                 (AnalyticsConstants.ACTION_SET_ERROR,
                         AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
-                        AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_RESPONSE_CDLS);
+                        val);
     }
 
     @Override

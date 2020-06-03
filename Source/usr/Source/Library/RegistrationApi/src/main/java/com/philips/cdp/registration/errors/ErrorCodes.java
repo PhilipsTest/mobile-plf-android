@@ -40,6 +40,8 @@ public class ErrorCodes {
 
     public static final int JANRAIN_CONNECTION_LOST_NO_ARGUMENT = 100;
 
+    public final static int EMAIL_NOT_VERIFIED_CODE = 112;
+
     public static final int JANRAIN_CONNECTION_LOST_INVALID_ARGUMENT = 200;
 
     public static final int JANRAIN_CONNECTION_LOST_MISMATCH_ARGUMENT = 201;

@@ -49,6 +49,7 @@ public class AppInfraTaggingUtil implements Serializable {
 
     //Actions
     public static final String TECHNICAL_ERROR = "TechnicalError";
+    public static final String INFORMATIONAL_ERROR = "informationalError";
     static final String SUCCESS_MESSAGE = "appInfraSuccessMessage";
 
 
@@ -59,8 +60,17 @@ public class AppInfraTaggingUtil implements Serializable {
 
     public void trackErrorAction(String category, String message) {
         if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
-            appTagging.trackActionWithInfo(SEND_DATA, TECHNICAL_ERROR, "AIL:".concat(category).concat(":").concat(message));
-            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, "AIL:".concat(category).concat(":").concat(message));
+            String concat = "AIL:".concat(category).concat(":").concat(message);
+            appTagging.trackActionWithInfo(SEND_DATA, TECHNICAL_ERROR, concat);
+            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
+        }
+    }
+
+    public void trackInformationalErrorAction(String category, String message) {
+        if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
+            String concat = "AIL:".concat(category).concat(":").concat(message);
+            appTagging.trackActionWithInfo(SEND_DATA, INFORMATIONAL_ERROR, concat);
+            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
         }
     }
 }

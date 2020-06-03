@@ -232,10 +232,10 @@ class USRTokenManager {
         if(TextUtils.isEmpty(jr_capture_flow))
             return fallback_version;
 
-        String key = "version=";
-        int index = jr_capture_flow.indexOf(key);
+        String kString = "version=";
+        int index = jr_capture_flow.indexOf(kString);
         int lastindex = jr_capture_flow.indexOf(',', index);
-        String extraxtedVersion = jr_capture_flow.substring(index + key.length(), lastindex);
+        String extraxtedVersion = jr_capture_flow.substring(index + kString.length(), lastindex);
         flow_version = (extraxtedVersion == null) ? fallback_version : extraxtedVersion;
         mLoggingInterface.log(DEBUG, TAG, "jr_capture_flow : " + flow_version);
 
