@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">追蹤訂單</string>
   <string name="mec_accept_terms">訂購即表示我接受 Philips 的</string>
   <string name="mec_accepted_codes">已接受代碼</string>
   <string name="mec_add">新增</string>
@@ -30,14 +29,14 @@
   <string name="mec_billing_address">帳單地址</string>
   <string name="mec_blank_cvv_error">請輸入有效的 CVV</string>
   <string name="mec_buy_from_retailers">透過零售商選購</string>
-  <string name="mec_call">[zh-HK]Call</string>
+  <string name="mec_call">致電</string>
   <string name="mec_cancel">取消</string>
   <string name="mec_cancel_order">取消我的訂單</string>
   <string name="mec_cancel_order_dls_for_your_ref_sg">您的訂單編號是 %s，以供參考</string>
   <string name="mec_cancel_order_dls_msg">產品寄出前您都可以取消訂單。我們的客戶服務團隊將為您提供協助。</string>
   <string name="mec_cancel_order_number">取消訂單編號 </string>
   <string name="mec_cancel_payment">您是否想取消付款？您的購物車將被會清空。</string>
-  <string name="mec_cancel_your_order">[zh-HK]Cancel your order</string>
+  <string name="mec_cancel_your_order">取消您的訂單</string>
   <string name="mec_card_holder_first_name">持卡人名字</string>
   <string name="mec_card_holder_last_name">持卡人姓氏</string>
   <string name="mec_cart_count_exceed_message">購物車內不可新增多於 %d 件產品</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">確定</string>
   <string name="mec_online_retailers">網上零售商</string>
   <string name="mec_only">僅限於</string>
-  <string name="mec_order_detail_unavailable">[zh-HK]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">訂單詳情無法使用</string>
   <string name="mec_order_details">訂單資料</string>
   <string name="mec_order_not_received_items">未收到訂單</string>
   <string name="mec_order_number_msg">訂單編號：%s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">城鎮/城市</string>
   <string name="mec_town_error">請輸入有效的城鎮</string>
   <string name="mec_town_hint">輸入您的城鎮或城市</string>
+  <string name="mec_track_order">追蹤訂單</string>
   <string name="mec_use_as_billing_address">使用此地址作為我的帳單地址</string>
   <string name="mec_valid_until">此日期前有效：</string>
   <string name="mec_your_order_number">您的訂單編號是：</string>

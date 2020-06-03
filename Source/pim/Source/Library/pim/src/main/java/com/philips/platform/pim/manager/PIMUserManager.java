@@ -143,7 +143,11 @@ public class PIMUserManager {
     }
 
     public void logoutSession(LogoutSessionListener logoutSessionListener) {
-        String clientID = PIMSettingManager.getInstance().getPimOidcConfigration().getClientId();
+        String clientID;
+        if (getLoginFlow() == LOGIN_FLOW.MIGRATION)
+            clientID = new PIMOIDCConfigration().getMigrationClientId();
+        else
+            clientID = new PIMOIDCConfigration().getClientId();
 
         LogoutRequest logoutRequest = new LogoutRequest(authState, clientID);
         pimRestClient.invokeRequest(logoutRequest, response -> {
@@ -160,7 +164,6 @@ public class PIMUserManager {
             logoutSessionListener.logoutSessionFailed(new Error(PIMErrorEnums.NETWORK_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.NETWORK_ERROR.errorCode)));
         });
     }
-
 
     private void storeUserProfileToSecureStorage(String jsonUserProfileResponse) {
         if (isUUIDAvailable()) {

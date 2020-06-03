@@ -14,7 +14,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:text="PIM Demo App" />
+        android:text="UDI Demo App" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/selectLibrary"
@@ -33,7 +33,7 @@
         android:layout_margin="5dp"
         android:layout_marginBottom="10dp"
         android:onClick="launch"
-        android:text="Launch PIM MicroApp" />
+        android:text="Launch UDI MicroApp" />
 
     <CheckBox
         android:id="@+id/pim_checkbox"
