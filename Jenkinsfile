@@ -554,6 +554,7 @@ def BuildHPFortify() {
         set -e
         chmod -R 755 .
         ./gradlew --refresh-dependencies
+        sourceanalyzer -b ail -clean
         echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
         sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew --full-stacktrace assembleRelease
         echo "*** sourceanalyzer -b ail -scan -f AppInfra_Android.fpr ***"
@@ -561,6 +562,7 @@ def BuildHPFortify() {
         echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
         fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file AppInfra_Android.fpr -project EMS -version AppInfra_Android
 		sleep 5
+        sourceanalyzer -b dcc -clean
         echo "*** sourceanalyzer -b dcc -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
         sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew --full-stacktrace assembleRelease
         echo "*** sourceanalyzer -b dcc -scan -f CC_Android.fpr ***"
@@ -568,6 +570,7 @@ def BuildHPFortify() {
         echo "*** fortifyclient -url https://fortify.philips.com/ssc CC_Android***"
         fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file CC_Android.fpr -project EMS -version CC_Android
         sleep 5
+        sourceanalyzer -b ecs -clean
         echo "*** sourceanalyzer -b ecs -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
         sourceanalyzer -b ecs -source 1.8 -debug-verbose -logfile ECS_Android.txt ./gradlew --full-stacktrace assembleRelease
         echo "*** sourceanalyzer -b ecs -scan -f ECS_Android.fpr ***"
@@ -575,6 +578,7 @@ def BuildHPFortify() {
         echo "*** fortifyclient -url https://fortify.philips.com/ssc ECS_Android***"
         fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file ECS_Android.fpr -project EMS -version ECS_Android
 		sleep 5
+        sourceanalyzer -b iap -clean
         echo "*** sourceanalyzer -b iap -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
         sourceanalyzer -b iap -source 1.8 -debug-verbose -logfile IAP_Android.txt ./gradlew --full-stacktrace assembleRelease
         echo "*** sourceanalyzer -b iap -scan -f IAP_Android.fpr ***"
