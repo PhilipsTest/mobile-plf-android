@@ -1,5 +1,4 @@
-include ':app', ':ecsUApp'
-project(':ecsUApp').projectDir = new File('../DemoUApp')
+include ':app'
 /*
 include ':iap'
 project(':iap').projectDir = new File('../Library/iap')*/
