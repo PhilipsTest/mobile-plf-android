@@ -96,7 +96,7 @@ public class RegisteredProductsRequest extends PrxRequest {
                     @Override
                     public void onSuccess(Map<String, ServiceDiscoveryService> urlMap) {
                         String url = urlMap.get(mServiceId).getConfigUrls();
-                        getAuthoraisationProvider(url, headers);
+                        GetAutoraisationProvider.getAuthoraisationProvider(url, headers,isOidcToken);
                     }
 
                     @Override
@@ -105,27 +105,6 @@ public class RegisteredProductsRequest extends PrxRequest {
                     }
                 },null);
         return headers;
-    }
-
-    private void getAuthoraisationProvider(String url, Map<String, String> headers) {
-        ProdRegLogger.i("Product Registration Request"," isOidcToken "+ isOidcToken);
-
-        if(isOidcToken){
-            if (url.contains(ProdRegConstants.CHINA_DOMAIN)){
-                headers.put(ProdRegConstants.AUTHORIZATION_PROVIDER_KEY, ProdRegConstants.OIDC_AUTHORIZATION_PROVIDER_VAL_CN);
-            } else {
-                headers.put(ProdRegConstants.AUTHORIZATION_PROVIDER_KEY, ProdRegConstants.OIDC_AUTHORIZATION_PROVIDER_VAL_EU);
-                ProdRegLogger.i("Product Registration Request",url+ " does not contain china domain.");
-            }
-        }else{
-            if (url.contains(ProdRegConstants.CHINA_DOMAIN)){
-                headers.put(ProdRegConstants.AUTHORIZATION_PROVIDER_KEY, ProdRegConstants.JANRAIN_AUTHORIZATION_PROVIDER_VAL_CN);
-            } else {
-                headers.put(ProdRegConstants.AUTHORIZATION_PROVIDER_KEY, ProdRegConstants.JANRAIN_AUTHORIZATION_PROVIDER_VAL_EU);
-                ProdRegLogger.i("Product Registration Request",url+ " does not contain china domain.");
-            }
-        }
-
     }
 
 
