@@ -23,8 +23,9 @@ import java.util.*
 
 class FragmentSelector {
 
-    fun getLandingFragment(isHybris: Boolean, mecFlowConfigurator: MECFlowConfigurator ,bundle: Bundle): MecBaseFragment {
+    fun getLandingFragment(isHybris: Boolean, mecFlowConfigurator: MECFlowConfigurator? ,bundle: Bundle): MecBaseFragment {
         var fragment: MecBaseFragment = MECProductCatalogFragment()
+        if(mecFlowConfigurator==null) return fragment
 
         when (mecFlowConfigurator.landingView) {
             MECFlowConfigurator.MECLandingView.MEC_PRODUCT_DETAILS_VIEW -> {

@@ -46,7 +46,7 @@ class MECHandler{
     fun getBundle(mLaunchInput: MECLaunchInput): Bundle {
         val mBundle = Bundle()
         mBundle.putSerializable(MECConstant.FLOW_INPUT, mLaunchInput.flowConfigurator)
-        mBundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, mLaunchInput.flowConfigurator.productCTNs)
+        mBundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, mLaunchInput.flowConfigurator?.productCTNs)
         return mBundle
     }
 
@@ -67,7 +67,7 @@ class MECHandler{
 
         MECDataHolder.INSTANCE.blackListedRetailers = mLaunchInput.blackListedRetailerNames
         getUrl()
-        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(getConfigCallback(mUiLauncher, mMECSetting, mLaunchInput))
+        MECDataHolder.INSTANCE.eCSServices?.configureECSToGetConfiguration(getConfigCallback(mUiLauncher, mMECSetting, mLaunchInput))
     }
 
     internal fun getConfigCallback(mUiLauncher: UiLauncher, mMECSetting: MECSettings, mLaunchInput: MECLaunchInput): ECSCallback<ECSConfig, Exception> {
@@ -80,7 +80,7 @@ class MECHandler{
                     MECDataHolder.INSTANCE.hybrisEnabled = config.isHybris
                 }
                 MECDataHolder.INSTANCE.locale = config.locale
-                MECAnalytics.setCurrencyString(MECDataHolder.INSTANCE.locale)
+                MECAnalytics.setCurrencyString(config.locale)
                 MECDataHolder.INSTANCE.rootCategory = config.rootCategory
                 if (mUiLauncher is ActivityLauncher) {
                     launchMECasActivity(MECDataHolder.INSTANCE.hybrisEnabled, mMECSetting, mUiLauncher, mLaunchInput)
@@ -101,11 +101,11 @@ class MECHandler{
         listOfServiceId.add(IAP_FAQ_URL)
         listOfServiceId.add(IAP_TERMS_URL)
         serviceUrlMapListener = ServiceDiscoveryMapListener()
-        MECDataHolder.INSTANCE.appinfra.serviceDiscovery?.getServicesWithCountryPreference(listOfServiceId as ArrayList<String>, serviceUrlMapListener, null)
+        MECDataHolder.INSTANCE.appinfra?.serviceDiscovery?.getServicesWithCountryPreference(listOfServiceId as ArrayList<String>, serviceUrlMapListener, null)
     }
 
 
-    protected fun launchMECasActivity(isHybris: Boolean , mecSettings: MECSettings,mUiLauncher: UiLauncher,mLaunchInput: MECLaunchInput) {
+    private fun launchMECasActivity(isHybris: Boolean , mecSettings: MECSettings,mUiLauncher: UiLauncher,mLaunchInput: MECLaunchInput) {
         val intent = Intent(mecSettings.context, MECLauncherActivity::class.java)
         val activityLauncher = mUiLauncher as ActivityLauncher
         val bundle = getBundle(mLaunchInput)

@@ -33,6 +33,7 @@ import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.uappframework.launcher.ActivityLauncher
 import com.philips.platform.uappframework.launcher.FragmentLauncher
 import com.philips.platform.uappframework.launcher.UiLauncher
+import com.philips.platform.uappframework.listener.ActionBarListener
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -48,7 +49,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 import java.util.ArrayList
 
 @PowerMockIgnore("javax.net.ssl.*","okhttp3.*")
-@PrepareForTest(MECLaunchInput::class,MECFlowConfigurator::class,MECSettings::class,UiLauncher::class)
+@PrepareForTest(MECLaunchInput::class,MECFlowConfigurator::class,MECSettings::class,UiLauncher::class,ActionBarListener::class)
 @RunWith(PowerMockRunner::class)
 class MECHandlerTest{
 
@@ -186,22 +187,27 @@ class MECHandlerTest{
     @Mock
     lateinit var fragmentLauncherMock: FragmentLauncher
 
+    @Mock
+    lateinit var actionBarListenerMock : ActionBarListener
+
     @Test
     fun `should start fragment on config call back success`() {
         Mockito.`when`(fragmentManagerMock.beginTransaction()).thenReturn(fragmentTransactionMock)
         Mockito.`when`(fragmentActivityMock.supportFragmentManager).thenReturn(fragmentManagerMock)
         Mockito.`when`(fragmentLauncherMock.fragmentActivity).thenReturn(fragmentActivityMock)
+        Mockito.`when`(fragmentLauncherMock.actionbarListener).thenReturn(actionBarListenerMock)
 
         mECSettingMock = MECSettings(contextMock)
 
         mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
-        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, launchInputMock)
+        val configCallback = mecHandler.getConfigCallback(fragmentLauncherMock, mECSettingMock, launchInputMock)
 
         val ecsConfig = ECSConfig()
         ecsConfig.isHybris = true
         ECSConfiguration.INSTANCE.locale = "en_US"
         ecsConfig.rootCategory = "category"
         configCallback.onResponse(ecsConfig)
+        Mockito.verify(fragmentTransactionMock).commitAllowingStateLoss()
     }
 
     fun <T> any(type : Class<T>): T {

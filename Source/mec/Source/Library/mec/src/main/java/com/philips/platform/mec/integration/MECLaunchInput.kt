@@ -31,7 +31,7 @@ class MECLaunchInput : UappLaunchInput(), Serializable {
 
     var mecCartUpdateListener: MECCartUpdateListener? =null
     var blackListedRetailerNames : List<String>? = null
-    var flowConfigurator: MECFlowConfigurator = MECFlowConfigurator()
+    var flowConfigurator: MECFlowConfigurator ?= null
 
     var supportsHybris: Boolean = true
     var supportsRetailer : Boolean = true
