@@ -4,7 +4,11 @@ import android.content.Context;
 
 import com.philips.cdp.registration.User;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
+import com.philips.cdp.registration.controller.HSDPLoginService;
+import com.philips.cdp.registration.controller.LoginTraditional;
+import com.philips.cdp.registration.dao.UserRegistrationFailureInfo;
 import com.philips.cdp.registration.events.JumpFlowDownloadStatusListener;
+import com.philips.cdp.registration.hsdp.HsdpUser;
 import com.philips.cdp.registration.injection.RegistrationComponent;
 import com.philips.cdp.registration.settings.UserRegistrationInitializer;
 
@@ -15,6 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.junit.Assert.assertFalse;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RefreshandUpdateUserHandlerTest extends TestCase {
@@ -30,6 +36,11 @@ public class RefreshandUpdateUserHandlerTest extends TestCase {
     private RegistrationComponent mockRegistrationComponent;
     @Mock
     private JumpFlowDownloadStatusListener jumpFlowDownloadStatusListener;
+    @Mock
+    private HsdpUser hsdpUserMock;
+
+    @Mock
+    private RefreshUserHandler handlerMock;
 
     @Before
     public void setUp() throws Exception {
@@ -73,5 +84,38 @@ public class RefreshandUpdateUserHandlerTest extends TestCase {
         refreshandUpdateUserHandler.onFlowDownloadFailure();
         //  Mockito.verify(refreshUserHandler).onRefreshUserSuccess();
     }
+
+    @Test
+    public void testHsdpSuccess() {
+
+        refreshandUpdateUserHandler.forceHsdpLogin(handlerMock);
+
+
+        hsdpUserMock.login("hsdptest123@mailinator.com", "ztxmpe667xat6t2v", new LoginHandler() {
+            @Override
+            public void onLoginSuccess() {
+                assertTrue(true);
+            }
+
+            @Override
+            public void onLoginFailedWithError(UserRegistrationFailureInfo userRegistrationFailureInfo) {
+                assertTrue(true);
+            }
+        });
+    }
+
+    @Test
+    public void shouldRefreshUserSuccessOnLoginTraditionalSuccess(){
+            refreshandUpdateUserHandler.getLoginTraditional(handlerMock,hsdpUserMock);
+
+
+    }
+
+    @Test
+    public void shouldRefreshUserSuccessOnLoginTraditionalFailure(){
+
+
+    }
+
 
 }

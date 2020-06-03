@@ -24,6 +24,7 @@ import com.philips.cdp.registration.settings.RegistrationHelper;
 import com.philips.cdp.registration.settings.UserRegistrationInitializer;
 import com.philips.cdp.registration.ui.utils.RLog;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 public class RefreshandUpdateUserHandler implements JumpFlowDownloadStatusListener {
@@ -153,24 +154,29 @@ public class RefreshandUpdateUserHandler implements JumpFlowDownloadStatusListen
         Log.d(TAG, "BeforeEmailVerification : accessToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getAccessToken());
         Log.d(TAG, "BeforeEmailVerification : refreshToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getRefreshToken());
         Log.d(TAG, "BeforeEmailVerification : UUID  "+hsdpUser.getHsdpUserRecord().getUserUUID());
-        LoginTraditional loginTraditional = new LoginTraditional(new LoginHandler() {
-            @Override
-            public void onLoginSuccess() {
-                Log.d(TAG, "AfterEmailVerification : accessToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getAccessToken());
-                Log.d(TAG, "AfterEmailVerification : refreshToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getRefreshToken());
-                Log.d(TAG, "AfterEmailVerification : UUID  "+hsdpUser.getHsdpUserRecord().getUserUUID());
-                handler.onRefreshUserSuccess();
-            }
-            @Override
-            public void onLoginFailedWithError(UserRegistrationFailureInfo userRegistrationFailureInfo) {
-                handler.onRefreshUserFailed(userRegistrationFailureInfo.getErrorCode());
-            }
-        }, mContext, null, null);
+        LoginTraditional loginTraditional = getLoginTraditional(handler, hsdpUser);
         if (!registrationConfiguration.isHSDPSkipLoginConfigurationAvailable() && registrationConfiguration.isHsdpFlow()) {
             loginTraditional.loginIntoHsdp();
         }else {
             handler.onRefreshUserSuccess();
         }
+    }
+
+    @NotNull
+    protected LoginTraditional getLoginTraditional(RefreshUserHandler handler, HsdpUser hsdpUser) {
+        return new LoginTraditional(new LoginHandler() {
+                @Override
+                public void onLoginSuccess() {
+                    Log.d(TAG, "AfterEmailVerification : accessToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getAccessToken());
+                    Log.d(TAG, "AfterEmailVerification : refreshToken  "+hsdpUser.getHsdpUserRecord().getAccessCredential().getRefreshToken());
+                    Log.d(TAG, "AfterEmailVerification : UUID  "+hsdpUser.getHsdpUserRecord().getUserUUID());
+                    handler.onRefreshUserSuccess();
+                }
+                @Override
+                public void onLoginFailedWithError(UserRegistrationFailureInfo userRegistrationFailureInfo) {
+                    handler.onRefreshUserFailed(userRegistrationFailureInfo.getErrorCode());
+                }
+            }, mContext, null, null);
     }
 
 
