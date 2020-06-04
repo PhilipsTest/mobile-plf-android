@@ -137,6 +137,7 @@ class MECDataProviderTest{
     @Test(expected = MECException::class)
     fun `should in it ECS SDK and instantiate ECSServices when isHybris available is called`() {
         makeInternetAvailable()
+        MECDataHolder.INSTANCE.hybrisEnabled = false
         mecDataProvider.isHybrisAvailable(mECHybrisAvailabilityListenerMock)
         assertNotNull(MECDataHolder.INSTANCE.eCSServices)
     }
