@@ -14,14 +14,14 @@ import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 
-class SetDeliveryAddressCallBack(private var addressViewModel: AddressViewModel) : com.philips.platform.ecs.integration.ECSCallback<Boolean, Exception> {
+class SetDeliveryAddressCallBack(private var addressViewModel: AddressViewModel) : ECSCallback<Boolean, Exception> {
 
     var mECRequestType : MECRequestType?=MECRequestType.MEC_SET_DELIVERY_ADDRESS
     override fun onResponse(isSetDeliveryAddress: Boolean) {
         addressViewModel.isDeliveryAddressSet.value = isSetDeliveryAddress
     }
 
-    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: ECSError?) {
         val mecError = MecError(error, ecsError,mECRequestType)
         addressViewModel.mecError.value = mecError
         addressViewModel.isDeliveryAddressSet.value =false

@@ -16,6 +16,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.shoppingCartPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -52,7 +54,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     private lateinit var addressViewModel: AddressViewModel
 
 
-    private var mAddressList: List<com.philips.platform.ecs.model.address.ECSAddress>? = null
+    private var mAddressList: List<ECSAddress>? = null
 
     var mRootView: View? = null
 
@@ -81,7 +83,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     val list: ArrayList<String> = ArrayList()
     var mAtomicBoolean: AtomicBoolean = AtomicBoolean(true) // default false
 
-    private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> { ecsShoppingCart ->
+    private val cartObserver: Observer<ECSShoppingCart> = Observer<ECSShoppingCart> { ecsShoppingCart ->
         binding.shoppingCart = ecsShoppingCart
         shoppingCart = ecsShoppingCart!!
 
@@ -197,7 +199,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     }
 
 
-    private val addressObserver: Observer<List<com.philips.platform.ecs.model.address.ECSAddress>> = Observer(fun(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
+    private val addressObserver: Observer<List<ECSAddress>> = Observer(fun(addressList: List<ECSAddress>?) {
 
         mAddressList = addressList
         if (productsAdapter!!.itemCount > 0) {
@@ -221,7 +223,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         replaceFragment(addAddressFragment, addAddressFragment.getFragmentTag(), true)
     }
 
-    private fun gotoDeliveryAddress(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
+    private fun gotoDeliveryAddress(addressList: List<ECSAddress>?) {
         val deliveryFragment = MECDeliveryFragment()
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.KEY_ECS_ADDRESSES, addressList as Serializable)

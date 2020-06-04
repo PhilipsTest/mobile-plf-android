@@ -16,7 +16,7 @@ import com.philips.platform.mec.databinding.MecAddressCardBinding
 
 class AddressBottomSheetViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root){
 
-    fun bind(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
+    fun bind(ecsAddress: ECSAddress) {
         val mecAddressCardBinding = binding as MecAddressCardBinding
         mecAddressCardBinding.ecsAddress = ecsAddress
     }

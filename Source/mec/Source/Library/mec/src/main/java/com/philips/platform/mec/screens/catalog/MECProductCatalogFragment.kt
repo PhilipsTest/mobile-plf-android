@@ -33,7 +33,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.model.products.ECSProducts
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.productCataloguePage
@@ -52,7 +51,6 @@ import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uid.view.widget.Label
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.collections.ArrayList
 
 
 /**
@@ -126,7 +124,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     var totalProductsTobeSearched: Int = 0
 
 
-    private val productObserver: Observer<MutableList<com.philips.platform.ecs.model.products.ECSProducts>> = Observer<MutableList<com.philips.platform.ecs.model.products.ECSProducts>>(fun(ecsProductsList: MutableList<com.philips.platform.ecs.model.products.ECSProducts>?) {
+    private val productObserver: Observer<MutableList<ECSProducts>> = Observer<MutableList<ECSProducts>>(fun(ecsProductsList: MutableList<ECSProducts>?) {
         if (!ecsProductsList.isNullOrEmpty()) {
 
             totalPages = ecsProductsList.get(ecsProductsList.size - 1).pagination?.totalPages ?: 0

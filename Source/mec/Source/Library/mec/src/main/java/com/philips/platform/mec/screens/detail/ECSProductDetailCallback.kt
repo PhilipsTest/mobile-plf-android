@@ -15,14 +15,14 @@ import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 
-class ECSProductDetailCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel)  : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.products.ECSProduct, Exception> {
+class ECSProductDetailCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel)  : ECSCallback<ECSProduct, Exception> {
     lateinit var mECRequestType : MECRequestType
-    override fun onResponse(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct?) {
+    override fun onResponse(ecsProduct: ECSProduct?) {
         ecsProductDetailViewModel.ecsProduct
         ecsProductDetailViewModel.ecsProduct.value = ecsProduct
     }
 
-    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: ECSError?) {
         val mecError = MecError(error, ecsError,mECRequestType)
         ecsProductDetailViewModel.mecError.value = mecError
     }

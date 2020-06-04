@@ -13,19 +13,19 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class ECSVoucherCallback(private var ecsShoppingCartViewModel: EcsShoppingCartViewModel) : com.philips.platform.ecs.integration.ECSCallback<List<com.philips.platform.ecs.model.voucher.ECSVoucher>, Exception> {
+class ECSVoucherCallback(private var ecsShoppingCartViewModel: EcsShoppingCartViewModel) : ECSCallback<List<ECSVoucher>, Exception> {
     lateinit var mECRequestType :MECRequestType
-    override fun onResponse(ecsVoucher: List<com.philips.platform.ecs.model.voucher.ECSVoucher>?) {
+    override fun onResponse(ecsVoucher: List<ECSVoucher>?) {
         ecsShoppingCartViewModel.tagApplyOrDeleteVoucher(mECRequestType)
         ecsShoppingCartViewModel.getShoppingCart()
     }
 
-    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: ECSError?) {
         when {
             MECutility.isAuthError(ecsError) -> {
                 ecsShoppingCartViewModel.retryAPI(mECRequestType)
             }
-            ecsError!!.errorcode== com.philips.platform.ecs.error.ECSErrorEnum.ECSUnsupportedVoucherError.errorCode -> {
+            ecsError!!.errorcode== ECSErrorEnum.ECSUnsupportedVoucherError.errorCode -> {
                 val mecError = MecError(error, ecsError,mECRequestType )
                 ecsShoppingCartViewModel.mecError.value = mecError
             }
