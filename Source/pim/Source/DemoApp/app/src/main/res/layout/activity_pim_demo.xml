@@ -14,36 +14,58 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:text="UDI Demo App" />
+        android:textSize="18sp"
+        android:textColor="@color/uidColorBlack"
+        android:text="PIM Demo App" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/selectLibrary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Switch
+        android:id="@+id/enableMigrationSwitch"
         android:layout_below="@id/pim_txtview"
-        android:layout_centerInParent="true"
-        android:layout_margin="5dp" />
-
-    <com.philips.platform.uid.view.widget.Button
-        android:id="@+id/launch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/selectLibrary"
-        android:layout_centerInParent="true"
+        android:text="Test Migration"
+        android:switchPadding="20dp"
         android:layout_margin="5dp"
-        android:layout_marginBottom="10dp"
-        android:onClick="launch"
-        android:text="Launch UDI MicroApp" />
+        android:textSize="14sp"
+        android:textColor="@color/uidColorBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <CheckBox
         android:id="@+id/pim_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/launch"
-        android:layout_marginStart="@dimen/reg_dimen_8dp"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/enableMigrationSwitch"
+        android:layout_margin="5dp"
+        android:textSize="14dp"
         android:checked="false"
+        android:paddingStart="30dp"
+        android:layoutDirection="rtl"
         android:text="Enable Chuck"/>
+
+    <Spinner
+        android:id="@+id/selectLibrary"
+        android:spinnerMode="dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pim_checkbox"
+        android:layout_marginLeft="5dp" />
+
+
+    <Spinner
+        android:id="@+id/spinner_CountrySelection"
+        android:spinnerMode="dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selectLibrary"
+        android:layout_marginLeft="5dp" />
+
+    <com.philips.platform.uid.view.widget.Button
+        android:id="@+id/launch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_CountrySelection"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:text="Launch Registration" />
 
     <ProgressBar
         android:layout_centerInParent="true"

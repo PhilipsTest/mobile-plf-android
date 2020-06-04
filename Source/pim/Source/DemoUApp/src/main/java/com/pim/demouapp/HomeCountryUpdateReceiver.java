@@ -21,11 +21,11 @@ public class HomeCountryUpdateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(ServiceDiscoveryInterface.AIL_SERVICE_DISCOVERY_HOMECOUNTRY_CHANGE_ACTION)) {
+       /* if (intent.getAction().equals(ServiceDiscoveryInterface.AIL_SERVICE_DISCOVERY_HOMECOUNTRY_CHANGE_ACTION)) {
             String countryCode = (String) intent.getExtras().get(AIL_HOME_COUNTRY);
             Toast.makeText(context, "Home country updated to " + countryCode, Toast.LENGTH_SHORT).show();
             Log.v(getClass() + "", "Home country changed to " + countryCode);
             uAppInterface.init(new PIMDemoUAppDependencies(mAppInfraInterface), new PIMDemoUAppSettings(context));
-        }
+        }*/
     }
 }

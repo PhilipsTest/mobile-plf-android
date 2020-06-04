@@ -22,12 +22,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp" />
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinner_CountrySelection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/appversion"
-                android:layout_margin="5dp" />
 
             <com.philips.platform.uid.view.widget.Label
                 android:id="@+id/spinner_Text"
@@ -35,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/appversion"
                 android:visibility="gone"
+                android:layout_marginTop="15dp"
                 android:layout_margin="5dp" />
 
             <com.philips.platform.uid.view.widget.Button
@@ -126,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn_InvalidateUDIToken"
                 android:layout_centerInParent="true"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_margin="2dp"
                 android:text="Launch PR" />
 

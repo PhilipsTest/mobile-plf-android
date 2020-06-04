@@ -41,4 +41,6 @@ public class UappDependencies implements Serializable {
     public AppInfraInterface getAppInfra() {
         return mAppInfraInterface;
     }
+
+
 }

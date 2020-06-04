@@ -12,7 +12,7 @@ import com.philips.platform.pim.PIMInterface;
 
 public class PIMDemoUAppApplication extends Application {
 
-    private static PIMDemoUAppApplication instance;
+   /* private static PIMDemoUAppApplication instance;
     @NonNull
     private AppInfraInterface appInfraInterface;
     private UserDataInterface userDataInterface;
@@ -60,6 +60,6 @@ public class PIMDemoUAppApplication extends Application {
 
     public PIMInterface getPIMInterface(){
         return pimInterface;
-    }
+    }*/
 
 }
