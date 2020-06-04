@@ -28,14 +28,14 @@ import androidx.fragment.app.Fragment;
 import com.ecs.demotestuapp.integration.EcsDemoTestAppSettings;
 import com.ecs.demotestuapp.integration.EcsDemoTestUAppDependencies;
 import com.ecs.demotestuapp.integration.EcsDemoTestUAppInterface;
-import com.ecs.demouapp.integration.EcsLaunchInput;
-import com.ecs.demouapp.ui.utils.NetworkUtility;
+import com.ecs.demotestuapp.integration.EcsTestLaunchInput;
 import com.philips.cdp.di.iap.integration.IAPDependencies;
 import com.philips.cdp.di.iap.integration.IAPFlowInput;
 import com.philips.cdp.di.iap.integration.IAPInterface;
 import com.philips.cdp.di.iap.integration.IAPLaunchInput;
 import com.philips.cdp.di.iap.integration.IAPListener;
 import com.philips.cdp.di.iap.integration.IAPSettings;
+import com.philips.cdp.di.iap.utils.NetworkUtility;
 import com.philips.cdp.prodreg.util.ProgressAlertDialog;
 import com.philips.cdp.registration.configuration.RegistrationLaunchMode;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
@@ -573,7 +573,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private void launchECS() {
         iapDemoUAppInterface = new EcsDemoTestUAppInterface();
         iapDemoUAppInterface.init(new EcsDemoTestUAppDependencies(appInfraInterface), new EcsDemoTestAppSettings(this));
-        iapDemoUAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), new EcsLaunchInput());
+        iapDemoUAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), new EcsTestLaunchInput());
     }
 
     private void launchMECasFragment(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {

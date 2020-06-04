@@ -11,7 +11,7 @@ package com.philips.platform.mec.screens.retailers
 
 import com.philips.platform.ecs.ECSServices
 
-class ECSRetailersRepository(private val ecsServices: com.philips.platform.ecs.ECSServices, private val ecsRetailerViewModel: ECSRetailerViewModel) {
+class ECSRetailersRepository(private val ecsServices: ECSServices, private val ecsRetailerViewModel: ECSRetailerViewModel) {
 
     var eCSRetailerListCallback = ECSRetailerListCallback(ecsRetailerViewModel)
 
