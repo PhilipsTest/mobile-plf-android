@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">עקוב אחר הזמנה</string>
   <string name="mec_accept_terms">על ידי ביצוע ההזמנה, אני מקבל את תנאי Philips</string>
   <string name="mec_accepted_codes">קודים מקובלים</string>
   <string name="mec_add">הוסף</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">תוכל לבטל את ההזמנה לפני המשלוח. צוות הטיפול בלקוח יוכל לסייע לך בכך.</string>
   <string name="mec_cancel_order_number">בטל הזמנה מס\' </string>
   <string name="mec_cancel_payment">האם ברצונך לבטל את התשלום? העגלה שלך תהיה ריקה.</string>
-  <string name="mec_cancel_your_order">[he]Cancel your order</string>
+  <string name="mec_cancel_your_order">בטל את ההזמנה שלך</string>
   <string name="mec_card_holder_first_name">השם הפרטי של בעל הכרטיס</string>
   <string name="mec_card_holder_last_name">שם המשפחה של בעל הכרטיס</string>
   <string name="mec_cart_count_exceed_message">לא ניתן להוסיף יותר מ-%d מוצרים לעגלה</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">אישור</string>
   <string name="mec_online_retailers">קמעונאים מקוונים</string>
   <string name="mec_only">בלבד</string>
-  <string name="mec_order_detail_unavailable">[he]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">פרטי ההזמנה אינם זמינים</string>
   <string name="mec_order_details">פרטי הזמנה</string>
   <string name="mec_order_not_received_items">ההזמנה לא נקלטה</string>
   <string name="mec_order_number_msg">מספר הזמנה: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">עיר / יישוב</string>
   <string name="mec_town_error">הזן עיר תקפה</string>
   <string name="mec_town_hint">הזן את עיר מגוריך</string>
+  <string name="mec_track_order">עקוב אחר הזמנה</string>
   <string name="mec_use_as_billing_address">השתמש בכתובת זו ככתובת שלי לחיוב</string>
   <string name="mec_valid_until">תקף עד</string>
   <string name="mec_your_order_number">מס\' הזמנתך הוא</string>

@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Відстежити замовлення</string>
   <string name="mec_accept_terms">Розміщуючи замовлення, я приймаю такі умови Philips:</string>
   <string name="mec_accepted_codes">Прийняті коди</string>
   <string name="mec_add">Додати</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Ви можете скасувати замовлення перед тим, як його буде відправлено. Наша команда обслуговування клієнтів рада допомогти Вам у цьому.</string>
   <string name="mec_cancel_order_number">Скасувати номер замовлення </string>
   <string name="mec_cancel_payment">Скасувати оплату? Кошик для покупок буде порожній.</string>
-  <string name="mec_cancel_your_order">[uk]Cancel your order</string>
+  <string name="mec_cancel_your_order">Скасуйте замовлення</string>
   <string name="mec_card_holder_first_name">Ім’я власника картки</string>
   <string name="mec_card_holder_last_name">Прізвище власника картки</string>
   <string name="mec_cart_count_exceed_message">Неможливо додати більше %d виробів у кошик</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Магазини онлайн</string>
   <string name="mec_only">Лише</string>
-  <string name="mec_order_detail_unavailable">[uk]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Деталі замовлення недоступні</string>
   <string name="mec_order_details">Деталі замовлення</string>
   <string name="mec_order_not_received_items">Замовлення не отримано</string>
   <string name="mec_order_number_msg">Номер замовлення: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Населений пункт/місто</string>
   <string name="mec_town_error">Введіть дійсний населений пункт</string>
   <string name="mec_town_hint">Введіть свій населений пункт чи місто</string>
+  <string name="mec_track_order">Відстежити замовлення</string>
   <string name="mec_use_as_billing_address">Використовувати цю адресу як мою адресу для надсилання рахунку</string>
   <string name="mec_valid_until">Дійсно до</string>
   <string name="mec_your_order_number">Номер Вашого замовлення –</string>

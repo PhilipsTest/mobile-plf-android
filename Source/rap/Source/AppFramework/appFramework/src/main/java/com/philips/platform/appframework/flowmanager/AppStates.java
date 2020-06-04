@@ -27,7 +27,6 @@ public class AppStates {
     public static final String COCO_VERSION_INFO="coco_version_info";
     public static final String TESTIAP="demoInAppState";
     public static final String TESTMEC="demoMecState";
-    public static final String TESTECS="demoEcsState";
     public static final String TESTECSTEST="demoEcsTestState";
     public static final String TESTPIM="demoPimState";
     public static final String TESTAPPINFRA="AppInfra";

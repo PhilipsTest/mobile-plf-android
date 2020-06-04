@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Spor bestillingen</string>
   <string name="mec_accept_terms">Ved å legge inn bestillingen godtar jeg Philips’</string>
   <string name="mec_accepted_codes">Godkjente koder</string>
   <string name="mec_add">Legg til</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Du kan avbryte bestillingen før den sendes. Forbrukerteamet vårt kan hjelpe deg med dette.</string>
   <string name="mec_cancel_order_number">Avbryt bestillingsnummer </string>
   <string name="mec_cancel_payment">Vil du avbryte betalingen? Handlevognen vil bli tømt.</string>
-  <string name="mec_cancel_your_order">[nb]Cancel your order</string>
+  <string name="mec_cancel_your_order">Kanseller bestillingen</string>
   <string name="mec_card_holder_first_name">Kortholderens fornavn</string>
   <string name="mec_card_holder_last_name">Kortholderens etternavn</string>
   <string name="mec_cart_count_exceed_message">Kan ikke legge til flere enn %d produkter i handlekurven</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">Ok</string>
   <string name="mec_online_retailers">Nettbutikker</string>
   <string name="mec_only">Bare</string>
-  <string name="mec_order_detail_unavailable">[nb]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Bestillingsopplysningen er ikke tilgjengelig</string>
   <string name="mec_order_details">Bestillingsopplysninger</string>
   <string name="mec_order_not_received_items">Bestilling ikke mottatt</string>
   <string name="mec_order_number_msg">Bestillingsnummer: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">By/sted</string>
   <string name="mec_town_error">Angi et gyldig poststed</string>
   <string name="mec_town_hint">Angi by eller sted</string>
+  <string name="mec_track_order">Spor bestillingen</string>
   <string name="mec_use_as_billing_address">Bruk denne adressen som fakturaadresse</string>
   <string name="mec_valid_until">Gyldig til</string>
   <string name="mec_your_order_number">Bestillingsnummeret er</string>

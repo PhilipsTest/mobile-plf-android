@@ -28,14 +28,14 @@ import androidx.fragment.app.Fragment;
 import com.ecs.demotestuapp.integration.EcsDemoTestAppSettings;
 import com.ecs.demotestuapp.integration.EcsDemoTestUAppDependencies;
 import com.ecs.demotestuapp.integration.EcsDemoTestUAppInterface;
-import com.ecs.demouapp.integration.EcsLaunchInput;
-import com.ecs.demouapp.ui.utils.NetworkUtility;
+import com.ecs.demotestuapp.integration.EcsTestLaunchInput;
 import com.philips.cdp.di.iap.integration.IAPDependencies;
 import com.philips.cdp.di.iap.integration.IAPFlowInput;
 import com.philips.cdp.di.iap.integration.IAPInterface;
 import com.philips.cdp.di.iap.integration.IAPLaunchInput;
 import com.philips.cdp.di.iap.integration.IAPListener;
 import com.philips.cdp.di.iap.integration.IAPSettings;
+import com.philips.cdp.di.iap.utils.NetworkUtility;
 import com.philips.cdp.prodreg.util.ProgressAlertDialog;
 import com.philips.cdp.registration.configuration.RegistrationLaunchMode;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
@@ -71,6 +71,7 @@ import com.philips.platform.pim.PIMInterface;
 import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.pim.UDIRedirectReceiverActivity;
+import com.philips.platform.pim.errors.PIMErrorCodes;
 import com.philips.platform.pim.listeners.UserLoginListener;
 import com.philips.platform.pim.listeners.UserMigrationListener;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
@@ -271,7 +272,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             userDataInterface = uAppApplication.getUserDataInterface();
         } else {
             isUSR = false;
-            Log.i(TAG, "Selected Liberary : PIM");
+            Log.i(TAG, "Selected Liberary : UDI");
             userDataInterface = uAppApplication.getUserDataInterface();
             pimInterface = uAppApplication.getPIMInterface();
             if (pimInterface != null)
@@ -375,15 +376,18 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             }
         } else if (v == btnLogout) {
             if (isUserLoggedIn()) {
+                showProgressDialog();
                 userDataInterface.logoutSession(new LogoutSessionListener() {
                     @Override
                     public void logoutSessionSuccess() {
+                        cancelProgressDialog();
                         showToast("Logout Success");
                         finish();
                     }
 
                     @Override
                     public void logoutSessionFailed(Error error) {
+                        cancelProgressDialog();
                         showToast("Logout Failed with error code " + error.getErrCode());
                     }
                 });
@@ -486,7 +490,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onRefetchFailure(Error error) {
                         cancelProgressDialog();
-                        showToast("Refetch failed with error code : " + error.getErrCode());
+                        if (error != null && error.getErrCode() == PIMErrorCodes.ACCESS_TOKEN_EXPIRED)
+                            showToast("Refetch failed due to due to expired access token.");
+                        else
+                            showToast("Refetch failed with error code : " + error.getErrCode());
                     }
                 });
             } else {
@@ -552,7 +559,10 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 @Override
                 public void onUpdateFailedWithError(Error error) {
                     cancelProgressDialog();
-                    showToast("Updating marketing opted-in failed with error code : " + error.getErrCode());
+                    if (error != null && error.getErrCode() == PIMErrorCodes.ACCESS_TOKEN_EXPIRED)
+                        showToast("Updating marketing opted-in failed due to expired access token.");
+                    else
+                        showToast("Updating marketing opted-in failed with error code : " + error.getErrCode());
                     updateMarketingOptinStatus();
                 }
             }, marketingOptedSwitch.isChecked());
@@ -563,7 +573,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private void launchECS() {
         iapDemoUAppInterface = new EcsDemoTestUAppInterface();
         iapDemoUAppInterface.init(new EcsDemoTestUAppDependencies(appInfraInterface), new EcsDemoTestAppSettings(this));
-        iapDemoUAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), new EcsLaunchInput());
+        iapDemoUAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), new EcsTestLaunchInput());
     }
 
     private void launchMECasFragment(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {
@@ -712,7 +722,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         android.widget.Button button = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
         ViewGroup.LayoutParams params = button.getLayoutParams();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        button.setBackgroundColor(getResources().getColor(R.color.uid_blue_level_50,null));
+        button.setBackgroundColor(getResources().getColor(R.color.uid_blue_level_50, null));
         button.setTextColor(getResources().getColor(R.color.uidColorWhite, null));
         button.setTextSize(18);
         button.setLayoutParams(params);

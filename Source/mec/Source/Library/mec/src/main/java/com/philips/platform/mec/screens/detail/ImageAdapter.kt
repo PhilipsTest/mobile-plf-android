@@ -16,7 +16,7 @@ import androidx.viewpager.widget.PagerAdapter
 import com.philips.platform.ecs.model.asset.Asset
 import com.philips.platform.mec.databinding.MecImagePagerItemBinding
 
-class ImageAdapter(val assets: List<com.philips.platform.ecs.model.asset.Asset>) : PagerAdapter() {
+class ImageAdapter(val assets: List<Asset>) : PagerAdapter() {
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view === `object`
