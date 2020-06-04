@@ -9,8 +9,9 @@
  */
 package com.philips.platform.mec.screens.payment
 
+import com.philips.platform.ecs.model.payment.ECSPayment
 import java.io.Serializable
 
-class MECPayment (var ecsPayment: com.philips.platform.ecs.model.payment.ECSPayment): Serializable{
+class MECPayment (var ecsPayment: ECSPayment): Serializable{
     var isSelected: Boolean =false
 }

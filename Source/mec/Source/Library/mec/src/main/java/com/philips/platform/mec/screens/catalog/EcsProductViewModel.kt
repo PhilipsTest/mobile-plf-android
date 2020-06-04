@@ -18,6 +18,8 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
+import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.model.products.ECSProducts
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
@@ -25,7 +27,7 @@ import com.philips.platform.uid.view.widget.Label
 
 class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
-    var ecsProductsList = MutableLiveData<MutableList<com.philips.platform.ecs.model.products.ECSProducts>>()
+    var ecsProductsList = MutableLiveData<MutableList<ECSProducts>>()
 
     val ecsProductsReviewList = MutableLiveData<MutableList<MECProductReview>>()
 
@@ -54,7 +56,7 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
         ecsCatalogRepository.getCategorizedProducts(pageNumber, pageSize,ctns.size, ctns,this.ecsProductsList.value, this)
     }
 
-    fun fetchProductReview(products: List<com.philips.platform.ecs.model.products.ECSProduct>) {
+    fun fetchProductReview(products: List<ECSProduct>) {
         ecsCatalogRepository.fetchProductReview(products, this)
     }
 
@@ -64,7 +66,7 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
         @JvmStatic
         @BindingAdapter("setPriceInfo")
-        fun setPriceInfo(priceLabel: Label, product: com.philips.platform.ecs.model.products.ECSProduct) {
+        fun setPriceInfo(priceLabel: Label, product: ECSProduct) {
             val textSize16 = priceLabel.context.getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_discount_price_label_size);
             val textSize12 = priceLabel.context.getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_price_label_size);
             if (product!=null && product.discountPrice!=null && product.discountPrice.formattedValue != null && product.discountPrice.formattedValue.length > 0 && (product.price.value - product.discountPrice.value) > 0) {

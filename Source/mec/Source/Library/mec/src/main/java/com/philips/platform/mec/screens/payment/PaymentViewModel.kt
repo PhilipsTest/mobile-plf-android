@@ -10,6 +10,9 @@
 package com.philips.platform.mec.screens.payment
 
 import androidx.lifecycle.MutableLiveData
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
+import com.philips.platform.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 
@@ -17,9 +20,9 @@ class PaymentViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
     var mecPayments = MutableLiveData<MECPayments>()
 
-    var ecsOrderDetail = MutableLiveData<com.philips.platform.ecs.model.orders.ECSOrderDetail>()
+    var ecsOrderDetail = MutableLiveData<ECSOrderDetail>()
 
-    var eCSPaymentProvider = MutableLiveData<com.philips.platform.ecs.model.payment.ECSPaymentProvider>()
+    var eCSPaymentProvider = MutableLiveData<ECSPaymentProvider>()
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
@@ -34,9 +37,9 @@ class PaymentViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
     var mCVV :String? =null
 
-    lateinit var  mOrderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail
+    lateinit var  mOrderDetail: ECSOrderDetail
 
-    lateinit var  mBillingAdress: com.philips.platform.ecs.model.address.ECSAddress
+    lateinit var  mBillingAdress: ECSAddress
 
     fun fetchPaymentDetails(){
         paymentListCallback.mECRequestType=MECRequestType.MEC_FETCH_PAYMENT_DETAILS
@@ -49,7 +52,7 @@ class PaymentViewModel : com.philips.platform.mec.common.CommonViewModel() {
         paymentRepository.submitOrder(cvv,submitOrderCallback)
     }
 
-    fun makePayment(orderDetail: com.philips.platform.ecs.model.orders.ECSOrderDetail, billingAddress: com.philips.platform.ecs.model.address.ECSAddress){
+    fun makePayment(orderDetail: ECSOrderDetail, billingAddress: ECSAddress){
         mOrderDetail=orderDetail
         mBillingAdress =billingAddress
 

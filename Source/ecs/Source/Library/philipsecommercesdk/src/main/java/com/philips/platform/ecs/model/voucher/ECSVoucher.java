@@ -45,6 +45,10 @@ public class ECSVoucher implements Serializable {
         return valueString;
     }
 
+    public void setVoucherCode(String voucherCode) {
+        this.voucherCode = voucherCode;
+    }
+
     public String getVoucherCode() {
         return voucherCode;
     }
