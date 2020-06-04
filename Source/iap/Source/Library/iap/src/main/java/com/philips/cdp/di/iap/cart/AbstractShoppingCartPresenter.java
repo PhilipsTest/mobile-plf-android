@@ -121,7 +121,7 @@ public abstract class AbstractShoppingCartPresenter implements ShoppingCartAPI {
                             model.getClass().getSimpleName() + " " + model.getUrl().substring(0, 20));
                 }
                 if (error != null && error.getMessage() != null) {
-                    IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+                    IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                             IAPAnalyticsConstant.ERROR, error.getMessage());
                 }
                 if (model != null) {
@@ -172,7 +172,7 @@ public abstract class AbstractShoppingCartPresenter implements ShoppingCartAPI {
 
 
     private void trackRetailer(String pCtn) {
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                 IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.WTB + String.valueOf(pCtn) + "_" + IAPAnalyticsConstant.NO_RETAILER_FOUND);
     }
 

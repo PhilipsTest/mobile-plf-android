@@ -75,7 +75,7 @@ public class LocalProductCatalog implements ProductCatalogAPI, AbstractModel.Dat
         if (msg.obj instanceof IAPNetworkError)
             mProductCatalogListener.onLoadError((IAPNetworkError) msg.obj);
         else {
-            IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+            IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                     IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + IAPAnalyticsConstant.NO_PRODUCT_FOUND);
 
             mProductCatalogListener.onLoadError(NetworkUtility.getInstance()

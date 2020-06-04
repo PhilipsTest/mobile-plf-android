@@ -171,7 +171,7 @@ public class ProductCatalogPresenter implements ProductCatalogAPI, AbstractModel
     }
 
     private void trackNoProductFoundInPRX() {
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                 IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + IAPAnalyticsConstant.NO_PRODUCT_FOUND);
     }
 

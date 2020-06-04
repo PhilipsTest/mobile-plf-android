@@ -52,6 +52,15 @@ public class IAPAnalytics {
                     trackActionWithInfo(state, key, valueObject);
     }
 
+    public static void trackErrorWithPrefix(String state, String key, Object value) {
+        String valueObject = "IAP:".concat((String) value);
+        IAPLog.i(IAPLog.LOG, "trackAction" + valueObject);
+        if (sAppTaggingInterface != null)
+            sAppTaggingInterface.
+                    trackActionWithInfo(state, key, valueObject);
+    }
+
+
     public static void trackMultipleActions(String state, Map<String, String> map) {
         if (sAppTaggingInterface != null)
             sAppTaggingInterface.

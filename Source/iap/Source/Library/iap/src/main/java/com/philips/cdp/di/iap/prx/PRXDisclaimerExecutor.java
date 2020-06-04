@@ -70,7 +70,7 @@ public class PRXDisclaimerExecutor {
     }
 
     protected void notifyError(final String ctn, final int errorCode, final String error) {
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                 IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + ctn + "_" + errorCode + error);
         mProductDisclaimerListener.onFetchProductDisclaimerFailure(error);
     }

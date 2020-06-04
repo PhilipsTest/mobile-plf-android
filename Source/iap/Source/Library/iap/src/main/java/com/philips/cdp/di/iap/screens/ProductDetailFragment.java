@@ -11,12 +11,6 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
-
-import androidx.fragment.app.FragmentManager;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import com.philips.cdp.di.iap.R;
 import com.philips.cdp.di.iap.activity.IAPActivity;
 import com.philips.cdp.di.iap.adapters.ImageAdapter;
@@ -143,7 +142,6 @@ public class ProductDetailFragment extends InAppBaseFragment implements
     };
 
 
-
     public static ProductDetailFragment createInstance(Bundle args, AnimationType animType) {
         final ProductDetailFragment fragment = new ProductDetailFragment();
         args.putInt(NetworkConstants.EXTRA_ANIMATIONTYPE, animType.ordinal());
@@ -234,10 +232,10 @@ public class ProductDetailFragment extends InAppBaseFragment implements
         String productPrice = "";
         final HashMap<String, String> contextData = new HashMap<>();
         StringBuilder product = new StringBuilder();
-        int stockCount = mBundle.getInt(IAPConstant.PRODUCT_STOCK,0);
+        int stockCount = mBundle.getInt(IAPConstant.PRODUCT_STOCK, 0);
 
         if (mBundle.getString(IAPConstant.PRODUCT_VALUE_PRICE) != null) {
-            productPrice = mBundle.getString(IAPConstant.PRODUCT_VALUE_PRICE,"0.0");
+            productPrice = mBundle.getString(IAPConstant.PRODUCT_VALUE_PRICE, "0.0");
         }
         product = product.append(IAPAnalytics.mCategory).append(";")
                 .append(mCTNValue).append(";")
@@ -265,7 +263,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
             }
             mImageAdapter = new ImageAdapter(mContext, mAsset);
             //This clause is added to populate the viewpager at least once , So that default image can be loaded .
-            if(mAsset.size() == 0){
+            if (mAsset.size() == 0) {
                 mAsset.add("default image");
             }
             if (mAsset == null) {
@@ -327,7 +325,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
 
                         mQuantity.setText(quantity + "");
                         int stock = getArguments().getInt(IAPConstant.PRODUCT_STOCK);
-                        if(stock > 50){
+                        if (stock > 50) {
                             stock = 50;
                         }
                         bindCountView(mQuantity, stock, quantity);
@@ -426,8 +424,8 @@ public class ProductDetailFragment extends InAppBaseFragment implements
             mAddToCart.setVisibility(View.VISIBLE);
             mAddToCart.setOnClickListener(this);
             setCartIconVisibility(true);
-            if(isUserLoggedIn())
-            mShoppingCartAPI.getProductCartCount(mContext, mProductCountListener);
+            if (isUserLoggedIn())
+                mShoppingCartAPI.getProductCartCount(mContext, mProductCountListener);
         }
         mBuyFromRetailers.setOnClickListener(this);
         mBuyFromRetailers.setVisibility(View.VISIBLE);
@@ -466,15 +464,14 @@ public class ProductDetailFragment extends InAppBaseFragment implements
                 onRetailerError(NetworkUtility.getInstance().
                         createIAPErrorMessage("", mContext.getString(R.string.iap_no_retailer_message)));
             } else {
-                bundle.putString("productCTN",mCTNValue);
+                bundle.putString("productCTN", mCTNValue);
                 bundle.putString("productPrice", mBundle.getString(IAPConstant.IAP_PRODUCT_DISCOUNTED_PRICE));
-                bundle.putInt("productStock",mBundle.getInt(IAPConstant.STOCK_LEVEL));
+                bundle.putInt("productStock", mBundle.getInt(IAPConstant.STOCK_LEVEL));
                 addFragment(BuyFromRetailersFragment.createInstance(bundle, AnimationType.NONE),
                         BuyFromRetailersFragment.TAG, true);
             }
         }
     }
-
 
 
     @SuppressWarnings("unchecked")
@@ -486,7 +483,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
         IAPLog.d(IAPConstant.PRODUCT_DETAIL_FRAGMENT, "Success");
         mAsset = (ArrayList<String>) msg.obj;
         CartModelContainer.getInstance().addProductAsset(mCTNValue, mAsset);
-        if(mAsset.size() == 0){
+        if (mAsset.size() == 0) {
             mAsset.add("default image");
         }
         mImageAdapter = new ImageAdapter(mContext, mAsset);
@@ -510,8 +507,8 @@ public class ProductDetailFragment extends InAppBaseFragment implements
         }
         if (msg.obj instanceof IAPNetworkError) {
             NetworkUtility.getInstance().showErrorMessage(msg, getFragmentManager(), mContext);
-        }else{
-        
+        } else {
+
             new NetworkUtility().showDialogMessage(getContext().getString(R.string.iap_shopping_cart_dls), mContext.getString(R.string.iap_no_product_available), getFragmentManager(), getContext(), new AlertListener() {
                 @Override
                 public void onPositiveBtnClick() {
@@ -534,12 +531,12 @@ public class ProductDetailFragment extends InAppBaseFragment implements
 
     void buyProduct(final String ctnNumber) {
 
-        if(isUserLoggedIn()) {
+        if (isUserLoggedIn()) {
             if (!mAddToCart.isActivated()) {
                 mAddToCart.showProgressIndicator();
             }
             mShoppingCartAPI.buyProduct(mContext, ctnNumber, mBuyProductListener);
-        }else{
+        } else {
             showLogInDialog();
         }
     }
@@ -709,7 +706,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
     }
 
     private void trackErrorTag(String value) {
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                 IAPAnalyticsConstant.ERROR, value);
     }
 
@@ -904,7 +901,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
 
     }
 
-    private void showLogInDialog(){
+    private void showLogInDialog() {
 
         new NetworkUtility().showDialogMessage(getContext().getString(R.string.iap_shopping_cart_dls), "Please Register or Login to easily order your products", getFragmentManager(), getContext(), new AlertListener() {
             @Override

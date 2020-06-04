@@ -93,7 +93,7 @@ public class ProductCatalogAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         String imageURL = productCatalogData.getImageURL();
         if (imageURL == null) {
-            IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+            IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                     IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + productCatalogData.getCtnNumber() + "_" + IAPAnalyticsConstant.NO_THUMB_NAIL_IMAGE);
         }
         String discountedPrice = productCatalogData.getDiscountedPrice();
@@ -101,7 +101,7 @@ public class ProductCatalogAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         productHolder.mProductName.setText(productCatalogData.getProductTitle());
         if (imageURL == null) {
-            IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+            IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                     IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + productCatalogData.getCtnNumber() + "_" + IAPAnalyticsConstant.PRODUCT_TITLE_MISSING);
         }
         productHolder.mProductImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.no_icon));

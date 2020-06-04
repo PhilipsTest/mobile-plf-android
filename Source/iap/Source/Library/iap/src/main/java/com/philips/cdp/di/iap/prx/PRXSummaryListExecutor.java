@@ -66,7 +66,7 @@ public class PRXSummaryListExecutor {
         Message result = Message.obtain();
         result.obj = prxError.getDescription();
 
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                 IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + "_" + prxError.getStatusCode() + prxError.getDescription());
         mDataLoadListener.onModelDataError(result);
     }

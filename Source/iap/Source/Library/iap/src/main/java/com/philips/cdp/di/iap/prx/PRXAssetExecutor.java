@@ -156,7 +156,7 @@ public class PRXAssetExecutor {
 
     protected void notifyError(final PrxError prxError) {
         Message result = Message.obtain();
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                 IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + prxError.getStatusCode() + "_" + prxError.getDescription());
         if (PrxError.PrxErrorType.NO_INTERNET_CONNECTION.getId() == prxError.getStatusCode()) {
             result.obj = new IAPNetworkError(new NoConnectionError(), 0, null);

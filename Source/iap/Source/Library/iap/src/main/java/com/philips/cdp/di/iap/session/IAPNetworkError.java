@@ -74,7 +74,7 @@ public class IAPNetworkError implements IAPNetworkErrorListener {
             return mServerError.getErrors().get(0).getMessage();
         } else if (mVolleyError != null) {
             if (mVolleyError.getMessage() != null) {
-                IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+                IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
                         IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.SERVER + mIAPErrorCode + "_" + mVolleyError.getMessage());
             }
             return mVolleyError.getMessage();
