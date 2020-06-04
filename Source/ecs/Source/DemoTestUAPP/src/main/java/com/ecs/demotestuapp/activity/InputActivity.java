@@ -39,7 +39,6 @@ import com.ecs.demotestuapp.fragments.HybrisRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.JanrainRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.MakePaymentFragment;
 import com.ecs.demotestuapp.fragments.PILConfigureECSServiceFragment;
-import com.ecs.demotestuapp.fragments.PILConfigureECSToGetConfigurationFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductDetailsFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductForCtnFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductSummariesFragment;
@@ -216,8 +215,7 @@ public class InputActivity extends AppCompatActivity {
 
             case 40:
                 return new PILConfigureECSServiceFragment();
-            case 41:
-                return new PILConfigureECSToGetConfigurationFragment();
+
             case 45:
                 return new PILFetchProductsFragment();
 
