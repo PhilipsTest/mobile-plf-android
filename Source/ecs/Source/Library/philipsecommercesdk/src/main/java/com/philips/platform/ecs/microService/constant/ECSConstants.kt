@@ -12,8 +12,6 @@
 
 package com.philips.platform.ecs.microService.constant
 
-import java.util.*
-
 class ECSConstants {
 
     companion object {
@@ -26,7 +24,7 @@ class ECSConstants {
         const val SERVICEID_PRX_DISCLAIMERS= "prxclient.disclaimers"
         const val SERVICEID_PRX_SUMMARY_LIST = "prxclient.summarylist"
         const val SERVICEID_ECS_PRODUCT_DETAILS = "ecs.productDetails"
-        const val SERVICEID_ECS_PRODUCTS = "ecs.products"
+        const val SERVICEID_ECS_PRODUCTS = "ecs.productSearch"
     }
 
 
