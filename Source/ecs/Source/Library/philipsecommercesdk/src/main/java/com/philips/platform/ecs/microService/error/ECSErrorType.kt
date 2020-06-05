@@ -57,6 +57,7 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSorderIdNil(R.string.ECSorderIdNil, 5060),
     ECSsomethingWentWrong(R.string.ECSsomethingWentWrong, 5999),
 
+    //PIL Service
     ECSPIL_MISSING_PARAMETER_language(R.string.ECSPIL_MISSING_PARAMETER_country, 6000),
     ECSPIL_MISSING_PARAMETER_siteId(R.string.ECSPIL_MISSING_PARAMETER_siteId, 6001),
     ECSPIL_MISSING_PARAMETER_country(R.string.ECSPIL_MISSING_PARAMETER_country, 6002),
@@ -67,19 +68,6 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_INVALID_API_KEY(R.string.ECSsomethingWentWrong, 6005),
     ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT(R.string.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT, 6006),
     ECSPIL_BAD_REQUEST(R.string.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT, 6007);
-
-
-
-
-
-
-    //PIL Service
-
-
-
-/*    <string name="ECSPILlanguage">"Please provide valid language code"</string>
-    <string name="ECSPILsiteId">"Philips shop is not available for the selected country, only retailer mode is available"</string>
-    <string name="ECSPILcountry">"Please provide valid country code"</string>*/
 
     fun getLocalizedErrorString(): String {
 
