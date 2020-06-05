@@ -13,10 +13,8 @@ package com.philips.platform.ecs.microService.request
 
 
 
-import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.error.VolleyHandler
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData

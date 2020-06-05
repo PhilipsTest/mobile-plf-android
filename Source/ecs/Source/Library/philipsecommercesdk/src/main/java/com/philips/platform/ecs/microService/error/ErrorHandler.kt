@@ -19,7 +19,7 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.getJsonError
 
-class VolleyHandler {
+class ErrorHandler {
 
 
     fun getECSError(volleyError: VolleyError?): ECSError {

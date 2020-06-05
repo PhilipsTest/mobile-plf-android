@@ -4,7 +4,7 @@ import com.android.volley.VolleyError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSErrorType
-import com.philips.platform.ecs.microService.error.VolleyHandler
+import com.philips.platform.ecs.microService.error.ErrorHandler
 import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
@@ -27,7 +27,7 @@ class GetProductsRequestTest {
     val category: String = "FOOD_PREPARATION_CA2"
     var mGetProductsRequest: GetProductsRequest? = null
     var mProductFilter: ProductFilter? = null
-    private lateinit var volleyHandler: VolleyHandler
+    private lateinit var errorHandler: ErrorHandler
 
     var eCSCallback = object : ECSCallback<ECSProducts, ECSError> {
         override fun onResponse(result: ECSProducts) {
@@ -44,7 +44,7 @@ class GetProductsRequestTest {
     fun setUp() {
         ECSDataHolder.locale = "en_US"
         mProductFilter = ProductFilter()
-        volleyHandler = VolleyHandler()
+        errorHandler = ErrorHandler()
     }
 
     @Test

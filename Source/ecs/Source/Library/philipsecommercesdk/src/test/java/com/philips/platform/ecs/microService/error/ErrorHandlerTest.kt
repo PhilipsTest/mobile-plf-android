@@ -37,9 +37,9 @@ import org.powermock.modules.junit4.PowerMockRunner
 
 @PrepareForTest(Base64::class,ServerError::class,VolleyError::class,JSONObject::class)
 @RunWith(PowerMockRunner::class)
-class VolleyHandlerTest {
+class ErrorHandlerTest {
 
-    private lateinit var  volleyHandler: VolleyHandler
+    private lateinit var  errorHandler: ErrorHandler
 
     @Mock
     private lateinit var appInfraMock: AppInfra
@@ -88,38 +88,38 @@ class VolleyHandlerTest {
         assertTrue(called)
 
 
-        volleyHandler = VolleyHandler()
+        errorHandler = ErrorHandler()
         ECSDataHolder.appInfra = appInfraMock
 
     }
 
     @Test
     fun `test ECS error when Volley error is null`() {
-        val ecsError = volleyHandler.getECSError(null)
+        val ecsError = errorHandler.getECSError(null)
         verifyECSError(ecsError,ECSErrorType.ECSsomethingWentWrong)
     }
 
     @Test
     fun `test ecs error when volley error is of Time Out`() {
-        val ecsError = volleyHandler.getECSError(timeoutErrorMock)
+        val ecsError = errorHandler.getECSError(timeoutErrorMock)
         verifyECSError(ecsError,ECSErrorType.ECS_volley_error)
     }
 
     @Test
     fun `test ecs error when volley error is of No connection`() {
-        val ecsError = volleyHandler.getECSError(noConnectionErrorMock)
+        val ecsError = errorHandler.getECSError(noConnectionErrorMock)
         verifyECSError(ecsError,ECSErrorType.ECS_volley_error)
     }
 
     @Test
     fun `test ecs error when volley error is of ParseError`() {
-        val ecsError = volleyHandler.getECSError(parseErrorMock)
+        val ecsError = errorHandler.getECSError(parseErrorMock)
         verifyECSError(ecsError,ECSErrorType.ECS_volley_error)
     }
 
     @Test
     fun `test ecs error when volley error is of NetworkError`() {
-        val ecsError = volleyHandler.getECSError(networkErrorMock)
+        val ecsError = errorHandler.getECSError(networkErrorMock)
         verifyECSError(ecsError,ECSErrorType.ECS_volley_error)
     }
 
@@ -134,7 +134,7 @@ class VolleyHandlerTest {
     fun `test volley server error with null networkResponse`() {
 
         Mockito.`when`(serverErrorMock.networkResponse).thenReturn(null)
-        val ecsError = volleyHandler.getECSError(null)
+        val ecsError = errorHandler.getECSError(null)
         verifyECSError(ecsError,ECSErrorType.ECSsomethingWentWrong)
     }
 
@@ -166,7 +166,7 @@ class VolleyHandlerTest {
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode,ecsDefaultError.errorCode)
     }
 
@@ -177,7 +177,7 @@ class VolleyHandlerTest {
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSsomethingWentWrong.errorCode,ecsDefaultError.errorCode)
     }
 
@@ -188,7 +188,7 @@ class VolleyHandlerTest {
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorCode)
     }
 
@@ -199,7 +199,7 @@ class VolleyHandlerTest {
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_siteId.errorCode,ecsDefaultError.errorCode)
     }
 
@@ -210,7 +210,7 @@ class VolleyHandlerTest {
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_language.errorCode,ecsDefaultError.errorCode)
     }
 
@@ -221,7 +221,7 @@ class VolleyHandlerTest {
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorCode)
     }
 
@@ -232,7 +232,7 @@ class VolleyHandlerTest {
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_BAD_REQUEST.errorCode,ecsDefaultError.errorCode)
     }
 

@@ -18,7 +18,7 @@ import com.android.volley.VolleyError
 import com.philips.platform.appinfra.rest.TokenProviderInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.error.VolleyHandler
+import com.philips.platform.ecs.microService.error.ErrorHandler
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import org.json.JSONObject
 
@@ -40,7 +40,7 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
     }
 
     override fun onErrorResponse(error: VolleyError?) {
-        ecsErrorCallback.onFailure(VolleyHandler().getECSError(error))
+        ecsErrorCallback.onFailure(ErrorHandler().getECSError(error))
     }
 
     open fun getReplaceURLMap(): MutableMap<String, String> {
