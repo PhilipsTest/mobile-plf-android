@@ -18,6 +18,7 @@ import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject
 import org.junit.Before
 
@@ -78,6 +79,15 @@ class GetRetailersInfoRequestTest {
         getRetailersInfoRequest.onResponse(JSONObject(successJSON))
         Mockito.verify(ecsCallbackMock).onResponse(any(ECSRetailerList::class.java))
 
+    }
+
+    @Test
+    fun `check retailer success json string parsing`() {
+        val ecsRetailerList = JSONObject(successJSON).getData(ECSRetailerList::class.java)
+        assertNotNull(ecsRetailerList?.wrbresults)
+        assertNotNull(ecsRetailerList?.wrbresults?.OnlineStoresForProduct)
+        assertNotNull(ecsRetailerList?.wrbresults?.OnlineStoresForProduct?.Stores)
+        assertNotNull(ecsRetailerList?.wrbresults?.OnlineStoresForProduct?.Stores?.Store)
     }
 
     val successJSON = "{\n" +

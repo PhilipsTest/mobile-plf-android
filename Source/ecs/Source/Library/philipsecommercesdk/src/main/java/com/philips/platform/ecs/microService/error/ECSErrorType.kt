@@ -65,7 +65,9 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_INTEGRATION_TIMEOUT(R.string.ECSPIL_INTEGRATION_TIMEOUT, 6003),
     ECSPIL_INVALID_API_VERSION(R.string.ECSsomethingWentWrong, 6004),
     ECSPIL_INVALID_API_KEY(R.string.ECSsomethingWentWrong, 6005),
-    ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT(R.string.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT, 6006);
+    ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT(R.string.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT, 6006),
+    ECSPIL_BAD_REQUEST(R.string.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT, 6007);
+
 
 
 
@@ -81,7 +83,7 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
 
     fun getLocalizedErrorString(): String {
 
-        var localizedError = ECSDataHolder?.appInfra?.appInfraContext?.getString(R.string.ECSsomethingWentWrong)+""
+        var localizedError = ECSDataHolder.appInfra?.appInfraContext?.getString(R.string.ECSsomethingWentWrong)+""
         try {
             localizedError = ECSDataHolder.appInfra?.appInfraContext?.resources?.getString(resourceID)+""
         } catch (e: Exception) {

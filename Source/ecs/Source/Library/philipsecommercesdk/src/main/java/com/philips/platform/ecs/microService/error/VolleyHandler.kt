@@ -65,16 +65,27 @@ class VolleyHandler {
     }
 
     internal fun setPILECSError(pilError: HybrisError?, ecsError: ECSError) {
+
+
         val parameter = pilError?.errors?.get(0)?.source?.parameter
         val code = pilError?.errors?.get(0)?.code
+
+        try {
+            val ecsErrorType = ECSErrorType.valueOf("ECSPIL_$code")
+            setEcsError(ecsError, ecsErrorType)
+            return
+        } catch (e: Exception) {
+        }
+
+
         val commaSeparatedParameterString = parameter?.replace("[", "")?.replace("]", "")
         val firstFailureParameterString = commaSeparatedParameterString?.split(",")?.get(0)
 
 
         code?.let {
 
-            val localizedStringID = "ECSPIL"+"_"+code+"_"+firstFailureParameterString
-            ECSDataHolder.loggingInterface?.log(LoggingInterface.LogLevel.VERBOSE,"setPILECSError",localizedStringID)
+            val localizedStringID = "ECSPIL" + "_" + code + "_" + firstFailureParameterString
+            ECSDataHolder.loggingInterface?.log(LoggingInterface.LogLevel.VERBOSE, "setPILECSError", localizedStringID)
             try {
                 val ecsErrorType = ECSErrorType.valueOf(localizedStringID)
                 setEcsError(ecsError, ecsErrorType)

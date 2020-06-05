@@ -167,7 +167,18 @@ class VolleyHandlerTest {
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(5999,ecsDefaultError.errorCode)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode,ecsDefaultError.errorCode)
+    }
+
+    @Test
+    fun `test When error string is not valid `() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/PILErrorWithInvalidSource.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(ECSErrorType.ECSsomethingWentWrong.errorCode,ecsDefaultError.errorCode)
     }
 
     @Test
@@ -214,7 +225,19 @@ class VolleyHandlerTest {
         assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_country.errorCode,ecsDefaultError.errorCode)
     }
 
+    @Test
+    fun `test ecs Error when only code to be considered`() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/PILErrorWithOnlyCodeToConsider.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        volleyHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(ECSErrorType.ECSPIL_BAD_REQUEST.errorCode,ecsDefaultError.errorCode)
+    }
+
+
+
     fun byteArrayOfInts(vararg ints: Int) = ByteArray(ints.size) { pos -> ints[pos].toByte() }
 
-    var volleyServerErrorString = "{ \"errors\": [ { \"id\": \"916c6c9b-f7d9-43a9-ab46-0e9ebd78e880\", \"status\": \"400\", \"code\": \"MISSING_PARAMETER\", \"title\": \"The required parameter is missing\", \"source\":{\"parameter\": \"[siteId]\"} } ] }"
 }
