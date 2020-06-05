@@ -11,17 +11,7 @@
       "editTexts": [],
       "spinners": [],
       "switches": []
-    },
-      {
-        "name": "ConfigureECSWithConfiguration",
-        "apiNumber": 41,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      }
+    }
     ]
   },
     {

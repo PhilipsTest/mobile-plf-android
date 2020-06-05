@@ -34,6 +34,9 @@ public class ECSEntries implements Serializable{
         return basePrice;
     }
 
+    public void setBasePrice(BasePriceEntity basePrice) {
+        this.basePrice = basePrice;
+    }
     public int getEntryNumber() {
         return entryNumber;
     }
@@ -45,6 +48,10 @@ public class ECSEntries implements Serializable{
 
     public ECSProduct getProduct() {
         return product;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getQuantity() {

@@ -33,13 +33,14 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.scRemove
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCode
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeApplied
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRevoked
+import com.philips.platform.mec.common.CommonViewModel
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uid.view.widget.Label
 
-open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonViewModel() {
+open class EcsShoppingCartViewModel : CommonViewModel() {
 
     var ecsShoppingCart = MutableLiveData<ECSShoppingCart>()
 
@@ -176,7 +177,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
 
         @JvmStatic
         @BindingAdapter("setDiscountPrice", "totalPriceEntity")
-        fun setDiscountPrice(discountPriceLabel: Label, product: com.philips.platform.ecs.model.products.ECSProduct?, basePriceEntity: com.philips.platform.ecs.model.cart.BasePriceEntity?) {
+        fun setDiscountPrice(discountPriceLabel: Label, product: ECSProduct?, basePriceEntity: BasePriceEntity?) {
             val discount = (product!!.price!!.value - basePriceEntity!!.value) / product.price!!.value * 100
 
             val discountRounded: String = String.format("%.2f", discount).toString()
@@ -191,7 +192,7 @@ open class EcsShoppingCartViewModel : com.philips.platform.mec.common.CommonView
         @SuppressLint("SetTextI18n")
         @JvmStatic
         @BindingAdapter("setStock","setQuantity")
-        fun setStock(stockLabel : Label, product: com.philips.platform.ecs.model.products.ECSProduct?, quantity: Int) {
+        fun setStock(stockLabel : Label, product: ECSProduct?, quantity: Int) {
             if (null != product && null != product.stock) {
                 if ((!MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) || (product.stock.stockLevel==0)) {
                     setSpannedText(stockLabel)

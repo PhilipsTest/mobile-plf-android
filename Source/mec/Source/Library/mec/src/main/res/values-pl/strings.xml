@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Śledź zamówienie</string>
   <string name="mec_accept_terms">Składając zamówienie w firmie Philips potwierdzam jej</string>
   <string name="mec_accepted_codes">Akceptowane kody</string>
   <string name="mec_add">Dodaj</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Można anulować zamówienie przed wysłaniem. Nasz dział Obsługi Klienta może Ci w tym pomóc.</string>
   <string name="mec_cancel_order_number">Anuluj zamówienie numer </string>
   <string name="mec_cancel_payment">Czy chcesz anulować płatność? Twój koszyk zostanie opróżniony.</string>
-  <string name="mec_cancel_your_order">[pl]Cancel your order</string>
+  <string name="mec_cancel_your_order">Anuluj swoje zamówienie</string>
   <string name="mec_card_holder_first_name">Imię posiadacza karty</string>
   <string name="mec_card_holder_last_name">Nazwisko posiadacza karty</string>
   <string name="mec_cart_count_exceed_message">Maksymalna liczba produktów w koszyku to %d</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Sprzedawcy online</string>
   <string name="mec_only">Tylko</string>
-  <string name="mec_order_detail_unavailable">[pl]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Szczegóły zamówienia są niedostępne</string>
   <string name="mec_order_details">Szczegóły zamówienia</string>
   <string name="mec_order_not_received_items">Nie otrzymano zamówienia</string>
   <string name="mec_order_number_msg">Numer zamówienia: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Miejscowość/miasto</string>
   <string name="mec_town_error">Wprowadź prawidłową miejscowość</string>
   <string name="mec_town_hint">Wprowadź miejscowość/miasto</string>
+  <string name="mec_track_order">Śledź zamówienie</string>
   <string name="mec_use_as_billing_address">Użyj tego adresu jako rozliczeniowego</string>
   <string name="mec_valid_until">Ważne do</string>
   <string name="mec_your_order_number">Twój numer zamówienia to</string>

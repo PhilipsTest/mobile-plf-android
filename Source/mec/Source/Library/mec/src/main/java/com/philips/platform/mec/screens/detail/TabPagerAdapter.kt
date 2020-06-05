@@ -22,7 +22,7 @@ import com.philips.platform.mec.screens.specification.SpecificationFragment
 import com.philips.platform.mec.utils.MECConstant
 
 
-class TabPagerAdapter(var fm: FragmentManager, var product: com.philips.platform.ecs.model.products.ECSProduct, var context: Context) : FragmentPagerAdapter(fm) {
+class TabPagerAdapter(var fm: FragmentManager, var product: ECSProduct, var context: Context) : FragmentPagerAdapter(fm) {
 
 
 

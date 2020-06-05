@@ -13,11 +13,12 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback
 import com.bazaarvoice.bvandroidsdk.ConversationsException
 import com.bazaarvoice.bvandroidsdk.Statistics
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import java.text.DecimalFormat
 
-class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<com.philips.platform.ecs.model.products.ECSProduct>, val ecsProductViewModel: EcsProductViewModel) : ConversationsDisplayCallback<BulkRatingsResponse> {
+class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<ECSProduct>, val ecsProductViewModel: EcsProductViewModel) : ConversationsDisplayCallback<BulkRatingsResponse> {
 
 
     override fun onSuccess(response: BulkRatingsResponse) {
@@ -37,7 +38,7 @@ class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<com.philip
     }
 
 
-    private fun createMECProductReviewObject(ecsProducts: List<com.philips.platform.ecs.model.products.ECSProduct>, statisticsList: List<Statistics>) {
+    private fun createMECProductReviewObject(ecsProducts: List<ECSProduct>, statisticsList: List<Statistics>) {
 
         var mecProductReviewList :MutableList<MECProductReview> = mutableListOf()
 

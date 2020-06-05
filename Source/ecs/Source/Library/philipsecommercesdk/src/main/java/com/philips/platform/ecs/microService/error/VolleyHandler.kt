@@ -74,7 +74,7 @@ class VolleyHandler {
         code?.let {
 
             val localizedStringID = "ECSPIL"+"_"+code+"_"+firstFailureParameterString
-            ECSDataHolder.loggingInterface.log(LoggingInterface.LogLevel.VERBOSE,"setPILECSError",localizedStringID)
+            ECSDataHolder.loggingInterface?.log(LoggingInterface.LogLevel.VERBOSE,"setPILECSError",localizedStringID)
             try {
                 val ecsErrorType = ECSErrorType.valueOf(localizedStringID)
                 setEcsError(ecsError, ecsErrorType)

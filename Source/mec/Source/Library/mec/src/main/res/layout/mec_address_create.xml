@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/border8_margin"
                 android:layout_marginBottom="@dimen/border12_margin"
-                android:text="@{@string/mec_save_and_continue + @string/mec_empty_space + @string/dls_navigationright_24}"
+                android:text="@{@string/mec_save_and_continue}"
                 app:uidComponentType="Primary" />
 
 

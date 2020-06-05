@@ -16,14 +16,14 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class ECSCreateAddressCallBack(private var addressViewModel: AddressViewModel) : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.address.ECSAddress, Exception> {
+class ECSCreateAddressCallBack(private var addressViewModel: AddressViewModel) : ECSCallback<ECSAddress, Exception> {
 
     var mECRequestType = MECRequestType.MEC_CREATE_ADDRESS
-    override fun onResponse(eCSAddress: com.philips.platform.ecs.model.address.ECSAddress) {
+    override fun onResponse(eCSAddress: ECSAddress) {
         addressViewModel.eCSAddress.value = eCSAddress
     }
 
-    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: ECSError?) {
         val mecError = MecError(error, ecsError,mECRequestType)
         if (MECutility.isAuthError(ecsError)) {
             addressViewModel.retryAPI(mECRequestType)

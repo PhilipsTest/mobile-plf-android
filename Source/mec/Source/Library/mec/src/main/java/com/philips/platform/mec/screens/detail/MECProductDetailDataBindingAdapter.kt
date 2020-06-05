@@ -31,7 +31,7 @@ object MECProductDetailDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("setDisclaimer")
-    fun setDisclaimer(label: Label, ecsProduct: com.philips.platform.ecs.model.products.ECSProduct?) {
+    fun setDisclaimer(label: Label, ecsProduct: ECSProduct?) {
 
         val disclaimerStringBuilder = StringBuilder()
 
@@ -47,7 +47,7 @@ object MECProductDetailDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("setStockInfo")
-    fun setStockInfo(stockLabel : Label, product: com.philips.platform.ecs.model.products.ECSProduct?) {
+    fun setStockInfo(stockLabel : Label, product: ECSProduct?) {
         if(null!=product && null!= product.stock) {
             if (MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) {
                 stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)

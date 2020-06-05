@@ -13,7 +13,7 @@ import com.philips.platform.mec.databinding.MecVoucherItemBinding
 
 class MECVoucherHolder(val binding: MecVoucherItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(voucher: com.philips.platform.ecs.model.cart.AppliedVoucherEntity, itemClickListener: ItemClickListener){
+    fun bind(voucher: AppliedVoucherEntity, itemClickListener: ItemClickListener){
         binding.voucher = voucher
         binding.mecCross.setOnClickListener { itemClickListener.onItemClick(voucher as Object) }
     }

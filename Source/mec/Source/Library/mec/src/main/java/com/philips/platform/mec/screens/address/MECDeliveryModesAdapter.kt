@@ -22,7 +22,7 @@ class MECDeliveryModesAdapter(private val deliveryModes: MutableList<com.philips
     private var mSelectedItem = -1 // default value no selection..
 
     private lateinit var deliveryMode: com.philips.platform.ecs.model.address.ECSDeliveryMode
-    private var mECSShoppingCartDeliveryModeEntity: com.philips.platform.ecs.model.cart.DeliveryModeEntity? = null
+    private var mECSShoppingCartDeliveryModeEntity: DeliveryModeEntity? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MECDeliveryModeHolder(MecDeliveryModeItemBinding.inflate(LayoutInflater.from(parent.context)))

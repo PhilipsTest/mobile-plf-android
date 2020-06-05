@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Sipariş takibi</string>
   <string name="mec_accept_terms">Siparişi vererek Philips\'in şu şartlarını kabul ediyorum:</string>
   <string name="mec_accepted_codes">Kabul edilen kodlar</string>
   <string name="mec_add">Ekle</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Siparişinizi gönderilmeden önce iptal edebilirsiniz. Müşteri desteği ekibimiz bu konuda size yardımcı olabilir.</string>
   <string name="mec_cancel_order_number">Sipariş iptal numarası </string>
   <string name="mec_cancel_payment">Ödemeyi iptal etmek mi istiyorsunuz? Sepetiniz boşaltılacaktır.</string>
-  <string name="mec_cancel_your_order">[tr]Cancel your order</string>
+  <string name="mec_cancel_your_order">Siparişini iptal et</string>
   <string name="mec_card_holder_first_name">Kart Sahibinin Adı</string>
   <string name="mec_card_holder_last_name">Kart Sahibinin Soyadı</string>
   <string name="mec_cart_count_exceed_message">Sepete en fazla %d ürün eklenebilir</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">Tamam</string>
   <string name="mec_online_retailers">Çevrimiçi Perakende Satış Mağazaları</string>
   <string name="mec_only">Sadece</string>
-  <string name="mec_order_detail_unavailable">[tr]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Sipariş Ayrıntısı mevcut değil</string>
   <string name="mec_order_details">Sipariş ayrıntıları</string>
   <string name="mec_order_not_received_items">Sipariş alınmadı</string>
   <string name="mec_order_number_msg">Sipariş numarası: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Semt/Şehir</string>
   <string name="mec_town_error">Lütfen geçerli bir semt yazın</string>
   <string name="mec_town_hint">Semtinizi veya şehrinizi girin</string>
+  <string name="mec_track_order">Sipariş takibi</string>
   <string name="mec_use_as_billing_address">Bu adres fatura adresim olarak kullanılsın</string>
   <string name="mec_valid_until">Geçerlilik süresi</string>
   <string name="mec_your_order_number">Sipariş numaranız:</string>

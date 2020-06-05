@@ -164,6 +164,10 @@ public class ECSOrderDetail implements Parcelable, Serializable {
         return deliveryItemsQuantity;
     }
 
+    public void setDeliveryMode(ECSDeliveryMode deliveryMode) {
+        this.deliveryMode = deliveryMode;
+    }
+
     public ECSDeliveryMode getDeliveryMode() {
         return deliveryMode;
     }
@@ -267,6 +271,11 @@ public class ECSOrderDetail implements Parcelable, Serializable {
 
     public List<DeliveryOrderGroups> getDeliveryOrderGroups() {
         return deliveryOrderGroups;
+    }
+
+
+    public void setEntries(List<ECSEntries> entries) {
+        this.entries = entries;
     }
 
     public List<ECSEntries> getEntries() {

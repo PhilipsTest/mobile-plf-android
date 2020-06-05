@@ -28,7 +28,7 @@ object ECSDataHolder {
     var lang = locale?.split("_")?.get(0)
     var country = locale?.split("_")?.get(1)
     var appInfra : AppInfra? = null
-    lateinit var loggingInterface: LoggingInterface
+    var loggingInterface: LoggingInterface? = null
 
     var urlMap: MutableMap<String, ServiceDiscoveryService>? = null
 

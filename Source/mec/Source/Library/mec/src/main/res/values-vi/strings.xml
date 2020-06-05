@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Theo dõi đơn hàng</string>
   <string name="mec_accept_terms">Thông qua việc đặt đơn hàng, tôi chấp nhận</string>
   <string name="mec_accepted_codes">Mã được chấp nhận</string>
   <string name="mec_add">Thêm</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Bạn có thể hủy đơn hàng trước khi hàng được vận chuyển. Bộ phận Chăm sóc khách hàng của chúng tôi có thể hỗ trợ bạn về vấn đề này.</string>
   <string name="mec_cancel_order_number">Hủy mã đơn hàng </string>
   <string name="mec_cancel_payment">Bạn có muốn hủy thanh toán không? Giỏ hàng của bạn sẽ bị trống.</string>
-  <string name="mec_cancel_your_order">[vi]Cancel your order</string>
+  <string name="mec_cancel_your_order">Hủy đơn hàng của bạn</string>
   <string name="mec_card_holder_first_name">Tên chủ thẻ</string>
   <string name="mec_card_holder_last_name">Họ chủ thẻ</string>
   <string name="mec_cart_count_exceed_message">Không thể thêm nhiều hơn %d sản phẩm trong Giỏ hàng</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Đại lý bán lẻ trực tuyến</string>
   <string name="mec_only">Chỉ</string>
-  <string name="mec_order_detail_unavailable">[vi]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Không có Chi tiết đơn hàng</string>
   <string name="mec_order_details">Chi tiết đơn hàng</string>
   <string name="mec_order_not_received_items">Không nhận được đơn hàng</string>
   <string name="mec_order_number_msg">Mã số đơn hàng: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Thị xã/Thành phố</string>
   <string name="mec_town_error">Vui lòng nhập thị xã hợp lệ</string>
   <string name="mec_town_hint">Nhập thị xã hoặc thành phố của bạn</string>
+  <string name="mec_track_order">Theo dõi đơn hàng</string>
   <string name="mec_use_as_billing_address">Dùng địa chỉ này làm địa chỉ lập hóa đơn của tôi</string>
   <string name="mec_valid_until">Có giá trị đến</string>
   <string name="mec_your_order_number">Mã số đơn hàng của bạn là</string>

@@ -23,7 +23,7 @@ class MECCartViewHolder(val binding: MecShoppingCartItemsBinding, var mecShoppin
     private var animation: Boolean? = true
     fun bind(cartSummary: MECCartProductReview) {
         binding.cart = cartSummary
-        val mImageLoader: ImageLoader = com.philips.platform.mec.networkEssentials.NetworkImageLoader.getInstance(mecShoppingCartFragment.context)
+        val mImageLoader: ImageLoader = NetworkImageLoader.getInstance(mecShoppingCartFragment.context)
                 .imageLoader
         binding.image.setImageUrl(cartSummary.entries.product.summary.imageURL,mImageLoader)
         bindCountView(binding.mecQuantityVal, cartSummary)

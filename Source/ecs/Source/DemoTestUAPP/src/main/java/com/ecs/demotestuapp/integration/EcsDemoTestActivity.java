@@ -37,7 +37,6 @@ import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
 import com.philips.platform.pim.PIMInterface;
-import com.philips.platform.pim.PIMInterface;
 import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.pim.listeners.UserLoginListener;
@@ -105,7 +104,7 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
             String propertyForKey = (String) configInterface.getPropertyForKey("propositionid", "MEC", configError);
             etPropositionID.setText(propertyForKey);
         }catch (Exception e){
-
+            etPropositionID.setText("IAP_MOB_DKA");
         }
 
         showAppVersion();
@@ -320,17 +319,6 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
     public void set(View view) {
 
         ECSDataHolder.INSTANCE.resetData();
-        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(etPropositionID.getText().toString().trim());
-
-        configInterface.setPropertyForKey("propositionid", "MEC", etPropositionID.getText().toString(), configError);
-
-        Toast.makeText(this, "Proposition id is set", Toast.LENGTH_SHORT).show();
-    }
-
-    public void remove(View view) {
-        etPropositionID.setText("");
-        ECSDataHolder.INSTANCE.resetData();
-        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(null);
 
         configInterface.setPropertyForKey("propositionid", "MEC", etPropositionID.getText().toString(), configError);
 

@@ -75,7 +75,7 @@ class GetConfigurationRequestTest {
     @Test
     fun `should do error callback when VolleyErrorComes`() {
         getConfigurationRequest.onErrorResponse(networkErrorMock)
-        Mockito.verify(eCSCallbackMock).onFailure(any(ECSError::class.java))
+        Mockito.verify(eCSCallbackMock).onResponse(any(ECSConfig::class.java))
     }
 
     var hysbrisSuccessResponse = "{\n" +

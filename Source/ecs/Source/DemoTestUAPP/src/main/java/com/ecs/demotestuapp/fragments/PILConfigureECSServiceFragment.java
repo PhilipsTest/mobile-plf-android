@@ -15,6 +15,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 
 import com.philips.platform.ecs.microService.ECSServices;
+import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.model.config.ECSConfig;
 
@@ -24,7 +25,7 @@ public class PILConfigureECSServiceFragment extends BaseAPIFragment {
 
         ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
-        ECSServices.configureECS(new com.philips.platform.ecs.microService.callBack.ECSCallback<ECSConfig, ECSError>() {
+        ECSServices.configureECS(new ECSCallback<ECSConfig, ECSError>() {
             @Override
             public void onResponse(ECSConfig result) {
                 gotoResultActivity(getJsonStringFromObject(result));
