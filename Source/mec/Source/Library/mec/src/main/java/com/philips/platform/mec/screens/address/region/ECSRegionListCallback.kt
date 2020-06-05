@@ -22,7 +22,7 @@ class ECSRegionListCallback(private var regionViewModel: RegionViewModel) : ECSC
         regionViewModel.regionsList.value = result
     }
 
-    override fun onFailure(error: Exception?, ecsError:ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: ECSError?) {
         val mecError = MecError(error, ecsError,mECRequestType)
         if (MECutility.isAuthError(ecsError)) {
             regionViewModel.retryAPI(mECRequestType)

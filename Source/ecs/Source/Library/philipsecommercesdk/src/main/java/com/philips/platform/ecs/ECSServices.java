@@ -122,7 +122,7 @@ public class ECSServices implements ECSServiceProvider {
             @Override
             public void onError(ERRORVALUES errorvalues, String s) {
 
-                ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong, null, s + "\n" + errorvalues.name());
+                ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong,null,s+"\n"+errorvalues.name());
                 ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
             }
 
@@ -139,10 +139,10 @@ public class ECSServices implements ECSServiceProvider {
                 ECSConfiguration.INSTANCE.setLocale(locale);
                 String configUrls = serviceDiscoveryService.getConfigUrls();
 
-                if (configUrls != null) {
-                    ECSConfiguration.INSTANCE.setBaseURL(configUrls + "/");
+                if(configUrls!=null){
+                    ECSConfiguration.INSTANCE.setBaseURL(configUrls+"/");
                     ecsCallValidator.getECSConfig(ecsCallback);
-                } else {
+                }else {
                     ECSConfig hybrisConfigResponse = new ECSConfig();
                     hybrisConfigResponse.setLocale(locale);
                     hybrisConfigResponse.setHybris(false);
@@ -152,9 +152,7 @@ public class ECSServices implements ECSServiceProvider {
 
         };
 
-        if (ECSConfiguration.INSTANCE.getAppInfra() != null && ECSConfiguration.INSTANCE.getAppInfra().getServiceDiscovery() != null) {
-            ECSConfiguration.INSTANCE.getAppInfra().getServiceDiscovery().getServicesWithCountryPreference(listOfServiceId, onGetServiceUrlMapListener, null);
-        }
+        ECSConfiguration.INSTANCE.getAppInfra().getServiceDiscovery().getServicesWithCountryPreference(listOfServiceId, onGetServiceUrlMapListener,null);
     }
 
 
