@@ -21,7 +21,7 @@ import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.request.GetConfigurationRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 
-class BaseURLCallback(val getConfigurationRequest: GetConfigurationRequest) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
+class BaseURLCallback(private val getConfigurationRequest: GetConfigurationRequest) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
 
     override fun onSuccess(urlMap: MutableMap<String, ServiceDiscoveryService>?) {
 

@@ -4,7 +4,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ECSProducts(var commerceProducts : List<ECSProduct> ) : Parcelable {
-
-
-}
+data class ECSProducts(var commerceProducts : List<ECSProduct> ) : Parcelable
