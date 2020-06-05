@@ -38,7 +38,7 @@ class ECSServices(appInfra: AppInfra) {
 
     init {
         ECSDataHolder.appInfra = appInfra
-        ECSDataHolder.loggingInterface= appInfra.logging.createInstanceForComponent(PIL_ECS_NOTATION, BuildConfig.VERSION_NAME)
+        ECSDataHolder.loggingInterface= appInfra.logging?.createInstanceForComponent(PIL_ECS_NOTATION, BuildConfig.VERSION_NAME)
     }
 
     fun configureECS(ecsCallback: ECSCallback<ECSConfig, ECSError>) {
