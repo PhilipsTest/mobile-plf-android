@@ -331,7 +331,7 @@ pipeline {
         }
 
         //stage to run HPFortify build
-        stage('HPFortify') {
+        /*stage('HPFortify') {
             when {
                 allOf {
                     expression { return params.buildType == 'HPFortify' }
@@ -341,8 +341,32 @@ pipeline {
             steps {
                 BuildHPFortify()   //build HPFortify
             }
+        }*/
+        stage('AppInfra') {
+            when {
+                allOf {
+                    expression { return params.buildType == 'AppInfra' }
+                    not { expression { return params.buildType == 'TICS' } }
+                }
+            }
+            steps {
+               /*BuildHPFortify()*/   //build HPFortify
+               script {
+                    sh '''#!/bin/bash -l
+                            set -e
+                            chmod -R 755 .
+                            ./gradlew --refresh-dependencies
+                            sourceanalyzer -b ail -clean
+                            echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew assembleRelease ***"
+                            sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew assembleRelease
+                            echo "*** sourceanalyzer -b ail -scan -f AppInfra_Android.fpr ***"
+                            sourceanalyzer -b ail -scan -f AppInfra_Android.fpr
+                            echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
+                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file AppInfra_Android.fpr -project EMS -version AppInfra_Android
+                    '''
+                }    
+            }
         }
-
 
 //        stage('Trigger E2E Test') {
 //           when {
