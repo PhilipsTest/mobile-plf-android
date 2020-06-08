@@ -35,8 +35,8 @@ pipeline {
      * The values for this user specified parameters are made available to pipeline steps via build params in jenkins.
      */
     parameters {
-        //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs).
-        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS', description: 'What type of build to build?', name: 'buildType')
+        //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs/AppInfra).
+        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS\nAppInfra', description: 'What type of build to build?', name: 'buildType')
     }
 
     /**
@@ -341,7 +341,31 @@ pipeline {
                 BuildHPFortify()   //build HPFortify
             }
         }
-
+        stage('AppInfra') {
+            when {
+                allOf {
+                    expression { return params.buildType == 'AppInfra' }
+                    not { expression { return params.buildType == 'TICS' } }
+                }
+            }
+            steps {
+               /*BuildHPFortify()*/   //build HPFortify
+               script {
+                    sh '''#!/bin/bash -l
+                            set -e
+                            chmod -R 755 .
+                            ./gradlew --refresh-dependencies
+                            sourceanalyzer -b ail -clean
+                            echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew assembleRelease ***"
+                            sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew assembleRelease
+                            echo "*** sourceanalyzer -b ail -scan -f AppInfra_Android.fpr ***"
+                            sourceanalyzer -b ail -scan -f AppInfra_Android.fpr
+                            echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
+                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file AppInfra_Android.fpr -project EMS -version AppInfra_Android
+                    '''
+                }    
+            }
+        }
 
 //        stage('Trigger E2E Test') {
 //           when {
