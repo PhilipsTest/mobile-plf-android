@@ -51,7 +51,13 @@
   <string name="ECSPIL_MISSING_PARAMETER_language" tools:ignore="MissingTranslation">"Please provide valid language code"</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId" tools:ignore="MissingTranslation">"Philips shop is not available for the selected country, only retailer mode is available"</string>
   <string name="ECSPIL_MISSING_PARAMETER_country" tools:ignore="MissingTranslation">"Please provide valid country code"</string>
-  <string name="ECSPIL_INTEGRATION_TIMEOUT">Network timeout reached!</string>
-  <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
+  <string name="ECSPIL_NOT_FOUND_productId" tools:ignore="MissingTranslation">"Requested resource is not available"</string>
+  <string name="ECSPIL_MISSING_API_VERSION" tools:ignore="MissingTranslation">"The required API version header is missing"</string>
+  <string name="ECSPIL_MISSING_API_KEY" tools:ignore="MissingTranslation">"The required API key header is missing"</string>
+  <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT" tools:ignore="MissingTranslation">"Product search limit cannot be more than 50"</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE" tools:ignore="MissingTranslation">"Content type not acceptable"</string>
+
+  <string name="ECSPIL_INTEGRATION_TIMEOUT" tools:ignore="MissingTranslation">Network timeout reached!</string>
+
 
 </resources>
