@@ -37,7 +37,7 @@ pipeline {
      */
     parameters {
         //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs).
-        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS', description: 'What type of build to build?', name: 'buildType')
+        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS\nAppInfra', description: 'What type of build to build?', name: 'buildType')
     }
 
     /**
