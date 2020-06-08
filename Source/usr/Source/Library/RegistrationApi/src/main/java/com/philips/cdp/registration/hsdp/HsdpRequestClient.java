@@ -89,15 +89,18 @@ class HsdpRequestClient {
 
     private Map<String, Object> establishConnection(URI uri, String httpMethod, Map<String, String> headers, String body) throws Exception {
         HttpURLConnection urlConnection = openHttpURLConnection(uri);
+        InputStream in = null;
         try {
             urlConnection.setRequestMethod(httpMethod);
             addRequestHeaders(headers, urlConnection);
 
             addRequestBody(body, urlConnection);
 
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            in = new BufferedInputStream(urlConnection.getInputStream());
             return readStream(in);
         } finally {
+            if(in != null)
+                in.close();
             urlConnection.disconnect();
         }
 
@@ -127,11 +130,17 @@ class HsdpRequestClient {
     }
 
     private void addRequestBody(String body, HttpURLConnection urlConnection) throws IOException {
-        urlConnection.setDoOutput(true);
-        urlConnection.setChunkedStreamingMode(0);
+        OutputStream out = null;
+        try {
+            urlConnection.setDoOutput(true);
+            urlConnection.setChunkedStreamingMode(0);
 
-        OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-        writeStream(out, body);
+            out = new BufferedOutputStream(urlConnection.getOutputStream());
+            writeStream(out, body);
+        }finally {
+            if(out != null)
+                out.close();
+        }
     }
 
     private void writeStream(OutputStream out, String body) throws IOException {
