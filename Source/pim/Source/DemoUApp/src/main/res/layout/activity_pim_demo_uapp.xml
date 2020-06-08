@@ -126,7 +126,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn_InvalidateUDIToken"
                 android:layout_centerInParent="true"
-                android:visibility="gone"
                 android:layout_margin="2dp"
                 android:text="Launch PR" />
 
