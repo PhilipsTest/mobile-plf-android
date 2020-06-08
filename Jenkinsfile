@@ -322,7 +322,6 @@ pipeline {
                     sh """#!/bin/bash -l
                         set -e
                         chmod +x run_tics_iet_mobile.sh
-                        dos2unix run_tics_iet_mobile.sh
                         ./run_tics_iet_mobile.sh
                     """
                 }
