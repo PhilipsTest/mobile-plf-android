@@ -16,7 +16,7 @@
         android:layout_marginBottom="20dp"
         android:textSize="18sp"
         android:textColor="@color/uidColorBlack"
-        android:text="PIM Demo App" />
+        android:text="UDI Demo App" />
 
     <Switch
         android:id="@+id/enableMigrationSwitch"

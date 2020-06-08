@@ -230,7 +230,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 updateMarketingOptinStatus();
             } else {
                 btnLaunchAsActivity.setText("Launch UDI As Activity");
-                btnLaunchAsFragment.setText("Launch UDI As Fragment");
+                btnLaunchAsFragment.setText("Launch UDI");
             }
         }
         initIAP();
