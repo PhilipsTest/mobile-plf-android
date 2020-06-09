@@ -379,9 +379,9 @@ class MECAnalytics {
         @JvmStatic
         @NonNull
         fun getDefaultString(context: Context, id: Int): String {
-            val configuration = Configuration(context.resources.configuration)
+            val configuration = Configuration(context.resources?.configuration)
             configuration.setLocale(Locale(defaultLocale))
-            return context.createConfigurationContext(configuration).resources.getString(id)
+            return context.createConfigurationContext(configuration)?.resources?.getString(id) ?: ""
         }
 
         fun setCurrencyString(localeString: String) {
