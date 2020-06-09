@@ -35,8 +35,8 @@ pipeline {
      * The values for this user specified parameters are made available to pipeline steps via build params in jenkins.
      */
     parameters {
-        //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs/AppInfra).
-        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS\nAppInfra', description: 'What type of build to build?', name: 'buildType')
+        //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs/AppInfra/CC/ECS/IAP/MEC).
+        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS\nAppInfra\nCC\nECS\nIAP\nMEC', description: 'What type of build to build?', name: 'buildType')
     }
 
     /**
@@ -366,7 +366,106 @@ pipeline {
                 }    
             }
         }
-
+        stage('CC') {
+            when {
+                allOf {
+                    expression { return params.buildType == 'CC' }
+                    not { expression { return params.buildType == 'TICS' } }
+                }
+            }
+            steps {
+               /*BuildHPFortify()*/   //build HPFortify
+               script {
+                    sh '''#!/bin/bash -l
+                            set -e
+                            chmod -R 755 .
+                            ./gradlew --refresh-dependencies
+                            sourceanalyzer -b dcc -clean
+                            echo "*** sourceanalyzer -b dcc -source 1.8 ./gradlew assembleRelease ***"
+                            sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew assembleRelease
+                            echo "*** sourceanalyzer -b dcc -scan -f CC_Android.fpr ***"
+                            sourceanalyzer -b dcc -scan -f CC_Android.fpr
+                            echo "*** fortifyclient -url https://fortify.philips.com/ssc CC_Android***"
+                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file CC_Android.fpr -project EMS -version CC_Android
+                    '''
+                }    
+            }
+        }
+        stage('ECS') {
+            when {
+                allOf {
+                    expression { return params.buildType == 'ECS' }
+                    not { expression { return params.buildType == 'TICS' } }
+                }
+            }
+            steps {
+               /*BuildHPFortify()*/   //build HPFortify
+               script {
+                    sh '''#!/bin/bash -l
+                            set -e
+                            chmod -R 755 .
+                            ./gradlew --refresh-dependencies
+                            sourceanalyzer -b ecs -clean
+                            echo "*** sourceanalyzer -b ecs -source 1.8 ./gradlew assembleRelease ***"
+                            sourceanalyzer -b ecs -source 1.8 -debug-verbose -logfile ECS_Android.txt ./gradlew assembleRelease
+                            echo "*** sourceanalyzer -b ecs -scan -f ECS_Android.fpr ***"
+                            sourceanalyzer -b ecs -scan -f ECS_Android.fpr
+                            echo "*** fortifyclient -url https://fortify.philips.com/ssc ECS_Android***"
+                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file ECS_Android.fpr -project EMS -version ECS_Android
+                    '''
+                }    
+            }
+        }
+        stage('IAP') {
+            when {
+                allOf {
+                    expression { return params.buildType == 'IAP' }
+                    not { expression { return params.buildType == 'TICS' } }
+                }
+            }
+            steps {
+               /*BuildHPFortify()*/   //build HPFortify
+               script {
+                    sh '''#!/bin/bash -l
+                            set -e
+                            chmod -R 755 .
+                            ./gradlew --refresh-dependencies
+                            sourceanalyzer -b iap -clean
+                            echo "*** sourceanalyzer -b iap -source 1.8 ./gradlew assembleRelease ***"
+                            sourceanalyzer -b iap -source 1.8 -debug-verbose -logfile IAP_Android.txt ./gradlew assembleRelease
+                            echo "*** sourceanalyzer -b iap -scan -f IAP_Android.fpr ***"
+                            sourceanalyzer -b iap -scan -f IAP_Android.fpr
+                            echo "*** fortifyclient -url https://fortify.philips.com/ssc IAP_Android***"
+                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file IAP_Android.fpr -project EMS -version IAP_Android
+                    '''
+                }    
+            }
+        }
+        stage('MEC') {
+            when {
+                allOf {
+                    expression { return params.buildType == 'MEC' }
+                    not { expression { return params.buildType == 'TICS' } }
+                }
+            }
+            steps {
+               /*BuildHPFortify()*/   //build HPFortify
+               script {
+                    sh '''#!/bin/bash -l
+                            set -e
+                            chmod -R 755 .
+                            ./gradlew --refresh-dependencies
+                            sourceanalyzer -b mec -clean
+                            echo "*** sourceanalyzer -b mec -source 1.8 ./gradlew assembleRelease ***"
+                            sourceanalyzer -b mec -source 1.8 -debug-verbose -logfile MEC_Android.txt ./gradlew assembleRelease
+                            echo "*** sourceanalyzer -b mec -scan -f MEC_Android.fpr ***"
+                            sourceanalyzer -b mec -scan -f MEC_Android.fpr
+                            echo "*** fortifyclient -url https://fortify.philips.com/ssc MEC_Android***"
+                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file MEC_Android.fpr -project EMS -version MEC_Android
+                    '''
+                }    
+            }
+        }
 //        stage('Trigger E2E Test') {
 //           when {
 //                allOf {
