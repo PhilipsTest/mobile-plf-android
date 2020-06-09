@@ -22,7 +22,7 @@ import java.util.*
 
 class ECSRetailerViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
-    val ecsRetailerList = MutableLiveData<com.philips.platform.ecs.model.retailers.ECSRetailerList>()
+    val ecsRetailerList = MutableLiveData<ECSRetailerList>()
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
@@ -35,7 +35,7 @@ class ECSRetailerViewModel : com.philips.platform.mec.common.CommonViewModel() {
     companion object DataBindingAdapter {
         @JvmStatic
         @BindingAdapter("retailers","listener")
-        fun setAdapter(recyclerView: RecyclerView, ecsRetailerList: com.philips.platform.ecs.model.retailers.ECSRetailerList, itemClickListener: ItemClickListener) {
+        fun setAdapter(recyclerView: RecyclerView, ecsRetailerList: ECSRetailerList, itemClickListener: ItemClickListener) {
             recyclerView.adapter = MECRetailersAdapter(ecsRetailerList.retailers,itemClickListener)
         }
 

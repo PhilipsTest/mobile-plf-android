@@ -16,7 +16,7 @@ import com.philips.platform.mec.databinding.MecOrderSummaryVoucherItemBinding
 
 class MECOrderSummaryVoucherHolder(val binding: MecOrderSummaryVoucherItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(voucher: com.philips.platform.ecs.model.cart.AppliedVoucherEntity) {
+    fun bind(voucher: AppliedVoucherEntity) {
         binding.voucher = voucher
     }
 }

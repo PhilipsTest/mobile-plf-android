@@ -9,10 +9,9 @@
  */
 package com.philips.platform.mec.screens.address
 
-import com.philips.platform.ecs.model.address.Region
 import com.philips.platform.ecs.model.region.ECSRegion
 
-class MECRegions(private val regionList: List<com.philips.platform.ecs.model.region.ECSRegion>){
+class MECRegions(private val regionList: List<ECSRegion>){
 
     fun getRegionNames(): Array<String> ?{
 
