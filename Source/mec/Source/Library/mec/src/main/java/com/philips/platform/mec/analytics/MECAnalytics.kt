@@ -111,9 +111,14 @@ class MECAnalytics {
         fun trackTechnicalError(value: Any) {
             val errorObject = value as String
             MECLog.e(technicalError, javaClass.simpleName + " : " + errorObject)
+            val map = getTechnicalErrorMap(errorObject)
+            trackMultipleActions(sendData, map)
+        }
+
+        internal fun getTechnicalErrorMap(errorObject: String): HashMap<String, String> {
             val map = HashMap<String, String>()
             map.put(technicalError, errorObject)
-            trackMultipleActions(sendData, map)
+            return map
         }
 
         /*
@@ -127,9 +132,14 @@ class MECAnalytics {
             val errorObject = value as String
             errorString += errorObject
             MECLog.e(userError, javaClass.simpleName + " : " + errorString)
+            val map = getUserErrorMap(errorString)
+            trackMultipleActions(sendData, map)
+        }
+
+        internal fun getUserErrorMap(errorString: String): HashMap<String, String> {
             val map = HashMap<String, String>()
             map.put(userError, errorString)
-            trackMultipleActions(sendData, map)
+            return map
         }
 
         /*
@@ -140,9 +150,14 @@ class MECAnalytics {
         fun trackInformationError(value: Any) {
             val errorObject = value as String
             MECLog.i(informationalError, javaClass.simpleName + " : " + errorObject)
+            val map = getInformationErrorMap(errorObject)
+            trackMultipleActions(sendData, map)
+        }
+
+        internal fun getInformationErrorMap(errorObject: String): HashMap<String, String> {
             val map = HashMap<String, String>()
             map.put(informationalError, errorObject)
-            trackMultipleActions(sendData, map)
+            return map
         }
 
 
@@ -162,18 +177,25 @@ class MECAnalytics {
         * */
         @JvmStatic
         fun tagProductList(productList: MutableList<ECSProduct>) {
+            val map=getProductListMap(productList)
+            if(map.size>0) {
+                trackMultipleActions(sendData, getProductListMap(productList))
+            }
+        }
+
+        internal fun getProductListMap(productList: MutableList<ECSProduct>):Map<String, String>  {
+            val map = HashMap<String, String>()
             if (productList != null && productList.size > 0) {
                 val mutableProductIterator = productList.iterator()
                 var productListString: String = ""
                 for (product in mutableProductIterator) {
                     productListString += "," + getProductInfo(product)
                 }
-                productListString = productListString.substring(1, productListString.length - 1)
+                productListString = productListString.substring(1, productListString.length )
                 MECLog.v(TAG, "prodList : $productListString")
-                val map = HashMap<String, String>()
                 map.put(mecProducts, productListString)
-                trackMultipleActions(sendData, map)
             }
+            return map
         }
 
 
@@ -184,9 +206,16 @@ class MECAnalytics {
         * */
         @JvmStatic
         fun tagProductList(productList: MutableList<ECSProduct>, listOrGrid: String) {
+            val map = getProductListAndGridMap( productList, listOrGrid)
+            if(map.size>0) {
+                trackMultipleActions(sendData, map)
+            }
+        }
+
+        internal fun getProductListAndGridMap( productList: MutableList<ECSProduct>, listOrGrid: String): HashMap<String, String> {
             val map = HashMap<String, String>()
-            map.put(productListLayout, listOrGrid)
             if (productList != null && productList.size > 0) {
+                map.put(productListLayout, listOrGrid)
                 val mutableProductIterator = productList.iterator()
                 var productListString: String = ""
                 var maxProductCount = 10
@@ -196,11 +225,11 @@ class MECAnalytics {
                         break
                     }
                 }
-                productListString = productListString.substring(1, productListString.length - 1)
+                productListString = productListString.substring(1, productListString.length )
                 MECLog.v("MEC_LOG", "prodList : $productListString")
                 map.put(mecProducts, productListString);
             }
-            trackMultipleActions(sendData, map)
+            return map
         }
 
 
@@ -209,21 +238,27 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<ECSEntries>) {
+            val productsMap = getOrderProductInfoMap( actionMap ,entryList)
+            if(productsMap.size>0) { //
+                trackMultipleActions(sendData, productsMap)
+            }
+        }
+
+        internal fun getOrderProductInfoMap( actionMap: Map<String, String>, entryList: List<ECSEntries>): HashMap<String, String> {
             val productsMap = HashMap<String, String>()
             if (entryList != null && entryList.size > 0) { //Entries
                 val mutableEntryIterator = entryList.iterator()
                 var productListString: String = ""
                 for (entry in mutableEntryIterator) {
-                    productListString += "," + getProductInfoWithChangedQuantity(entry.product,entry.basePrice,entry.quantity)
+                    productListString += "," + getProductInfoWithChangedQuantity(entry.product, entry.basePrice, entry.quantity)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 MECLog.v("MEC_LOG", "Order prodList : " + productListString)
                 productsMap.put(mecProducts, productListString);
             }
             productsMap.putAll(actionMap)
-            trackMultipleActions(sendData, productsMap)
+            return productsMap
         }
-
 
 
         /*
@@ -297,11 +332,22 @@ class MECAnalytics {
         * */
         @JvmStatic
         fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew :String) {
+            var orderMap = getPurchaseOrderMap( mECSOrderDetail,paymentTypeOldOrNew)
+            if(orderMap.size>=4) {
+                tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
+            }
+        }
+
+        internal fun getPurchaseOrderMap( mECSOrderDetail: ECSOrderDetail,paymentTypeOldOrNew: String): HashMap<String, String> {
             var orderMap = HashMap<String, String>()
             orderMap.put(specialEvents, purchase)
             orderMap.put(paymentType, paymentTypeOldOrNew)
-            orderMap.put(transationID, mECSOrderDetail.code)
-            orderMap.put(deliveryMethod, mECSOrderDetail.deliveryMode.name)
+            if(null!=mECSOrderDetail.code) {
+                orderMap.put(transationID, mECSOrderDetail.code)
+            }
+            if(null!=mECSOrderDetail.deliveryMode) {
+                orderMap.put(deliveryMethod, mECSOrderDetail.deliveryMode.name)
+            }
             var orderPromotionList: String = ""
             if (null != mECSOrderDetail.appliedOrderPromotions && mECSOrderDetail.appliedOrderPromotions.size > 0) {
                 for (appliedOrderPromotion in mECSOrderDetail.appliedOrderPromotions) {
@@ -324,8 +370,7 @@ class MECAnalytics {
                 orderMap.put(voucherCodeStatus, voucherCodeRedeemed)
                 orderMap.put(voucherCode, voucherList)
             }
-
-            tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
+            return orderMap
         }
 
         /*
