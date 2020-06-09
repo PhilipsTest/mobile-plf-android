@@ -55,7 +55,7 @@
   <string name="ECSPIL_MISSING_API_VERSION" tools:ignore="MissingTranslation">"The required API version header is missing"</string>
   <string name="ECSPIL_MISSING_API_KEY" tools:ignore="MissingTranslation">"The required API key header is missing"</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT" tools:ignore="MissingTranslation">"Product search limit cannot be more than 50"</string>
-  <string name="ECSPIL_NOT_ACCEPTABLE" tools:ignore="MissingTranslation">"Content type not acceptable"</string>
+
 
   <string name="ECSPIL_INTEGRATION_TIMEOUT" tools:ignore="MissingTranslation">Network timeout reached!</string>
 
