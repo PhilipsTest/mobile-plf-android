@@ -14,6 +14,8 @@ import com.bazaarvoice.bvandroidsdk.BVConversationsClient
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
+import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.mec.analytics.MECAnalyticServer
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -45,12 +47,12 @@ enum class MECDataHolder {
     var mecOrderFlowCompletion: MECOrderFlowCompletion? = null
     lateinit var locale: String
     lateinit var propositionId: String
-    lateinit var voucherCode: String
+    var voucherCode: String?=null
     var maxCartCount: Int = 0
     lateinit var userDataInterface: UserDataInterface
     var refreshToken: String? = null //To avoid null check and Null pointer exception
     var blackListedRetailers: List<String>? = null
-    lateinit var mecBazaarVoiceInput: MECBazaarVoiceInput
+    var mecBazaarVoiceInput: MECBazaarVoiceInput?=null
     private var privacyUrl: String? = null
     private var faqUrl: String? = null
     private var termsUrl: String? = null
@@ -58,8 +60,8 @@ enum class MECDataHolder {
     var retailerEnabled: Boolean = true
     var voucherEnabled: Boolean = true
     var rootCategory: String = ""
-    var config: com.philips.platform.ecs.model.config.ECSConfig? = null
-    lateinit var eCSServices: com.philips.platform.ecs.ECSServices
+    var config: ECSConfig? = null
+    lateinit var eCSServices: ECSServices
 
     var mutableListOfPayments = mutableListOf<MECPayment>()
     var PAYMENT_HOLDER: MECPayments = MECPayments(mutableListOfPayments, false) //Default empty MECPayments
@@ -137,7 +139,7 @@ enum class MECDataHolder {
     }
 
     fun isInternetActive(): Boolean {
-        return appinfra.restClient.isInternetReachable
+        return appinfra.restClient?.isInternetReachable ?:false
     }
 
     fun initECSSDK() {

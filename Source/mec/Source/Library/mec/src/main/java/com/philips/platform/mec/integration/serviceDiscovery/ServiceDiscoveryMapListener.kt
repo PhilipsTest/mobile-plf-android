@@ -21,9 +21,9 @@ import java.util.*
 class ServiceDiscoveryMapListener : ServiceDiscoveryInterface.OnGetServiceUrlMapListener {
     private val TAG: String = ServiceDiscoveryMapListener::class.java.simpleName
 
-
+    internal var mecLog = MECLog
     override fun onError(error: ServiceDiscoveryInterface.OnErrorListener.ERRORVALUES?, message: String?) {
-        MECLog.e(TAG, error!!.name)
+        mecLog.e(TAG, message ?: "")
     }
 
 
