@@ -173,7 +173,6 @@ ext.deps = [
         design                        : "com.google.android.material:material:1.2.0-alpha05",
         volley                        : 'com.android.volley:volley:1.1.1',
         wechat                        : 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.4.0',
-        apache_commons_lang           : 'org.apache.commons:commons-lang3:3.9',
         assertj                       : 'com.squareup.assertj:assertj-android:1.2.0',
         butterknife_compiler          : 'com.jakewharton:butterknife-compiler:10.2.1',
         butterknife_gradle            : 'com.jakewharton:butterknife-gradle-plugin:10.2.1', // Held at 8.4.0 since 10.0.0 is giving an issue

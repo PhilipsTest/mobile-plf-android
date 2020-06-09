@@ -19,11 +19,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:textDirection="locale">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/mec_order_summary_btn"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -288,28 +291,30 @@
                 </FrameLayout>
 
 
-                <com.philips.platform.uid.view.widget.Button
-                    android:id="@+id/mec_order_summary_btn"
-                    style="@style/mecCentralesansBookFont"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/mec_payment_framelayout"
-                    android:layout_marginLeft="@dimen/iap_shopping_cart_btn_margin"
-                    android:layout_marginTop="@dimen/border16_margin_left_right"
-                    android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
-                    android:layout_marginBottom="@dimen/border16_margin_left_right"
-                    android:clickable="true"
-                    android:enabled="true"
-                    android:focusable="true"
-                    android:onClick="@{() -> mecDeliveryFragment.onOrderSummaryClick()}"
-                    android:text="@string/mec_continue"
-                    android:textColor="?attr/uidButtonPrimaryNormalTextColor"
-                    android:textSize="@dimen/iap_text_size_16sp"
-                    app:uidComponentType="Primary" />
+
 
             </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <com.philips.platform.uid.view.widget.Button
+            android:id="@+id/mec_order_summary_btn"
+            style="@style/mecCentralesansBookFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/iap_shopping_cart_btn_margin"
+            android:layout_marginTop="@dimen/border16_margin_left_right"
+            android:layout_marginRight="@dimen/iap_shopping_cart_btn_margin"
+            android:layout_marginBottom="@dimen/border16_margin_left_right"
+            android:clickable="true"
+            android:enabled="true"
+            android:focusable="true"
+            android:onClick="@{() -> mecDeliveryFragment.onOrderSummaryClick()}"
+            android:text="@string/mec_continue"
+            android:textColor="?attr/uidButtonPrimaryNormalTextColor"
+            android:textSize="@dimen/iap_text_size_16sp"
+            app:uidComponentType="Primary" />
 
         <include
             android:id="@+id/mec_progress"

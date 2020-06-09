@@ -12,9 +12,9 @@ package com.philips.platform.mec.screens.address.region
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.util.ECSConfiguration
 
-class RegionRepository(val ecsServices: ECSServices) {
+class RegionRepository {
 
-    fun getRegions(ecsRegionListCallback: ECSRegionListCallback){
+    fun getRegions(ecsServices:ECSServices,ecsRegionListCallback: ECSRegionListCallback){
         ecsServices.fetchRegions(ECSConfiguration.INSTANCE.country,ecsRegionListCallback)
     }
 

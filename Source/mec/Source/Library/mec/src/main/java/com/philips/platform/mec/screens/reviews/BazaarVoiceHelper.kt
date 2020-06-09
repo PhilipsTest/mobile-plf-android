@@ -18,9 +18,9 @@ class BazaarVoiceHelper {
 
     fun getBazaarVoiceClient(context: Application): BVConversationsClient {
 
-        val bazaarClientId = MECDataHolder.INSTANCE.mecBazaarVoiceInput.getBazaarVoiceClientID()
-        val bazaarApiConversationKey = MECDataHolder.INSTANCE.mecBazaarVoiceInput.getBazaarVoiceConversationAPIKey()
-        val bazaarEnvironment = MECDataHolder.INSTANCE.mecBazaarVoiceInput.getBazaarVoiceEnvironment()
+        val bazaarClientId = MECDataHolder.INSTANCE.mecBazaarVoiceInput?.getBazaarVoiceClientID()
+        val bazaarApiConversationKey = MECDataHolder.INSTANCE.mecBazaarVoiceInput?.getBazaarVoiceConversationAPIKey()
+        val bazaarEnvironment = MECDataHolder.INSTANCE.mecBazaarVoiceInput?.getBazaarVoiceEnvironment()
 
         val bvConfigBuilder = BVConfig.Builder()
         bvConfigBuilder.clientId(bazaarClientId)

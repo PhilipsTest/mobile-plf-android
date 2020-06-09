@@ -98,7 +98,6 @@ dependencies {
     testImplementation(deps.junit)
 
     androidTestImplementation deps.androidx.runner
-    androidTestImplementation deps.apache_commons_lang
 }
 
 tasks.withType(Test) {
