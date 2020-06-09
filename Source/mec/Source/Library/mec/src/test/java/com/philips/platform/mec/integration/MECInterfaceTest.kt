@@ -17,7 +17,9 @@ import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.rest.RestInterface
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
+import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.pif.DataInterface.MEC.MECException
@@ -25,8 +27,7 @@ import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState
 import com.philips.platform.uappframework.launcher.UiLauncher
 import org.junit.After
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -61,6 +62,9 @@ class MECInterfaceTest {
     lateinit var loggingInterfaceMock : LoggingInterface
 
     @Mock
+    lateinit var taggingInterfaceMock : AppTaggingInterface
+
+    @Mock
     lateinit var serviceDiscoveryInterfaceMock : ServiceDiscoveryInterface
 
     @Mock
@@ -78,7 +82,9 @@ class MECInterfaceTest {
         MockitoAnnotations.initMocks(this)
         PowerMockito.mockStatic(MECAnalytics::class.java)
         Mockito.`when`(loggingInterfaceMock.createInstanceForComponent(any(String::class.java),any(String::class.java))).thenReturn(loggingInterfaceMock)
+        Mockito.`when`(taggingInterfaceMock.createInstanceForComponent(any(String::class.java),any(String::class.java))).thenReturn(taggingInterfaceMock)
         Mockito.`when`(appInfraMock.logging).thenReturn(loggingInterfaceMock)
+        Mockito.`when`(appInfraMock.tagging).thenReturn(taggingInterfaceMock)
         Mockito.`when`(appInfraMock.configInterface).thenReturn(appConfigurationInterfaceMock)
         Mockito.`when`(appInfraMock.serviceDiscovery).thenReturn(serviceDiscoveryInterfaceMock)
         uappDependenciesMock = MECDependencies(appInfraMock,userDataInterfaceMock)
@@ -86,17 +92,15 @@ class MECInterfaceTest {
         mecInterface.mecHandler = mecHandlerMock
     }
 
-    @Test
-    fun getMEC_NOTATION() {
-    }
+
 
     @Test
     fun `should init MEC set up`() {
 
         mecInterface.init(uappDependenciesMock,uappSettingsMock)
-        assertTrue(MECLog.isLoggingEnabled)
         assertNotNull( MECDataHolder.INSTANCE.userDataInterface)
         assertNotNull(MECLog.appInfraLoggingInterface)
+        assertNotNull(MECAnalytics.mAppTaggingInterface)
 
     }
 
@@ -189,6 +193,11 @@ class MECInterfaceTest {
     @Test
     fun getMECDataInterface() {
         assertNotNull(mecInterface.getMECDataInterface())
+    }
+
+    @Test
+    fun `component name should be MEC`() {
+        assertEquals(MECConstant.COMPONENT_NAME,"MEC")
     }
 
     @After

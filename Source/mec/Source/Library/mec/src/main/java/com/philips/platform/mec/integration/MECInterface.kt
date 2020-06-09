@@ -13,6 +13,7 @@ import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.integration.MECDataProvider.context
+import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface
@@ -34,7 +35,6 @@ class MECInterface : UappInterface {
     private var mUserDataInterface: UserDataInterface? = null
     internal var mecHandler = MECHandler()
 
-    val MEC_NOTATION = "mec"
     private val TAG: String = MECInterface::class.java.simpleName
 
 
@@ -52,8 +52,7 @@ class MECInterface : UappInterface {
         MECDataHolder.INSTANCE.appinfra = MECDependencies.appInfra
 
         //enable appInfra logging
-        MECLog.isLoggingEnabled = true
-        MECLog.appInfraLoggingInterface = MECDependencies.appInfra.logging.createInstanceForComponent(MEC_NOTATION, BuildConfig.VERSION_NAME)
+        MECLog.appInfraLoggingInterface = MECDependencies.appInfra.logging.createInstanceForComponent(MECConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME)
 
         MECDataHolder.INSTANCE.userDataInterface = MECDependencies.userDataInterface
         MECAnalytics.initMECAnalytics(((mUappDependencies as MECDependencies?)!!))

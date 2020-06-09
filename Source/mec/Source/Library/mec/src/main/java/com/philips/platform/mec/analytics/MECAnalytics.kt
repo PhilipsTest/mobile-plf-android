@@ -111,9 +111,14 @@ class MECAnalytics {
         fun trackTechnicalError(value: Any) {
             val errorObject = value as String
             MECLog.e(technicalError, javaClass.simpleName + " : " + errorObject)
+            val map = getTechnicalMap(errorObject)
+            trackMultipleActions(sendData, map)
+        }
+
+        internal fun getTechnicalMap(errorObject: String): HashMap<String, String> {
             val map = HashMap<String, String>()
             map.put(technicalError, errorObject)
-            trackMultipleActions(sendData, map)
+            return map
         }
 
         /*

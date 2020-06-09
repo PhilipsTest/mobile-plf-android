@@ -32,7 +32,7 @@ import java.util.*
 
 class MECHandler{
 
-    lateinit var serviceUrlMapListener: OnGetServiceUrlMapListener
+    internal var serviceUrlMapListener = ServiceDiscoveryMapListener()
     private val TAG: String = MECHandler::class.java.simpleName
 
 
@@ -67,7 +67,7 @@ class MECHandler{
 
         MECDataHolder.INSTANCE.blackListedRetailers = mLaunchInput.blackListedRetailerNames
         getUrl()
-        MECDataHolder.INSTANCE.eCSServices?.configureECSToGetConfiguration(getConfigCallback(mUiLauncher, mMECSetting, mLaunchInput))
+        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(getConfigCallback(mUiLauncher, mMECSetting, mLaunchInput))
     }
 
     internal fun getConfigCallback(mUiLauncher: UiLauncher, mMECSetting: MECSettings, mLaunchInput: MECLaunchInput): ECSCallback<ECSConfig, Exception> {
@@ -95,13 +95,12 @@ class MECHandler{
         }
     }
 
-    private fun getUrl() {
+    internal fun getUrl() {
         val listOfServiceId = mutableListOf<String>()
         listOfServiceId.add(IAP_PRIVACY_URL)
         listOfServiceId.add(IAP_FAQ_URL)
         listOfServiceId.add(IAP_TERMS_URL)
-        serviceUrlMapListener = ServiceDiscoveryMapListener()
-        MECDataHolder.INSTANCE.appinfra?.serviceDiscovery?.getServicesWithCountryPreference(listOfServiceId as ArrayList<String>, serviceUrlMapListener, null)
+        MECDataHolder.INSTANCE.appinfra.serviceDiscovery?.getServicesWithCountryPreference(listOfServiceId as ArrayList<String>, serviceUrlMapListener, null)
     }
 
 
@@ -114,7 +113,6 @@ class MECHandler{
         bundle.putInt(MECConstant.MEC_KEY_ACTIVITY_THEME, activityLauncher.uiKitTheme)
         intent.putExtras(bundle)
         mecSettings.context.startActivity(intent)
-
     }
 
     private fun launchMECasFragment(hybris: Boolean,mUiLauncher: UiLauncher,mLaunchInput: MECLaunchInput) {

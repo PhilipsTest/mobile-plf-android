@@ -93,6 +93,12 @@ class MECDataProviderTest{
         assertNotNull(MECDataHolder.INSTANCE.mecCartUpdateListener)
     }
 
+    @Test
+    fun `should remove update listener`() {
+        mecDataProvider.removeCartUpdateListener(mecCartUpdateListenerMock)
+        assertNull(MECDataHolder.INSTANCE.mecCartUpdateListener)
+    }
+
     @Test(expected = MECException::class)
     fun `fetch cart count should through exception and init ecs sdk to create ECSservices instance`() {
         mecDataProvider.fetchCartCount(mecFetchListenerMock)

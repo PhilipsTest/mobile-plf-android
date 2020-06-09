@@ -28,6 +28,8 @@ import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.ecs.util.ECSConfiguration
+import com.philips.platform.mec.integration.serviceDiscovery.ServiceDiscoveryMapListener
+import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.uappframework.launcher.ActivityLauncher
@@ -49,7 +51,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 import java.util.ArrayList
 
 @PowerMockIgnore("javax.net.ssl.*","okhttp3.*")
-@PrepareForTest(MECLaunchInput::class,MECFlowConfigurator::class,MECSettings::class,UiLauncher::class,ActionBarListener::class)
+@PrepareForTest(MECLaunchInput::class,MECFlowConfigurator::class,MECSettings::class,UiLauncher::class,ActionBarListener::class,ServiceDiscoveryMapListener::class)
 @RunWith(PowerMockRunner::class)
 class MECHandlerTest{
 
@@ -106,14 +108,15 @@ class MECHandlerTest{
     @Mock
     lateinit var packageInfoMock : PackageInfo
 
+    @Mock
+    private lateinit var serviceDiscoveryMapListenerMock : ServiceDiscoveryMapListener
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
         setupAppInfra()
         setUpBazzarVoice()
-        //mECSetting = MECSettings(null)
-
     }
 
     private fun setUpBazzarVoice() {
@@ -153,11 +156,40 @@ class MECHandlerTest{
 
     @Test
     fun `test default values set to mec data holder`() {
-        mecHandler.launchMEC(mECSettingMock,uiLaunchermock, MECLaunchInput())
+
+        val mecLaunchInput = MECLaunchInput()
+        mecHandler.launchMEC(mECSettingMock,uiLaunchermock, mecLaunchInput)
         assertNotNull(MECDataHolder.INSTANCE.mecBazaarVoiceInput)
         assertEquals(MECDataHolder.INSTANCE.maxCartCount,0)
         assertTrue(MECDataHolder.INSTANCE.hybrisEnabled)
         assertTrue(MECDataHolder.INSTANCE.retailerEnabled)
+    }
+
+    @Test
+    fun `test bazzar voice value set from LaunchInput`() {
+
+        val mecLaunchInput = MECLaunchInput()
+        mecLaunchInput.mecBazaarVoiceInput = BazaarVoiceInput()
+        mecHandler.launchMEC(mECSettingMock,uiLaunchermock, mecLaunchInput)
+        assertEquals(MECDataHolder.INSTANCE.mecBazaarVoiceInput?.getBazaarVoiceEnvironment(),MECBazaarVoiceEnvironment.PRODUCTION)
+        assertEquals(MECDataHolder.INSTANCE.mecBazaarVoiceInput?.getBazaarVoiceConversationAPIKey(),"proposition_api_key")
+        assertEquals(MECDataHolder.INSTANCE.mecBazaarVoiceInput?.getBazaarVoiceClientID(),"proposition_client_ID")
+
+    }
+
+    class BazaarVoiceInput : MECBazaarVoiceInput(){
+
+        override fun getBazaarVoiceClientID(): String {
+            return "proposition_client_ID"
+        }
+
+        override fun getBazaarVoiceConversationAPIKey(): String {
+            return "proposition_api_key"
+        }
+
+        override fun getBazaarVoiceEnvironment(): MECBazaarVoiceEnvironment {
+            return MECBazaarVoiceEnvironment.PRODUCTION
+        }
     }
 
     @Mock
@@ -210,6 +242,17 @@ class MECHandlerTest{
         Mockito.verify(fragmentTransactionMock).commitAllowingStateLoss()
     }
 
+    @Test
+    fun testServiceDiscoveryCallForUrls() {
+        val listOfServiceId = mutableListOf<String>()
+        listOfServiceId.add(MECHandler.IAP_PRIVACY_URL)
+        listOfServiceId.add(MECHandler.IAP_FAQ_URL)
+        listOfServiceId.add(MECHandler.IAP_TERMS_URL)
+        mecHandler.serviceUrlMapListener = serviceDiscoveryMapListenerMock
+        mecHandler.getUrl()
+        Mockito.verify(serviceDiscoveryInterfaceMock).getServicesWithCountryPreference(listOfServiceId as ArrayList<String>,serviceDiscoveryMapListenerMock,null)
+    }
+
     fun <T> any(type : Class<T>): T {
         Mockito.any(type)
         return uninitialized()
@@ -221,4 +264,7 @@ class MECHandlerTest{
         Mockito.any<T>()
         return uninitialized()
     }
+
+
+
 }

@@ -35,7 +35,7 @@ object MECDataProvider : MECDataInterface {
     }
 
     override fun removeCartUpdateListener(mecCartUpdateListener: MECCartUpdateListener?) {
-        //  TODO("not implemented")
+        MECDataHolder.INSTANCE.mecCartUpdateListener = null
     }
 
     @Throws(MECException::class)
