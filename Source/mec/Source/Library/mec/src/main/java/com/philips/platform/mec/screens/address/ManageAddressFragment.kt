@@ -42,7 +42,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
 
     private val TAG: String = ManageAddressFragment::class.java.simpleName
 
-    private var mECSShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart? = null
+    private var mECSShoppingCart: ECSShoppingCart? = null
     private lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
     private lateinit var addressViewModel: AddressViewModel
     private lateinit var binding: MecAddressManageBinding
@@ -58,7 +58,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
         const val TAG: String = "ManageAddressFragment"
     }
 
-    private val fetchAddressObserver: Observer<List<com.philips.platform.ecs.model.address.ECSAddress>> = Observer(fun(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
+    private val fetchAddressObserver: Observer<List<ECSAddress>> = Observer(fun(addressList: List<ECSAddress>?) {
 
         val intent = Intent()
         val bundle = Bundle()
@@ -92,7 +92,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
     }
 
 
-    private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer { ecsShoppingCart ->
+    private val cartObserver: Observer<ECSShoppingCart> = Observer { ecsShoppingCart ->
         mECSShoppingCart = ecsShoppingCart
         addressViewModel.fetchAddresses()
     }
@@ -134,7 +134,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
         ecsShoppingCartViewModel.mecError.observe(this, errorObserver)
 
 
-        val ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<com.philips.platform.ecs.model.address.ECSAddress>
+        val ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<ECSAddress>
         defaultAddressId = arguments?.getSerializable(MECConstant.KEY_MEC_DEFAULT_ADDRESSES_ID) as String
         val itemClickListener = arguments?.getSerializable(MECConstant.KEY_ITEM_CLICK_LISTENER) as ItemClickListener
 

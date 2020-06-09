@@ -42,7 +42,6 @@ include ext.strings.pim.projectName
 include ext.strings.pimuapp.projectName
 
 include ext.strings.ecs.projectName
-include ext.strings.ecsuapp.projectName
 include ext.strings.ecstestuapp.projectName
 include ext.strings.iapuapp.projectName
 
@@ -78,7 +77,7 @@ project(ext.strings.pimuapp.projectName).projectDir = new File('./Source/pim/Sou
 project(ext.strings.pim.projectName).projectDir = new File('./Source/pim/Source/Library/pim')
 
 
-project(ext.strings.ecsuapp.projectName).projectDir = new File('./Source/ecs/Source/DemoUApp')
+
 project(ext.strings.ecstestuapp.projectName).projectDir = new File('./Source/ecs/Source/DemoTestUAPP')
 project(ext.strings.ecs.projectName).projectDir = new File('./Source/ecs/Source/Library/philipsecommercesdk')
 
@@ -108,8 +107,7 @@ project(':pimApp').projectDir = new File('./Source/pim/Source/DemoApp/app')
 //project(':iapApp').projectDir = new File('./Source/iap/Source/DemoApp/app')
 //include(':ecsApp')
 //project(':ecsApp').projectDir = new File('./Source/ecs/Source/DemoApp/app')
-//include(':ecsUApp')
-//project(':ecsUApp').projectDir = new File('./Source/ecs/Source/DemoUApp')
+
 
 //include(':ecsTestUApp')
 //project(':ecsTestUApp').projectDir = new File('./Source/ecs/Source/DemoTestUAPP')

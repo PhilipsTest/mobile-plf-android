@@ -10,7 +10,6 @@ package com.philips.platform.ecs.model.products;
 import com.philips.platform.ecs.model.asset.Assets;
 import com.philips.platform.ecs.model.disclaimer.Disclaimers;
 import com.philips.platform.ecs.model.summary.Data;
-import com.philips.platform.ecs.model.asset.Assets;
 
 import java.io.Serializable;
 
@@ -75,6 +74,10 @@ public class ECSProduct implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public void setPrice(PriceEntity price) {
+        this.price = price;
     }
 
     public PriceEntity getPrice() {

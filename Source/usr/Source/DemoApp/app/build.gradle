@@ -111,17 +111,17 @@ dependencies {
     implementation deps.androidx.appcompat
     implementation deps.androidx.constraintlayout
     implementation deps.design
-    implementation deps.multidex
+    implementation deps.androidx.multidex
     implementation deps.greenrobot
     implementation deps.wechat
     implementation deps.butterknife
 
     testImplementation deps.junit
 
-    androidTestimplementation deps.androidx.annotations
-    androidTestImplementation deps.androidx_test.runner
-    androidTestImplementation deps.androidx_test.rules
-    androidTestImplementation deps.uiautomator
+    implementation deps.androidx.annotations
+    androidTestImplementation deps.androidx.runner
+    androidTestImplementation deps.androidx.rules
+    androidTestImplementation deps.androidx.uiautomator
 }
 
 task findbugs(type: FindBugs, dependsOn: "assembleDebug") {

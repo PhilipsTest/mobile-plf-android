@@ -9,14 +9,7 @@
  */
 package com.philips.platform.mec.screens.detail
 
-import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.ImageLoader
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.ContextDataValue
 import com.bazaarvoice.bvandroidsdk.Review
@@ -24,29 +17,24 @@ import com.bazaarvoice.bvandroidsdk.ReviewResponse
 import com.google.gson.internal.LinkedTreeMap
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.asset.Asset
-import com.philips.platform.ecs.model.asset.Assets
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.products.ECSProduct
-import com.philips.platform.ecs.model.retailers.ECSRetailer
 import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.detail.MECProductDetailsFragment.Companion.tagOutOfStockActions
-import com.philips.platform.mec.screens.reviews.MECReview
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uid.view.widget.Label
-import com.philips.platform.uid.view.widget.ProgressBar
 import java.util.*
 
 class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
-    var ecsProduct = MutableLiveData<com.philips.platform.ecs.model.products.ECSProduct>()
+    var ecsProduct = MutableLiveData<ECSProduct>()
 
-    lateinit var ecsProductAsParamter : com.philips.platform.ecs.model.products.ECSProduct
-    lateinit var  addToProductCallBack : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception>
+    lateinit var ecsProductAsParamter : ECSProduct
+    lateinit var  addToProductCallBack : ECSCallback<ECSShoppingCart, Exception>
 
     val bulkRatingResponse= MutableLiveData<BulkRatingsResponse>()
 
@@ -65,7 +53,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         ecsProductDetailRepository.getRatings(ctn)
     }
 
-    fun getProductDetail(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct){
+    fun getProductDetail(ecsProduct: ECSProduct){
         ecsProductDetailRepository.getProductDetail(ecsProduct)
     }
 
@@ -73,14 +61,14 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         ecsProductDetailRepository.fetchProductReview(ctn, pageNumber, pageSize)
     }
 
-    fun addProductToShoppingcart(ecsProduct: com.philips.platform.ecs.model.products.ECSProduct, addToProductCallback  : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception>){
+    fun addProductToShoppingcart(ecsProduct: ECSProduct, addToProductCallback  : ECSCallback<ECSShoppingCart, Exception>){
         ecsProductAsParamter=ecsProduct
         addToProductCallBack=addToProductCallback
         ecsProductDetailRepository.addTocart(ecsProductAsParamter)
     }
 
 
-    override fun authFailureCallback(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?){
+    override fun authFailureCallback(error: Exception?, ecsError: ECSError?){
         MECLog.v("Auth","refresh auth failed");
         addToProductCallBack.onFailure(error,ecsError)
     }
@@ -91,11 +79,11 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
     }
 
     fun createShoppingCart(request: String){
-        val createShoppingCartCallback=  object: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception> {
-            override fun onResponse(result: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
+        val createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, Exception> {
+            override fun onResponse(result: ECSShoppingCart?) {
                 addProductToShoppingcart(ecsProductAsParamter,addToProductCallBack)
             }
-            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+            override fun onFailure(error: Exception?, ecsError: ECSError?) {
                 TODO(" create cart must NOT fail")
             }
         }
@@ -134,7 +122,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         return useDurationValue.toString()
     }
 
-    fun removeBlacklistedRetailers(ecsRetailers: com.philips.platform.ecs.model.retailers.ECSRetailerList): com.philips.platform.ecs.model.retailers.ECSRetailerList {
+    fun removeBlacklistedRetailers(ecsRetailers: ECSRetailerList): ECSRetailerList {
         val list = MECDataHolder.INSTANCE.blackListedRetailers
         if(list == null){
             return ecsRetailers
@@ -224,7 +212,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
                         } else if(ecsRetailers.retailers.get(i).availability.contains("NO")) {
                             availability=false
                             if (!availability) {
-                                if (null != product && null != product.stock) {
+                                if (null != product?.stock) {
                                     if (MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) {
                                         stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
                                         stockLabel.setTextColor(stockLabel.context.getColor(R.color.uid_signal_green_level_30))

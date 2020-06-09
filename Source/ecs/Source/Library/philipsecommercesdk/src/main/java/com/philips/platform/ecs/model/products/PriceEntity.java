@@ -27,6 +27,10 @@ public class PriceEntity implements Serializable {
         return value;
     }
 
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     String currencyIso;
     String formattedValue;
     String priceType;

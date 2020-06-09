@@ -74,7 +74,6 @@ android {
     buildTypes {
         release {
             consumerProguardFiles 'proguard-rules-mec.pro'
-            minifyEnabled true
         }
         debug {
             debuggable true

@@ -27,6 +27,10 @@ public class BasePriceEntity  implements Serializable {
         return priceType;
     }
 
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     public double getValue() {
         return value;
     }
