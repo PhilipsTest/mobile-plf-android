@@ -21,14 +21,13 @@ class GetProductsRequest  (private val productCategory: String?, private val lim
     val limitDefault = 20   // default limit
     val offsetDefault = 0    // default Offset
 
-    var url1="https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
 
     override fun getServiceID(): String {
         return SERVICEID_ECS_PRODUCTS
     }
 
     override fun getURL(): String {
-        return addParamsToURL(url1.replaceParam(getReplaceURLMap()))
+        return addParamsToURL(url.replaceParam(getReplaceURLMap()))
     }
 
     private fun addParamsToURL(url: String): String {

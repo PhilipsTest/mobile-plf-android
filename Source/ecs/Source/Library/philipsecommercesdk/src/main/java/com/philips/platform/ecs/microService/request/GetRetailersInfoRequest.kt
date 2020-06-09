@@ -14,37 +14,26 @@ package com.philips.platform.ecs.microService.request
 
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_RETAILERS
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
-
-
+import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 
 class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) : ECSJsonRequest(ecsCallback) {
 
-    val PREFIX_RETAILERS = "www.philips.com/api/wtb/v1"
-    val RETAILERS_ALTER = "online-retailers?product=%s"
-    val PRX_SECTOR_CODE = "B2C"
 
 
     override fun getURL(): String {
-        return createURL()
+        return url.replaceParam(getReplaceURLMap())
     }
 
     override fun getServiceID(): String {
-        return ""
+        return SERVICEID_ECS_RETAILERS
     }
 
-    private fun createURL():String{
-            val builder = StringBuilder("https://")
-            builder.append(PREFIX_RETAILERS).append("/")
-            builder.append(PRX_SECTOR_CODE).append("/")
-            builder.append(ECSDataHolder.locale).append("/")
-            builder.append(RETAILERS_ALTER)
-            return String.format(builder.toString(), ctn)
-    }
 
     override fun getHeader(): MutableMap<String, String>? {
         return null
@@ -55,5 +44,15 @@ class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECS
         ecsCallback.onResponse(ecsRetailerList)
 
     }
+
+    override fun getReplaceURLMap(): MutableMap<String, String> {
+        val map = HashMap<String, String>()
+        map.put("ctn",ctn)
+        ECSDataHolder.locale?.let {
+            map.put("locale",it)
+        }
+        return map
+    }
+
 
 }
