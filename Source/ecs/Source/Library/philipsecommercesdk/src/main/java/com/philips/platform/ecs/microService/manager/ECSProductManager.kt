@@ -26,7 +26,7 @@ class ECSProductManager {
     var requestHandler = RequestHandler()
 
     fun getProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter?, ecsCallback :ECSCallback<ECSProducts, ECSError>){
-        var ecsException = ECSApiValidator().getECSException(APIType.Locale)?:ECSApiValidator().validatePageLimit(limit)
+        var ecsException = ECSApiValidator().getECSException(APIType.LocaleAndHybris)?:ECSApiValidator().validatePageLimit(limit)
 
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
