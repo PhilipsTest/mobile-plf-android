@@ -227,8 +227,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         mIapInterface = new IAPInterface();
         mIapInterface.init(mIapDependencies, mIAPSettings);
         mServiceDiscoveryInterface = appInfraInterface.getServiceDiscovery();
-        receiver = new HomeCountryUpdateReceiver(appInfraInterface);
-        mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
+        //receiver = new HomeCountryUpdateReceiver(appInfraInterface);
+        //mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
         mCategorizedProductList = new ArrayList<>();
         mCategorizedProductList.add("HD9745/90000");
         mCategorizedProductList.add("HD9630/90");
@@ -483,8 +483,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             mIapInterface = new IAPInterface();
             mIapInterface.init(mIapDependencies, mIAPSettings);
             mServiceDiscoveryInterface = appInfraInterface.getServiceDiscovery();
-            receiver = new HomeCountryUpdateReceiver(appInfraInterface);
-            mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
+            //receiver = new HomeCountryUpdateReceiver(appInfraInterface);
+            //mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
             mCategorizedProductList = new ArrayList<>();
             mCategorizedProductList.add("HD9745/90000");
             mCategorizedProductList.add("HD9630/90");

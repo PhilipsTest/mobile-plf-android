@@ -15,11 +15,14 @@ public class PimDemoApplication extends Application {
 
     @NonNull
     private AppInfraInterface appInfraInterface;
+    private static final String LEAK_CANARY_BUILD_TYPE = "leakCanary";
 
     @Override
     public void onCreate() {
         super.onCreate();
-        //LeakCanary.install(this);
+        if (BuildConfig.BUILD_TYPE.equalsIgnoreCase(LEAK_CANARY_BUILD_TYPE)) {
+            LeakCanary.install(this);
+        }
         appInfraInterface = new AppInfra.Builder().build(this);
     }
 

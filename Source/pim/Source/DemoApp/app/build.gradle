@@ -144,6 +144,7 @@ dependencies {
     implementation project(strings.usr.projectName)
     implementation project(':AppInfra')
     implementation project(':uAppFwLib')
+    implementation project(':pif')
     implementation philipsdeps.uid
     implementation project(':pimUApp')
     implementation deps.androidx.appcompat
@@ -155,6 +156,4 @@ dependencies {
     implementation deps.adobemobilelib
     leakCanaryImplementation deps.leakcanary
     psraReleaseImplementation deps.leakcanary_no_op
-    compile project(path: ':pif')
-
 }
