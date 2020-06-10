@@ -166,14 +166,7 @@ class GetProductsRequestTest {
 
     @Test
     fun `on failure of wrong content type`() {
-        var ecsCallback = object : ECSCallback<ECSProducts, ECSError> {
-            override fun onResponse(result: ECSProducts) {
-                fail()
-            }
-            override fun onFailure(ecsError: ECSError) {
-                assertNotNull(ecsError)
-            }
-        }
+     
         val errorString = ClassLoader.getSystemResource("pil/fetchProductsPILwithFailureResponseIncorrectContentType.json").readText()
         var ba: ByteArray = ClassLoader.getSystemResource("pil/fetchProductsPILwithFailureResponseIncorrectContentType.json").readBytes()
         val jsonObject = JSONObject(errorString)
