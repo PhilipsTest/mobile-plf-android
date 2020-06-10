@@ -71,7 +71,9 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_INVALID_API_KEY(R.string.ECSPIL_MISSING_API_KEY, 6008),
     ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT(R.string.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT, 6009),
     ECSPIL_NOT_ACCEPTABLE(R.string.ECSsomethingWentWrong, 6010  ),
-    ECSPIL_INTEGRATION_TIMEOUT(R.string.ECSPIL_INTEGRATION_TIMEOUT, 6011);
+    ECSPIL_INTEGRATION_TIMEOUT(R.string.ECSPIL_INTEGRATION_TIMEOUT, 6011),
+
+    ECSPIL_BAD_REQUEST(R.string.ECSsomethingWentWrong, 6010  );
     // todo promotionFilter , invalid offset
 
 
