@@ -7,7 +7,6 @@ package com.philips.cdp.prodreg.prxrequest;
 
 
 import com.google.gson.Gson;
-import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.launcher.PRUiHelper;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
 import com.philips.cdp.prodreg.model.registerproduct.RegistrationResponseNewData;
@@ -243,7 +242,7 @@ public class RegistrationRequest extends PrxRequest {
                     @Override
                     public void onSuccess(Map<String, ServiceDiscoveryService> urlMap) {
                         String url = urlMap.get(serviceID).getConfigUrls();
-                        GetAutoraisationProvider.getAuthoraisationProvider(url, headers,isOidcToken);
+                        GetAuthorizationProvider.getAuthorizationProvider(url, headers,isOidcToken);
 
                     }
 

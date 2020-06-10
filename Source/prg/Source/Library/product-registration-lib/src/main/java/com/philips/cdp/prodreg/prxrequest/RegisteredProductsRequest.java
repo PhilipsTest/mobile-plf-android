@@ -6,18 +6,14 @@
 package com.philips.cdp.prodreg.prxrequest;
 
 
-import com.philips.cdp.prodreg.constants.ProdRegConstants;
 import com.philips.cdp.prodreg.launcher.PRUiHelper;
 import com.philips.cdp.prodreg.logging.ProdRegLogger;
-import com.philips.cdp.prodreg.model.registeredproducts.RegisteredResponse;
 import com.philips.cdp.prodreg.model.registerproduct.RegisteredProductsData;
-import com.philips.cdp.prodreg.model.registerproduct.RegistrationResponseNewData;
 import com.philips.cdp.prodreg.util.ProdRegUtil;
 import com.philips.cdp.prxclient.PrxConstants;
 import com.philips.cdp.prxclient.request.PrxRequest;
 import com.philips.cdp.prxclient.request.RequestType;
 import com.philips.cdp.prxclient.response.ResponseData;
-import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 
@@ -96,7 +92,7 @@ public class RegisteredProductsRequest extends PrxRequest {
                     @Override
                     public void onSuccess(Map<String, ServiceDiscoveryService> urlMap) {
                         String url = urlMap.get(mServiceId).getConfigUrls();
-                        GetAutoraisationProvider.getAuthoraisationProvider(url, headers,isOidcToken);
+                        GetAuthorizationProvider.getAuthorizationProvider(url, headers,isOidcToken);
                     }
 
                     @Override
