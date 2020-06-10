@@ -1,0 +1,11 @@
+{
+  "errors": [
+    {
+      "id": "f30c7300-55b4-4863-9bae-4b2fbcc162c1",
+      "status": "406",
+      "code": "NOT_ACCEPTABLE",
+      "title": "Content type not acceptable."
+    }
+  ]
+}
+

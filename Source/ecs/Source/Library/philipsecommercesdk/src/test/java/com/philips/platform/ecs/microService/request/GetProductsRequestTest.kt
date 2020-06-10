@@ -5,19 +5,23 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.ErrorHandler
+import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import com.philips.platform.ecs.microService.util.getData
 import junit.framework.Assert.*
 import org.json.JSONObject
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.powermock.modules.junit4.PowerMockRunner
+
 
 @RunWith(PowerMockRunner::class)
 class GetProductsRequestTest {
@@ -157,6 +161,26 @@ class GetProductsRequestTest {
         mGetProductsRequest = GetProductsRequest("Category Does Not Exist", limit, defaultOffset, mProductFilter, eCSCallbackOnFailure)
         mGetProductsRequest!!.onErrorResponse(volleyError)
 
+
+    }
+
+    @Test
+    fun `on failure of wrong content type`() {
+        var ecsCallback = object : ECSCallback<ECSProducts, ECSError> {
+            override fun onResponse(result: ECSProducts) {
+                fail()
+            }
+            override fun onFailure(ecsError: ECSError) {
+                assertNotNull(ecsError)
+            }
+        }
+        val errorString = ClassLoader.getSystemResource("pil/fetchProductsPILwithFailureResponseIncorrectContentType.json").readText()
+        var ba: ByteArray = ClassLoader.getSystemResource("pil/fetchProductsPILwithFailureResponseIncorrectContentType.json").readBytes()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
+        Assert.assertEquals(ECSErrorType.ECSPIL_NOT_ACCEPTABLE.errorCode, ecsDefaultError.errorCode)
 
     }
 }
