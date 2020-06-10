@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
@@ -23,12 +24,13 @@ import com.philips.platform.ecs.microService.error.ECSException;
 import com.philips.platform.ecs.microService.model.product.ECSProduct;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PILFetchProductDetailsFragment extends BaseAPIFragment {
 
 
     Spinner spinner;
-    String ctn = "HX3631/06";
+    String ctn ;
 
     @Override
     public void onResume() {
@@ -46,7 +48,7 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
              ctn = spinner.getSelectedItem().toString();
         }
 
-            ECSProduct ecsProduct = new ECSProduct(null,ctn,null);
+            ECSProduct ecsProduct = getECSProductFromID(ctn);
 
         if(ecsProduct == null){
             Toast.makeText(getActivity(),"Product field can not be empty",Toast.LENGTH_SHORT).show();
@@ -78,49 +80,42 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
 
     }
 
-    private void fillSpinnerData(Spinner spinner) {
-        ArrayList<String> ctns = new ArrayList<>();
-        ctns.add(ctn);
-        fillSpinner(spinner,ctns);
-    }
 
 
 
- /*  private void fillSpinnerData(Spinner spinner) {
+
+  private void fillSpinnerData(Spinner spinner) {
         ArrayList<String> ctns = new ArrayList<>();
 
-        if(ECSDataHolder.INSTANCE.getEcsProducts()!=null){
+        if(PILDataHolder.INSTANCE.getProductList()!=null){
 
-            List<ECSProduct> products = ECSDataHolder.INSTANCE.getEcsProducts().getProducts();
+            List<ECSProduct> products = PILDataHolder.INSTANCE.getProductList().getCommerceProducts();
             if(products.size()!=0) {
 
                 for(ECSProduct ecsProduct:products){
-                    ctns.add(ecsProduct.getCode());
+                    ctns.add(ecsProduct.getId());
                 }
 
                 fillSpinner(spinner,ctns);
             }
-        }else{
-            //add a default product
-
         }
     }
-*/
 
-   /* private ECSProduct getECSProductFromID(String ctn) {
 
-        if(ECSDataHolder.INSTANCE.getEcsProducts()==null){
+    private ECSProduct getECSProductFromID(String ctn) {
+
+        if(PILDataHolder.INSTANCE.getProductList()==null || ctn == null){
             return null;
         }
-        List<ECSProduct> ecsProducts = ECSDataHolder.INSTANCE.getEcsProducts().getProducts();
+        List<ECSProduct> ecsProducts = PILDataHolder.INSTANCE.getProductList().getCommerceProducts();
 
         for(ECSProduct ecsProduct:ecsProducts){
-            if(ecsProduct.getCode().equalsIgnoreCase(ctn)){
+            if(ecsProduct.getId().equalsIgnoreCase(ctn)){
                 return ecsProduct;
             }
         }
         return ecsProducts.get(0);
-    }*/
+    }
 
 
     @Override

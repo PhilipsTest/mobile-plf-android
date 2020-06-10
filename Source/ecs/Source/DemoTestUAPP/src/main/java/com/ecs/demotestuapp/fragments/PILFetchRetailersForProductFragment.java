@@ -16,10 +16,10 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.error.ECSException;
-import com.philips.platform.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.microService.model.product.ECSProduct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +55,9 @@ public class PILFetchRetailersForProductFragment extends BaseAPIFragment {
             return;
         }
 
-        //TODO
-
-        com.philips.platform.ecs.microService.model.product.ECSProduct ecsProduct1 = new com.philips.platform.ecs.microService.model.product.ECSProduct(null,"HX3631/06",null);
-
 
         try {
-            ECSServices.fetchRetailers(ecsProduct1, new com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.retailer.ECSRetailerList, com.philips.platform.ecs.microService.error.ECSError>() {
+            ECSServices.fetchRetailers(ecsProduct, new com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.retailer.ECSRetailerList, com.philips.platform.ecs.microService.error.ECSError>() {
                 @Override
                 public void onResponse(com.philips.platform.ecs.microService.model.retailer.ECSRetailerList result) {
 
@@ -89,13 +85,13 @@ public class PILFetchRetailersForProductFragment extends BaseAPIFragment {
     private void fillSpinnerData(Spinner spinner) {
         ArrayList<String> ctns = new ArrayList<>();
 
-        if (ECSDataHolder.INSTANCE.getEcsProducts() != null) {
+        if (PILDataHolder.INSTANCE.getProductList() != null) {
 
-            List<ECSProduct> products = ECSDataHolder.INSTANCE.getEcsProducts().getProducts();
+            List<ECSProduct> products =PILDataHolder.INSTANCE.getProductList().getCommerceProducts();
             if (products.size() != 0) {
 
                 for (ECSProduct ecsProduct : products) {
-                    ctns.add(ecsProduct.getCode());
+                    ctns.add(ecsProduct.getId());
                 }
 
                 fillSpinner(spinner, ctns);
@@ -106,14 +102,14 @@ public class PILFetchRetailersForProductFragment extends BaseAPIFragment {
 
     private ECSProduct getECSProductFromID(String ctn) {
 
-        if(ECSDataHolder.INSTANCE.getEcsProducts() ==null){
+        if(PILDataHolder.INSTANCE.getProductList() ==null){
             return null;
         }
 
-        List<ECSProduct> ecsProducts = ECSDataHolder.INSTANCE.getEcsProducts().getProducts();
+        List<ECSProduct> ecsProducts = PILDataHolder.INSTANCE.getProductList().getCommerceProducts();
 
         for (ECSProduct ecsProduct : ecsProducts) {
-            if (ecsProduct.getCode().equalsIgnoreCase(ctn)) {
+            if (ecsProduct.getId().equalsIgnoreCase(ctn)) {
                 return ecsProduct;
             }
         }
