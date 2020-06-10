@@ -23,8 +23,9 @@ import java.util.*
 
 class FragmentSelector {
 
-    fun getLandingFragment(isHybris: Boolean, mecFlowConfigurator: MECFlowConfigurator ,bundle: Bundle): MecBaseFragment? {
-        var fragment: MecBaseFragment? = null
+    fun getLandingFragment(isHybris: Boolean, mecFlowConfigurator: MECFlowConfigurator? ,bundle: Bundle): MecBaseFragment {
+        var fragment: MecBaseFragment = MECProductCatalogFragment()
+        if(mecFlowConfigurator==null) return fragment
 
         when (mecFlowConfigurator.landingView) {
             MECFlowConfigurator.MECLandingView.MEC_PRODUCT_DETAILS_VIEW -> {
@@ -50,7 +51,7 @@ class FragmentSelector {
         return fragment
     }
 
-    private fun getCategorizedFragment(isHybris: Boolean): MecBaseFragment? {
+    private fun getCategorizedFragment(isHybris: Boolean): MecBaseFragment {
         return if (isHybris) {
             MECProductCatalogCategorizedFragment()
         } else {
@@ -60,20 +61,20 @@ class FragmentSelector {
 
     private fun putCtnsToBundle(bundle: Bundle, mecFlowConfigurator: MECFlowConfigurator){
 
-        val ctnList: ArrayList<String>? = ArrayList()
+        val ctnList: ArrayList<String> = ArrayList()
 
         if (mecFlowConfigurator.productCTNs != null) {
 
             for (ctn in mecFlowConfigurator.productCTNs!!) {
-                ctnList?.add(ctn.replace("_", "/"))
+                ctnList.add(ctn.replace("_", "/"))
             }
         }
 
         bundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, ctnList)
 
-        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
-        if(ctnList?.size !=0) {
-            ecsProduct.code = ctnList?.get(0) ?: ""
+        val ecsProduct = ECSProduct()
+        if(ctnList.size !=0) {
+            ecsProduct.code = ctnList[0]
         }else{
             ecsProduct.code = ""
         }

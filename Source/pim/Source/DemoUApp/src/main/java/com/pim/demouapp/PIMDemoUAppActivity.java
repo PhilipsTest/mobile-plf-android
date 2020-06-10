@@ -423,8 +423,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             if (isUserLoggedIn()) {
                 Fragment fragment = new PRGFragment(userDataInterface, appInfraInterface);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.demoAppMenus, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
-
+                        .replace(R.id.pimDemoU_mainFragmentContainer, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
             } else {
                 showToast("User is not loged-in, Please login!");
             }
