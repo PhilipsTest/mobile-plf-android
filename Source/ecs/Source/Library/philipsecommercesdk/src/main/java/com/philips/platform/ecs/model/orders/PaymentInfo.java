@@ -20,6 +20,7 @@ public class PaymentInfo  implements Serializable {
     private String expiryMonth;
     private String expiryYear;
     private boolean saved;
+    private String accountHolderName;
 
     public ECSAddress getBillingAddress() {
         return billingAddress;
@@ -54,4 +55,11 @@ public class PaymentInfo  implements Serializable {
     }
 
 
+    public String getAccountHolderName() {
+        return accountHolderName;
+    }
+
+    public void setAccountHolderName(String accountHolderName) {
+        this.accountHolderName = accountHolderName;
+    }
 }

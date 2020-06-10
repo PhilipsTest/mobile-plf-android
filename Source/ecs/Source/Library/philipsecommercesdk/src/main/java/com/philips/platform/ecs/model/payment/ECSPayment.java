@@ -17,18 +17,8 @@ public class ECSPayment implements Serializable {
 
     private static final long serialVersionUID = 1083630169028052247L;
     private String accountHolderName;
-
-    public void setBillingAddress(ECSAddress billingAddress) {
-        this.billingAddress = billingAddress;
-    }
-
     private ECSAddress billingAddress;
     private String cardNumber;
-
-    public void setCardType(CardType cardType) {
-        this.cardType = cardType;
-    }
-
     private CardType cardType;
     private boolean defaultPayment;
     private String expiryMonth;
@@ -41,6 +31,9 @@ public class ECSPayment implements Serializable {
         return accountHolderName;
     }
 
+    public void setBillingAddress(ECSAddress billingAddress) {
+        this.billingAddress = billingAddress;
+    }
     public ECSAddress getBillingAddress() {
         return billingAddress;
     }
@@ -51,6 +44,10 @@ public class ECSPayment implements Serializable {
 
     public CardType getCardType() {
         return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
     }
 
     public boolean isDefaultPayment() {

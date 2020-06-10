@@ -280,7 +280,7 @@
                     android:layout_marginEnd="@dimen/border16_margin_left_right"
                     android:gravity="start"
                     android:text="@{CardInfo}"
-                    android:visibility="@{ecsOrders.orderDetail.paymentInfo !=null ? View.VISIBLE : View.GONE, default = gone }"
+                    android:visibility="@{CardInfo !=null ? View.VISIBLE : View.GONE, default = gone }"
                      />
 
                 <com.philips.platform.uid.view.widget.Label
@@ -289,7 +289,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/border16_margin_left_right"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="@dimen/border16_margin_left_right"
                     android:gravity="start"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
@@ -305,10 +305,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/border16_margin_left_right"
-                    android:layout_marginTop="@dimen/iap_margin_4dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="@dimen/border16_margin_left_right"
                     android:gravity="start"
-                    android:text="@{ecsOrders.orderDetail.paymentInfo.billingAddress.firstName +@string/mec_empty_space+ ecsOrders.orderDetail.paymentInfo.billingAddress.lastName}"
+                    android:text='@{ecsOrders.orderDetail.paymentInfo.accountHolderName ?? ecsOrders.orderDetail.paymentInfo.billingAddress.firstName +@string/mec_empty_space+ ecsOrders.orderDetail.paymentInfo.billingAddress.lastName}'
                     android:visibility="@{ecsOrders.orderDetail.paymentInfo !=null ? View.VISIBLE : View.GONE, default = gone }" />
 
                 <com.philips.platform.uid.view.widget.Label
@@ -317,7 +317,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/border16_margin_left_right"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="@dimen/iap_margin_4dp"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
