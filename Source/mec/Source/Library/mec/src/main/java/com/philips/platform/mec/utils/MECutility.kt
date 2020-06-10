@@ -432,8 +432,8 @@ class MECutility {
     }
     fun constructCardDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardDetail = ""
-        val cardType = (mecPayment.ecsPayment.cardType?.name ?:"" )
-        val cardNumber = (mecPayment.ecsPayment.cardNumber ?:"")
+        val cardType = mecPayment.ecsPayment.cardType?.name ?:""
+        val cardNumber = mecPayment.ecsPayment.cardNumber ?:""
         formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
         if(formattedCardDetail.trim() == "") return null
         return formattedCardDetail
@@ -442,8 +442,8 @@ class MECutility {
     fun constructCardDetails(paymentInfo: PaymentInfo): CharSequence? {
 
         var formattedCardDetail = ""
-        val cardType = (paymentInfo.cardType?.name ?:"" )
-        val cardNumber = (paymentInfo.cardNumber ?:"")
+        val cardType = paymentInfo.cardType?.name ?:""
+        val cardNumber = paymentInfo.cardNumber ?:""
         formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
         if(formattedCardDetail.trim() == "") return null
         return formattedCardDetail
@@ -451,8 +451,8 @@ class MECutility {
 
     fun constructCardValidityDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardValidityDetail = ""
-        val cardExpMon =  ( mecPayment.ecsPayment.expiryMonth?:"")
-        val cardExpYear =  ( mecPayment.ecsPayment.expiryYear?:"")
+        val cardExpMon =  mecPayment.ecsPayment.expiryMonth?:""
+        val cardExpYear =  mecPayment.ecsPayment.expiryYear?:""
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
@@ -460,8 +460,8 @@ class MECutility {
 
     fun constructCardValidityDetails(paymentInfo: PaymentInfo): CharSequence? {
         var formattedCardValidityDetail = ""
-        val cardExpMon =  ( paymentInfo.expiryMonth?:"")
-        val cardExpYear =  ( paymentInfo.expiryYear?:"")
+        val cardExpMon =  paymentInfo.expiryMonth?:""
+        val cardExpYear =  paymentInfo.expiryYear?:""
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
