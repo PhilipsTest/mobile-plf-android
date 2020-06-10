@@ -5,6 +5,8 @@
  */
 package com.philips.platform.ecs.model.orders;
 
+import androidx.annotation.VisibleForTesting;
+
 import com.philips.platform.ecs.model.address.ECSAddress;
 import com.philips.platform.ecs.model.payment.CardType;
 
@@ -62,4 +64,24 @@ public class PaymentInfo  implements Serializable {
     public void setAccountHolderName(String accountHolderName) {
         this.accountHolderName = accountHolderName;
     }
+
+    @VisibleForTesting
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+    @VisibleForTesting
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
+    }
+
+    @VisibleForTesting
+    public void setExpiryMonth(String expiryMonth) {
+        this.expiryMonth = expiryMonth;
+    }
+
+    @VisibleForTesting
+    public void setExpiryYear(String expiryYear) {
+        this.expiryYear = expiryYear;
+    }
+
 }

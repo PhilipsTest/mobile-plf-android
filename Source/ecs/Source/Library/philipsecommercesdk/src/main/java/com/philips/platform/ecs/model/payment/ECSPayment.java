@@ -5,6 +5,8 @@
  */
 package com.philips.platform.ecs.model.payment;
 
+import androidx.annotation.VisibleForTesting;
+
 import com.philips.platform.ecs.model.address.ECSAddress;
 
 import java.io.Serializable;
@@ -18,9 +20,26 @@ public class ECSPayment implements Serializable {
     private static final long serialVersionUID = 1083630169028052247L;
     private String accountHolderName;
     private ECSAddress billingAddress;
+
+    @VisibleForTesting
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
     private String cardNumber;
     private CardType cardType;
     private boolean defaultPayment;
+
+    @VisibleForTesting
+    public void setExpiryMonth(String expiryMonth) {
+        this.expiryMonth = expiryMonth;
+    }
+
+    @VisibleForTesting
+    public void setExpiryYear(String expiryYear) {
+        this.expiryYear = expiryYear;
+    }
+
     private String expiryMonth;
     private String expiryYear;
     private String id;

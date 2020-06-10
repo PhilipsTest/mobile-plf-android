@@ -418,7 +418,7 @@ class MECutility {
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
         var countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
         var countryName = countryDisplayName?:""
-        val houseNumber = ecsAddress.houseNumber
+        val houseNumber = ecsAddress.houseNumber?:""
         val line1 = ecsAddress.line1?:""
         val line2 = ecsAddress.line2?:""
         val town = ecsAddress.town?:""
