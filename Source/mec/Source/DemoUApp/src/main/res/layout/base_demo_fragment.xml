@@ -205,22 +205,11 @@
                 android:text="BazaarVoice Production"/>
 
 
-
-            <com.philips.platform.uid.view.widget.Button
-                android:id="@+id/btn_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="2dp"
-                android:text="@string/register" />
-
-
-
             <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_shop_now"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/btn_register"
+                android:layout_alignParentBottom="true"
                 android:layout_marginTop="2dp"
                 android:text="@string/shop_now"
                 />

@@ -303,7 +303,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private void initMECDemoUAPP() {
         mecDemoUAppInterface = new MecDemoUAppInterface();
         try {
-            mecDemoUAppInterface.init(new MecDemoUAppDependencies(appInfraInterface),new MecDemoAppSettings(mContext));
+            mecDemoUAppInterface.init(new MecDemoUAppDependencies(appInfraInterface,userDataInterface),new MecDemoAppSettings(mContext));
         }catch (RuntimeException ex){
         }
     }
@@ -551,7 +551,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
     private void launchECS() {
         iapDemoUAppInterface = new EcsDemoTestUAppInterface();
-        iapDemoUAppInterface.init(new EcsDemoTestUAppDependencies(appInfraInterface), new EcsDemoTestAppSettings(this));
+        iapDemoUAppInterface.init(new EcsDemoTestUAppDependencies(appInfraInterface, userDataInterface), new EcsDemoTestAppSettings(this));
         iapDemoUAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), new EcsTestLaunchInput());
     }
 
