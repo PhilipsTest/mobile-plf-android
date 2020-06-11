@@ -59,7 +59,7 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
         atPropositionID.setAdapter(atAdapter);
 
         showAppVersion();
-        
+
         mUserDataInterface = DependencyHolder.INSTANCE.getuAppDependencies().getUserDataInterface();
         ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
         ECSServices ecsServices = new ECSServices(null, (AppInfra) DependencyHolder.INSTANCE.getuAppDependencies().getAppInfra());

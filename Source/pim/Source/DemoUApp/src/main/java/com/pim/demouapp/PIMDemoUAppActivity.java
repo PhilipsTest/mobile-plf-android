@@ -425,11 +425,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_ECS) {
-            if (isUserLoggedIn()) {
-                launchECS();
-            } else {
-                showToast("User is not loged-in, Please login!");
-            }
+            launchECS();
         } else if (v == btn_MCS) {
             launchMECDemoUAPP();
         } else if (v == btnMigrator) {
