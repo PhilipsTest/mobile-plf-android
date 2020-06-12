@@ -109,11 +109,12 @@ public class AddressPresenter implements AddressController.AddressListener, Paym
             Addresses mAddresses = (Addresses) msg.obj;
             CartModelContainer.getInstance().setAddressId(mAddresses.getId());
             CartModelContainer.getInstance().setShippingAddressFields(Utility.prepareAddressFields(mAddresses, HybrisDelegate.getInstance(addressContractor.getActivityContext()).getStore().getJanRainEmail()));
-            setDeliveryAddress(mAddresses.getId());
+
             //Track new address creation
             IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
                     IAPAnalyticsConstant.SPECIAL_EVENTS, IAPAnalyticsConstant.NEW_SHIPPING_ADDRESS_ADDED);
             addressContractor.setShippingAddressFields(Utility.prepareAddressFields(mAddresses, HybrisDelegate.getInstance(addressContractor.getActivityContext()).getStore().getJanRainEmail()));
+            setDeliveryAddress(mAddresses.getId());
         } else if (msg.obj instanceof IAPNetworkError) {
             addressContractor.hideProgressbar();
             addressContractor.showErrorMessage(msg);
@@ -144,7 +145,10 @@ public class AddressPresenter implements AddressController.AddressListener, Paym
             if (deliveryMode == null)
                 getDeliveryModes();
             else
-                mPaymentController.getPaymentDetails();
+                if (CartModelContainer.getInstance().getBillingAddress() == null)
+                    mPaymentController.getPaymentDetails();
+                else
+                    setBillingAddressAndOpenOrderSummary();
         } else {
             addressContractor.hideProgressbar();
             IAPLog.d(IAPLog.LOG, msg.getData().toString());
