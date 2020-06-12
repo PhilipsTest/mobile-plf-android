@@ -82,7 +82,7 @@
                     android:layout_marginEnd="@dimen/border16_margin_left_right"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{mecPayment.ecsPayment.billingAddress.firstName + @string/mec_empty_space  + mecPayment.ecsPayment.billingAddress.lastName}"
+                    android:text='@{mecPayment.ecsPayment.accountHolderName ?? mecPayment.ecsPayment.billingAddress.firstName +@string/mec_empty_space+ mecPayment.ecsPayment.billingAddress.lastName}'
                     android:textColor="?attr/uidContentItemPrimaryNormalTextColor" />
 
 
