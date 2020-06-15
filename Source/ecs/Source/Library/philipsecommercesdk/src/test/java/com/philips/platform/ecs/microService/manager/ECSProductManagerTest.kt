@@ -1,9 +1,13 @@
 package com.philips.platform.ecs.microService.manager
 
+import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
+import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.ECSException
+import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
@@ -53,6 +57,15 @@ class ECSProductManagerTest {
     @Mock
     lateinit var mGetProductDisclaimerRequestMock: GetProductDisclaimerRequest
 
+    @Mock
+    lateinit var appInfraMock : AppInfra
+
+    @Mock
+    lateinit var loggingInterfaceMock: LoggingInterface
+
+    @Mock
+    lateinit var appConfigurationInterfaceMock : AppConfigurationInterface
+
 
     @Before
     fun setUp() {
@@ -62,12 +75,22 @@ class ECSProductManagerTest {
 
     }
 
+    private fun setApiKey() {
+        Mockito.`when`(appConfigurationInterfaceMock.getPropertyForKey(any(String::class.java), any(String::class.java), any(AppConfigurationInterface.AppConfigurationError::class.java))).thenReturn("yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP")
+        Mockito.`when`(appInfraMock.configInterface).thenReturn(appConfigurationInterfaceMock)
+        ECSDataHolder.appInfra = appInfraMock
+    }
+
     //======================================================================================================================================================================
 
 
 
     @Test
     fun getProducts() {
+
+        ECSDataHolder.locale = "en_US"
+        ECSDataHolder.config = ECSConfig(isHybris = true)
+        setApiKey()
 
         var ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {
             override fun onResponse(result: ECSProducts) {
@@ -91,6 +114,10 @@ class ECSProductManagerTest {
 
     @Test
     fun `getProducts With limit greater than 50  when Locale is present and hybris is available with api key`() {
+
+        ECSDataHolder.locale = "en_US"
+        ECSDataHolder.config = ECSConfig(isHybris = true)
+        setApiKey()
 
         var ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {
             override fun onResponse(result: ECSProducts) {
@@ -136,6 +163,31 @@ class ECSProductManagerTest {
 
     //======================================================================================================================================================================
 
+    @Test
+    fun `get Product should throw exception when hybris is there but api key is not present`() {
+
+        ECSDataHolder.locale = "en_US"
+        ECSDataHolder.config = ECSConfig(isHybris = true)
+
+
+        var ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {
+            override fun onResponse(result: ECSProducts) {
+                assertNotNull(result)
+                // assertEquals("id", result?.id)
+            }
+
+            override fun onFailure(ecsError: ECSError) {
+                fail()
+            }
+        }
+
+        var mProductFilter : ProductFilter = ProductFilter()
+        try {
+            mECSProductManager.getProducts("category", 51, 2, mProductFilter, ecsCallbackGetProducts)
+        }catch(e: ECSException){
+            assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode,e.errorCode)
+        }
+    }
 
     @Test
     fun getProductForHybrisOFF() {
