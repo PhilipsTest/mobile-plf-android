@@ -357,7 +357,7 @@ pipeline {
                             ./gradlew --refresh-dependencies
                             sourceanalyzer -b ail -clean
                             echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew assembleRelease ***"
-                            sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew assembleRelease
+                            sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew AppInfra:assembleRelease
                             echo "*** sourceanalyzer -b ail -scan -f AppInfra_Android.fpr ***"
                             sourceanalyzer -b ail -scan -f AppInfra_Android.fpr
                             echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
@@ -382,7 +382,7 @@ pipeline {
                             ./gradlew --refresh-dependencies
                             sourceanalyzer -b dcc -clean
                             echo "*** sourceanalyzer -b dcc -source 1.8 ./gradlew assembleRelease ***"
-                            sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew assembleRelease
+                            sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew digitalCare:assembleRelease
                             echo "*** sourceanalyzer -b dcc -scan -f CC_Android.fpr ***"
                             sourceanalyzer -b dcc -scan -f CC_Android.fpr
                             echo "*** fortifyclient -url https://fortify.philips.com/ssc CC_Android***"
@@ -432,7 +432,7 @@ pipeline {
                             ./gradlew --refresh-dependencies
                             sourceanalyzer -b iap -clean
                             echo "*** sourceanalyzer -b iap -source 1.8 ./gradlew assembleRelease ***"
-                            sourceanalyzer -b iap -source 1.8 -debug-verbose -logfile IAP_Android.txt ./gradlew assembleRelease
+                            sourceanalyzer -b iap -source 1.8 -debug-verbose -logfile IAP_Android.txt ./gradlew iap:assembleRelease
                             echo "*** sourceanalyzer -b iap -scan -f IAP_Android.fpr ***"
                             sourceanalyzer -b iap -scan -f IAP_Android.fpr
                             echo "*** fortifyclient -url https://fortify.philips.com/ssc IAP_Android***"
