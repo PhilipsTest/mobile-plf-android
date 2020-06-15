@@ -34,15 +34,16 @@ class ECSApiValidator {
 
     private fun validateLocaleAndHybris(): ECSException? {
         if (validateLocale() != null) return validateLocale()
-        if (!ECSDataHolder.config.isHybris) return ECSException(ECSErrorType.ECSSiteIdNotFound.getLocalizedErrorString(), ECSErrorType.ECSBaseURLNotFound.errorCode)
+        if (!ECSDataHolder.config.isHybris) return ECSException(ECSErrorType.ECSSiteIdNotFound.getLocalizedErrorString(), ECSErrorType.ECSSiteIdNotFound.errorCode)
+        if (ECSDataHolder.getAPIKey() == null) return ECSException(ECSErrorType.ECSPIL_INVALID_API_KEY.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode)
         return null
     }
 
+    //TODO
     private fun validateLocaleHybrisAndAuth(): ECSException? {
 
         if (validateLocale() != null) return validateLocale()
         if (validateLocaleAndHybris() != null) return validateLocaleAndHybris()
-        if (ECSDataHolder.eCSOAuthData == null) return ECSException(ECSErrorType.ECSOAuthDetailError.getLocalizedErrorString(), ECSErrorType.ECSOAuthDetailError.errorCode)
         return null
     }
 

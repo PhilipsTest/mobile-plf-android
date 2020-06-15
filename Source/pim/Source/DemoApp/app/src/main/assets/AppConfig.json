@@ -96,7 +96,9 @@
     "propositionid": "IAP_MOB_DKA"
   },
   "MEC": {
-    "propositionid": "IAP_MOB_DKA"
+    "propositionid": "IAP_MOB_DKA",
+    "voucherCode.enable": true,
+    "PIL_ECommerce_API_KEY": "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
   },
   "ProductRegistration": {
     "ApiKey": "Euqjw7YWRa5pc7c6jKliv1odg5vLUT2m465k7FJ8"

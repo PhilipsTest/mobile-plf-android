@@ -26,6 +26,12 @@
   "IAP": {
     "propositionid": "IAP_MOB_DKA"
   },
+  "MEC": {
+       "propositionid": "IAP_MOB_DKA",
+       "voucherCode.enable": true,
+       "PIL_ECommerce_API_KEY": "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
+  },
+
   "appinfra": {
     "appidentity.micrositeId": "77000",
     "appidentity.sector": "b2c",
