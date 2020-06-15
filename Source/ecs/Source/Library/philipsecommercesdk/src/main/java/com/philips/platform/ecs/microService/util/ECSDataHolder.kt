@@ -17,7 +17,6 @@ import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
 import com.philips.platform.ecs.microService.model.config.ECSConfig
-import com.philips.platform.ecs.model.oauth.ECSOAuthData
 
 object ECSDataHolder {
 
@@ -37,13 +36,20 @@ object ECSDataHolder {
 
     var config = ECSConfig(locale,null,null,null,null,null,null,null,false)
 
-    var eCSOAuthData : ECSOAuthData?=null
 
     fun getPropositionId():String?{
-        try {
-           return appInfra?.configInterface?.getPropertyForKey("propositionid", "MEC", configError) as String
+        return try {
+            appInfra?.configInterface?.getPropertyForKey("propositionid", "MEC", configError) as String
         }catch (e :Exception){
-           return null
+            null
+        }
+    }
+
+    fun getAPIKey():String?{
+        return try {
+            appInfra?.configInterface?.getPropertyForKey("PIL_ECommerce_API_KEY", "MEC", configError) as String
+        }catch (e :Exception){
+            null
         }
     }
 }
