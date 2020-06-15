@@ -114,7 +114,9 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
             actionMap.put(MECAnalyticsConstant.specialEvents, voucherCodeRevoked)
             actionMap.put(voucherCode, deleteVoucherString)
         }
-        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, ecsShoppingCart.value!!.entries)
+        if(ecsShoppingCart!=null && ecsShoppingCart.value!=null) {
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, ecsShoppingCart.value!!.entries)
+        }
     }
 
     fun tagProductAddedOrDeleted(){
