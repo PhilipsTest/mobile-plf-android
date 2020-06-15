@@ -372,7 +372,7 @@ public class PIMUserManager {
     }
 
     private void tagTechnicalError(String tagValue) {
-        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo(PIMTaggingConstants.SET_ERROR, PIMTaggingConstants.TECHNICAL_ERROR, "PIM:".concat(tagValue));
+        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo(PIMTaggingConstants.SET_ERROR, PIMTaggingConstants.TECHNICAL_ERROR, "UDI:".concat(tagValue));
     }
 
     private Error getTokenExpireError(VolleyError error) {
