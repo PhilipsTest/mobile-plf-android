@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -26,37 +27,45 @@ import com.pim.demouapp.PIMDemoUAppSettings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 public class PimDemoActivity extends UIDActivity {
 
-    private Spinner selectLibrary,spinnerCountrySelection;
+    private Spinner selectLibrary, spinnerCountrySelection;
     private CheckBox enableChuck;
     private Switch enableMigrationSwitch;
     private AppInfraInterface appInfraInterface;
     private Context mContext;
     private PIMDemoUAppInterface pimDemoUAppInterface;
-
+    private String TAG = PimDemoActivity.class.getSimpleName();
+    private Map<String, String> countryMap = new LinkedHashMap<>();
+    private List<String> countryList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pim_demo);
 
+        initCountryMap();
         ininitalizeView();
         updateLibraryListData();
         updateCountryListData();
 
         mContext = getApplicationContext();
-        appInfraInterface = ((PimDemoApplication)mContext).getAppInfra();
+        appInfraInterface = ((PimDemoApplication) mContext).getAppInfra();
         pimDemoUAppInterface = new PIMDemoUAppInterface();
-        String homeCountry = appInfraInterface.getServiceDiscovery().getHomeCountry();
-        if(homeCountry != null)
-            spinnerCountrySelection.setSelection(getCountryPosition(homeCountry));
-        initPIMDemoUApp(homeCountry);
-        if(getIntent().hasExtra("REDIRECT_TO_CLOSED_APP")){
+        String homeCountryCode = appInfraInterface.getServiceDiscovery().getHomeCountry();
+        Log.d(TAG, "onCreate :: homeCountry -> " + homeCountryCode);
+        if (homeCountryCode != null && getCountryName(homeCountryCode) != null)
+            spinnerCountrySelection.setSelection(((PIMSpinnerAdapter)spinnerCountrySelection.getAdapter()).getPosition(getCountryName(homeCountryCode)),false);
+        initPIMDemoUApp(homeCountryCode);
+        if (getIntent().hasExtra("REDIRECT_TO_CLOSED_APP")) {
+            Log.d(TAG, "REDIRECT_TO_CLOSED_APP");
             launchPIMDemoUapp(getIntent().getExtras());
         }
     }
@@ -64,23 +73,23 @@ public class PimDemoActivity extends UIDActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(pimDemoUAppInterface.isUserLoggedIn()){
+        if (pimDemoUAppInterface.isUserLoggedIn()) {
             enableMigrationSwitch.setEnabled(false);
             enableChuck.setEnabled(false);
             spinnerCountrySelection.setEnabled(false);
-        }else {
+        } else {
             enableMigrationSwitch.setEnabled(true);
             enableChuck.setEnabled(true);
             spinnerCountrySelection.setEnabled(true);
         }
 
-        if(enableMigrationSwitch.isChecked())
+        if (enableMigrationSwitch.isChecked())
             selectLibrary.setEnabled(true);
         else
             selectLibrary.setEnabled(false);
     }
 
-    private void ininitalizeView(){
+    private void ininitalizeView() {
         Button launchUApp = findViewById(R.id.launch);
         enableChuck = findViewById(R.id.pim_checkbox);
         selectLibrary = findViewById(R.id.selectLibrary);
@@ -89,10 +98,11 @@ public class PimDemoActivity extends UIDActivity {
         enableMigrationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                initPIMDemoUApp(getCountryCode(spinnerCountrySelection.getSelectedItem().toString()));
-                if(isChecked) {
+                Log.d(TAG, "enableMigrationSwitch : " + isChecked);
+                initPIMDemoUApp(countryMap.get(spinnerCountrySelection.getSelectedItem()));
+                if (isChecked) {
                     selectLibrary.setEnabled(true);
-                }else
+                } else
                     selectLibrary.setEnabled(false);
             }
         });
@@ -100,6 +110,8 @@ public class PimDemoActivity extends UIDActivity {
         launchUApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "launchUApp clicked : " + spinnerCountrySelection.getSelectedItem());
+                Log.d(TAG, "launchUApp clicked : " + appInfraInterface.getServiceDiscovery().getHomeCountry());
                 saveChuckInSharedPrefs();
                 launchPIMDemoUapp(null);
             }
@@ -107,50 +119,50 @@ public class PimDemoActivity extends UIDActivity {
 
     }
 
-    private void saveChuckInSharedPrefs(){
+    private void saveChuckInSharedPrefs() {
         SharedPreferences preferences = this.getSharedPreferences("chuckEnabled", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("CHUCK", enableChuck.isChecked());
         editor.apply();
     }
 
-    private void updateLibraryListData(){
+    private void updateLibraryListData() {
         List<String> libraryList = new ArrayList<>();
         libraryList.add("UDI");
         libraryList.add("USR");
         PIMSpinnerAdapter arrayAdapter = new PIMSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, libraryList);
         selectLibrary.setAdapter(arrayAdapter);
-        selectLibrary.setSelection(1,false);
+        selectLibrary.setSelection(1, false);
         selectLibrary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String selectedLib = libraryList.get(position);
-                Log.i("UDIDemoActivity","selectedLib"+selectedLib);
-                initPIMDemoUApp(appInfraInterface.getServiceDiscovery().getHomeCountry());
+                Log.i("UDIDemoActivity", "selectedLib" + selectedLib);
+                initPIMDemoUApp(countryMap.get(spinnerCountrySelection.getSelectedItem()));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Log.i(TAG, "selectLibrary : onNothingSelected");
             }
         });
     }
 
-    private void updateCountryListData(){
-        String[] stringArray = getResources().getStringArray(R.array.countries_array);
-        List<String> countryList = new ArrayList<>(Arrays.asList(stringArray));
+    private void updateCountryListData() {
         PIMSpinnerAdapter arrayAdapter = new PIMSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, countryList);
         spinnerCountrySelection.setAdapter(arrayAdapter);
         spinnerCountrySelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String countrycode = getCountryCode(countryList.get(position));
+                String countrycode = countryMap.get(countryList.get(position));
+                Log.i(TAG, "spinnerCountrySelection : " + position+" Country Code : "+countrycode);
                 appInfraInterface.getServiceDiscovery().setHomeCountry(countrycode);
                 initPIMDemoUApp(countrycode);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Log.i(TAG, "spinnerCountrySelection : onNothingSelected");
             }
         });
     }
@@ -159,18 +171,19 @@ public class PimDemoActivity extends UIDActivity {
         pimDemoUAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, bundle), new PIMDemoUAppLaunchInput());
     }
 
-    private void initPIMDemoUApp(String countryCode){
-        PIMDemoUAppDependencies pimDemoUAppDependencies = new PIMDemoUAppDependencies(appInfraInterface,getComponentType(countryCode));
-        pimDemoUAppInterface.init(pimDemoUAppDependencies,new PIMDemoUAppSettings(mContext));
+    private void initPIMDemoUApp(String countryCode) {
+        Log.d(TAG, "Init initPIMDemoUApp called with country code : " + countryCode);
+        PIMDemoUAppDependencies pimDemoUAppDependencies = new PIMDemoUAppDependencies(appInfraInterface, getComponentType(countryCode));
+        pimDemoUAppInterface.init(pimDemoUAppDependencies, new PIMDemoUAppSettings(mContext));
     }
 
-    private RegistrationLib getComponentType(String countryCode){
-        if(enableMigrationSwitch.isChecked()){
-            if(selectLibrary.getSelectedItemPosition() == 0)
+    private RegistrationLib getComponentType(String countryCode) {
+        if (enableMigrationSwitch.isChecked()) {
+            if (selectLibrary.getSelectedItemPosition() == 0)
                 return RegistrationLib.UDI;
             else
                 return RegistrationLib.USR;
-        }else {
+        } else {
             String[] usr_countries = new String[]{"CN", "RU"};
             List<String> urCountriesList = Arrays.asList(usr_countries);
             if (urCountriesList.contains(countryCode))
@@ -180,30 +193,21 @@ public class PimDemoActivity extends UIDActivity {
         }
     }
 
-    private String getCountryCode(String countryName) {
-        String[] isoCountryCodes = Locale.getISOCountries();
-        Map<String, String> countryMap = new HashMap<>();
-        Locale locale;
-        String name;
-
-        for (String code : isoCountryCodes) {
-            locale = new Locale("", code);
-            name = locale.getDisplayCountry();
-            countryMap.put(name, code);
+    private String getCountryName(String countryCode) {
+        for(Map.Entry<String, String> set : countryMap.entrySet()){
+            if(set.getValue().equalsIgnoreCase(countryCode))
+                return set.getKey();
         }
-        return countryMap.get(countryName);
+        return null;
     }
 
-    private int getCountryPosition(String code){
-        Locale locale = new Locale("", code);
-        String name = locale.getDisplayCountry();
-
-        String[] stringArray = getResources().getStringArray(R.array.countries_array);
-        List<String> countryList = new ArrayList<>(Arrays.asList(stringArray));
-
-        if(countryList.contains(name))
-            return countryList.indexOf(name);
-        else
-            return 0;
+    private void initCountryMap() {
+        String[] countryArray = getResources().getStringArray(R.array.countries_array);
+        for (String pair : countryArray) {
+            String[] countryCodeName = pair.split("\\|");
+            if (countryCodeName.length == 2)
+                countryMap.put(countryCodeName[0], countryCodeName[1]);
+        }
+        countryList = new ArrayList<>(countryMap.keySet());
     }
 }

@@ -63,7 +63,6 @@ import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListene
 import com.philips.platform.pif.DataInterface.USR.listeners.RefetchUserDetailsListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
-import com.philips.platform.pim.PIMInterface;
 import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.pim.UDIRedirectReceiverActivity;
@@ -132,6 +131,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         mUSRUDIHelper = USRUDIHelper.getInstance();
         appInfraInterface = USRUDIHelper.getInstance().getAppInfra();
         registrationLib = USRUDIHelper.getInstance().getRegistrationLib();
+        Log.d(TAG,"registrationLib : "+registrationLib);
         if (registrationLib == RegistrationLib.UDI)
             mUSRUDIHelper.setLoginListener(this);
         userDataInterface = USRUDIHelper.getInstance().getUserDataInterface();

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class PIMSpinnerAdapter extends ArrayAdapter<String> {
     public PIMSpinnerAdapter(@NonNull Context context, int resource, @NonNull List<String> spinnerItems) {
         super(context, resource, spinnerItems);
         this.spinnerItems = spinnerItems;
+    }
+
+    @Override
+    public int getPosition(@Nullable String item) {
+        return super.getPosition(item);
     }
 
     @Override
