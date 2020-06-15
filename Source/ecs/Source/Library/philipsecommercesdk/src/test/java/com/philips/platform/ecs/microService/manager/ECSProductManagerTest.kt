@@ -15,9 +15,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
-
+@PrepareForTest(GetProductsRequest::class)
 @RunWith(PowerMockRunner::class)
 class ECSProductManagerTest {
 
@@ -63,6 +64,8 @@ class ECSProductManagerTest {
 
     //======================================================================================================================================================================
 
+
+
     @Test
     fun getProducts() {
 
@@ -87,7 +90,7 @@ class ECSProductManagerTest {
 
 
     @Test
-    fun `getProducts With limit greater than 50`() {
+    fun `getProducts With limit greater than 50  when Locale is present and hybris is available with api key`() {
 
         var ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {
             override fun onResponse(result: ECSProducts) {
@@ -228,7 +231,7 @@ class ECSProductManagerTest {
 
             override fun onResponse(result: ECSProduct) {
                 assertNotNull(result)
-                assertEquals("new id", result?.id)
+                assertEquals("new id", result.id)
             }
 
             override fun onFailure(ecsError: ECSError) {

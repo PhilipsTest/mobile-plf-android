@@ -32,6 +32,7 @@ class ECSApiValidator {
         return if (ECSDataHolder.locale == null) ECSException(ECSErrorType.ECSLocaleNotFound.getLocalizedErrorString(), ECSErrorType.ECSLocaleNotFound.errorCode) else null
     }
 
+    //We also check api key is available or not here too
     private fun validateLocaleAndHybris(): ECSException? {
         if (validateLocale() != null) return validateLocale()
         if (!ECSDataHolder.config.isHybris) return ECSException(ECSErrorType.ECSSiteIdNotFound.getLocalizedErrorString(), ECSErrorType.ECSSiteIdNotFound.errorCode)
@@ -49,8 +50,6 @@ class ECSApiValidator {
 
      fun validatePageLimit(limitSize:Int): ECSException? {
         return if(limitSize>50) ECSException(ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.errorCode) else null
-
-
-    }
+     }
 
 }
