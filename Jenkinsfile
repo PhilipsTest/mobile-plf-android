@@ -35,8 +35,8 @@ pipeline {
      * The values for this user specified parameters are made available to pipeline steps via build params in jenkins.
      */
     parameters {
-        //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs/AppInfra/CC/ECS/IAP/MEC).
-        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS\nAppInfra\nCC\nECS\nIAP\nMEC', description: 'What type of build to build?', name: 'buildType')
+        //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs/AppInfra/CC/ECS/IAP/MEC/PIF/PIM/PRG/PRX/SDB/uAppFwLib/USR).
+        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS\nAppInfra\nCC\nECS\nIAP\nMEC\nPIF\nPIM\nPRG\nPRX\nSDB\nuAppFwLib\nUSR', description: 'What type of build to build?', name: 'buildType')
     }
 
     /**
@@ -459,7 +459,7 @@ pipeline {
                             echo "*** sourceanalyzer -b mec -source 1.8 ./gradlew mec:assembleRelease ***"
                             sourceanalyzer -b mec -source 1.8 -debug-verbose -logfile MEC_ANDROID.txt ./gradlew mec:assembleRelease
                             echo "*** sourceanalyzer -b mec -quick -scan -f MEC_ANDROID.fpr ***"
-                            sourceanalyzer -b mec -quick -scan -f MEC_Android.fpr
+                            sourceanalyzer -b mec -quick -scan -f MEC_ANDROID.fpr
                             echo "*** fortifyclient -url https://fortify.philips.com/ssc MEC_ANDROID***"
                             fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file MEC_ANDROID.fpr -project EMS -version MEC_ANDROID
                     '''
@@ -887,13 +887,24 @@ def BuildHPFortify() {
     sh '''#!/bin/bash -l
         set -e
         chmod -R 755 .
-        ./gradlew --refresh-dependencies
-        echo "*** sourceanalyzer -b 001 -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-        sourceanalyzer -debug -verbose -b 001 -source 1.8 ./gradlew --full-stacktrace assembleRelease
-        echo "*** sourceanalyzer -b 001 -scan -f results.fpr ***"
-        sourceanalyzer -b 001 -scan -f results.fpr
-        echo "*** fortifyclient -url https://fortify.philips.com/ssc ***"
-        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file results.fpr -project EMS -version PR_Android
+        ./gradlew --refresh-dependencies		
+		array=(
+            'AppInfra::AppInfra_Android'
+            'digitalCare::CC_Android'
+            'philipsecommercesdk::ECS_ANDROID'
+            'iap::IAP_Android'
+            'mec::MEC_ANDROID'
+        )
+        for index in "${array[@]}" ; do
+            KEY="${index%%::*}"
+            VALUE="${index##*::}"
+          echo "*** sourceanalyzer -b $KEY -source 1.8 ./gradlew $KEY:assembleRelease ***"
+          sourceanalyzer -b $KEY -source 1.8 -debug-verbose -logfile $VALUE.txt ./gradlew $KEY:assembleRelease
+          echo "*** sourceanalyzer -b $KEY -scan -f $VALUE.fpr ***"
+          sourceanalyzer -b $KEY -scan -f $VALUE.fpr
+          echo "*** fortifyclient -url https://fortify.philips.com/ssc $VALUE***"
+          fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file $VALUE.fpr -project EMS -version $VALUE		
+		done
     '''
 }
 
