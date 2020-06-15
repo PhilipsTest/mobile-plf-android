@@ -571,6 +571,21 @@ def InitialiseBuild() {
     if (params.buildType == 'HPFortify') {
         currentBuild.displayName = "${env.BUILD_NUMBER}-HPFortify"
     }
+    if (params.buildType == 'AppInfra') {
+        currentBuild.displayName = "${env.BUILD_NUMBER}-AppInfra"
+    }
+	if (params.buildType == 'CC') {
+        currentBuild.displayName = "${env.BUILD_NUMBER}-CC"
+    }
+	if (params.buildType == 'ECS') {
+        currentBuild.displayName = "${env.BUILD_NUMBER}-ECS"
+    }
+	if (params.buildType == 'IAP') {
+        currentBuild.displayName = "${env.BUILD_NUMBER}-IAP"
+    }
+	if (params.buildType == 'MEC') {
+        currentBuild.displayName = "${env.BUILD_NUMBER}-MEC"
+    }
     echo currentBuild.displayName   //print current build name to console output
 }
 
