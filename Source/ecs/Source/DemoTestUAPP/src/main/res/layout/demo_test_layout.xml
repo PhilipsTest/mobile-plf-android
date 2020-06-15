@@ -45,18 +45,10 @@
         android:id="@+id/recycler_view"
         android:layout_below="@+id/ll_propositionID"
         android:layout_margin="10dp"
-        android:layout_above="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
 
-    <com.philips.platform.uid.view.widget.Button
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="2dp"
-        android:onClick="register"
-         />
+
 
 </RelativeLayout>

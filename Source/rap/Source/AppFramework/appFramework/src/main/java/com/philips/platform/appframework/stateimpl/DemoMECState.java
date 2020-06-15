@@ -10,6 +10,7 @@ import com.mec.demouapp.MecDemoUAppInterface;
 import com.philips.platform.appframework.flowmanager.AppStates;
 import com.philips.platform.baseapp.base.AppFrameworkApplication;
 import com.philips.platform.baseapp.screens.utility.RALog;
+import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
 
@@ -29,9 +30,11 @@ public class DemoMECState extends DemoBaseState {
     @Override
     public void navigate(UiLauncher uiLauncher) {
 
+
         MecDemoUAppInterface uAppInterface = getMecDemoUAppInterface();
+        UserDataInterface userDataInterface = ((AppFrameworkApplication) appContext.getApplicationContext()).getUserRegistrationState().getUserDataInterface();
         try {
-            uAppInterface.init(new MecDemoUAppDependencies(((AppFrameworkApplication) appContext.getApplicationContext()).getAppInfra()), new MecDemoAppSettings(appContext));
+            uAppInterface.init(new MecDemoUAppDependencies(((AppFrameworkApplication) appContext.getApplicationContext()).getAppInfra(),userDataInterface), new MecDemoAppSettings(appContext));
         }catch (RuntimeException ex){
             RALog.d(TAG,ex.getMessage());
         }

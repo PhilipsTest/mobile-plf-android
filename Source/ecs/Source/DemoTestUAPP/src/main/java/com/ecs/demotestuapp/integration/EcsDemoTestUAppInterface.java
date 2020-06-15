@@ -17,16 +17,19 @@ import com.philips.platform.uappframework.uappinput.UappSettings;
 public class EcsDemoTestUAppInterface implements UappInterface {
 
     private Context mContext;
+    private EcsDemoTestUAppDependencies uappDependencies;
     @Override
     public void init(UappDependencies uappDependencies, UappSettings uappSettings) {
         this.mContext=uappSettings.getContext();
-
+        this.uappDependencies = (EcsDemoTestUAppDependencies) uappDependencies;
+        DependencyHolder.INSTANCE.setuAppDependencies( this.uappDependencies);
     }
 
     @Override
     public void launch(UiLauncher uiLauncher, UappLaunchInput uappLaunchInput) {
 
         if(uiLauncher instanceof ActivityLauncher){
+
             Intent intent=new Intent(mContext, EcsDemoTestActivity.class);
             mContext.startActivity(intent);
         }
