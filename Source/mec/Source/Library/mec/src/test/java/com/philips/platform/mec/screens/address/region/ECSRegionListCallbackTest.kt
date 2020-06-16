@@ -16,8 +16,12 @@ import androidx.lifecycle.MutableLiveData
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.region.ECSRegion
+import com.philips.platform.mec.any
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
+import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.pif.DataInterface.USR.UserDataInterface
+import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -43,9 +47,13 @@ class ECSRegionListCallbackTest {
     @Mock
     private lateinit var mecErrorMock: MutableLiveData<MecError>
 
+    @Mock
+    lateinit var authFailureCallbackMock: (Exception?, ECSError?) -> Unit
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        regionViewModelMock.authFailCallback = authFailureCallbackMock
         regionViewModelMock.regionsList = regionsListMock
         regionViewModelMock.mecError = mecErrorMock
         eCSRegionListCallback = ECSRegionListCallback(regionViewModelMock)
@@ -71,12 +79,16 @@ class ECSRegionListCallbackTest {
     @Mock
     lateinit var ecsErrorMock: ECSError
 
+    @Mock
+    lateinit var userDataInterfaceMock: UserDataInterface
+
     @Test
     fun `should call auth if call auth failure comes`() {
 
+        MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
         Mockito.`when`(ecsErrorMock.errorcode).thenReturn(ECSErrorEnum.ECSInvalidTokenError.errorCode)
         eCSRegionListCallback.onFailure(errorMock, ecsErrorMock)
-        Mockito.verify(regionViewModelMock).retryAPI(MECRequestType.MEC_FETCH_REGIONS)
+        Mockito.verify(userDataInterfaceMock).refreshSession(any(RefreshSessionListener::class.java))
     }
 
     @Test

@@ -16,8 +16,12 @@ import androidx.lifecycle.MutableLiveData
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.mec.any
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
+import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.pif.DataInterface.USR.UserDataInterface
+import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener
 import kotlinx.coroutines.channels.consumesAll
 import org.junit.Assert.*
 import org.junit.Before
@@ -46,9 +50,13 @@ class ECSFetchAddressesCallbackTest{
     @Mock
     lateinit var mecErrorLiveDataMock : MutableLiveData<MecError>
 
+    @Mock
+    lateinit var authFailureCallbackMock: (Exception?, ECSError?) -> Unit
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        addressViewModelMock.authFailCallback = authFailureCallbackMock
         addressViewModelMock.ecsAddresses = ecsAddressesLiveDataMock
         addressViewModelMock.mecError = mecErrorLiveDataMock
         ecsFetchAddressesCallback = ECSFetchAddressesCallback(addressViewModelMock)
@@ -71,12 +79,15 @@ class ECSFetchAddressesCallbackTest{
     @Mock
     lateinit var ecsErrorMock: ECSError
 
+    @Mock
+    lateinit var userDataInterfaceMock: UserDataInterface
+
     @Test
     fun `should call auth if call auth failure comes`() {
-
+        MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
         Mockito.`when`(ecsErrorMock.errorcode).thenReturn(ECSErrorEnum.ECSInvalidTokenError.errorCode)
         ecsFetchAddressesCallback.onFailure(errorMock,ecsErrorMock)
-        Mockito.verify(addressViewModelMock).retryAPI(MECRequestType.MEC_FETCH_SAVED_ADDRESSES)
+        Mockito.verify(userDataInterfaceMock).refreshSession(any(RefreshSessionListener::class.java))
     }
 
     @Test
