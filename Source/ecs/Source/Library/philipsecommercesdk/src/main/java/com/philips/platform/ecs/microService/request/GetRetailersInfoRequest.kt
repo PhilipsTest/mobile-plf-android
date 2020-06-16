@@ -24,8 +24,6 @@ import org.json.JSONObject
 
 class GetRetailersInfoRequest (val ctn :String ,val ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) : ECSJsonRequest(ecsCallback) {
 
-
-
     override fun getURL(): String {
         return url.replaceParam(getReplaceURLMap())
     }

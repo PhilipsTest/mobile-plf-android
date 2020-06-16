@@ -49,6 +49,8 @@ class GetRetailersInfoRequestTest {
         var ecsConfig = ECSConfig("en_US",null,null,null,null,null,"Tuscany_Campaign","US_Tuscany",true)
         ECSDataHolder.config = ecsConfig
         getRetailersInfoRequest  = GetRetailersInfoRequest(ctn,ecsCallbackMock)
+
+        getRetailersInfoRequest.url ="https://www.philips.com/api/wtb/v1/B2C/%locale%/online-retailers?product=%ctn%"
     }
 
 

@@ -81,6 +81,12 @@ class ECSProductManagerTest {
         ECSDataHolder.appInfra = appInfraMock
     }
 
+    private fun setApiKeyNull() {
+        Mockito.`when`(appConfigurationInterfaceMock.getPropertyForKey(any(String::class.java), any(String::class.java), any(AppConfigurationInterface.AppConfigurationError::class.java))).thenReturn(null)
+        Mockito.`when`(appInfraMock.configInterface).thenReturn(appConfigurationInterfaceMock)
+        ECSDataHolder.appInfra = appInfraMock
+    }
+
     //======================================================================================================================================================================
 
 
@@ -168,6 +174,8 @@ class ECSProductManagerTest {
 
         ECSDataHolder.locale = "en_US"
         ECSDataHolder.config = ECSConfig(isHybris = true)
+
+        setApiKeyNull()
 
 
         var ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {

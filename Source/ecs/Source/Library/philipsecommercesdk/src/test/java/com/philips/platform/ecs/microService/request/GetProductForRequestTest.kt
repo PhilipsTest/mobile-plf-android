@@ -13,6 +13,9 @@
 package com.philips.platform.ecs.microService.request
 
 import com.android.volley.NetworkError
+import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
+import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.manager.ECSProductManager
@@ -44,6 +47,13 @@ class GetProductForRequestTest {
     @Mock
     lateinit var  ecsProductManagerMock : ECSProductManager
 
+    @Mock
+    lateinit var appInfraMock : AppInfra
+
+
+    @Mock
+    lateinit var appConfigurationInterfaceMock : AppConfigurationInterface
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -53,6 +63,11 @@ class GetProductForRequestTest {
         getProductForRequest = GetProductForRequest(ctn,ecsCallbackMock)
     }
 
+    private fun setApiKey() {
+        Mockito.`when`(appConfigurationInterfaceMock.getPropertyForKey(any(String::class.java), any(String::class.java), any(AppConfigurationInterface.AppConfigurationError::class.java))).thenReturn("yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP")
+        Mockito.`when`(appInfraMock.configInterface).thenReturn(appConfigurationInterfaceMock)
+        ECSDataHolder.appInfra = appInfraMock
+    }
 
     @Test
     fun `service id should be as expected`() {
@@ -78,6 +93,7 @@ class GetProductForRequestTest {
 
     @Test
     fun `header should be as expected`() {
+        setApiKey()
         val expectedMap = HashMap<String,String>()
         expectedMap["Accept"] = "application/json"
         expectedMap["Api-Key"] = "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"

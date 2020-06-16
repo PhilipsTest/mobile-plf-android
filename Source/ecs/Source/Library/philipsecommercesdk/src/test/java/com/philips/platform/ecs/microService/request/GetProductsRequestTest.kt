@@ -49,6 +49,8 @@ class GetProductsRequestTest {
         ECSDataHolder.locale = "en_US"
         mProductFilter = ProductFilter()
         errorHandler = ErrorHandler()
+
+
     }
 
     @Test
@@ -62,14 +64,14 @@ class GetProductsRequestTest {
 
 
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, eCSCallback)
+        mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
         val modifiedURL: String? = mGetProductsRequest?.getURL()
-        //https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=OUT_OF_STOCK&modifiedSince=2019-10-31T20:34:55Z
         assert(modifiedURL!!.contains(category))
-        assert(modifiedURL!!.contains(limit.toString()))
-        assert(modifiedURL!!.contains(defaultOffset.toString()))
+        assert(modifiedURL.contains(limit.toString()))
+        assert(modifiedURL.contains(defaultOffset.toString()))
 
-        assert(modifiedURL!!.contains(ECSStockLevel.OutOfStock.toString()))
-        assert(modifiedURL!!.contains(ECSSortType.priceAscending.toString()))
+        assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
+        assert(modifiedURL.contains(ECSSortType.priceAscending.toString()))
     }
 
     @Test
@@ -81,6 +83,7 @@ class GetProductsRequestTest {
         var modifiedURL: String? = ""
         // if limit is given negative, it will be become 0. If defaultOffset given is negative it will become default 0
         mGetProductsRequest = GetProductsRequest(category, -limit, -5, mProductFilter, eCSCallback)
+        mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
         modifiedURL = mGetProductsRequest?.getURL()
         //https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=OUT_OF_STOCK&modifiedSince=2019-10-31T20:34:55Z
         assert(modifiedURL!!.contains(limit.toString()))
@@ -89,6 +92,7 @@ class GetProductsRequestTest {
 
         // if limit given is more than 50 then it will change to threshold 50
         mGetProductsRequest = GetProductsRequest(category, 1000, 5, mProductFilter, eCSCallback)
+        mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
         modifiedURL = mGetProductsRequest?.getURL()
         //https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=50&offset=5&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=OUT_OF_STOCK&modifiedSince=2019-10-31T20:34:55Z
         assert(modifiedURL!!.contains("5"))
@@ -108,6 +112,7 @@ class GetProductsRequestTest {
             }
         }
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, ecsCallback)
+        mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
         val modifiedURL: String? = mGetProductsRequest?.getURL()
         val errorString = ClassLoader.getSystemResource("pil/fetchProductsPILwithSiteLanguageCountry.json").readText()
         val jsonObject = JSONObject(errorString)
@@ -129,6 +134,7 @@ class GetProductsRequestTest {
             }
         }
         mGetProductsRequest = GetProductsRequest("Category Does Not Exist", limit, defaultOffset, mProductFilter, ecsCallback)
+        mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
         val modifiedURL: String? = mGetProductsRequest?.getURL()
         val errorString = ClassLoader.getSystemResource("pil/fetchProductsPILwithEmptyResponse.json").readText()
         val jsonObject = JSONObject(errorString)
@@ -146,6 +152,7 @@ class GetProductsRequestTest {
 
         volleyError = VolleyError("some exception")
         mGetProductsRequest = GetProductsRequest("Category Does Not Exist", limit, defaultOffset, mProductFilter, ecsCallbackMock)
+        mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
         mGetProductsRequest!!.onErrorResponse(volleyError)
         Mockito.verify(ecsCallbackMock).onFailure(any(ECSError::class.java))
 
@@ -159,6 +166,7 @@ class GetProductsRequestTest {
             }
         }
         mGetProductsRequest = GetProductsRequest("Category Does Not Exist", limit, defaultOffset, mProductFilter, eCSCallbackOnFailure)
+        mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
         mGetProductsRequest!!.onErrorResponse(volleyError)
 
 
