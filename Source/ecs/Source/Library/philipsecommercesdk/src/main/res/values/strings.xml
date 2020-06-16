@@ -53,7 +53,9 @@
   <string name="ECSPIL_MISSING_PARAMETER_country" tools:ignore="MissingTranslation">"Please provide valid country code"</string>
   <string name="ECSPIL_NOT_FOUND_productId" tools:ignore="MissingTranslation">"Requested resource is not available"</string>
   <string name="ECSPIL_MISSING_API_VERSION" tools:ignore="MissingTranslation">"The required API version header is missing"</string>
+  <string name="ECSPIL_INVALID_API_VERSION" tools:ignore="MissingTranslation">"Invalid API version"</string>
   <string name="ECSPIL_MISSING_API_KEY" tools:ignore="MissingTranslation">"The required API key header is missing"</string>
+  <string name="ECSPIL_INVALID_API_KEY" tools:ignore="MissingTranslation">"Invalid API key"</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT" tools:ignore="MissingTranslation">"Product search limit cannot be more than 50"</string>
 
 
