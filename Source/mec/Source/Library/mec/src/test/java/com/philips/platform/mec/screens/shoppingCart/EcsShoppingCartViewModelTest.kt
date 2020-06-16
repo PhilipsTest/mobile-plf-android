@@ -19,11 +19,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
+
 
 @PrepareForTest(ECSShoppingCartRepository::class,ECSShoppingCartCallback::class,ECSVoucherCallback::class,ECSCallback::class)
 @RunWith(PowerMockRunner::class)
@@ -33,6 +35,7 @@ class EcsShoppingCartViewModelTest {
 
     @Mock
     lateinit var ecsShoppingCartRepositoryMock: ECSShoppingCartRepository
+
 
     @Mock
     lateinit var ecsServicesMock: ECSServices
@@ -50,14 +53,21 @@ class EcsShoppingCartViewModelTest {
 
         ecsShoppingCartViewModel = EcsShoppingCartViewModel()
         ecsShoppingCartViewModel.ecsServices = ecsServicesMock
+
         ecsShoppingCartViewModel.ecsShoppingCartRepository = ecsShoppingCartRepositoryMock
     }
 
-    //TODO test cases
+
     @Test
     fun testCreateShoppingCart() {
 
+        ecsShoppingCartViewModel.createShoppingCart("")
+      //  Mockito.verify(ecsServicesMock).createShoppingCart(ArgumentMatchers.any(ECSCallback::class.java) as ECSCallback<ECSShoppingCart, Exception>)
+        Mockito.verify(ecsServicesMock, Mockito.atLeastOnce()).createShoppingCart(ArgumentMatchers.any())
+       // Mockito.verify(ecsShoppingCartRepositoryMock).createCart(ecsShoppingCartCallbackMock)
     }
+
+
 
     @After
     fun validate() {
