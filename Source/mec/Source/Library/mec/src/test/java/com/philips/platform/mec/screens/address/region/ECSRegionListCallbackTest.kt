@@ -30,24 +30,24 @@ import org.powermock.modules.junit4.PowerMockRunner
 
 @PrepareForTest(RegionViewModel::class)
 @RunWith(PowerMockRunner::class)
-class ECSRegionListCallbackTest{
+class ECSRegionListCallbackTest {
 
-    private lateinit var eCSRegionListCallback : ECSRegionListCallback
+    private lateinit var eCSRegionListCallback: ECSRegionListCallback
 
     @Mock
     private lateinit var regionViewModelMock: RegionViewModel
 
     @Mock
-    private lateinit var   regionsListMock : MutableLiveData<List<ECSRegion>>
+    private lateinit var regionsListMock: MutableLiveData<List<ECSRegion>>
 
     @Mock
-    private lateinit var mecErrorMock :MutableLiveData<MecError>
+    private lateinit var mecErrorMock: MutableLiveData<MecError>
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        Mockito.`when`(regionViewModelMock.regionsList).thenReturn(regionsListMock)
-        Mockito.`when`(regionViewModelMock.mecError).thenReturn(mecErrorMock)
+        regionViewModelMock.regionsList = regionsListMock
+        regionViewModelMock.mecError = mecErrorMock
         eCSRegionListCallback = ECSRegionListCallback(regionViewModelMock)
     }
 
@@ -62,11 +62,12 @@ class ECSRegionListCallbackTest{
         eCSRegionListCallback.onResponse(result)
         assertNotNull(regionsListMock)
         //TODO
-       // assertNotNull(regionsListMock.value)
+        // assertNotNull(regionsListMock.value)
     }
 
     @Mock
     lateinit var errorMock: Exception
+
     @Mock
     lateinit var ecsErrorMock: ECSError
 
@@ -74,13 +75,13 @@ class ECSRegionListCallbackTest{
     fun `should call auth if call auth failure comes`() {
 
         Mockito.`when`(ecsErrorMock.errorcode).thenReturn(ECSErrorEnum.ECSInvalidTokenError.errorCode)
-        eCSRegionListCallback.onFailure(errorMock,ecsErrorMock)
+        eCSRegionListCallback.onFailure(errorMock, ecsErrorMock)
         Mockito.verify(regionViewModelMock).retryAPI(MECRequestType.MEC_FETCH_REGIONS)
     }
 
     @Test
     fun `should update error view model when api fails`() {
-        eCSRegionListCallback.onFailure(errorMock,null)
+        eCSRegionListCallback.onFailure(errorMock, null)
         assertNotNull(mecErrorMock)
         //TODO
         //assertNotNull(mecErrorMock.value)
