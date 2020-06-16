@@ -536,7 +536,7 @@ pipeline {
                             echo "*** sourceanalyzer -b prg -quick -scan -f PR_Android.fpr ***"
                             sourceanalyzer -b prg -scan -f PR_Android.fpr
                             echo "*** fortifyclient -url https://fortify.philips.com/ssc PR_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file PR_Android.fpr -project EMS -version PIM_Android
+                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file PR_Android.fpr -project EMS -version PR_Android
                     '''
                 }    
             }
@@ -631,7 +631,7 @@ pipeline {
                             chmod -R 755 .
                             ./gradlew --refresh-dependencies
                             sourceanalyzer -b usr -clean
-                            echo "*** sourceanalyzer -b usr -source 1.8 ./gradlew RegistrationApi:assembleRelease ***"
+                            echo "*** sourceanalyzer -b usr -source 1.8 ./gradlew registrationApi:assembleRelease ***"
                             sourceanalyzer -b usr -source 1.8 -debug-verbose -logfile UR_Android.txt ./gradlew RegistrationApi:assembleRelease
                             echo "*** sourceanalyzer -b usr -quick -scan -f UR_Android.fpr ***"
                             sourceanalyzer -b usr -scan -f UR_Android.fpr
