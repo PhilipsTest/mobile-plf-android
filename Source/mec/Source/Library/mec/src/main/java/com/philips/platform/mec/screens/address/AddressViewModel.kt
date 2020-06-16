@@ -60,7 +60,7 @@ class AddressViewModel : CommonViewModel() {
 
     var eCSAddress = MutableLiveData<ECSAddress>()
 
-    val ecsAddresses = MutableLiveData<List<ECSAddress>>()
+    var ecsAddresses = MutableLiveData<List<ECSAddress>>()
 
     val isDeliveryAddressSet = MutableLiveData<Boolean>()
 
