@@ -13,16 +13,21 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
+import com.philips.platform.mec.utils.MECutility
 
 class DeleteAddressCallBack(private var addressViewModel: AddressViewModel) : ECSCallback<Boolean, Exception> {
 
-    var mECRequestType : MECRequestType?=MECRequestType.MEC_DELETE_ADDRESS
+    var mECRequestType : MECRequestType =MECRequestType.MEC_DELETE_ADDRESS
     override fun onResponse(isSetDeliveryAddress: Boolean) {
         addressViewModel.isAddressDelete.value = isSetDeliveryAddress
     }
 
     override fun onFailure(error: Exception?, ecsError: ECSError?) {
         val mecError = MecError(error, ecsError,mECRequestType)
-        addressViewModel.mecError.value = mecError
+        if (MECutility.isAuthError(ecsError)) {
+            addressViewModel.retryAPI(mECRequestType)
+        }else {
+            addressViewModel.mecError.value = mecError
+        }
     }
 }

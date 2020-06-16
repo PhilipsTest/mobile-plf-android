@@ -64,7 +64,7 @@ class AddressViewModel : CommonViewModel() {
 
     val isDeliveryAddressSet = MutableLiveData<Boolean>()
 
-    val isAddressDelete = MutableLiveData<Boolean>()
+    var isAddressDelete = MutableLiveData<Boolean>()
 
     val isAddressUpdate = MutableLiveData<Boolean>()
 
@@ -153,6 +153,7 @@ class AddressViewModel : CommonViewModel() {
             MECRequestType.MEC_CREATE_ADDRESS -> APIcall = { createAddress(paramEcsAddress) }
             MECRequestType.MEC_CREATE_AND_FETCH_ADDRESS -> APIcall = { createAndFetchAddress(paramEcsAddress) }
             MECRequestType.MEC_DELETE_AND_FETCH_ADDRESS -> APIcall = { deleteAndFetchAddress(paramEcsAddress) }
+            MECRequestType.MEC_DELETE_ADDRESS -> APIcall = { deleteAddress(paramEcsAddress) }
             MECRequestType.MEC_SET_AND_FETCH_DELIVERY_ADDRESS -> APIcall = { setAndFetchDeliveryAddress(paramEcsAddress) }
             MECRequestType.MEC_UPDATE_AND_FETCH_ADDRESS -> APIcall = { updateAndFetchAddress(paramEcsAddress) }
             MECRequestType.MEC_FETCH_DELIVERY_MODES -> APIcall = { fetchDeliveryModes() }
