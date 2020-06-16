@@ -22,8 +22,8 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
 
 
 
-    EditText etPageNumber,etPageSize, etCategory;
-    int offset = 20, limit =0;
+    EditText offsetET, limitET, etCategory;
+    int offset = 0, limit =20;
     String  category;
     Spinner spinnerSortType, spinnerStockLevel;
 
@@ -34,12 +34,12 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
     public void onResume() {
         super.onResume();
 
-        etPageNumber = getLinearLayout().findViewWithTag("et_one");
-        etPageNumber.setText(limit +"");
-        etPageSize = getLinearLayout().findViewWithTag("et_two");
-        etPageSize.setText(offset +"");
+        offsetET = getLinearLayout().findViewWithTag("et_one");
+        offsetET.setText(offset +"");
+        limitET = getLinearLayout().findViewWithTag("et_two");
+        limitET.setText(limit +"");
         etCategory = getLinearLayout().findViewWithTag("et_three");
-        etCategory.setText("FOOD_PREPARATION_CA2");
+        etCategory.setText("");
 
 
         spinnerSortType  = getLinearLayout().findViewWithTag("spinner_sort_type");
@@ -52,14 +52,16 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         fillSpinner(spinnerStockLevel,stockLevelList);
     }
 
+
+
     public void executeRequest() {
 
-        if(!etPageSize.getText().toString().trim().isEmpty()){
-            offset = Integer.valueOf(etPageSize.getText().toString().trim());
+        if(!limitET.getText().toString().trim().isEmpty()){
+            limit = Integer.valueOf(limitET.getText().toString().trim());
         }
 
-        if(!etPageNumber.getText().toString().trim().isEmpty()){
-            limit = Integer.valueOf(etPageNumber.getText().toString().trim());
+        if(!offsetET.getText().toString().trim().isEmpty()){
+            offset = Integer.valueOf(offsetET.getText().toString().trim());
         }
 
         if(!etCategory.getText().toString().trim().isEmpty()){
