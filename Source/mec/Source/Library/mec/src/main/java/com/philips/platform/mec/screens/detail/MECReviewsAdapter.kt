@@ -37,16 +37,8 @@ class MECReviewsAdapter(private val mecReviews: List<MECReview>?) : RecyclerView
         val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         viewHolder.binding.mecRetailerItemProductLayout.setLayoutParams(params)
 
-        if(review.pros==null || review.pros == "null"){
-            viewHolder.binding.mecProsLayout.visibility = View.GONE
-        } else {
-            viewHolder.binding.mecProsLayout.visibility = View.VISIBLE
-        }
-        if(review.cons==null || review.cons == "null"){
-            viewHolder.binding.mecConsLayout.visibility = View.GONE
-        } else {
-            viewHolder.binding.mecConsLayout.visibility = View.VISIBLE
-        }
+        viewHolder.binding.mecProsLayout.visibility = if(review.pros.equals("null")) View.GONE else View.VISIBLE
+        viewHolder.binding.mecConsLayout.visibility = if(review.cons.equals("null")) View.GONE else View.VISIBLE
         if (position % 2 == 0) {
             //viewHolder.binding.root.setBackgroundColor(R.attr.uidContentPrimaryBackgroundColor)
             viewHolder.binding.mecRetailerItemProductLayout.setBackgroundColor(getColor(viewHolder.binding.root.context, R.color.uidColorWhite))

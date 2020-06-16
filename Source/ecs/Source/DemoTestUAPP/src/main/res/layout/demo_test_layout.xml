@@ -49,7 +49,6 @@
         android:id="@+id/expandable_category"
         android:layout_below="@+id/view_divider"
         android:layout_margin="10dp"
-        android:layout_above="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ExpandableListView>
@@ -57,13 +56,6 @@
 
 
 
-    <com.philips.platform.uid.view.widget.Button
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="2dp"
-        android:onClick="register"
-         />
+
 
 </RelativeLayout>

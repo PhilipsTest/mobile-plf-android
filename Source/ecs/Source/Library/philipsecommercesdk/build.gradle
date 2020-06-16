@@ -56,7 +56,6 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
             consumerProguardFiles 'proguard-rules-ecs.pro'
         }
         debug {
