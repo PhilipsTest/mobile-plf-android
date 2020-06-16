@@ -22,9 +22,9 @@ import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener
-import kotlinx.coroutines.channels.consumesAll
-import org.junit.Assert.*
 import org.junit.Before
+
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -35,19 +35,17 @@ import org.powermock.modules.junit4.PowerMockRunner
 
 @PrepareForTest(AddressViewModel::class)
 @RunWith(PowerMockRunner::class)
-class ECSFetchAddressesCallbackTest{
+class SetDeliveryAddressCallBackTest {
 
 
-    lateinit var  ecsFetchAddressesCallback  : ECSFetchAddressesCallback
+    lateinit var setDeliveryAddressCallBack : SetDeliveryAddressCallBack
 
     @Mock
     lateinit var addressViewModelMock: AddressViewModel
 
     @Mock
-    lateinit var ecsAddressesLiveDataMock : MutableLiveData<List<ECSAddress>>
+    lateinit var isDeliveryAddressSetMock : MutableLiveData<Boolean>
 
-    @Mock
-    lateinit var ecsAddressesMock: List<ECSAddress>
 
     @Mock
     lateinit var mecErrorLiveDataMock : MutableLiveData<MecError>
@@ -55,26 +53,27 @@ class ECSFetchAddressesCallbackTest{
     @Mock
     lateinit var authFailureCallbackMock: (Exception?, ECSError?) -> Unit
 
+
     @Before
     fun setUp() {
+
         MockitoAnnotations.initMocks(this)
         addressViewModelMock.authFailCallback = authFailureCallbackMock
         addressViewModelMock.mecError = mecErrorLiveDataMock
-
-        addressViewModelMock.ecsAddresses = ecsAddressesLiveDataMock
-        ecsFetchAddressesCallback = ECSFetchAddressesCallback(addressViewModelMock)
+        addressViewModelMock.isDeliveryAddressSet = isDeliveryAddressSetMock
+        setDeliveryAddressCallBack = SetDeliveryAddressCallBack(addressViewModelMock)
     }
 
     @Test
     fun `request type should be fetch saved address`() {
-        assertEquals(MECRequestType.MEC_FETCH_SAVED_ADDRESSES, ecsFetchAddressesCallback.mECRequestType )
+        assertEquals(MECRequestType.MEC_SET_DELIVERY_ADDRESS, setDeliveryAddressCallBack.mECRequestType )
     }
 
     @Test
     fun `should assign value to live data on success response comes`() {
-        ecsFetchAddressesCallback.onResponse(ecsAddressesMock)
+        setDeliveryAddressCallBack.onResponse(true)
         //TODO
-       // assertNotNull(ecsAddressesLiveDataMock.value)
+        // assertNotNull(ecsAddressesLiveDataMock.value)
     }
 
     @Mock
@@ -89,13 +88,13 @@ class ECSFetchAddressesCallbackTest{
     fun `should call auth if call auth failure comes`() {
         MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
         Mockito.`when`(ecsErrorMock.errorcode).thenReturn(ECSErrorEnum.ECSInvalidTokenError.errorCode)
-        ecsFetchAddressesCallback.onFailure(errorMock,ecsErrorMock)
+        setDeliveryAddressCallBack.onFailure(errorMock,ecsErrorMock)
         Mockito.verify(userDataInterfaceMock).refreshSession(any(RefreshSessionListener::class.java))
     }
 
     @Test
     fun `should update error view model when api fails`() {
-        ecsFetchAddressesCallback.onFailure(errorMock,null)
+        setDeliveryAddressCallBack.onFailure(errorMock,null)
         assertNotNull(mecErrorLiveDataMock)
         //TODO
         //assertNotNull(mecErrorMock.value)

@@ -62,16 +62,16 @@ class AddressViewModel : CommonViewModel() {
 
     var ecsAddresses = MutableLiveData<List<ECSAddress>>()
 
-    val isDeliveryAddressSet = MutableLiveData<Boolean>()
+    var isDeliveryAddressSet = MutableLiveData<Boolean>()
 
     var isAddressDelete = MutableLiveData<Boolean>()
 
-    val isAddressUpdate = MutableLiveData<Boolean>()
+    var isAddressUpdate = MutableLiveData<Boolean>()
 
 
-    val ecsDeliveryModes = MutableLiveData<List<ECSDeliveryMode>>()
+    var ecsDeliveryModes = MutableLiveData<List<ECSDeliveryMode>>()
 
-    val ecsDeliveryModeSet = MutableLiveData<Boolean>()
+    var ecsDeliveryModeSet = MutableLiveData<Boolean>()
 
 
     lateinit var paramEcsAddress: ECSAddress
@@ -129,13 +129,11 @@ class AddressViewModel : CommonViewModel() {
     }
 
     fun fetchDeliveryModes() {
-        ecsFetchDeliveryModesCallback.mECRequestType = MECRequestType.MEC_FETCH_DELIVERY_MODES
         addressRepository.fetchDeliveryModes(ecsFetchDeliveryModesCallback)
     }
 
     fun setDeliveryMode(ecsDeliveryMode: ECSDeliveryMode) {
         paramEcsDeliveryMode = ecsDeliveryMode
-        ecsSetDeliveryModesCallback.mECRequestType = MECRequestType.MEC_SET_DELIVERY_MODE
         addressRepository.setDeliveryMode(ecsDeliveryMode, ecsSetDeliveryModesCallback)
 
     }
@@ -156,8 +154,12 @@ class AddressViewModel : CommonViewModel() {
             MECRequestType.MEC_DELETE_ADDRESS -> APIcall = { deleteAddress(paramEcsAddress) }
             MECRequestType.MEC_SET_AND_FETCH_DELIVERY_ADDRESS -> APIcall = { setAndFetchDeliveryAddress(paramEcsAddress) }
             MECRequestType.MEC_UPDATE_AND_FETCH_ADDRESS -> APIcall = { updateAndFetchAddress(paramEcsAddress) }
+            MECRequestType.MEC_UPDATE_ADDRESS -> APIcall = { updateAddress(paramEcsAddress) }
             MECRequestType.MEC_FETCH_DELIVERY_MODES -> APIcall = { fetchDeliveryModes() }
             MECRequestType.MEC_SET_DELIVERY_MODE -> APIcall = { setDeliveryMode(paramEcsDeliveryMode) }
+            MECRequestType.MEC_SET_DELIVERY_ADDRESS -> APIcall = { setDeliveryAddress(paramEcsAddress) }
+
+
 
         }
         return APIcall

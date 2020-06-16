@@ -17,7 +17,7 @@ import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
 class ECSFetchDeliveryModesCallback(private val addressViewModel: AddressViewModel) :ECSCallback<List<ECSDeliveryMode>, Exception> {
-    lateinit var mECRequestType : MECRequestType
+    val mECRequestType  = MECRequestType.MEC_FETCH_DELIVERY_MODES
     override fun onResponse(ecsDeliveryModes: List<ECSDeliveryMode>?) {
         addressViewModel.ecsDeliveryModes.value=ecsDeliveryModes
     }
