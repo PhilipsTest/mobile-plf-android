@@ -13,6 +13,8 @@
 package com.philips.platform.mec.screens.address
 
 import androidx.lifecycle.MutableLiveData
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -60,13 +62,28 @@ class ECSFetchAddressesCallbackTest{
     @Test
     fun `should assign value to live data on success response comes`() {
         ecsFetchAddressesCallback.onResponse(ecsAddressesMock)
-
         //TODO
        // assertNotNull(ecsAddressesLiveDataMock.value)
     }
 
+    @Mock
+    lateinit var errorMock: Exception
+    @Mock
+    lateinit var ecsErrorMock: ECSError
+
     @Test
-    fun `should assign error to error live data when on failure response`() {
-        TODO("Not yet implemented")
+    fun `should call auth if call auth failure comes`() {
+
+        Mockito.`when`(ecsErrorMock.errorcode).thenReturn(ECSErrorEnum.ECSInvalidTokenError.errorCode)
+        ecsFetchAddressesCallback.onFailure(errorMock,ecsErrorMock)
+        Mockito.verify(addressViewModelMock).retryAPI(MECRequestType.MEC_FETCH_SAVED_ADDRESSES)
+    }
+
+    @Test
+    fun `should update error view model when api fails`() {
+        ecsFetchAddressesCallback.onFailure(errorMock,null)
+        assertNotNull(mecErrorLiveDataMock)
+        //TODO
+        //assertNotNull(mecErrorMock.value)
     }
 }
