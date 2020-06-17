@@ -90,6 +90,9 @@ public class ECSProduct implements Serializable {
     public StockEntity getStock() {
         return stock;
     }
+    public void setStock(StockEntity stock) {
+        this.stock = stock;
+    }
 
     public String getUrl() {
         return url;
