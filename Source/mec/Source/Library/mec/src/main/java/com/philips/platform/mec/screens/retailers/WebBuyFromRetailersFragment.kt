@@ -12,6 +12,8 @@ package com.philips.platform.mec.screens.retailers
 
 import android.annotation.TargetApi
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.net.http.SslError
 import android.os.Build
@@ -21,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import android.widget.FrameLayout
+import androidx.annotation.Nullable
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.retailerListPage
 import com.philips.platform.mec.analytics.MECAnalyticServer
@@ -34,6 +37,7 @@ import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import java.net.MalformedURLException
 import java.net.URL
+
 
 class WebBuyFromRetailersFragment : MecBaseFragment() {
     private val TAG: String = WebBuyFromRetailersFragment::class.java.simpleName
@@ -144,6 +148,20 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
             }
         }
 
+        mWebView?.setWebChromeClient(object : WebChromeClient() {
+
+
+            @Nullable
+            override fun getDefaultVideoPoster(): Bitmap {
+                return if (super.getDefaultVideoPoster() == null) {
+                    BitmapFactory.decodeResource(context?.getResources(), R.drawable.mec_ic_media_video_poster)
+                } else {
+                    super.getDefaultVideoPoster()!!
+                }
+            }
+
+        })
+
         mWebView!!.loadUrl(mUrl)
     }
 
@@ -151,7 +169,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
 
         val appName = MECDataHolder.INSTANCE.appinfra.appIdentity.appName
         val localeTag = MECDataHolder.INSTANCE.appinfra.internationalization.uiLocaleString
-        val builder = Uri.Builder().appendQueryParameter("origin", String.format(com.philips.platform.mec.analytics.MECAnalyticsConstant.exitLinkParameter, localeTag, appName, appName))
+        val builder = Uri.Builder().appendQueryParameter("origin", String.format(MECAnalyticsConstant.exitLinkParameter, localeTag, appName, appName))
 
         return if (isParameterizedURL(url)) {
             url + "&" + builder.toString().replace("?", "")

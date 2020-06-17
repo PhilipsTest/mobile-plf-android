@@ -16,6 +16,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.philips.platform.ecs.model.address.ECSAddress
+import com.philips.platform.ecs.model.address.ECSDeliveryMode
+import com.philips.platform.ecs.model.address.ECSUserProfile
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.deliveryDetailPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -48,7 +52,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
     private var mECDeliveryModesAdapter: MECDeliveryModesAdapter? = null
     private var mecPaymentAdapter: PaymentRecyclerAdapter? = null
     private lateinit var ecsPayment: com.philips.platform.ecs.model.payment.ECSPayment
-    private lateinit var mECSDeliveryModeList: MutableList<com.philips.platform.ecs.model.address.ECSDeliveryMode>
+    private lateinit var mECSDeliveryModeList: MutableList<ECSDeliveryMode>
     lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
 
     var ecsAddresses: List<com.philips.platform.ecs.model.address.ECSAddress>? = null
@@ -66,7 +70,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
     private var bottomSheetFragment: ManageAddressFragment? = null
 
 
-    private val ecsDeliveryModesObserver: Observer<List<com.philips.platform.ecs.model.address.ECSDeliveryMode>> = Observer(fun(eCSDeliveryMode: List<com.philips.platform.ecs.model.address.ECSDeliveryMode>?) {
+    private val ecsDeliveryModesObserver: Observer<List<ECSDeliveryMode>> = Observer(fun(eCSDeliveryMode: List<ECSDeliveryMode>?) {
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         mECSDeliveryModeList.clear()
         if (eCSDeliveryMode != null && eCSDeliveryMode.isNotEmpty()) {
@@ -85,7 +89,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
     }
 
-    private val fetchProfileObserver: Observer<com.philips.platform.ecs.model.address.ECSUserProfile> = Observer { userProfile ->
+    private val fetchProfileObserver: Observer<ECSUserProfile> = Observer { userProfile ->
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         var profileECSAddress: com.philips.platform.ecs.model.address.ECSAddress? = null
 
@@ -104,7 +108,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
     }
 
-    private val addressObserver: Observer<List<com.philips.platform.ecs.model.address.ECSAddress>> = Observer(fun(addressList: List<com.philips.platform.ecs.model.address.ECSAddress>?) {
+    private val addressObserver: Observer<List<ECSAddress>> = Observer(fun(addressList: List<ECSAddress>?) {
         ecsAddresses = addressList!!
         ecsShoppingCartViewModel.getShoppingCart()
     })
@@ -116,7 +120,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
         showPaymentCardList()
     })
 
-    private val cartObserver: Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> = Observer<com.philips.platform.ecs.model.cart.ECSShoppingCart> { ecsShoppingCart ->
+    private val cartObserver: Observer<ECSShoppingCart> = Observer<ECSShoppingCart> { ecsShoppingCart ->
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         mECSShoppingCart = ecsShoppingCart
 
@@ -179,14 +183,14 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 //            activity?.let { paymentViewModel.mecError.observe(it, this) }
 
 
-            ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<com.philips.platform.ecs.model.address.ECSAddress>
+            ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<ECSAddress>
             mECSDeliveryModeList = mutableListOf()
 
             mECDeliveryModesAdapter = MECDeliveryModesAdapter(mECSDeliveryModeList, this)
             binding.mecDeliveryModeRecyclerView.adapter = mECDeliveryModesAdapter
 
-            ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<com.philips.platform.ecs.model.address.ECSAddress>
-            mECSShoppingCart = arguments?.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as com.philips.platform.ecs.model.cart.ECSShoppingCart
+            ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<ECSAddress>
+            mECSShoppingCart = arguments?.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as ECSShoppingCart
 
 
 
@@ -210,7 +214,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
     private fun getPaymentInfo() {
         //Create a empty payment list
         if (arguments?.getSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS) != null) {
-            ecsBillingAddress = arguments?.getSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS) as com.philips.platform.ecs.model.address.ECSAddress
+            ecsBillingAddress = arguments?.getSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS) as ECSAddress
 
             if (ecsBillingAddress != null) { // New user if user has created new billing address
 
@@ -260,7 +264,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
         if (item is com.philips.platform.ecs.model.address.ECSDeliveryMode) {
             showProgressBar(binding.mecProgress.mecProgressBarContainer)
-            addressViewModel.setDeliveryMode(item as com.philips.platform.ecs.model.address.ECSDeliveryMode)
+            addressViewModel.setDeliveryMode(item as ECSDeliveryMode)
 
         }
 
@@ -297,7 +301,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
     }
 
-    private fun gotoCreateOrEditBillingAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
+    private fun gotoCreateOrEditBillingAddress(ecsAddress: ECSAddress) {
         val editAddressFragment = AddOrEditBillingAddressFragment()
         editAddressFragment.setTargetFragment(this, MECConstant.REQUEST_CODE_BILLING_ADDRESS)
         val bundle = Bundle()
@@ -307,7 +311,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
     }
 
 
-    private fun createNewAddress(): com.philips.platform.ecs.model.address.ECSAddress {
+    private fun createNewAddress(): ECSAddress {
         val ecsAddress = com.philips.platform.ecs.model.address.ECSAddress()
 
         //Set Country before binding
@@ -332,7 +336,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
         gotoCreateOrEditAddress(binding.ecsAddressShipping!!)
     }
 
-    private fun gotoCreateOrEditAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
+    private fun gotoCreateOrEditAddress(ecsAddress: ECSAddress) {
         val editAddressFragment = CreateOrEditAddressFragment()
         editAddressFragment.setTargetFragment(this, MECConstant.REQUEST_CODE_ADDRESSES)
         val bundle = Bundle()
@@ -369,7 +373,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
     }
 
     private fun checkDeliveryAddressSet() {
-        var findGivenAddressInAddressList: com.philips.platform.ecs.model.address.ECSAddress? = null
+        var findGivenAddressInAddressList: ECSAddress? = null
         if (null != mECSShoppingCart.deliveryAddress) {
             findGivenAddressInAddressList = ecsAddresses?.let { MECutility.findGivenAddressInAddressList(mECSShoppingCart.deliveryAddress.id, it) }
         }
@@ -385,7 +389,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
     }
 
-    private fun setAndFetchDeliveryAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress) {
+    private fun setAndFetchDeliveryAddress(ecsAddress: ECSAddress) {
         showProgressBar(binding.mecProgress.mecProgressBarContainer)
         addressViewModel.setAndFetchDeliveryAddress(ecsAddress)
     }
@@ -395,10 +399,10 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
         if (requestCode == MECConstant.REQUEST_CODE_ADDRESSES) {
             val bundleExtra = data?.getBundleExtra(MECConstant.BUNDLE_ADDRESSES)
-            ecsAddresses = bundleExtra?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<com.philips.platform.ecs.model.address.ECSAddress>
+            ecsAddresses = bundleExtra?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<ECSAddress>
 
             if (bundleExtra.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) != null) {
-                mECSShoppingCart = bundleExtra.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as com.philips.platform.ecs.model.cart.ECSShoppingCart
+                mECSShoppingCart = bundleExtra.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as ECSShoppingCart
             }
             onRefreshCart()
         }
@@ -408,7 +412,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
             //TODO duplicate issue
 
             val bundleExtra = data?.getBundleExtra(MECConstant.BUNDLE_BILLING_ADDRESS)
-            val ecsBillingAddress = bundleExtra?.getSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS) as com.philips.platform.ecs.model.address.ECSAddress
+            val ecsBillingAddress = bundleExtra?.getSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS) as ECSAddress
 
 
             //Check if "New Card" is already present , then only add or else update the existing object of the list

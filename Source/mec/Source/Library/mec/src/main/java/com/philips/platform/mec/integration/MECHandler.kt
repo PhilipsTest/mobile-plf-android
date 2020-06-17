@@ -12,8 +12,10 @@ package com.philips.platform.mec.integration
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECLauncherActivity
@@ -28,10 +30,9 @@ import com.philips.platform.uappframework.launcher.UiLauncher
 import java.util.*
 
 
-internal open class MECHandler(private val mMECDependencies: MECDependencies, private val mMECSetting: MECSettings, private val mUiLauncher: UiLauncher, private val mLaunchInput: MECLaunchInput) {
-    private var appInfra: AppInfra? = null
-    private var listOfServiceId: ArrayList<String>? = null
-    lateinit var serviceUrlMapListener: OnGetServiceUrlMapListener
+class MECHandler{
+
+    internal var serviceUrlMapListener = ServiceDiscoveryMapListener()
     private val TAG: String = MECHandler::class.java.simpleName
 
 
@@ -42,115 +43,91 @@ internal open class MECHandler(private val mMECDependencies: MECDependencies, pr
     }
 
     // mBundle.putSerializable(MECConstant.FLOW_INPUT,mLaunchInput.getFlowConfigurator());
-    fun getBundle(): Bundle {
+    fun getBundle(mLaunchInput: MECLaunchInput): Bundle {
         val mBundle = Bundle()
-        if (mLaunchInput.flowConfigurator != null) {
-
-            mBundle.putSerializable(MECConstant.FLOW_INPUT, mLaunchInput.flowConfigurator)
-
-            if (mLaunchInput.flowConfigurator!!.productCTNs != null) {
-                mBundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS,
-                        mLaunchInput.flowConfigurator!!.productCTNs)
-            }
-        }
+        mBundle.putSerializable(MECConstant.FLOW_INPUT, mLaunchInput.flowConfigurator)
+        mBundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, mLaunchInput.flowConfigurator?.productCTNs)
         return mBundle
     }
 
 
-    fun launchMEC() {
+    fun launchMEC(mMECSetting: MECSettings,mUiLauncher: UiLauncher,mLaunchInput: MECLaunchInput) {
         MECDataHolder.INSTANCE.mecBannerEnabler = mLaunchInput.mecBannerConfigurator
         MECDataHolder.INSTANCE.hybrisEnabled = mLaunchInput.supportsHybris
         MECDataHolder.INSTANCE.retailerEnabled = mLaunchInput.supportsRetailer
-        MECDataHolder.INSTANCE.mecBazaarVoiceInput = mLaunchInput.mecBazaarVoiceInput!!
+        MECDataHolder.INSTANCE.mecBazaarVoiceInput = mLaunchInput.mecBazaarVoiceInput
         MECDataHolder.INSTANCE.voucherCode = mLaunchInput.voucherCode
         MECDataHolder.INSTANCE.maxCartCount = mLaunchInput.maxCartCount
-        MECDataHolder.INSTANCE.mecBazaarVoiceInput = mLaunchInput.mecBazaarVoiceInput
         MECDataHolder.INSTANCE.mecOrderFlowCompletion = mLaunchInput.mecOrderFlowCompletion
 
-        if (MECDataHolder.INSTANCE.bvClient == null) {
+        if (MECDataHolder.INSTANCE.bvClient == null && mMECSetting.context!=null) {
             val bazarvoiceSDK = BazaarVoiceHelper().getBazaarVoiceClient(mMECSetting.context.applicationContext as Application)
             MECDataHolder.INSTANCE.bvClient = bazarvoiceSDK
         }
 
         MECDataHolder.INSTANCE.blackListedRetailers = mLaunchInput.blackListedRetailerNames
-
-
-
         getUrl()
+        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(getConfigCallback(mUiLauncher, mMECSetting, mLaunchInput))
+    }
 
-        // get config
+    internal fun getConfigCallback(mUiLauncher: UiLauncher, mMECSetting: MECSettings, mLaunchInput: MECLaunchInput): ECSCallback<ECSConfig, Exception> {
+        return object : ECSCallback<ECSConfig, Exception> {
 
-        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception> {
+            override fun onResponse(config: ECSConfig) {
 
-            override fun onResponse(config: com.philips.platform.ecs.model.config.ECSConfig?) {
-
-
-                //set config data to singleton
                 MECDataHolder.INSTANCE.config = config
-
                 if (MECDataHolder.INSTANCE.hybrisEnabled) {
-                    MECDataHolder.INSTANCE.hybrisEnabled = config?.isHybris ?: return
+                    MECDataHolder.INSTANCE.hybrisEnabled = config.isHybris
                 }
-
-                MECDataHolder.INSTANCE.locale = config!!.locale
-                MECAnalytics.setCurrencyString(MECDataHolder.INSTANCE.locale)
-                if (null != config!!.rootCategory) {
-                    MECDataHolder.INSTANCE.rootCategory = config!!.rootCategory
-                }
-
-                // Launch fragment or activity
+                MECDataHolder.INSTANCE.locale = config.locale
+                MECAnalytics.setCurrencyString(config.locale)
+                MECDataHolder.INSTANCE.rootCategory = config.rootCategory
                 if (mUiLauncher is ActivityLauncher) {
-                    launchMECasActivity(MECDataHolder.INSTANCE.hybrisEnabled)
+                    launchMECasActivity(MECDataHolder.INSTANCE.hybrisEnabled, mMECSetting, mUiLauncher, mLaunchInput)
                 } else {
-                    launchMECasFragment(MECDataHolder.INSTANCE.hybrisEnabled)
+                    launchMECasFragment(MECDataHolder.INSTANCE.hybrisEnabled, mUiLauncher, mLaunchInput)
                 }
             }
 
-            override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+            override fun onFailure(error: Exception?, ecsError: ECSError?) {
                 MECLog.d(HybrisAuth.TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
             }
-        })
-
-
+        }
     }
 
-    //TODO
-    private fun getUrl() {
-
-        listOfServiceId = ArrayList()
-        listOfServiceId!!.add(IAP_PRIVACY_URL)
-        listOfServiceId!!.add(IAP_FAQ_URL)
-        listOfServiceId!!.add(IAP_TERMS_URL)
-        serviceUrlMapListener = ServiceDiscoveryMapListener()
-        MECDataHolder.INSTANCE.appinfra.serviceDiscovery.getServicesWithCountryPreference(listOfServiceId, serviceUrlMapListener, null)
+    internal fun getUrl() {
+        val listOfServiceId = mutableListOf<String>()
+        listOfServiceId.add(IAP_PRIVACY_URL)
+        listOfServiceId.add(IAP_FAQ_URL)
+        listOfServiceId.add(IAP_TERMS_URL)
+        MECDataHolder.INSTANCE.appinfra.serviceDiscovery?.getServicesWithCountryPreference(listOfServiceId as ArrayList<String>, serviceUrlMapListener, null)
     }
 
 
-    protected fun launchMECasActivity(isHybris: Boolean) {
-        val intent = Intent(mMECSetting.context, MECLauncherActivity::class.java)
+    private fun launchMECasActivity(isHybris: Boolean , mecSettings: MECSettings,mUiLauncher: UiLauncher,mLaunchInput: MECLaunchInput) {
+        val intent = Intent(mecSettings.context, MECLauncherActivity::class.java)
         val activityLauncher = mUiLauncher as ActivityLauncher
-        val bundle = getBundle()
+        val bundle = getBundle(mLaunchInput)
         bundle.putSerializable(MECConstant.KEY_FLOW_CONFIGURATION, mLaunchInput.flowConfigurator)
         bundle.putBoolean(MECConstant.KEY_IS_HYBRIS, isHybris)
         bundle.putInt(MECConstant.MEC_KEY_ACTIVITY_THEME, activityLauncher.uiKitTheme)
         intent.putExtras(bundle)
-        mMECSetting.context.startActivity(intent)
-
+        mecSettings.context.startActivity(intent)
     }
 
-    private fun launchMECasFragment(hybris: Boolean) {
+    private fun launchMECasFragment(hybris: Boolean,mUiLauncher: UiLauncher,mLaunchInput: MECLaunchInput) {
 
-        val bundle = getBundle()
+        val bundle = getBundle(mLaunchInput)
 
-        val mecLandingFragment = FragmentSelector().getLandingFragment(hybris, mLaunchInput.flowConfigurator!!, bundle)
+        val mecLandingFragment = FragmentSelector().getLandingFragment(hybris, mLaunchInput.flowConfigurator, bundle)
         val fragmentLauncher = mUiLauncher as FragmentLauncher
         bundle.putInt("fragment_container", fragmentLauncher.parentContainerResourceID) // frame_layout for fragment
-        mecLandingFragment?.arguments = bundle
+        mecLandingFragment.arguments = bundle
 
 
         MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
         val transaction = fragmentLauncher.fragmentActivity.supportFragmentManager.beginTransaction()
-        transaction.replace(fragmentLauncher.parentContainerResourceID, mecLandingFragment!!, mecLandingFragment.getFragmentTag())
+        transaction.replace(fragmentLauncher.parentContainerResourceID, mecLandingFragment, mecLandingFragment.getFragmentTag())
         transaction.addToBackStack(mecLandingFragment.getFragmentTag())
         transaction.commitAllowingStateLoss()
     }

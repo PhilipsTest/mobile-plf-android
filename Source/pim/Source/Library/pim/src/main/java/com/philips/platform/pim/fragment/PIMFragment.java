@@ -206,17 +206,20 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
         if (isTokenReqInProcess)
             return;
 
-        if (requestCode == 100 && resultCode == RESULT_OK && pimLoginManager.isAuthorizationSuccess(data)) {
-            isTokenReqInProcess = true;
-            pimLoginManager.exchangeAuthorizationCode(data);
+        if (requestCode == 100 && resultCode == RESULT_OK ) {
+            if(pimLoginManager.isAuthorizationSuccess(data)) {
+                isTokenReqInProcess = true;
+                pimLoginManager.exchangeAuthorizationCode(data);
+            } else{
+                Error error = new Error(PIMErrorCodes.AUTH_REQUEST_OTHERS, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorCodes.AUTH_REQUEST_OTHERS));
+                mUserLoginListener.onLoginFailed(error);
+            }
         } else if (requestCode == 100 && resultCode == RESULT_CANCELED) {
             disableProgressBar();
             Error error = new Error(PIMErrorCodes.USER_CANCELED_AUTH_FLOW, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorCodes.USER_CANCELED_AUTH_FLOW));
             mUserLoginListener.onLoginFailed(error);
         } else {
             disableProgressBar();
-            Error error = new Error(PIMErrorCodes.INVALID_REGISTRATION_RESPONSE, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorCodes.INVALID_REGISTRATION_RESPONSE));
-            mUserLoginListener.onLoginFailed(error);
         }
     }
 

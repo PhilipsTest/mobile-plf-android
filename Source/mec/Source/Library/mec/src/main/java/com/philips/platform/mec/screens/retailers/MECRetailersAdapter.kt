@@ -17,7 +17,7 @@ import com.philips.platform.ecs.model.retailers.ECSRetailer
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecRetailersItemBinding
 
-class MECRetailersAdapter (private val mecRetailers: List<com.philips.platform.ecs.model.retailers.ECSRetailer>?, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MECRetailersAdapter (private val mecRetailers: List<ECSRetailer>?, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
 
@@ -33,7 +33,7 @@ class MECRetailersAdapter (private val mecRetailers: List<com.philips.platform.e
 
     private open class ViewHolder(val binding: MecRetailersItemBinding, val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root){
 
-        open fun bind(retailer: com.philips.platform.ecs.model.retailers.ECSRetailer) {
+        open fun bind(retailer: ECSRetailer) {
             binding.mecRetailer = retailer
             binding.itemClickListener = itemClickListener
 

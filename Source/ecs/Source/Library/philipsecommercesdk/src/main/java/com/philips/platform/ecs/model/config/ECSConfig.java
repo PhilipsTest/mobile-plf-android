@@ -6,7 +6,6 @@
 package com.philips.platform.ecs.model.config;
 
 import com.philips.platform.ecs.util.ECSConfiguration;
-import com.philips.platform.ecs.util.ECSConfiguration;
 
 import java.io.Serializable;
 
@@ -29,6 +28,11 @@ public class ECSConfig implements Serializable {
     private String helpDeskEmail;
     private String helpDeskPhone;
     private String helpUrl;
+
+    public void setRootCategory(String rootCategory) {
+        this.rootCategory = rootCategory;
+    }
+
     private String rootCategory;
     private String siteId;
     private boolean isHybris;

@@ -5,7 +5,6 @@
    - consent of the copyright holder. -->
 
 <resources>
-  <string name="mec_track_order">Rastrear pedido</string>
   <string name="mec_accept_terms">Ao fazer o pedido, eu aceito os</string>
   <string name="mec_accepted_codes">Códigos aceitos</string>
   <string name="mec_add">Adicionar</string>
@@ -37,7 +36,7 @@
   <string name="mec_cancel_order_dls_msg">Você pode cancelar seu pedido antes de ele ser enviado. Nossa equipe de atendimento ao consumidor pode ajudar com isso.</string>
   <string name="mec_cancel_order_number">Cancelar número do pedido </string>
   <string name="mec_cancel_payment">Deseja cancelar o pagamento? Seu carrinho ficará vazio.</string>
-  <string name="mec_cancel_your_order">[pt-BR]Cancel your order</string>
+  <string name="mec_cancel_your_order">Cancelar seu pedido</string>
   <string name="mec_card_holder_first_name">Nome do titular do cartão</string>
   <string name="mec_card_holder_last_name">Sobrenome do titular do cartão</string>
   <string name="mec_cart_count_exceed_message">Não é possível adicionar mais de %d produtos no carrinho</string>
@@ -108,7 +107,7 @@
   <string name="mec_ok">OK</string>
   <string name="mec_online_retailers">Revendedores on-line</string>
   <string name="mec_only">Apenas</string>
-  <string name="mec_order_detail_unavailable">[pt-BR]Order Detail is unavailable</string>
+  <string name="mec_order_detail_unavailable">Detalhes do pedido indisponíveis</string>
   <string name="mec_order_details">Detalhes do pedido</string>
   <string name="mec_order_not_received_items">Pedido não recebido</string>
   <string name="mec_order_number_msg">Número do pedido: %s</string>
@@ -162,6 +161,7 @@
   <string name="mec_town">Cidade</string>
   <string name="mec_town_error">Digite uma cidade válida</string>
   <string name="mec_town_hint">Insira cidade município ou cidade</string>
+  <string name="mec_track_order">Rastrear pedido</string>
   <string name="mec_use_as_billing_address">Usar este endereço como meu endereço de cobrança</string>
   <string name="mec_valid_until">Válido até</string>
   <string name="mec_your_order_number">Seu número do pedido é</string>

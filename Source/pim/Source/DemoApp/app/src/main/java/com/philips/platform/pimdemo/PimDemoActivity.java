@@ -36,7 +36,7 @@ public class PimDemoActivity extends UIDActivity {
         selectLibrary = findViewById(R.id.selectLibrary);
 
         List<String> libraryList = new ArrayList<>();
-        libraryList.add("PIM");
+        libraryList.add("UDI");
         libraryList.add("USR");
         ArrayAdapter libraryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, libraryList);
         selectLibrary.setAdapter(libraryAdapter);
@@ -45,7 +45,7 @@ public class PimDemoActivity extends UIDActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String selectedLib = libraryList.get(position);
-                Log.i("PimDemoActivity","selectedLib"+selectedLib);
+                Log.i("UDIDemoActivity","selectedLib"+selectedLib);
                 if (selectedLib.equalsIgnoreCase("USR"))
                     PIMDemoUAppApplication.getInstance().intialiseUR();
                 else

@@ -17,10 +17,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.model.retailers.ECSRetailer
 import com.philips.platform.ecs.model.retailers.ECSRetailerList
-import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
@@ -39,7 +39,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
 
     override fun onItemClick(item: Any) {
 
-        val ecsRetailer = item as com.philips.platform.ecs.model.retailers.ECSRetailer
+        val ecsRetailer = item as ECSRetailer
 
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.SELECTED_RETAILER, ecsRetailer)
@@ -52,8 +52,8 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
     }
 
     private lateinit var binding: MecRetailersFragmentBinding
-    private lateinit var retailers: com.philips.platform.ecs.model.retailers.ECSRetailerList
-    private lateinit var product: com.philips.platform.ecs.model.products.ECSProduct
+    private lateinit var retailers: ECSRetailerList
+    private lateinit var product: ECSProduct
     lateinit var appInfra: AppInfra
 
 
@@ -67,8 +67,8 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
         bottomSheetBehavior.peekHeight = metrics.heightPixels / 2
 
         val bundle = arguments
-        retailers = bundle?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as com.philips.platform.ecs.model.retailers.ECSRetailerList
-        product = bundle?.getSerializable(MECConstant.MEC_PRODUCT) as com.philips.platform.ecs.model.products.ECSProduct
+        retailers = bundle?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as ECSRetailerList
+        product = bundle?.getSerializable(MECConstant.MEC_PRODUCT) as ECSProduct
 
         binding.retailerList = retailers
         binding.itemClickListener = this
@@ -76,7 +76,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
         return binding.root
     }
 
-    private fun tagRetailerAndBlackListedRetailerList(retailers: com.philips.platform.ecs.model.retailers.ECSRetailerList, product : com.philips.platform.ecs.model.products.ECSProduct){
+    private fun tagRetailerAndBlackListedRetailerList(retailers: ECSRetailerList, product : ECSProduct){
         // add retailer list if present
         val map = HashMap<String, String>()
         if(retailers?.retailers != null && retailers.retailers.size>0) {

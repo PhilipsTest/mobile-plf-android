@@ -61,7 +61,7 @@ public class RegPreferenceUtility {
 
             List<String> valArray = stringToList(prefValue);
             for (int i = 0; i < valArray.size(); i++) {
-                if (valArray.get(i).trim().equals(value)) {
+                if (valArray.get(i).trim().equalsIgnoreCase(value)) {
                     return true;
                 }
             }

@@ -14,18 +14,18 @@ import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.model.products.ECSProducts
 import com.philips.platform.mec.common.MecError
 
-class ECSProductsCallback(private var ecsProductViewModel:EcsProductViewModel) : com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.products.ECSProducts, Exception> {
+class ECSProductsCallback(private var ecsProductViewModel:EcsProductViewModel) : ECSCallback<ECSProducts, Exception> {
 
-    override fun onResponse(ecsProducts: com.philips.platform.ecs.model.products.ECSProducts?) {
+    override fun onResponse(ecsProducts:ECSProducts?) {
 
         val mutableLiveData = ecsProductViewModel.ecsProductsList
         var value = mutableLiveData.value
-        if (value.isNullOrEmpty()) value = mutableListOf<com.philips.platform.ecs.model.products.ECSProducts>()
+        if (value.isNullOrEmpty()) value = mutableListOf<ECSProducts>()
         value?.add(ecsProducts!!)
         mutableLiveData.value = value
     }
 
-    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
+    override fun onFailure(error: Exception?, ecsError: ECSError?) {
         val mecError = MecError(error, ecsError,null)
         ecsProductViewModel.mecError.value = mecError
     }
