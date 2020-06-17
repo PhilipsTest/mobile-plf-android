@@ -11,7 +11,7 @@ package com.philips.platform.mec.screens.address
 
 import com.philips.platform.ecs.ECSServices
 
-class AddressRepository(val ecsServices: ECSServices) {
+class AddressRepository(var ecsServices: ECSServices) {
 
 
     private var addressService = AddressService()
