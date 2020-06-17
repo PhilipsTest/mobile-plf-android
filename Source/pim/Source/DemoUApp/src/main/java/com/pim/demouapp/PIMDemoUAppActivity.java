@@ -5,12 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -25,6 +23,10 @@ import com.ecs.demotestuapp.integration.EcsDemoTestAppSettings;
 import com.ecs.demotestuapp.integration.EcsDemoTestUAppDependencies;
 import com.ecs.demotestuapp.integration.EcsDemoTestUAppInterface;
 import com.ecs.demotestuapp.integration.EcsTestLaunchInput;
+import com.mec.demouapp.MecDemoAppSettings;
+import com.mec.demouapp.MecDemoUAppDependencies;
+import com.mec.demouapp.MecDemoUAppInterface;
+import com.mec.demouapp.MecLaunchInput;
 import com.philips.cdp.di.iap.integration.IAPDependencies;
 import com.philips.cdp.di.iap.integration.IAPFlowInput;
 import com.philips.cdp.di.iap.integration.IAPInterface;
@@ -36,22 +38,10 @@ import com.philips.cdp.prodreg.util.ProgressAlertDialog;
 import com.philips.cdp.registration.configuration.RegistrationLaunchMode;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;
-import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.RegistrationContentConfiguration;
-import com.philips.cdp.registration.ui.utils.URInterface;
 import com.philips.cdp.registration.ui.utils.URLaunchInput;
 import com.philips.platform.appinfra.AppInfraInterface;
-import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
-import com.philips.platform.mec.integration.MECBannerConfigurator;
-import com.philips.platform.mec.integration.MECBazaarVoiceInput;
-import com.philips.platform.mec.integration.MECDependencies;
-import com.philips.platform.mec.integration.MECFlowConfigurator;
-import com.philips.platform.mec.integration.MECInterface;
-import com.philips.platform.mec.integration.MECLaunchInput;
-import com.philips.platform.mec.integration.MECSettings;
-import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment;
-import com.philips.platform.pif.DataInterface.MEC.MECException;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
@@ -88,7 +78,7 @@ import java.util.HashMap;
 
 import utils.PIMNetworkUtility;
 
-public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnClickListener, UserRegistrationUIEventListener, UserLoginListener, IAPListener, MECFetchCartListener, MECCartUpdateListener, MECBannerConfigurator {
+public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnClickListener, UserRegistrationUIEventListener, UserLoginListener, IAPListener, MECFetchCartListener, MECCartUpdateListener {
     private String TAG = PIMDemoUAppActivity.class.getSimpleName();
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
     //Theme
@@ -106,16 +96,12 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private IAPSettings mIAPSettings;
     private IAPLaunchInput mIapLaunchInput;
     private ArrayList<String> mCategorizedProductList;
-    private HomeCountryUpdateReceiver receiver;
-    private ServiceDiscoveryInterface mServiceDiscoveryInterface = null;
     private Boolean isABTestingStatus = false;
-    private MECLaunchInput mMecLaunchInput;
-    private MECBazaarVoiceInput mecBazaarVoiceInput;
     private boolean isOptedIn;
     private ProgressAlertDialog progresDialog;
     private EcsDemoTestUAppInterface iapDemoUAppInterface;
-    private MECInterface mMecInterface;
-    private RegistrationLib registrationLib;
+    private MecDemoUAppInterface mecDemoUAppInterface;
+    private PIMDemoUAppLaunchInput.RegistrationLib registrationLib;
     private USRUDIHelper mUSRUDIHelper;
 
     @Override
@@ -202,23 +188,20 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
     private void viewInitlization() {
         if (registrationLib == RegistrationLib.USR) {
-            Log.i(TAG, "Selected Liberary : USR");
             btnMigrator.setVisibility(View.GONE);
             btnLaunchAsFragment.setText("Launch USR");
             aSwitch.setVisibility(View.GONE);
             abTestingSwitch.setVisibility(View.GONE);
         } else {
-            Log.i(TAG, "Selected Liberary : UDI");
             if (isUserLoggedIn()) {
                 btnLaunchAsFragment.setText("Launch User Profile");
                 updateMarketingOptinStatus();
             } else {
                 btnLaunchAsFragment.setText("Launch UDI");
             }
+            initIAP();
+            initMECDemoUAPP();
         }
-        initIAP();
-        initializeBazaarVoice();
-        initMEC();
     }
 
     private void initIAP() {
@@ -226,9 +209,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         mIAPSettings = new IAPSettings(this);
         mIapInterface = new IAPInterface();
         mIapInterface.init(mIapDependencies, mIAPSettings);
-        mServiceDiscoveryInterface = appInfraInterface.getServiceDiscovery();
-        //receiver = new HomeCountryUpdateReceiver(appInfraInterface);
-        //mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
         mCategorizedProductList = new ArrayList<>();
         mCategorizedProductList.add("HD9745/90000");
         mCategorizedProductList.add("HD9630/90");
@@ -239,17 +219,12 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         mIapLaunchInput.setIapListener(this);
     }
 
-    private void initMEC() {
-        mMecInterface = new MECInterface();
-        MECDependencies mMecDependencies = new MECDependencies(appInfraInterface, userDataInterface);
-        mMecInterface.init(mMecDependencies, new MECSettings(mContext));
-        mMecLaunchInput = new MECLaunchInput();
-        mMecLaunchInput.setMecCartUpdateListener(this);
-
-        mMecLaunchInput.setMecBannerConfigurator(this);
-        mMecLaunchInput.setSupportsHybris(true);
-        mMecLaunchInput.setSupportsRetailer(true);
-        mMecLaunchInput.setMecBazaarVoiceInput(mecBazaarVoiceInput);
+    private void initMECDemoUAPP() {
+        mecDemoUAppInterface = new MecDemoUAppInterface();
+        try {
+            mecDemoUAppInterface.init(new MecDemoUAppDependencies(appInfraInterface,userDataInterface),new MecDemoAppSettings(mContext));
+        }catch (RuntimeException ex){
+        }
     }
 
     @Override
@@ -333,6 +308,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         } else if (v == btn_IAP) {
             if (isUserLoggedIn()) {
                 if (mCategorizedProductList.size() > 0) {
+                    IAPFlowInput input = new IAPFlowInput(mCategorizedProductList);
                     launchIAP();
                 } else {
                     Toast.makeText(this, "Please add CTN", Toast.LENGTH_SHORT).show();
@@ -341,19 +317,9 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_ECS) {
-            if (isUserLoggedIn()) {
-                launchECS();
-            } else {
-                showToast("User is not loged-in, Please login!");
-            }
+            launchECS();
         } else if (v == btn_MCS) {
-            if (isUserLoggedIn()) {
-                MECFlowConfigurator pMecFlowConfigurator = new MECFlowConfigurator();
-                pMecFlowConfigurator.setLandingView(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW);
-                launchMECasFragment(MECFlowConfigurator.MECLandingView.MEC_PRODUCT_LIST_VIEW, pMecFlowConfigurator, null);
-            } else {
-                showToast("User is not loged-in, Please login!");
-            }
+            launchMECDemoUAPP();
         } else if (v == btnMigrator) {
             if (isUserLoggedIn()) {
                 updateUIOnUserLoggedIn();
@@ -403,7 +369,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 try {
                     ArrayList<String> keysList = new ArrayList<>();
                     HashMap<String, Object> userDetails = userDataInterface.getUserDetails(keysList);
-                    Log.i(TAG, "User userDetails : " + userDetails);
+                    Log.d(TAG, "User userDetails : " + userDetails);
                     showInfoDialog(userDetails.toString());
                 } catch (UserDataInterfaceException e) {
                     e.printStackTrace();
@@ -459,21 +425,16 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
     private void launchECS() {
         iapDemoUAppInterface = new EcsDemoTestUAppInterface();
-        iapDemoUAppInterface.init(new EcsDemoTestUAppDependencies(appInfraInterface), new EcsDemoTestAppSettings(this));
+        iapDemoUAppInterface.init(new EcsDemoTestUAppDependencies(appInfraInterface, userDataInterface), new EcsDemoTestAppSettings(this));
         iapDemoUAppInterface.launch(new ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), new EcsTestLaunchInput());
     }
 
-    private void launchMECasFragment(MECFlowConfigurator.MECLandingView mecLandingView, MECFlowConfigurator pMecFlowConfigurator, ArrayList<String> pIgnoreRetailerList) {
-        pMecFlowConfigurator.setLandingView(mecLandingView);
-        mMecLaunchInput.setFlowConfigurator(pMecFlowConfigurator);
-        try {
-            mMecInterface.launch(new ActivityLauncher
-                            (mContext, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_PORTRAIT, null, 0, null),
-                    mMecLaunchInput);
-        } catch (MECException e) {
-            e.printStackTrace();
-        }
+
+    private void launchMECDemoUAPP(){
+        mecDemoUAppInterface.launch(new ActivityLauncher(getApplicationContext(),ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED,null, 0,null), new MecLaunchInput());
     }
+
+
 
     private void launchIAP() {
         try {
@@ -482,9 +443,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             mIAPSettings = new IAPSettings(this);
             mIapInterface = new IAPInterface();
             mIapInterface.init(mIapDependencies, mIAPSettings);
-            mServiceDiscoveryInterface = appInfraInterface.getServiceDiscovery();
-            //receiver = new HomeCountryUpdateReceiver(appInfraInterface);
-            //mServiceDiscoveryInterface.registerOnHomeCountrySet(receiver);
             mCategorizedProductList = new ArrayList<>();
             mCategorizedProductList.add("HD9745/90000");
             mCategorizedProductList.add("HD9630/90");
@@ -516,7 +474,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     private void launchUSR() {
         FragmentLauncher fragmentLauncher = new FragmentLauncher(this, R.id.demoAppMenus, null);
         URLaunchInput urLaunchInput;
-        RLog.d(TAG, " : Registration");
+        Log.d(TAG, " : Registration");
         urLaunchInput = new URLaunchInput();
         urLaunchInput.setUserRegistrationUIEventListener(this);
         urLaunchInput.setRegistrationFunction(RegistrationFunction.SignIn);
@@ -633,20 +591,21 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onUserRegistrationComplete(Activity activity) {
-        RLog.d(TAG, " : onUserRegistrationComplete");
-        activity.finish();
+        Log.d(TAG, " : onUserRegistrationComplete");
+        updateMarketingOptinStatus();
+        //activity.finish();
     }
 
     @Override
     public void onPrivacyPolicyClick(Activity activity) {
-        RLog.d(TAG, " : onPrivacyPolicyClick");
+        Log.d(TAG, " : onPrivacyPolicyClick");
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.philips.com"));
         activity.startActivity(browserIntent);
     }
 
     @Override
     public void onTermsAndConditionClick(Activity activity) {
-        RLog.d(TAG, " : onTermsAndConditionClick");
+        Log.d(TAG, " : onTermsAndConditionClick");
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.philips.com"));
         activity.startActivity(browserIntent);
     }
@@ -654,78 +613,6 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onPersonalConsentClick(Activity activity) {
 
-    }
-
-    private void initializeBazaarVoice() {
-        SharedPreferences shared = this.getSharedPreferences("bvEnv", MODE_PRIVATE);
-        String name = (shared.getString("BVEnvironment", MECBazaarVoiceEnvironment.PRODUCTION.toString()));
-        if (name.equalsIgnoreCase(MECBazaarVoiceEnvironment.PRODUCTION.toString())) {
-//            bvCheckBox.setChecked(true);
-            mecBazaarVoiceInput = new MECBazaarVoiceInput() {
-
-                @NotNull
-                @Override
-                public MECBazaarVoiceEnvironment getBazaarVoiceEnvironment() {
-
-                    return MECBazaarVoiceEnvironment.PRODUCTION;
-
-                }
-
-                @NotNull
-                @Override
-                public String getBazaarVoiceClientID() {
-
-                    return "philipsglobal";
-
-                }
-
-                @NotNull
-                @Override
-                public String getBazaarVoiceConversationAPIKey() {
-
-                    return "caAyWvBUz6K3xq4SXedraFDzuFoVK71xMplaDk1oO5P4E";
-
-                }
-            };
-        } else {
-            mecBazaarVoiceInput = new MECBazaarVoiceInput() {
-
-                @NotNull
-                @Override
-                public MECBazaarVoiceEnvironment getBazaarVoiceEnvironment() {
-
-                    return MECBazaarVoiceEnvironment.STAGING;
-
-                }
-
-                @NotNull
-                @Override
-                public String getBazaarVoiceClientID() {
-
-                    return "philipsglobal";
-
-                }
-
-                @NotNull
-                @Override
-                public String getBazaarVoiceConversationAPIKey() {
-
-                    return "ca23LB5V0eOKLe0cX6kPTz6LpAEJ7SGnZHe21XiWJcshc";
-                }
-            };
-        }
-
-    }
-
-    @NotNull
-    @Override
-    public View getBannerViewProductList() {
-        if (true) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View v = inflater.inflate(com.mec.demouapp.R.layout.banner_view, null);
-            return v;
-        }
-        return null;
     }
 
     @Override

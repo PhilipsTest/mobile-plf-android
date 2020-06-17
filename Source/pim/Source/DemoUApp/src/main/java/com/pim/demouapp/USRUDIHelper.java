@@ -47,10 +47,6 @@ class USRUDIHelper {
             initialiseUDI();
     }
 
-    void launchUDIAsActivity(ActivityLauncher activityLauncher, PIMLaunchInput pimLaunchInput) {
-        pimInterface.launch(activityLauncher, pimLaunchInput);
-    }
-
     public AppInfraInterface getAppInfra() {
         return pimDemoUAppDependencies.getAppInfra();
     }

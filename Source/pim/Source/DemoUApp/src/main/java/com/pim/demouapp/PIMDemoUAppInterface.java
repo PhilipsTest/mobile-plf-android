@@ -39,6 +39,6 @@ public class PIMDemoUAppInterface implements UappInterface {
     }
 
     public boolean isUserLoggedIn(){
-        return USRUDIHelper.getInstance().getUserDataInterface().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN;
+        return mContext != null && USRUDIHelper.getInstance().getUserDataInterface().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN;
     }
 }

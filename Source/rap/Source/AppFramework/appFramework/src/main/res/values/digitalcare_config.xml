@@ -47,4 +47,5 @@
 
     <!-- Do you want Live Chat Option -->
     <bool name="live_chat_required">true</bool>
+    <string name="consumerCareChat_desc">@string/dcc_chat_desc</string>
 </resources>

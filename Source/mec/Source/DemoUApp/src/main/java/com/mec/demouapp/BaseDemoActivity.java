@@ -34,6 +34,13 @@ public class BaseDemoActivity extends AppCompatActivity implements ActionBarList
     private TextView mTitleTextView;
     private FrameLayout mShoppingCart;
     private BaseDemoFragment fragment;
+    private Bundle bundle;
+
+    public MecDemoUAppDependencies getMecDemoUAppDependencies() {
+        return mecDemoUAppDependencies;
+    }
+
+    private MecDemoUAppDependencies mecDemoUAppDependencies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

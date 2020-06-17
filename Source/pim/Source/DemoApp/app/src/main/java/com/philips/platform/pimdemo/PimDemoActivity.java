@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -15,6 +14,7 @@ import android.widget.Switch;
 
 
 import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uid.utils.UIDActivity;
 import com.philips.platform.uid.view.widget.Button;
@@ -26,13 +26,9 @@ import com.pim.demouapp.PIMDemoUAppSettings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.BiConsumer;
 
 public class PimDemoActivity extends UIDActivity {
 
@@ -62,8 +58,9 @@ public class PimDemoActivity extends UIDActivity {
         String homeCountryCode = appInfraInterface.getServiceDiscovery().getHomeCountry();
         Log.d(TAG, "onCreate :: homeCountry -> " + homeCountryCode);
         if (homeCountryCode != null && getCountryName(homeCountryCode) != null)
-            spinnerCountrySelection.setSelection(((PIMSpinnerAdapter)spinnerCountrySelection.getAdapter()).getPosition(getCountryName(homeCountryCode)),false);
-        initPIMDemoUApp(homeCountryCode);
+            spinnerCountrySelection.setSelection(((PIMSpinnerAdapter) spinnerCountrySelection.getAdapter()).getPosition(getCountryName(homeCountryCode)));
+        else
+            initPIMDemoUApp(homeCountryCode);
         if (getIntent().hasExtra("REDIRECT_TO_CLOSED_APP")) {
             Log.d(TAG, "REDIRECT_TO_CLOSED_APP");
             launchPIMDemoUapp(getIntent().getExtras());
@@ -110,7 +107,6 @@ public class PimDemoActivity extends UIDActivity {
         launchUApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "launchUApp clicked : " + spinnerCountrySelection.getSelectedItem());
                 Log.d(TAG, "launchUApp clicked : " + appInfraInterface.getServiceDiscovery().getHomeCountry());
                 saveChuckInSharedPrefs();
                 launchPIMDemoUapp(null);
@@ -137,13 +133,12 @@ public class PimDemoActivity extends UIDActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String selectedLib = libraryList.get(position);
-                Log.i("UDIDemoActivity", "selectedLib" + selectedLib);
+                Log.d(TAG, "selectedLib" + selectedLib);
                 initPIMDemoUApp(countryMap.get(spinnerCountrySelection.getSelectedItem()));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Log.i(TAG, "selectLibrary : onNothingSelected");
             }
         });
     }
@@ -155,14 +150,13 @@ public class PimDemoActivity extends UIDActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String countrycode = countryMap.get(countryList.get(position));
-                Log.i(TAG, "spinnerCountrySelection : " + position+" Country Code : "+countrycode);
+                Log.d(TAG, "spinnerCountrySelection : " + position + " Country Code : " + countrycode);
                 appInfraInterface.getServiceDiscovery().setHomeCountry(countrycode);
                 initPIMDemoUApp(countrycode);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Log.i(TAG, "spinnerCountrySelection : onNothingSelected");
             }
         });
     }
@@ -172,7 +166,7 @@ public class PimDemoActivity extends UIDActivity {
     }
 
     private void initPIMDemoUApp(String countryCode) {
-        Log.d(TAG, "Init initPIMDemoUApp called with country code : " + countryCode);
+        Log.d(TAG, "initPIMDemoUApp called with country code : " + countryCode);
         PIMDemoUAppDependencies pimDemoUAppDependencies = new PIMDemoUAppDependencies(appInfraInterface, getComponentType(countryCode));
         pimDemoUAppInterface.init(pimDemoUAppDependencies, new PIMDemoUAppSettings(mContext));
     }
@@ -194,8 +188,8 @@ public class PimDemoActivity extends UIDActivity {
     }
 
     private String getCountryName(String countryCode) {
-        for(Map.Entry<String, String> set : countryMap.entrySet()){
-            if(set.getValue().equalsIgnoreCase(countryCode))
+        for (Map.Entry<String, String> set : countryMap.entrySet()) {
+            if (set.getValue().equalsIgnoreCase(countryCode))
                 return set.getKey();
         }
         return null;

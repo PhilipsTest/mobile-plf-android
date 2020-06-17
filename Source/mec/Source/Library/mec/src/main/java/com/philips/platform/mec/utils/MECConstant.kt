@@ -39,7 +39,7 @@ object MECConstant {
     val KEY_FLOW_CONFIGURATION: String? ="KEY_FLOW_CONFIGURATION"
     val DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight
     val IAP_KEY_ACTIVITY_THEME: String? = "IAP_KEY_ACTIVITY_THEME"
-    val COMPONENT_NAME: String = "mec"
+    val COMPONENT_NAME: String = "MEC"
     const val SELECTED_RETAILER: String ="SELECTED_RETAILER"
     const val RETAILER_REQUEST_CODE: Int = 5000
     const val PAYMENT_REQUEST_CODE: Int = 5001
