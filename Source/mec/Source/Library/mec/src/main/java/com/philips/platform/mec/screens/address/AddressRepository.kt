@@ -10,6 +10,7 @@
 package com.philips.platform.mec.screens.address
 
 import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.model.address.ECSAddress
 
 class AddressRepository(var ecsServices: ECSServices) {
 
@@ -20,7 +21,7 @@ class AddressRepository(var ecsServices: ECSServices) {
         ecsServices.fetchSavedAddresses(eCSFetchAddressesCallback)
     }
 
-    fun createAddress(ecsAddress: com.philips.platform.ecs.model.address.ECSAddress, ecsCreateAddressCallBack :ECSCreateAddressCallBack) {
+    fun createAddress(ecsAddress: ECSAddress, ecsCreateAddressCallBack :ECSCreateAddressCallBack) {
         addressService.setEnglishSalutation(ecsAddress) //set salutation to english ,while doing service call
         ecsServices.createAddress(ecsAddress,ecsCreateAddressCallBack)
     }

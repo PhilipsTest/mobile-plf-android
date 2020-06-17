@@ -39,19 +39,19 @@ class AddressViewModel : CommonViewModel() {
 
     private val TAG: String = AddressViewModel::class.java.simpleName
 
-    private var ecsCreateAddressCallBack = ECSCreateAddressCallBack(this)
+    internal var ecsCreateAddressCallBack = ECSCreateAddressCallBack(this)
 
-    private var ecsFetchAddressesCallback = ECSFetchAddressesCallback(this)
+    internal var ecsFetchAddressesCallback = ECSFetchAddressesCallback(this)
 
-    private var setDeliveryAddressCallBack = SetDeliveryAddressCallBack(this)
+    internal var setDeliveryAddressCallBack = SetDeliveryAddressCallBack(this)
 
     private var ecsFetchDeliveryModesCallback = ECSFetchDeliveryModesCallback(this)
 
-    private var ecsSetDeliveryModesCallback = ECSSetDeliveryModesCallback(this)
+    internal var ecsSetDeliveryModesCallback = ECSSetDeliveryModesCallback(this)
 
-    private var deleteAddressCallBack = DeleteAddressCallBack(this)
+    internal var deleteAddressCallBack = DeleteAddressCallBack(this)
 
-    private var updateAddressCallBack = UpdateAddressCallBack(this)
+    internal var updateAddressCallBack = UpdateAddressCallBack(this)
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
@@ -91,13 +91,13 @@ class AddressViewModel : CommonViewModel() {
 
     fun createAndFetchAddress(ecsAddress: ECSAddress) {
         paramEcsAddress = ecsAddress
-        ecsCreateAddressCallBack.mECRequestType = MECRequestType.MEC_CREATE_AND_FETCH_ADDRESS
+        ecsFetchAddressesCallback.mECRequestType = MECRequestType.MEC_CREATE_AND_FETCH_ADDRESS
         addressRepository.createAndFetchAddress(ecsAddress, ecsFetchAddressesCallback)
     }
 
     fun deleteAndFetchAddress(ecsAddress: ECSAddress) {
         paramEcsAddress = ecsAddress
-        ecsCreateAddressCallBack.mECRequestType = MECRequestType.MEC_DELETE_AND_FETCH_ADDRESS
+        ecsFetchAddressesCallback.mECRequestType = MECRequestType.MEC_DELETE_AND_FETCH_ADDRESS
         addressRepository.deleteAndFetchAddress(ecsAddress, ecsFetchAddressesCallback)
     }
 
@@ -143,7 +143,7 @@ class AddressViewModel : CommonViewModel() {
         authAndCallAPIagain(retryAPI, authFailCallback)
     }
 
-    fun selectAPIcall(mecRequestType: MECRequestType): () -> Unit {
+    private fun selectAPIcall(mecRequestType: MECRequestType): () -> Unit {
 
         lateinit var APIcall: () -> Unit
         when (mecRequestType) {
@@ -158,9 +158,6 @@ class AddressViewModel : CommonViewModel() {
             MECRequestType.MEC_FETCH_DELIVERY_MODES -> APIcall = { fetchDeliveryModes() }
             MECRequestType.MEC_SET_DELIVERY_MODE -> APIcall = { setDeliveryMode(paramEcsDeliveryMode) }
             MECRequestType.MEC_SET_DELIVERY_ADDRESS -> APIcall = { setDeliveryAddress(paramEcsAddress) }
-
-
-
         }
         return APIcall
     }
