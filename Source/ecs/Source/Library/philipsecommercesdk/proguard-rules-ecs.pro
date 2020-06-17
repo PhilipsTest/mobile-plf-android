@@ -5,6 +5,7 @@
 
 
 -keep class com.philips.platform.ecs.model** {*;}
+-keep class com.philips.platform.ecs.microService.model** {*;}
 -keep class com.philips.platform.ecs.error** {*;}
 
 #This Rule is required for gson
