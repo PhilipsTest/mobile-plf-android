@@ -278,7 +278,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 btnLaunchAsFragment.setText("Launch UDI As Fragment");
             }
             initIAP();
-            initMECDemoUAPP();
+
         }
     }
 
@@ -427,6 +427,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         } else if (v == btn_ECS) {
             launchECS();
         } else if (v == btn_MCS) {
+            initMECDemoUAPP();
             launchMECDemoUAPP();
         } else if (v == btnMigrator) {
             if (isUserLoggedIn()) {
