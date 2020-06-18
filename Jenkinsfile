@@ -6,7 +6,7 @@ BranchName = env.BRANCH_NAME
  * Applicable for develop branch and build type is PSRA at 8:00 pm to 9:00 pm
  * Applicable for develop branch and build type is Java API doc at 9:00 pm to 10:00 pm
  */
-String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS" : ""
+String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS\nH H(22-23) * * * %buildType=HPFortify" : ""
 
 //label for pipeline
 def nodes = 'test'
@@ -35,8 +35,8 @@ pipeline {
      * The values for this user specified parameters are made available to pipeline steps via build params in jenkins.
      */
     parameters {
-        //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs/AppInfra/CC/ECS/IAP/MEC/PIF/PIM/PRG/PRX/SDB/uAppFwLib/USR).
-        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS\nAppInfra\nCC\nECS\nIAP\nMEC\nPIF\nPIM\nPRG\nPRX\nSDB\nuAppFwLib\nUSR', description: 'What type of build to build?', name: 'buildType')
+        //specify values for buildType (Normal/PSRA/LeakCanary/HPFortify/Javadocs).
+        choice(choices: 'Normal\nPSRA\nLeakCanary\nHPFortify\nJAVADocs\nBlackDuck\nTICS', description: 'What type of build to build?', name: 'buildType')
     }
 
     /**
@@ -341,307 +341,7 @@ pipeline {
                 BuildHPFortify()   //build HPFortify
             }
         }
-        stage('AppInfra') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'AppInfra' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b ail -clean
-                            echo "*** sourceanalyzer -b ail -source 1.8 ./gradlew AppInfra:assembleRelease ***"
-                            sourceanalyzer -b ail -source 1.8 -debug-verbose -logfile AppInfra_Android.txt ./gradlew AppInfra:assembleRelease
-                            echo "*** sourceanalyzer -b ail -quick -scan -f AppInfra_Android.fpr ***"
-                            sourceanalyzer -b ail -quick -scan -f AppInfra_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc AppInfra_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file AppInfra_Android.fpr -project EMS -version AppInfra_Android
-                    '''
-                }    
-            }
-        }
-        stage('CC') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'CC' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b dcc -clean
-                            echo "*** sourceanalyzer -b dcc -source 1.8 ./gradlew digitalCare:assembleRelease ***"
-                            sourceanalyzer -b dcc -source 1.8 -debug-verbose -logfile CC_Android.txt ./gradlew digitalCare:assembleRelease
-                            echo "*** sourceanalyzer -b dcc -quick -scan -f CC_Android.fpr ***"
-                            sourceanalyzer -b dcc -quick -scan -f CC_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc CC_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file CC_Android.fpr -project EMS -version CC_Android
-                    '''
-                }    
-            }
-        }
-        stage('ECS') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'ECS' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b ecs -clean
-                            echo "*** sourceanalyzer -b ecs -source 1.8 ./gradlew philipsecommercesdk:assembleRelease ***"
-                            sourceanalyzer -b ecs -source 1.8 -debug-verbose -logfile ECS_ANDROID.txt ./gradlew philipsecommercesdk:assembleRelease
-                            echo "*** sourceanalyzer -b ecs -quick -scan -f ECS_ANDROID.fpr ***"
-                            sourceanalyzer -b ecs -quick -scan -f ECS_ANDROID.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc ECS_ANDROID***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file ECS_ANDROID.fpr -project EMS -version ECS_ANDROID
-                    '''
-                }    
-            }
-        }
-        stage('IAP') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'IAP' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b iap -clean
-                            echo "*** sourceanalyzer -b iap -source 1.8 ./gradlew iap:assembleRelease ***"
-                            sourceanalyzer -b iap -source 1.8 -debug-verbose -logfile IAP_Android.txt ./gradlew iap:assembleRelease
-                            echo "*** sourceanalyzer -b iap -quick -scan -f IAP_Android.fpr ***"
-                            sourceanalyzer -b iap -quick -scan -f IAP_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc IAP_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file IAP_Android.fpr -project EMS -version IAP_Android
-                    '''
-                }    
-            }
-        }
-        stage('MEC') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'MEC' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b mec -clean
-                            echo "*** sourceanalyzer -b mec -source 1.8 ./gradlew mec:assembleRelease ***"
-                            sourceanalyzer -b mec -source 1.8 -debug-verbose -logfile MEC_ANDROID.txt ./gradlew mec:assembleRelease
-                            echo "*** sourceanalyzer -b mec -quick -scan -f MEC_ANDROID.fpr ***"
-                            sourceanalyzer -b mec -quick -scan -f MEC_ANDROID.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc MEC_ANDROID***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file MEC_ANDROID.fpr -project EMS -version MEC_ANDROID
-                    '''
-                }    
-            }
-        }
-        stage('PIF') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'PIF' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b pif -clean
-                            echo "*** sourceanalyzer -b pif -source 1.8 ./gradlew pif:assembleRelease ***"
-                            sourceanalyzer -b pif -source 1.8 -debug-verbose -logfile plf_android.txt ./gradlew pif:assembleRelease
-                            echo "*** sourceanalyzer -b pif -quick -scan -f plf_android.fpr ***"
-                            sourceanalyzer -b pif -quick -scan -f plf_android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc plf_android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file plf_android.fpr -project EMS -version plf_android
-                    '''
-                }    
-            }
-        }
-        stage('PIM') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'PIM' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b pim -clean
-                            echo "*** sourceanalyzer -b pim -source 1.8 ./gradlew pim:assembleRelease ***"
-                            sourceanalyzer -b pim -source 1.8 -debug-verbose -logfile PIM_Android.txt ./gradlew pim:assembleRelease
-                            echo "*** sourceanalyzer -b pim -quick -scan -f PIM_Android.fpr ***"
-                            sourceanalyzer -b pim -scan -f PIM_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc PIM_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file PIM_Android.fpr -project EMS -version PIM_Android
-                    '''
-                }    
-            }
-        }
-        stage('PRG') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'PRG' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b prg -clean
-                            echo "*** sourceanalyzer -b prg -source 1.8 ./gradlew product-registration-lib:assembleRelease ***"
-                            sourceanalyzer -b prg -source 1.8 -debug-verbose -logfile PR_Android.txt ./gradlew product-registration-lib:assembleRelease
-                            echo "*** sourceanalyzer -b prg -quick -scan -f PR_Android.fpr ***"
-                            sourceanalyzer -b prg -scan -f PR_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc PR_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file PR_Android.fpr -project EMS -version PR_Android
-                    '''
-                }    
-            }
-        }
-        stage('PRX') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'PRX' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b prx -clean
-                            echo "*** sourceanalyzer -b prx -source 1.8 ./gradlew prx:assembleRelease ***"
-                            sourceanalyzer -b prx -source 1.8 -debug-verbose -logfile PRX_Android.txt ./gradlew prx:assembleRelease
-                            echo "*** sourceanalyzer -b prx -quick -scan -f PRX_Android.fpr ***"
-                            sourceanalyzer -b prx -scan -f PRX_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc PRX_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file PRX_Android.fpr -project EMS -version PRX_Android
-                    '''
-                }    
-            }
-        }
-        stage('SDB') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'SDB' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b sdb -clean
-                            echo "*** sourceanalyzer -b sdb -source 1.8 ./gradlew securedblibrary:assembleRelease ***"
-                            sourceanalyzer -b sdb -source 1.8 -debug-verbose -logfile SecureDB_Android.txt ./gradlew securedblibrary:assembleRelease
-                            echo "*** sourceanalyzer -b sdb -quick -scan -f SecureDB_Android.fpr ***"
-                            sourceanalyzer -b sdb -scan -f SecureDB_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc SecureDB_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file SecureDB_Android.fpr -project EMS -version SecureDB_Android
-                    '''
-                }    
-            }
-        }
-        stage('uAppFwLib') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'uAppFwLib' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b uAppFwLib -clean
-                            echo "*** sourceanalyzer -b pim -source 1.8 ./gradlew uAppFwLib:assembleRelease ***"
-                            sourceanalyzer -b uAppFwLib -source 1.8 -debug-verbose -logfile uAppFwLib_Android.txt ./gradlew uAppFwLib:assembleRelease
-                            echo "*** sourceanalyzer -b uAppFwLib -quick -scan -f uAppFwLib_Android.fpr ***"
-                            sourceanalyzer -b uAppFwLib -scan -f uAppFwLib_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc uAppFwLib_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file uAppFwLib_Android.fpr -project EMS -version uAppFwLib_Android
-                    '''
-                }    
-            }
-        }
-        stage('USR') {
-            when {
-                allOf {
-                    expression { return params.buildType == 'USR' }
-                    not { expression { return params.buildType == 'TICS' } }
-                }
-            }
-            steps {
-               /*BuildHPFortify()*/   //build HPFortify
-               script {
-                    sh '''#!/bin/bash -l
-                            set -e
-                            chmod -R 755 .
-                            ./gradlew --refresh-dependencies
-                            sourceanalyzer -b usr -clean
-                            echo "*** sourceanalyzer -b usr -source 1.8 ./gradlew registrationApi:assembleRelease ***"
-                            sourceanalyzer -b usr -source 1.8 -debug-verbose -logfile UR_Android.txt ./gradlew RegistrationApi:assembleRelease
-                            echo "*** sourceanalyzer -b usr -quick -scan -f UR_Android.fpr ***"
-                            sourceanalyzer -b usr -scan -f UR_Android.fpr
-                            echo "*** fortifyclient -url https://fortify.philips.com/ssc UR_Android***"
-                            fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file UR_Android.fpr -project EMS -version UR_Android
-                    '''
-                }    
-            }
-        }
-
+        
 //        stage('Trigger E2E Test') {
 //           when {
 //                allOf {
@@ -746,42 +446,6 @@ def InitialiseBuild() {
     }
     if (params.buildType == 'HPFortify') {
         currentBuild.displayName = "${env.BUILD_NUMBER}-HPFortify"
-    }
-    if (params.buildType == 'AppInfra') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-AppInfra"
-    }
-	if (params.buildType == 'CC') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-CC"
-    }
-	if (params.buildType == 'ECS') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-ECS"
-    }
-	if (params.buildType == 'IAP') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-IAP"
-    }
-	if (params.buildType == 'MEC') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-MEC"
-    }
-    if (params.buildType == 'PIF') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-PIF"
-    }
-    if (params.buildType == 'PIM') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-PIM"
-    }
-    if (params.buildType == 'PRG') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-PRG"
-    }
-    if (params.buildType == 'PRX') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-PRX"
-    }
-    if (params.buildType == 'SDB') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-SDB"
-    }
-    if (params.buildType == 'uAppFwLib') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-uAppFwLib"
-    }
-    if (params.buildType == 'USR') {
-        currentBuild.displayName = "${env.BUILD_NUMBER}-USR"
     }
     echo currentBuild.displayName   //print current build name to console output
 }
@@ -889,21 +553,30 @@ def BuildHPFortify() {
         chmod -R 755 .
         ./gradlew --refresh-dependencies		
 		array=(
+            'registrationApi::UR_Android'
+            'mec::MEC_ANDROID'
             'AppInfra::AppInfra_Android'
             'digitalCare::CC_Android'
             'philipsecommercesdk::ECS_ANDROID'
             'iap::IAP_Android'
-            'mec::MEC_ANDROID'
+            'pif::plf_android'
+			'pim::PIM_Android'
+			'product-registration-lib::PR_Android'
+			'prx::PRX_Android'
+			'securedblibrary::SecureDB_Android'
+			'uAppFwLib::uAppFwLib_Android'
         )
         for index in "${array[@]}" ; do
             KEY="${index%%::*}"
             VALUE="${index##*::}"
-          echo "*** sourceanalyzer -b $KEY -source 1.8 ./gradlew $KEY:assembleRelease ***"
-          sourceanalyzer -b $KEY -source 1.8 -debug-verbose -logfile $VALUE.txt ./gradlew $KEY:assembleRelease
+          echo "*** sourceanalyzer -b $KEY -clean ***"
+          sourceanalyzer -b $KEY -clean    
+          echo "*** sourceanalyzer -b $KEY -Xmx10G -Xss32M -debug-verbose -logfile $VALUE.txt ./gradlew $KEY:assembleRelease ***"
+          sourceanalyzer -b $KEY -Xmx10G -Xss32M -debug-verbose -logfile $VALUE.txt ./gradlew clean $KEY:assembleRelease
           echo "*** sourceanalyzer -b $KEY -scan -f $VALUE.fpr ***"
-          sourceanalyzer -b $KEY -scan -f $VALUE.fpr
+          sourceanalyzer -b $KEY -Xmx10G -Xss32M -scan -f $VALUE.fpr
           echo "*** fortifyclient -url https://fortify.philips.com/ssc $VALUE***"
-          fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file $VALUE.fpr -project EMS -version $VALUE		
+          fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file $VALUE.fpr -project EMS -version $VALUE
 		done
     '''
 }
