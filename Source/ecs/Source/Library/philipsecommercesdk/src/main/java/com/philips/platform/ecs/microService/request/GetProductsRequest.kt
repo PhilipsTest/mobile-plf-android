@@ -3,6 +3,7 @@ package com.philips.platform.ecs.microService.request
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_PRODUCTS
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -52,7 +53,10 @@ class GetProductsRequest  (private val productCategory: String?, private val lim
     override fun onResponse(response: JSONObject) {
         val productList = response.getData(ECSProducts::class.java)
         val eCSProductManager = ECSProductManager()
-        productList?.let { getProductsSummary(eCSProductManager, it) }
+        productList?.let { getProductsSummary(eCSProductManager, it) }?:kotlin.run {
+            val ecsError = ECSError(ECSErrorType.ECSPIL_NOT_FOUND_productId.getLocalizedErrorString(), ECSErrorType.ECSPIL_NOT_FOUND_productId.errorCode, ECSErrorType.ECSPIL_NOT_FOUND_productId)
+            ecsCallback.onFailure(ecsError)
+        }
 
     }
 
