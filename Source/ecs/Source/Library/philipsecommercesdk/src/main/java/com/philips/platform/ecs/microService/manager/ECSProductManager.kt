@@ -92,6 +92,15 @@ class ECSProductManager {
         }
     }
 
+    fun fetchProductSummaries(ecsProducts: ECSProducts, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
+        val ecsException = ECSApiValidator().getECSException(APIType.Locale)
+
+        ecsException?.let { throw ecsException } ?: kotlin.run {
+            val getSummariesForProductsRequest = GetSummariesForProductsRequest(ecsProducts.commerceProducts, ecsCallback)
+            requestHandler.handleRequest(getSummariesForProductsRequest)
+        }
+    }
+
     fun fetchProductDetails(product: ECSProduct, ecsCallback: ECSCallback<ECSProduct, ECSError>) {
 
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)

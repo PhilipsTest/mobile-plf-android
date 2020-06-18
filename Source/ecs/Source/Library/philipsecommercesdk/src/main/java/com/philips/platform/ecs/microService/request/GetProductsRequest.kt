@@ -3,7 +3,9 @@ package com.philips.platform.ecs.microService.request
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_PRODUCTS
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.util.addQueryParam
 import com.philips.platform.ecs.microService.util.getData
@@ -49,10 +51,22 @@ class GetProductsRequest  (private val productCategory: String?, private val lim
     /** Called when a response is received.  */
     override fun onResponse(response: JSONObject) {
         val productList = response.getData(ECSProducts::class.java)
-        productList?.let { ecsCallback.onResponse(it) }
+        val eCSProductManager = ECSProductManager()
+        productList?.let { getProductsSummary(eCSProductManager, it) }
+
+    }
+
+    private fun getProductsSummary(eCSProductManager: ECSProductManager, ecsProducts: ECSProducts) {
+        eCSProductManager.fetchProductSummaries(ecsProducts, object : ECSCallback<List<ECSProduct>, ECSError> {
+            override fun onResponse(result: List<ECSProduct>) {
+                ecsProducts.commerceProducts = result
+                ecsCallback.onResponse(ecsProducts)
+            }
+
+            override fun onFailure(ecsError: ECSError) {
+                ecsCallback.onResponse(ecsProducts)
+            }
+        })
     }
 
 }
-
-//https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=DE_Pub&language=de&country=DE&query=::category:FOOD_PREPARATION_CA2'
-//public void fetchProducts(String productCategory, int limit, int offset, ProductFilters productFilters, @NonNull ECSCallback<ECSProducts, Exception> eCSCallback)
