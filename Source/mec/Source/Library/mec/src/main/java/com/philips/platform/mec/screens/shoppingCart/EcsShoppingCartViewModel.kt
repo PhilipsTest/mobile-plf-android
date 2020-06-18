@@ -106,17 +106,16 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
     }
 
     fun tagApplyOrDeleteVoucher(mECRequestType :MECRequestType){
-        var actionMap = HashMap<String, String>()
+        val actionMap = HashMap<String, String>()
         if(mECRequestType==MECRequestType.MEC_APPLY_VOUCHER || mECRequestType==MECRequestType.MEC_APPLY_VOUCHER_SILENT){
-            actionMap.put(MECAnalyticsConstant.specialEvents, voucherCodeApplied)
-            actionMap.put(voucherCode, addVoucherString)
+            actionMap[MECAnalyticsConstant.specialEvents] = voucherCodeApplied
+            actionMap[voucherCode] = addVoucherString
         }else{
-            actionMap.put(MECAnalyticsConstant.specialEvents, voucherCodeRevoked)
-            actionMap.put(voucherCode, deleteVoucherString)
+            actionMap[MECAnalyticsConstant.specialEvents] = voucherCodeRevoked
+            actionMap[voucherCode] = deleteVoucherString
         }
-        if(ecsShoppingCart!=null && ecsShoppingCart.value!=null) {
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, ecsShoppingCart.value!!.entries)
-        }
+        ecsShoppingCart.value?.entries?.let { MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it) }
+
     }
 
     fun tagProductAddedOrDeleted(){

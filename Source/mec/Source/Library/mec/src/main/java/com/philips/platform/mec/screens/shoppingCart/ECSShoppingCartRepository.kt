@@ -44,7 +44,7 @@ class ECSShoppingCartRepository(var ecsShoppingCartViewModel: EcsShoppingCartVie
          if(!MECutility.isExistingUser() || ECSConfiguration.INSTANCE.accessToken == null) {
              HybrisAuth.hybrisAuthentication(authCallBack)
          }else{
-             this.ecsServices.fetchShoppingCart(ecsShoppingCartCallback)
+             ecsServices.fetchShoppingCart(ecsShoppingCartCallback)
          }
     }
 

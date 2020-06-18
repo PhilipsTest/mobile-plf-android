@@ -401,7 +401,7 @@ class MECutility {
 
             var storedEmail = "NONE"
 
-            val isEmailKEYExist = MECDataHolder.INSTANCE.appinfra.secureStorage.doesStorageKeyExist(HybrisAuth.KEY_MEC_AUTH_DATA)
+            val isEmailKEYExist = MECDataHolder.INSTANCE.appinfra.secureStorage?.doesStorageKeyExist(HybrisAuth.KEY_MEC_AUTH_DATA) ?:false
             if (isEmailKEYExist) {
 
                 val sse = SecureStorageInterface.SecureStorageError()
