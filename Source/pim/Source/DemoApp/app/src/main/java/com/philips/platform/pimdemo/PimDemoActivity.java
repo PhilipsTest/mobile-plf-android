@@ -41,6 +41,7 @@ public class PimDemoActivity extends UIDActivity {
     private String TAG = PimDemoActivity.class.getSimpleName();
     private Map<String, String> countryMap = new LinkedHashMap<>();
     private List<String> countryList = new ArrayList<>();
+    private String homeCountryCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,12 @@ public class PimDemoActivity extends UIDActivity {
         mContext = getApplicationContext();
         appInfraInterface = ((PimDemoApplication) mContext).getAppInfra();
         pimDemoUAppInterface = new PIMDemoUAppInterface();
-        String homeCountryCode = appInfraInterface.getServiceDiscovery().getHomeCountry();
+        homeCountryCode = appInfraInterface.getServiceDiscovery().getHomeCountry();
         Log.d(TAG, "onCreate :: homeCountry -> " + homeCountryCode);
+        initPIMDemoUApp(homeCountryCode);
         if (homeCountryCode != null && getCountryName(homeCountryCode) != null)
             spinnerCountrySelection.setSelection(((PIMSpinnerAdapter) spinnerCountrySelection.getAdapter()).getPosition(getCountryName(homeCountryCode)));
-        else
-            initPIMDemoUApp(homeCountryCode);
+
         if (getIntent().hasExtra("REDIRECT_TO_CLOSED_APP")) {
             Log.d(TAG, "REDIRECT_TO_CLOSED_APP");
             launchPIMDemoUapp(getIntent().getExtras());
@@ -151,8 +152,11 @@ public class PimDemoActivity extends UIDActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String countrycode = countryMap.get(countryList.get(position));
                 Log.d(TAG, "spinnerCountrySelection : " + position + " Country Code : " + countrycode);
-                appInfraInterface.getServiceDiscovery().setHomeCountry(countrycode);
-                initPIMDemoUApp(countrycode);
+                if(homeCountryCode != null && !homeCountryCode.equals(countrycode)) {
+                    appInfraInterface.getServiceDiscovery().setHomeCountry(countrycode);
+                    homeCountryCode = countrycode;
+                    initPIMDemoUApp(countrycode);
+                }
             }
 
             @Override

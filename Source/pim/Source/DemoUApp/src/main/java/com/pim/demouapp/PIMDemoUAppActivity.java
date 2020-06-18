@@ -192,6 +192,9 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             btnLaunchAsFragment.setText("Launch USR");
             aSwitch.setVisibility(View.GONE);
             abTestingSwitch.setVisibility(View.GONE);
+            if(isUserLoggedIn()){
+                updateMarketingOptinStatus();
+            }
         } else {
             if (isUserLoggedIn()) {
                 btnLaunchAsFragment.setText("Launch User Profile");
@@ -199,9 +202,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             } else {
                 btnLaunchAsFragment.setText("Launch UDI");
             }
-            initIAP();
-            initMECDemoUAPP();
         }
+        initIAP();
     }
 
     private void initIAP() {
@@ -319,6 +321,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         } else if (v == btn_ECS) {
             launchECS();
         } else if (v == btn_MCS) {
+            initMECDemoUAPP();
             launchMECDemoUAPP();
         } else if (v == btnMigrator) {
             if (isUserLoggedIn()) {
@@ -592,8 +595,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onUserRegistrationComplete(Activity activity) {
         Log.d(TAG, " : onUserRegistrationComplete");
-        updateMarketingOptinStatus();
-        //activity.finish();
+        activity.finish();
     }
 
     @Override
