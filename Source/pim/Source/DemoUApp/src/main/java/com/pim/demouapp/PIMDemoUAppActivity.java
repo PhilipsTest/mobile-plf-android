@@ -121,8 +121,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         if (registrationLib == RegistrationLib.UDI)
             mUSRUDIHelper.setLoginListener(this);
         userDataInterface = USRUDIHelper.getInstance().getUserDataInterface();
-
-
+        
         btnGetUserDetail = findViewById(R.id.btn_GetUserDetail);
         btnGetUserDetail.setOnClickListener(this);
         btnLaunchAsActivity = findViewById(R.id.btn_login_activity);
