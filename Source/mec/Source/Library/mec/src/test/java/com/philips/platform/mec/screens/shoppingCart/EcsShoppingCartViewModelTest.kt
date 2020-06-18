@@ -23,8 +23,12 @@ import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.model.products.PriceEntity
 import com.philips.platform.ecs.model.products.StockEntity
 import com.philips.platform.mec.R
+import com.philips.platform.mec.any
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
+import com.philips.platform.mec.utils.MECutility
+import com.philips.platform.pif.DataInterface.USR.UserDataInterface
+import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener
 import com.philips.platform.uid.view.widget.Label
 import org.junit.After
 import org.junit.Before
@@ -45,6 +49,8 @@ class EcsShoppingCartViewModelTest {
 
     lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
 
+    val mECutility get() = MECutility.Companion
+
     @Mock
     lateinit var appInfraMock: AppInfraInterface
 
@@ -58,9 +64,12 @@ class EcsShoppingCartViewModelTest {
     @Mock
     lateinit var ecsShoppingCartCallbackMock: ECSShoppingCartCallback
 
+
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
         MECDataHolder.INSTANCE.appinfra = appInfraMock
         MECDataHolder.INSTANCE.eCSServices = ecsServicesMock
         ecsShoppingCartRepositoryMock.ecsServices = ecsServicesMock
@@ -77,21 +86,18 @@ class EcsShoppingCartViewModelTest {
     fun testCreateShoppingCart() {
 
         ecsShoppingCartViewModel.createShoppingCart("")
-        //  Mockito.verify(ecsServicesMock).createShoppingCart(ArgumentMatchers.any(ECSCallback::class.java) as ECSCallback<ECSShoppingCart, Exception>)
         Mockito.verify(ecsServicesMock, Mockito.atLeastOnce())
                 .createShoppingCart(ArgumentMatchers.any())
-        // Mockito.verify(ecsShoppingCartRepositoryMock, Mockito.atLeastOnce()).createCart(ArgumentMatchers.any())
+
     }
 
 
     @Test
     fun testGetShoppingCart() {
 
-//        Mockito.`when`(MECutility.isExistingUser()) .thenReturn(true)
-        ecsShoppingCartViewModel.getShoppingCart()
-
-        // Mockito.verify(ecsServicesMock, Mockito.atLeastOnce()).fetchShoppingCart(ArgumentMatchers.any())
-        //  Mockito.verify(ecsShoppingCartRepositoryMock, Mockito.atLeastOnce()).fetchShoppingCart()
+      /*  ecsShoppingCartViewModel.getShoppingCart()
+         //Mockito.verify(ecsServicesMock, Mockito.atLeastOnce()).fetchShoppingCart(ArgumentMatchers.any())
+        Mockito.verify(ecsShoppingCartRepositoryMock, Mockito.atLeastOnce()).fetchShoppingCart()*/
 
     }
 
@@ -138,7 +144,10 @@ class EcsShoppingCartViewModelTest {
 
     @Test
     fun TestTagApplyOrDeleteVoucher() {
+        ecsShoppingCartViewModel.deleteVoucherString=""
         ecsShoppingCartViewModel.tagApplyOrDeleteVoucher(MECRequestType.MEC_GET_APPLIED_VOUCHERS)
+        ecsShoppingCartViewModel.addVoucherString=""
+        ecsShoppingCartViewModel.tagApplyOrDeleteVoucher(MECRequestType.MEC_APPLY_VOUCHER)
         // Mockito.verify(ecsShoppingCartViewModelMock).tagApplyOrDeleteVoucher(MECRequestType.MEC_GET_APPLIED_VOUCHERS)
 
     }
@@ -148,6 +157,9 @@ class EcsShoppingCartViewModelTest {
 
     @Mock
     lateinit var mLabel: Label
+
+    @Mock
+    lateinit var userDataInterfaceMock: UserDataInterface
 
     @Test
     fun comp1() {
@@ -242,6 +254,21 @@ class EcsShoppingCartViewModelTest {
          stockEntity.stockLevel=4 // <5 low stocks
          EcsShoppingCartViewModel.setStock(mLabel,mECSProduct,2)
          assertEquals(View.VISIBLE,mLabel.visibility)
+    }
+
+
+    @Test
+    fun `retry api should do auth call`() {
+        ecsShoppingCartViewModel.retryAPI(MECRequestType.MEC_FETCH_SHOPPING_CART)
+        Mockito.verify(userDataInterfaceMock).refreshSession(any(RefreshSessionListener::class.java))
+
+    }
+
+    @Test
+    fun `retry api should refresh auth if refresh token exists`() {
+        MECDataHolder.INSTANCE.refreshToken = "djhgwdhjcgdjwkjbd"
+        ecsShoppingCartViewModel.retryAPI(MECRequestType.MEC_UPDATE_SHOPPING_CART)
+        Mockito.verify(ecsServicesMock).hybrisRefreshOAuth(any(), any())
     }
 
 
