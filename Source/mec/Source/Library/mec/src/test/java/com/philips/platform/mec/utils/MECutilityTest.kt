@@ -1,14 +1,16 @@
 package com.philips.platform.mec.utils
 
+import com.philips.platform.ecs.error.ECSError
+import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.Country
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.address.Region
 import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.ecs.model.payment.CardType
 import com.philips.platform.ecs.model.payment.ECSPayment
-import com.philips.platform.mec.integration.MECFlowConfigurator
 import com.philips.platform.mec.screens.payment.MECPayment
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,6 +24,7 @@ class MECutilityTest {
 
 
     private var mECutility = MECutility();
+    val mECutilityCompanion get() = MECutility.Companion
  
     @Before
     fun setUp() {
@@ -183,6 +186,48 @@ class MECutilityTest {
 
         val constructCardValidityDetails = mECutility.constructCardValidityDetails(paymentInfo)
         assertEquals("10/20",constructCardValidityDetails)
+    }
+
+    @Test
+    fun `indexOfSubString  method test for same case string`(){
+
+
+        assertEquals(-1, mECutilityCompanion.indexOfSubString(true,null,null))
+        assertEquals(0,  mECutilityCompanion.indexOfSubString(true,"blackListed","blackListed"))
+
+
+         assertEquals(-1,  mECutilityCompanion.indexOfSubString(true,"blackListed","blackListed long"))
+
+
+
+        assertEquals(0,  mECutilityCompanion.indexOfSubString(true,"blackListed long","blackListed"))
+
+
+        assertEquals(-1,  mECutilityCompanion.indexOfSubString(true,"Some retailer","xyz"))
+    }
+
+    @Test
+    fun `Test IsStockAvailable()`(){
+
+        assertEquals(true ,mECutilityCompanion.isStockAvailable("inStock",5))
+        assertEquals(true ,mECutilityCompanion.isStockAvailable("lowStock",5))
+        assertEquals(false ,mECutilityCompanion.isStockAvailable("inStock",0))
+        assertEquals(false ,mECutilityCompanion.isStockAvailable("lowStock",0))
+        assertEquals(false ,mECutilityCompanion.isStockAvailable(null,5))
+    }
+
+    @Test
+    fun `Test stockStatus`(){
+        assertEquals("available" ,mECutilityCompanion.stockStatus("YES"))
+        assertEquals("out of stock" ,mECutilityCompanion.stockStatus("NO"))
+        assertEquals("" ,mECutilityCompanion.stockStatus("random"))
+    }
+
+    @Test
+    fun `test isAuthError()`(){
+        var error = ECSError(ECSErrorEnum.ECSinvalid_grant.errorCode,ECSErrorEnum.ECSinvalid_grant.localizedErrorString)
+        assertEquals(true ,mECutilityCompanion.isAuthError(error))
+
     }
 
 }
