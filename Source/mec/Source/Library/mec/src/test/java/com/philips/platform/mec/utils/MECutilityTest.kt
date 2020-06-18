@@ -5,9 +5,12 @@ import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.Country
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.address.Region
+import com.philips.platform.ecs.model.cart.ECSEntries
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.ecs.model.payment.CardType
 import com.philips.platform.ecs.model.payment.ECSPayment
+import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.mec.screens.payment.MECPayment
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -229,5 +232,38 @@ class MECutilityTest {
         assertEquals(true ,mECutilityCompanion.isAuthError(error))
 
     }
+
+    @Test
+    fun `Test getQuantity()`(){
+
+        var ecsShoppingCart= ECSShoppingCart()
+        var eCSentry = ECSEntries()
+        var mECSProduct1 = ECSProduct()
+        mECSProduct1.code = "ConsignmentCode123ABC"
+        eCSentry.product = mECSProduct1
+        eCSentry.quantity = 2
+        var entries = ArrayList<ECSEntries>()
+        entries.add(eCSentry)
+        ecsShoppingCart.entries=entries
+
+        ecsShoppingCart.totalItems=2
+        assertEquals(2,mECutilityCompanion.getQuantity(ecsShoppingCart))
+
+        ecsShoppingCart.totalItems=3
+        assertEquals(2,mECutilityCompanion.getQuantity(ecsShoppingCart))
+    }
+
+
+    @Test
+    fun `Test findGivenAddressInAddressList()`(){
+        var addressList=ArrayList<ECSAddress>()
+        var address1=ECSAddress()
+        address1.id="123"
+        addressList.add(address1)
+
+        assertEquals(address1,mECutilityCompanion.findGivenAddressInAddressList("123",addressList))
+        assertEquals(null,mECutilityCompanion.findGivenAddressInAddressList("456",addressList))
+    }
+
 
 }
