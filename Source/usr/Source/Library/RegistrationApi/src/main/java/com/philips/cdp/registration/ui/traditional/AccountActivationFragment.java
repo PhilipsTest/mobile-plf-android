@@ -261,7 +261,8 @@ public class AccountActivationFragment extends RegistrationBaseFragment implemen
             if (mUser.isEmailVerified()) {
                 mBtnResend.setVisibility(View.GONE);
                 mEMailVerifiedError.hideError();
-                if (RegistrationHelper.getInstance().isMobileFlow()) {
+                final RegistrationConfiguration registrationConfiguration = RegistrationConfiguration.getInstance();
+                if (RegistrationHelper.getInstance().isMobileFlow() && !registrationConfiguration.isHSDPSkipLoginConfigurationAvailable() && registrationConfiguration.isHsdpFlow()){
                     LoginTraditional loginTraditional = new RefreshandUpdateUserHandler(getRegistrationFragment().getContext()).getLoginTraditional(this);
                     new RefreshandUpdateUserHandler(getRegistrationFragment().getContext()).forceHsdpLogin(this,loginTraditional);
                 }

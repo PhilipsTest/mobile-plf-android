@@ -116,9 +116,6 @@ public class RefreshandUpdateUserHandlerTest extends TestCase {
 
     @Test
     public void shouldCallLoginHSDPIfHSDPFlowIsEnabled() {
-        Mockito.when(hsdpConfigurationMock.getHsdpSecretId()).thenReturn("secret");
-        Mockito.when(hsdpConfigurationMock.getHsdpSharedId()).thenReturn("shared");
-        Mockito.when(appConfigurationMock.getRegistrationEnvironment()).thenReturn("ACCEPTANCE");
         RegistrationConfiguration.getInstance().appConfiguration = appConfigurationMock;
         RegistrationConfiguration.getInstance().hsdpConfiguration = hsdpConfigurationMock;
 
