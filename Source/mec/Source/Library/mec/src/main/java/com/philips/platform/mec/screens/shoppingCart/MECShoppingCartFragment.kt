@@ -404,6 +404,10 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     override fun onDestroy() {
         super.onDestroy()
+        resetPaymentMethods()
+    }
+
+    private fun resetPaymentMethods() {
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.clear() //Reset payment billing address cache
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.isPaymentDownloaded = false
     }
