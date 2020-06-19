@@ -107,7 +107,7 @@ public class ECSNetworkError {
         return ECSErrorEnum.ECS_volley_error;
     }
 
-    private static ServerError getServerError(VolleyError error) {
+    public static ServerError getServerError(VolleyError error) {
         try {
             if (error.networkResponse != null) {
                 final String encodedString = Base64.encodeToString(error.networkResponse.data, Base64.DEFAULT);

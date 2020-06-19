@@ -249,7 +249,7 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
             }else {
                 val errorMessage = mecError!!.exception!!.message
                 MECLog.e(TAG, errorMessage)
-                MECutility.tagAndShowError(mecError, false, fragmentManager, context)
+                context?.let { MECutility.tagAndShowError(mecError, false, fragmentManager, it) }
             }
         }
 

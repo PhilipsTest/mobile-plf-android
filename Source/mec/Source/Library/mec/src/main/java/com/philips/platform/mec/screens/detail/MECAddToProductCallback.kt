@@ -21,22 +21,11 @@ class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductD
 
     lateinit var mECRequestType: MECRequestType
 
-    /**
-     * On response.
-     *
-     * @param result the result
-     */
     override fun onResponse(result: ECSShoppingCart?) {
         ecsProductDetailViewModel.addToProductCallBack.onResponse(result)
     }
 
-    /**
-     * On failure.
-     * @param error     the error object
-     * @param ecsError the error code
-     */
     override fun onFailure(error: Exception?, ecsError: ECSError?) {
-
 
         when {
             MECutility.isAuthError(ecsError) -> {

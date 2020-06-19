@@ -52,8 +52,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     String getJsonStringFromObject(Object object){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return "Success\n" + gson.toJson(object);
+        try {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            return "Success\n" + gson.toJson(object);
+        }catch (Exception e){
+            return "null";
+        }
     }
 
 

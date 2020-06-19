@@ -101,7 +101,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
     private val errorObserver: Observer<MecError> = Observer(fun(mecError: MecError?) {
 
         if (mecError?.mECRequestType == MECRequestType.MEC_SET_DELIVERY_ADDRESS || mecError?.mECRequestType == MECRequestType.MEC_DELETE_ADDRESS) {
-            MECutility.tagAndShowError(mecError, true, fragmentManager, context)
+            context?.let { MECutility.tagAndShowError(mecError, true, fragmentManager, it) }
         } else {
 
             if (mecError?.mECRequestType == MECRequestType.MEC_FETCH_SHOPPING_CART) {
@@ -110,7 +110,7 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
             } else {
                 val errorMessage = mecError!!.exception!!.message
                 MECLog.e(TAG, errorMessage)
-                MECutility.tagAndShowError(mecError, false, fragmentManager, context)
+                context?.let { MECutility.tagAndShowError(mecError, false, fragmentManager, it) }
             }
         }
 

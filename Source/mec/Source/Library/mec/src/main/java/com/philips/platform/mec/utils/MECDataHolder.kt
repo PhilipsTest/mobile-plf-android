@@ -97,15 +97,15 @@ enum class MECDataHolder {
             userDataMap.add(UserDetailConstants.EMAIL)
             try {
                 val hashMap = userDataInterface.getUserDetails(userDataMap)
-                var firstNameValue = hashMap.get(UserDetailConstants.GIVEN_NAME)
+                var firstNameValue = hashMap[UserDetailConstants.GIVEN_NAME]
                 if(null!=firstNameValue) {
                     firstName = firstNameValue as String
                 }
-                var lastNameValue = hashMap.get(UserDetailConstants.FAMILY_NAME)
+                var lastNameValue = hashMap[UserDetailConstants.FAMILY_NAME]
                 if(null!=lastNameValue) {
                     lastName = lastNameValue as String
                 }
-                var emailValue = hashMap.get(UserDetailConstants.EMAIL)
+                var emailValue = hashMap[UserDetailConstants.EMAIL]
                 if(null!=emailValue) {
                     email = emailValue as String
                 }

@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "id": "a22e413a-4eec-4a13-8d1e-65a7a47b2aba",
+      "status": "400",
+      "code": "MISSING_API_VERSION",
+      "title": "The required API version header is missing"
+    }
+  ]
+}

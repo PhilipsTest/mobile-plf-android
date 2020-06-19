@@ -28,11 +28,12 @@
     "clientId": "09737ff2-23b9-4eb9-af72-c19c25413f02"
   },
   "IAP": {
-    "propositionid": "Tuscany2016"
+    "propositionid": "IAP_MOB_DKA"
   },
   "MEC": {
-    "propositionid": "Tuscany2016",
-    "voucherCode.enable": true
+    "propositionid": "IAP_MOB_DKA",
+    "voucherCode.enable": true,
+    "PIL_ECommerce_API_KEY": "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
 
   },
   "ProductRegistration": {

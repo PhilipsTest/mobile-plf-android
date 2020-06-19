@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "12993424-d11f-434e-bcfe-dc12cf7573eb",
+            "status": "400",
+            "code": "MISSING_PARAMETER",
+            "title": "The required parameter is missing",
+            "source": {
+                "parameter": "[language]"
+            }
+        }
+    ]
+}

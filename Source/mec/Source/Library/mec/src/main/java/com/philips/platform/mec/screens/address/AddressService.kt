@@ -13,9 +13,9 @@ class AddressService{
         val context = MECDataHolder.INSTANCE.appinfra.appInfraContext
 
         //TODO take the context from settings
-        if (localizedSalutation.equals(context.getString(R.string.mec_mr), ignoreCase = true)) {
+        if (localizedSalutation.equals(context?.getString(R.string.mec_mr), ignoreCase = true)) {
             ecsAddress.titleCode = SalutationEnum.MR.englishSalutation
-        }else if (localizedSalutation.equals(context.getString(R.string.mec_mrs), ignoreCase = true)){
+        }else if (localizedSalutation.equals(context?.getString(R.string.mec_mrs), ignoreCase = true)){
             ecsAddress.titleCode = SalutationEnum.MS.englishSalutation
         }
     }
