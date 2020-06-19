@@ -191,6 +191,12 @@
                     android:layout_height="wrap_content"
                     android:text="HSDP" />
 
+                <CheckBox
+                    android:id="@+id/cb_enableTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Dark Theme" />
+
                 <com.philips.platform.uid.view.widget.Switch
                     android:id="@+id/showCountrySelection"
                     android:layout_width="wrap_content"

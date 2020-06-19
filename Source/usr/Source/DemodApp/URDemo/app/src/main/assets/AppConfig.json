@@ -9,8 +9,8 @@
     "PILConfiguration.RegistrationEnvironment": "STAGING",
     "Flow.EmailVerificationRequired" : "true",
     "Flow.TermsAndConditionsAcceptanceRequired" : "true",
-    "SigninProviders.default": ["facebook","googleplus"],
-    "SigninProviders.NL": ["facebook","googleplus"]
+    "SigninProviders.default": ["apple","facebook","googleplus"],
+    "SigninProviders.NL": ["apple","facebook","googleplus"]
   },
   "IAP": {
     "hostport": "acc.occ.shop.philips.com",

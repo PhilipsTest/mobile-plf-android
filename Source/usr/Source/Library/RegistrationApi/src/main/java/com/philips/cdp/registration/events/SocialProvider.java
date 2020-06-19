@@ -26,4 +26,7 @@ public interface SocialProvider {
     /* WeChat*/
     String WECHAT = "wechat";
 
+    /* Apple*/
+    String APPLE = "apple";
+
 }

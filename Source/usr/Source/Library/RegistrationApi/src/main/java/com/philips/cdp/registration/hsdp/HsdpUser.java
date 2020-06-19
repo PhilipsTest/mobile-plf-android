@@ -552,6 +552,9 @@ public class HsdpUser {
      */
     public boolean isHsdpUserSignedIn() {
         HsdpUserRecordV2 hsdpUserRecordV2 = getHsdpUserRecord();
+        RLog.d(TAG, "isHsdpUserSignedIn : hsdpUserRecordV2 " + (hsdpUserRecordV2 == null ));
+
+        if(hsdpUserRecordV2 == null) return false;
 
         final boolean isSignedIn = hsdpUserRecordV2 != null && ((hsdpUserRecordV2.getAccessCredential() != null &&
                 hsdpUserRecordV2.getAccessCredential().getRefreshToken() != null)

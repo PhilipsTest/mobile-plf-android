@@ -10,10 +10,12 @@
     "MicrositeID": 66777,
     "RegistrationEnvironment": "Staging",
     "NL": [
-      "googleplus",
-      "facebook"
+      "apple",
+      "facebook",
+      "googleplus"
     ],
     "US": [
+      "apple",
       "facebook",
       "googleplus"
     ],
