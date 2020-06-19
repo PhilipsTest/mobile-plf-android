@@ -14,6 +14,9 @@ import com.philips.platform.uappframework.uappinput.UappSettings;
  * It passes the proposition Application context to PIM component
  */
 public class PIMSettings extends UappSettings {
+
+    private static final long serialVersionUID = -7751730940977863505L;
+
     /**
      * Constructor for Uappsettings
      *

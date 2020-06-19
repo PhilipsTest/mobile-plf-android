@@ -9,14 +9,17 @@
     "Flow.TermsAndConditionsAcceptanceRequired": "true",
     "Flow.MinimumAgeLimit": "{ \"NL\":12 ,\"GB\":16,\"default\": 16}",
     "SigninProviders.default": [
+      "apple",
       "facebook",
       "googleplus"
     ],
     "SigninProviders.NL": [
+      "apple",
       "facebook",
       "googleplus"
     ],
     "SigninProviders.CN": [
+      "apple",
       "wechat"
     ],
     "weChatAppId": "wx5b3bfa4e2970475e",
@@ -24,8 +27,14 @@
     "ShowCountrySelection": "true"
   },
   "IAP": {
-    "propositionid": "Tuscany2016"
+    "propositionid": "IAP_MOB_DKA"
   },
+  "MEC": {
+       "propositionid": "IAP_MOB_DKA",
+       "voucherCode.enable": true,
+       "PIL_ECommerce_API_KEY": "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
+  },
+
   "appinfra": {
     "appidentity.micrositeId": "77000",
     "appidentity.sector": "b2c",
@@ -85,7 +94,7 @@
     }
   },
   "MEC": {
-    "propositionid": "Tuscany2016",
+    "propositionid": "IAP_MOB_DKA",
     "voucherCode.enable": true
 
   }

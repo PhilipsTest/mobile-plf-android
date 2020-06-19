@@ -16,6 +16,7 @@ import java.io.Serializable;
  */
 public class AppliedVoucherEntity  implements Serializable {
 
+    private static final long serialVersionUID = -5415884185803855190L;
     String description;
     String freeShipping;
     String name;

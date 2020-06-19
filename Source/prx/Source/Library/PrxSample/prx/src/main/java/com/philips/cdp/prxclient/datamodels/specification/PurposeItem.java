@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class PurposeItem implements Serializable {
 
+	private static final long serialVersionUID = 7461674031962600708L;
 	@SerializedName("features")
 	@Expose
 	public Features features;

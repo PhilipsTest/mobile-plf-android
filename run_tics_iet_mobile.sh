@@ -12,5 +12,5 @@ export PATH=/mnt/tics/wrappers/macos/Client:${PATH}
 export PATH=${PATH}:/mnt/tics/wrappers/macos/BuildServer
 
 echo "Running TICS..."
-TICSMaintenance -project EMS_Android -branchname develop -branchdir .
-TICSQServer -project EMS_Android -nosanity -tmpdir ./EMS_Android
+TICSMaintenance -project EMS_Android -branchname feature/serialVersionId -branchdir .
+TICSQServer -project EMS_Android -calc ALL -recalc COMPILERWARNING -nosanity -tmpdir ./EMS_Android

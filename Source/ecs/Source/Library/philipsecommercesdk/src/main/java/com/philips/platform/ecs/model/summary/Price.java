@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 public class Price implements Serializable {
 
+    private static final long serialVersionUID = -6936715823424412938L;
     @SerializedName("productPrice")
     @Expose
     private String productPrice;

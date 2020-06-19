@@ -42,7 +42,7 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
         } else {
             mLoggingInterface.log(DEBUG, TAG, "USR user is not available so assertion not required");
             if (userMigrationListener != null)
-                userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
+                userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
         }
     }
 
@@ -56,7 +56,7 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
     public void onRefreshTokenFailed(Error error) {
         mLoggingInterface.log(DEBUG, TAG, "Refresh access token failed.");
         if (userMigrationListener != null) {
-            userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
+            userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
         }
     }
 

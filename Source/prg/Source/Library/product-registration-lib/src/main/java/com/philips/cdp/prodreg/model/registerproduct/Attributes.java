@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Attributes implements Serializable {
 
+    private static final long serialVersionUID = 3474532242997803829L;
     @SerializedName("promotions")
     private Promotions promotions;
 

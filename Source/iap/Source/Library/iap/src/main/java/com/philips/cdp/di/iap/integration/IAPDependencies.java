@@ -17,6 +17,7 @@ import com.philips.platform.uappframework.uappinput.UappDependencies;
  */
 public class IAPDependencies extends UappDependencies {
 
+    private static final long serialVersionUID = -6048667063981632120L;
     private UserDataInterface userDataInterface;
 
     /**

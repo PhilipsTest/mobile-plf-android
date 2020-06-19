@@ -11,12 +11,12 @@
     "Flow.EmailVerificationRequired" : true,
     "Flow.TermsAndConditionsAcceptanceRequired" : true,
     "Flow.MinimumAgeLimit" : { "NL":12 ,"GB":0,"default": 16},
-    "SigninProviders.default": ["facebook","googleplus"],
-    "SigninProviders.NL": ["facebook","googleplus"]
+    "SigninProviders.default": ["apple","facebook","googleplus"],
+    "SigninProviders.NL": ["apple","facebook","googleplus"]
   },
    "IAP": {
     "hostport": "www.occ.shop.philips.com",
-    "propositionid": "Tuscany2016"
+    "propositionid": "IAP_MOB_DKA"
   },
   "appinfra":{
     "appidentity.micrositeId": "77001",

@@ -27,6 +27,7 @@ import java.util.Map;
 public class SetDeliveryModesRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String> {
 
 
+    private static final long serialVersionUID = 6708167307896867166L;
     private final String deliveryModeID;
     private final ECSCallback<Boolean,Exception> ecsCallback;
 

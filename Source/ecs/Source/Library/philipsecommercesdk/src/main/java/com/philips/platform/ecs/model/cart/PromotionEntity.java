@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class PromotionEntity  implements Serializable {
 
+    private static final long serialVersionUID = 3052085328499504664L;
     private String code;
     private String description;
     private boolean enabled;

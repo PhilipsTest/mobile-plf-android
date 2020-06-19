@@ -28,6 +28,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 
 public class GetConfigurationRequest extends AppInfraAbstractRequest implements Response.Listener<JSONObject>{
 
+    private static final long serialVersionUID = -598086810846069268L;
     private final ECSCallback<ECSConfig, Exception> eCSCallback;
 
     public GetConfigurationRequest(ECSCallback<ECSConfig, Exception> eCSCallback) {

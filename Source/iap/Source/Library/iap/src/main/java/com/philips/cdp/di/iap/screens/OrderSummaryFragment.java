@@ -64,6 +64,7 @@ public class OrderSummaryFragment extends InAppBaseFragment
         OnSetDeliveryModeListener, com.philips.cdp.di.iap.utils.AlertListener, CheckOutHistoryAdapter.OrderSummaryUpdateListner {
 
     public static final String TAG = OrderSummaryFragment.class.getName();
+    private static final long serialVersionUID = -9094219135874690152L;
     Context mContext;
     private RelativeLayout mParentLayout;
     private Button mPayNowBtn;

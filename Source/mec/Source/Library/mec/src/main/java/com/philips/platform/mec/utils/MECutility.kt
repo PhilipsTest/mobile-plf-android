@@ -52,7 +52,9 @@ import com.philips.platform.uid.view.widget.AlertDialogFragment
 
 class MECutility {
 
+
     companion object {
+
 
         private var alertDialogFragment: AlertDialogFragment? = null
         val ALERT_DIALOG_TAG = "ALERT_DIALOG_TAG"
@@ -201,7 +203,7 @@ class MECutility {
             }
 
             if (str is String && subStr is String) {
-                return str.regionMatches(strOffset, (subStr as String?)!!, subStrOffset, length, ignoreCase = ignoreCase)
+                return str.regionMatches(strOffset, subStr, subStrOffset, length, ignoreCase = ignoreCase)
             }
 
             //SubString length is more than string
@@ -243,10 +245,6 @@ class MECutility {
 
         internal fun isStockAvailable(stockLevelStatus: String?, stockLevel: Int): Boolean {
 
-            /* if (if hybris available ) { // todo
-                 return true
-             }*/
-
             if (stockLevelStatus == null) {
                 return false
             }
@@ -278,7 +276,7 @@ class MECutility {
 
         fun isAuthError(ecsError: ECSError?): Boolean {
             var authError: Boolean = false
-            with(ecsError!!.errorcode) {
+            with(ecsError?.errorcode) {
                 if (this == ECSErrorEnum.ECSInvalidTokenError.errorCode
                         || this == ECSErrorEnum.ECSinvalid_grant.errorCode
                         || this == ECSErrorEnum.ECSinvalid_client.errorCode
@@ -303,56 +301,48 @@ class MECutility {
         }
 
         @JvmStatic
-        fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context?) {
+        fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context) {
             var errorMessage: String=""
             if (mecError!!.ecsError!!.errorType.equals("No internet connection")) {
-                MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
+                MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(Acontext, R.string.mec_no_internet))
             } else {
                 errorMessage = getErrorString(mecError,Acontext)
             }
             if (showDialog.equals(true)) {
-                aFragmentManager?.let { Acontext?.let { it1 -> MECutility.showErrorDialog(it1, it, Acontext!!.getString(R.string.mec_ok), "Error", errorMessage) } }
+                aFragmentManager?.let { showErrorDialog(Acontext, it, Acontext.getString(R.string.mec_ok), "Error", errorMessage) }
             }
 
         }
 
         @JvmStatic
-        fun getErrorString(mecError: MecError?, Acontext: Context?):String{
+        fun getErrorString(mecError: MecError, acontext: Context):String{
             var errorMessage: String = ""
             try {
                 //tag all techinical defect except "No internet connection"
-                var errorString: String = COMPONENT_NAME + ":"
-                if (mecError!!.ecsError!!.errorcode == 1000) {
-                    errorString += bazaarVoice + ":"
-                } else if (mecError!!.ecsError!!.errorcode in 5000..5999) {
-                    errorString += hybris + ":"
-                } else if (mecError.mECRequestType!!.category.equals(MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)) {
-                    errorString += wtb + ":"
-                } else {
-                    //
-                    errorString += prx + ":"
-                }
-                errorString += mecError.mECRequestType!!.category + ":"// Error_Category
+                var errorString: String = "$COMPONENT_NAME:"
+                errorString = setErrorPrefix(mecError, errorString)
+                errorString += mecError.mECRequestType?.category + ":"// Error_Category
 
-                if (null == mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
-                    errorMessage = Acontext!!.getString(R.string.mec_time_out_error)
-                } else if (null != mecError!!.exception!!.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && ((mecError!!.exception!!.message!!.contains("java.net.UnknownHostException")) || (mecError!!.exception!!.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+
+                if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
+                    errorMessage = acontext.getString(R.string.mec_time_out_error)
+                } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message!!.contains("java.net.UnknownHostException") || (mecError.exception.message!!.contains("I/O error during system call, Software caused connection abort")))) {
                     // No Internet: Information Error
                     //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                     //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
                     MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
-                    errorMessage = Acontext!!.getString(R.string.mec_no_internet)
-                } else if (mecError!!.ecsError!!.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                    errorMessage =acontext.getString(R.string.mec_no_internet)
+                } else if (mecError.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                     //voucher apply fail:  User error
-                    val errorMsg = mecError!!.exception!!.message.toString()
+                    val errorMsg = mecError.exception?.message?:""
                     errorString +=errorMsg
                     MECAnalytics.trackUserError(errorString)
-                    errorMessage=mecError!!.exception!!.message.toString()
+                    errorMessage=mecError.exception?.message?:""
                 }else{
                     // Remaining all errors: Technical errors
-                    errorMessage = mecError!!.exception!!.message.toString()
+                    errorMessage = mecError.exception?.message?:""
                     errorString += errorMessage
-                    errorString = errorString + mecError!!.ecsError!!.errorcode + ":"
+                    errorString = errorString + mecError.ecsError?.errorcode + ":"
                     MECAnalytics.trackTechnicalError(errorString)
                 }
 
@@ -362,6 +352,25 @@ class MECutility {
             return errorMessage
 
 
+        }
+
+        private fun setErrorPrefix(mecError: MecError, errorString: String): String {
+            var errorString1 = errorString
+            errorString1 += when {
+                mecError.ecsError?.errorcode == 1000 -> {
+                    "$bazaarVoice:"
+                }
+                mecError.ecsError?.errorcode in 5000..5999 -> {
+                    "$hybris:"
+                }
+                mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> {
+                    "$wtb:"
+                }
+                else -> {
+                    "$prx:"
+                }
+            }
+            return errorString1
         }
 
         fun getImageArrow(mContext: Context): Drawable {
@@ -382,7 +391,7 @@ class MECutility {
 
         fun getAttributeColor(context: Context, id: Int): Int {
             val numbers: IntArray = intArrayOf(id)
-            var typedArray: TypedArray = context!!.obtainStyledAttributes(numbers)
+            val typedArray: TypedArray = context.obtainStyledAttributes(numbers)
             val colorCodeHighlighted: Int = typedArray.getColor(0, 0)
             typedArray.recycle();
             return colorCodeHighlighted
@@ -392,15 +401,15 @@ class MECutility {
 
             var storedEmail = "NONE"
 
-            val isEmailKEYExist = MECDataHolder.INSTANCE.appinfra.secureStorage.doesStorageKeyExist(HybrisAuth.KEY_MEC_AUTH_DATA)
+            val isEmailKEYExist = MECDataHolder.INSTANCE.appinfra.secureStorage?.doesStorageKeyExist(HybrisAuth.KEY_MEC_AUTH_DATA) ?:false
             if (isEmailKEYExist) {
 
                 val sse = SecureStorageInterface.SecureStorageError()
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
-                if(sse!=null && sse.errorMessage!=null && sse.errorCode!=null) {
-                    MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + sse.errorMessage + ":" + sse.errorCode)
-                }
+
+                MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + sse.errorMessage + ":" + sse.errorCode)
+
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
                 storedEmail = map[HybrisAuth.KEY_MEC_EMAIL] as String
@@ -418,7 +427,7 @@ class MECutility {
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
         var countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
         var countryName = countryDisplayName?:""
-        val houseNumber = ecsAddress.houseNumber
+        val houseNumber = ecsAddress.houseNumber?:""
         val line1 = ecsAddress.line1?:""
         val line2 = ecsAddress.line2?:""
         val town = ecsAddress.town?:""
@@ -432,24 +441,27 @@ class MECutility {
     }
     fun constructCardDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardDetail = ""
-        val cardType = (mecPayment.ecsPayment.cardType?.let { it.name } ?: run { "" })
-        val cardNumber = (mecPayment.ecsPayment.cardNumber.validateStr())
-        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber?.takeLast(8)}"
+        val cardType = mecPayment.ecsPayment.cardType?.name ?:""
+        val cardNumber = mecPayment.ecsPayment.cardNumber ?:""
+        formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
+        if(formattedCardDetail.trim() == "") return null
         return formattedCardDetail
     }
 
     fun constructCardDetails(paymentInfo: PaymentInfo): CharSequence? {
+
         var formattedCardDetail = ""
-        val cardType = if (paymentInfo.cardType != null) paymentInfo.cardType.code else ""
-        val cardNumber = if (paymentInfo.cardNumber != null) paymentInfo.cardNumber else ""
+        val cardType = paymentInfo.cardType?.name ?:""
+        val cardNumber = paymentInfo.cardNumber ?:""
         formattedCardDetail = "$formattedCardDetail$cardType ${cardNumber.takeLast(8)}"
+        if(formattedCardDetail.trim() == "") return null
         return formattedCardDetail
     }
 
     fun constructCardValidityDetails(mecPayment: MECPayment): CharSequence? {
         var formattedCardValidityDetail = ""
-        val cardExpMon =  ( mecPayment.ecsPayment.expiryMonth.validateStr())
-        val cardExpYear =  ( mecPayment.ecsPayment.expiryYear.validateStr())
+        val cardExpMon =  mecPayment.ecsPayment.expiryMonth?:""
+        val cardExpYear =  mecPayment.ecsPayment.expiryYear?:""
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail
@@ -457,8 +469,8 @@ class MECutility {
 
     fun constructCardValidityDetails(paymentInfo: PaymentInfo): CharSequence? {
         var formattedCardValidityDetail = ""
-        val cardExpMon = if (paymentInfo.expiryMonth != null) paymentInfo.expiryMonth else ""
-        val cardExpYear = if (paymentInfo.expiryYear != null) paymentInfo.expiryYear else ""
+        val cardExpMon =  paymentInfo.expiryMonth?:""
+        val cardExpYear =  paymentInfo.expiryYear?:""
         if (cardExpMon == "" || cardExpYear == "") return null
         formattedCardValidityDetail = "$cardExpMon/$cardExpYear"
         return formattedCardValidityDetail

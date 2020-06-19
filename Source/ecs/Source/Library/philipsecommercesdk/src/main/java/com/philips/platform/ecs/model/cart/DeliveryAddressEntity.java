@@ -21,6 +21,7 @@ import java.io.Serializable;
  */
 public class DeliveryAddressEntity  implements Serializable {
 
+    private static final long serialVersionUID = -4374586285217761649L;
     private Country country;
     private String firstName;
     private String formattedAddress;

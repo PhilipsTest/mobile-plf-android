@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 public class Brand  implements Serializable {
 
+    private static final long serialVersionUID = 8553900234112274309L;
     @SerializedName("brandLogo")
     @Expose
     private String brandLogo;

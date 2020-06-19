@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class KeyBenefitAreaItem implements Serializable {
 
+	private static final long serialVersionUID = -7309764568406054211L;
 	@SerializedName("feature")
 	public List<FeatureItem> feature;
 

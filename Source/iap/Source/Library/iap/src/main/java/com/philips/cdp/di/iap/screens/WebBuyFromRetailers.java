@@ -38,6 +38,7 @@ import static android.provider.CalendarContract.CalendarCache.URI;
 
 public class WebBuyFromRetailers extends InAppBaseFragment {
     public static final String TAG = WebBuyFromRetailers.class.getName();
+    private static final long serialVersionUID = -5896656303704886130L;
     private WebView mWebView;
     private String mUrl;
     private boolean isPhilipsShop = false;

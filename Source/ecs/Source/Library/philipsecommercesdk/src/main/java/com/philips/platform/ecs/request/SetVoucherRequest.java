@@ -26,6 +26,7 @@ import java.util.Map;
 
 public class SetVoucherRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String> {
 
+    private static final long serialVersionUID = 6463599418337273277L;
     private final String voucherCode;
     private final ECSCallback<Boolean, Exception> ecsCallback;
 

@@ -13,6 +13,7 @@ import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.integration.MECDataProvider.context
+import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface
@@ -32,7 +33,8 @@ class MECInterface : UappInterface {
     private var mMECSettings: MECSettings? = null
     private var mUappDependencies: UappDependencies? = null
     private var mUserDataInterface: UserDataInterface? = null
-    val MEC_NOTATION = "mec"
+    internal var mecHandler = MECHandler()
+
     private val TAG: String = MECInterface::class.java.simpleName
 
 
@@ -45,20 +47,12 @@ class MECInterface : UappInterface {
     override fun init(uappDependencies: UappDependencies, uappSettings: UappSettings) {
         val MECDependencies = uappDependencies as MECDependencies
         mUserDataInterface = MECDependencies.userDataInterface
-
-
-        if (null == mUserDataInterface)
-            throw RuntimeException("UserDataInterface is not injected in MECDependencies.")
-
         mMECSettings = uappSettings as MECSettings
         mUappDependencies = uappDependencies
-
-
         MECDataHolder.INSTANCE.appinfra = MECDependencies.appInfra
 
         //enable appInfra logging
-        MECLog.isLoggingEnabled = true
-        MECLog.appInfraLoggingInterface = MECDependencies.appInfra.logging.createInstanceForComponent(MEC_NOTATION, BuildConfig.VERSION_NAME)
+        MECLog.appInfraLoggingInterface = MECDependencies.appInfra.logging.createInstanceForComponent(MECConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME)
 
         MECDataHolder.INSTANCE.userDataInterface = MECDependencies.userDataInterface
         MECAnalytics.initMECAnalytics(((mUappDependencies as MECDependencies?)!!))
@@ -76,9 +70,7 @@ class MECInterface : UappInterface {
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
 
         MECDataHolder.INSTANCE.initECSSDK()
-
-
-        //TODO Make error checking at a common place : Pabitra
+        //TODO Make error checking at a common place
         if(MECDataHolder.INSTANCE.isInternetActive()) {
             val mecLaunchInput = uappLaunchInput as MECLaunchInput
             MECDataHolder.INSTANCE.hybrisEnabled = mecLaunchInput.supportsHybris
@@ -87,7 +79,7 @@ class MECInterface : UappInterface {
 
                 if(MECDataHolder.INSTANCE.isUserLoggedIn()){
                     if(mecLaunchInput.supportsHybris) {
-                        launchMEC(uiLauncher, mecLaunchInput)
+                        launchMEC(mMECSettings,uiLauncher, mecLaunchInput)
                     }else{
                         throw MECException(mMECSettings?.context?.getString(R.string.mec_no_philips_shop),MECException.HYBRIS_NOT_AVAILABLE)
                     }
@@ -96,23 +88,21 @@ class MECInterface : UappInterface {
                     throw MECException(mMECSettings?.context?.getString(R.string.mec_cart_login_error_message),MECException.USER_NOT_LOGGED_IN)
                 }
             }else{
-                launchMEC(uiLauncher,mecLaunchInput)
+                launchMEC(mMECSettings,uiLauncher,mecLaunchInput)
             }
 
         }else{
             MECLog.e(TAG, "No Network or Internet not available")
-            MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(context!!,R.string.mec_no_internet ))
+            context?.let { MECAnalytics.getDefaultString(it,R.string.mec_no_internet ) }
             throw MECException(mMECSettings?.context?.getString(R.string.mec_no_internet),MECException.NO_INTERNET)
         }
     }
 
-    private fun isLogInRequired(mecLaunchInput: MECLaunchInput) =
-            mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW || mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY
+    private fun isLogInRequired(mecLaunchInput: MECLaunchInput) = mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_SHOPPING_CART_VIEW || mecLaunchInput.flowConfigurator?.landingView == MECFlowConfigurator.MECLandingView.MEC_ORDER_HISTORY
 
 
-    private fun launchMEC(uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {
-        val mecHandler = this.mMECSettings?.let { MECHandler((mUappDependencies as MECDependencies?)!!, it, uiLauncher, mecLaunchInput) }
-        mecHandler?.launchMEC()
+    private fun launchMEC(mMECSettings : MECSettings?,uiLauncher: UiLauncher, mecLaunchInput: MECLaunchInput) {
+        mMECSettings?.let { mecHandler.launchMEC(it,uiLauncher,mecLaunchInput) }
     }
 
 

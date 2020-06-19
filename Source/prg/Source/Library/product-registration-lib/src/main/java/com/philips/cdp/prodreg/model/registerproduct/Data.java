@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class Data implements Serializable {
 
+	private static final long serialVersionUID = 7426466594665292498L;
 	@SerializedName("attributes")
 	private Attributes attributes;
 

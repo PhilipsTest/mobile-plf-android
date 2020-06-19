@@ -80,6 +80,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
 
 
     public static final String TAG = ProductDetailFragment.class.getName();
+    private static final long serialVersionUID = 1923024120624495257L;
     private Context mContext;
     private Bundle mBundle;
     private Data mProductSummary;
@@ -353,7 +354,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
         if (isEnable) {
             countArrow = context.getDrawable(R.drawable.iap_product_count_drop_down);
             countArrow.setColorFilter(new
-                    PorterDuffColorFilter(mContext.getResources().getColor(R.color.uid_quiet_button_icon_selector), PorterDuff.Mode.MULTIPLY));
+                    PorterDuffColorFilter(ContextCompat.getColor(context,R.color.uid_quiet_button_icon_selector), PorterDuff.Mode.MULTIPLY));
         } else {
             countArrow = VectorDrawableCompat.create(context.getResources(), R.drawable.iap_product_disable_count_drop_down, mContext.getTheme());
         }

@@ -36,6 +36,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 
 public class GetVouchersRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<JSONObject>{
 
+    private static final long serialVersionUID = 1754829078274995968L;
     private final ECSCallback<List<ECSVoucher>, Exception> ecsCallback;
 
     public GetVouchersRequest(ECSCallback<List<ECSVoucher>, Exception> ecsCallback) {

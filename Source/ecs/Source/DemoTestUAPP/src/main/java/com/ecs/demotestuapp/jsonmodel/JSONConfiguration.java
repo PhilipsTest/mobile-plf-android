@@ -1,20 +1,31 @@
 package com.ecs.demotestuapp.jsonmodel;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
 
 
 public class JSONConfiguration implements Serializable {
 
-	@SerializedName("group")
-	private List<GroupItem> group;
+	@SerializedName("occ")
+	private List<GroupItem> occ;
 
-	public void setGroup(List<GroupItem> group){
-		this.group = group;
+	public List<GroupItem> getPil() {
+		return pil;
 	}
 
-	public List<GroupItem> getGroup(){
-		return group;
+	public void setPil(List<GroupItem> pil) {
+		this.pil = pil;
+	}
+
+	private List<GroupItem> pil;
+
+	public void setOcc(List<GroupItem> occ){
+		this.occ = occ;
+	}
+
+	public List<GroupItem> getOcc(){
+		return occ;
 	}
 }

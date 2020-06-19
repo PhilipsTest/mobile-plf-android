@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConsentDefinition implements Parcelable, Serializable {
+    private static final long serialVersionUID = -8813210985701590815L;
     private int text;
     private int helpText;
     private int revokeWarningText;

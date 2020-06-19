@@ -9,6 +9,8 @@ package com.philips.platform.pif.chi;
 
 public class ConsentDefinitionException extends RuntimeException {
 
+    private static final long serialVersionUID = 2317139167425899857L;
+
     public ConsentDefinitionException(String message) {
         super(message);
     }

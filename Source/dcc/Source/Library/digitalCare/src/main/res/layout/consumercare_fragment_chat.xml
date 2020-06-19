@@ -54,7 +54,7 @@
                 android:textSize="16sp"
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/dcc_chat_desc" />
+                android:text="@string/consumerCareChat_desc" />
 
             <LinearLayout
                 android:id="@+id/chatNowParentPort"

@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "id": "d39f8910-1012-472c-96a6-a42b13dce0a8",
+      "status": "400",
+      "code": "INTEGRATION_TIMEOUT",
+      "title": "Endpoint request timed ou"
+    }
+  ]
+}

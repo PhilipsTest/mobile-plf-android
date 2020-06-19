@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.retailers;
 import java.io.Serializable;
 
 public class WrbresultsEntity implements Serializable {
+    private static final long serialVersionUID = -7248971516487935390L;
     private String Ctn;
     private String storeLocatorUrl;
     private String EloquaSiteURL;

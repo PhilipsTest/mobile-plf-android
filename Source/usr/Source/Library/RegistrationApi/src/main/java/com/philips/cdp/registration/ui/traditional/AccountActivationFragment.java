@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
@@ -24,16 +23,21 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.philips.cdp.registration.R;
 import com.philips.cdp.registration.R2;
 import com.philips.cdp.registration.User;
 import com.philips.cdp.registration.app.tagging.AppTagingConstants;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
+import com.philips.cdp.registration.controller.LoginTraditional;
 import com.philips.cdp.registration.dao.UserRegistrationFailureInfo;
 import com.philips.cdp.registration.errors.ErrorCodes;
 import com.philips.cdp.registration.errors.ErrorType;
 import com.philips.cdp.registration.errors.URError;
 import com.philips.cdp.registration.handlers.RefreshUserHandler;
+import com.philips.cdp.registration.handlers.RefreshandUpdateUserHandler;
+import com.philips.cdp.registration.hsdp.HsdpUser;
 import com.philips.cdp.registration.settings.RegistrationHelper;
 import com.philips.cdp.registration.settings.UserRegistrationInitializer;
 import com.philips.cdp.registration.ui.customviews.XRegError;
@@ -257,6 +261,11 @@ public class AccountActivationFragment extends RegistrationBaseFragment implemen
             if (mUser.isEmailVerified()) {
                 mBtnResend.setVisibility(View.GONE);
                 mEMailVerifiedError.hideError();
+                final RegistrationConfiguration registrationConfiguration = RegistrationConfiguration.getInstance();
+                if (RegistrationHelper.getInstance().isMobileFlow() && !registrationConfiguration.isHSDPSkipLoginConfigurationAvailable() && registrationConfiguration.isHsdpFlow()){
+                    LoginTraditional loginTraditional = new RefreshandUpdateUserHandler(getRegistrationFragment().getContext()).getLoginTraditional(this);
+                    new RefreshandUpdateUserHandler(getRegistrationFragment().getContext()).forceHsdpLogin(this,loginTraditional);
+                }
                 trackActionStatus(AppTagingConstants.SEND_DATA,
                         AppTagingConstants.SPECIAL_EVENTS, AppTagingConstants.SUCCESS_USER_REGISTRATION);
                 getRegistrationFragment().userRegistrationComplete();

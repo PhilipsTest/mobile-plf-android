@@ -27,6 +27,7 @@ import java.util.Map;
 
 public class AddProductToECSShoppingCartRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String> {
 
+    private static final long serialVersionUID = 3738686474755375554L;
     private final ECSCallback<Boolean,Exception> ecsCallback;
 
     private final String ctn;

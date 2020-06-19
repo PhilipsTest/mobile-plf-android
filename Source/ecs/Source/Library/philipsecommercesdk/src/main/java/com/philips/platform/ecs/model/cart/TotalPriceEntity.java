@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 
 public class TotalPriceEntity   implements Serializable {
+    private static final long serialVersionUID = 1264415358375162711L;
     private String currencyIso;
     private String formattedValue;
     private String priceType;

@@ -25,6 +25,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 
 public class GetProductDisclaimerRequest extends AppInfraAbstractRequest implements Response.Listener<JSONObject>{
 
+    private static final long serialVersionUID = -7398956684328685640L;
     private final String assetUrl;
     private final ECSCallback<Disclaimers,Exception> ecsCallback;
 

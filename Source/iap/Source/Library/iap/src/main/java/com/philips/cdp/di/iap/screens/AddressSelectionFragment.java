@@ -52,6 +52,7 @@ public class AddressSelectionFragment extends InAppBaseFragment implements Addre
         EventListener, PaymentController.PaymentListener, AlertListener {
 
     public static final String TAG = AddressSelectionFragment.class.getName();
+    private static final long serialVersionUID = -931388293346363531L;
     private Context mContext;
 
     private RecyclerView mAddressListView;

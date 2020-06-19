@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.orders;
 import java.io.Serializable;
 
 public class Promotion implements Serializable {
+    private static final long serialVersionUID = 4019112367725718277L;
     private String code;
     private String description;
     private String endDate;

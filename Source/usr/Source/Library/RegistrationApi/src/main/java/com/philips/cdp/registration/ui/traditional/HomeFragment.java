@@ -73,6 +73,7 @@ import static com.philips.cdp.registration.app.tagging.AppTagingConstants.FIREBA
 import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_FACEBOOK;
 import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_GOOGLEPLUS;
 import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_WECHAT;
+import static com.philips.cdp.registration.ui.utils.RegConstants.SOCIAL_PROVIDER_APPLE;
 
 
 public class HomeFragment extends RegistrationBaseFragment implements NetworkStateListener, HomeContract {
@@ -219,48 +220,91 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
 
     private Button getProviderBtn(final String providerName, int providerLogoDrawableId) {
         RLog.d(TAG, "getProviderBtn : is called");
-        final com.philips.platform.uid.view.widget.Button socialButton =
-                (com.philips.platform.uid.view.widget.Button)
-                        getActivity().getLayoutInflater().inflate(R.layout.social_button, null);
-        FontLoader.getInstance().setTypeface(socialButton, RegConstants.PUIICON_TTF);
-        socialButton.setImageDrawable(VectorDrawableCompat.create(getResources(),
-                providerLogoDrawableId, getContext().getTheme()));
-        socialButton.setEnabled(true);
-        socialButton.setId(providerLogoDrawableId);
-        if (homePresenter.isNetworkAvailable()
-                && UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
+        if (providerName.equalsIgnoreCase(SOCIAL_PROVIDER_WECHAT)){
+            final com.philips.platform.uid.view.widget.Button socialButton =
+                    (com.philips.platform.uid.view.widget.Button)
+                            getActivity().getLayoutInflater().inflate(R.layout.social_button_wechat, null);
+            FontLoader.getInstance().setTypeface(socialButton, RegConstants.PUIICON_TTF);
+            socialButton.setImageDrawable(VectorDrawableCompat.create(getResources(),
+                    providerLogoDrawableId, getContext().getTheme()));
             socialButton.setEnabled(true);
-        } else {
-            socialButton.setEnabled(false);
-        }
-        socialButton.setOnClickListener(v -> {
-            if (!getRegistrationFragment().isHomeFragment()) {
-                return;
-            }
-            if(multiClickTimer()) {
-                trackPage(AppTaggingPages.CREATE_ACCOUNT);
-            if (mRegError.isShown()) hideNotificationBarView();//mRegError.hideError();
-            if (homePresenter.isNetworkAvailable()) {
-                homePresenter.setFlowDeligate(HomePresenter.FLOWDELIGATE.SOCIALPROVIDER);
-                homePresenter.setProvider(providerName);
-                if (UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
-                    if (providerName.equalsIgnoreCase(SOCIAL_PROVIDER_WECHAT)) {
-                        socialButton.setClickable(false);
-                    }
-                    callSocialProvider(providerName);
-                } else {
-                    showProgressDialog();
-                    RegistrationHelper.getInstance().initializeUserRegistration(mContext);
-                }
+            socialButton.setId(providerLogoDrawableId);
+            if (homePresenter.isNetworkAvailable()
+                    && UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
+                socialButton.setEnabled(true);
             } else {
-                enableControls(false);
-                //updateErr1orMessage(mContext.getResources().getString(R.string.reg_NoNetworkConnection));
-//                showNotificationBarOnNetworkNotAvailable();
+                socialButton.setEnabled(false);
             }
+            socialButton.setOnClickListener(v -> {
+                if (!getRegistrationFragment().isHomeFragment()) {
+                    return;
+                }
+                if (multiClickTimer()) {
+                    trackPage(AppTaggingPages.CREATE_ACCOUNT);
+                    if (mRegError.isShown()) hideNotificationBarView();//mRegError.hideError();
+                    if (homePresenter.isNetworkAvailable()) {
+                        homePresenter.setFlowDeligate(HomePresenter.FLOWDELIGATE.SOCIALPROVIDER);
+                        homePresenter.setProvider(providerName);
+                        if (UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
+                            if (providerName.equalsIgnoreCase(SOCIAL_PROVIDER_WECHAT)) {
+                                socialButton.setClickable(false);
+                            }
+                            callSocialProvider(providerName);
+                        } else {
+                            showProgressDialog();
+                            RegistrationHelper.getInstance().initializeUserRegistration(mContext);
+                        }
+                    } else {
+                        enableControls(false);
+                        //updateErr1orMessage(mContext.getResources().getString(R.string.reg_NoNetworkConnection));
+//                showNotificationBarOnNetworkNotAvailable();
+                    }
+                }
+            });
+            return socialButton;
+        } else {
+            final Button socialButton =
+                    (Button) getActivity().getLayoutInflater().inflate(R.layout.social_button, null);
+            FontLoader.getInstance().setTypeface(socialButton, RegConstants.PUIICON_TTF);
+            socialButton.setBackground(VectorDrawableCompat.create(getResources(), providerLogoDrawableId, getContext().getTheme()));
+            socialButton.setEnabled(true);
+            socialButton.setId(providerLogoDrawableId);
+            if (homePresenter.isNetworkAvailable()
+                    && UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
+                socialButton.setEnabled(true);
+            } else {
+                socialButton.setEnabled(false);
+            }
+            socialButton.setOnClickListener(v -> {
+                if (!getRegistrationFragment().isHomeFragment()) {
+                    return;
+                }
+                if (multiClickTimer()) {
+                    trackPage(AppTaggingPages.CREATE_ACCOUNT);
+                    if (mRegError.isShown()) hideNotificationBarView();//mRegError.hideError();
+                    if (homePresenter.isNetworkAvailable()) {
+                        homePresenter.setFlowDeligate(HomePresenter.FLOWDELIGATE.SOCIALPROVIDER);
+                        homePresenter.setProvider(providerName);
+                        if (UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
+                            if (providerName.equalsIgnoreCase(SOCIAL_PROVIDER_WECHAT)) {
+                                socialButton.setClickable(false);
+                            }
+                            callSocialProvider(providerName);
+                        } else {
+                            showProgressDialog();
+                            RegistrationHelper.getInstance().initializeUserRegistration(mContext);
+                        }
+                    } else {
+                        enableControls(false);
+                        //updateErr1orMessage(mContext.getResources().getString(R.string.reg_NoNetworkConnection));
+//                showNotificationBarOnNetworkNotAvailable();
+                    }
+                }
+            });
+            return socialButton;
         }
-        });
-        return socialButton;
     }
+
 
 
     @Override
@@ -401,7 +445,8 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
                     showProgressDialog();
                     homePresenter.setProvider(providerName);
                     startFaceBookLogin();
-                } else {
+                }
+                    else {
                     showProgressDialog();
                     homePresenter.setProvider(providerName);
                     homePresenter.startSocialLogin();
@@ -436,28 +481,6 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
             handleCountrySelection();
         }
     };
-
-    private void removeUnderlineFromLink(SpannableString spanableString) {
-        for (ClickableSpan u : spanableString.getSpans(0, spanableString.length(),
-                ClickableSpan.class)) {
-            spanableString.setSpan(new UnderlineSpan() {
-
-                public void updateDrawState(TextPaint tp) {
-                    tp.setUnderlineText(false);
-                }
-            }, spanableString.getSpanStart(u), spanableString.getSpanEnd(u), 0);
-        }
-
-        for (URLSpan u : spanableString.getSpans(0, spanableString.length(), URLSpan.class)) {
-            spanableString.setSpan(new UnderlineSpan() {
-
-                public void updateDrawState(TextPaint tp) {
-                    tp.setUnderlineText(false);
-                }
-            }, spanableString.getSpanStart(u), spanableString.getSpanEnd(u), 0);
-        }
-    }
-
 
     private void handlePrivacyPolicy() {
         if (RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener() != null) {
@@ -690,7 +713,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
         spannableString.setSpan(span, 0, privacy.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        removeUnderlineFromLink(spannableString);
+        RegUtility.removeUnderlineFromLink(spannableString);
 
         pTvPrivacyPolicy.setText(spannableString);
         pTvPrivacyPolicy.setMovementMethod(LinkMovementMethod.getInstance());
@@ -772,15 +795,44 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
 
         try {
             int drawableId = 0;
-            if (provider.equals(SOCIAL_PROVIDER_FACEBOOK)) {
-                drawableId = R.drawable.uid_social_media_facebook_icon;
-                //instead initializing facebook in oncreate , do it if we get provider name as facebook
-                if (RegistrationConfiguration.getInstance().isFacebookSDKSupport())
-                initFacebookLogIn();
-            } else if (provider.equals(SOCIAL_PROVIDER_GOOGLEPLUS)) {
-                drawableId = R.drawable.uid_social_media_google_icon;
-            } else if (provider.equals(SOCIAL_PROVIDER_WECHAT)) {
-                drawableId = R.drawable.uid_social_media_wechat_icon;
+            if (null != getRegistrationFragment().getContentConfiguration()) {
+                if (!getRegistrationFragment().getContentConfiguration().isShowSocialIconsInDarkTheme()) {
+                    switch (provider) {
+                        case SOCIAL_PROVIDER_FACEBOOK:
+                            drawableId = R.drawable.ic_facebook_light_theme;
+                            //instead initializing facebook in oncreate , do it if we get provider name as facebook
+                            if (RegistrationConfiguration.getInstance().isFacebookSDKSupport())
+                                initFacebookLogIn();
+                            break;
+                        case SOCIAL_PROVIDER_GOOGLEPLUS:
+                            drawableId = R.drawable.ic_google_light_theme;
+                            break;
+                        case SOCIAL_PROVIDER_WECHAT:
+                            drawableId = R.drawable.uid_social_media_wechat_icon;
+                            break;
+                        case SOCIAL_PROVIDER_APPLE:
+                            drawableId = R.drawable.ic_apple_light_theme;
+                            break;
+                    }
+                } else {
+                    switch (provider) {
+                        case SOCIAL_PROVIDER_FACEBOOK:
+                            drawableId = R.drawable.ic_facebook_dark_theme;
+                            //instead initializing facebook in oncreate , do it if we get provider name as facebook
+                            if (RegistrationConfiguration.getInstance().isFacebookSDKSupport())
+                                initFacebookLogIn();
+                            break;
+                        case SOCIAL_PROVIDER_GOOGLEPLUS:
+                            drawableId = R.drawable.ic_google_dark_theme;
+                            break;
+                        case SOCIAL_PROVIDER_WECHAT:
+                            drawableId = R.drawable.uid_social_media_wechat_icon;
+                            break;
+                        case SOCIAL_PROVIDER_APPLE:
+                            drawableId = R.drawable.ic_apple_dark_theme;
+                            break;
+                    }
+                }
             }
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

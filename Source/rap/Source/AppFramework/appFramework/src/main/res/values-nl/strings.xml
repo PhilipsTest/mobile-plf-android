@@ -90,4 +90,5 @@
   <string name="description_close">[nl]Close</string>
   <string name="iap_auth_error">[nl]Authentication error</string>
   <string name="mya_config_tab">[nl]Configuration tab</string>
+  <string name="dcc_chat_desc">Chat live met onze productspecialisten. Kijk voor onze actuele openingstijden op www.philips.nl/contact.</string>
 </resources>

@@ -18,7 +18,7 @@ import org.joda.time.DateTimeZone;
 import java.util.Date;
 
 import static com.philips.platform.appinfra.tagging.AppTagging.CLICKSTREAM_CONSENT_TYPE;
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 
 class ClickStreamConsentHandler implements ConsentHandlerInterface {
 

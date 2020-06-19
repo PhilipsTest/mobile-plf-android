@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OAuthRequest extends AbstractModel implements OAuthListener {
+
+
     OAuthResponse mOAuthResponse;
 
     public OAuthRequest(final StoreListener store, final Map<String, String> query) {

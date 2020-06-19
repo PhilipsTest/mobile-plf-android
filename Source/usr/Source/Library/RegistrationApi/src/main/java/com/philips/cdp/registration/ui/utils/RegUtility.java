@@ -187,7 +187,7 @@ public class RegUtility {
      * @param spanableString
      * @since 1.0.0
      */
-    private static void removeUnderlineFromLink(SpannableString spanableString) {
+    public static void removeUnderlineFromLink(SpannableString spanableString) {
         for (ClickableSpan u : spanableString.getSpans(0, spanableString.length(),
                 ClickableSpan.class)) {
             spanableString.setSpan(new UnderlineSpan() {

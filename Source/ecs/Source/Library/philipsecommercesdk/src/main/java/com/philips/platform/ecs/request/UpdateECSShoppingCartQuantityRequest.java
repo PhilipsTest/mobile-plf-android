@@ -33,6 +33,7 @@ import java.util.Map;
 
 public class UpdateECSShoppingCartQuantityRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String> {
 
+    private static final long serialVersionUID = 2466966033655032333L;
     private final ECSCallback<Boolean, Exception> ecsCallback;
     private final ECSEntries entriesEntity;
     private final int quantity;

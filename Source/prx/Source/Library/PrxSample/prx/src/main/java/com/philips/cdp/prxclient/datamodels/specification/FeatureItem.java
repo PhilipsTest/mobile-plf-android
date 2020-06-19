@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class FeatureItem implements Serializable {
 
+	private static final long serialVersionUID = -4070255334532209384L;
 	@SerializedName("code")
 	@Expose
 	public String code;

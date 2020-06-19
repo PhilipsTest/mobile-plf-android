@@ -26,6 +26,7 @@ import java.util.List;
  */
 public class Assets implements Serializable {
 
+    private static final long serialVersionUID = 3594476307105100868L;
     @SerializedName("asset")
     @Expose
     private List<Asset> asset = new ArrayList<Asset>();

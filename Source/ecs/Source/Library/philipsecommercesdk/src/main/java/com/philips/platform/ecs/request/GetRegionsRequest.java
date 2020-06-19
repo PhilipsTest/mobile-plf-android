@@ -32,6 +32,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 
 public class GetRegionsRequest extends OAuthAppInfraAbstractRequest  implements Response.Listener<JSONObject>{
 
+    private static final long serialVersionUID = 1070708178184053005L;
     private final ECSCallback<List<ECSRegion>,Exception> ecsCallback;
     private String countryISO;
 

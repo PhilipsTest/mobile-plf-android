@@ -24,6 +24,7 @@ import java.util.List;
  */
 public class Data implements Serializable {
 
+    private static final long serialVersionUID = 2949684301119209075L;
     @SerializedName("locale")
     @Expose
     private String locale;

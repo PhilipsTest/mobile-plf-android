@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--We need this almost no alpha background to get this Progress Dialog visible on top of the layout-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.philips.platform.uid.view.widget.ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/UIDProgressBarCircularIndeterminateMiddle"
+        android:elevation="100dp"/>
+</FrameLayout>

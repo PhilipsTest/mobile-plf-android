@@ -32,6 +32,7 @@ import java.util.UUID;
 public class BuyFromRetailersFragment extends InAppBaseFragment implements BuyFromRetailersAdapter.BuyFromRetailersListener {
 
     public static final String TAG = BuyFromRetailersFragment.class.getName();
+    private static final long serialVersionUID = -5058484910842221415L;
 
     private Context mContext;
     private RecyclerView mRecyclerView;

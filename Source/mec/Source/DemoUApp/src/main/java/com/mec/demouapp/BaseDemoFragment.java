@@ -27,13 +27,7 @@ import android.widget.ToggleButton;
 
 import androidx.fragment.app.Fragment;
 
-import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
-import com.philips.cdp.registration.settings.RegistrationFunction;
-import com.philips.cdp.registration.ui.utils.RegistrationContentConfiguration;
-import com.philips.cdp.registration.ui.utils.URInterface;
-import com.philips.cdp.registration.ui.utils.URLaunchInput;
-import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
 import com.philips.platform.mec.integration.MECBannerConfigurator;
@@ -44,22 +38,16 @@ import com.philips.platform.mec.integration.MECInterface;
 import com.philips.platform.mec.integration.MECLaunchInput;
 import com.philips.platform.mec.integration.MECSettings;
 import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment;
-import com.philips.platform.mec.utils.MECConstant;
 import com.philips.platform.pif.DataInterface.MEC.MECDataInterface;
 import com.philips.platform.pif.DataInterface.MEC.MECException;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECCartUpdateListener;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener;
 import com.philips.platform.pif.DataInterface.MEC.listeners.MECHybrisAvailabilityListener;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
-import com.philips.platform.pif.DataInterface.USR.enums.Error;
-import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
-import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uappframework.listener.ActionBarListener;
 import com.philips.platform.uappframework.listener.BackEventListener;
-import com.philips.platform.uappframework.uappinput.UappDependencies;
-import com.philips.platform.uappframework.uappinput.UappSettings;
 import com.philips.platform.uid.thememanager.UIDHelper;
 import com.philips.platform.uid.view.widget.Button;
 import com.philips.platform.uid.view.widget.EditText;
@@ -79,7 +67,6 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     private LinearLayout mAddCTNLl;
     private EditText mEtCTN, mEtPropositionId,mEtVoucherCode;
 
-    private Button mRegister;
     private Button mShopNow,mBtnOrderHistory;
     private Button mShopNowCategorized;
     private Button mLaunchProductDetail;
@@ -100,12 +87,8 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     int maxCartCount = 0;
     EditText mEtMaxCartCount;
 
-    private UserDataInterface mUserDataInterface;
-    ImageView mCartIcon;
 
     private ArrayList<String> ignorelistedRetailer;
-    private View mLL_propositionId;
-    URInterface urInterface;
     private long mLastClickTime = 0;
 
     private boolean isHybrisEnable = true,isBannerEnabled = true ,isRetailerEnabled = true, isVoucherEnabled = true;
@@ -116,15 +99,16 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     private TextView versionView;
     private View rootView;
     private AppInfraInterface mAppInfraInterface;
-
-
+    private UserDataInterface userDataInterface;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(null==rootView) {
-            urInterface = new URInterface();
-            mAppInfraInterface=new AppInfra.Builder().build(getContext());
+
+
+            mAppInfraInterface = DependencyHolder.INSTANCE.getMecDemoUAppDependencies().getAppInfra();
+            userDataInterface = DependencyHolder.INSTANCE.getMecDemoUAppDependencies().getUserDataInterface();
 
 
             ignorelistedRetailer = new ArrayList<>();
@@ -194,7 +178,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                     isBannerEnabled = isChecked;
-                    initializeMECComponant();
+                    initializeMECComponent();
                 }
             });
 
@@ -203,7 +187,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     isHybrisEnable = isChecked;
-                    initializeMECComponant();
+                    initializeMECComponent();
                 }
             });
 
@@ -215,7 +199,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     isRetailerEnabled = isChecked;
-                    initializeMECComponant();
+                    initializeMECComponent();
                 }
             });
 
@@ -225,13 +209,9 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     isVoucherEnabled = isChecked;
                     configInterface.setPropertyForKey("voucherCode.enable", "MEC", isVoucherEnabled, configError);
-                    initializeMECComponant();
+                    initializeMECComponent();
                 }
             });
-
-
-            mRegister = rootView.findViewById(R.id.btn_register);
-            mRegister.setOnClickListener(this);
 
 
             mShopNow = rootView.findViewById(R.id.btn_shop_now);
@@ -249,7 +229,6 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             mShopNowCategorized.setOnClickListener(this);
 
 
-            mLL_propositionId = rootView.findViewById(R.id.ll_enter_proposition_id);
 
             mAddCtn = rootView.findViewById(R.id.btn_add_ctn);
             mAddCtn.setOnClickListener(this);
@@ -270,7 +249,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             //actionBar();
 
             initializeBazaarVoice();
-            initializeMECComponant();
+            initializeMECComponent();
 
         }
         return rootView;
@@ -304,17 +283,8 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
     }
 
-    private void initializeMECComponant() {
-        toggleHybris.setVisibility(View.VISIBLE);
+    private void initializeMECComponent() {
         initMEC();
-
-        mUserDataInterface = urInterface.getUserDataInterface();
-        if (mUserDataInterface != null && mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-            mRegister.setText(this.getString(R.string.log_out));
-        } else {
-            mRegister.setVisibility(View.VISIBLE);
-            // Toast.makeText(this, "User is not logged in", Toast.LENGTH_SHORT).show();
-        }
     }
 
 
@@ -324,12 +294,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         ignorelistedRetailer.add("Amazon - US");
         ignorelistedRetailer.add("BestBuy.com");
 
-        UappDependencies uappDependencies = new UappDependencies(mAppInfraInterface);
-        UappSettings uappSettings = new UappSettings(getContext());
-
-        urInterface.init(uappDependencies, uappSettings);
-
-        MECDependencies mecDependencies = new MECDependencies(mAppInfraInterface, urInterface.getUserDataInterface());
+        MECDependencies mecDependencies = new MECDependencies(mAppInfraInterface,userDataInterface);
 
 
             mMecInterface.init(mecDependencies, mMecSettings);
@@ -363,28 +328,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         mMecLaunchInput.setMecCartUpdateListener(this); // required local for app to update cart count on action bar
         mMecLaunchInput.setBlackListedRetailerNames(ignorelistedRetailer);
 
-
-
     }
-
-
-
-    private void displayFlowViews(boolean b) {
-
-        mAddCTNLl.setVisibility(View.VISIBLE);
-        mLL_propositionId.setVisibility(View.VISIBLE);
-        mShopNowCategorized.setVisibility(View.VISIBLE);
-        mLaunchProductDetail.setVisibility(View.VISIBLE);
-        mLaunchProductDetail.setEnabled(true);
-
-
-
-        mShopNow.setVisibility(View.VISIBLE);
-        mShopNow.setEnabled(true);
-        dismissProgressDialog();
-    }
-
-
     @Override
     public void onStop() {
         super.onStop();
@@ -495,28 +439,6 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             } else {
                 Toast.makeText(getActivity(), "Please add CTN", Toast.LENGTH_SHORT).show();
             }
-        } else if (view == mRegister) {
-            if (mRegister.getText().toString().equalsIgnoreCase(this.getString(R.string.log_out))) {
-                if (mUserDataInterface.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-                    mUserDataInterface.logoutSession(new LogoutSessionListener() {
-                        @Override
-                        public void logoutSessionSuccess() {
-                            getActivity().finish();
-                        }
-
-                        @Override
-                        public void logoutSessionFailed(Error error) {
-                            Toast.makeText(getActivity(), "Logout went wrong", Toast.LENGTH_SHORT).show();
-                        }
-
-                    });
-                } else {
-                    Toast.makeText(getActivity(), "User is not logged in", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-
-                gotoLogInScreen();
-            }
 
         } else if (view == mAddCtn) {
             String str = mEtCTN.getText().toString().toUpperCase().replaceAll("\\s+", "");
@@ -555,53 +477,8 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
-
-       /* if (isHybrisEnable && urInterface.getUserDataInterface()!= null && urInterface.getUserDataInterface().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
-            //update shopping cart count if user logged in
-            shouldShowCart(true);
-            }else{
-            shouldShowCart(false);
-        }*/
-
     }
 
-    private void gotoLogInScreen() {
-
-        URLaunchInput urLaunchInput = new URLaunchInput();
-        urLaunchInput.setUserRegistrationUIEventListener(this);
-        urLaunchInput.enableAddtoBackStack(true);
-        RegistrationContentConfiguration contentConfiguration = new RegistrationContentConfiguration();
-        contentConfiguration.enableLastName(true);
-        contentConfiguration.enableContinueWithouAccount(true);
-        RegistrationConfiguration.getInstance().setPrioritisedFunction(RegistrationFunction.Registration);
-        urLaunchInput.setRegistrationContentConfiguration(contentConfiguration);
-        urLaunchInput.setRegistrationFunction(RegistrationFunction.Registration);
-
-
-        ActivityLauncher activityLauncher = new ActivityLauncher(getActivity(), ActivityLauncher.
-                ActivityOrientation.SCREEN_ORIENTATION_SENSOR, null, 0, null);
-        urInterface.launch(activityLauncher, urLaunchInput);
-    }
-
-    private void showToast(int errorCode) {
-        String errorText = null;
-        if (MECConstant.INSTANCE.getMEC_ERROR_NO_CONNECTION() == errorCode) {
-            errorText = "No connection";
-        } else if (MECConstant.INSTANCE.getMEC_ERROR_CONNECTION_TIME_OUT() == errorCode) {
-            errorText = "Connection time out";
-        } else if (MECConstant.INSTANCE.getMEC_ERROR_AUTHENTICATION_FAILURE() == errorCode) {
-            errorText = "Authentication failure";
-        } else if (MECConstant.INSTANCE.getMEC_ERROR_INSUFFICIENT_STOCK_ERROR() == errorCode) {
-            errorText = "Product out of stock";
-        } else if (MECConstant.INSTANCE.getMEC_ERROR_INVALID_CTN() == errorCode) {
-            errorText = "Invalid ctn";
-        }
-        if (errorText != null) {
-            Toast toast = Toast.makeText(getActivity(), errorText, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
-    }
 
     //In-App listener functions
     @Override
@@ -650,7 +527,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onUserRegistrationComplete(Activity activity) {
         activity.finish();
-        initializeMECComponant();
+        initializeMECComponent();
     }
 
     @Override

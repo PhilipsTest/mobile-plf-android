@@ -454,6 +454,8 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
             trackPage(AppTaggingPages.TWITTER);
         } else if (provider.equalsIgnoreCase(SocialProvider.WECHAT)) {
             trackPage(AppTaggingPages.WECHAT);
+        } else if (provider.equalsIgnoreCase(SocialProvider.APPLE)) {
+            trackPage(AppTaggingPages.APPLE);
         }
     }
 

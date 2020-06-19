@@ -163,8 +163,6 @@ public class AppFrameworkApplication extends Application {
         return userRegistrationState;
     }
 
-
-
     public LoggingInterface getLoggingInterface() {
         return loggingInterface;
     }

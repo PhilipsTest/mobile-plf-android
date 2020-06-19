@@ -1,27 +1,29 @@
 <resources>
     <string name="app_name" translatable="false">UDI Demo App</string>
     <string-array name="countries_array">
-        <item>United States</item>
-        <item>Netherlands</item>
-        <item>Belgium</item>
-        <item>Germany</item>
-        <item>Austria</item>
-        <item>Bulgaria</item>
-        <item>Croatia</item>
-        <item>Czech Republic</item>
-        <item>Denmark</item>
-        <item>Finland</item>
-        <item>France</item>
-        <item>Hungary</item>
-        <item>Ireland</item>
-        <item>Italy</item>
-        <item>Poland</item>
-        <item>Portugal</item>
-        <item>Romania</item>
-        <item>Slovakia</item>
-        <item>Spain</item>
-        <item>Sweden</item>
-        <item>United Kingdom</item>
-        <item>United Arab Emirates</item>
+        <item>United States|US</item>
+        <item>United Kingdom|UK</item>
+        <item>Netherlands|NL</item>
+        <item>Belgium|BE</item>
+        <item>Germany|DE</item>
+        <item>Austria|AT</item>
+        <item>Bulgaria|BG</item>
+        <item>Croatia|HR</item>
+        <item>Czech Republic|CZ</item>
+        <item>Denmark|DK</item>
+        <item>Finland|FI</item>
+        <item>France|FR</item>
+        <item>Hungary|HU</item>
+        <item>Ireland|IE</item>
+        <item>Italy|IT</item>
+        <item>Poland|PL</item>
+        <item>Portugal|PT</item>
+        <item>Romania|RO</item>
+        <item>Slovakia|SK</item>
+        <item>Spain|ES</item>
+        <item>Sweden|SE</item>
+        <item>China Mainland|CN</item>
+        <item>Russia|RU</item>
+        <item>United Arab Emirates|AE</item>
     </string-array>
 </resources>

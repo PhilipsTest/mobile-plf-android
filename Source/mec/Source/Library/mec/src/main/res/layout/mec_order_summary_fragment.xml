@@ -224,7 +224,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/border16_margin_left_right"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginEnd="@dimen/border16_margin_left_right"
                             android:gravity="start"
                             android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
@@ -238,16 +238,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/border16_margin_left_right"
-                            android:layout_marginTop="@dimen/iap_margin_4dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginEnd="@dimen/border16_margin_left_right"
                             android:gravity="start"
-                            android:text="@{mecPayment.ecsPayment.billingAddress.firstName +@string/mec_empty_space+ mecPayment.ecsPayment.billingAddress.lastName}" />
+                            android:text='@{mecPayment.ecsPayment.accountHolderName ?? mecPayment.ecsPayment.billingAddress.firstName +@string/mec_empty_space+ mecPayment.ecsPayment.billingAddress.lastName}'
+                          />
 
                         <com.philips.platform.uid.view.widget.Label
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/border16_margin_left_right"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="4dp"
                             android:layout_marginEnd="50dp"
                             android:layout_marginBottom="@dimen/iap_margin_4dp"
                             android:textColor="?attr/uidContentItemTertiaryNormalTextColor"

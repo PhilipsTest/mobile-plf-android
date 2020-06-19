@@ -49,6 +49,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 public class RegistrationActivity extends UIDActivity implements
         ActionBarListener {
 
+    private static final long serialVersionUID = -7156429613507082769L;
     private RegistrationLaunchMode mRegistrationLaunchMode;
     private RegistrationContentConfiguration registrationContentConfiguration;
 

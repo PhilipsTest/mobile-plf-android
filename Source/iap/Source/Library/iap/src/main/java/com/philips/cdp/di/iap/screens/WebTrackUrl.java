@@ -11,6 +11,7 @@ import com.philips.cdp.di.iap.utils.IAPConstant;
 
 public class WebTrackUrl extends WebFragment {
     public static final String TAG = WebTrackUrl.class.getName();
+    private static final long serialVersionUID = -4302688398760664430L;
 
     @Override
     protected boolean isJavaScriptEnable() {

@@ -385,12 +385,22 @@ public class HsdpUser {
 
 
     private Object stringToObject(String str) {
+        ObjectInputStream objectInputStream = null;
         try {
-            return new ObjectInputStream(new Base64InputStream(
+            objectInputStream = new ObjectInputStream(new Base64InputStream(
                     new ByteArrayInputStream(str.getBytes()), Base64.NO_PADDING
-                    | Base64.NO_WRAP)).readObject();
+                    | Base64.NO_WRAP));
+            return objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            if(objectInputStream != null) {
+                try {
+                    objectInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }
@@ -542,6 +552,9 @@ public class HsdpUser {
      */
     public boolean isHsdpUserSignedIn() {
         HsdpUserRecordV2 hsdpUserRecordV2 = getHsdpUserRecord();
+        RLog.d(TAG, "isHsdpUserSignedIn : hsdpUserRecordV2 " + (hsdpUserRecordV2 == null ));
+
+        if(hsdpUserRecordV2 == null) return false;
 
         final boolean isSignedIn = hsdpUserRecordV2 != null && ((hsdpUserRecordV2.getAccessCredential() != null &&
                 hsdpUserRecordV2.getAccessCredential().getRefreshToken() != null)

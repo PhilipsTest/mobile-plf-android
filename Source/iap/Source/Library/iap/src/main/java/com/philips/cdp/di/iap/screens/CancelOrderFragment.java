@@ -23,6 +23,7 @@ import com.philips.cdp.di.iap.utils.IAPConstant;
 public class CancelOrderFragment extends InAppBaseFragment {
 
     public static final String TAG = CancelOrderFragment.class.getName();
+    private static final long serialVersionUID = 5584829640847662061L;
     private String phoneNumber;
     private Context mContext;
 

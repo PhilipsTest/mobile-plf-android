@@ -23,6 +23,7 @@ import java.io.Serializable;
  * Created by naveen@philips.com on 02-Nov-15.
  */
 public class AssetModel extends ResponseData implements Serializable {
+    private static final long serialVersionUID = 863762900238339341L;
     private boolean success;
     @SerializedName("data")
     @Expose

@@ -1,0 +1,13 @@
+{
+   "errors":[
+      {
+         "id":"32253600-a0f1-478e-96cf-e5d39e001f68",
+         "status":"400",
+         "code":"BAD_REQUEST",
+         "title":"Client error in API request",
+         "source":{
+            "parameter":"Language [en_g] is not supported"
+         }
+      }
+   ]
+}

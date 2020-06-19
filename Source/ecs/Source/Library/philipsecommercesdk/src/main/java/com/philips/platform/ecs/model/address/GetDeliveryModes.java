@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class GetDeliveryModes implements Serializable {
 
+    private static final long serialVersionUID = -4977108267691480555L;
     private List<ECSDeliveryMode> deliveryModes;
 
     public void setDeliveryModes(List<ECSDeliveryMode> deliveryModes) {

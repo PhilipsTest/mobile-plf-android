@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class UnitOfMeasure implements Serializable {
 
+	private static final long serialVersionUID = 8843113320809077214L;
 	@SerializedName("unitOfMeasureSymbol")
 	@Expose
 	public String unitOfMeasureSymbol;

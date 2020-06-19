@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class ECSRetailerList implements Serializable {
 
+    private static final long serialVersionUID = 2403127424945928917L;
     private WrbresultsEntity wrbresults;
 
     public WrbresultsEntity getWrbresults() {

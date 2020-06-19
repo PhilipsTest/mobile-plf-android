@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class ProductRegistrationsItem implements Serializable {
 
+	private static final long serialVersionUID = -8876087175415726705L;
 	@SerializedName("data")
 	private com.philips.cdp.prodreg.model.registerproduct.Data data;
 

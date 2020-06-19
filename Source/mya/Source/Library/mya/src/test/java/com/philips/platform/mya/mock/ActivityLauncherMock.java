@@ -7,6 +7,7 @@
 
 package com.philips.platform.mya.mock;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
@@ -14,8 +15,8 @@ import com.philips.platform.uid.thememanager.ThemeConfiguration;
 
 public class ActivityLauncherMock extends ActivityLauncher {
 
-    public ActivityLauncherMock(ActivityOrientation screenOrientation, ThemeConfiguration dlsThemeConfiguration, int dlsUiKitTheme, Bundle bundle) {
-        super(screenOrientation, dlsThemeConfiguration, dlsUiKitTheme, bundle);
+    public ActivityLauncherMock(Context context, ActivityOrientation screenOrientation, ThemeConfiguration dlsThemeConfiguration, int dlsUiKitTheme, Bundle bundle) {
+        super(context,screenOrientation, dlsThemeConfiguration, dlsUiKitTheme, bundle);
     }
 
 }

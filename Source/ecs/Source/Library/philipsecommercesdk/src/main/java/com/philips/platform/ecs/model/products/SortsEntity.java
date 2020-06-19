@@ -9,6 +9,7 @@ package com.philips.platform.ecs.model.products;
 import java.io.Serializable;
 
 public class SortsEntity  implements Serializable {
+    private static final long serialVersionUID = 1543471906402338590L;
     private String code;
     private boolean selected;
 

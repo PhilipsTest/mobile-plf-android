@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class FeatureItem implements Serializable {
 
+	private static final long serialVersionUID = 6716648931315785132L;
 	@SerializedName("featureLongDescription")
 	public String featureLongDescription;
 

@@ -17,6 +17,7 @@ import java.util.List;
  * This object is returned when fetchProducts is called
  */
 public class ECSProducts  implements Serializable {
+    private static final long serialVersionUID = -5571984724501769242L;
     private String type;
     private CurrentQueryEntity currentQuery;
     private String freeTextSearch;

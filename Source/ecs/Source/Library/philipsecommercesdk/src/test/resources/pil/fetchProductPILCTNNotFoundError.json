@@ -1,0 +1,10 @@
+{
+   "errors":[
+      {
+         "id":"4d1775ac-985c-4daa-b440-2be466ab84a8",
+         "status":"404",
+         "code":"NOT_FOUND",
+         "title":"The specified resource is not found"
+      }
+   ]
+}

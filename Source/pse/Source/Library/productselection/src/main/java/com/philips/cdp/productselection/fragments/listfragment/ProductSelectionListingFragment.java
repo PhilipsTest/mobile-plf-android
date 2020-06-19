@@ -1,6 +1,5 @@
 package com.philips.cdp.productselection.fragments.listfragment;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -42,7 +41,6 @@ public class ProductSelectionListingFragment extends ProductSelectionBaseFragmen
     private String TAG = ProductSelectionListingFragment.class.getSimpleName();
     private ListView mProductListView = null;
     private ListViewWithOptions mProductAdapter = null;
-    private ProgressDialog mSummaryDialog = null;
     private ArrayList<SummaryModel> productList = null;
     private SearchBox mSearchBox = null;
 
@@ -181,15 +179,7 @@ public class ProductSelectionListingFragment extends ProductSelectionBaseFragmen
 
     @Override
     public void onDestroyView() {
-        if (mSummaryDialog != null) {
-
-            if (!(getActivity().isFinishing()) && mSummaryDialog.isShowing()) {
-                mSummaryDialog.dismiss();
-                mSummaryDialog.cancel();
-            }
-        }
         super.onDestroyView();
-
     }
 
     private void showListView() {

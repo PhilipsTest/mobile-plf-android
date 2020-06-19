@@ -18,7 +18,6 @@ import com.philips.platform.mec.common.MecError
 class ECSProductDetailCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel)  : ECSCallback<ECSProduct, Exception> {
     lateinit var mECRequestType : MECRequestType
     override fun onResponse(ecsProduct: ECSProduct?) {
-        ecsProductDetailViewModel.ecsProduct
         ecsProductDetailViewModel.ecsProduct.value = ecsProduct
     }
 

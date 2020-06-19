@@ -12,9 +12,8 @@ package com.philips.cdp.registration.handlers;
 /**
  * It is a callback class to proposition for handling refresh User
  * @since 1.0.0
- * @deprecated since 1903
  */
-@Deprecated
+// Deprecated  since 1903
 public interface RefreshUserHandler {
 
 	/**

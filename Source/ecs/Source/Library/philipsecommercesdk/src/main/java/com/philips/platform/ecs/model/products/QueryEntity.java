@@ -9,6 +9,7 @@ package com.philips.platform.ecs.model.products;
 import java.io.Serializable;
 
 public class QueryEntity implements Serializable {
+    private static final long serialVersionUID = -1837839317046618189L;
     private String value;
 
     public String getValue() {

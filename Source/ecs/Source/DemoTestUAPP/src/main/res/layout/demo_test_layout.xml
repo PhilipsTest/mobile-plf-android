@@ -19,44 +19,43 @@
         android:orientation="horizontal"
         android:weightSum="3">
 
-    <AutoCompleteTextView
-        android:id="@+id/at_propositionID"
+    <EditText
+        android:id="@+id/et_propositionID"
         android:layout_width="0dp"
         android:hint="Set proposition ID"
         android:focusableInTouchMode="true"
-        android:layout_weight="1.7"
+        android:paddingStart="4dp"
+        android:layout_weight="2"
         android:layout_height="50dp"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:onClick="set"
             android:text="Set"
             android:layout_height="50dp"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="0.8"
-            android:onClick="remove"
-            android:text="Remove"
-            android:layout_height="50dp"/>
+
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <View
+        android:layout_marginTop="@dimen/rag_dimen_4dp"
+        android:id="@+id/view_divider"
         android:layout_below="@+id/ll_propositionID"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rag_dimen_2dp"
+        android:background="@color/reg_devider_color"/>
+
+    <ExpandableListView
+        android:id="@+id/expandable_category"
+        android:layout_below="@+id/view_divider"
         android:layout_margin="10dp"
-        android:layout_above="@+id/btn_register"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content" >
+    </ExpandableListView>
 
 
-    <com.philips.platform.uid.view.widget.Button
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="2dp"
-        android:onClick="register"
-         />
+
+
+
 
 </RelativeLayout>

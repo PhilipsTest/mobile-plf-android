@@ -8,4 +8,5 @@ package com.philips.platform.ecs.model.products;
 import java.io.Serializable;
 
 public class PriceRangeEntity implements Serializable {
+    private static final long serialVersionUID = -8019262833038757069L;
 }

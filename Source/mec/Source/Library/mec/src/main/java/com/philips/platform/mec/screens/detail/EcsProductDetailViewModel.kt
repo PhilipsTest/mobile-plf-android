@@ -44,11 +44,6 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
     var ecsProductDetailRepository = ECSProductDetailRepository(this,ecsServices)
 
-    var ecsProductCallback = ECSProductForCTNCallback(this)
-
-    var ecsProductListCallback = ECSProductListForCTNsCallback(this)
-
-
     fun getRatings(ctn :String){
         ecsProductDetailRepository.getRatings(ctn)
     }
@@ -212,7 +207,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
                         } else if(ecsRetailers.retailers.get(i).availability.contains("NO")) {
                             availability=false
                             if (!availability) {
-                                if (null != product && null != product.stock) {
+                                if (null != product?.stock) {
                                     if (MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) {
                                         stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
                                         stockLabel.setTextColor(stockLabel.context.getColor(R.color.uid_signal_green_level_30))

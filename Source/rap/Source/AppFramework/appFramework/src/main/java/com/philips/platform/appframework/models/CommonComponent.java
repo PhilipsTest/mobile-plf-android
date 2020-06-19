@@ -16,6 +16,7 @@ import java.io.Serializable;
  */
 
 public class CommonComponent implements Serializable{
+    private static final long serialVersionUID = -3816509600036502636L;
     @SerializedName("coconame")
     private String cocoName;
 

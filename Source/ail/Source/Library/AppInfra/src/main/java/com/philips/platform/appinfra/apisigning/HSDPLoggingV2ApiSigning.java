@@ -10,6 +10,7 @@ import java.util.Map;
  */
 
 public class HSDPLoggingV2ApiSigning implements ApiSigningInterface {
+    private static final long serialVersionUID = 3562929075126940567L;
     private byte[] secretKey;
     public static final Charset UTF_8_CHARSET = Charset.forName("UTF-8");
 
