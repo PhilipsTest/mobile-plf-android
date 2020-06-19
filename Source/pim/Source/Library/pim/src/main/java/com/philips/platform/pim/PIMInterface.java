@@ -102,6 +102,8 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
             PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Launch : Launched as activity");
         } else if (uiLauncher instanceof FragmentLauncher) {
             launchAsFragment((FragmentLauncher) uiLauncher, (PIMLaunchInput) uappLaunchInput);
+            if(((PIMLaunchInput)uappLaunchInput).getUserLoginListener() != null)
+                userLoginListener = ((PIMLaunchInput)uappLaunchInput).getUserLoginListener();
             PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Launch : Launched as fragment");
         }
     }
