@@ -45,6 +45,8 @@ public class AppTaggingPages {
 
 	public static final String WECHAT = "registration:wechat";
 
+	public static final String APPLE = "registration:apple";
+
 	public static final String COUNTRY = "registration:countryselection";
 
 
