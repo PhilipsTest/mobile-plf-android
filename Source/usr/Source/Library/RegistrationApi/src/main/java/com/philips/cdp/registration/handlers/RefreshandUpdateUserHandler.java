@@ -148,13 +148,7 @@ public class RefreshandUpdateUserHandler implements JumpFlowDownloadStatusListen
     }
 
     public void forceHsdpLogin(final RefreshUserHandler handler,LoginTraditional loginTraditional ){
-        final RegistrationConfiguration registrationConfiguration = RegistrationConfiguration.getInstance();
-
-        if (!registrationConfiguration.isHSDPSkipLoginConfigurationAvailable() && registrationConfiguration.isHsdpFlow()) {
             loginTraditional.loginIntoHsdp();
-        }else {
-            handler.onRefreshUserSuccess();
-        }
     }
 
     @NotNull
