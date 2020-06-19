@@ -1,0 +1,2107 @@
+{
+  "commerceProducts": [
+    {
+      "id": "FC8016/01",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 43
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "19,99 €",
+          "value": 19.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "19,99 €",
+          "value": 19.99
+        }
+      }
+    },
+    {
+      "id": "GC8731/20",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 85
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "269,99 €",
+          "value": 269.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "239,99 €",
+          "value": 239.99
+        }
+      }
+    },
+    {
+      "id": "GC351/20",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 10
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "69,99 €",
+          "value": 69.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "64,99 €",
+          "value": 64.99
+        }
+      }
+    },
+    {
+      "id": "GC7705/30",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "LOW_STOCK",
+          "quantity": 4
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "279,99 €",
+          "value": 279.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "194,99 €",
+          "value": 194.99
+        }
+      }
+    },
+    {
+      "id": "GC4527/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 1029
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "99,99 €",
+          "value": 99.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "64,99 €",
+          "value": 64.99
+        }
+      }
+    },
+    {
+      "id": "GC2048/30",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 51008
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "64,99 €",
+          "value": 64.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "58,49 €",
+          "value": 58.49
+        }
+      }
+    },
+    {
+      "id": "GC2992/70",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 108
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "52,99 €",
+          "value": 52.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "29,99 €",
+          "value": 29.99
+        }
+      }
+    },
+    {
+      "id": "GC2995/30",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 49
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "64,99 €",
+          "value": 64.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "49,99 €",
+          "value": 49.99
+        }
+      }
+    },
+    {
+      "id": "GC6636/27",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 11
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "199,99 €",
+          "value": 199.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "184,99 €",
+          "value": 184.99
+        }
+      }
+    },
+    {
+      "id": "GC3803/30",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 17
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "74,99 €",
+          "value": 74.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "54,99 €",
+          "value": 54.99
+        }
+      }
+    },
+    {
+      "id": "GC1438/35",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 40
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "44,99 €",
+          "value": 44.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "33,99 €",
+          "value": 33.99
+        }
+      }
+    },
+    {
+      "id": "GC2675/25",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 14
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "64,99 €",
+          "value": 64.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "59,99 €",
+          "value": 59.99
+        }
+      }
+    },
+    {
+      "id": "GC2040/70",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 18
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "49,99 €",
+          "value": 49.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "30,99 €",
+          "value": 30.99
+        }
+      }
+    },
+    {
+      "id": "GC2997/40",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 19
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "59,99 €",
+          "value": 59.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "54,99 €",
+          "value": 54.99
+        }
+      }
+    },
+    {
+      "id": "GC2982/30",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 25
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "54,99 €",
+          "value": 54.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "41,99 €",
+          "value": 41.99
+        }
+      }
+    },
+    {
+      "id": "HR1670/90",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 143
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "79,99 €",
+          "value": 79.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "59,99 €",
+          "value": 59.99
+        }
+      }
+    },
+    {
+      "id": "CA6700/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 149
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "7,99 €",
+          "value": 7.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "5,99 €",
+          "value": 5.99
+        }
+      }
+    },
+    {
+      "id": "HD4646/20",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 58
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "44,99 €",
+          "value": 44.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "23,99 €",
+          "value": 23.99
+        }
+      }
+    },
+    {
+      "id": "HC3530/15",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 49
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "44,99 €",
+          "value": 44.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "34,99 €",
+          "value": 34.99
+        }
+      }
+    },
+    {
+      "id": "HD6563/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 281
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "99,99 €",
+          "value": 99.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "74,99 €",
+          "value": 74.99
+        }
+      }
+    },
+    {
+      "id": "SCF197/01",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 758
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "6,99 €",
+          "value": 6.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "6,99 €",
+          "value": 6.99
+        }
+      }
+    },
+    {
+      "id": "SCF755/05",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "LOW_STOCK",
+          "quantity": 1
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "9,99 €",
+          "value": 9.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        }
+      }
+    },
+    {
+      "id": "SCF654/27",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 301
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "6,49 €",
+          "value": 6.49
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "5,99 €",
+          "value": 5.99
+        }
+      }
+    },
+    {
+      "id": "HR1594/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "LOW_STOCK",
+          "quantity": 1
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "139,99 €",
+          "value": 139.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "79,99 €",
+          "value": 79.99
+        }
+      }
+    },
+    {
+      "id": "GC330/47",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 2087
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "84,99 €",
+          "value": 84.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "79,99 €",
+          "value": 79.99
+        }
+      }
+    },
+    {
+      "id": "HD9351/90",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 1376
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "54,99 €",
+          "value": 54.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "49,99 €",
+          "value": 49.99
+        }
+      }
+    },
+    {
+      "id": "BHS380/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "LOW_STOCK",
+          "quantity": 2
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "36,99 €",
+          "value": 36.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "19,99 €",
+          "value": 19.99
+        }
+      }
+    },
+    {
+      "id": "HQ203/50",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 93
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "18,99 €",
+          "value": 18.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "18,99 €",
+          "value": 18.99
+        }
+      }
+    },
+    {
+      "id": "HP8230/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 44
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "22,99 €",
+          "value": 22.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "17,99 €",
+          "value": 17.99
+        }
+      }
+    },
+    {
+      "id": "HP8372/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 128
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "89,99 €",
+          "value": 89.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "69,99 €",
+          "value": 69.99
+        }
+      }
+    },
+    {
+      "id": "HP8333/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 15
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "44,99 €",
+          "value": 44.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "40,49 €",
+          "value": 40.49
+        }
+      }
+    },
+    {
+      "id": "HP6423/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 177
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "54,99 €",
+          "value": 54.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "49,99 €",
+          "value": 49.99
+        }
+      }
+    },
+    {
+      "id": "HP8656/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 48
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "69,99 €",
+          "value": 69.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "54,99 €",
+          "value": 54.99
+        }
+      }
+    },
+    {
+      "id": "HP8217/20",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 9
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "31,99 €",
+          "value": 31.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "25,99 €",
+          "value": 25.99
+        }
+      }
+    },
+    {
+      "id": "BHD002/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 54
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "20,99 €",
+          "value": 20.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "14,99 €",
+          "value": 14.99
+        }
+      }
+    },
+    {
+      "id": "BHS675/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 135
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "59,99 €",
+          "value": 59.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "34,99 €",
+          "value": 34.99
+        }
+      }
+    },
+    {
+      "id": "BRI953/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 111
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "549,99 €",
+          "value": 549.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "394,99 €",
+          "value": 394.99
+        }
+      }
+    },
+    {
+      "id": "BRL180/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 140
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "74,99 €",
+          "value": 74.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "74,99 €",
+          "value": 74.99
+        }
+      }
+    },
+    {
+      "id": "BRP586/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "LOW_STOCK",
+          "quantity": 1
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "169,99 €",
+          "value": 169.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "164,99 €",
+          "value": 164.99
+        }
+      }
+    },
+    {
+      "id": "JC303/50",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 131
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "22,99 €",
+          "value": 22.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "20,99 €",
+          "value": 20.99
+        }
+      }
+    },
+    {
+      "id": "HX9357/87",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 50
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "299,99 €",
+          "value": 299.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "229,99 €",
+          "value": 229.99
+        }
+      }
+    },
+    {
+      "id": "HX9111/20",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 89
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "169,99 €",
+          "value": 169.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "124,99 €",
+          "value": 124.99
+        }
+      }
+    },
+    {
+      "id": "HR2345/19",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 76
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "179,99 €",
+          "value": 179.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "169,99 €",
+          "value": 169.99
+        }
+      }
+    },
+    {
+      "id": "HR1600/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 24
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "36,99 €",
+          "value": 36.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "25,99 €",
+          "value": 25.99
+        }
+      }
+    },
+    {
+      "id": "HR3657/90",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 141
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "229,99 €",
+          "value": 229.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "154,99 €",
+          "value": 154.99
+        }
+      }
+    },
+    {
+      "id": "HR1626/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 16
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "59,99 €",
+          "value": 59.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "49,99 €",
+          "value": 49.99
+        }
+      }
+    },
+    {
+      "id": "HU4801/01",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 90
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "99,99 €",
+          "value": 99.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "79,99 €",
+          "value": 79.99
+        },
+        "promotions": {
+          "productPromotions": [
+            {
+              "id": "DE PUB Bundle HU5931/11,HU4801/01",
+              "endDate": "2018-12-18T11:59:59+0000",
+              "type": "PROMOTION_PRODUCT_BUNDLE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "HR2098/30",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 72
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "254,99 €",
+          "value": 254.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "179,99 €",
+          "value": 179.99
+        }
+      }
+    },
+    {
+      "id": "HR1388/80",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 254
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "84,99 €",
+          "value": 84.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "69,99 €",
+          "value": 69.99
+        }
+      }
+    },
+    {
+      "id": "HR1855/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 24
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "119,99 €",
+          "value": 119.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "94,99 €",
+          "value": 94.99
+        }
+      }
+    },
+    {
+      "id": "HX8032/07",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 788
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "12,99 €",
+          "value": 12.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "12,99 €",
+          "value": 12.99
+        }
+      }
+    },
+    {
+      "id": "NT3160/10",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 51994
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "16,99 €",
+          "value": 16.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "14,99 €",
+          "value": 14.99
+        }
+      }
+    },
+    {
+      "id": "HX9332/04",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 50
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "229,99 €",
+          "value": 229.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "149,99 €",
+          "value": 149.99
+        }
+      }
+    },
+    {
+      "id": "QP6620/30",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 2173
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "104,99 €",
+          "value": 104.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "99,99 €",
+          "value": 99.99
+        }
+      }
+    },
+    {
+      "id": "QP210/50",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 131
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "14,99 €",
+          "value": 14.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "14,99 €",
+          "value": 14.99
+        }
+      }
+    },
+    {
+      "id": "HX9355/86",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 25
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "199,99 €",
+          "value": 199.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "169,99 €",
+          "value": 169.99
+        },
+        "promotions": {
+          "productPromotions": [
+            {
+              "id": "DE PUB LieferandoCCOffPrice HX9326/86 - HX9355/86  - KIF",
+              "endDate": "2020-01-01T00:00:00+0000",
+              "type": "PROMOTION_PRODUCT_FIXED_PRICE"
+            },
+            {
+              "id": "DE PUB Vatertag1",
+              "endDate": "2019-05-29T11:59:59+0000",
+              "type": "PROMOTION_PRODUCT_BUNDLE"
+            },
+            {
+              "id": "DE PUB Lieferando Fixed 139.99 €",
+              "endDate": "2025-01-01T00:00:00+0000",
+              "type": "PROMOTION_PRODUCT_FIXED_PRICE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "QP6510/64",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "LOW_STOCK",
+          "quantity": 5
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "84,99 €",
+          "value": 84.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "49,99 €",
+          "value": 49.99
+        }
+      }
+    },
+    {
+      "id": "HX9359/89",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 164
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "219,99 €",
+          "value": 219.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "159,99 €",
+          "value": 159.99
+        },
+        "promotions": {
+          "productPromotions": [
+            {
+              "id": "DE | OHC Advocacy HX9339/89 HX9359/89 fixed price - MCP",
+              "endDate": "2019-06-30T11:59:59+0000",
+              "type": "PROMOTION_PRODUCT_FIXED_PRICE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "MS590/50",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 148
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "9,99 €",
+          "value": 9.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "9,99 €",
+          "value": 9.99
+        }
+      }
+    },
+    {
+      "id": "FC6162/02",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 87
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "159,99 €",
+          "value": 159.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "114,99 €",
+          "value": 114.99
+        }
+      }
+    },
+    {
+      "id": "FC8370/09",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 29
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "154,99 €",
+          "value": 154.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "154,99 €",
+          "value": 154.99
+        }
+      }
+    },
+    {
+      "id": "FY5185/30",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "LOW_STOCK",
+          "quantity": 5
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "89,99 €",
+          "value": 89.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "89,99 €",
+          "value": 89.99
+        }
+      }
+    },
+    {
+      "id": "HD6563/60",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 240
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "99,99 €",
+          "value": 99.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "74,99 €",
+          "value": 74.99
+        },
+        "promotions": {
+          "productPromotions": [
+            {
+              "id": "DE PUB HD6563 series fixed price - AMS",
+              "endDate": "2019-01-31T23:59:59+0000",
+              "promotionPrice": {
+                "currency": "EUR",
+                "formattedValue": "59,99 €",
+                "value": 59.99
+              },
+              "promotionDiscount": {
+                "currency": "EUR",
+                "formattedValue": "15,00 €",
+                "value": 15.0
+              },
+              "type": "PROMOTION_PRODUCT_FIXED_PRICE"
+            },
+            {
+              "id": "DE PUB HD6563 series fixed price - AMS",
+              "endDate": "2025-01-31T11:59:59+0000",
+              "promotionPrice": {
+                "currency": "EUR",
+                "formattedValue": "59,99 €",
+                "value": 59.99
+              },
+              "promotionDiscount": {
+                "currency": "EUR",
+                "formattedValue": "15,00 €",
+                "value": 15.0
+              },
+              "type": "PROMOTION_PRODUCT_FIXED_PRICE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "HD2637/90",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 34
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "49,99 €",
+          "value": 49.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "44,99 €",
+          "value": 44.99
+        }
+      }
+    },
+    {
+      "id": "HD5413/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 10
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "159,99 €",
+          "value": 159.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "119,99 €",
+          "value": 119.99
+        }
+      }
+    },
+    {
+      "id": "HD2590/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 479
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "44,99 €",
+          "value": 44.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "37,99 €",
+          "value": 37.99
+        }
+      }
+    },
+    {
+      "id": "GC9642/60",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 41
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "369,99 €",
+          "value": 369.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "299,99 €",
+          "value": 299.99
+        },
+        "promotions": {
+          "productPromotions": [
+            {
+              "id": "DE PUB fixed price 159.99 MAW GC9642/60",
+              "endDate": "2019-04-30T11:59:59+0000",
+              "type": "PROMOTION_PRODUCT_FIXED_PRICE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "HD2692/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 398
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "49,99 €",
+          "value": 49.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "29,99 €",
+          "value": 29.99
+        }
+      }
+    },
+    {
+      "id": "HC7460/15",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 42
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "69,99 €",
+          "value": 69.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "59,99 €",
+          "value": 59.99
+        }
+      }
+    },
+    {
+      "id": "HC7450/80",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 1051
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "59,99 €",
+          "value": 59.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "44,99 €",
+          "value": 44.99
+        },
+        "promotions": {
+          "productPromotions": [
+            {
+              "id": "DE PUB LieferandoCCOffPrice HC7450/80 - KIF",
+              "endDate": "2020-01-01T00:00:00+0000",
+              "type": "PROMOTION_PRODUCT_FIXED_PRICE"
+            },
+            {
+              "id": "DE PUB Lieferando Fixed 41.99 €",
+              "endDate": "2025-01-01T00:00:00+0000",
+              "type": "PROMOTION_PRODUCT_FIXED_PRICE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "HC5438/79",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 102
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "54,99 €",
+          "value": 54.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "54,99 €",
+          "value": 54.99
+        }
+      }
+    },
+    {
+      "id": "HH1342/01",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 738
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "250,00 €",
+          "value": 250.0
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "199,34 €",
+          "value": 199.34
+        }
+      }
+    },
+    {
+      "id": "HH1347/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 109
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "8,00 €",
+          "value": 8.0
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "6,67 €",
+          "value": 6.67
+        }
+      }
+    },
+    {
+      "id": "HF3506/05",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 15
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "119,99 €",
+          "value": 119.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "79,99 €",
+          "value": 79.99
+        }
+      }
+    },
+    {
+      "id": "HH1457/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 20
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        }
+      }
+    },
+    {
+      "id": "SCF344/23",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 43
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "6,99 €",
+          "value": 6.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "6,49 €",
+          "value": 6.49
+        }
+      }
+    },
+    {
+      "id": "SCF628/16",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 2980
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "9,99 €",
+          "value": 9.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "9,99 €",
+          "value": 9.99
+        }
+      }
+    },
+    {
+      "id": "SCF656/27",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 2006
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "6,49 €",
+          "value": 6.49
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "6,49 €",
+          "value": 6.49
+        }
+      }
+    },
+    {
+      "id": "SCF762/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 45
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "9,99 €",
+          "value": 9.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        }
+      }
+    },
+    {
+      "id": "SCF675/01",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 26
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "7,99 €",
+          "value": 7.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "7,99 €",
+          "value": 7.99
+        }
+      }
+    },
+    {
+      "id": "SCF343/20",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 12
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "6,99 €",
+          "value": 6.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "6,99 €",
+          "value": 6.99
+        }
+      }
+    },
+    {
+      "id": "SCF618/10",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 38
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "17,99 €",
+          "value": 17.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "13,99 €",
+          "value": 13.99
+        },
+        "promotions": {
+          "productPromotions": [
+            {
+              "id": "DE PUB Bundle SCF883/01 & SCF618/10",
+              "endDate": "2018-12-18T11:59:59+0000",
+              "type": "PROMOTION_PRODUCT_BUNDLE"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "SCF693/17",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 741
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "9,99 €",
+          "value": 9.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        }
+      }
+    },
+    {
+      "id": "SCF355/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 21
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "37,99 €",
+          "value": 37.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "28,99 €",
+          "value": 28.99
+        }
+      }
+    },
+    {
+      "id": "SCF708/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 10
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "10,99 €",
+          "value": 10.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "9,99 €",
+          "value": 9.99
+        }
+      }
+    },
+    {
+      "id": "SCF635/27",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 25
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "6,49 €",
+          "value": 6.49
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "5,99 €",
+          "value": 5.99
+        }
+      }
+    },
+    {
+      "id": "SCF760/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 25
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        }
+      }
+    },
+    {
+      "id": "SCF344/20",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 30
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "6,99 €",
+          "value": 6.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "6,99 €",
+          "value": 6.99
+        }
+      }
+    },
+    {
+      "id": "SCF633/27",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 56
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "5,99 €",
+          "value": 5.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "5,99 €",
+          "value": 5.99
+        }
+      }
+    },
+    {
+      "id": "SCF862/02",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 50
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "129,99 €",
+          "value": 129.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "99,99 €",
+          "value": 99.99
+        }
+      }
+    },
+    {
+      "id": "SCF870/20",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 285
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "149,99 €",
+          "value": 149.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "104,99 €",
+          "value": 104.99
+        }
+      }
+    },
+    {
+      "id": "SH50/50",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 40649
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "39,99 €",
+          "value": 39.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "27,99 €",
+          "value": 27.99
+        }
+      }
+    },
+    {
+      "id": "SCF702/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 9
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "7,99 €",
+          "value": 7.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "7,99 €",
+          "value": 7.99
+        }
+      }
+    },
+    {
+      "id": "SCF651/27",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 45
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "6,49 €",
+          "value": 6.49
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "5,99 €",
+          "value": 5.99
+        }
+      }
+    },
+    {
+      "id": "SM5479/10",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 50
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "879,99 €",
+          "value": 879.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "749,99 €",
+          "value": 749.99
+        }
+      }
+    },
+    {
+      "id": "SH560/50",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 1094
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "12,99 €",
+          "value": 12.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "12,99 €",
+          "value": 12.99
+        }
+      }
+    },
+    {
+      "id": "SCF796/01",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 24
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "8,99 €",
+          "value": 8.99
+        }
+      }
+    },
+    {
+      "id": "SW6700/14",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 164
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "199,99 €",
+          "value": 199.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "132,99 €",
+          "value": 132.99
+        }
+      }
+    },
+    {
+      "id": "SCF797/00",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 16
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "5,99 €",
+          "value": 5.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "5,99 €",
+          "value": 5.99
+        }
+      }
+    },
+    {
+      "id": "SM5573/10",
+      "type": "commerceProduct",
+      "attributes": {
+        "availability": {
+          "status": "IN_STOCK",
+          "quantity": 58
+        },
+        "price": {
+          "currency": "EUR",
+          "formattedValue": "1.149,99 €",
+          "value": 1149.99
+        },
+        "discountPrice": {
+          "currency": "EUR",
+          "formattedValue": "759,99 €",
+          "value": 759.99
+        }
+      }
+    }
+  ]
+}

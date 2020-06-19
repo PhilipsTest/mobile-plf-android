@@ -7,21 +7,23 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.ecs.demotestuapp.R;
-import com.ecs.demotestuapp.adapter.GroupAdapter;
+import com.ecs.demotestuapp.adapter.CategoryExpandableAdapter;
+import com.ecs.demotestuapp.jsonmodel.GroupItem;
 import com.ecs.demotestuapp.jsonmodel.JSONConfiguration;
 import com.ecs.demotestuapp.util.ECSDataHolder;
 import com.google.gson.Gson;
 import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
 import com.philips.platform.ecs.ECSServices;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
@@ -32,6 +34,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class EcsDemoTestActivity extends FragmentActivity implements View.OnClickListener{
@@ -40,7 +43,12 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
     private long mLastClickTime = 0;
 
     AutoCompleteTextView atPropositionID;
+    EditText etPropositionID;
+    private AppInfraInterface mAppInfraInterface;
+    private AppConfigurationInterface configInterface;
+    private AppConfigurationInterface.AppConfigurationError configError;
 
+    //String[] propositionIDs = {"Tuscany2016", "IAP_MOB_DKA", "IAP_MOB_OHC", "IAP_MOB_PHC"};
     String[] propositionIDs = {"Tuscany2016", "IAP_MOB_DKA", "IAP_MOB_OHC", "IAP_MOB_PHC"};
     private UserDataInterface mUserDataInterface;
 
@@ -50,13 +58,20 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
 
         setContentView(R.layout.demo_test_layout);
-        atPropositionID = findViewById(R.id.at_propositionID);
 
-        ArrayAdapter<String> atAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.select_dialog_item, propositionIDs);
+        etPropositionID = findViewById(R.id.et_propositionID);
 
-        atPropositionID.setThreshold(1);
-        atPropositionID.setAdapter(atAdapter);
+
+        mAppInfraInterface=new AppInfra.Builder().build(this);
+        configInterface = mAppInfraInterface.getConfigInterface();
+        configError = new AppConfigurationInterface.AppConfigurationError();
+
+        try {
+            String propertyForKey = (String) configInterface.getPropertyForKey("propositionid", "MEC", configError);
+            etPropositionID.setText(propertyForKey);
+        }catch (Exception e){
+            etPropositionID.setText("IAP_MOB_DKA");
+        }
 
         showAppVersion();
 
@@ -72,11 +87,25 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
         JSONConfiguration jsonConfiguration = readConfigJsonFile("configuration.json");
 
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        GroupAdapter adapter = new GroupAdapter(jsonConfiguration.getGroup(), this);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+       // RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
+        ExpandableListView expandableListView = findViewById(R.id.expandable_category);
+       // GroupAdapter adapter = new GroupAdapter(jsonConfiguration.getOcc(), this);
+
+        List<GroupItem> groupItemsOCC = jsonConfiguration.getOcc();
+        List<GroupItem> groupItemsPIL = jsonConfiguration.getPil();
+
+        List<List<GroupItem>> listOfGroupItems = new ArrayList<>();
+        listOfGroupItems.add(groupItemsOCC);
+        listOfGroupItems.add(groupItemsPIL);
+
+
+        CategoryExpandableAdapter categoryExpandableAdapter = new CategoryExpandableAdapter(this,listOfGroupItems);
+        expandableListView.setAdapter(categoryExpandableAdapter);
+        expandableListView.expandGroup(1); //keep PIL one open
+       // recyclerView.setHasFixedSize(true);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setAdapter(adapter);
     }
 
     private JSONConfiguration readConfigJsonFile(String file) {
@@ -114,7 +143,7 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
         TextView versionView = findViewById(R.id.appversion);
         versionView.setText(String.valueOf(code));
     }
-    
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -176,13 +205,10 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
     public void set(View view) {
 
         ECSDataHolder.INSTANCE.resetData();
-        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(atPropositionID.getText().toString().trim());
-    }
 
-    public void remove(View view) {
-        atPropositionID.setText("");
-        ECSDataHolder.INSTANCE.resetData();
-        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(null);
+        configInterface.setPropertyForKey("propositionid", "MEC", etPropositionID.getText().toString(), configError);
+
+        Toast.makeText(this, "Proposition id is set", Toast.LENGTH_SHORT).show();
     }
 
     public void setJanRainID() {

@@ -1,0 +1,13 @@
+{
+   "errors":[
+      {
+         "id":"216decd7-8542-4bfa-b5ef-137258fa3c3b",
+         "status":"400",
+         "code":"MISSING_PARAMETER",
+         "title":"The required parameter is missing",
+         "source":{
+            "parameter":"[country, siteId, language]"
+         }
+      }
+   ]
+}

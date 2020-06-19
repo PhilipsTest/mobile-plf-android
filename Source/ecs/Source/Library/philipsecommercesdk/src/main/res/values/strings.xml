@@ -4,8 +4,8 @@
    - in whole or in part is prohibited without the prior written
    - consent of the copyright holder. -->
 
-<resources>
-  <string name="ECS_volley_error">Volley rest Error!</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <string name="ECS_volley_error" tools:ignore="MissingTranslation">Volley rest Error!</string>
   <string name="ECSAppInfraNotFound">Please provide app infra object</string>
   <string name="ECSBaseURLNotFound">Base URL not found</string>
   <string name="ECSCartEntryError">The Product is not added in Cart</string>
@@ -21,6 +21,20 @@
   <string name="ECSNoSuchElementError">An error occurred while fetching the data from the server</string>
   <string name="ECSOAuthDetailError">Please provide complete OAuth detials</string>
   <string name="ECSOAuthNotCalled">User authorization is required for this action</string>
+  <string name="ECSPIL_BAD_REQUEST">We have encountered technical glitch. Please try after some time</string>
+  <string name="ECSPIL_INTEGRATION_TIMEOUT">We have encountered technical glitch. Please try after some time</string>
+  <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
+  <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Please set the locale</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Philips shop is not available for the selected country, only retailer mode is available</string>
+  <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
+  <string name="ECSPIL_MISSING_API_KEY">The required API key header is missing</string>
+  <string name="ECSPIL_MISSING_API_VERSION">The required API version header is missing</string>
+  <string name="ECSPIL_MISSING_PARAMETER_country">Please set the locale</string>
+  <string name="ECSPIL_MISSING_PARAMETER_language">Please set the locale</string>
+  <string name="ECSPIL_MISSING_PARAMETER_siteId">Philips shop is not available for the selected country, only retailer mode is available</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE">We have encountered technical glitch. Please try after some time</string>
+  <string name="ECSPIL_NOT_FOUND_productId">Requested resource is not available</string>
   <string name="ECSPaymentAuthorizationError">Payment authorization was not successful</string>
   <string name="ECSPropositionIdNotFound">Please set a valid Proposition ID</string>
   <string name="ECSSiteIdNotFound">Philips shop is not available for the selected country, only retailer mode is available</string>
@@ -45,4 +59,13 @@
   <string name="ECSsessionCart">Please select your delivery address, delivery mode and payment method before submitting an order</string>
   <string name="ECSsomethingWentWrong">We have encountered technical glitch. Please try after some time</string>
   <string name="ECSunsupported_grant_type">We have encountered technical glitch (Unsupported grant type). Please re-login</string>
+
+<!--  PIL services-->
+
+
+
+
+
+
+
 </resources>

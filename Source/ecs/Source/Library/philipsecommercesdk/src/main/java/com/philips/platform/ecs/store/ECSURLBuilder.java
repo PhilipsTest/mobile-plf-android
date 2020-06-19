@@ -9,7 +9,6 @@ package com.philips.platform.ecs.store;
 import com.philips.platform.ecs.integration.ECSOAuthProvider;
 import com.philips.platform.ecs.integration.GrantType;
 import com.philips.platform.ecs.util.ECSConfiguration;
-import com.philips.platform.ecs.util.ECSConfiguration;
 
 
 public class ECSURLBuilder implements URLProvider {

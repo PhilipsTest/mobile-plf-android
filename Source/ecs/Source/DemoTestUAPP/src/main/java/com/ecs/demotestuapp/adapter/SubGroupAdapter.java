@@ -21,6 +21,9 @@ public class SubGroupAdapter extends RecyclerView.Adapter<SubGroupAdapter.ViewHo
     private List<SubgroupItem> subgroupItems;
     private final Context context;
 
+    static final int TYPE_SEPARATOR = 1;
+    static final int TYPE_ITEM = 0;
+
     // RecyclerView recyclerView;
     public SubGroupAdapter(List<SubgroupItem> subgroupItems, Context context) {
         this.subgroupItems = subgroupItems;
@@ -57,6 +60,10 @@ public class SubGroupAdapter extends RecyclerView.Adapter<SubGroupAdapter.ViewHo
         context.startActivity(intent);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 
     @Override
     public int getItemCount() {

@@ -79,11 +79,11 @@ class RegionViewModelTest{
         Mockito.verify(ecsServicesMock).fetchRegions("US",ecsRegionListCallbackMock)
     }
 
-    @Test
+ /*   @Test
     fun `retry api should do auth call`() {
         regionViewModel.retryAPI(MECRequestType.MEC_FETCH_REGIONS)
         Mockito.verify(userDataInterfaceMock).refreshSession(any(RefreshSessionListener::class.java))
-    }
+    }*/
 
     @Test
     fun `retry api should refresh auth if refresh token exists`() {

@@ -13,9 +13,13 @@ import androidx.annotation.Nullable;
 
 import com.ecs.demotestuapp.R;
 import com.ecs.demotestuapp.jsonmodel.SubgroupItem;
+import com.philips.platform.appinfra.AppInfra;
 
 
 public abstract class BaseAPIFragment extends BaseFragment {
+
+
+    AppInfra mAppInfraInterface;
 
     public LinearLayout getLinearLayout() {
         return linearLayout;
@@ -42,6 +46,8 @@ public abstract class BaseAPIFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.input_fragment, container, false);
 
+
+        mAppInfraInterface=new AppInfra.Builder().build(getActivity());
         linearLayout = rootView.findViewById(R.id.ll_container);
 
         Bundle bundle = getActivity().getIntent().getExtras();

@@ -23,12 +23,13 @@
     "ShowCountrySelection": "true"
   },
   "IAP": {
-    "propositionid": "Tuscany2016",
+    "propositionid": "IAP_MOB_DKA",
     "voucherCode.enable": true
   },
   "MEC": {
-    "propositionid": "Tuscany2016",
-    "voucherCode.enable": true
+    "propositionid": "IAP_MOB_DKA",
+    "voucherCode.enable": true,
+    "PIL_ECommerce_API_KEY": "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
 
   },
   "ProductRegistration": {

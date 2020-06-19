@@ -1,0 +1,10 @@
+{
+   "errors":[
+      {
+         "id":"55066f02-678f-48ec-bd32-b3ea4cbbe904",
+         "status":"403",
+         "code":"MISSING_AUTHENTICATION_TOKEN",
+         "title":"Missing Authentication Token"
+      }
+   ]
+}
