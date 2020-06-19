@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class StockEntity  implements Serializable {
 
+    private static final long serialVersionUID = 6581588036836624091L;
     private int stockLevel;
     private String stockLevelStatus;
 

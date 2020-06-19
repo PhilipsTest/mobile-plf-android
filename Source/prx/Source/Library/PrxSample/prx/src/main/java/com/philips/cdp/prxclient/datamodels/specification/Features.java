@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Features implements Serializable {
 
+	private static final long serialVersionUID = 4714472613554904424L;
 	@SerializedName("feature")
 	@Expose
 	public List<FeatureItem> feature;

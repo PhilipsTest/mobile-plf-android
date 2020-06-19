@@ -4,6 +4,8 @@ package com.philips.platform.pif.DataInterface.USR.listeners;
  * Callback for HSDP Authentication
  *
  */
+// Deprecated  since 1903
+
 public interface HSDPAuthenticationListener {
 
     /**

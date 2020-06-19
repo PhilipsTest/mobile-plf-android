@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class CurrentQueryEntity implements Serializable {
 
+    private static final long serialVersionUID = 1778570617984996812L;
     QueryEntity query;
     private String url;
 

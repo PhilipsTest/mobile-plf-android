@@ -113,7 +113,7 @@ public class MyaInterfaceTest {
     }
 
     private void givenActivityLauncher() {
-        givenUiLauncher = new ActivityLauncherMock(null, null, 0, null);
+        givenUiLauncher = new ActivityLauncherMock(context, null, null, 0, null);
     }
 
     private void whenCallingLaunchWithAddToBackstack() {

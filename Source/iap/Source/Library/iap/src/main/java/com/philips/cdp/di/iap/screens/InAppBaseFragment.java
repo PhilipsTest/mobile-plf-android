@@ -37,6 +37,7 @@ import com.philips.platform.uid.view.widget.ProgressBar;
 import java.util.List;
 
 public abstract class InAppBaseFragment extends Fragment implements BackEventListener {
+    private static final long serialVersionUID = 4669623594463689402L;
     private Context mContext;
     private ActionBarListener mActionbarUpdateListener;
     protected IAPListener mIapListener;

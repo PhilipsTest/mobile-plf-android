@@ -49,6 +49,7 @@ import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DE
 public class PIMInterface implements UappInterface, UserMigrationListener,PIMLoginListener {
     static final String PIM_KEY_ACTIVITY_THEME = "PIM_KEY_ACTIVITY_THEME";
     public static final String PIM_KEY_CONSENTS = "PIM_KEY_CONSENTS";
+    private static final long serialVersionUID = 4160247155579172330L;
     private final String TAG = PIMInterface.class.getSimpleName();
 
     private Context context;
@@ -127,7 +128,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
     public void migrateJanrainUserToPIM(UserMigrationListener userMigrationListener) {
         final PIMUserManager pimUserManager = PIMSettingManager.getInstance().getPimUserManager();
         if (pimUserManager == null) {
-            userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
+            userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
             return;
         }
         if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
@@ -151,7 +152,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
                 } else if (pimInitState == PIMInitState.INIT_FAILED) {
                     isMigrationInProgress = false;
                     pimInitLiveData.removeObserver(this);
-                    userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.MIGRATION_FAILED.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
+                    userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
                 }
             }
         });

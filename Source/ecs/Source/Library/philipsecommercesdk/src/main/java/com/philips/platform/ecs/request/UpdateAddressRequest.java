@@ -27,6 +27,7 @@ import java.util.Map;
 
 public class UpdateAddressRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String>  {
 
+    private static final long serialVersionUID = -3311124503802617373L;
     private final ECSAddress addresses;
     private final ECSCallback<Boolean,Exception> ecsCallback;
 

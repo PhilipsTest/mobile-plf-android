@@ -9,6 +9,7 @@ package com.philips.platform.ecs.model.cart;
 import java.io.Serializable;
 
 public class BasePriceEntity  implements Serializable {
+    private static final long serialVersionUID = 4055680529965597111L;
     private String currencyIso;
     private String formattedValue;
     private String priceType;

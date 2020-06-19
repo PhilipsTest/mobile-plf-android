@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class PromotionDiscount implements Serializable {
 
+    private static final long serialVersionUID = 4145419312312449616L;
     String formattedValue;
     String priceType;
 

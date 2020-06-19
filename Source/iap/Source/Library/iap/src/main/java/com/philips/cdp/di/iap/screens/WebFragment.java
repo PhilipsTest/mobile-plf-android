@@ -25,6 +25,7 @@ import com.philips.cdp.di.iap.R;
 public abstract class WebFragment extends InAppBaseFragment {
 
     public static final String TAG = WebFragment.class.getName();
+    private static final long serialVersionUID = 5332576406742355265L;
     protected WebView mWebView;
     private String mUrl;
     private RelativeLayout mParentContainer;

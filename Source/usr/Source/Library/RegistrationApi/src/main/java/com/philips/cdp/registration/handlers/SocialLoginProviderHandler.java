@@ -17,9 +17,8 @@ import org.json.JSONObject;
  * It is a callback class to proposition for handling social provider login
  *
  * @since 1.0.0
- * @deprecated since 1903
  */
-@Deprecated
+// Deprecated  since 1903
 public interface SocialLoginProviderHandler extends LoginHandler {
 
     /**

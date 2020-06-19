@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ConsignmentEntries implements Serializable {
+    private static final long serialVersionUID = -7350936420007269250L;
     private int entryNumber;
 
     private int quantity;

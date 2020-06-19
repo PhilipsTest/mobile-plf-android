@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class AppliedOrderPromotionEntity  implements Serializable {
 
 
+    private static final long serialVersionUID = 4162683403373900131L;
     private String description;
     private PromotionEntity promotion;
 

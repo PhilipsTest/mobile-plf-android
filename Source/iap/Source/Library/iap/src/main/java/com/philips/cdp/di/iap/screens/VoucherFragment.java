@@ -37,6 +37,7 @@ import java.util.List;
 public class VoucherFragment extends InAppBaseFragment implements View.OnClickListener,VoucherController.VoucherListener ,EventListener ,AlertListener{
 
 
+    private static final long serialVersionUID = -7541758644971065684L;
     VoucherController mVoucherController;
     Button mApplyVoucherButton;
     Context mContext;
@@ -70,7 +71,7 @@ public class VoucherFragment extends InAppBaseFragment implements View.OnClickLi
         mRecyclerView.setLayoutManager(layoutManager);
         acceptedCodeLabel=(Label) rootView.findViewById(R.id.iap_accepted_code);
         headerParent=(ScrollView)rootView.findViewById(R.id.sv_header_parent);
-        line=(View) rootView.findViewById(R.id.line);
+        line= rootView.findViewById(R.id.line);
         voucherBottomLayout=(RelativeLayout)rootView.findViewById(R.id.voucher_bottom_layout);
         totalCost=(Label) rootView.findViewById(R.id.total_cost_val);
         mVoucherController.getAppliedVoucherCode();
@@ -155,7 +156,7 @@ public class VoucherFragment extends InAppBaseFragment implements View.OnClickLi
 
           }
 
-            String sValue = (String) String.format("%.2f", count);
+            String sValue =  String.format("%.2f", count);
             totalCost.setText("$ "+sValue);
             mAppliedVoucherAdapter.notifyDataSetChanged();
         }else {

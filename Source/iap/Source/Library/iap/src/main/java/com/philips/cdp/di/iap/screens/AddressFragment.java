@@ -42,6 +42,7 @@ import static com.philips.cdp.di.iap.utils.ModelConstants.COUNTRY_ISOCODE;
 public class AddressFragment extends InAppBaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, AddressContractor {
 
     public static final String TAG = AddressFragment.class.getName();
+    private static final long serialVersionUID = -2506088032965715154L;
     Context mContext;
     protected CheckBox checkBox;
     protected Button mBtnContinue;

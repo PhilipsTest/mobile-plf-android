@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * @since 1.0.0
  */
 public class IAPLaunchInput extends UappLaunchInput {
+    private static final long serialVersionUID = -4234219314939820227L;
     int mLandingView;
     public IAPFlowInput mIAPFlowInput;
     private IAPListener iapListener;

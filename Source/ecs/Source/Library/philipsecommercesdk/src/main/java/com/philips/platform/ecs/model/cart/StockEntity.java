@@ -8,6 +8,8 @@ package com.philips.platform.ecs.model.cart;
 import java.io.Serializable;
 
 public class StockEntity implements Serializable {
+    private static final long serialVersionUID = -8919062258442202779L;
+
     public void setStockLevel(int stockLevel) {
         this.stockLevel = stockLevel;
     }

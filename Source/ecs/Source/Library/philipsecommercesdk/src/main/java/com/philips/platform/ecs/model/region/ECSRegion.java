@@ -12,6 +12,7 @@ import java.io.Serializable;
  * This object is returned for fetchRegions.
  */
 public class ECSRegion implements Serializable {
+    private static final long serialVersionUID = -2823557087080706632L;
     private String isocode;
     private String name;
 

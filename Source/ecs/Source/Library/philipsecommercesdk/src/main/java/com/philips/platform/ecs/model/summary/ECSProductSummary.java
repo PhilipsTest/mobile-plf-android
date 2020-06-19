@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class ECSProductSummary extends ResponseData implements Serializable {
 
+    private static final long serialVersionUID = 2565404340609465538L;
     @SerializedName("success")
     @Expose
     private boolean success;

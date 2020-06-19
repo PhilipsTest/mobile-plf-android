@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class GetShippingAddressData implements Serializable {
 
+    private static final long serialVersionUID = 4938645976384523792L;
     private List<ECSAddress> addresses;
 
     public List<ECSAddress> getAddresses() {

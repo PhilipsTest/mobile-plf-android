@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class CsValueItem implements Serializable {
 
+	private static final long serialVersionUID = -8911022862913057105L;
 	@SerializedName("csValueRank")
 	@Expose
 	public String csValueRank;

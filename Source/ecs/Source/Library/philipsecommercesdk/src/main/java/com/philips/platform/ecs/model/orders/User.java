@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.orders;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    private static final long serialVersionUID = -1127731998782174251L;
     private String name;
     private String uid;
 

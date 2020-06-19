@@ -15,6 +15,7 @@ import java.io.Serializable;
 
 public class OrderEntry implements Serializable {
 
+    private static final long serialVersionUID = -730155989099471242L;
     private ECSProduct product;
 
     public ECSProduct getProduct() {

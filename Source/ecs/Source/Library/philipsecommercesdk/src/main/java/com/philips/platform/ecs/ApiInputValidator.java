@@ -89,8 +89,8 @@ import java.util.List;
         return inputString==null || inputString.isEmpty();
     }
 
-    private boolean isINValidList(List list){
-        return list==null || list.isEmpty();
+    private boolean isINValidList(List<String>  list){
+        return (list == null) || list.isEmpty();
     }
 
     public ECSErrorWrapper getProductSummaryAPIValidateError(List<String> ctns) {

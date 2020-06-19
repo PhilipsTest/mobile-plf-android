@@ -183,7 +183,7 @@ public class OrderController implements AbstractModel.DataLoadListener {
         return urlWithEndCurlyBrace.replace("}", "");
     }
 
-    private boolean isArrayNullOrEmpty(List traceIdOrTraceURL) {
+    private boolean isArrayNullOrEmpty(List<String> traceIdOrTraceURL) {
         return traceIdOrTraceURL == null || traceIdOrTraceURL.size() == 0;
     }
 

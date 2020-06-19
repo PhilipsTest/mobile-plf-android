@@ -19,11 +19,11 @@ package com.philips.platform.pif.DataInterface.USR.enums;
  */
 public enum UserLoggedInState {
     USER_NOT_LOGGED_IN,
-    @Deprecated
+    //Deprecated
     PENDING_VERIFICATION,
-    @Deprecated
+    //Deprecated
     PENDING_TERM_CONDITION,
-    @Deprecated
+    //Deprecated
     PENDING_HSDP_LOGIN,
     USER_LOGGED_IN;
 }

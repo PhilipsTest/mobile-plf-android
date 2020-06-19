@@ -13,6 +13,7 @@ import java.io.Serializable;
  *
  */
 public class ECSUserProfile implements Serializable {
+    private static final long serialVersionUID = 684017437357998368L;
     private ECSAddress defaultAddress;
 
     private String type;

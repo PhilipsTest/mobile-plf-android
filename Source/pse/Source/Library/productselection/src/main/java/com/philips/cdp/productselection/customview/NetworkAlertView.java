@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
 
@@ -12,7 +11,6 @@ import android.content.DialogInterface;
 public class NetworkAlertView {
 
     AlertDialog mAlertDialog = null;
-    private ProgressDialog mProgressDialog = null;
     private Dialog mDialog = null;
     private Activity mActivity = null;
 

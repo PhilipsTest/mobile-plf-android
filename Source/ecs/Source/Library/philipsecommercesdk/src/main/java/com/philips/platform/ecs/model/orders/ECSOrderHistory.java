@@ -15,6 +15,7 @@ import java.util.List;
 public class ECSOrderHistory implements Serializable {
 
 
+    private static final long serialVersionUID = 8680915286804314559L;
     private Pagination pagination;
     private List<ECSOrders> orders;
 

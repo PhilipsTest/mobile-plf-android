@@ -31,6 +31,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 public class SubmitOrderRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String>  {
 
 
+    private static final long serialVersionUID = -8287745541839913389L;
     ECSCallback<ECSOrderDetail,Exception> exceptionECSCallback;
     String cvv;
 

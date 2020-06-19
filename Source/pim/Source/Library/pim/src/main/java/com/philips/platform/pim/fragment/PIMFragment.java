@@ -23,6 +23,7 @@ import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryServ
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pim.PIMInterface;
+import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.pim.R;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
 import com.philips.platform.pim.errors.PIMErrorCodes;
@@ -58,7 +59,7 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
     private MutableLiveData<PIMInitState> liveData;
     private PIMLoginListener mUserLoginListener;
     private final String USER_PROFILE_URL = "userreg.janrainoidc.userprofile";
-    private HashMap consentParameterMap;
+    private HashMap<PIMParameterToLaunchEnum, Object> consentParameterMap;
     private boolean isTokenReqInProcess;
 
     @Override
@@ -78,7 +79,7 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
         pimLoginProgreassBar = view.findViewById(R.id.pbPimRequest);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            consentParameterMap = (HashMap) bundle.get(PIMInterface.PIM_KEY_CONSENTS);
+            consentParameterMap = (HashMap<PIMParameterToLaunchEnum, Object>) bundle.get(PIMInterface.PIM_KEY_CONSENTS);
         }
         return view;
     }

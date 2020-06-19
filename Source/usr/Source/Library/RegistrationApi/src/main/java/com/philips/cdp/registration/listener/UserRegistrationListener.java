@@ -11,10 +11,8 @@ package com.philips.cdp.registration.listener;
 
 /**
  * It is a callback class for proposition to notify USR  status.
- *
- * @deprecated since 1903
+ * Not used for PIM
  */
-@Deprecated
 public interface UserRegistrationListener {
     /**
      * Callback when user is logged out

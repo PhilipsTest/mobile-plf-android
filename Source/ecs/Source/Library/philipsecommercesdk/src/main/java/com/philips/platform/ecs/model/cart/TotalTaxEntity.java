@@ -9,7 +9,8 @@ import java.io.Serializable;
 
 
  public class TotalTaxEntity   implements Serializable {
-    private String currencyIso;
+     private static final long serialVersionUID = -895970485948044399L;
+     private String currencyIso;
     private String formattedValue;
     private String priceType;
     private double value;

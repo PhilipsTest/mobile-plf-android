@@ -114,7 +114,7 @@ public class SavedScreenFragmentSelection extends ProductSelectionBaseFragment i
                     public void onResponse(Bitmap bitmap) {
                         image.setImageBitmap(bitmap);
                     }
-                }, 0, 0, null,
+                }, 0, 0,  ImageView.ScaleType.FIT_XY,null,
                 new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError error) {
                         ProductSelectionLogger.e(TAG, "Selected Product Image is failed donalod  : " + error);

@@ -27,6 +27,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 
 public class GetProductSummaryListRequest extends AppInfraAbstractRequest implements Response.Listener<JSONObject>{
 
+    private static final long serialVersionUID = 7242109727753864102L;
     private final String prxSummaryListURL;
     private final ECSCallback<ECSProductSummary, Exception> ecsCallback;
 

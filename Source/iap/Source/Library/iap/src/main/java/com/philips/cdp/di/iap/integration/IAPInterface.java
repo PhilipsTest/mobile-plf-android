@@ -25,6 +25,7 @@ import static com.philips.cdp.di.iap.integration.IAPLaunchInput.IAPFlows.IAP_SHO
  * @since 1.0.0
  */
 public class IAPInterface implements UappInterface, IAPExposedAPI {
+    private static final long serialVersionUID = -4335464442201269618L;
     protected IAPHandler mIAPHandler;
     protected IAPSettings mIAPSettings;
     private IAPServiceDiscoveryWrapper mIapServiceDiscoveryWrapper;

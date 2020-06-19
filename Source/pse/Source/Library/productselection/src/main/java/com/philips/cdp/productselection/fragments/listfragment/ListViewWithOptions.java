@@ -6,6 +6,7 @@
 package com.philips.cdp.productselection.fragments.listfragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class ListViewWithOptions extends BaseAdapter implements Filterable {
     public ListViewWithOptions(Activity activity, List<SummaryModel> data) {
         this.activity = activity;
         if (activity != null)
-            inflater = (LayoutInflater) activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mActivity = activity;
         this.mProductsList = data;
         this.mOriginalSet = data;

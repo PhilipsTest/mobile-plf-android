@@ -14,6 +14,8 @@ import java.io.Serializable;
  */
 public class ECSConfig implements Serializable {
 
+    private static final long serialVersionUID = 8932140994827303605L;
+
     public String getLocale() {
         return ECSConfiguration.INSTANCE.getLocale();
     }

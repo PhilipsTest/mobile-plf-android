@@ -13,6 +13,8 @@ import java.io.Serializable;
 public class Data implements Serializable {
 
 
+    private static final long serialVersionUID = 3274539067954330973L;
+
     public Disclaimers getDisclaimers() {
         return disclaimers;
     }

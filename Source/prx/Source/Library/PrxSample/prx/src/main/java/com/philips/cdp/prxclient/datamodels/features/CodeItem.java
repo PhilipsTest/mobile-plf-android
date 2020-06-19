@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class CodeItem implements Serializable {
 
+	private static final long serialVersionUID = -8425374871117962060L;
 	@SerializedName("extent")
 	public String extent;
 

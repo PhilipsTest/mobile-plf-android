@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.cart;
 import java.io.Serializable;
 
 public class SubTotalEntity  implements Serializable {
+    private static final long serialVersionUID = 8898456240143115180L;
     private String currencyIso;
     private String formattedValue;
     private String priceType;

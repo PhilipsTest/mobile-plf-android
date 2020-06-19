@@ -17,6 +17,7 @@ import java.io.Serializable;
 
 public class DisclaimerModel extends ResponseData implements Serializable {
 
+    private static final long serialVersionUID = -5543216341859689589L;
     @SerializedName("success")
     @Expose
     private boolean success;

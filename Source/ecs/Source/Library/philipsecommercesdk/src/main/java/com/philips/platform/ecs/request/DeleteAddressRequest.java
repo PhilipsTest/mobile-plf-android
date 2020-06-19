@@ -27,6 +27,7 @@ import java.util.Map;
 
 public class DeleteAddressRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String> {
 
+    private static final long serialVersionUID = 4506377258294397049L;
     private final ECSAddress addresses;
 
     private final ECSCallback<Boolean, Exception> ecsCallback;

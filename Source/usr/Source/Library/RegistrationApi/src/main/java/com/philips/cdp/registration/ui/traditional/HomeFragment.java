@@ -482,28 +482,6 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
         }
     };
 
-    private void removeUnderlineFromLink(SpannableString spanableString) {
-        for (ClickableSpan u : spanableString.getSpans(0, spanableString.length(),
-                ClickableSpan.class)) {
-            spanableString.setSpan(new UnderlineSpan() {
-
-                public void updateDrawState(TextPaint tp) {
-                    tp.setUnderlineText(false);
-                }
-            }, spanableString.getSpanStart(u), spanableString.getSpanEnd(u), 0);
-        }
-
-        for (URLSpan u : spanableString.getSpans(0, spanableString.length(), URLSpan.class)) {
-            spanableString.setSpan(new UnderlineSpan() {
-
-                public void updateDrawState(TextPaint tp) {
-                    tp.setUnderlineText(false);
-                }
-            }, spanableString.getSpanStart(u), spanableString.getSpanEnd(u), 0);
-        }
-    }
-
-
     private void handlePrivacyPolicy() {
         if (RegistrationConfiguration.getInstance().getUserRegistrationUIEventListener() != null) {
 
@@ -735,7 +713,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
         spannableString.setSpan(span, 0, privacy.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        removeUnderlineFromLink(spannableString);
+        RegUtility.removeUnderlineFromLink(spannableString);
 
         pTvPrivacyPolicy.setText(spannableString);
         pTvPrivacyPolicy.setMovementMethod(LinkMovementMethod.getInstance());

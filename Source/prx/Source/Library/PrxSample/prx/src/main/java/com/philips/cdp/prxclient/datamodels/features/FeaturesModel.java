@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 public class FeaturesModel extends ResponseData implements Serializable {
 
+	private static final long serialVersionUID = 5897313023261737994L;
 	@SerializedName("data")
 	@Expose
 	public Data data;

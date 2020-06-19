@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.orders;
 import java.io.Serializable;
 
 public class Cost implements Serializable {
+    private static final long serialVersionUID = 964190414006182841L;
     private String currencyIso;
     private String formattedValue;
     private String priceType;

@@ -34,6 +34,7 @@ import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedEr
 
 public class MakePaymentRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String> {
 
+    private static final long serialVersionUID = 8785021493880410730L;
     private  ECSCallback<ECSPaymentProvider,Exception> ecsCallback;
     private ECSOrderDetail orderDetail;
     ECSAddress ecsBillingAddressRequest;

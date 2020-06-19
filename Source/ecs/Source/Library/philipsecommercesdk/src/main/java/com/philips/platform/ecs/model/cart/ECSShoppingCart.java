@@ -15,6 +15,7 @@ import java.util.List;
  * It is passed as parameter when creating cart
  */
 public class ECSShoppingCart implements Serializable {
+    private static final long serialVersionUID = 4729857104132493184L;
     private boolean calculated;
     private String code;
 

@@ -31,7 +31,7 @@ public class UserRegistrationHelper {
     /* User registration listeners */
     private final CopyOnWriteArrayList<HSDPAuthenticationListener> hsdpAuthenticationListeners;
 
-    private ArrayList listner = new ArrayList();
+    private ArrayList<CopyOnWriteArrayList> listner = new ArrayList<CopyOnWriteArrayList>();
 
     /**
      * Class constructor

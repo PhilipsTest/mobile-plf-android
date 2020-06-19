@@ -82,6 +82,7 @@ import static com.philips.platform.prdemoapp.activity.MainActivity.THEMESETTINGS
  * ActionbarListener is implemented by this activty and all the logic related to handleBack handling and actionar is contained in this activity
  */
 public class HamburgerActivity extends AbstractAppFrameworkBaseActivity implements IndexSelectionListener, FragmentManager.OnBackStackChangedListener, FragmentView, HamburgerMenuItemClickListener, View.OnClickListener, URLogoutInterface.URLogoutListener {
+    private static final long serialVersionUID = -8631395631531369815L;
     private static String TAG = HamburgerActivity.class.getSimpleName();
     private String[] hamburgerMenuTitles;
     private LinearLayout navigationView;

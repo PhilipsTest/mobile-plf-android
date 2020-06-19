@@ -18,6 +18,8 @@ import com.philips.platform.uappframework.uappinput.UappDependencies;
  *
  */
 public class PIMDependencies extends UappDependencies {
+    private static final long serialVersionUID = -4589212287527416286L;
+
     /**
      * Constructor for UappDependencies.
      *

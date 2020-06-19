@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.retailers;
 import java.io.Serializable;
 
 public class OnlineStoresForProductEntity implements Serializable {
+    private static final long serialVersionUID = -2733105973296609705L;
     private String excludePhilipsShopInWTB;
     private String showPrice;
     private String ctn;

@@ -32,6 +32,7 @@ import java.util.Locale;
 public class BuyDirectFragment extends InAppBaseFragment implements
         BuyDirectController.BuyDirectListener, ErrorDialogFragment.ErrorDialogListener {
     public static final String TAG = BuyDirectFragment.class.getName();
+    private static final long serialVersionUID = -155718655564615220L;
     BuyDirectController mBuyDirectController;
     Context mContext;
     private String mCTN;

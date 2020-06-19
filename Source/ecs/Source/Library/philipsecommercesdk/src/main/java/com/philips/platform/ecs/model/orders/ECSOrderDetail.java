@@ -27,6 +27,7 @@ import java.util.List;
 public class ECSOrderDetail implements Parcelable, Serializable {
 
 
+    private static final long serialVersionUID = 2079813913551660129L;
     private String type;
     private boolean calculated;
     private String code;
