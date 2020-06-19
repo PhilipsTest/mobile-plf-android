@@ -54,4 +54,5 @@
 
     <string name="live_chat_url">https://ph-india.livecom.net/5g/ch/?___________________________________________________________=&amp;aid=WuF95jlNIAA%3D&amp;gid=3&amp;skill=undefined&amp;tag=PHILIPS_GEN_GR&amp;cat=&amp;chan=LWC;LVC;LVI&amp;fields=&amp;customattr=Group%3APHILIPS_GEN_GR%3B%20Category%3A%3B%20Sub-category%3A%3B%20CTN%3A%3B%20Country%3AIN%3B%20Language%3AEN&amp;sID=1mOYTHel%2BAI%3D&amp;cID=uENOfpmJKAA%3D&amp;lcId=SMS_IN_EN&amp;url=http%3A%2F%2Fwww.support.philips.com%2Fsupport%2Fcontact%2Ffragments%2Fchat_now_fragment.jsp%3FparentId%3DPB_IN_1%26userCountry%3Din%26userLanguage%3Den&amp;ref=http%3A%2F%2Fwww.support.philips.com%2Fsupport%2Fcontact%2Fcontact_page.jsp%3FuserLanguage%3Den%26userCountry%3Din</string>
 
+    <string name="consumerCareChat_desc">@string/dcc_chat_desc</string>
 </resources>

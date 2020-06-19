@@ -665,6 +665,7 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
                         RegistrationHelper.getInstance().getCountryCode());
                 ABTestClientInterface abTestClientInterface = RegistrationConfiguration.getInstance().getComponent().getAbTestClientInterface();
                 abTestClientInterface.tagEvent(FIREBASE_SUCCESSFUL_REGISTRATION_DONE, null); //No Almost Done Screen
+                return;
             }
             if (RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, mEmailOrMobile) && !mUser.getReceiveMarketingEmail() &&
                     (RegistrationConfiguration.getInstance().isCustomOptoin() || RegistrationConfiguration.getInstance().isSkipOptin()) &&

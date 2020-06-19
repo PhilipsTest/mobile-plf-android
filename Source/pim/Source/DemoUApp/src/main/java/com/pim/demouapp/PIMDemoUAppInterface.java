@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.uappframework.UappInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
@@ -23,6 +24,7 @@ public class PIMDemoUAppInterface implements UappInterface {
     public void init(UappDependencies uappDependencies, UappSettings uappSettings) {
         mAppInfra=uappDependencies.getAppInfra();
         this.mContext=uappSettings.getContext();
+        USRUDIHelper.getInstance().init(mContext,(PIMDemoUAppDependencies) uappDependencies);
     }
 
     @Override
@@ -30,7 +32,13 @@ public class PIMDemoUAppInterface implements UappInterface {
 
         if(uiLauncher instanceof ActivityLauncher){
             Intent intent=new Intent(mContext, PIMDemoUAppActivity.class);
-            mContext.startActivity(intent);
+            if(((ActivityLauncher) uiLauncher).getBundle() != null)
+              intent.putExtras(((ActivityLauncher) uiLauncher).getBundle());
+            ((ActivityLauncher) uiLauncher).getActivityContext().startActivity(intent);
         }
+    }
+
+    public boolean isUserLoggedIn(){
+        return mContext != null && USRUDIHelper.getInstance().getUserDataInterface().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN;
     }
 }
