@@ -10,20 +10,21 @@
  *
  */
 
-package com.philips.platform.mec.screens.address.region
+package com.philips.platform.mec.screens.address
 
 import androidx.lifecycle.MutableLiveData
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
-import com.philips.platform.ecs.model.region.ECSRegion
+import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.mec.any
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener
-import org.junit.Assert.*
 import org.junit.Before
+
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -32,50 +33,51 @@ import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
-@PrepareForTest(RegionViewModel::class)
+@PrepareForTest(AddressViewModel::class)
 @RunWith(PowerMockRunner::class)
-class ECSRegionListCallbackTest {
+class SetDeliveryAddressCallBackTest {
 
-    private lateinit var eCSRegionListCallback: ECSRegionListCallback
 
-    @Mock
-    private lateinit var regionViewModelMock: RegionViewModel
+    lateinit var setDeliveryAddressCallBack : SetDeliveryAddressCallBack
 
     @Mock
-    private lateinit var regionsListMock: MutableLiveData<List<ECSRegion>>
+    lateinit var addressViewModelMock: AddressViewModel
 
     @Mock
-    private lateinit var mecErrorMock: MutableLiveData<MecError>
+    lateinit var isDeliveryAddressSetMock : MutableLiveData<Boolean>
+
+
+    @Mock
+    lateinit var mecErrorLiveDataMock : MutableLiveData<MecError>
 
     @Mock
     lateinit var authFailureCallbackMock: (Exception?, ECSError?) -> Unit
 
+
     @Before
     fun setUp() {
+
         MockitoAnnotations.initMocks(this)
-        regionViewModelMock.authFailCallback = authFailureCallbackMock
-        regionViewModelMock.regionsList = regionsListMock
-        regionViewModelMock.mecError = mecErrorMock
-        eCSRegionListCallback = ECSRegionListCallback(regionViewModelMock)
+        addressViewModelMock.authFailCallback = authFailureCallbackMock
+        addressViewModelMock.mecError = mecErrorLiveDataMock
+        addressViewModelMock.isDeliveryAddressSet = isDeliveryAddressSetMock
+        setDeliveryAddressCallBack = SetDeliveryAddressCallBack(addressViewModelMock)
     }
 
     @Test
-    fun `request type should be fetch region`() {
-        assertEquals(eCSRegionListCallback.mECRequestType, MECRequestType.MEC_FETCH_REGIONS)
+    fun `request type should be fetch saved address`() {
+        assertEquals(MECRequestType.MEC_SET_DELIVERY_ADDRESS, setDeliveryAddressCallBack.mECRequestType )
     }
 
     @Test
-    fun `should update view model on success response`() {
-        val result: List<ECSRegion> = mutableListOf()
-        eCSRegionListCallback.onResponse(result)
-        assertNotNull(regionsListMock)
+    fun `should assign value to live data on success response comes`() {
+        setDeliveryAddressCallBack.onResponse(true)
         //TODO
-        // assertNotNull(regionsListMock.value)
+        // assertNotNull(ecsAddressesLiveDataMock.value)
     }
 
     @Mock
     lateinit var errorMock: Exception
-
     @Mock
     lateinit var ecsErrorMock: ECSError
 
@@ -84,17 +86,16 @@ class ECSRegionListCallbackTest {
 
     @Test
     fun `should call auth if call auth failure comes`() {
-
         MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
         Mockito.`when`(ecsErrorMock.errorcode).thenReturn(ECSErrorEnum.ECSInvalidTokenError.errorCode)
-        eCSRegionListCallback.onFailure(errorMock, ecsErrorMock)
+        setDeliveryAddressCallBack.onFailure(errorMock,ecsErrorMock)
         Mockito.verify(userDataInterfaceMock).refreshSession(any(RefreshSessionListener::class.java))
     }
 
     @Test
     fun `should update error view model when api fails`() {
-        eCSRegionListCallback.onFailure(errorMock, null)
-        assertNotNull(mecErrorMock)
+        setDeliveryAddressCallBack.onFailure(errorMock,null)
+        assertNotNull(mecErrorLiveDataMock)
         //TODO
         //assertNotNull(mecErrorMock.value)
     }

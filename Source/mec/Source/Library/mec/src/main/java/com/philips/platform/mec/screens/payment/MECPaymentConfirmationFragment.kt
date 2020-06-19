@@ -94,7 +94,11 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
 
     fun onClickOk(){
         moveToCaller(paymentStatus,TAG)
+        resetPaymentMethods()
     }
 
-
+    private fun resetPaymentMethods() {
+        MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.clear() //Reset payment billing address cache
+        MECDataHolder.INSTANCE.PAYMENT_HOLDER.isPaymentDownloaded = false
+    }
 }

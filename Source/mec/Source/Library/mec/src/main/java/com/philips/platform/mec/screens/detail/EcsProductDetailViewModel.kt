@@ -44,11 +44,6 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
     var ecsProductDetailRepository = ECSProductDetailRepository(this,ecsServices)
 
-    var ecsProductCallback = ECSProductForCTNCallback(this)
-
-    var ecsProductListCallback = ECSProductListForCTNsCallback(this)
-
-
     fun getRatings(ctn :String){
         ecsProductDetailRepository.getRatings(ctn)
     }

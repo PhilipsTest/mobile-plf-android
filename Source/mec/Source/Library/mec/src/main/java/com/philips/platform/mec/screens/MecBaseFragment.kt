@@ -184,7 +184,7 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     }
 
     open fun processError(mecError: MecError?, showDialog: Boolean) {
-        MECutility.tagAndShowError(mecError,showDialog,fragmentManager,context)
+        context?.let { MECutility.tagAndShowError(mecError,showDialog,fragmentManager, it) }
     }
 
     abstract fun getFragmentTag():String

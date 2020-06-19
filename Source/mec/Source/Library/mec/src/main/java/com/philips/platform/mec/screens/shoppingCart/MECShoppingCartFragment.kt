@@ -404,6 +404,10 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     override fun onDestroy() {
         super.onDestroy()
+        resetPaymentMethods()
+    }
+
+    private fun resetPaymentMethods() {
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.clear() //Reset payment billing address cache
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.isPaymentDownloaded = false
     }
@@ -416,7 +420,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
                 super.processError(mecError, false)
                 validationEditText = null
                 binding.mecVoucherEditText.startAnimation(addressViewModel.shakeError())
-                binding.llAddVoucher.setErrorMessage(MECutility.getErrorString(mecError, context))
+                binding.llAddVoucher.setErrorMessage(context?.let { MECutility.getErrorString(mecError, it) })
                 binding.llAddVoucher.showError()
                 validationEditText?.requestFocus()
             }
