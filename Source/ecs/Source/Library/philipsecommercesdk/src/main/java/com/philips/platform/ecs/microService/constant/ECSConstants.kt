@@ -26,6 +26,7 @@ class ECSConstants {
         const val SERVICEID_ECS_PRODUCT_DETAILS = "ecs.productDetails"
         const val SERVICEID_ECS_PRODUCTS = "ecs.productSearch"
         const val SERVICEID_ECS_RETAILERS = "ecs.wtbURL"
+        const val SERVICEID_ECS_CREATE_CART = "ecs.createCart"
     }
 
 
