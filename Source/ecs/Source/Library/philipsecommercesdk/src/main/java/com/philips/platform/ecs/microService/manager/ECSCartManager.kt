@@ -12,5 +12,19 @@
 
 package com.philips.platform.ecs.microService.manager
 
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.model.cart.ECSShoppingCart
+
 class ECSCartManager {
+
+    val requestHandler = RequestHandler()
+
+    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+        val ecsException = ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
+
+        ecsException?.let { throw ecsException } ?: kotlin.run {
+
+        }
+    }
 }
