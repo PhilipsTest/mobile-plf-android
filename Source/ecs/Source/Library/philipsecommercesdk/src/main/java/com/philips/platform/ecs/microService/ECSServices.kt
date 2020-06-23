@@ -17,6 +17,7 @@ import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
+import com.philips.platform.ecs.microService.manager.ECSCartManager
 import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
@@ -36,6 +37,7 @@ class ECSServices(appInfra: AppInfra) {
     internal var ecsConfigManager = ECSConfigManager()
     internal var ecsProductManager = ECSProductManager()
     internal var ecsRetailerManager = ECSRetailerManager()
+    internal var ecsCartManager = ECSCartManager()
 
     init {
         ECSDataHolder.appInfra = appInfra
@@ -79,13 +81,13 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun createShoppingCart(ecsProduct: ECSProduct ,quantity : Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError?>){
+    fun createShoppingCart(ecsProduct: ECSProduct ,quantity : Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
 
     }
 
     @Throws(ECSException::class)
-    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSShoppingCart, ECSError?>){
-
+    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+       ecsCartManager.fetchShoppingCart(ecsCallback)
     }
 
 }
