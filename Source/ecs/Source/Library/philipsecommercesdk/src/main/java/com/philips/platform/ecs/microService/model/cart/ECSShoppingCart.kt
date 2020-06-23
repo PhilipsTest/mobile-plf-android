@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ECSCart (
+data class ECSShoppingCart (
     val `data`: Data
 ) : Parcelable
