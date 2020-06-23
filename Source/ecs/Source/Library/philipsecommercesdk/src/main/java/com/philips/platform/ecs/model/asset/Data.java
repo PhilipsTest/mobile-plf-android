@@ -19,6 +19,7 @@ import java.io.Serializable;
  */
 public class Data implements Serializable {
 
+    private static final long serialVersionUID = 1324489785506473766L;
     @SerializedName("assets")
     @Expose
     private Assets assets;

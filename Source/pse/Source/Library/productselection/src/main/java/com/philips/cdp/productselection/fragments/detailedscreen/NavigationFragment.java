@@ -74,7 +74,7 @@ public final class NavigationFragment extends Fragment {
                     public void onResponse(Bitmap bitmap) {
                         image.setImageBitmap(bitmap);
                     }
-                }, 0, 0, null,
+                }, 0, 0, ImageView.ScaleType.FIT_XY,null,
                 new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError error) {
                         image.setImageBitmap(getBlankThumbnail(imageWidth));

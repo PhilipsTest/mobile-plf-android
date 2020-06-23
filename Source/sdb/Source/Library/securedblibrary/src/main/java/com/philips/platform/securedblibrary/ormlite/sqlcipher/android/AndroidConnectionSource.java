@@ -69,9 +69,7 @@ public class AndroidConnectionSource extends BaseConnectionSource implements Con
             SQLiteDatabase db;
             if (sqliteDatabase == null) {
                 try {
-                    if (helper instanceof SecureDbOrmLiteSqliteOpenHelper) {
-                        SecureDbOrmLiteSqliteOpenHelper openHelper = (SecureDbOrmLiteSqliteOpenHelper) helper;
-                    } else {
+                    if (!(helper instanceof SecureDbOrmLiteSqliteOpenHelper)) {
                         throw new IllegalStateException("SQLiteOpenHelper must be an instance of OrmLiteSqliteOpenHelper");
                     }
                     db = helper.getWritableDatabase(key);

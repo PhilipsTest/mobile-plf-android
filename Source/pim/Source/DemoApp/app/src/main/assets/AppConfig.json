@@ -19,17 +19,20 @@
     "Flow.TermsAndConditionsAcceptanceRequired": "true",
     "Flow.MinimumAgeLimit": "{ \"NL\":12 ,\"GB\":16,\"default\": 16}",
     "SigninProviders.default": [
+      "apple",
       "facebook"
     ],
     "SigninProviders.NL": [
+      "apple",
       "facebook"
     ],
     "SigninProviders.CN": [
+      "apple",
       "wechat"
     ],
     "weChatAppId": "wxbdf2ab8822f6022f",
     "weChatAppSecret": "df749e21c43c65a042df6f3f4ebe18f1",
-    "ShowCountrySelection": "true",
+    "ShowCountrySelection": "false",
     "supportedHomeCountries": [
       "RW",
       "BG",
@@ -96,7 +99,9 @@
     "propositionid": "IAP_MOB_DKA"
   },
   "MEC": {
-    "propositionid": "IAP_MOB_DKA"
+    "propositionid": "IAP_MOB_DKA",
+    "voucherCode.enable": true,
+    "PIL_ECommerce_API_KEY": "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
   },
   "ProductRegistration": {
     "ApiKey": "Euqjw7YWRa5pc7c6jKliv1odg5vLUT2m465k7FJ8"

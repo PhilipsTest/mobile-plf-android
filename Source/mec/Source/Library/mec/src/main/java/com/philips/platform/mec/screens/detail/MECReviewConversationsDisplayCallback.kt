@@ -24,7 +24,7 @@ class MECReviewConversationsDisplayCallback(private val ecsProductDetailViewMode
 
     override fun onFailure(exception: ConversationsException) {
         val exception = Exception("Fetch Rating failed")
-        val ecsError = com.philips.platform.ecs.error.ECSError(1000, "Fetch Rating failed")
+        val ecsError = ECSError(1000, "Fetch Rating failed")
         val mecError = MecError(exception, ecsError,MECRequestType.MEC_FETCH_REVIEW)
         ecsProductDetailViewModel.mecError.value = mecError
     }

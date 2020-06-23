@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class CategoriesEntity implements Serializable {
 
+    private static final long serialVersionUID = -4584068531014884658L;
     private String code;
 
     public String getCode() {

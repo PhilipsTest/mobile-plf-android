@@ -43,6 +43,7 @@ import java.util.List;
 public class PurchaseHistoryFragment extends InAppBaseFragment implements OrderController.OrderListener, EventListener, AbstractModel.DataLoadListener {
 
     public static final String TAG = PurchaseHistoryFragment.class.getName();
+    private static final long serialVersionUID = 6147463939348768872L;
     private OrderHistoryAdapter mAdapter;
     private Context mContext;
     private RecyclerView mOrderHistoryView;

@@ -33,10 +33,10 @@ public class RegistrationConfiguration {
     private String TAG = "RegistrationConfiguration";
 
     @Inject
-    HSDPConfiguration hsdpConfiguration;
+    public HSDPConfiguration hsdpConfiguration;
 
     @Inject
-    AppConfiguration appConfiguration;
+    public AppConfiguration appConfiguration;
 
     private RegistrationComponent component;
 

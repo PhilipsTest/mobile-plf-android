@@ -16,6 +16,8 @@ import com.philips.platform.uappframework.uappinput.UappDependencies;
  */
 public class MyaDependencies extends UappDependencies {
 
+    private static final long serialVersionUID = -8516084955010733888L;
+
     /**
      * Constructor of MyaDependencies
      * @since 2018.1.0

@@ -61,6 +61,7 @@ public class ProductCatalogFragment extends InAppBaseFragment
         implements EventListener, ProductCatalogPresenter.ProductCatalogListener, SearchBox.ExpandListener, SearchBox.QuerySubmitListener {
 
     public static final String TAG = ProductCatalogFragment.class.getName();
+    private static final long serialVersionUID = 7746283838289454424L;
 
     private Context mContext;
 

@@ -13,6 +13,7 @@ import java.io.Serializable;
  * The type Ecs orders contains orders which is passed as input to fetch order details.
  */
 public class ECSOrders implements Serializable {
+    private static final long serialVersionUID = 3064853641860214379L;
     private String code;
     private String guid;
 

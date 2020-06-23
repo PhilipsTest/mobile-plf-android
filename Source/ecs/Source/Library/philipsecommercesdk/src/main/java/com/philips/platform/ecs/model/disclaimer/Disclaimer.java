@@ -17,6 +17,7 @@ import java.util.List;
 public class Disclaimer implements Serializable {
 
 
+    private static final long serialVersionUID = 7998522536631522899L;
     @SerializedName("disclaimerText")
     @Expose
     private String disclaimerText;

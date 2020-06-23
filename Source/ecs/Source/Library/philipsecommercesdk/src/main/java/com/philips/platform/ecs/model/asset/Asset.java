@@ -21,6 +21,7 @@ import java.io.Serializable;
  */
 public class Asset  implements Serializable {
 
+    private static final long serialVersionUID = 4907452418642912303L;
     @SerializedName("code")
     @Expose
     private String code;

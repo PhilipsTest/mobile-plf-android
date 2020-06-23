@@ -242,7 +242,6 @@ dependencies {
 //        implementation project(strings.ufwuapp.projectName)
         implementation project(strings.iapuapp.projectName)
         implementation project(strings.mecuapp.projectName)
-        implementation project(strings.ecsuapp.projectName)
         implementation project(strings.ecstestuapp.projectName)
 
         implementation project(strings.prguapp.projectName)
@@ -280,7 +279,6 @@ dependencies {
 
         implementation project(strings.tse.projectName)
         implementation philipsdeps.AppInfraUApp
-        implementation philipsdeps.ecsuapp
         implementation philipsdeps.ecstestuapp
     }
     testImplementation deps.json

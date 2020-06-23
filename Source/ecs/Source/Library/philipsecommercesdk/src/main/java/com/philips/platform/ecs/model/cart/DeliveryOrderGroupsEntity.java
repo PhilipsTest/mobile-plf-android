@@ -10,6 +10,7 @@ import java.util.List;
 
 public class DeliveryOrderGroupsEntity   implements Serializable {
 
+    private static final long serialVersionUID = 8986619126938760176L;
     private TotalPriceWithTaxEntity totalPriceWithTax;
 
     private List<ECSEntries> entries;

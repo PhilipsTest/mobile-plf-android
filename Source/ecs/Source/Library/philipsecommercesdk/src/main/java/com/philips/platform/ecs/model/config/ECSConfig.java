@@ -6,7 +6,6 @@
 package com.philips.platform.ecs.model.config;
 
 import com.philips.platform.ecs.util.ECSConfiguration;
-import com.philips.platform.ecs.util.ECSConfiguration;
 
 import java.io.Serializable;
 
@@ -14,6 +13,8 @@ import java.io.Serializable;
  * The type Ecs config which contains philips e-commerce configuration data. This object is returned when configureECS is called.
  */
 public class ECSConfig implements Serializable {
+
+    private static final long serialVersionUID = 8932140994827303605L;
 
     public String getLocale() {
         return ECSConfiguration.INSTANCE.getLocale();
@@ -29,6 +30,11 @@ public class ECSConfig implements Serializable {
     private String helpDeskEmail;
     private String helpDeskPhone;
     private String helpUrl;
+
+    public void setRootCategory(String rootCategory) {
+        this.rootCategory = rootCategory;
+    }
+
     private String rootCategory;
     private String siteId;
     private boolean isHybris;

@@ -105,12 +105,10 @@ class USRTokenManager {
     }
 
     private <L, R> Collection<L> map(Collection<R> collection, Function<L, R> f) {
-        Collection<L> retCollection;
+        Collection retCollection;
         try {
             retCollection = collection.getClass().newInstance();
-        } catch (InstantiationException ignore) {
-            retCollection = new ArrayList<L>();
-        } catch (IllegalAccessException ignore) {
+        } catch (InstantiationException | IllegalAccessException ignore) {
             retCollection = new ArrayList<L>();
         }
 

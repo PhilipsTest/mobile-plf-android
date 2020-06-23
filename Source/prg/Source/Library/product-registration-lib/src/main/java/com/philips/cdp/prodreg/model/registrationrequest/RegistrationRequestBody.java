@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class RegistrationRequestBody implements Serializable {
 
+	private static final long serialVersionUID = 8755071722985419088L;
 	@SerializedName("data")
 	private Data data;
 

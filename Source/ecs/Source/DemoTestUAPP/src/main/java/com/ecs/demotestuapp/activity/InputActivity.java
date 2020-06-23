@@ -38,6 +38,13 @@ import com.ecs.demotestuapp.fragments.HybrisOAthAuthenticationFragment;
 import com.ecs.demotestuapp.fragments.HybrisRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.JanrainRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.MakePaymentFragment;
+import com.ecs.demotestuapp.fragments.PILConfigureECSServiceFragment;
+import com.ecs.demotestuapp.fragments.PILFetchProductDetailsFragment;
+import com.ecs.demotestuapp.fragments.PILFetchProductForCtnFragment;
+import com.ecs.demotestuapp.fragments.PILFetchProductSummariesFragment;
+import com.ecs.demotestuapp.fragments.PILFetchProductsFragment;
+import com.ecs.demotestuapp.fragments.PILFetchRetailersForProductFragment;
+import com.ecs.demotestuapp.fragments.PILFetchRetailersFragment;
 import com.ecs.demotestuapp.fragments.RemoveVoucherFragment;
 import com.ecs.demotestuapp.fragments.SetAndFetchDeliveryAddressFragment;
 import com.ecs.demotestuapp.fragments.SetDeliveryAddressFragment;
@@ -74,6 +81,7 @@ public class InputActivity extends AppCompatActivity {
     void loadFragmeent() {
 
         Fragment newFragment = getFragment(subgroupItem.getApiNumber());
+        if(newFragment==null) return;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, newFragment).commit();
     }
@@ -202,6 +210,26 @@ public class InputActivity extends AppCompatActivity {
 
             case 39:
                 return new JanrainRefreshOAuthFragment();
+
+                //Micro services new APIS =============
+
+            case 40:
+                return new PILConfigureECSServiceFragment();
+
+            case 45:
+                return new PILFetchProductsFragment();
+
+            case 46:
+                return new PILFetchProductForCtnFragment();
+            case 47:
+                return new PILFetchProductDetailsFragment();
+
+            case 48:
+                return new PILFetchProductSummariesFragment();
+            case 68:
+                return new PILFetchRetailersFragment();
+            case 69:
+                return new PILFetchRetailersForProductFragment();
 
             default:
                 return null;

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Price implements Serializable {
+public class Price extends  com.philips.cdp.prxclient.datamodels.summary.Data implements Serializable {
 
     private static final long serialVersionUID = 5055423992827404506L;
     private String productPrice;

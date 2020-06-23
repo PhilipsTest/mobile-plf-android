@@ -80,5 +80,6 @@ public class AILCloudLogDataBuilder {
      */
 
     public static class MessageSizeExceedsException extends Exception{
+        private static final long serialVersionUID = -9089015001914125564L;
     }
 }

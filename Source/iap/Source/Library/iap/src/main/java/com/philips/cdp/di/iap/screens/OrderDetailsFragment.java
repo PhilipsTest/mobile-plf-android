@@ -48,6 +48,7 @@ import java.util.HashMap;
 public class OrderDetailsFragment extends InAppBaseFragment implements OrderController.OrderListener, View.OnClickListener, AbstractModel.DataLoadListener {
 
     public static final String TAG = OrderDetailsFragment.class.getName();
+    private static final long serialVersionUID = 7435011937968999351L;
     private Context mContext;
 
     ArrayList<ProductData> mProducts = new ArrayList<>();

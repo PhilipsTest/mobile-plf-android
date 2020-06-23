@@ -18,6 +18,7 @@ import com.readystatesoftware.chuck.Chuck;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -50,7 +51,7 @@ public class RequestQueue extends com.android.volley.RequestQueue {
         if(chuck) {
             addHttpClient(url);
         }
-        if (!url.trim().toLowerCase().startsWith("https://")) {
+        if (!url.trim().toLowerCase(Locale.ENGLISH).startsWith("https://")) {
             if (url.trim().startsWith("serviceid://")) {
                 return super.add(request);
             } else {

@@ -23,6 +23,7 @@ import com.philips.cdp.registration.settings.RegistrationHelper;
 import com.philips.cdp.registration.settings.UserRegistrationInitializer;
 import com.philips.cdp.registration.ui.utils.RLog;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 public class RefreshandUpdateUserHandler implements JumpFlowDownloadStatusListener {
@@ -145,6 +146,30 @@ public class RefreshandUpdateUserHandler implements JumpFlowDownloadStatusListen
             }
         });
     }
+
+    public void forceHsdpLogin(final RefreshUserHandler handler,LoginTraditional loginTraditional ){
+            loginTraditional.loginIntoHsdp();
+    }
+
+    @NotNull
+    public LoginTraditional getLoginTraditional(RefreshUserHandler handler) {
+        return new LoginTraditional(getLoginHandler(handler), mContext, null, null);
+    }
+
+    @NotNull
+    LoginHandler getLoginHandler(RefreshUserHandler handler) {
+        return new LoginHandler() {
+                @Override
+                public void onLoginSuccess() {
+                    handler.onRefreshUserSuccess();
+                }
+                @Override
+                public void onLoginFailedWithError(UserRegistrationFailureInfo userRegistrationFailureInfo) {
+                    handler.onRefreshUserFailed(userRegistrationFailureInfo.getErrorCode());
+                }
+            };
+    }
+
 
     @Override
     public void onFlowDownloadSuccess() {

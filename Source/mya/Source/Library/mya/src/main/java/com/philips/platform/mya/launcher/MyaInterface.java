@@ -34,6 +34,7 @@ import static com.philips.platform.mya.activity.MyaActivity.MYA_DLS_THEME;
  * @since 2018.1.0
  */
 public class MyaInterface implements UappInterface {
+    private static final long serialVersionUID = -1294841605213614728L;
     public static String USER_PLUGIN = "user_plugin";
 
     /**

@@ -15,6 +15,7 @@ package com.philips.cdp.prxclient.datamodels.cdls;
 import java.io.Serializable;
 
 public class ContactPhone implements Serializable {
+    private static final long serialVersionUID = 5945251665275467891L;
     private String phoneNumber;
     private String openingHoursWeekdays;
     private String openingHoursSaturday;

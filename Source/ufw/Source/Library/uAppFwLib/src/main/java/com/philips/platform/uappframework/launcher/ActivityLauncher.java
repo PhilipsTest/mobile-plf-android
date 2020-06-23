@@ -71,23 +71,6 @@ public class ActivityLauncher extends UiLauncher {
 
     /**
      Constructor
-     @deprecated 1805
-     @param screenOrientation takes screen Orientation
-     @param dlsThemeConfiguration takes DLS configuration
-     @param dlsUiKitTheme takes UiKit Theme
-     @param bundle bundle object
-     @since 2.2.0
-     */
-    public ActivityLauncher(ActivityLauncher.ActivityOrientation screenOrientation, ThemeConfiguration dlsThemeConfiguration,
-                            int dlsUiKitTheme, Bundle bundle) {
-        mScreenOrientation = screenOrientation;
-        mBundle = bundle;
-        mDLSThemeConfiguration =dlsThemeConfiguration;
-        mUiKitTheme = dlsUiKitTheme;
-    }
-
-    /**
-     Constructor
      @param activityContext takes activity context instance
      @param screenOrientation takes screen Orientation
      @param dlsThemeConfiguration takes DLS configuration

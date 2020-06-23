@@ -265,8 +265,9 @@ public abstract class ProductSelectionBaseFragment extends Fragment implements
     protected String getAppName() {
         String appName = getActivity().getString(R.string.app_name);
         try {
+            getActivity().getPackageManager();
             ApplicationInfo appInfo = getActivity().getPackageManager().getApplicationInfo(getActivity().getPackageName(),
-                    getActivity().getPackageManager().GET_META_DATA);
+                    PackageManager.GET_META_DATA);
             appName = appInfo.loadLabel(getActivity().getPackageManager()).toString();
         } catch (PackageManager.NameNotFoundException e) {
             ProductSelectionLogger.i(TAG, e.getMessage());

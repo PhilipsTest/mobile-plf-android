@@ -320,7 +320,7 @@ public class PIMUserManager {
         }, null);
     }
 
-    private void requestUpdateOptinAndDownloadUserprofile(UpdateUserDetailsHandler updateUserDetailsHandler, Map requestData) {
+    private void requestUpdateOptinAndDownloadUserprofile(UpdateUserDetailsHandler updateUserDetailsHandler, Map<String, String>  requestData) {
         MarketInOptedInRequest marketInOptedInRequest = new MarketInOptedInRequest(requestData);
         PIMRestClient pimRestClient = new PIMRestClient(PIMSettingManager.getInstance().getRestClient());
         pimRestClient.invokeRequest(marketInOptedInRequest, new Response.Listener<String>() {

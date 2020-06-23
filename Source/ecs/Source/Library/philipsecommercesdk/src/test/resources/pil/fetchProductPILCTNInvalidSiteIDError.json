@@ -1,0 +1,13 @@
+{
+   "errors":[
+      {
+         "id":"dde8e76e-542b-48f4-a1d9-7e0fe0bd8d9e",
+         "status":"400",
+         "code":"BAD_REQUEST",
+         "title":"Client error in API request",
+         "source":{
+            "parameter":"Base site IN_PUB doesn't exist"
+         }
+      }
+   ]
+}

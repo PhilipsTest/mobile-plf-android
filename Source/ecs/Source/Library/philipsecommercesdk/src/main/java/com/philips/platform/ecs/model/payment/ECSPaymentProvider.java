@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class ECSPaymentProvider implements Serializable {
 
+    private static final long serialVersionUID = -764238890366082907L;
     private String paymentProviderUrl;
 
     public String getWorldpayUrl() {

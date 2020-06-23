@@ -22,6 +22,7 @@ import com.philips.cdp.di.iap.utils.IAPConstant;
 
 public class EmptyCartFragment extends InAppBaseFragment implements View.OnClickListener, EventListener {
 
+    private static final long serialVersionUID = -3156161954729039267L;
     private Button mContinueShopping;
     public static final String TAG = EmptyCartFragment.class.getName();
 

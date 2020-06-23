@@ -59,6 +59,7 @@ import javax.inject.Inject;
 
 public class RegistrationFragment extends Fragment implements NetworkStateListener, BackEventListener {
 
+    private static final long serialVersionUID = -5335312992778783586L;
     @Inject
     NetworkUtility networkUtility;
 

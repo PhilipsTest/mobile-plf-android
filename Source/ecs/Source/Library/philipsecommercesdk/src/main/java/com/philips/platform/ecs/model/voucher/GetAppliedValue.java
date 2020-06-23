@@ -12,6 +12,7 @@ import java.util.List;
 
 public class GetAppliedValue implements Serializable {
 
+    private static final long serialVersionUID = -3945593918582015451L;
     private List<ECSVoucher> vouchers = new ArrayList<>();
 
     public void setVouchers(List<ECSVoucher> vouchers) {

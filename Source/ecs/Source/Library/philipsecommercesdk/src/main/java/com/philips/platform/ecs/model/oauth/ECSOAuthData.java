@@ -11,6 +11,7 @@ import java.io.Serializable;
  * The type Ecs oauth data which contains OAuth data ad returns Janrain id for hybrisOAthAuthentication and returns refresh token for hybrisRefreshOAuth.
  */
 public class ECSOAuthData  implements Serializable {
+    private static final long serialVersionUID = -7966705143102982019L;
     private String access_token;
     private String token_type;
     private String refresh_token;

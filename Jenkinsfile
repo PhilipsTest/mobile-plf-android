@@ -6,12 +6,12 @@ BranchName = env.BRANCH_NAME
  * Applicable for develop branch and build type is PSRA at 8:00 pm to 9:00 pm
  * Applicable for develop branch and build type is Java API doc at 9:00 pm to 10:00 pm
  */
-String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS" : ""
+String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS\nH H(22-23) * * * %buildType=HPFortify" : ""
 
 //label for pipeline
-def nodes = 'test'
+def nodes = '9045'
 
-if (BranchName == "develop") {
+if (BranchName == "feature/serialVersionId") {
     nodes = nodes + " && TICS"
 }
 
@@ -341,8 +341,7 @@ pipeline {
                 BuildHPFortify()   //build HPFortify
             }
         }
-
-
+        
 //        stage('Trigger E2E Test') {
 //           when {
 //                allOf {
@@ -552,13 +551,33 @@ def BuildHPFortify() {
     sh '''#!/bin/bash -l
         set -e
         chmod -R 755 .
-        ./gradlew --refresh-dependencies
-        echo "*** sourceanalyzer -b 001 -source 1.8 ./gradlew --full-stacktrace assembleRelease ***"
-        sourceanalyzer -debug -verbose -b 001 -source 1.8 ./gradlew --full-stacktrace assembleRelease
-        echo "*** sourceanalyzer -b 001 -scan -f results.fpr ***"
-        sourceanalyzer -b 001 -scan -f results.fpr
-        echo "*** fortifyclient -url https://fortify.philips.com/ssc ***"
-        fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file results.fpr -project EMS -version PR_Android
+        ./gradlew --refresh-dependencies		
+		array=(
+            'registrationApi::UR_Android'
+            'mec::MEC_ANDROID'
+            'AppInfra::AppInfra_Android'
+            'digitalCare::CC_Android'
+            'philipsecommercesdk::ECS_ANDROID'
+            'iap::IAP_Android'
+            'pif::plf_android'
+			'pim::PIM_Android'
+			'product-registration-lib::PR_Android'
+			'prx::PRX_Android'
+			'securedblibrary::SecureDB_Android'
+			'uAppFwLib::uAppFwLib_Android'
+        )
+        for index in "${array[@]}" ; do
+            KEY="${index%%::*}"
+            VALUE="${index##*::}"
+          echo "*** sourceanalyzer -b $KEY -clean ***"
+          sourceanalyzer -b $KEY -clean    
+          echo "*** sourceanalyzer -b $KEY -Xmx10G -Xss32M -debug-verbose -logfile $VALUE.txt ./gradlew $KEY:assembleRelease ***"
+          sourceanalyzer -b $KEY -Xmx10G -Xss32M -debug-verbose -logfile $VALUE.txt ./gradlew clean $KEY:assembleRelease
+          echo "*** sourceanalyzer -b $KEY -scan -f $VALUE.fpr ***"
+          sourceanalyzer -b $KEY -Xmx10G -Xss32M -scan -f $VALUE.fpr
+          echo "*** fortifyclient -url https://fortify.philips.com/ssc $VALUE***"
+          fortifyclient -url https://fortify.philips.com/ssc -authtoken ea532fe0-0cc0-4111-9c9c-f8e5425c78b1 uploadFPR -file $VALUE.fpr -project EMS -version $VALUE
+		done
     '''
 }
 

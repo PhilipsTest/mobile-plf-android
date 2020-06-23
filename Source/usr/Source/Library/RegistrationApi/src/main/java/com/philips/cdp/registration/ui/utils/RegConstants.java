@@ -110,6 +110,8 @@ public class RegConstants {
 
     public static final String SOCIAL_PROVIDER_GOOGLEPLUS = "googleplus";
 
+    public static final String SOCIAL_PROVIDER_APPLE = "apple";
+
     public static final String TERMS_N_CONDITIONS_ACCEPTED = "TERMS_N_CONDITIONS_ACCEPTED";
 
     public static final String KEY_BUNDLE_COUNTRY_CODE = "KEY_BUNDLE_COUNTRY_CODE";

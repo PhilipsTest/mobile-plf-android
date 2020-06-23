@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "id": "48eab4a2-a740-4ae7-a5b3-dfd66a34ef19",
+      "status": "403",
+      "code": "MISSING_API_KEY",
+      "title": "The required API key header is missing"
+    }
+  ]
+}

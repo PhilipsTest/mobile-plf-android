@@ -13,6 +13,7 @@ import com.philips.platform.pif.DataInterface.USR.enums.Error;
  */
 public class UserDataInterfaceException extends Exception {
 
+    private static final long serialVersionUID = -3666117690893393650L;
     Error error;
 
     public UserDataInterfaceException(Error error) {

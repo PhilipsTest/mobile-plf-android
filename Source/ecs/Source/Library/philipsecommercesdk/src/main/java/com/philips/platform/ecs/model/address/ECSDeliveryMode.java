@@ -15,6 +15,7 @@ import java.io.Serializable;
  * The values are set in setDeliveryMode and it is returned with updated data in fetchDeliveryModes
  */
 public class ECSDeliveryMode implements Parcelable, Serializable {
+    private static final long serialVersionUID = -6520630116967292115L;
     private String code;
     private DeliveryCost deliveryCost;
     private String description;

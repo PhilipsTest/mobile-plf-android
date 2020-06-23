@@ -15,6 +15,7 @@ package com.philips.platform.pif.DataInterface.MEC;
  */
 public class MECException extends Exception{
 
+    private static final long serialVersionUID = -2881418002254005687L;
     private int errorCode;
 
     public static int USER_NOT_LOGGED_IN = 2000;

@@ -37,6 +37,7 @@ public class COCOListFragment extends AbstractAppFrameworkBaseFragment implement
     public static final String SELECTED_CHAPTER = "selected_chapter";
 
     public static final String TAG=COCOListFragment.class.getSimpleName();
+    private static final long serialVersionUID = 4022581875128148377L;
     private RecyclerView cocoRecyclerView;
 
     private COCOListPresenter cocoListPresenter;

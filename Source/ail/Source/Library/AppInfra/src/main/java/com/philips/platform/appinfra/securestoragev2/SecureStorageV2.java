@@ -29,6 +29,7 @@ import javax.crypto.Cipher;
 public class SecureStorageV2 implements SecureStorageInterface {
 
     static final String RSA_WRAPPED_AES_KEY_MAIN = "rsa_wrapped_aes_encrypted_key";
+    private static final long serialVersionUID = 5696279530767888047L;
 
     private final Context mContext;
     private final AppInfraInterface mAppInfra;

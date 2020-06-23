@@ -14,6 +14,8 @@ import java.util.Map;
 
 public abstract class OAuthAppInfraAbstractRequest extends AppInfraAbstractRequest {
 
+    private static final long serialVersionUID = 7344033641912695233L;
+
     @Override
     public Token getToken() {
         return new Token() {

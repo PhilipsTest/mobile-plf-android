@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ECSRetailers implements Serializable {
+    private static final long serialVersionUID = 9198335650050005002L;
     private List<ECSRetailer> Store;
 
     public List<ECSRetailer> getRetailerList() {

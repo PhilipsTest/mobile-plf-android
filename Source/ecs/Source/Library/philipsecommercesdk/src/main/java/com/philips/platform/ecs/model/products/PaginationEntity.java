@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class PaginationEntity implements Serializable {
 
+    private static final long serialVersionUID = 5304696979768600835L;
     private int currentPage;
     private int pageSize;
     private String sort;

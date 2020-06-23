@@ -105,6 +105,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation deps.adobemobilelib
     implementation 'com.google.guava:guava:27.0.1-android'
+    implementation deps.libphonenumber
     testImplementation deps.junit
     implementation deps.greenrobot
     implementation philipsdeps.uid
@@ -118,9 +119,7 @@ dependencies {
         implementation project(strings.pif.projectName)
         implementation project(strings.usr.projectName)
         implementation project(strings.prguapp.projectName)
-        implementation project(strings.ecsuapp.projectName)
         implementation project(strings.ecstestuapp.projectName)
-        implementation project(strings.mec.projectName)
         implementation project(strings.mecuapp.projectName)
     } else {
         implementation philipsdeps.uAppFwLib
@@ -128,7 +127,6 @@ dependencies {
         implementation philipsdeps.pif
         implementation philipsdeps.pim
         implementation philipsdeps.iap
-        implementation philipsdeps.mec
         implementation philipsdeps.registrationApi
     }
 }

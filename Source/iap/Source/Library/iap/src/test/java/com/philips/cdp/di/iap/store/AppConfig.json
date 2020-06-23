@@ -10,10 +10,12 @@
     "MicrositeID": 66777,
     "RegistrationEnvironment": "Staging",
     "NL": [
-      "googleplus",
-      "facebook"
+      "apple",
+      "facebook",
+      "googleplus"
     ],
     "US": [
+      "apple",
       "facebook",
       "googleplus"
     ],
@@ -24,7 +26,7 @@
   },
   "IAP": {
     "hostport": "acc.occ.shop.philips.com",
-    "propositionid": "Tuscany2016"
+    "propositionid": "IAP_MOB_DKA",
   }
 }
 

@@ -26,6 +26,7 @@ import java.util.Map;
 
 public class RemoveVoucherRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<String> {
 
+    private static final long serialVersionUID = -3233984266193995230L;
     private final String mVoucherCode;
     private final ECSCallback<Boolean,Exception> ecsCallback;
 

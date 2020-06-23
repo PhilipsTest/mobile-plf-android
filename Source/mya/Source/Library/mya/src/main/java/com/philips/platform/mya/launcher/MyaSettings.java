@@ -18,6 +18,8 @@ import com.philips.platform.uappframework.uappinput.UappSettings;
  */
 public class MyaSettings extends UappSettings {
 
+    private static final long serialVersionUID = 8292744327757443050L;
+
     /**
      * Constructor for Mya settings
      * @since 2018.1.0

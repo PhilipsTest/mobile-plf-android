@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class CsItems implements Serializable {
 
+	private static final long serialVersionUID = -2107030004235630968L;
 	@SerializedName("csItem")
 	@Expose
 	public List<CsItemItem> csItem;

@@ -8,6 +8,7 @@ package com.philips.platform.ecs.model.retailers;
 import java.io.Serializable;
 
 public class TextEntity implements Serializable {
+    private static final long serialVersionUID = 6385548173417145638L;
     private String Key;
     private String Value;
 

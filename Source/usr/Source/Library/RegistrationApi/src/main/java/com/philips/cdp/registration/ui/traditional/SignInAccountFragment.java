@@ -347,7 +347,7 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
         spannableString.setSpan(span, 0, privacy.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        removeUnderlineFromLink(spannableString);
+        RegUtility.removeUnderlineFromLink(spannableString);
 
         pTvPrivacyPolicy.setText(spannableString);
         pTvPrivacyPolicy.setMovementMethod(LinkMovementMethod.getInstance());
@@ -357,26 +357,26 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
                 android.R.color.transparent));
     }
 
-    private void removeUnderlineFromLink(SpannableString spanableString) {
-        for (ClickableSpan u : spanableString.getSpans(0, spanableString.length(),
-                ClickableSpan.class)) {
-            spanableString.setSpan(new UnderlineSpan() {
-
-                public void updateDrawState(TextPaint tp) {
-                    tp.setUnderlineText(false);
-                }
-            }, spanableString.getSpanStart(u), spanableString.getSpanEnd(u), 0);
-        }
-
-        for (URLSpan u : spanableString.getSpans(0, spanableString.length(), URLSpan.class)) {
-            spanableString.setSpan(new UnderlineSpan() {
-
-                public void updateDrawState(TextPaint tp) {
-                    tp.setUnderlineText(false);
-                }
-            }, spanableString.getSpanStart(u), spanableString.getSpanEnd(u), 0);
-        }
-    }
+//    private void removeUnderlineFromLink(SpannableString spanableString) {
+//        for (ClickableSpan u : spanableString.getSpans(0, spanableString.length(),
+//                ClickableSpan.class)) {
+//            spanableString.setSpan(new UnderlineSpan() {
+//
+//                public void updateDrawState(TextPaint tp) {
+//                    tp.setUnderlineText(false);
+//                }
+//            }, spanableString.getSpanStart(u), spanableString.getSpanEnd(u), 0);
+//        }
+//
+//        for (URLSpan u : spanableString.getSpans(0, spanableString.length(), URLSpan.class)) {
+//            spanableString.setSpan(new UnderlineSpan() {
+//
+//                public void updateDrawState(TextPaint tp) {
+//                    tp.setUnderlineText(false);
+//                }
+//            }, spanableString.getSpanStart(u), spanableString.getSpanEnd(u), 0);
+//        }
+//    }
 
     private Disposable observeLoginButton() {
         return Observable.combineLatest(getLoginIdObservable(), getPasswordObservable(),
@@ -665,6 +665,7 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
                         RegistrationHelper.getInstance().getCountryCode());
                 ABTestClientInterface abTestClientInterface = RegistrationConfiguration.getInstance().getComponent().getAbTestClientInterface();
                 abTestClientInterface.tagEvent(FIREBASE_SUCCESSFUL_REGISTRATION_DONE, null); //No Almost Done Screen
+                return;
             }
             if (RegPreferenceUtility.getPreferenceValue(mContext, RegConstants.TERMS_N_CONDITIONS_ACCEPTED, mEmailOrMobile) && !mUser.getReceiveMarketingEmail() &&
                     (RegistrationConfiguration.getInstance().isCustomOptoin() || RegistrationConfiguration.getInstance().isSkipOptin()) &&

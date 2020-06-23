@@ -57,7 +57,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         actionMap.put(paymentType, old)
         actionMap.put(specialEvents, paymentFailure)
         MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,mEcsShoppingCart.entries)
-        MECutility.tagAndShowError(mecError, false, fragmentManager, context)
+        context?.let { MECutility.tagAndShowError(mecError, false, fragmentManager, it) }
         showErrorDialog()
         binding.root.mec_progress.visibility = View.GONE
     })

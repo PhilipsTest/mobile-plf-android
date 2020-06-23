@@ -10,6 +10,7 @@ import java.util.List;
 
 public class RegionsList implements Serializable {
 
+    private static final long serialVersionUID = 3596358100328977708L;
     private List<ECSRegion> regions;
 
     public List<ECSRegion> getRegions() {

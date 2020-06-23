@@ -15,6 +15,7 @@ import java.util.List;
  * It is passed as parameter when creating cart
  */
 public class ECSShoppingCart implements Serializable {
+    private static final long serialVersionUID = 4729857104132493184L;
     private boolean calculated;
     private String code;
 
@@ -149,6 +150,9 @@ public class ECSShoppingCart implements Serializable {
     public int getTotalItems() {
         return totalItems;
     }
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
+    }
 
     public TotalPriceEntity getTotalPrice() {
         return totalPrice;
@@ -172,5 +176,8 @@ public class ECSShoppingCart implements Serializable {
 
     public List<ECSEntries> getEntries() {
         return entries;
+    }
+    public void setEntries(List<ECSEntries> entries) {
+        this.entries = entries;
     }
 }

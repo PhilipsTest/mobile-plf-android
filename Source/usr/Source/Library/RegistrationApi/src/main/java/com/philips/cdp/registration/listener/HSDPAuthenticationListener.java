@@ -1,14 +1,12 @@
 package com.philips.cdp.registration.listener;
 
 /**
- * @deprecated since 1903
+ *  Not used for PIM
  */
-@Deprecated
 public interface HSDPAuthenticationListener {
 
     /**
      * Callback when HSDP login success happened
-     *
      * @since 1804.0
      */
     void onHSDPLoginSuccess();
