@@ -31,6 +31,8 @@ object ECSDataHolder {
 
     var urlMap: MutableMap<String, ServiceDiscoveryService>? = null
 
+    var authToken: String? = null
+
     private val configError = AppConfigurationInterface.AppConfigurationError()
 
 
