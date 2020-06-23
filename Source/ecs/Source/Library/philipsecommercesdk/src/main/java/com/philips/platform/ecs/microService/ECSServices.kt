@@ -81,7 +81,7 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun createShoppingCart(ecsProduct: ECSProduct ,quantity : Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+    fun createShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
 
     }
 
