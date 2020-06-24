@@ -12,8 +12,10 @@
 
 package com.philips.platform.ecs.microService.manager
 
+import com.android.volley.Request
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.request.CreateCartRequest
 import com.philips.platform.ecs.microService.request.GetCartRequest
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
 
@@ -27,5 +29,10 @@ class ECSCartManager {
         ecsException?.let { throw ecsException } ?: kotlin.run {
           requestHandler.handleRequest(GetCartRequest(ecsCallback))
         }
+    }
+
+    fun createShoppingCart(){
+        val cCart= CreateCartRequest()
+        cCart.requestMethod= Request.Method.POST
     }
 }
