@@ -35,7 +35,7 @@ import kotlin.test.assertNotNull
 
 @PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartCallback::class,ECSVoucherCallback::class,MECBulkRatingCallback::class,BVConversationsClient::class,LoadCallDisplay::class)
 @RunWith(PowerMockRunner::class)
-class ECSShoppingCartRepositoryTest {
+class ECSPILShoppingCartRepositoryTest {
 
     lateinit var ecsShoppingCartRepository: ECSShoppingCartRepository
 

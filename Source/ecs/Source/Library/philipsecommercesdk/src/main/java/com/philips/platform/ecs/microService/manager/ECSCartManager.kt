@@ -15,15 +15,16 @@ package com.philips.platform.ecs.microService.manager
 import com.android.volley.Request
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart
 import com.philips.platform.ecs.microService.request.CreateCartRequest
 import com.philips.platform.ecs.microService.request.GetCartRequest
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
+
 
 class ECSCartManager {
 
     internal var requestHandler = RequestHandler()
 
-    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>){
         val ecsException = ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
@@ -31,8 +32,13 @@ class ECSCartManager {
         }
     }
 
-    fun createShoppingCart(){
-        val cCart= CreateCartRequest()
-        cCart.requestMethod= Request.Method.POST
+    fun createECSShoppingCart(ctn: String, quantity: Int = 1,ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>){
+        val createCartRequest= CreateCartRequest(ctn,quantity,ecsCallback)
+        createCartRequest.requestMethod= Request.Method.POST
+
+        val ecsException = ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
+        ecsException?.let { throw ecsException } ?: kotlin.run {
+            requestHandler.handleRequest(createCartRequest)
+        }
     }
 }

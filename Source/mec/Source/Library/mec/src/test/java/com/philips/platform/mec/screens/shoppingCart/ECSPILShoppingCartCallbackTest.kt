@@ -40,7 +40,7 @@ import kotlin.test.assertNotNull
 
 @PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartRepository::class, HybrisAuth::class,ECSEntries::class)
 @RunWith(PowerMockRunner::class)
-class ECSShoppingCartCallbackTest {
+class ECSPILShoppingCartCallbackTest {
 
     lateinit var ecsShoppingCartCallback: ECSShoppingCartCallback
 
