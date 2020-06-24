@@ -266,7 +266,7 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun getProductInfo(product: ECSProduct): String {
-            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
+            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
             protuctDetail += ";" + product.code
            return protuctDetail
         }
@@ -278,7 +278,7 @@ class MECAnalytics {
         * */
         @JvmStatic
         fun getProductInfoWithChangedQuantity(product: ECSProduct,basePriceEntity: BasePriceEntity, changedQuantity: Int): String {
-            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
+            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
             protuctDetail += ";" + product.code
             protuctDetail += ";" + changedQuantity //changed Quantity e.g. 2 product added OR 3 product deleted
             var totalPrice: Double =getProductPrice(product,basePriceEntity)*changedQuantity.toDouble() // unit Price * quantity
@@ -305,7 +305,7 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun getProductInfoWithChangedQuantity(product: ECSProduct, changedQuantity: Int): String {
-            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
+            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
             protuctDetail += ";" + product.code
             protuctDetail += ";" + changedQuantity //changed Quantity e.g. 1 product added
             protuctDetail += ";" + getProductPrice(product)
