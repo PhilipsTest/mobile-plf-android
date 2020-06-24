@@ -12,8 +12,9 @@
 
 package com.philips.platform.ecs.microService
 
+import androidx.databinding.library.BuildConfig
 import com.philips.platform.appinfra.AppInfra
-import com.philips.platform.appinfra.BuildConfig
+
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
@@ -21,13 +22,14 @@ import com.philips.platform.ecs.microService.manager.ECSCartManager
 import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
+import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.util.ECSDataHolder
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
+
 
 
 class ECSServices(appInfra: AppInfra) {
@@ -81,12 +83,13 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun createShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+    fun createECSShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>){
+        ecsCartManager.createECSShoppingCart(ctn,quantity,ecsCallback)
 
     }
 
     @Throws(ECSException::class)
-    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>){
        ecsCartManager.fetchShoppingCart(ecsCallback)
     }
 

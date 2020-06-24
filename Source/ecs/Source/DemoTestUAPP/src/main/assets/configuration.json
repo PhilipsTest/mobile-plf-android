@@ -204,10 +204,20 @@
         {
           "name": "createShoppingCart",
           "apiNumber": 51,
-          "editText": 0,
+          "editText": 2,
           "spinner": 0,
           "button": 0,
-          "editTexts": [],
+          "editTexts": [{
+            "tag": "et_one",
+            "hint": "enter CTN"
+          },
+            {
+              "tag": "et_two",
+              "text": "1",
+              "inputType": 2,
+              "hint": "enter Quantity"
+            }
+          ],
           "spinners": [],
           "switches": []
         },
