@@ -8,10 +8,9 @@ import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.replaceParam
-import com.philips.platform.ecs.util.ECSConfiguration
 import org.json.JSONObject
 
-class CreateCartRequest(private val ctn: String, private val quantity: Int,private val ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>)  : ECSJsonRequest(ecsCallback){
+class CreateCartRequest(private val ctn: String, private val quantity: Int,private val ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>)  : ECSJsonAuthRequest(ecsCallback){
 
     val urlCreateCart = "https://acc.eu-west-1.api.philips.com/commerce-service/cart?siteId=%siteId%&language=%language%&country=%country%&productId=%ctn%&quantity=%quantity%"
 
@@ -32,8 +31,7 @@ class CreateCartRequest(private val ctn: String, private val quantity: Int,priva
 
     override fun getHeader(): MutableMap<String, String>? {
         var headers:MutableMap<String, String>? = super.getHeader()
-        val authBearer:String = "bearer "+ ECSConfiguration.INSTANCE.accessToken
-        headers?.put("Authorization",authBearer)
+        headers?.put("Content-Type","application/json")
         return headers
     }
     
