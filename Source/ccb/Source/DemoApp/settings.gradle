@@ -1,0 +1,5 @@
+include ':app',':ccbUApp'
+
+project(':ccbUApp').projectDir = new File('../DemoUApp')
+include ':ccb'
+project(':ccb').projectDir = new File('../Library/converstationalchatbot')

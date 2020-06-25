@@ -40,5 +40,8 @@ ext.strings = [
         pimuapp:[projectName:':pimUApp', artifactName:'pimUApp'],
         pim: [projectName:':pim', artifactName:'pim'],
         mec: [projectName:':mec', artifactName:'mec'],
-        mecuapp:[projectName:':mecUApp', artifactName:'mecUApp']
+        mecuapp:[projectName:':mecUApp', artifactName:'mecUApp'],
+
+        ccbuapp:[projectName:':ccbUApp', artifactName:'ccbUApp'],
+        ccb: [projectName:':converstationalChatBot', artifactName:'converstationalChatBot']
 ]

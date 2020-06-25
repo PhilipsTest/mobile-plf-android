@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2015-2018 Koninklijke Philips N.V.
  * All rights reserved.
@@ -45,6 +46,8 @@ include ext.strings.ecs.projectName
 include ext.strings.ecstestuapp.projectName
 include ext.strings.iapuapp.projectName
 
+include ext.strings.ccb.projectName
+include ext.strings.ccbuapp.projectName
 
 //opa archive references:
 project(ext.strings.ail.projectName).projectDir = new File('./Source/ail/Source/Library/AppInfra')
@@ -91,6 +94,11 @@ project(ext.strings.mecuapp.projectName).projectDir = new File('./Source/mec/Sou
 //include ':UserRegistrationApp'
 //project(':UserRegistrationApp').projectDir = new File('./Source/usr/Source/DemoApp/app')
 
+project(ext.strings.ccb.projectName).projectDir = new File('./Source/ccb/Source/Library/converstationalChatBot')
+project(ext.strings.ccbuapp.projectName).projectDir = new File('./Source/ccb/Source/DemoUApp')
+
+include(':ccbApp')
+project(':ccbApp').projectDir = new File('./Source/ccb/Source/DemoApp/app')
 
 include(':pimApp')
 project(':pimApp').projectDir = new File('./Source/pim/Source/DemoApp/app')
