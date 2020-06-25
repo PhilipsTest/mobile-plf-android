@@ -1,11 +1,12 @@
 package com.philips.platform.ecs.microService.request
 
-import android.util.Log
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_CREATE_CART
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ErrorHandler
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
@@ -39,28 +40,26 @@ class CreateCartRequest(private val ctn: String, private val quantity: Int,priva
 
     /** Called when a response is received.  */
     override fun onResponse(response: JSONObject) {
-        val shoppingCart = response.getData(ECSPILShoppingCart::class.java)
-        Log.v("CREATE",shoppingCart.toString() )
+        val ecsShoppingCart = response.getData(ECSPILShoppingCart::class.java)
+        
+        ecsShoppingCart ?.let { getCartProductDetails(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}
 
-        val eCSProductManager = ECSProductManager()
-       /*var  productList: List<ECSProduct>  =  shoppingCart.data.attributes.items // PRX part
-
-        productList?.let { getProductsSummary(eCSProductManager, it) }?:kotlin.run {
-            val ecsError = ECSError(ECSErrorType.ECSPIL_NOT_FOUND_productId.getLocalizedErrorString(), ECSErrorType.ECSPIL_NOT_FOUND_productId.errorCode, ECSErrorType.ECSPIL_NOT_FOUND_productId)
-            ecsCallback.onFailure(ecsError)
-        }*/
     }
 
-   /* private fun getProductsSummary(eCSProductManager: ECSProductManager, ecsProducts: ECSProducts) {
-        eCSProductManager.fetchProductSummaries(ecsProducts, object : ECSCallback<List<ECSProduct>, ECSError> {
-            override fun onResponse(result: List<ECSProduct>) {
-                ecsProducts.commerceProducts = result
-                ecsCallback.onResponse(ecsProducts)
-            }
+    private fun getCartProductDetails(ecsShoppingCart: ECSPILShoppingCart) {
+        for (item in ecsShoppingCart.data.attributes.items){
+            ECSProductManager().getProductFor(item.id,object : ECSCallback<ECSProduct?, ECSError>{
+                override fun onResponse(result: ECSProduct?) {
+                    TODO("Not yet implemented")
+                }
 
-            override fun onFailure(ecsError: ECSError) {
-                ecsCallback.onResponse(ecsProducts)
-            }
-        })
-    }*/
+                override fun onFailure(ecsError: ECSError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+
+        //once all products are fetched for ID , give back success callback
+        ecsCallback.onResponse(ecsShoppingCart)
+    }
 }
