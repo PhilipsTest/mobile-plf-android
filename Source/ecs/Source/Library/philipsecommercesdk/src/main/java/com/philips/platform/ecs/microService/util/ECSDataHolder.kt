@@ -17,9 +17,9 @@ import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
 import com.philips.platform.ecs.microService.model.config.ECSConfig
+import com.philips.platform.ecs.util.ECSConfiguration
 
 object ECSDataHolder {
-
 
 
     var baseURL: String? = null
@@ -31,7 +31,8 @@ object ECSDataHolder {
 
     var urlMap: MutableMap<String, ServiceDiscoveryService>? = null
 
-    var authToken: String? = null
+    //TODO to be removed later , for now we are using occ accesstoken
+    var authToken: String? = ECSConfiguration.INSTANCE.accessToken
 
     private val configError = AppConfigurationInterface.AppConfigurationError()
 

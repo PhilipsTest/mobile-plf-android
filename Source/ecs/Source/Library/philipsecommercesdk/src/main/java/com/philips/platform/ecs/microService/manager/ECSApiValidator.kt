@@ -40,11 +40,17 @@ class ECSApiValidator {
         return null
     }
 
-    //TODO
+    private fun validateAuth(): ECSException? {
+        if(ECSDataHolder.authToken == null) return ECSException(ECSErrorType.ECSOAuthNotCalled.getLocalizedErrorString(), ECSErrorType.ECSOAuthNotCalled.errorCode)
+        return null
+    }
+
+
     private fun validateLocaleHybrisAndAuth(): ECSException? {
 
         if (validateLocale() != null) return validateLocale()
         if (validateLocaleAndHybris() != null) return validateLocaleAndHybris()
+        if (validateAuth()!=null) return validateAuth()
         return null
     }
 

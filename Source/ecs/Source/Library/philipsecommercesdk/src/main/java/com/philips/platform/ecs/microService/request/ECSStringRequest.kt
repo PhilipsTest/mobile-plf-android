@@ -25,7 +25,7 @@ abstract class ECSStringRequest(ecsErrorCallback: ECSCallback<*, ECSError>) : EC
     internal fun getStringRequest(): StringRequest? {
         return StringRequest(requestMethod, getURL()
                 ,this, this,
-                getHeader(), getParams(),tokenProviderInterface)
+                getHeader(), getParams(),getTokenProviderInterface())
     }
 
     override fun executeRequest() {
