@@ -21,8 +21,10 @@ import org.json.JSONObject
 
 class GetCartRequest(val ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>) : ECSJsonAuthRequest(ecsCallback) {
 
+    val getCartURL = "https://acc.eu-west-1.api.philips.com/commerce-service/cart/%cartId%?siteId=%siteId%&language=%language%&country=%country%"
+
     override fun getServiceID(): String {
-        return "getCart"
+        return "ecs.getCart"
     }
 
     override fun onResponse(response: JSONObject?) {
