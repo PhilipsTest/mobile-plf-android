@@ -28,7 +28,6 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
     lateinit var locale: String
     var requestMethod = Request.Method.GET
 
-    var tokenProviderInterface : TokenProviderInterface? = null
     var jsonObjectForRequest : JSONObject? = null
 
 
@@ -38,7 +37,9 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
     open fun getURL():String{
         return url
     }
-
+    open fun getTokenProviderInterface() : TokenProviderInterface?{
+        return null
+    }
     override fun onErrorResponse(error: VolleyError?) {
         ecsErrorCallback.onFailure(ErrorHandler().getECSError(error))
     }

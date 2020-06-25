@@ -8,7 +8,7 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart;
 
-public class PILCreateShoppingCart extends BaseAPIFragment {
+public class PILCreateShoppingCartFragment extends BaseAPIFragment {
 
     EditText ctnET, quantityET;
     String ctn="";
