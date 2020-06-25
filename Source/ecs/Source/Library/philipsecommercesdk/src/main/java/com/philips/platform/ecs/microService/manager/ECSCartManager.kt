@@ -38,7 +38,8 @@ class ECSCartManager {
 
         val ecsException = ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
         ecsException?.let { throw ecsException } ?: kotlin.run {
-            requestHandler.handleRequest(createCartRequest)
+            createCartRequest.executeRequest()
+           // requestHandler.handleRequest(createCartRequest)
         }
     }
 }

@@ -168,6 +168,7 @@
     <!--new strings-->
 
 
+    <string name="mec_enter_product_more_than_0">Please enter product quantity more than 0</string>
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>
