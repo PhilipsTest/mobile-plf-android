@@ -17,9 +17,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Promotion(
-    val code: String,
-    val enabled: String,
-    val endDate: String,
-    val message: String,
-    val type: String
+    val code: String?,
+    val enabled: String?,
+    val endDate: String?,
+    val message: String?,
+    val type: String?
 ):Parcelable

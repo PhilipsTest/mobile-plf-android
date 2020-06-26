@@ -18,9 +18,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ProductPromotion(
-    val consumedItems: List<ConsumedItem>,
-    val id: String,
-    val percentageDiscount: Double,
-    val promotionDiscount: Price,
-    val type: String
+    val consumedItems: List<ConsumedItem>?,
+    val id: String?,
+    val percentageDiscount: Double?,
+    val promotionDiscount: Price?,
+    val type: String?
 ):Parcelable

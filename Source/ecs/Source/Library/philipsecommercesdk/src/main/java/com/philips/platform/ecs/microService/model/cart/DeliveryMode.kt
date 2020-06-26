@@ -6,9 +6,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class DeliveryMode(
-        val collectionPoint: Boolean,
-        val deliveryCost: Price,
-        val description: String,
-        val id: String,
-        val label: String
+        val collectionPoint: Boolean?,
+        val deliveryCost: Price?,
+        val description: String?,
+        val id: String?,
+        val label: String?
 ): Parcelable

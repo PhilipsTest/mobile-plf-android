@@ -17,6 +17,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Country(
-    val isocode: String,
-    val name: String
+    val isocode: String?,
+    val name: String?
 ):Parcelable

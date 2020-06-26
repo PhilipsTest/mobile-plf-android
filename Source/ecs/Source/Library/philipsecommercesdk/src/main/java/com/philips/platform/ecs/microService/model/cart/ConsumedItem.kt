@@ -18,7 +18,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ConsumedItem(
-    val adjustedUnitPrice: Price,
-    val itemCartOrder: Int,
-    val quantity: Int
+    val adjustedUnitPrice: Price?,
+    val itemCartOrder: Int?,
+    val quantity: Int?
 ):Parcelable

@@ -18,7 +18,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Voucher(
-    val freeShipping: Boolean,
-    val id: String,
-    val value: Price
+    val freeShipping: Boolean?,
+    val id: String?,
+    val value: Price?
 ):Parcelable

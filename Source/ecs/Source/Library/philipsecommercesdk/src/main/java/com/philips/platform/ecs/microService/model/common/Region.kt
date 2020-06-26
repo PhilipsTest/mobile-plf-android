@@ -17,7 +17,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Region(
-    val isocode: String,
-    val isocodeShort: String,
-    val name: String
+    val isocode: String?,
+    val isocodeShort: String?,
+    val name: String?
 ):Parcelable

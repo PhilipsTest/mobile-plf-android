@@ -17,7 +17,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Notification(
-    val id: String,
-    val message: String,
-    val orderBlocking: Boolean
+    val id: String?,
+    val message: String?,
+    val orderBlocking: Boolean?
 ):Parcelable
