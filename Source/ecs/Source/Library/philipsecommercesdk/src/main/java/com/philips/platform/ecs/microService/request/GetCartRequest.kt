@@ -15,15 +15,13 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_GET_CART
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ErrorHandler
-import com.philips.platform.ecs.microService.manager.ECSProductManager
-import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart
-import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.replaceParam
 
 import org.json.JSONObject
 
-class GetCartRequest(val ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>) : ECSJsonAuthRequest(ecsCallback) {
+class GetCartRequest(val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>) : ECSJsonAuthRequest(ecsCallback) {
 
     val hardCodedCartURL = "https://acc.eu-west-1.api.philips.com/commerce-service/cart/%cartId%?siteId=%siteId%&language=%language%&country=%country%"
 
@@ -42,7 +40,7 @@ class GetCartRequest(val ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>)
     }
 
     override fun onResponse(response: JSONObject?) {
-        val ecsShoppingCart = response?.getData(ECSPILShoppingCart::class.java)
+        val ecsShoppingCart = response?.getData(ECSShoppingCart::class.java)
         ecsShoppingCart ?.let {  ecsCallback.onResponse(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}
     }
 }
