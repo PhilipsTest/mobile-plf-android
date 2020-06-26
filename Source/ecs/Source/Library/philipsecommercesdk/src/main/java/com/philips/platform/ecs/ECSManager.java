@@ -92,7 +92,7 @@ class ECSManager {
             @Override
             public void onFailure(Exception error, ECSError ecsError) {
                 ecsCallback.onResponse(false);
-                resetSiteIDAndRootCategory();
+                //ecsCallback.onFailure(error, ecsError);
             }
         }).executeRequest();
 
@@ -115,17 +115,11 @@ class ECSManager {
                 ECSConfig hybrisConfigResponse = new ECSConfig();
                 hybrisConfigResponse.setLocale(ECSConfiguration.INSTANCE.getLocale());
                 hybrisConfigResponse.setHybris(false);
-                resetSiteIDAndRootCategory();
                 ecsCallback.onResponse(hybrisConfigResponse);
             }
         };
         GetConfigurationRequest getConfigurationRequest = getConfigurationRequestObject(ecsCallback1);
         getConfigurationRequest.executeRequest();
-    }
-
-    private void resetSiteIDAndRootCategory() {
-        ECSConfiguration.INSTANCE.setSiteId(null);
-        ECSConfiguration.INSTANCE.setRootCategory(null);
     }
 
     GetConfigurationRequest getConfigurationRequestObject(ECSCallback<ECSConfig, Exception> eCSCallback) {

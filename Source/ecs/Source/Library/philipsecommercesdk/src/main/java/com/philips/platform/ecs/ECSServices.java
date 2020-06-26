@@ -98,7 +98,6 @@ public class ECSServices implements ECSServiceProvider {
                     ecsCallValidator.getHybrisConfig(ecsCallback);
                 }else {
                     ecsCallback.onResponse(false);
-                    resetConfig();
                 }
             }
 
@@ -147,7 +146,6 @@ public class ECSServices implements ECSServiceProvider {
                     ECSConfig hybrisConfigResponse = new ECSConfig();
                     hybrisConfigResponse.setLocale(locale);
                     hybrisConfigResponse.setHybris(false);
-                    resetConfig();
                     ecsCallback.onResponse(hybrisConfigResponse);
                 }
             }
@@ -157,11 +155,6 @@ public class ECSServices implements ECSServiceProvider {
         ECSConfiguration.INSTANCE.getAppInfra().getServiceDiscovery().getServicesWithCountryPreference(listOfServiceId, onGetServiceUrlMapListener,null);
     }
 
-    private void resetConfig() {
-        ECSConfiguration.INSTANCE.setSiteId(null);
-        ECSConfiguration.INSTANCE.setRootCategory(null);
-        ECSConfiguration.INSTANCE.setBaseURL(null);
-    }
 
 
     /**
