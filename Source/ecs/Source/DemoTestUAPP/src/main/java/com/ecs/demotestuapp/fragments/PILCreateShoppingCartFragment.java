@@ -6,7 +6,7 @@ import android.widget.EditText;
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
-import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart;
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart;
 
 public class PILCreateShoppingCartFragment extends BaseAPIFragment {
 
@@ -35,7 +35,7 @@ public class PILCreateShoppingCartFragment extends BaseAPIFragment {
         ECSServices microECSServices = new ECSServices(mAppInfraInterface);
         try{
 
-            ECSCallback ecsCallback= new ECSCallback<ECSPILShoppingCart, ECSError>(){
+            ECSCallback ecsCallback= new ECSCallback<ECSShoppingCart, ECSError>(){
 
                 @Override
                 public void onFailure(ECSError ecsError) {
@@ -45,7 +45,7 @@ public class PILCreateShoppingCartFragment extends BaseAPIFragment {
                 }
 
                 @Override
-                public void onResponse(ECSPILShoppingCart result) {
+                public void onResponse(ECSShoppingCart result) {
                     gotoResultActivity(getJsonStringFromObject(result));
                     getProgressBar().setVisibility(View.GONE);
                 }

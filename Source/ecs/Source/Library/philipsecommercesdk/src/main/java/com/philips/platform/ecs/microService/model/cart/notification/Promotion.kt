@@ -10,13 +10,16 @@
  *
  */
 
-package com.philips.platform.ecs.microService.model.product
+package com.philips.platform.ecs.microService.model.cart.notification
 
 import android.os.Parcelable
-import com.philips.platform.ecs.microService.model.common.Price
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Promotions(
-    val productPromotions: List<Price>?
+data class Promotion(
+    val code: String,
+    val enabled: String,
+    val endDate: String,
+    val message: String,
+    val type: String
 ): Parcelable

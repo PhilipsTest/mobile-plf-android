@@ -22,7 +22,7 @@ import com.philips.platform.ecs.microService.manager.ECSCartManager
 import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
-import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -83,13 +83,13 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun createECSShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>){
+    fun createECSShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
         ecsCartManager.createECSShoppingCart(ctn,quantity,ecsCallback)
 
     }
 
     @Throws(ECSException::class)
-    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>){
+    fun fetchShoppingCart(ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
        ecsCartManager.fetchShoppingCart(ecsCallback)
     }
 

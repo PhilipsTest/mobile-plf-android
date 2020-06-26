@@ -6,7 +6,7 @@ import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
-import com.philips.platform.ecs.microService.model.cart.ECSPILShoppingCart;
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart;
 
 public class PILFetchShoppingCartFragment extends BaseAPIFragment {
 
@@ -16,9 +16,9 @@ public class PILFetchShoppingCartFragment extends BaseAPIFragment {
         ECSServices microECSServices = new ECSServices(mAppInfraInterface);
 
         try {
-            microECSServices.fetchShoppingCart(new ECSCallback<ECSPILShoppingCart, ECSError>() {
+            microECSServices.fetchShoppingCart(new ECSCallback<ECSShoppingCart, ECSError>() {
                 @Override
-                public void onResponse(ECSPILShoppingCart result) {
+                public void onResponse(ECSShoppingCart result) {
                     gotoResultActivity(getJsonStringFromObject(result));
                     getProgressBar().setVisibility(View.GONE);
                 }
