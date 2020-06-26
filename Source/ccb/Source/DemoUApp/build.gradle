@@ -31,4 +31,9 @@ android {
 
 dependencies {
     implementation philipsdeps.uAppFwLib
+    implementation philipsdeps.AppInfra
+    implementation project(':converstationalChatBot')
+
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.constraintlayout
 }

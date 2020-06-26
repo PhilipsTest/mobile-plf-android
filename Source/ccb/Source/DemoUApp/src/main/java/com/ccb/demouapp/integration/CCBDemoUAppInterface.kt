@@ -1,6 +1,11 @@
 package com.ccb.demouapp.integration
 
+import android.content.Context
+import android.content.Intent
+import com.ccb.demouapp.CCBDemoUAppActivity
+import com.philips.platform.ccb.integration.CCBInterface
 import com.philips.platform.uappframework.UappInterface
+import com.philips.platform.uappframework.launcher.ActivityLauncher
 import com.philips.platform.uappframework.launcher.UiLauncher
 import com.philips.platform.uappframework.uappinput.UappDependencies
 import com.philips.platform.uappframework.uappinput.UappLaunchInput
@@ -8,11 +13,17 @@ import com.philips.platform.uappframework.uappinput.UappSettings
 
 class CCBDemoUAppInterface : UappInterface {
 
-    override fun init(p0: UappDependencies, p1: UappSettings) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private lateinit var context: Context
+
+    override fun init(uappDependencies: UappDependencies, uappSettings: UappSettings) {
+        context = uappSettings.context
+
+        var ccbInterface = CCBInterface()
+        ccbInterface.init(uappDependencies,uappSettings)
     }
 
-    override fun launch(p0: UiLauncher, p1: UappLaunchInput) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun launch(uiLauncher: UiLauncher, uiLaunchInput: UappLaunchInput) {
+        val intent = Intent(context, CCBDemoUAppActivity::class.java)
+        (uiLauncher as ActivityLauncher).activityContext.startActivity(intent)
     }
 }

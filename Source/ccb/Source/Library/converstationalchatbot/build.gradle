@@ -44,4 +44,5 @@ android {
 
 dependencies {
     implementation philipsdeps.uAppFwLib
+    implementation philipsdeps.AppInfra
 }

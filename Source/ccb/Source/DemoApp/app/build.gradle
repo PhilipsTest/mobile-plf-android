@@ -36,6 +36,10 @@ android {
 }
 
 dependencies {
-    implementation philipsdeps.uid
     implementation deps.androidx.constraintlayout
+
+    implementation philipsdeps.uAppFwLib
+    implementation philipsdeps.uid
+    implementation philipsdeps.AppInfra
+    implementation project(':ccbUApp')
 }
