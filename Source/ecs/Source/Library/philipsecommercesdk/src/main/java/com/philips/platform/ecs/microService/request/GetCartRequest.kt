@@ -43,25 +43,6 @@ class GetCartRequest(val ecsCallback: ECSCallback<ECSPILShoppingCart, ECSError>)
 
     override fun onResponse(response: JSONObject?) {
         val ecsShoppingCart = response?.getData(ECSPILShoppingCart::class.java)
-
-        ecsShoppingCart ?.let { getCartProductDetails(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}
+        ecsShoppingCart ?.let {  ecsCallback.onResponse(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}
     }
-
-    private fun getCartProductDetails(ecsShoppingCart: ECSPILShoppingCart) {
-        for (item in ecsShoppingCart.data.attributes.items){
-            ECSProductManager().getProductFor(item.id,object : ECSCallback<ECSProduct?, ECSError>{
-                override fun onResponse(result: ECSProduct?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onFailure(ecsError: ECSError) {
-                    TODO("Not yet implemented")
-                }
-            })
-        }
-
-        //once all products are fetched for ID , give back success callback
-        ecsCallback.onResponse(ecsShoppingCart)
-    }
-
 }
