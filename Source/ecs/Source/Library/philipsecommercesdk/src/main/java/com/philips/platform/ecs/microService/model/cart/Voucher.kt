@@ -10,10 +10,15 @@
  *
  */
 
-package com.philips.platform.ecs.microService.model.cart.notification
+package com.philips.platform.ecs.microService.model.cart
 
-data class AppliedVoucher(
+import android.os.Parcelable
+import com.philips.platform.ecs.microService.model.common.Price
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Voucher(
     val freeShipping: Boolean,
     val id: String,
-    val value: Value
-)
+    val value: Price
+):Parcelable
