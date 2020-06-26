@@ -30,12 +30,6 @@ class CreateCartRequest(private val ctn: String, private val quantity: Int,priva
         return replaceURLMap
     }
 
-    override fun getHeader(): MutableMap<String, String>? {
-        var headers:MutableMap<String, String>? = super.getHeader()
-        headers?.put("Content-Type","application/json")
-        return headers
-    }
-    
 
 
     /** Called when a response is received.  */

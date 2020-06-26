@@ -60,6 +60,7 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
     open fun  getHeader(): MutableMap<String, String>?{
         val headerMap = HashMap<String,String>()
         headerMap["Accept"] = "application/json"
+        headerMap["Content-Type"] = "application/json"
         ECSDataHolder.getAPIKey() ?.let { headerMap["Api-Key"] = it }
         headerMap["Api-Version"] = "1"
         return headerMap
