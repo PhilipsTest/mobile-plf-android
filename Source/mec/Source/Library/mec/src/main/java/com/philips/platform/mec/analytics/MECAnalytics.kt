@@ -266,9 +266,9 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun getProductInfo(product: ECSProduct): String {
-            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
-            protuctDetail += ";" + product.code
-           return protuctDetail
+            var productDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
+            productDetail += ";" + product.code
+           return productDetail
         }
 
         /*
