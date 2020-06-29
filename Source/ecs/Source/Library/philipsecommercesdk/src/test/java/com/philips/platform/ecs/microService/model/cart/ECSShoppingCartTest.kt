@@ -14,8 +14,6 @@ package com.philips.platform.ecs.microService.model.cart
 
 import org.json.JSONObject
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.MockitoAnnotations
@@ -34,6 +32,6 @@ class ECSShoppingCartTest {
         val errorString =   ClassLoader.getSystemResource("pil/cart/AddToCartSuccessWithProductMoreQuantityThanStock.json").readText()
         val jsonObject = JSONObject(errorString)
 
-        jsonObject.
+       // jsonObject.
     }
 }
