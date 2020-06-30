@@ -40,6 +40,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
     private lateinit var paymentViewModel: PaymentViewModel
     private lateinit var mEcsOrderDetail: ECSOrderDetail
     private lateinit var mEcsShoppingCart: ECSShoppingCart
+    private  var containerID:Int=0
 
     companion object {
         const val TAG:String="MECCVVFragment"
@@ -75,6 +76,8 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         mEcsShoppingCart=bundle?.getSerializable(MECConstant.MEC_SHOPPING_CART) as ECSShoppingCart
         binding.paymentMethod=ecsPayment
 
+        containerID= arguments?.getInt(MECConstant.MEC_FRAGMENT_CONTAINER_ID)!!
+
         paymentViewModel =  ViewModelProviders.of(this).get(PaymentViewModel::class.java)
         paymentViewModel.ecsOrderDetail.observe(this,orderDetailObserver)
         paymentViewModel.mecError.observe(this,errorObserver)
@@ -99,11 +102,11 @@ class MECCVVFragment: BottomSheetDialogFragment() {
     private fun gotoPaymentConfirmationFragment(){
         val mecPaymentConfirmationFragment : MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
         val bundle = Bundle()
-        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mEcsOrderDetail)
+       // bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mEcsOrderDetail)
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, java.lang.Boolean.TRUE)
         bundle.putString(paymentType,old)
         mecPaymentConfirmationFragment.arguments = bundle
-        replaceFragment(mecPaymentConfirmationFragment, false)
+        replaceFragment(mecPaymentConfirmationFragment, true)
     }
 
     private fun replaceFragment(newFragment: MecBaseFragment, isReplaceWithBackStack: Boolean) {
@@ -114,7 +117,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
 
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
                 val simpleName = newFragment.javaClass.simpleName
-                transaction.replace(id, newFragment, simpleName)
+                transaction.replace(containerID, newFragment, simpleName)
                 if (isReplaceWithBackStack) {
                     transaction.addToBackStack(simpleName)
                 }
