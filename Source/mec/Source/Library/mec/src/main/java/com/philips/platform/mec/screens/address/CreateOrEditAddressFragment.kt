@@ -42,7 +42,7 @@ import java.io.Serializable
 
 
 class CreateOrEditAddressFragment : MecBaseFragment() {
-    private val TAG: String = "EditAddressFragment"
+    private val TAG: String = "CreateOrEditAddressFragment"
 
     override fun getFragmentTag(): String {
         return TAG
