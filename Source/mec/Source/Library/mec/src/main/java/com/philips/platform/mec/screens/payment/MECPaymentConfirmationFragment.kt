@@ -29,7 +29,7 @@ import com.philips.platform.pif.DataInterface.USR.UserDetailConstants
 import java.util.*
 
 class MECPaymentConfirmationFragment : MecBaseFragment() {
-    private val TAG: String = MECPaymentConfirmationFragment::class.java.simpleName
+
 
 
     private var paymentStatus: Boolean = false
@@ -93,7 +93,7 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
     }
 
     fun onClickOk(){
-        moveToCaller(paymentStatus,TAG)
+        moveToCaller(paymentStatus,getFragmentTag())
         resetPaymentMethods()
     }
 
