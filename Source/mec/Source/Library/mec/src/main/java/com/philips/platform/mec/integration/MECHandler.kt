@@ -12,7 +12,6 @@ package com.philips.platform.mec.integration
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.model.config.ECSConfig
@@ -123,7 +122,7 @@ class MECHandler{
         val fragmentLauncher = mUiLauncher as FragmentLauncher
         bundle.putInt("fragment_container", fragmentLauncher.parentContainerResourceID) // frame_layout for fragment
         mecLandingFragment.arguments = bundle
-
+        MECDataHolder.INSTANCE.mecLaunchingFragmentName=mecLandingFragment.getFragmentTag()
 
         MECDataHolder.INSTANCE.setUpdateCartListener(fragmentLauncher.actionbarListener, mLaunchInput.mecCartUpdateListener)
         val transaction = fragmentLauncher.fragmentActivity.supportFragmentManager.beginTransaction()

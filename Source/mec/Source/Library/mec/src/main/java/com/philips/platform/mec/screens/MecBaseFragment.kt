@@ -93,8 +93,8 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
         if (fragment == null) {
             val fragment = fragmentManager!!.findFragmentByTag(MECProductCatalogCategorizedFragment.TAG)
             if (fragment == null) {
-                fragmentManager!!.popBackStack(fragmentTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                replaceFragment(MECProductCatalogFragment(),  MECProductCatalogFragment.TAG, false)
+                fragmentManager!!.popBackStack( MECDataHolder.INSTANCE.mecLaunchingFragmentName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                replaceFragment(MECProductCatalogFragment(),  MECProductCatalogFragment.TAG, true)
             }else{
                 fragmentManager!!.popBackStack(MECProductCatalogCategorizedFragment.TAG, 0)
             }
