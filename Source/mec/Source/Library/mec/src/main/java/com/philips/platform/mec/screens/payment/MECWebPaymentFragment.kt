@@ -31,10 +31,10 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
 
 
     override fun getFragmentTag(): String {
-        return "MECWebPaymentFragment"
+        return TAG
     }
 
-    private val TAG: String = MECWebPaymentFragment::class.java.simpleName
+    private val TAG: String = "MECWebPaymentFragment"
 
 
     private var mContext: Context? = null
