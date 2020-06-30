@@ -101,4 +101,8 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.clear() //Reset payment billing address cache
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.isPaymentDownloaded = false
     }
+
+    override fun handleBackEvent(): Boolean {
+        return true
+    }
 }
