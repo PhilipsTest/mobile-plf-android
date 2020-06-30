@@ -463,6 +463,6 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
             return
         }
         mecOrderSummaryFragment.arguments = bundle
-        replaceFragment(mecOrderSummaryFragment, MECOrderSummaryFragment.TAG, true)
+        replaceFragment(mecOrderSummaryFragment, mecOrderSummaryFragment.getFragmentTag(), true)
     }
 }

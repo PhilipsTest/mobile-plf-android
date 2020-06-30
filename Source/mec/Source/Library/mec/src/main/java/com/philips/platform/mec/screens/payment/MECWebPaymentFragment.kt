@@ -98,7 +98,7 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
     private fun launchConfirmationScreen(bundle: Bundle) {
         val mECPaymentConfirmationFragment: MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
         mECPaymentConfirmationFragment.arguments = bundle
-        addFragment(mECPaymentConfirmationFragment, TAG, true)
+        addFragment(mECPaymentConfirmationFragment, mECPaymentConfirmationFragment.getFragmentTag(), true)
     }
 
     override fun shouldOverrideUrlLoading(url: String): Boolean {

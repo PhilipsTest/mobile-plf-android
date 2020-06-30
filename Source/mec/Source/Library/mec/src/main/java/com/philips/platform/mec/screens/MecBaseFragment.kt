@@ -57,13 +57,13 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
             if (null!=activity && !activity!!.isFinishing) {
 
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
-                val simpleName = newFragment.javaClass.simpleName
 
 
 
-                transaction.replace(id, newFragment, simpleName)
+
+                transaction.replace(id, newFragment, newFragmentTag)
                 if (isReplaceWithBackStack) {
-                    transaction.addToBackStack(simpleName)
+                    transaction.addToBackStack(newFragmentTag)
                 }
                 transaction.commitAllowingStateLoss()
             }
@@ -78,10 +78,10 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
         else {
             if (null!=activity && !activity!!.isFinishing) {
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
-                val simpleName = newFragment.javaClass.simpleName
-                transaction.add(id, newFragment, simpleName)
+
+                transaction.add(id, newFragment, newFragmentTag)
                 if (isAddWithBackStack) {
-                    transaction.addToBackStack(simpleName)
+                    transaction.addToBackStack(newFragmentTag)
                 }
                 transaction.commitAllowingStateLoss()
             }

@@ -73,7 +73,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     }
 
     override fun getFragmentTag(): String {
-        return "MECOrderSummaryFragment"
+        return TAG
     }
 
     private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
@@ -262,7 +262,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         }
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle
-        replaceFragment(mecPrivacyFragment, TAG, true)
+        replaceFragment(mecPrivacyFragment, mecPrivacyFragment.getFragmentTag(), true)
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {

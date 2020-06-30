@@ -48,7 +48,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListener {
     override fun getFragmentTag(): String {
-        return "MECShoppingCartFragment"
+        return TAG
     }
 
     private lateinit var addressViewModel: AddressViewModel

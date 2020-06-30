@@ -107,7 +107,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         bundle.putString(paymentType,old)
         mecPaymentConfirmationFragment.arguments = bundle
         dismiss()
-        replaceFragment(mecPaymentConfirmationFragment, false)
+        replaceFragment(mecPaymentConfirmationFragment, true)
     }
 
     private fun replaceFragment(newFragment: MecBaseFragment, isReplaceWithBackStack: Boolean) {
@@ -117,10 +117,9 @@ class MECCVVFragment: BottomSheetDialogFragment() {
             if (null!=activity && !activity!!.isFinishing) {
 
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
-                val simpleName = newFragment.javaClass.simpleName
-                transaction.replace(containerID, newFragment, simpleName)
+                transaction.replace(containerID, newFragment, newFragment.getFragmentTag())
                 if (isReplaceWithBackStack) {
-                    transaction.addToBackStack(simpleName)
+                    transaction.addToBackStack(newFragment.getFragmentTag())
                 }
                 transaction.commitAllowingStateLoss()
             }
