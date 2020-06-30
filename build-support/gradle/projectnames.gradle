@@ -43,5 +43,5 @@ ext.strings = [
         mecuapp:[projectName:':mecUApp', artifactName:'mecUApp'],
 
         ccbuapp:[projectName:':ccbUApp', artifactName:'ccbUApp'],
-        ccb: [projectName:':converstationalChatBot', artifactName:'converstationalChatBot']
+        ccb: [projectName:':conversationalChatBot', artifactName:'conversationalChatBot']
 ]

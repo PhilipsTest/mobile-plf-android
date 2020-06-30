@@ -141,7 +141,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash -l
                     set -e
-                    ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :converstationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
+                    ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
 
                     apkname=`xargs < apkname.txt`
                     dependenciesName=${apkname/.apk/.gradledependencies.gz}
@@ -468,7 +468,7 @@ def BuildAndUnitTest() {
             :mya:testReleaseUnitTest \
             :pif:testReleaseUnitTest \
             :pim:testReleaseUnitTest \
-            :converstationalChatBot:testReleaseUnitTest \
+            :conversationalChatBot:testReleaseUnitTest \
             :philipsecommercesdk:testReleaseUnitTest \
             :mec:testReleaseUnitTest \
             :pimApp:testReleaseUnitTest \
@@ -511,7 +511,7 @@ def GenerateJavaDocs() {
         :securedblibrary:generateJavadocPublicApi \
         :registrationApi:generateJavadocPublicApi \
         :pim:generateJavadocPublicApi \
-        :converstationalChatBot:generateJavadocPublicApi \
+        :conversationalChatBot:generateJavadocPublicApi \
         :productselection:generateJavadocPublicApi \
         :pif:generateJavadocPublicApi \
         :digitalCare:generateJavadocPublicApi \
@@ -533,7 +533,7 @@ def BuildLint() {
          :AppInfra:lint \
          :securedblibrary:lint \
          :pim:lint \
-         :converstationalChatBot:lint \
+         :conversationalChatBot:lint \
          :registrationApi:lint \
          :productselection:lint \
          :product-registration-lib:lint \
@@ -564,7 +564,7 @@ def BuildHPFortify() {
             'iap::IAP_Android'
             'pif::plf_android'
 			'pim::PIM_Android'
-			'converstationalChatBot::CCB_Android'
+			'conversationalChatBot::CCB_Android'
 			'product-registration-lib::PR_Android'
 			'prx::PRX_Android'
 			'securedblibrary::SecureDB_Android'
@@ -772,7 +772,7 @@ def DeployingJavaDocs() {
             echo "Not published JavaDoc as build is not on a master, develop or release branch" . $BranchName
         fi
 
-        ./gradlew  :AppInfra:zipJavadoc :digitalCare:zipJavadoc :iap:zipJavadoc :pif:zipJavadoc :product-registration-lib:zipJavadoc :productselection:zipJavadoc :prx:zipJavadoc :pim:zipJavadoc  :referenceApp:zipJavadoc :converstationalChatBot:zipJavadoc :registrationApi:zipJavadoc :philipsecommercesdk:zipJavadoc :mec:zipJavadoc :referenceApp:printPlatformVersion
+        ./gradlew  :AppInfra:zipJavadoc :digitalCare:zipJavadoc :iap:zipJavadoc :pif:zipJavadoc :product-registration-lib:zipJavadoc :productselection:zipJavadoc :prx:zipJavadoc :pim:zipJavadoc  :referenceApp:zipJavadoc :conversationalChatBot:zipJavadoc :registrationApi:zipJavadoc :philipsecommercesdk:zipJavadoc :mec:zipJavadoc :referenceApp:printPlatformVersion
         platformVersion=`xargs < platformversion.txt`
  
         curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/AppInfra/$platformVersion/ -T ./Source/ail/Documents/External/AppInfra-api.zip
@@ -814,7 +814,7 @@ def PublishUnitTestsResults() {
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'Source/pim/Source/Library/pim/build/reports/tests/testReleaseUnitTest', reportFiles: 'index.html', reportName: 'pim unit test release'])
 
    junit allowEmptyResults: true, testResults: 'Source/ccb/Source/Library/**/build/test-results/**/*.xml'
-    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'Source/ccb/Source/Library/converstationalChatBot/build/reports/tests/testReleaseUnitTest', reportFiles: 'index.html', reportName: 'ccb unit test release'])
+    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'Source/ccb/Source/Library/conversationalChatBot/build/reports/tests/testReleaseUnitTest', reportFiles: 'index.html', reportName: 'ccb unit test release'])
 
     junit allowEmptyResults: true, testResults: 'Source/prg/Source/Library/*/build/test-results/**/*.xml'
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'Source/prg/Source/Library/product-registration-lib/build/reports/tests/testReleaseUnitTest', reportFiles: 'index.html', reportName: 'prg unit test release'])

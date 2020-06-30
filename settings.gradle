@@ -94,7 +94,7 @@ project(ext.strings.mecuapp.projectName).projectDir = new File('./Source/mec/Sou
 //include ':UserRegistrationApp'
 //project(':UserRegistrationApp').projectDir = new File('./Source/usr/Source/DemoApp/app')
 
-project(ext.strings.ccb.projectName).projectDir = new File('./Source/ccb/Source/Library/converstationalChatBot')
+project(ext.strings.ccb.projectName).projectDir = new File('./Source/ccb/Source/Library/conversationalChatBot')
 project(ext.strings.ccbuapp.projectName).projectDir = new File('./Source/ccb/Source/DemoUApp')
 
 include(':ccbApp')
