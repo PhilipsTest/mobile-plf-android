@@ -84,7 +84,7 @@ ext.philipsdeps = [
         philipsecommercesdk         : [group: 'com.philips.platform', name: strings.ecs.artifactName, version: platformversionsuffix, changing: true],
         mec                         : [group: 'com.philips.platform', name: strings.mec.artifactName, version: platformversionsuffix, changing: true],
         mecUApp                     : [group: 'com.philips.platform', name: strings.mecuapp.artifactName, version: platformversionsuffix, changing: true],
-        converstationalChatBot      : [group: 'com.philips.platform', name: strings.ccb.artifactName, version: platformversionsuffix, changing: true],
+        conversationalChatBot      : [group: 'com.philips.platform', name: strings.ccb.artifactName, version: platformversionsuffix, changing: true],
         ccbUApp                     : [group: 'com.philips.platform', name: strings.ccbuapp.artifactName, version: platformversionsuffix, changing: true]
 ]
 
