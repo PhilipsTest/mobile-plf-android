@@ -26,13 +26,16 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
 
     lateinit var url: String
     lateinit var locale: String
-    var requestMethod = Request.Method.GET
 
     var jsonObjectForRequest : JSONObject? = null
 
 
     abstract fun getServiceID():String
     abstract fun executeRequest()
+
+    open fun getRequestMethod() : Int{
+       return Request.Method.GET
+    }
 
     open fun getURL():String{
         return url

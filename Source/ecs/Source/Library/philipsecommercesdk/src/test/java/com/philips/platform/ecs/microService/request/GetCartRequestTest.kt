@@ -92,6 +92,7 @@ class GetCartRequestTest {
             override fun onResponse(result: ECSShoppingCart) {
               assertNotNull(result.data?.attributes?.notifications?.get(0)?.id)
               assertNotNull(result.data?.attributes?.deliveryAddress?.id)
+                assertNotNull(result.data?.attributes?.items?.get(0)?.ctn)
             }
 
             override fun onFailure(ecsError: ECSError) {
