@@ -58,4 +58,8 @@ class ECSApiValidator {
         return if(limitSize>50) ECSException(ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.errorCode) else null
      }
 
+    fun isValidCTN(ctn: String): Boolean{
+        return !ctn.trim().contains(" ")
+    }
+
 }
