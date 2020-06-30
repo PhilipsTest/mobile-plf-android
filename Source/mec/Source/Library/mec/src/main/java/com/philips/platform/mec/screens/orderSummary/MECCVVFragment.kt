@@ -73,10 +73,10 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         binding.fragment=this
         val bundle= arguments
         val ecsPayment=bundle?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as ECSPayment
-        mEcsShoppingCart=bundle?.getSerializable(MECConstant.MEC_SHOPPING_CART) as ECSShoppingCart
+        mEcsShoppingCart=bundle.getSerializable(MECConstant.MEC_SHOPPING_CART) as ECSShoppingCart
         binding.paymentMethod=ecsPayment
 
-        containerID= arguments?.getInt(MECConstant.MEC_FRAGMENT_CONTAINER_ID)!!
+        containerID= bundle.getInt(MECConstant.MEC_FRAGMENT_CONTAINER_ID)
 
         paymentViewModel =  ViewModelProviders.of(this).get(PaymentViewModel::class.java)
         paymentViewModel.ecsOrderDetail.observe(this,orderDetailObserver)
@@ -102,11 +102,12 @@ class MECCVVFragment: BottomSheetDialogFragment() {
     private fun gotoPaymentConfirmationFragment(){
         val mecPaymentConfirmationFragment : MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
         val bundle = Bundle()
-       // bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mEcsOrderDetail)
+        bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mEcsOrderDetail)
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, java.lang.Boolean.TRUE)
         bundle.putString(paymentType,old)
         mecPaymentConfirmationFragment.arguments = bundle
-        replaceFragment(mecPaymentConfirmationFragment, true)
+        dismiss()
+        replaceFragment(mecPaymentConfirmationFragment, false)
     }
 
     private fun replaceFragment(newFragment: MecBaseFragment, isReplaceWithBackStack: Boolean) {
