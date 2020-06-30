@@ -27,7 +27,7 @@ abstract class ECSJsonRequest(ecsErrorCallback: ECSCallback<*, ECSError>) : ECSA
     }
 
     private fun getJsonObjectRequest():JsonObjectRequest{
-        return JsonObjectRequest(requestMethod , getURL(), jsonObjectForRequest
+        return JsonObjectRequest(getRequestMethod() , getURL(), jsonObjectForRequest
                 , this, this,
                 getHeader(), getParams(),getTokenProviderInterface())
     }

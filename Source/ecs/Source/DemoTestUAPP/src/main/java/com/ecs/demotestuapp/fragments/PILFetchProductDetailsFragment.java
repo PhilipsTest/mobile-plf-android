@@ -93,7 +93,7 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
             if(products.size()!=0) {
 
                 for(ECSProduct ecsProduct:products){
-                    ctns.add(ecsProduct.getId());
+                    ctns.add(ecsProduct.getCtn());
                 }
 
                 fillSpinner(spinner,ctns);
@@ -110,7 +110,7 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
         List<ECSProduct> ecsProducts = PILDataHolder.INSTANCE.getProductList().getCommerceProducts();
 
         for(ECSProduct ecsProduct:ecsProducts){
-            if(ecsProduct.getId().equalsIgnoreCase(ctn)){
+            if(ecsProduct.getCtn().equalsIgnoreCase(ctn)){
                 return ecsProduct;
             }
         }

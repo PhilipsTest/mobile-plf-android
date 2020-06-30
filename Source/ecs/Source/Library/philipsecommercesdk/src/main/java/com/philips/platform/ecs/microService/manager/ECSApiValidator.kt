@@ -12,6 +12,7 @@
 
 package com.philips.platform.ecs.microService.manager
 
+import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.util.ECSDataHolder
@@ -58,8 +59,12 @@ class ECSApiValidator {
         return if(limitSize>50) ECSException(ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.errorCode) else null
      }
 
-    fun isValidCTN(ctn: String): Boolean{
-        return !ctn.trim().contains(" ")
+    fun isValidCTN(ctn: String): ECSError?{
+        var ecsError:ECSError? = null
+        if(ctn.trim().contains(" ")){
+            ecsError= ECSError(ECSErrorType.ECSUnknownIdentifierError.getLocalizedErrorString(), ECSErrorType.ECSUnknownIdentifierError.errorCode, ECSErrorType.ECSunsupported_grant_type)
+         }
+        return ecsError
     }
 
 }

@@ -12,7 +12,6 @@
 
 package com.philips.platform.ecs.microService.request
 
-import com.android.volley.Request
 import com.android.volley.Response
 import com.philips.platform.appinfra.rest.request.StringRequest
 import com.philips.platform.ecs.microService.callBack.ECSCallback
@@ -23,7 +22,7 @@ abstract class ECSStringRequest(ecsErrorCallback: ECSCallback<*, ECSError>) : EC
 
 
     internal fun getStringRequest(): StringRequest? {
-        return StringRequest(requestMethod, getURL()
+        return StringRequest(getRequestMethod(), getURL()
                 ,this, this,
                 getHeader(), getParams(),getTokenProviderInterface())
     }
