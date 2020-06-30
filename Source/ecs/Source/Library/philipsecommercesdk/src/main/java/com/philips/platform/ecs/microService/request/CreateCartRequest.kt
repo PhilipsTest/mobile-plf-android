@@ -1,5 +1,6 @@
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.Request
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_CREATE_CART
 import com.philips.platform.ecs.microService.error.ECSError
@@ -11,14 +12,16 @@ import org.json.JSONObject
 
 class CreateCartRequest(private val ctn: String, private val quantity: Int,private val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>)  : ECSJsonAuthRequest(ecsCallback){
 
-    val urlCreateCart = "https://acc.eu-west-1.api.philips.com/commerce-service/cart?siteId=%siteId%&language=%language%&country=%country%&productId=%ctn%&quantity=%quantity%"
-
     override fun getURL(): String {
-        return urlCreateCart.replaceParam(getReplaceURLMap())
+        return url.replaceParam(getReplaceURLMap())
     }
 
     override fun getServiceID(): String {
        return  SERVICEID_ECS_CREATE_CART
+    }
+
+    override fun getRequestMethod(): Int {
+        return Request.Method.POST
     }
 
     override fun getReplaceURLMap(): MutableMap<String, String> {
