@@ -13,12 +13,13 @@
 package com.philips.platform.ecs.microService.model.product
 
 import android.os.Parcelable
+import com.philips.platform.ecs.microService.model.common.Availability
 import com.philips.platform.ecs.microService.model.common.Price
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Reference(
-        val availability: Availability ?,
+        val availability: Availability?,
         val discountPrice: Price ?,
         val id: String ?,
         val image: String ?,

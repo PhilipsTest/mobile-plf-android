@@ -40,7 +40,7 @@ class GetProductAssetRequest(val ecsProduct: ECSProduct, val ecsCallback: ECSCal
         val replaceUrl: MutableMap<String, String> = HashMap()
         replaceUrl["sector"] = PrxConstants.Sector.B2C.toString()
         replaceUrl["catalog"] = PrxConstants.Catalog.CONSUMER.toString()
-        replaceUrl["ctn"] = ecsProduct.id.replace('/', '_')
+        replaceUrl["ctn"] = ecsProduct.ctn.replace('/', '_')
         return replaceUrl
     }
 

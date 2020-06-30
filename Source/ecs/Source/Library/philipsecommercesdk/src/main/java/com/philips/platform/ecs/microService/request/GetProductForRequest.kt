@@ -43,7 +43,7 @@ class GetProductForRequest(private val ctn: String, private val ecsCallback: ECS
 
     override fun onResponse(response: JSONObject) {
         val ecsProduct = response.getData(ECSProduct::class.java)
-        ecsProduct?.id?.let {getSummaryForProduct(ecsProduct)} ?: kotlin.run {  ecsCallback.onResponse(null) }
+        ecsProduct?.ctn?.let {getSummaryForProduct(ecsProduct)} ?: kotlin.run {  ecsCallback.onResponse(null) }
     }
 
     private fun getSummaryForProduct(ecsProduct : ECSProduct){

@@ -29,7 +29,10 @@ class ECSCartManager {
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
           //requestHandler.handleRequest(GetCartRequest(ecsCallback))
-            GetCartRequest(ecsCallback).executeRequest()
+            val getCartRequest = GetCartRequest(ecsCallback)
+            getCartRequest.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart/%cartId%?siteId=%siteId%&language=%language%&country=%country%"
+            getCartRequest.executeRequest()
+
         }
     }
 

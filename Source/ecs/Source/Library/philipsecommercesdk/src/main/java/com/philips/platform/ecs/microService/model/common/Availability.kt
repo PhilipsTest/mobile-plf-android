@@ -10,7 +10,7 @@
  *
  */
 
-package com.philips.platform.ecs.microService.model.product
+package com.philips.platform.ecs.microService.model.common
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -19,4 +19,4 @@ import kotlinx.android.parcel.Parcelize
 data class Availability(
     val quantity: Int?,
     val status: String?
-) : Parcelable
+): Parcelable

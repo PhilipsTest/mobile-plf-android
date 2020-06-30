@@ -33,7 +33,5 @@ class ECSShoppingCartTest {
     fun `test shopping cart json parsing`() {
         val errorString =   ClassLoader.getSystemResource("pil/cart/AddToCartSuccessWithProductMoreQuantityThanStock.json").readText()
         val jsonObject = JSONObject(errorString)
-
-        jsonObject.
     }
 }

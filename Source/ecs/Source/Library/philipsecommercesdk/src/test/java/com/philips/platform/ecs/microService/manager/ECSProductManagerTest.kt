@@ -153,7 +153,7 @@ class ECSProductManagerTest {
 
             override fun onResponse(result: ECSProduct?) {
                 assertNotNull(result)
-                assertEquals("id", result?.id)
+                assertEquals("id", result?.ctn)
             }
 
             override fun onFailure(ecsError: ECSError) {
@@ -204,7 +204,7 @@ class ECSProductManagerTest {
 
             override fun onResponse(result: ECSProduct?) {
                 assertNotNull(result)
-                assertEquals("id", result?.id)
+                assertEquals("id", result?.ctn)
             }
 
             override fun onFailure(ecsError: ECSError) {
@@ -213,7 +213,7 @@ class ECSProductManagerTest {
         }
 
         var mECSProduct = ECSProduct(null, "id", "type")
-        mECSProduct.id = "new id"
+        mECSProduct.ctn = "new id"
         ECSDataHolder.config.isHybris = false
         Mockito.`when`(mECSProductManager.getSummaryForSingleProduct(mECSProduct, eCSCallbackGetProductForHybrisOFF)).then { eCSCallbackGetProductForHybrisOFF.onResponse(mECSProduct) }
         mECSProductManager.getProductFor("CTN", eCSCallbackGetProductForHybrisOFF)
@@ -232,7 +232,7 @@ class ECSProductManagerTest {
 
             override fun onResponse(result: ECSProduct?) {
                 assertNotNull(result)
-                assertEquals("new id", result?.id)
+                assertEquals("new id", result?.ctn)
             }
 
             override fun onFailure(ecsError: ECSError) {
@@ -241,7 +241,7 @@ class ECSProductManagerTest {
         }
 
         var mECSProduct = ECSProduct(null, "id", "type")
-        mECSProduct.id = "new id"
+        mECSProduct.ctn = "new id"
         ECSDataHolder.config.isHybris = false
         Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetSummaryForSingleProduct.onResponse(mECSProduct) }
 
@@ -291,7 +291,7 @@ class ECSProductManagerTest {
 
             override fun onResponse(result: ECSProduct) {
                 assertNotNull(result)
-                assertEquals("new id", result.id)
+                assertEquals("new id", result.ctn)
             }
 
             override fun onFailure(ecsError: ECSError) {
@@ -300,7 +300,7 @@ class ECSProductManagerTest {
         }
 
         var mECSProduct = ECSProduct(null, "id", "type")
-        mECSProduct.id = "new id"
+        mECSProduct.ctn = "new id"
 
         Mockito.`when`(requestHandlerMock.handleRequest(mGetProductAssetRequestMock)).then { mEcscallback.onResponse(mECSProduct) }
         Mockito.`when`(requestHandlerMock.handleRequest(mGetProductDisclaimerRequestMock)).then { mEcscallback.onResponse(mECSProduct) }

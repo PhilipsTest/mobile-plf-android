@@ -28,14 +28,9 @@ class CreateCartRequest(private val ctn: String, private val quantity: Int,priva
         return replaceURLMap
     }
 
-
-
-    /** Called when a response is received.  */
     override fun onResponse(response: JSONObject) {
         val ecsShoppingCart = response.getData(ECSShoppingCart::class.java)
-        
         ecsShoppingCart ?.let { ecsCallback.onResponse(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}
-
     }
 
     

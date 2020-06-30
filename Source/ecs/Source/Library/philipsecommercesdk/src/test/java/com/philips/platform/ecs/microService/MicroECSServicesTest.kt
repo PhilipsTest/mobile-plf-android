@@ -137,6 +137,6 @@ class MicroECSServicesTest {
     fun `fetchRetailers for Product api should call corresponding manager method`() {
         var ecsProduct = ECSProduct(null,"123",null)
         ECSServices.fetchRetailers(ecsProduct,ecsCallbackRetailerListMock)
-        Mockito.verify(ecsRetailerManagerMock).fetchRetailers(ecsProduct.id,ecsCallbackRetailerListMock)
+        Mockito.verify(ecsRetailerManagerMock).fetchRetailers(ecsProduct.ctn,ecsCallbackRetailerListMock)
     }
 }

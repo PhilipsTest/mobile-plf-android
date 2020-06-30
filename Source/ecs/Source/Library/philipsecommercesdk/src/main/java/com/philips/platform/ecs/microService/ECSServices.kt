@@ -79,7 +79,7 @@ class ECSServices(appInfra: AppInfra) {
 
     @Throws(ECSException::class)
     fun fetchRetailers(product: ECSProduct, ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) {
-        ecsRetailerManager.fetchRetailers(product.id,ecsCallback)
+        ecsRetailerManager.fetchRetailers(product.ctn,ecsCallback)
     }
 
     @Throws(ECSException::class)

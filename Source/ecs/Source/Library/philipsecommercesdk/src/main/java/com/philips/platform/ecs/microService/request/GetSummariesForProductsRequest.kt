@@ -60,7 +60,7 @@ class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private v
     private fun getCTNsFromProducts():List<String>{
         var arrayList = mutableListOf<String>()
         for (product in ecsProducts){
-            product.id.let { arrayList.add(it) }
+            product.ctn.let { arrayList.add(it) }
         }
         return arrayList
     }
@@ -75,7 +75,7 @@ class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private v
             }
         }
         for (product in products) {
-            val productSummaryData = summaryCtnMap[product.id]
+            val productSummaryData = summaryCtnMap[product.ctn]
             if (productSummaryData != null) {
                 product.summary = productSummaryData
                 productArrayList.add(product)

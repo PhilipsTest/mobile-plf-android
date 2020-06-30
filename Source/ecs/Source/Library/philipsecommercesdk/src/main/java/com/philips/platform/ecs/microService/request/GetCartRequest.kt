@@ -23,22 +23,13 @@ import org.json.JSONObject
 
 class GetCartRequest(val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>) : ECSJsonAuthRequest(ecsCallback) {
 
-    val hardCodedCartURL = "https://acc.eu-west-1.api.philips.com/commerce-service/cart/%cartId%?siteId=%siteId%&language=%language%&country=%country%"
-
     override fun getServiceID(): String {
         return SERVICEID_ECS_GET_CART
     }
 
     override fun getURL(): String {
-        return hardCodedCartURL.replaceParam(getReplaceURLMap())
+        return url.replaceParam(getReplaceURLMap())
     }
-
-    override fun getReplaceURLMap(): MutableMap<String, String> {
-        val replaceURLMap = super.getReplaceURLMap()
-        replaceURLMap["cartId"]="current"
-        return replaceURLMap
-    }
-
     override fun onResponse(response: JSONObject?) {
         val ecsShoppingCart = response?.getData(ECSShoppingCart::class.java)
         ecsShoppingCart ?.let {  ecsCallback.onResponse(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}

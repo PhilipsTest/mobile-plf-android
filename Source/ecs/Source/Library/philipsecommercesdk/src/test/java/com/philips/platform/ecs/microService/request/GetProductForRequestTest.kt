@@ -57,9 +57,7 @@ class GetProductForRequestTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        ECSDataHolder.locale = "en_US"
-        var ecsConfig = ECSConfig("en_US",null,null,null,null,null,"Tuscany_Campaign","US_Tuscany",true)
-        ECSDataHolder.config = ecsConfig
+
         getProductForRequest = GetProductForRequest(ctn,ecsCallbackMock)
     }
 
