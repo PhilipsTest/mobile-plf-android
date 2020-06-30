@@ -1,7 +1,11 @@
 package com.philips.platform.ccb.integration
 
+import android.content.Context
 import androidx.fragment.app.Fragment
+import com.philips.platform.ccb.directline.CCBAzureSessionHandler
+import com.philips.platform.ccb.directline.CCBSessionHandlerInterface
 import com.philips.platform.ccb.fragment.CCBFragment
+import com.philips.platform.ccb.manager.CCBSettingManager
 import com.philips.platform.uappframework.UappInterface
 import com.philips.platform.uappframework.launcher.FragmentLauncher
 import com.philips.platform.uappframework.launcher.UiLauncher
@@ -11,22 +15,32 @@ import com.philips.platform.uappframework.uappinput.UappSettings
 
 class CCBInterface: UappInterface {
 
+    private lateinit var context: Context
+
     override fun init(uappDependencies: UappDependencies, uappSettings: UappSettings) {
+       context = uappSettings.context.applicationContext
+        CCBSettingManager.init(uappDependencies)
         //init called
     }
 
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
+        val ccbLaunchInput = uappLaunchInput as CCBLaunchInput
         if (uiLauncher is FragmentLauncher) {
-            val ccbFragment = CCBFragment();
-            addFragment(uiLauncher, ccbFragment)
+            val ccbFragment = CCBFragment()
+            addFragment(uiLauncher, ccbFragment,ccbLaunchInput)
         }
     }
 
-    private fun addFragment(uiLauncher: FragmentLauncher, fragment: Fragment) {
+    private fun addFragment(uiLauncher: FragmentLauncher, fragment: Fragment, ccbLaunchInput: CCBLaunchInput) {
         uiLauncher.fragmentActivity.supportFragmentManager
                 .beginTransaction()
                 .replace(uiLauncher.parentContainerResourceID, fragment, fragment.tag)
                 .addToBackStack(fragment.javaClass.simpleName)
                 .commit()
+    }
+
+    fun getccbSessionHandlerInterface(): CCBSessionHandlerInterface {
+        val ccbAzureSessionHandler = CCBAzureSessionHandler()
+        return ccbAzureSessionHandler
     }
 }

@@ -1,4 +1,4 @@
-package com.philips.platform.ccb
+package com.philips.platform.ccb.model
 
-class CCBUser(val secretKey: String, val name: String, val userID: String) {
+class CCBUser(var secretKey: String, val name: String, val userID: String) {
 }

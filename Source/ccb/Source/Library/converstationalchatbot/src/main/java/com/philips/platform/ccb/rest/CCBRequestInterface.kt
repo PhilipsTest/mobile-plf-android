@@ -8,5 +8,5 @@ interface CCBRequestInterface {
 
     fun getBody(): String?
 
-    fun getMethodType(): String
+    fun getMethodType(): Int
 }

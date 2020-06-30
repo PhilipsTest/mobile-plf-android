@@ -1,8 +1,11 @@
 package com.philips.platform.ccb.request
 
+import com.android.volley.Request
+import com.philips.platform.ccb.constant.CCBUrlBuilder
+import com.philips.platform.ccb.rest.CCBRequestInterface
 import java.util.HashMap
 
-class CCBStartConversationRequest : CCBChatBotRequestInterface {
+class CCBStartConversationRequest : CCBRequestInterface {
     override fun getUrl(): String {
         return CCBUrlBuilder.BASE_URL + CCBUrlBuilder.START_CONVERSATION
     }
@@ -18,7 +21,8 @@ class CCBStartConversationRequest : CCBChatBotRequestInterface {
         return null
     }
 
-    override fun getMethodType(): String {
-        return "POST"
+    override fun getMethodType(): Int {
+        return Request.Method.POST
     }
+
 }

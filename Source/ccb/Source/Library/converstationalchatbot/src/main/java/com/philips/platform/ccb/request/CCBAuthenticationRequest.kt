@@ -1,8 +1,17 @@
 package com.philips.platform.ccb.request
 
+import com.android.volley.Request
+import com.philips.platform.ccb.constant.CCBUrlBuilder
+import com.philips.platform.ccb.rest.CCBRequestInterface
 import java.util.*
 
-class CCBAuthenticationRequest : CCBChatBotRequestInterface{
+class CCBAuthenticationRequest(key: String) : CCBRequestInterface{
+    private var mKey :String = ""
+
+    init {
+        mKey = key
+    }
+
     override fun getUrl(): String {
         return CCBUrlBuilder.BASE_URL + CCBUrlBuilder.AUTHENTICATION
     }
@@ -18,7 +27,8 @@ class CCBAuthenticationRequest : CCBChatBotRequestInterface{
         return null
     }
 
-    override fun getMethodType(): String {
-        return "POST"
+    override fun getMethodType(): Int {
+        return Request.Method.POST
     }
+
 }
