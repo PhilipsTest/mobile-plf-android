@@ -158,7 +158,7 @@ subprojects {
 //        throw new GradleException("Project not found ${it}")
     }
 
-    ext.useprojectdependencies = true
+    ext.useprojectdependencies = false
 }
 
 dependencyUpdates.resolutionStrategy {
