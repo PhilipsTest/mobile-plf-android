@@ -29,7 +29,7 @@ import com.philips.platform.pif.DataInterface.USR.UserDetailConstants
 import java.util.*
 
 class MECPaymentConfirmationFragment : MecBaseFragment() {
-    private val TAG: String = MECPaymentConfirmationFragment::class.java.simpleName
+
 
 
     private var paymentStatus: Boolean = false
@@ -93,12 +93,16 @@ class MECPaymentConfirmationFragment : MecBaseFragment() {
     }
 
     fun onClickOk(){
-        moveToCaller(paymentStatus,TAG)
+        moveToCaller(paymentStatus,getFragmentTag())
         resetPaymentMethods()
     }
 
     private fun resetPaymentMethods() {
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.clear() //Reset payment billing address cache
         MECDataHolder.INSTANCE.PAYMENT_HOLDER.isPaymentDownloaded = false
+    }
+
+    override fun handleBackEvent(): Boolean {
+        return true
     }
 }

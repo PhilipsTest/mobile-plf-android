@@ -341,7 +341,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                         bundle.putSerializable(MECConstant.MEC_SHOPPING_CART, eCSShoppingCart)
                         val fragment = MECShoppingCartFragment()
                         fragment.arguments = bundle
-                        replaceFragment(fragment, MECShoppingCartFragment.TAG, true)
+                        replaceFragment(fragment, fragment.getFragmentTag(), true)
                     }
 
                     override fun onFailure(error: Exception?, ecsError:ECSError?) {
@@ -389,7 +389,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                 tagActionsforRetailer(ecsRetailer.name, MECutility.stockStatus(ecsRetailer.availability))
                 val fragment = WebBuyFromRetailersFragment()
                 fragment.arguments = bundle
-                replaceFragment(fragment, TAG, true)
+                replaceFragment(fragment, fragment.getFragmentTag(), true)
             }
         }
     }

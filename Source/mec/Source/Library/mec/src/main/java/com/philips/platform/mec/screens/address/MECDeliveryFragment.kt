@@ -42,7 +42,7 @@ import com.philips.platform.mec.utils.MECutility
 import java.io.Serializable
 
 class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
-    private val TAG: String = MECDeliveryFragment::class.java.simpleName
+    private val TAG: String = "MECDeliveryFragment"
 
     private lateinit var paymentViewModel: PaymentViewModel
     var mRootView: View? = null
@@ -463,6 +463,6 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
             return
         }
         mecOrderSummaryFragment.arguments = bundle
-        replaceFragment(mecOrderSummaryFragment, MECOrderSummaryFragment.TAG, true)
+        replaceFragment(mecOrderSummaryFragment, mecOrderSummaryFragment.getFragmentTag(), true)
     }
 }

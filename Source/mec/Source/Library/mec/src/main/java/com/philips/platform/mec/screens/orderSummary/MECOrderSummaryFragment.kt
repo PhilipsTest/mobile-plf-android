@@ -42,6 +42,7 @@ import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummaryAdapter
 import com.philips.platform.mec.screens.shoppingCart.MECShoppingCartFragment
 import com.philips.platform.mec.utils.MECConstant
+import com.philips.platform.mec.utils.MECConstant.MEC_FRAGMENT_CONTAINER_ID
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 
@@ -72,7 +73,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     }
 
     override fun getFragmentTag(): String {
-        return "MECOrderSummaryFragment"
+        return TAG
     }
 
     private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
@@ -182,7 +183,9 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.MEC_PAYMENT_METHOD, mecPayment.ecsPayment)
         bundle.putSerializable(MECConstant.MEC_SHOPPING_CART, ecsShoppingCart)
+        bundle.putInt(MEC_FRAGMENT_CONTAINER_ID, id)
         val mecCvvBottomSheetFragment = MECCVVFragment()
+
         mecCvvBottomSheetFragment.arguments = bundle
         mecCvvBottomSheetFragment.setTargetFragment(this, MECConstant.PAYMENT_REQUEST_CODE)
         fragmentManager?.let { mecCvvBottomSheetFragment.show(it, mecCvvBottomSheetFragment.tag) }
@@ -259,7 +262,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         }
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle
-        replaceFragment(mecPrivacyFragment, TAG, true)
+        replaceFragment(mecPrivacyFragment, mecPrivacyFragment.getFragmentTag(), true)
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {

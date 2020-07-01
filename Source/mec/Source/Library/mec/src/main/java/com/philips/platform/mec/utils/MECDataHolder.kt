@@ -60,6 +60,7 @@ enum class MECDataHolder {
     var retailerEnabled: Boolean = true
     var voucherEnabled: Boolean = true
     var rootCategory: String? = null
+    var mecLaunchingFragmentName:String? = null
 
 
     var config: ECSConfig? = null

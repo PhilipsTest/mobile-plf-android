@@ -40,7 +40,7 @@ import java.io.Serializable
 
 class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
 
-    private val TAG: String = ManageAddressFragment::class.java.simpleName
+    private val TAG: String = "ManageAddressFragment"
 
     private var mECSShoppingCart: ECSShoppingCart? = null
     private lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
