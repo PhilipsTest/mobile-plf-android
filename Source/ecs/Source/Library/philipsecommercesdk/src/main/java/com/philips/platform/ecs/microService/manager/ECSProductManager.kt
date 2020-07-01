@@ -39,7 +39,8 @@ class ECSProductManager {
     }
 
     fun getProductFor(ctn: String, eCSCallback: ECSCallback<ECSProduct?, ECSError>) {
-        val ecsException = ECSApiValidator().getECSException(APIType.Locale)
+
+        val ecsException = ECSApiValidator().validateCTN(ctn) ?: ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
 

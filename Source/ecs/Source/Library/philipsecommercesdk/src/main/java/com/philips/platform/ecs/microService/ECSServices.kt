@@ -59,7 +59,7 @@ class ECSServices(appInfra: AppInfra) {
 
     @Throws(ECSException::class)
     fun fetchProduct(ctn: String, eCSCallback:ECSCallback<ECSProduct?, ECSError>) {
-        ecsProductManager.getProductFor(ctn, eCSCallback)
+        ecsProductManager.getProductFor(ctn.trim(), eCSCallback)
     }
 
     @Throws(ECSException::class)
@@ -74,7 +74,7 @@ class ECSServices(appInfra: AppInfra) {
 
     @Throws(ECSException::class)
     fun fetchRetailers(ctn: String, ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) {
-        ecsRetailerManager.fetchRetailers(ctn,ecsCallback)
+        ecsRetailerManager.fetchRetailers(ctn.trim(),ecsCallback)
     }
 
     @Throws(ECSException::class)
@@ -84,7 +84,7 @@ class ECSServices(appInfra: AppInfra) {
 
     @Throws(ECSException::class)
     fun createECSShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
-        ecsCartManager.createECSShoppingCart(ctn,quantity,ecsCallback)
+        ecsCartManager.createECSShoppingCart(ctn.trim(),quantity,ecsCallback)
 
     }
 
