@@ -814,9 +814,8 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
 
         try {
             int drawableId = 0;
-            if (null != getRegistrationFragment().getContentConfiguration()) {
-                if (!getRegistrationFragment().getContentConfiguration().isShowSocialIconsInDarkTheme()) {
-                    switch (provider) {
+            if (null != getRegistrationFragment().getContentConfiguration() && getRegistrationFragment().getContentConfiguration().isShowSocialIconsInDarkTheme()) {
+                switch (provider) {
                         case SOCIAL_PROVIDER_FACEBOOK:
                             drawableId = R.drawable.ic_facebook_light_theme;
                             //instead initializing facebook in oncreate , do it if we get provider name as facebook
@@ -852,7 +851,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
                             break;
                     }
                 }
-            }
+
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
