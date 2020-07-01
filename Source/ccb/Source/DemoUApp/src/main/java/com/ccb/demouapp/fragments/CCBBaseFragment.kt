@@ -7,53 +7,38 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.philips.platform.ccbdemouapp.R
+import com.philips.platform.uappframework.launcher.FragmentLauncher
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CCBBaseFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CCBBaseFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+open class CCBBaseFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    fun addFragment(newFragment: CCBBaseFragment,
+                    isAddWithBackStack: Boolean) {
+            if (null!=activity && !activity!!.isFinishing) {
+                val transaction = activity!!.supportFragmentManager.beginTransaction()
+                val simpleName = newFragment.javaClass.simpleName
+                transaction.add(id, newFragment, simpleName)
+                if (isAddWithBackStack) {
+                    transaction.addToBackStack(simpleName)
+                }
+                transaction.commitAllowingStateLoss()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.base_fragment, container, false)
-    }
+    fun replaceFragment(newFragment: CCBBaseFragment,
+                        isReplaceWithBackStack: Boolean) {
+            if (null!=activity && !activity!!.isFinishing) {
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CCBBaseFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                CCBBaseFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+                val transaction = activity!!.supportFragmentManager.beginTransaction()
+                val simpleName = newFragment.javaClass.simpleName
+
+
+
+                transaction.replace(id, newFragment, simpleName)
+                if (isReplaceWithBackStack) {
+                    transaction.addToBackStack(simpleName)
                 }
+                transaction.commitAllowingStateLoss()
+            }
     }
 }

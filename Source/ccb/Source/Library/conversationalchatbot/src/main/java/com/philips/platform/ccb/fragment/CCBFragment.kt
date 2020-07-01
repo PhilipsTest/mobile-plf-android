@@ -30,23 +30,7 @@ class CCBFragment : Fragment(){
         val rootView = inflater.inflate(R.layout.fragment_ccb, container, false)
         textView = rootView.findViewById(R.id.tvResponse)
 
-        executeRequest()
         return rootView
-    }
-
-    private fun executeRequest() {
-        val ccbUser = CCBUser(CCBUrlBuilder.SECRET_KEY,"","")
-       CCBAzureSessionHandler().authenticateUser(ccbUser,object: ccbCallback<Boolean,Exception>{
-           override fun onResponse(response: Boolean) {
-               textView?.text = response.toString()
-           }
-
-           override fun onFailure(error: Exception) {
-               TODO("Not yet implemented")
-           }
-
-       })
-
 
     }
 

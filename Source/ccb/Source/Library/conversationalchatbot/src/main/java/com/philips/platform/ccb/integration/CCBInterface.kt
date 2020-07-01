@@ -24,14 +24,13 @@ class CCBInterface: UappInterface {
     }
 
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
-        val ccbLaunchInput = uappLaunchInput as CCBLaunchInput
         if (uiLauncher is FragmentLauncher) {
             val ccbFragment = CCBFragment()
-            addFragment(uiLauncher, ccbFragment,ccbLaunchInput)
+            addFragment(uiLauncher, ccbFragment)
         }
     }
 
-    private fun addFragment(uiLauncher: FragmentLauncher, fragment: Fragment, ccbLaunchInput: CCBLaunchInput) {
+    private fun addFragment(uiLauncher: FragmentLauncher, fragment: Fragment) {
         uiLauncher.fragmentActivity.supportFragmentManager
                 .beginTransaction()
                 .replace(uiLauncher.parentContainerResourceID, fragment, fragment.tag)

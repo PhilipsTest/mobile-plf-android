@@ -16,23 +16,30 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class CCBDemoUAppHomeFragment : Fragment() {
+class CCBDemoUAppHomeFragment : CCBBaseFragment() {
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
         rootView.launchChatbotUiButton.setOnClickListener { launchChatBot() }
+        rootView.launchDirectLineApiButton.setOnClickListener { launchDirectlineApi() }
 
         return rootView
     }
 
     private fun launchChatBot(){
         val ccbInterface =  CCBInterface()
-
         val fragmentLauncher = FragmentLauncher(activity, R.id.fragment_container, null)
         ccbInterface.launch(fragmentLauncher, UappLaunchInput())
 
     }
+
+    private fun launchDirectlineApi(){
+        replaceFragment(CCBLaunchApiResponseFragment(),true)
+    }
+
 
 }
