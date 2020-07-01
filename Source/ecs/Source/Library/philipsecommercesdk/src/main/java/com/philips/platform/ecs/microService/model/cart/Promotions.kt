@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class Promotions(
         val appliedProductPromotions: List<ProductPromotion>?,
         val potentialProductPromotions: List<ProductPromotion>?,
-
         val potentialPromotions: List<Promotion>?,
-        val appliedPromotions: List<Promotion>?
+        val appliedPromotions: List<Promotion>?,
+        val productPromotions: List<ProductPromotion> //This comes with product
 ): Parcelable

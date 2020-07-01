@@ -1,6 +1,7 @@
 package com.philips.platform.ecs.microService.model.cart
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import com.philips.platform.ecs.microService.model.common.Price
 import kotlinx.android.parcel.Parcelize
 
@@ -10,5 +11,5 @@ data class DeliveryMode(
         val deliveryCost: Price?,
         val description: String?,
         val id: String?,
-        val label: String?
+        @SerializedName("label") val name: String?
 ): Parcelable
