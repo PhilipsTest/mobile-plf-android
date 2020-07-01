@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button
+<com.philips.platform.uid.view.widget.Button
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/reg_dimen_40dp"
     android:layout_height="@dimen/reg_dimen_40dp"
