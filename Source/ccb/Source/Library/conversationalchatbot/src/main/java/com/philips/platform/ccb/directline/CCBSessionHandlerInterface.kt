@@ -9,7 +9,7 @@ interface CCBSessionHandlerInterface {
 
     fun authenticateUser(ccbUser: CCBUser, ccbCallback: ccbCallback<Boolean,Exception>?)
 
-    fun startConversation(ccbCallback: ccbCallback<Boolean,Exception>?)
+    fun startConversation(ccbCallback: ccbCallback<CCBConversation,Exception>?)
 
     fun refreshSession(ccbCallback: ccbCallback<Boolean,Exception>?)
 
