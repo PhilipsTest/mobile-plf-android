@@ -17,8 +17,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
+@PrepareForTest(CreateCartRequest::class)
 @RunWith(PowerMockRunner::class)
 class ECSCartManagerTest {
 
@@ -39,6 +41,7 @@ class ECSCartManagerTest {
     @Before
     fun setUp() {
         ECSDataHolder.locale = "en_US"
+        ECSDataHolder.authToken="AUTH"
         mECSCartManager = ECSCartManager()
        mECSCartManager.requestHandler=requestHandlerMock
     }
