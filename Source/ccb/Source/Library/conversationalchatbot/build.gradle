@@ -45,4 +45,6 @@ android {
 dependencies {
     implementation philipsdeps.uAppFwLib
     implementation philipsdeps.AppInfra
+
+    implementation 'org.java-websocket:Java-WebSocket:1.5.1'
 }

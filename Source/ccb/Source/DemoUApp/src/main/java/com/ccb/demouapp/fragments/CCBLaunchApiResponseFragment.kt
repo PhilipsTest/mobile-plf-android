@@ -19,6 +19,8 @@ class CCBLaunchApiResponseFragment : CCBBaseFragment() {
         val rootView = inflater.inflate(R.layout.launch_api_response_fragment, container, false)
         rootView.authenticateUser.setOnClickListener{replaceFragment(CCBFetchAuthDetailsFragment(),true)}
         rootView.startConversation.setOnClickListener{replaceFragment(CCBFetchConversationDetailsFragment(),true)}
+        rootView.refreshSession.setOnClickListener{replaceFragment(CCBRefreshTokenFragment(),true)}
+        rootView.postMessage.setOnClickListener{replaceFragment(CCBPostMessageFragment(),true)}
 
         return rootView
     }
