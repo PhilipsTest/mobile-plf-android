@@ -97,7 +97,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
     private LinearLayout mLlConfiguration;
     private LinearLayout LlcoppaItems;
     private RadioGroup mRadioGroup;
-    private CheckBox mCheckBox;
+    private CheckBox mCheckBox,mThemeCheckBox;
     private User mUser;
     private Button mBtnRegistrationWithAccountSettings;
     private CoppaExtension coppaExtension;
@@ -172,6 +172,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         mSkipOptin = findViewById(R.id.enable_skip_optin);
         customOptin = findViewById(R.id.enable_custom_optin);
         hsdpUuidUpload = findViewById(R.id.switch_hsdp_uuid_upload);
+        mThemeCheckBox = findViewById(R.id.cb_enableTheme);
         consentConfirmationStatus = findViewById(R.id.updateCoppaConsentConfirmationStatus);
         updateCoppaConsentStatus = findViewById(R.id.updateCoppaConsentStatus);
         SharedPreferences prefs = getSharedPreferences("reg_dynamic_config", MODE_PRIVATE);
@@ -181,6 +182,8 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         countryShowSwitch.setChecked(prefs.getBoolean("reg_country_selection", false));
         mSkipOptin.setChecked(prefs.getBoolean("reg_skipoptin_configuration", false));
         customOptin.setChecked(prefs.getBoolean("reg_customoptin_configuration", false));
+        mThemeCheckBox.setChecked(prefs.getBoolean("reg_darkTheme_configuration", false));
+
 
 
         final String restoredHSDPText = prefs.getString("reg_hsdp_environment", null);
@@ -304,7 +307,9 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
             customOptin.setChecked(true);
         }
 
-
+        if (getSharedPreferences("reg_dynamic_config", MODE_PRIVATE).getBoolean("reg_darkTheme_configuration", false)) {
+            mThemeCheckBox.setChecked(true);
+        }
 
 
         hsdpUuidUpload.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -360,6 +365,17 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
                     } else {
                         editor.remove("reg_hsdp_environment").commit();
                         mBtnHsdpRefreshAccessToken.setVisibility(GONE);
+                    }
+
+                    if (mThemeCheckBox.isChecked()) {
+                        editor.putBoolean("reg_darkTheme_configuration", true).apply();
+                        RegistrationContentConfiguration registrationContentConfiguration = getRegistrationContentConfiguration();
+                        getRegistrationContentConfiguration().setShowSocialIconsInDarkTheme(true);
+                        URLaunchInput urLaunchInput;
+                        urLaunchInput = new URLaunchInput();
+                        urLaunchInput.setRegistrationContentConfiguration(registrationContentConfiguration);
+                    } else {
+                        editor.remove("reg_darkTheme_configuration").apply();
                     }
 
                     if (mSkipHSDPSwitch.isChecked()) {
@@ -1010,6 +1026,7 @@ public class URStandardDemoActivity extends UIDActivity implements OnClickListen
         //   registrationContentConfiguration.enableMarketImage(R.drawable.ref_app_home_page);
         registrationContentConfiguration.enableLastName(true);
         registrationContentConfiguration.enableContinueWithouAccount(true);
+        registrationContentConfiguration.setShowSocialIconsInDarkTheme(mThemeCheckBox.isChecked());
         return registrationContentConfiguration;
 
     }

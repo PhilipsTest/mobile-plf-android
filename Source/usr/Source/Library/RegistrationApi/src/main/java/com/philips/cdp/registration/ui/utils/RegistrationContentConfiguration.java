@@ -27,6 +27,8 @@ public class RegistrationContentConfiguration implements Serializable {
 
     private boolean enableLastName;
 
+    private boolean showSocialIconsInDarkTheme;
+
     private boolean enableContinueWithouAccount;
 
     private String optInActionBarText;
@@ -135,6 +137,13 @@ public class RegistrationContentConfiguration implements Serializable {
     public void enableLastName(boolean hideCreateAccountLastName) {
         RLog.d(TAG, "enableLastName :" + hideCreateAccountLastName);
         this.enableLastName = hideCreateAccountLastName;
+    }
+
+    public boolean isShowSocialIconsInDarkTheme() {
+        return showSocialIconsInDarkTheme;
+    }
+    public void setShowSocialIconsInDarkTheme(boolean showSocialIconsInDarkTheme) {
+        this.showSocialIconsInDarkTheme = showSocialIconsInDarkTheme;
     }
 
     public boolean getEnableContinueWithouAccount() {

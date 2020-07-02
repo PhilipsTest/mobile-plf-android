@@ -8,10 +8,12 @@
     "Flow.TermsAndConditionsAcceptanceRequired": "true",
     "Flow.MinimumAgeLimit": "{ \"NL\":12 ,\"GB\":16,\"default\": 16}",
     "SigninProviders.default": [
+      "apple",
       "facebook",
       "googleplus"
     ],
     "SigninProviders.NL": [
+      "apple",
       "facebook",
       "googleplus"
     ],
