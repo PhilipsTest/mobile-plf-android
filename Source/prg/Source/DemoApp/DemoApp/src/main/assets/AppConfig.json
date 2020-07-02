@@ -10,7 +10,7 @@
     "Flow.TermsAndConditionsAcceptanceRequired" : "true",
     "Flow.MinimumAgeLimit" : "{ \"NL\":12 ,\"GB\":16,\"default\": 16}",
     "SigninProviders.default": ["apple","facebook","googleplus"],
-    "SigninProviders.CN": ["apple","wechat"],
+    "SigninProviders.CN": ["wechat"],
     "weChatAppId" : "wxbdf2ab8822f6022f",
     "weChatAppSecret":"df749e21c43c65a042df6f3f4ebe18f1",
     "ShowCountrySelection":"true"
