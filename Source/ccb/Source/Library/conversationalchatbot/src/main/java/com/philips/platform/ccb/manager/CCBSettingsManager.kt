@@ -15,7 +15,7 @@ object  CCBSettingManager {
     lateinit var mTaggingInterface: AppTaggingInterface
     lateinit var mRestInterface: RestInterface
 
-    open fun init(ccbDependencies: UappDependencies) {
+    fun init(ccbDependencies: UappDependencies) {
         mAppInfraInterface = ccbDependencies.appInfra
         mLoggingInterface = mAppInfraInterface.logging.createInstanceForComponent(COMPONENT_TAGS_ID, BuildConfig.VERSION_NAME)
         mTaggingInterface = mAppInfraInterface.tagging.createInstanceForComponent(COMPONENT_TAGS_ID, BuildConfig.VERSION_NAME)

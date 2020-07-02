@@ -4,6 +4,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.philips.platform.ccb.errors.CCBError
 import com.philips.platform.ccb.integration.ccbCallback
 import com.philips.platform.ccb.manager.CCBManager
 import com.philips.platform.ccb.manager.CCBSettingManager
@@ -14,39 +15,39 @@ import com.philips.platform.ccb.request.CCBStartConversationRequest
 import com.philips.platform.ccb.rest.CCBRestClient
 import org.json.JSONObject
 
-internal class CCBAzureSessionHandler: CCBSessionHandlerInterface {
-    private var ccbRestClient: CCBRestClient? = null
+class CCBAzureSessionHandler : CCBSessionHandlerInterface {
 
-    override fun authenticateUser(ccbUser: CCBUser, ccbCallback: ccbCallback<Boolean, Exception>?) {
+    private val ccbRestClient by lazy { CCBRestClient(CCBSettingManager.mRestInterface) }
+
+    override fun authenticateUser(ccbUser: CCBUser, completionHandler: (Boolean, CCBError?) -> Unit) {
         val ccbAuthenticationRequest = CCBAuthenticationRequest(ccbUser.secretKey)
-        ccbRestClient = CCBRestClient(CCBSettingManager.mRestInterface)
-        ccbRestClient?.invokeRequest(ccbAuthenticationRequest, Response.Listener { response: String ->
+
+        ccbRestClient.invokeRequest(ccbAuthenticationRequest, Response.Listener { response: String ->
             val tokenObject = JSONObject(response)
             val accessToken = tokenObject.getString("token")
-            CCBManager.INSTANCE.ccbConversation?.token = accessToken
-            ccbCallback?.onResponse(true)
+            CCBManager.ccbConversation?.token = accessToken
+            completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            ccbCallback?.onFailure(error)
+            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
         })
     }
 
-    override fun startConversation(ccbCallback: ccbCallback<CCBConversation, Exception>?) {
+    override fun startConversation(completionHandler: (CCBConversation?, CCBError?) -> Unit) {
         val ccbStartConversationRequest = CCBStartConversationRequest()
-        ccbRestClient = CCBRestClient(CCBSettingManager.mRestInterface)
-        ccbRestClient?.invokeRequest(ccbStartConversationRequest,Response.Listener { response: String ->
+        ccbRestClient.invokeRequest(ccbStartConversationRequest, Response.Listener { response: String ->
             val conversation = Gson().fromJson(response, CCBConversation::class.java)
-            CCBManager.INSTANCE.ccbConversation?.token = conversation.token
-            ccbCallback?.onResponse(conversation)
+            CCBManager.ccbConversation?.token = conversation.token
+            completionHandler.invoke(conversation, null)
         }, Response.ErrorListener { error: VolleyError ->
-            ccbCallback?.onFailure(error)
+            completionHandler.invoke(null, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
         })
     }
 
-    override fun refreshSession(ccbCallback: ccbCallback<Boolean, Exception>?) {
-        TODO("Not yet implemented")
+    override fun refreshSession(completionHandler: (Boolean, CCBError?) -> Unit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun endConversation(ccbCallback: ccbCallback<Boolean, Exception>?) {
-        TODO("Not yet implemented")
+    override fun endConversation(completionHandler: (Boolean, CCBError?) -> Unit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

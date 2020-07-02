@@ -1,17 +1,16 @@
 package com.philips.platform.ccb.directline
 
-import com.philips.platform.ccb.integration.ccbCallback
+import com.philips.platform.ccb.errors.CCBError
 import com.philips.platform.ccb.model.CCBConversation
 import com.philips.platform.ccb.model.CCBUser
-import java.lang.Exception
 
 interface CCBSessionHandlerInterface {
 
-    fun authenticateUser(ccbUser: CCBUser, ccbCallback: ccbCallback<Boolean,Exception>?)
+    fun authenticateUser(ccbUser: CCBUser, completionHandler: (Boolean, CCBError?) -> Unit)
 
-    fun startConversation(ccbCallback: ccbCallback<CCBConversation,Exception>?)
+    fun startConversation(completionHandler: (CCBConversation?, CCBError?) -> Unit)
 
-    fun refreshSession(ccbCallback: ccbCallback<Boolean,Exception>?)
+    fun refreshSession(completionHandler: (Boolean, CCBError?) -> Unit)
 
-    fun endConversation(ccbCallback: ccbCallback<Boolean,Exception>?)
+    fun endConversation(completionHandler: (Boolean, CCBError?) -> Unit)
 }

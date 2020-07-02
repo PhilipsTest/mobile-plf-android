@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.philips.platform.ccb.constant.CCBUrlBuilder
+import com.philips.platform.ccb.errors.CCBError
 import com.philips.platform.ccb.integration.ccbCallback
 import com.philips.platform.ccb.manager.CCBManager
 import com.philips.platform.ccb.model.CCBUser
@@ -36,17 +37,14 @@ class CCBFetchAuthDetailsFragment : CCBBaseFragment() {
     private fun executeRequest() {
         progressBar?.visibility = View.VISIBLE
         val ccbUser = CCBUser(CCBUrlBuilder.SECRET_KEY, "", "")
-        CCBManager.INSTANCE.getccbSessionHandlerInterface().authenticateUser(ccbUser, object : ccbCallback<Boolean, Exception> {
-            override fun onResponse(response: Boolean) {
+        CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success: Boolean, ccbError: CCBError? ->
+            if(success){
                 progressBar?.visibility = View.GONE
-                textView?.text = response.toString()
+                textView?.text = "Request SUCCESS"
+            }else if(ccbError != null){
+                progressBar?.visibility = View.GONE
+                textView?.text = "Request Failed"
             }
-
-            override fun onFailure(error: Exception) {
-                TODO("Not yet implemented")
-            }
-
-        })
-
+        }
     }
 }

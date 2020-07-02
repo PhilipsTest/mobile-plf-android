@@ -15,7 +15,7 @@ import com.philips.platform.ccbdemouapp.R
 class CCBFetchConversationDetailsFragment : CCBBaseFragment() {
 
     var textView: TextView? = null
-    var progressBar : ProgressBar? = null
+    var progressBar: ProgressBar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -32,17 +32,15 @@ class CCBFetchConversationDetailsFragment : CCBBaseFragment() {
 
     private fun executeRequest() {
         progressBar?.visibility = View.VISIBLE
-        CCBManager.INSTANCE.getccbSessionHandlerInterface().startConversation(object : ccbCallback<CCBConversation,Exception> {
-            override fun onResponse(response: CCBConversation) {
+        CCBManager.getCCBSessionHandlerInterface().startConversation { ccbConversation, ccbError ->
+            if (ccbConversation != null) {
                 progressBar?.visibility = View.GONE
-                textView?.text = response.token
+                textView?.text = ccbConversation.token
+            } else if (ccbError != null) {
+                progressBar?.visibility = View.GONE
+                textView?.text = "Request Failed"
             }
-
-            override fun onFailure(error: Exception) {
-                textView?.text = "fail"
-            }
-        })
-
-
         }
+
+    }
 }
