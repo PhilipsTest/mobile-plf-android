@@ -40,7 +40,7 @@ class CCBFetchAuthDetailsFragment : CCBBaseFragment() {
         CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success: Boolean, ccbError: CCBError? ->
             if(success){
                 progressBar?.visibility = View.GONE
-                textView?.text = "Request SUCCESS"
+                textView?.text = "Request Success"
             }else if(ccbError != null){
                 progressBar?.visibility = View.GONE
                 textView?.text = "Request Failed"

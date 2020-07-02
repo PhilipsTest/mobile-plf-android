@@ -25,7 +25,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
         ccbRestClient.invokeRequest(ccbAuthenticationRequest, Response.Listener { response: String ->
             val tokenObject = JSONObject(response)
             val accessToken = tokenObject.getString("token")
-            CCBManager.ccbConversation?.token = accessToken
+            CCBManager.token = accessToken
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
             completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
@@ -36,7 +36,6 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
         val ccbStartConversationRequest = CCBStartConversationRequest()
         ccbRestClient.invokeRequest(ccbStartConversationRequest, Response.Listener { response: String ->
             val conversation = Gson().fromJson(response, CCBConversation::class.java)
-            CCBManager.ccbConversation?.token = conversation.token
             completionHandler.invoke(conversation, null)
         }, Response.ErrorListener { error: VolleyError ->
             completionHandler.invoke(null, CCBError(error.networkResponse.statusCode, "Chatbot Error"))

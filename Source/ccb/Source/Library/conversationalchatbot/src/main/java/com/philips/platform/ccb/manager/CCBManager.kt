@@ -7,11 +7,17 @@ import com.philips.platform.ccb.model.CCBConversation
 
 object CCBManager {
 
+    init {
+
+    }
+
     private val ccbAzureSessionHandler by lazy {
         CCBAzureSessionHandler()
     }
 
     var ccbConversation: CCBConversation? = null
+
+    var token: String = ""
 
     @JvmStatic
     fun  getCCBSessionHandlerInterface(): CCBSessionHandlerInterface{
