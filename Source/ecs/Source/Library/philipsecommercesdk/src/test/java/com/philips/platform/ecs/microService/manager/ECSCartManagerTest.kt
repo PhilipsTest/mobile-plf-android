@@ -82,5 +82,15 @@ class ECSCartManagerTest {
         Mockito.`when`(requestHandlerMock.handleRequest(CreateCartRequestMock)).then { ecscallback.onResponse(eCSShoppingCart) }
     }
 
+    @Test
+    fun `invalid ctn`(){
+
+    }
+
+    @Test
+    fun `invalid quantity`(){
+
+    }
+
 
 }
