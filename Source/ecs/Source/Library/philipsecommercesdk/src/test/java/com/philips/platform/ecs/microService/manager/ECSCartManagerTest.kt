@@ -70,6 +70,8 @@ class ECSCartManagerTest {
     }
 
 
+    // test cases for fetch cart ==================== starts
+
     @Test
     fun `fetch shopping cart should throw exception if locale is not present`() {
 
@@ -130,6 +132,9 @@ class ECSCartManagerTest {
        // Mockito.verify(requestHandlerMock).handleRequest(any(GetCartRequest::class.java))
     }
 
+     // test cases for fetch cart ==================== ends
+
+    // test cases for create cart ==================== starts
 
     @Test
     fun `create shopping cart should throw exception for invalid ctn`() {
@@ -201,7 +206,7 @@ class ECSCartManagerTest {
         // Mockito.verify(requestHandlerMock).handleRequest(any(CreateCartRequest::class.java))
     }
 
-
+   // test cases for create cart ==================== ends
 
 
 }
