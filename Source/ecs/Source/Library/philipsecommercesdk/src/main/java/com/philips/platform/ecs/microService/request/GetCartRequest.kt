@@ -28,7 +28,7 @@ class GetCartRequest(val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>) : 
     }
 
     override fun getURL(): String {
-        return url.replaceParam(getReplaceURLMap())
+       return url.replaceParam(getReplaceURLMap())
     }
     override fun onResponse(response: JSONObject?) {
         val ecsShoppingCart = response?.getData(ECSShoppingCart::class.java)

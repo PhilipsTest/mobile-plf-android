@@ -42,7 +42,7 @@ class ECSApiValidator {
     }
 
     private fun validateAuth(): ECSException? {
-        if(ECSDataHolder.authToken == null) return ECSException(ECSErrorType.ECSOAuthNotCalled.getLocalizedErrorString(), ECSErrorType.ECSOAuthNotCalled.errorCode)
+        if (ECSDataHolder.authToken == null) return ECSException(ECSErrorType.ECSOAuthNotCalled.getLocalizedErrorString(), ECSErrorType.ECSOAuthNotCalled.errorCode)
         return null
     }
 

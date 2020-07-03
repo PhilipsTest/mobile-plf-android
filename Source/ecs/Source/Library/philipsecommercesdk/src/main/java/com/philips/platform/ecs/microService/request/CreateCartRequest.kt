@@ -36,5 +36,10 @@ class CreateCartRequest(private val ctn: String, private val quantity: Int,priva
         ecsShoppingCart ?.let { ecsCallback.onResponse(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}
     }
 
+    override fun getHeader(): MutableMap<String, String>? {
+        val header = super.getHeader()
+        header?.put("Content-Type","application/json")
+        return header
+    }
     
 }

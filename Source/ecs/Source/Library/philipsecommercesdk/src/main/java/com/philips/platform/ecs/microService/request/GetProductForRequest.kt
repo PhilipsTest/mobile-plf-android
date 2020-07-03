@@ -23,13 +23,8 @@ import org.json.JSONObject
 class GetProductForRequest(private val ctn: String, private val ecsCallback: ECSCallback<ECSProduct?, ECSError>) : ECSJsonRequest(ecsCallback) {
 
 
-    var hardCodeurl = "https://acc.eu-west-1.api.philips.com/commerce-service/product/%ctn%?siteId=%siteId%&language=%language%&country=%country%"
 
     var ecsProductManager = ECSProductManager()
-
-    override fun getURL(): String {
-        return hardCodeurl.replaceParam(getReplaceURLMap())
-    }
 
     override fun getServiceID(): String {
         return SERVICEID_ECS_PRODUCT_DETAILS

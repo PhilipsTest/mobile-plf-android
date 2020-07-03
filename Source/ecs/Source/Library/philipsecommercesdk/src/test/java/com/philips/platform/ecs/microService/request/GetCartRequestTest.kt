@@ -19,7 +19,9 @@ import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import com.philips.platform.ecs.util.ECSConfiguration
 import org.json.JSONObject
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
@@ -83,6 +85,22 @@ class GetCartRequestTest {
         expectedMap["country"] = "US"
         expectedMap["cartId"]="current"
         assertEquals(expectedMap,getCartRequest.getReplaceURLMap())
+    }
+
+    @Test
+    fun `header should be as expected`() {
+
+        ECSDataHolder.authToken = "authstring"
+        ECSConfiguration.INSTANCE.setAuthToken("authstring")
+
+        val expectedMap = HashMap<String,String>()
+
+
+        expectedMap["Accept"] = "application/json"
+        expectedMap["Api-Key"] = "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
+        expectedMap["Api-Version"] = "1"
+        expectedMap["Authorization"] = "bearer authstring"
+        Assert.assertEquals(expectedMap, getCartRequest.getHeader())
     }
 
     @Test

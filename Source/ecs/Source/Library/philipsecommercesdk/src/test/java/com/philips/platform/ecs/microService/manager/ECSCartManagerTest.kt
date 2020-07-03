@@ -10,6 +10,7 @@ import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.request.CreateCartRequest
 import com.philips.platform.ecs.microService.request.any
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import com.philips.platform.ecs.util.ECSConfiguration
 import junit.framework.Assert
 import junit.framework.Assert.fail
 import org.junit.Before
@@ -59,28 +60,9 @@ class ECSCartManagerTest {
     fun fetchShoppingCart() {
     }
 
+    //TODO once service discovery is uploaded
     @Test
-    fun createECSShoppingCart() {
-        ECSDataHolder.locale = "en_US"
-        ECSDataHolder.config = ECSConfig(isHybris = true)
-        setApiKey()
+    fun `create shopping cart should handle createCartRequest`() {
 
-        var ecscallback = object: ECSCallback<ECSShoppingCart, ECSError> {
-            override fun onResponse(result: ECSShoppingCart) {
-                Assert.assertNotNull(result)
-            }
-            override fun onFailure(ecsError: ECSError) {
-             fail()
-            }
-        };
-
-        var data= Data(null,"id","type")
-        var eCSShoppingCart = ECSShoppingCart(data)
-        Mockito.`when`(requestHandlerMock.handleRequest(CreateCartRequestMock)).then { ecscallback.onResponse(eCSShoppingCart) }
-        CreateCartRequestMock = CreateCartRequest("ctn",1,ecscallback)
-        mECSCartManager.createECSShoppingCart("ctn",1,ecscallback)
-        Mockito.`when`(requestHandlerMock.handleRequest(CreateCartRequestMock)).then { ecscallback.onResponse(eCSShoppingCart) }
     }
-
-
 }

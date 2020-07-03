@@ -26,7 +26,7 @@ class ECSProductManager {
     var requestHandler = RequestHandler()
 
     fun getProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter?, ecsCallback :ECSCallback<ECSProducts, ECSError>){
-        var ecsException = ECSApiValidator().getECSException(APIType.LocaleAndHybris)?:ECSApiValidator().validatePageLimit(limit)
+        val ecsException = ECSApiValidator().getECSException(APIType.LocaleAndHybris)?:ECSApiValidator().validatePageLimit(limit)
 
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
@@ -83,9 +83,9 @@ class ECSProductManager {
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
 
-            var ecsProductList = mutableListOf<ECSProduct>()
+            val ecsProductList = mutableListOf<ECSProduct>()
             for (ctn in ctns) {
-                var ecsProduct = ECSProduct(null, ctn, null)
+                val ecsProduct = ECSProduct(null, ctn, null)
                 ecsProductList.add(ecsProduct)
             }
             val getSummariesForProductsRequest = GetSummariesForProductsRequest(ecsProductList, ecsCallback)
