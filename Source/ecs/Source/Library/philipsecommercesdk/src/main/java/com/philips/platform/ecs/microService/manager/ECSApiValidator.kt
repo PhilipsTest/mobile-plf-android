@@ -12,7 +12,6 @@
 
 package com.philips.platform.ecs.microService.manager
 
-import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.util.ECSDataHolder
@@ -64,6 +63,22 @@ class ECSApiValidator {
         if(ctn.trim().isEmpty() || ctn.trim().contains(" ")){
           return ECSException(ECSErrorType.ECSUnknownIdentifierError.getLocalizedErrorString(), ECSErrorType.ECSUnknownIdentifierError.errorCode)
          }
+        return null
+    }
+
+    fun validateCreateCartQuantity(quantity: Int): ECSException?{
+
+        if(quantity<1){
+            return ECSException(ECSErrorType.ECSCommerceCartModificationError.getLocalizedErrorString(), ECSErrorType.ECSCommerceCartModificationError.errorCode)
+        }
+        return null
+    }
+
+    fun validateUpdateCartQuantity(quantity: Int): ECSException?{
+
+        if(quantity<0){
+            return ECSException(ECSErrorType.ECSCommerceCartModificationError.getLocalizedErrorString(), ECSErrorType.ECSCommerceCartModificationError.errorCode)
+        }
         return null
     }
 

@@ -36,7 +36,7 @@ class ECSCartManager {
     }
 
     fun createECSShoppingCart(ctn: String, quantity: Int = 1,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
-        val ecsException = ECSApiValidator().validateCTN(ctn) ?: ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
+        val ecsException = ECSApiValidator().validateCTN(ctn) ?: ECSApiValidator().validateCreateCartQuantity(quantity)?: ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
         ecsException?.let { throw ecsException } ?: kotlin.run {
             val createCartRequest = CreateCartRequest(ctn, quantity, ecsCallback)
             createCartRequest.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart?siteId=%siteId%&language=%language%&country=%country%&productId=%ctn%&quantity=%quantity%"
