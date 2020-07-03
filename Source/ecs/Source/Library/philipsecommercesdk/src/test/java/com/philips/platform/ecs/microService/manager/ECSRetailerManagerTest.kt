@@ -49,7 +49,7 @@ class ECSRetailerManagerTest {
     }
 
     @Test
-    fun `fetch retailer should through exception when locale is not present`() {
+    fun `fetch retailer should throw exception when locale is not present`() {
         try {
             ecsRetailerManager.fetchRetailers(validCTN,ecsCallbackMock)
         }catch (e : ECSException){
@@ -59,7 +59,7 @@ class ECSRetailerManagerTest {
     }
 
     @Test
-    fun `fetch retailer should through exception when ctn is not valid even if the locale is present`() {
+    fun `fetch retailer should throw exception when ctn is not valid even if the locale is present`() {
         ECSDataHolder.locale = "en_US"
         try {
             ecsRetailerManager.fetchRetailers(inValidCTN,ecsCallbackMock)
