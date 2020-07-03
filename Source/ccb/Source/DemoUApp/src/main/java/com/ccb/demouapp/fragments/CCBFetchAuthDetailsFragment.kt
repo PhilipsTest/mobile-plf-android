@@ -36,7 +36,7 @@ class CCBFetchAuthDetailsFragment : CCBBaseFragment() {
 
     private fun executeRequest() {
         progressBar?.visibility = View.VISIBLE
-        val ccbUser = CCBUser(CCBUrlBuilder.SECRET_KEY, "", "")
+        val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "", "")
         CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success: Boolean, ccbError: CCBError? ->
             if(success){
                 progressBar?.visibility = View.GONE

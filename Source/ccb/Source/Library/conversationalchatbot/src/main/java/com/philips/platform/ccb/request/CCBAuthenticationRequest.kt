@@ -19,7 +19,7 @@ class CCBAuthenticationRequest(key: String) : CCBRequestInterface{
     override fun getHeader(): Map<String, String> {
         val headers: MutableMap<String, String> = HashMap()
         headers["Content-Type"] = "application/json"
-        headers["Authorization"] = "Bearer "+ CCBUrlBuilder.SECRET_KEY
+        headers["Authorization"] = "Bearer "+ CCBUrlBuilder.HIDDEN_KNOCK
         return headers
     }
 
