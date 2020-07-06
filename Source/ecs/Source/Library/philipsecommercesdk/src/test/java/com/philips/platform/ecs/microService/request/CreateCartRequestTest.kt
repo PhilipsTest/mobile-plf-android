@@ -5,9 +5,13 @@ import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_CREATE_CART
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
+import com.philips.platform.ecs.microService.error.ErrorHandler
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
+import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.util.ECSConfiguration
 import junit.framework.Assert.*
 import org.json.JSONObject
@@ -22,6 +26,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 @RunWith(PowerMockRunner::class)
 class CreateCartRequestTest {
     var mCreateCartRequest: CreateCartRequest? = null
+    private lateinit var errorHandler: ErrorHandler
 
     @Mock
     lateinit var appInfraMock : AppInfra
@@ -33,6 +38,7 @@ class CreateCartRequestTest {
         setApiKey()
 
         ECSDataHolder.locale = "en_US"
+        errorHandler = ErrorHandler()
         var ecsConfig = ECSConfig("en_US",null,null,null,null,null,"Tuscany_Campaign","US_Tuscany",true)
         ECSDataHolder.config = ecsConfig
     }
@@ -215,5 +221,16 @@ class CreateCartRequestTest {
         mCreateCartRequest!!.onResponse(jsonObject)
 
 
+    }
+
+    @Test
+    fun `invalid or missing CTN`() {
+
+        val errorString = ClassLoader.getSystemResource("pil/cart/CreateCartMissingCTN.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var PilError = ECSError(ECSErrorType.MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.MISSING_PARAMETER_productId.errorCode, ECSErrorType.MISSING_PARAMETER_productId)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        Assert.assertEquals(ECSErrorType.MISSING_PARAMETER_productId.errorCode, PilError.errorCode)
     }
 }
