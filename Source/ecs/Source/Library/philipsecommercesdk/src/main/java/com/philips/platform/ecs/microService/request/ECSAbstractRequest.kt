@@ -40,9 +40,7 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
     open fun getURL():String{
         return url
     }
-    open fun getTokenProviderInterface() : TokenProviderInterface?{
-        return null
-    }
+
     override fun onErrorResponse(error: VolleyError?) {
         ecsErrorCallback.onFailure(ErrorHandler().getECSError(error))
     }
