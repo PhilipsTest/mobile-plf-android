@@ -40,6 +40,6 @@ dependencies {
 
     implementation philipsdeps.uAppFwLib
     implementation philipsdeps.uid
-    implementation philipsdeps.AppInfra
+    implementation project(':AppInfra')
     implementation project(':ccbUApp')
 }

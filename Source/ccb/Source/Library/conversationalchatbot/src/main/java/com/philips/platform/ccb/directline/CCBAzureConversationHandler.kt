@@ -10,16 +10,15 @@ import com.philips.platform.ccb.rest.CCBRestClient
 
 class CCBAzureConversationHandler: CCBConversationHandlerInterface {
 
-    private val ccbRestClient by lazy { CCBRestClient(CCBSettingManager.mRestInterface) }
+    private val ccbRestClient by lazy { CCBRestClient() }
 
-    override fun postMessage(completionHandler: (Boolean, CCBError?) -> Unit) {
-        val ccbPostMessageRequest = CCBPostMessageRequest()
-        ccbRestClient.invokeRequest(ccbPostMessageRequest,Response.Listener { response: String ->
+    override fun postMessage(message: String?,completionHandler: (Boolean, CCBError?) -> Unit) {
+        val ccbPostMessageRequest = CCBPostMessageRequest(message)
+        ccbRestClient.invokeRequest(ccbPostMessageRequest,Response.Listener {
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(false, error?.networkResponse?.statusCode?.let { CCBError(it, "Chatbot Error") })
         })
-
     }
 
     override fun getAllMessages(ccbConversation: CCBConversation, completionHandler: (Boolean, CCBError?) -> Unit) {

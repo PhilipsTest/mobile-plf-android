@@ -7,7 +7,7 @@ import java.util.ArrayList
 
 interface CCBConversationHandlerInterface {
 
-    fun postMessage(completionHandler: (Boolean, CCBError?) -> Unit)
+    fun postMessage(message: String?, completionHandler: (Boolean, CCBError?) -> Unit)
 
     fun getAllMessages(ccbConversation: CCBConversation, completionHandler: (Boolean, CCBError?) -> Unit)
 }

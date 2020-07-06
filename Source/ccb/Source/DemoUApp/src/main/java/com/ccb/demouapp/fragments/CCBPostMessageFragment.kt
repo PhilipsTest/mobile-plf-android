@@ -36,7 +36,7 @@ class CCBPostMessageFragment : CCBBaseFragment() {
 
     private fun executeRequest() {
         progressBar?.visibility = View.VISIBLE
-        CCBManager.getCCBConversationHandlerInterface().postMessage { success: Boolean, ccbError: CCBError? ->
+        CCBManager.getCCBConversationHandlerInterface().postMessage("") { success: Boolean, ccbError: CCBError? ->
             if(success){
                 progressBar?.visibility = View.GONE
                 textView?.text = "Request Success"

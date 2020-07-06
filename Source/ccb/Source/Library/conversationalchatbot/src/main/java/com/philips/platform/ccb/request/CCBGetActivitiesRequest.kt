@@ -4,11 +4,9 @@ import com.android.volley.Request
 import com.philips.platform.ccb.constant.CCBUrlBuilder
 import com.philips.platform.ccb.manager.CCBManager
 import com.philips.platform.ccb.rest.CCBRequestInterface
-import org.json.JSONObject
-import java.util.*
+import java.util.HashMap
 
-class CCBPostMessageRequest(message: String?) : CCBRequestInterface {
-    val message = message
+class CCBGetActivitiesRequest: CCBRequestInterface {
     override fun getUrl(): String {
         return CCBUrlBuilder.BASE_URL + CCBUrlBuilder.SUFIX_CONVERSATION + CCBManager.conversationId + CCBUrlBuilder.SUFIX_ACTIVITIES
     }
@@ -22,17 +20,10 @@ class CCBPostMessageRequest(message: String?) : CCBRequestInterface {
     }
 
     override fun getBody(): String? {
-        val jsonObject = JSONObject()
-        jsonObject.put("type","message")
-        val  fromJson = JSONObject()
-        fromJson.put("id","AUserOne")
-        jsonObject.put("from",fromJson)
-        jsonObject.put("text",message)
-        return jsonObject.toString()
+        return null
     }
 
     override fun getMethodType(): Int {
-        return Request.Method.POST
+        return Request.Method.GET
     }
-
 }

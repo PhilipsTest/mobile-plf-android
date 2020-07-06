@@ -31,7 +31,7 @@ android {
 
 dependencies {
     implementation philipsdeps.uAppFwLib
-    implementation philipsdeps.AppInfra
+    implementation project(':AppInfra')
     implementation project(':conversationalChatBot')
 
     implementation deps.androidx.appcompat
