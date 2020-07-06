@@ -209,6 +209,21 @@ class MECHandlerTest{
         Mockito.verify(contextMock).startActivity(any(Intent::class.java))
     }
 
+    @Test
+    fun `should start activity on config call back success with only locale`() {
+
+        mECSettingMock = MECSettings(contextMock)
+        mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
+        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, launchInputMock)
+
+        val ecsConfig = ECSConfig()
+        ecsConfig.isHybris = true
+        ecsConfig.locale = "en_US"
+        ECSConfiguration.INSTANCE.locale = "en_US"
+        configCallback.onResponse(ecsConfig)
+        Mockito.verify(contextMock).startActivity(any(Intent::class.java))
+    }
+
     @Mock
     lateinit var fragmentActivityMock : FragmentActivity
     @Mock

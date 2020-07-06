@@ -31,10 +31,10 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
 
 
     override fun getFragmentTag(): String {
-        return "MECWebPaymentFragment"
+        return TAG
     }
 
-    private val TAG: String = MECWebPaymentFragment::class.java.simpleName
+    private val TAG: String = "MECWebPaymentFragment"
 
 
     private var mContext: Context? = null
@@ -98,7 +98,7 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
     private fun launchConfirmationScreen(bundle: Bundle) {
         val mECPaymentConfirmationFragment: MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
         mECPaymentConfirmationFragment.arguments = bundle
-        addFragment(mECPaymentConfirmationFragment, TAG, true)
+        addFragment(mECPaymentConfirmationFragment, mECPaymentConfirmationFragment.getFragmentTag(), true)
     }
 
     override fun shouldOverrideUrlLoading(url: String): Boolean {

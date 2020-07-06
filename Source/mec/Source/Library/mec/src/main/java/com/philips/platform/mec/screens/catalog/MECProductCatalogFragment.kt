@@ -58,7 +58,7 @@ import kotlinx.coroutines.launch
  */
 open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickListener {
     override fun getFragmentTag(): String {
-        return "MECProductCatalogFragment"
+        return TAG
     }
 
 
@@ -103,7 +103,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
         val fragment = MECProductDetailsFragment()
         fragment.arguments = bundle
-        replaceFragment(fragment, MECProductDetailsFragment.TAG, true)
+        replaceFragment(fragment, fragment.getFragmentTag(), true)
     }
 
     override fun isPaginationSupported(): Boolean {
@@ -378,7 +378,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getPrivacyUrl())
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle
-        replaceFragment(mecPrivacyFragment, TAG, true)
+        replaceFragment(mecPrivacyFragment, mecPrivacyFragment.getFragmentTag(), true)
     }
 
     private fun isScrollDown(lay: LinearLayoutManager): Boolean {

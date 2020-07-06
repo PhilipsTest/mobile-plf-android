@@ -215,6 +215,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         mCategorizedProductList.add("HD9630/90");
         mCategorizedProductList.add("HD9240/90");
         mCategorizedProductList.add("HD9621/90");
+        mCategorizedProductList.add("HD9220/26");
+        mCategorizedProductList.add("HD9240/34");
         mIapLaunchInput = new IAPLaunchInput();
         mIapLaunchInput.setHybrisSupported(true);
         mIapLaunchInput.setIapListener(this);
@@ -307,16 +309,14 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 showToast("User is not loged-in, Please login!");
             }
         } else if (v == btn_IAP) {
-            if (isUserLoggedIn()) {
+
                 if (mCategorizedProductList.size() > 0) {
                     IAPFlowInput input = new IAPFlowInput(mCategorizedProductList);
                     launchIAP();
                 } else {
                     Toast.makeText(this, "Please add CTN", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                showToast("User is not loged-in, Please login!");
-            }
+
         } else if (v == btn_ECS) {
             launchECS();
         } else if (v == btn_MCS) {
@@ -450,6 +450,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             mCategorizedProductList.add("HD9630/90");
             mCategorizedProductList.add("HD9240/90");
             mCategorizedProductList.add("HD9621/90");
+            mCategorizedProductList.add("HD9220/26");
+            mCategorizedProductList.add("HD9240/34");
             mIapLaunchInput = new IAPLaunchInput();
             mIapLaunchInput.setHybrisSupported(true);
             mIapLaunchInput.setIapListener(this);
