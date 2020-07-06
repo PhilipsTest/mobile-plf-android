@@ -38,6 +38,11 @@ android {
 dependencies {
     implementation deps.androidx.constraintlayout
 
+    if (useprojectdependencies) {
+        implementation project(strings.pif.projectName)
+    } else {
+        implementation philipsdeps.pif
+    }
     implementation philipsdeps.uAppFwLib
     implementation philipsdeps.uid
     implementation philipsdeps.AppInfra

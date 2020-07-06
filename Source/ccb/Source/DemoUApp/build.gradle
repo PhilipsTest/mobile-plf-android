@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/cdpscm.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/projectnames.gradle'
 
-archivesBaseName = strings.pimuapp.artifactName
+archivesBaseName = strings.ccbuapp.artifactName
 
 android {
     compileSdkVersion versions.sdk
@@ -30,6 +30,11 @@ android {
 }
 
 dependencies {
+    if (useprojectdependencies) {
+        implementation project(strings.pif.projectName)
+    } else {
+        implementation philipsdeps.pif
+    }
     implementation philipsdeps.uAppFwLib
     implementation philipsdeps.AppInfra
     implementation project(':conversationalChatBot')
