@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name" translatable="false">ccbUApp</string>
+    <string name="title_activity_main" translatable="false">DDBDemoUAppActivity</string>
+    <string name="text_launchatbotui" translatable="false">Launch Chatbot UI</string>
+    <string name="text_laundirectlineapi" translatable="false">Launch Directline API</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
