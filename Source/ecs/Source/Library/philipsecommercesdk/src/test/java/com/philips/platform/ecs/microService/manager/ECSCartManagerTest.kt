@@ -5,12 +5,8 @@ import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
-import com.philips.platform.ecs.microService.model.cart.Data
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
-import com.philips.platform.ecs.microService.request.CreateCartRequest
-import com.philips.platform.ecs.microService.request.GetCartRequest
-import com.philips.platform.ecs.microService.request.GetRetailersInfoRequest
 import com.philips.platform.ecs.microService.request.any
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.util.ECSConfiguration
@@ -139,11 +135,20 @@ class ECSCartManagerTest {
     @Test
     fun `create shopping cart should throw exception for invalid ctn`() {
 
-        ECSDataHolder.locale = null
         try {
             mECSCartManager.createECSShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
             assertEquals(5006, e.errorCode)
+        }
+    }
+
+    @Test
+    fun `create shopping cart should throw exception for invalid quantity is passed`() {
+
+        try {
+            mECSCartManager.createECSShoppingCart(validCTN,0,ecsCallbackMock)
+        }catch (e : ECSException){
+            assertEquals(5007, e.errorCode)
         }
     }
 
