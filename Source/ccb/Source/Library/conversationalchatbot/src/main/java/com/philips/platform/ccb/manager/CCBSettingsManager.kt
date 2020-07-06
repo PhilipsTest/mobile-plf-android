@@ -7,7 +7,7 @@ import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.ccb.BuildConfig
 import com.philips.platform.uappframework.uappinput.UappDependencies
 
-object  CCBSettingManager {
+object CCBSettingsManager {
 
     private val COMPONENT_TAGS_ID = "ccb"
     lateinit var mAppInfraInterface: AppInfraInterface
