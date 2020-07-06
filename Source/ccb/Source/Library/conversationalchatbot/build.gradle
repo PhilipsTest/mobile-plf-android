@@ -49,11 +49,13 @@ dependencies {
     implementation deps.androidx.annotations
     if (useprojectdependencies) {
         implementation project(strings.pif.projectName)
+        implementation project(strings.ufw.projectName)
+        implementation project(strings.ail.projectName)
     } else {
         implementation philipsdeps.pif
+        implementation philipsdeps.uAppFwLib
+        implementation philipsdeps.AppInfra
     }
-    implementation philipsdeps.uAppFwLib
-    implementation philipsdeps.AppInfra
 
     implementation 'org.java-websocket:Java-WebSocket:1.5.1'
 

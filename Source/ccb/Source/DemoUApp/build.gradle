@@ -31,13 +31,16 @@ android {
 
 dependencies {
     if (useprojectdependencies) {
+        implementation project(strings.ccb.projectName)
         implementation project(strings.pif.projectName)
+        implementation project(strings.ufw.projectName)
+        implementation project(strings.ail.projectName)
     } else {
         implementation philipsdeps.pif
+        implementation philipsdeps.uAppFwLib
+        implementation philipsdeps.AppInfra
+        implementation philipsdeps.conversationalChatBot
     }
-    implementation philipsdeps.uAppFwLib
-    implementation philipsdeps.AppInfra
-    implementation project(':conversationalChatBot')
 
     implementation deps.androidx.appcompat
     implementation deps.androidx.constraintlayout

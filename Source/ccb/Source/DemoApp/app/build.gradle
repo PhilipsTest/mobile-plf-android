@@ -40,11 +40,13 @@ dependencies {
 
     if (useprojectdependencies) {
         implementation project(strings.pif.projectName)
+        implementation project(strings.ufw.projectName)
+        implementation project(strings.ail.projectName)
     } else {
         implementation philipsdeps.pif
+        implementation philipsdeps.uAppFwLib
+        implementation philipsdeps.AppInfra
+        implementation philipsdeps.uid
+        implementation philipsdeps.ccbUApp
     }
-    implementation philipsdeps.uAppFwLib
-    implementation philipsdeps.uid
-    implementation philipsdeps.AppInfra
-    implementation project(':ccbUApp')
 }
