@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.philips.platform.ccb.constant.CCBUrlBuilder
 import com.philips.platform.ccb.errors.CCBError
 import com.philips.platform.ccb.manager.CCBManager
-import com.philips.platform.ccb.model.CCBUser
+import com.philips.platform.ccb.model.CCBMessage
 import com.philips.platform.ccbdemouapp.R
 
-class CCBFetchAuthDetailsFragment : CCBBaseFragment() {
+class CCBGetMessagesFragment : CCBBaseFragment() {
 
     var textView: TextView? = null
     var progressBar : ProgressBar? = null
@@ -32,9 +31,8 @@ class CCBFetchAuthDetailsFragment : CCBBaseFragment() {
 
     private fun executeRequest() {
         progressBar?.visibility = View.VISIBLE
-        val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "", "")
-        CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success: Boolean, ccbError: CCBError? ->
-            if(success){
+        CCBManager.getCCBConversationHandlerInterface().getAllMessages { ccbMessage: CCBMessage?, ccbError: CCBError? ->
+            if(ccbMessage !=null){
                 progressBar?.visibility = View.GONE
                 textView?.text = "Request Success"
             }else if(ccbError != null){

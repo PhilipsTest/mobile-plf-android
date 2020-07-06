@@ -8,16 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.philips.platform.ccb.R
-import com.philips.platform.ccb.constant.CCBUrlBuilder
-import com.philips.platform.ccb.directline.CCBAuthHandler
-import com.philips.platform.ccb.directline.CCBAzureSessionHandler
-import com.philips.platform.ccb.integration.ccbCallback
-import com.philips.platform.ccb.listeners.CCBAuthListener
-import com.philips.platform.ccb.manager.CCBManager
-import com.philips.platform.ccb.model.CCBUser
-import com.philips.platform.pif.DataInterface.USR.enums.Error
-import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler
-import kotlinx.android.synthetic.main.fragment_ccb.*
 
 /**
  * A simple [Fragment] subclass.

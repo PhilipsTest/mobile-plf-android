@@ -5,8 +5,8 @@ import com.philips.platform.ccb.constant.CCBUrlBuilder
 import com.philips.platform.ccb.rest.CCBRequestInterface
 import java.util.*
 
-class CCBAuthenticationRequest(key: String) : CCBRequestInterface{
-    private var mKey :String = ""
+class CCBAuthenticationRequest(key: String?) : CCBRequestInterface{
+    private var mKey :String? = ""
 
     init {
         mKey = key
