@@ -10,7 +10,7 @@ import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 
-class CreateCartRequest(private val ctn: String, private val quantity: Int,private val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>)  : ECSJsonAuthRequest(ecsCallback){
+open class CreateCartRequest(private val ctn: String, private val quantity: Int, private val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>)  : ECSJsonAuthRequest(ecsCallback){
 
     override fun getURL(): String {
         return url.replaceParam(getReplaceURLMap())

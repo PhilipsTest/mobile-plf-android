@@ -15,6 +15,7 @@ package com.philips.platform.ecs.microService.manager
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.request.AddToCartRequest
 import com.philips.platform.ecs.microService.request.CreateCartRequest
 import com.philips.platform.ecs.microService.request.GetCartRequest
 import com.philips.platform.ecs.microService.request.UpdateCartRequest
@@ -54,6 +55,17 @@ class ECSCartManager {
             val updateCartRequest = entryNumber?.let { UpdateCartRequest(it,quantity,ecsCallback) }
             updateCartRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart/%cartId%/%entryNumber%?siteId=%siteId%&language=%language%&country=%country%&quantity=%quantity%"
             updateCartRequest?.executeRequest()
+        }
+
+    }
+
+    fun addToCart(ctn: String, quantity: Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+        val ecsException = ECSApiValidator().validateCTN(ctn) ?: ECSApiValidator().validateCreateCartQuantity(quantity)?: ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
+        ecsException?.let { throw ecsException } ?: kotlin.run {
+            val createCartRequest = AddToCartRequest(ctn, quantity, ecsCallback)
+            createCartRequest.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart/%cartId%?siteId=%siteId%&language=%language%&country=%country%&productId=%ctn%&quantity=%quantity%"
+            createCartRequest.executeRequest()
+            // requestHandler.handleRequest(createCartRequest)
         }
 
     }
