@@ -76,9 +76,7 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_BAD_REQUEST(R.string.ECSsomethingWentWrong, 6013  ),
     ECSPIL_UNSUPPORTED_MEDIA_TYPE(R.string.ECSsomethingWentWrong, 6014  ),
     ECSPIL_INVALID_QUANTITY(R.string.ECSCommerceCartModificationError, 6015  ),
-
-    // todo to be changed
-    MISSING_PARAMETER_productId(R.string.ECSPIL_NOT_FOUND_productId, 6005  );
+    MISSING_PARAMETER_productId(R.string.ECSCtnNotProvided, 6016  );
 
     // todo promotionFilter , invalid offset
 
