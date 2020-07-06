@@ -66,15 +66,12 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
 
                     @Override
                     public void onFailure(ECSError ecsError) {
-                        String errorString = ecsError.toString();
-                        gotoResultActivity(errorString);
+                        gotoResultActivity(ecsError.getErrorCode() +"\n"+ ecsError.getErrorMessage());
                         getProgressBar().setVisibility(View.GONE);
                     }
                 });
         } catch (ECSException e) {
-            e.printStackTrace();
-
-            gotoResultActivity(e.getMessage());
+            gotoResultActivity(e.getErrorCode() +"\n"+ e.getMessage());
             getProgressBar().setVisibility(View.GONE);
         }
 

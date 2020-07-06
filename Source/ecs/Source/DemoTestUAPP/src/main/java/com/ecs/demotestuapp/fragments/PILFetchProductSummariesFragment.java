@@ -72,14 +72,13 @@ public class PILFetchProductSummariesFragment extends BaseAPIFragment {
                 @Override
                 public void onFailure(ECSError ecsError) {
 
-                    gotoResultActivity(ecsError.getErrorMessage());
+                    gotoResultActivity(ecsError.getErrorCode() +"\n"+ ecsError.getErrorMessage());
                     getProgressBar().setVisibility(View.GONE);
                 }
             });
         } catch (ECSException e) {
 
-            e.printStackTrace();
-            gotoResultActivity(e.getMessage());
+            gotoResultActivity(e.getErrorCode() +"\n"+ e.getMessage());
             getProgressBar().setVisibility(View.GONE);
 
         }
