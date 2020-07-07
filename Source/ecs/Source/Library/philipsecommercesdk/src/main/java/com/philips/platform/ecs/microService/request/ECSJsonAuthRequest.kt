@@ -24,9 +24,4 @@ abstract class ECSJsonAuthRequest(ecsErrorCallback: ECSCallback<*, ECSError>) : 
         authToken?.let { header?.put("Authorization","bearer $it") }
         return header
     }
-    override fun getReplaceURLMap(): MutableMap<String, String> {
-        val replaceURLMap = super.getReplaceURLMap()
-        replaceURLMap["cartId"]="current"
-        return replaceURLMap
-    }
 }

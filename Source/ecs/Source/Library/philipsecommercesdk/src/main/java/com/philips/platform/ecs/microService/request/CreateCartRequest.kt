@@ -10,11 +10,7 @@ import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 
-open class CreateCartRequest(private val ctn: String, private val quantity: Int, private val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>)  : ECSJsonAuthRequest(ecsCallback){
-
-    override fun getURL(): String {
-        return url.replaceParam(getReplaceURLMap())
-    }
+open class CreateCartRequest(private val ctn: String, private val quantity: Int, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>)  : AbstractCartRequest(ecsCallback){
 
     override fun getServiceID(): String {
        return  SERVICEID_ECS_CREATE_CART
@@ -31,15 +27,4 @@ open class CreateCartRequest(private val ctn: String, private val quantity: Int,
         return replaceURLMap
     }
 
-    override fun onResponse(response: JSONObject) {
-        val ecsShoppingCart = response.getData(ECSShoppingCart::class.java)
-        ecsShoppingCart ?.let { ecsCallback.onResponse(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}
-    }
-
-    override fun getHeader(): MutableMap<String, String>? {
-        val header = super.getHeader()
-        header?.put("Content-Type","application/json")
-        return header
-    }
-    
 }

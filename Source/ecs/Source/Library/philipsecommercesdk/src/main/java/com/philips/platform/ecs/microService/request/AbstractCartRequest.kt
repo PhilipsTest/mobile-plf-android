@@ -9,33 +9,32 @@
  *
  *
  */
+
 package com.philips.platform.ecs.microService.request
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
-import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_GET_CART
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ErrorHandler
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.util.getData
 import com.philips.platform.ecs.microService.util.replaceParam
-
 import org.json.JSONObject
 
-class GetCartRequest(ecsCallback: ECSCallback<ECSShoppingCart, ECSError>) : AbstractCartRequest(ecsCallback) {
+abstract class AbstractCartRequest(val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>) :ECSJsonAuthRequest(ecsCallback) {
 
-    override fun getServiceID(): String {
-        return SERVICEID_ECS_GET_CART
+    //TODO to be removed once service discovery is up
+    override fun getURL(): String {
+        return url.replaceParam(getReplaceURLMap())
+    }
+
+    override fun onResponse(response: JSONObject?) {
+        val ecsShoppingCart = response?.getData(ECSShoppingCart::class.java)
+        ecsShoppingCart ?.let {  ecsCallback.onResponse(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}
     }
 
     override fun getHeader(): MutableMap<String, String>? {
         val header = super.getHeader()
-        header?.remove("Content-Type") //As getCart does not need content type
+        header?.put("Content-Type","application/json")
         return header
-    }
-
-    override fun getReplaceURLMap(): MutableMap<String, String> {
-        val replaceURLMap = super.getReplaceURLMap()
-        replaceURLMap["cartId"]="current"
-        return replaceURLMap
     }
 }

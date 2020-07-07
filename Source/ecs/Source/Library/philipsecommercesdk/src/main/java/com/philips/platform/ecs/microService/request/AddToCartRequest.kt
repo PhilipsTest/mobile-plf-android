@@ -22,4 +22,10 @@ class AddToCartRequest(ctn: String, quantity: Int,ecsCallback: ECSCallback<ECSSh
     override fun getServiceID(): String {
        return  SERVICEID_ECS_ADD_TO_CART
     }
+
+    override fun getReplaceURLMap(): MutableMap<String, String> {
+        val replaceURLMap = super.getReplaceURLMap()
+        replaceURLMap["cartId"]="current"
+        return replaceURLMap
+    }
 }

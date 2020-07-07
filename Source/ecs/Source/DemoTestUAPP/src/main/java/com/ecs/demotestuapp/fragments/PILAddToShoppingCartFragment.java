@@ -3,6 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
+import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
@@ -47,6 +48,7 @@ public class PILAddToShoppingCartFragment extends  BaseAPIFragment {
                 @Override
                 public void onResponse(ECSShoppingCart result) {
                     gotoResultActivity(getJsonStringFromObject(result));
+                    PILDataHolder.INSTANCE.setEcsShoppingCart(result);
                     getProgressBar().setVisibility(View.GONE);
                 }
             };
