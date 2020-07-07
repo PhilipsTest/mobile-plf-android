@@ -38,6 +38,7 @@ import com.ecs.demotestuapp.fragments.HybrisOAthAuthenticationFragment;
 import com.ecs.demotestuapp.fragments.HybrisRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.JanrainRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.MakePaymentFragment;
+import com.ecs.demotestuapp.fragments.PILAddToShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.PILConfigureECSServiceFragment;
 import com.ecs.demotestuapp.fragments.PILCreateShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductDetailsFragment;
@@ -47,6 +48,7 @@ import com.ecs.demotestuapp.fragments.PILFetchProductsFragment;
 import com.ecs.demotestuapp.fragments.PILFetchRetailersForProductFragment;
 import com.ecs.demotestuapp.fragments.PILFetchRetailersFragment;
 import com.ecs.demotestuapp.fragments.PILFetchShoppingCartFragment;
+import com.ecs.demotestuapp.fragments.PILUpdateShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.RemoveVoucherFragment;
 import com.ecs.demotestuapp.fragments.SetAndFetchDeliveryAddressFragment;
 import com.ecs.demotestuapp.fragments.SetDeliveryAddressFragment;
@@ -230,8 +232,12 @@ public class InputActivity extends AppCompatActivity {
                 return new PILFetchProductSummariesFragment();
             case 49:
                 return new PILFetchShoppingCartFragment();
+            case 50:
+                return new PILAddToShoppingCartFragment();
             case 51:
                 return new PILCreateShoppingCartFragment();
+            case 52:
+                return new PILUpdateShoppingCartFragment();
             case 68:
                 return new PILFetchRetailersFragment();
             case 69:

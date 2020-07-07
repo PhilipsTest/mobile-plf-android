@@ -233,4 +233,48 @@ class CreateCartRequestTest {
         errorHandler.setPILECSError(hybrisError,PilError)
         Assert.assertEquals(ECSErrorType.MISSING_PARAMETER_productId.errorCode, PilError.errorCode)
     }
+
+
+
+    @Test
+    fun testPILCreateCartAddingProductIdNotBelongToSite() {
+
+
+    }
+
+    @Test
+    fun testPILCreateCartProductCTNWith() {
+
+
+    }
+
+    @Test
+    fun testPILCreateCartWithExpiredHybrisToken() {
+
+
+    }
+
+    @Test
+    fun testPILCreateCartBearerNotAddedInToken() {
+
+
+    }
+
+    @Test
+    fun testPILCreateCartMultipleProductsAreProvided() {
+
+
+    }
+
+    @Test
+    fun testPILCreateCartProductIsOutOfStock() {
+
+
+    }
+
+    @Test
+    fun testPILCreateCartQuantityMoreThanStock() {
+
+
+    }
 }
