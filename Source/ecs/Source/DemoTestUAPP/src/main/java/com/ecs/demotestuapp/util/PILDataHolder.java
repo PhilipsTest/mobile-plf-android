@@ -11,6 +11,9 @@ public enum PILDataHolder {
     ECSProducts mProductList;
     ECSShoppingCart ecsShoppingCart;
 
+    public ECSShoppingCart getEcsShoppingCart() {
+        return ecsShoppingCart;
+    }
     public void setEcsShoppingCart(ECSShoppingCart ecsShoppingCart) {
         this.ecsShoppingCart = ecsShoppingCart;
     }

@@ -12,10 +12,15 @@ import com.philips.platform.ecs.microService.error.ECSException;
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart;
 import com.philips.platform.ecs.microService.model.cart.Item;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
 public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
     EditText  quantityET;
     int quantity=1;
     Spinner itemsSpinner; //todo
+    List<Item> items;
     Item item;
 
 
@@ -23,7 +28,19 @@ public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
     public void onResume() {
         super.onResume();
         quantityET= getLinearLayout().findViewWithTag("et_one");
+        itemsSpinner  = getLinearLayout().findViewWithTag("spinner_items");
+        setSpinner();
+    }
 
+    private void setSpinner(){
+      items= PILDataHolder.INSTANCE.getEcsShoppingCart().getData().getAttributes().getItems();
+        ListIterator<Item> it = items.listIterator();
+        List<String> ctnList = new ArrayList<String>();
+        ctnList.add("( Select - CTN )");
+        while(it.hasNext()){
+            ctnList.add(it.next().getCtn());
+        }
+        fillSpinner(itemsSpinner,ctnList);
     }
 
     @Override
@@ -34,6 +51,10 @@ public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
 
         ECSServices microECSServices = new ECSServices(mAppInfraInterface);
         try{
+
+            if(itemsSpinner.getSelectedItem()!=null && itemsSpinner.getSelectedItemPosition()!=0) {
+                item= items.get(itemsSpinner.getSelectedItemPosition()-1);
+            }
 
             ECSCallback ecsCallback= new ECSCallback<ECSShoppingCart, ECSError>(){
 
