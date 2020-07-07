@@ -190,15 +190,21 @@
         {
           "name": "addProductToShoppingCart",
           "apiNumber": 50,
-          "editText": 0,
-          "spinner": 1,
+          "editText": 2,
+          "spinner": 0,
           "button": 0,
-          "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "editTexts": [{
+            "tag": "et_one",
+            "hint": "enter CTN"
+          },
+            {
+              "tag": "et_two",
+              "text": "1",
+              "inputType": 2,
+              "hint": "enter Quantity"
+            }
+          ],
+          "spinners": [],
           "switches": []
         },
         {
@@ -229,7 +235,8 @@
           "button": 0,
           "editTexts": [{
             "tag": "et_one",
-            "text": "secret",
+            "inputType": 2,
+            "text": "enter quantity",
             "hint": "enter quantity"
           }],
           "spinners": [{
