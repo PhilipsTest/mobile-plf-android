@@ -90,7 +90,7 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun addToECSShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+    fun addToECSShoppingCart(ctn: String ,quantity : Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
         ecsCartManager.addToCart(ctn.trim(),quantity,ecsCallback)
 
     }

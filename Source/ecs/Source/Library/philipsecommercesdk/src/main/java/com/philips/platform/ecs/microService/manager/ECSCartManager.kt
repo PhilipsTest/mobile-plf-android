@@ -50,7 +50,7 @@ class ECSCartManager {
 
     fun updateShoppingCart(entryNumber: String?,quantity: Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
 
-        val ecsException = ECSApiValidator().validateCreateCartQuantity(quantity)?: ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
+        val ecsException = ECSApiValidator().validateUpdateCartQuantity(quantity)?: ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
         ecsException?.let { throw ecsException } ?: kotlin.run {
             val updateCartRequest = entryNumber?.let { UpdateCartRequest(it,quantity,ecsCallback) }
             updateCartRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart/%cartId%/%entryNumber%?siteId=%siteId%&language=%language%&country=%country%&quantity=%quantity%"
