@@ -240,7 +240,7 @@
             "hint": "enter quantity"
           }],
           "spinners": [{
-            "tag": "spinner_one",
+            "tag": "spinner_items",
             "text": "secret",
             "hint": "hint"
           }],
