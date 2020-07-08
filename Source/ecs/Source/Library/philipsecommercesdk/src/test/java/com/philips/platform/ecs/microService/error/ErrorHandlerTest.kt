@@ -236,6 +236,43 @@ class ErrorHandlerTest {
         assertEquals(ECSErrorType.ECSPIL_BAD_REQUEST.errorCode,ecsDefaultError.errorCode)
     }
 
+    // get cart relates error test cases =======
+
+    @Test
+    fun `test ecs error  for get cart with invalid auth`() {
+        TODO("Not yet implemented")
+    }
+
+
+    @Test
+    fun `test ecs error  for get cart with missing  auth`() {
+        TODO("Not yet implemented")
+    }
+
+
+    @Test
+    fun `test ecs error  for get cart with invalid cart id`() {
+        TODO("Not yet implemented")
+    }
+
+    // create cart error test cases ==============
+
+
+    @Test
+    fun `test ecs error  for create cart with invalid CTN`() {
+        TODO("Not yet implemented")
+    }
+
+
+    @Test
+    fun `test ecs error  for create cart with OUT Of Stock CTN`() {
+        TODO("Not yet implemented")
+    }
+
+    @Test
+    fun `test ecs error  for create cart with quantity more than stock`() {
+        TODO("Not yet implemented")
+    }
 
 
     fun byteArrayOfInts(vararg ints: Int) = ByteArray(ints.size) { pos -> ints[pos].toByte() }
