@@ -159,16 +159,6 @@ class ErrorHandlerTest {
         assertEquals(ecsErrorType, ecsError.errorType)
     }
 
-    @Test
-    fun `test When error string is not present `() {
-        //volleyHandler.setPILECSError()
-        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNInvalidAPIKeyError.json").readText()
-        val jsonObject = JSONObject(errorString)
-        val hybrisError = jsonObject.getData(HybrisError::class.java)
-        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode,ecsDefaultError.errorCode)
-    }
 
     @Test
     fun `test When error string is not valid `() {
@@ -235,6 +225,21 @@ class ErrorHandlerTest {
         errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_BAD_REQUEST.errorCode,ecsDefaultError.errorCode)
     }
+    //Product search related test cases ======
+
+
+    // product detail related test cases ======
+    @Test
+    fun `test ecs error  for CTN not found on hybris`() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNInvalidAPIKeyError.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode,ecsDefaultError.errorCode)
+    }
+
 
     // get cart relates error test cases =======
 
