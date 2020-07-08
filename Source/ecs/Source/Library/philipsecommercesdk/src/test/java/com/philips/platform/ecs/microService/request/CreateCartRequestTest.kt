@@ -1,5 +1,6 @@
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.Request
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
@@ -25,7 +26,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 
 @RunWith(PowerMockRunner::class)
 class CreateCartRequestTest {
-    var mCreateCartRequest: CreateCartRequest? = null
+    lateinit var  mCreateCartRequest: CreateCartRequest
     private lateinit var errorHandler: ErrorHandler
 
     @Mock
@@ -33,10 +34,13 @@ class CreateCartRequestTest {
     @Mock
     lateinit var appConfigurationInterfaceMock : AppConfigurationInterface
 
+    @Mock
+    lateinit var ecsCallBackMock : ECSCallback<ECSShoppingCart, ECSError>
+
     @Before
     fun setUp() {
         setApiKey()
-
+        mCreateCartRequest = CreateCartRequest("HD9240/94",2,ecsCallBackMock)
         ECSDataHolder.locale = "en_US"
         errorHandler = ErrorHandler()
         var ecsConfig = ECSConfig("en_US",null,null,null,null,null,"Tuscany_Campaign","US_Tuscany",true)
@@ -50,8 +54,13 @@ class CreateCartRequestTest {
     }
 
     @Test
-    fun `test service id`(){
+    fun `service id should be as expected`(){
+        Assert.assertEquals(SERVICEID_ECS_CREATE_CART, mCreateCartRequest.getServiceID())
+    }
 
+    @Test
+    fun `request method should be Post`() {
+        Assert.assertEquals(Request.Method.POST, mCreateCartRequest.getRequestMethod())
     }
 
     @Test

@@ -12,6 +12,7 @@
 
 package com.philips.platform.ecs.microService.request
 
+import com.android.volley.Request
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
@@ -75,6 +76,11 @@ class GetCartRequestTest {
     @Test
     fun getServiceID() {
         assertEquals("ecs.getCart",getCartRequest.getServiceID())
+    }
+
+    @Test
+    fun `request method should be get`() {
+        assertEquals(Request.Method.GET,getCartRequest.getRequestMethod())
     }
 
     @Test
