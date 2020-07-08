@@ -93,6 +93,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
             reviewValue= if (mapAdditionalFields.get("Value") != null) mapAdditionalFields?.get("Value") else ""
         }
         if (reviewValue == null) {
+            reviewValue=""
             if (review.tagDimensions != null && review.tagDimensions!!.size > 0) {
                 val tagD = review.tagDimensions?.get(type.substring(0,type.length-1))
                var list : MutableList<String>? = tagD?.values

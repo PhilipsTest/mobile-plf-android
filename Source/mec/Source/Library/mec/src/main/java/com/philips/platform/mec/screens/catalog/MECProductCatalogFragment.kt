@@ -100,7 +100,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         bundle.putSerializable(MECConstant.MEC_KEY_PRODUCT, ecsProduct.ecsProduct)
 
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
+        imm.hideSoftInputFromWindow(view?.getWindowToken(), 0)
         val fragment = MECProductDetailsFragment()
         fragment.arguments = bundle
         replaceFragment(fragment, MECProductDetailsFragment.TAG, true)
@@ -309,7 +309,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             if (arguments != null) {
                 categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
-                totalProductsTobeSearched = categorizedCtns.size
+                totalProductsTobeSearched = categorizedCtns?.size
             }
             binding.mecCatalogProgress.mecProgressBar.visibility = View.VISIBLE
             executeRequest()
