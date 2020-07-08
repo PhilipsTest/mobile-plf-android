@@ -11,9 +11,9 @@ import kotlinx.android.parcel.Parcelize
 data class Item(
         val availability: Availability?,
         val discountPrice: Price?,
-        @SerializedName("id") var ctn: String?,
+        @SerializedName("id") val entryNumber: String?,
         val image: String?,
-        @SerializedName("itemId") val entryNumber: String?,
+        @SerializedName("itemId") val ctn: String?,
         val price: Price?,
         val quantity: Int?,
         val title: String?,
