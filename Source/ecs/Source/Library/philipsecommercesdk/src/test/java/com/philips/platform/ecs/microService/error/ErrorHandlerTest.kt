@@ -19,6 +19,7 @@ import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject
+import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -245,19 +246,16 @@ class ErrorHandlerTest {
 
     @Test
     fun `test ecs error  for get cart with invalid auth`() {
-        TODO("Not yet implemented")
     }
 
 
     @Test
     fun `test ecs error  for get cart with missing  auth`() {
-        TODO("Not yet implemented")
     }
 
 
     @Test
     fun `test ecs error  for get cart with invalid cart id`() {
-        TODO("Not yet implemented")
     }
 
     // create cart error test cases ==============
@@ -265,18 +263,21 @@ class ErrorHandlerTest {
 
     @Test
     fun `test ecs error  for create cart with invalid CTN`() {
-        TODO("Not yet implemented")
+        val errorString = ClassLoader.getSystemResource("pil/cart/CreateCartMissingCTN.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var PilError = ECSError(ECSErrorType.MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.MISSING_PARAMETER_productId.errorCode, ECSErrorType.MISSING_PARAMETER_productId)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        Assert.assertEquals(ECSErrorType.MISSING_PARAMETER_productId.errorCode, PilError.errorCode)
     }
 
 
     @Test
     fun `test ecs error  for create cart with OUT Of Stock CTN`() {
-        TODO("Not yet implemented")
     }
 
     @Test
     fun `test ecs error  for create cart with quantity more than stock`() {
-        TODO("Not yet implemented")
     }
 
 

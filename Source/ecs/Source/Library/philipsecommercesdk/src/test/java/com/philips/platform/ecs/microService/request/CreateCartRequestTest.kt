@@ -82,6 +82,31 @@ class CreateCartRequestTest {
         Assert.assertEquals(expectedMap, mCreateCartRequest!!.getHeader())
     }
 
+
+    @Test
+    fun getReplaceURLMap() {
+
+        val ecsCallback = object : ECSCallback<ECSShoppingCart, ECSError> {
+            override fun onResponse(eCSShoppingCart: ECSShoppingCart) {
+
+            }
+
+            override fun onFailure(ecsError: ECSError) {
+
+            }
+        }
+
+        mCreateCartRequest = CreateCartRequest("HD9240/94",2,ecsCallback)
+
+        val expectedMap = HashMap<String,String>()
+        expectedMap["siteId"] = "US_Tuscany"
+        expectedMap["language"] = "en"
+        expectedMap["country"] = "US"
+        expectedMap["ctn"] = "HD9240/94"
+        expectedMap["quantity"] = "2"
+        Assert.assertEquals(expectedMap, mCreateCartRequest!!.getReplaceURLMap())
+    }
+
     @Test
     fun getURL() {
 
@@ -220,61 +245,7 @@ class CreateCartRequestTest {
         val jsonObject = JSONObject(responseString)
         mCreateCartRequest!!.onResponse(jsonObject)
 
-
-    }
-
-    @Test
-    fun `invalid or missing CTN`() {
-
-        val errorString = ClassLoader.getSystemResource("pil/cart/CreateCartMissingCTN.json").readText()
-        val jsonObject = JSONObject(errorString)
-        val hybrisError = jsonObject.getData(HybrisError::class.java)
-        var PilError = ECSError(ECSErrorType.MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.MISSING_PARAMETER_productId.errorCode, ECSErrorType.MISSING_PARAMETER_productId)
-        errorHandler.setPILECSError(hybrisError,PilError)
-        Assert.assertEquals(ECSErrorType.MISSING_PARAMETER_productId.errorCode, PilError.errorCode)
     }
 
 
-
-    @Test
-    fun testPILCreateCartAddingProductIdNotBelongToSite() {
-
-
-    }
-
-    @Test
-    fun testPILCreateCartProductCTNWith() {
-
-
-    }
-
-    @Test
-    fun testPILCreateCartWithExpiredHybrisToken() {
-
-
-    }
-
-    @Test
-    fun testPILCreateCartBearerNotAddedInToken() {
-
-
-    }
-
-    @Test
-    fun testPILCreateCartMultipleProductsAreProvided() {
-
-
-    }
-
-    @Test
-    fun testPILCreateCartProductIsOutOfStock() {
-
-
-    }
-
-    @Test
-    fun testPILCreateCartQuantityMoreThanStock() {
-
-
-    }
 }
