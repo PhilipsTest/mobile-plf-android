@@ -23,11 +23,11 @@ object CCBManager {
 
     var ccbConversation: CCBConversation? = null
 
-    var token: String = ""
+    var token: String? = ""
 
-    var streamUrl: String = ""
+    var streamUrl: String? = ""
 
-    var conversationId: String = ""
+    var conversationId: String? = ""
 
     @JvmStatic
     fun  getCCBSessionHandlerInterface(): CCBSessionHandlerInterface{

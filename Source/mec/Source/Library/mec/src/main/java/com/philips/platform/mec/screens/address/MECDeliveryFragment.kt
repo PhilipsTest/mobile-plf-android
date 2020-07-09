@@ -42,7 +42,7 @@ import com.philips.platform.mec.utils.MECutility
 import java.io.Serializable
 
 class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
-    private val TAG: String = MECDeliveryFragment::class.java.simpleName
+    private val TAG: String = "MECDeliveryFragment"
 
     private lateinit var paymentViewModel: PaymentViewModel
     var mRootView: View? = null
@@ -456,13 +456,13 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
             return
         }
         if (ecsAddresses!!.isNotEmpty()) {
-            bundle.putSerializable(MECConstant.KEY_ECS_ADDRESS, ecsAddresses?.get(0))
+            bundle.putSerializable(MECConstant.KEY_ECS_ADDRESS, binding.ecsAddressShipping)
         } else {
             MECAnalytics.trackUserError(getString(R.string.mec_no_address_select_message))
             MECutility.showErrorDialog(binding.mecPaymentRecyclerView.context, fragmentManager!!, getString(R.string.mec_ok), getString(R.string.mec_shipping_address), R.string.mec_no_address_select_message)
             return
         }
         mecOrderSummaryFragment.arguments = bundle
-        replaceFragment(mecOrderSummaryFragment, MECOrderSummaryFragment.TAG, true)
+        replaceFragment(mecOrderSummaryFragment, mecOrderSummaryFragment.getFragmentTag(), true)
     }
 }

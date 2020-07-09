@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
@@ -67,6 +68,13 @@ public class PILFetchProductSummariesFragment extends BaseAPIFragment {
                 public void onResponse(List<ECSProduct> ecsProducts) {
                     gotoResultActivity(getJsonStringFromObject(ecsProducts));
                     getProgressBar().setVisibility(View.GONE);
+
+                    if( PILDataHolder.INSTANCE.getProductList()!=null) {
+                        if( PILDataHolder.INSTANCE.getProductList().getCommerceProducts()!=null) {
+                            PILDataHolder.INSTANCE.getProductList().getCommerceProducts().clear();
+                            PILDataHolder.INSTANCE.getProductList().getCommerceProducts().addAll(ecsProducts);
+                        }
+                    }
                 }
 
                 @Override

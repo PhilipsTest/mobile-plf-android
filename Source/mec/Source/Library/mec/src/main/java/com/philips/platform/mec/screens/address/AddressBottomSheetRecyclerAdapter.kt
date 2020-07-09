@@ -30,6 +30,21 @@ class AddressBottomSheetRecyclerAdapter(private val mecAddresses: MECAddresses, 
     private val VIEW_TYPE_FOOTER = 1
     lateinit var binding: ViewDataBinding
 
+    init {
+        moveDefaultAdressToFirstPosition(mecAddresses,defaultAddressId)
+    }
+
+    private fun moveDefaultAdressToFirstPosition(mecAddresses: MECAddresses, defaultAddressId: String) {
+        val ecsAddresses = mecAddresses.ecsAddresses
+        val toMutableList = ecsAddresses.toMutableList()
+        val selectedAddressFromID = MECutility.findGivenAddressInAddressList(defaultAddressId, ecsAddresses)
+        toMutableList.remove(selectedAddressFromID)
+        selectedAddressFromID?.let { toMutableList.add(0, it) }
+        val modifiedAddressList = toMutableList.toList()
+        mecAddresses.ecsAddresses = modifiedAddressList
+    }
+
+
     fun setDefaultSelectedAddressAndPosition() {
         for (x in 0 until totalItem - 1) {
             if (mecAddresses.ecsAddresses[x].id.equals(defaultAddressId, true)) {

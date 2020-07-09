@@ -4,5 +4,5 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class CCBUser(var secretKey: String?, val name: String?, val userID: String?) : Parcelable {
+data class CCBActivities(val text: String?, val inputHint: String?) : Parcelable {
 }

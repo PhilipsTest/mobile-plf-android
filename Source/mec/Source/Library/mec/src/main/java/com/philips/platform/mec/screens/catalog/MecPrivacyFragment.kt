@@ -33,10 +33,10 @@ import java.net.MalformedURLException
 import java.net.URL
 
 class MecPrivacyFragment : MecBaseFragment() {
-    private val TAG: String = MecPrivacyFragment::class.java.simpleName
+    private val TAG: String = "MecPrivacyFragment"
 
     override fun getFragmentTag(): String {
-        return "MecPrivacyFragment"
+        return TAG
     }
 
     private var mWebView: WebView? = null
