@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
 import com.philips.platform.ccb.directline.CCBSessionHandlerInterface
 import com.philips.platform.ccb.fragment.CCBFragment
-import com.philips.platform.ccb.manager.CCBSettingManager
+import com.philips.platform.ccb.manager.CCBSettingsManager
 import com.philips.platform.uappframework.UappInterface
 import com.philips.platform.uappframework.launcher.FragmentLauncher
 import com.philips.platform.uappframework.launcher.UiLauncher
@@ -19,7 +19,7 @@ class CCBInterface: UappInterface {
 
     override fun init(uappDependencies: UappDependencies, uappSettings: UappSettings) {
        context = uappSettings.context.applicationContext
-        CCBSettingManager.init(uappDependencies)
+        CCBSettingsManager.init(uappDependencies)
         //init called
     }
 

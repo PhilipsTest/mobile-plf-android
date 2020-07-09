@@ -7,7 +7,7 @@ import com.philips.platform.ccb.rest.CCBRequestInterface
 import org.json.JSONObject
 import java.util.*
 
-class CCBPostMessageRequest(val message: String) : CCBRequestInterface {
+class CCBEndConversationRequest() : CCBRequestInterface {
 
 
     override fun getUrl(): String {
@@ -18,16 +18,16 @@ class CCBPostMessageRequest(val message: String) : CCBRequestInterface {
         val headers: MutableMap<String, String> = HashMap()
         headers["Content-Type"] = "application/json"
         headers["Authorization"] = "Bearer "+ CCBManager.token
+        headers["Accept-Encoding"] = "gzip"
         return headers
     }
 
     override fun getBody(): String? {
         val jsonObject = JSONObject()
-        jsonObject.put("type","message")
+        jsonObject.put("type","endOfConversation")
         val  fromJson = JSONObject()
         fromJson.put("id","AUserOne")
         jsonObject.put("from",fromJson)
-        jsonObject.put("text",message)
         return jsonObject.toString()
     }
 

@@ -59,7 +59,10 @@ enum class MECDataHolder {
     var hybrisEnabled: Boolean = true
     var retailerEnabled: Boolean = true
     var voucherEnabled: Boolean = true
-    var rootCategory: String = ""
+    var rootCategory: String? = null
+    var mecLaunchingFragmentName:String? = null
+
+
     var config: ECSConfig? = null
     lateinit var eCSServices: ECSServices
 

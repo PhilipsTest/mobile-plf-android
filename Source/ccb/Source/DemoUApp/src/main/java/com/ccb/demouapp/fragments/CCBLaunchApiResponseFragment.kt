@@ -21,6 +21,8 @@ class CCBLaunchApiResponseFragment : CCBBaseFragment() {
         rootView.startConversation.setOnClickListener{replaceFragment(CCBFetchConversationDetailsFragment(),true)}
         rootView.refreshSession.setOnClickListener{replaceFragment(CCBRefreshTokenFragment(),true)}
         rootView.postMessage.setOnClickListener{replaceFragment(CCBPostMessageFragment(),true)}
+        rootView.getAllMessages.setOnClickListener{replaceFragment(CCBGetMessagesFragment(),true)}
+        rootView.endConversation.setOnClickListener{replaceFragment(CCBEndConversationFragment(),true)}
 
         return rootView
     }

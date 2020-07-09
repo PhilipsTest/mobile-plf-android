@@ -795,26 +795,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
 
         try {
             int drawableId = 0;
-            if (null != getRegistrationFragment().getContentConfiguration()) {
-                if (!getRegistrationFragment().getContentConfiguration().isShowSocialIconsInDarkTheme()) {
-                    switch (provider) {
-                        case SOCIAL_PROVIDER_FACEBOOK:
-                            drawableId = R.drawable.ic_facebook_light_theme;
-                            //instead initializing facebook in oncreate , do it if we get provider name as facebook
-                            if (RegistrationConfiguration.getInstance().isFacebookSDKSupport())
-                                initFacebookLogIn();
-                            break;
-                        case SOCIAL_PROVIDER_GOOGLEPLUS:
-                            drawableId = R.drawable.ic_google_light_theme;
-                            break;
-                        case SOCIAL_PROVIDER_WECHAT:
-                            drawableId = R.drawable.uid_social_media_wechat_icon;
-                            break;
-                        case SOCIAL_PROVIDER_APPLE:
-                            drawableId = R.drawable.ic_apple_light_theme;
-                            break;
-                    }
-                } else {
+            if (null != getRegistrationFragment().getContentConfiguration() && getRegistrationFragment().getContentConfiguration().isShowSocialIconsInDarkTheme()) {
                     switch (provider) {
                         case SOCIAL_PROVIDER_FACEBOOK:
                             drawableId = R.drawable.ic_facebook_dark_theme;
@@ -832,8 +813,25 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
                             drawableId = R.drawable.ic_apple_dark_theme;
                             break;
                     }
+                } else {
+                    switch (provider) {
+                        case SOCIAL_PROVIDER_FACEBOOK:
+                            drawableId = R.drawable.ic_facebook_light_theme;
+                            //instead initializing facebook in oncreate , do it if we get provider name as facebook
+                            if (RegistrationConfiguration.getInstance().isFacebookSDKSupport())
+                                initFacebookLogIn();
+                            break;
+                        case SOCIAL_PROVIDER_GOOGLEPLUS:
+                            drawableId = R.drawable.ic_google_light_theme;
+                            break;
+                        case SOCIAL_PROVIDER_WECHAT:
+                            drawableId = R.drawable.uid_social_media_wechat_icon;
+                            break;
+                        case SOCIAL_PROVIDER_APPLE:
+                            drawableId = R.drawable.ic_apple_light_theme;
+                            break;
+                    }
                 }
-            }
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);

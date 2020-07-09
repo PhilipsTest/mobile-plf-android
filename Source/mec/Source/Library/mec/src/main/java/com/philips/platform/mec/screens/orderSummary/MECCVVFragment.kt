@@ -40,6 +40,7 @@ class MECCVVFragment: BottomSheetDialogFragment() {
     private lateinit var paymentViewModel: PaymentViewModel
     private lateinit var mEcsOrderDetail: ECSOrderDetail
     private lateinit var mEcsShoppingCart: ECSShoppingCart
+    private  var containerID:Int=0
 
     companion object {
         const val TAG:String="MECCVVFragment"
@@ -72,8 +73,10 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         binding.fragment=this
         val bundle= arguments
         val ecsPayment=bundle?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as ECSPayment
-        mEcsShoppingCart=bundle?.getSerializable(MECConstant.MEC_SHOPPING_CART) as ECSShoppingCart
+        mEcsShoppingCart=bundle.getSerializable(MECConstant.MEC_SHOPPING_CART) as ECSShoppingCart
         binding.paymentMethod=ecsPayment
+
+        containerID= bundle.getInt(MECConstant.MEC_FRAGMENT_CONTAINER_ID)
 
         paymentViewModel =  ViewModelProviders.of(this).get(PaymentViewModel::class.java)
         paymentViewModel.ecsOrderDetail.observe(this,orderDetailObserver)
@@ -103,7 +106,8 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, java.lang.Boolean.TRUE)
         bundle.putString(paymentType,old)
         mecPaymentConfirmationFragment.arguments = bundle
-        replaceFragment(mecPaymentConfirmationFragment, false)
+        dismiss()
+        replaceFragment(mecPaymentConfirmationFragment, true)
     }
 
     private fun replaceFragment(newFragment: MecBaseFragment, isReplaceWithBackStack: Boolean) {
@@ -113,10 +117,9 @@ class MECCVVFragment: BottomSheetDialogFragment() {
             if (null!=activity && !activity!!.isFinishing) {
 
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
-                val simpleName = newFragment.javaClass.simpleName
-                transaction.replace(id, newFragment, simpleName)
+                transaction.replace(containerID, newFragment, newFragment.getFragmentTag())
                 if (isReplaceWithBackStack) {
-                    transaction.addToBackStack(simpleName)
+                    transaction.addToBackStack(newFragment.getFragmentTag())
                 }
                 transaction.commitAllowingStateLoss()
             }
