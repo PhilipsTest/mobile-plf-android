@@ -84,14 +84,14 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun createECSShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+    fun createShoppingCart(ctn: String, quantity : Int = 1, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
         ecsCartManager.createECSShoppingCart(ctn.trim(),quantity,ecsCallback)
 
     }
 
     @Throws(ECSException::class)
-    fun addECSProductToShoppingCart(ctn: String ,quantity : Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
-        ecsCartManager.addToCart(ctn.trim(),quantity,ecsCallback)
+    fun addProductToShoppingCart(ctn: String, quantity : Int = 1, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+        ecsCartManager.addProductToShoppingCart(ctn.trim(),quantity,ecsCallback)
 
     }
 

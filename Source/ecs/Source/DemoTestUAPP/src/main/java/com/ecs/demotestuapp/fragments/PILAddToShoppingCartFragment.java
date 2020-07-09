@@ -55,7 +55,7 @@ public class PILAddToShoppingCartFragment extends  BaseAPIFragment {
 
 
 
-            microECSServices.addECSProductToShoppingCart(ctn,quantity,ecsCallback);
+            microECSServices.addProductToShoppingCart(ctn,quantity,ecsCallback);
 
         }catch (ECSException e){
             gotoResultActivity(e.getErrorCode() +"\n"+ e.getMessage());

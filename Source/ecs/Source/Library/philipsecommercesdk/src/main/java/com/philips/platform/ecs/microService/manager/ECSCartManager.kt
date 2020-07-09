@@ -59,7 +59,7 @@ class ECSCartManager {
 
     }
 
-    fun addToCart(ctn: String, quantity: Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+    fun addProductToShoppingCart(ctn: String, quantity: Int = 1, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
         val ecsException = ECSApiValidator().validateCTN(ctn) ?: ECSApiValidator().validateCreateCartQuantity(quantity)?: ECSApiValidator().getECSException(APIType.LocaleHybrisAndAuth)
         ecsException?.let { throw ecsException } ?: kotlin.run {
             val createCartRequest = AddToCartRequest(ctn, quantity, ecsCallback)
