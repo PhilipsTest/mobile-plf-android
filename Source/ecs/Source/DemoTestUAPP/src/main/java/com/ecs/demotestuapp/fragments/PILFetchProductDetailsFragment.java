@@ -61,6 +61,12 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
                     @Override
                     public void onResponse(ECSProduct ecsProduct) {
                         gotoResultActivity(getJsonStringFromObject(ecsProduct));
+                        if( PILDataHolder.INSTANCE.getProductList()!=null) {
+                            if( PILDataHolder.INSTANCE.getProductList().getCommerceProducts()!=null) {
+                                PILDataHolder.INSTANCE.getProductList().getCommerceProducts().clear();
+                                PILDataHolder.INSTANCE.getProductList().getCommerceProducts().add(ecsProduct);
+                            }
+                        }
                         getProgressBar().setVisibility(View.GONE);
                     }
 
