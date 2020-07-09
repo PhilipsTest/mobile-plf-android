@@ -22,11 +22,15 @@ public class SpecificationModel extends ResponseData implements Serializable {
 
 	@Override
 	public ResponseData parseJsonResponseData(JSONObject response) {
+		ResponseData responseData = null;
 		JSONObject specificationResponse = response;
 		if (specificationResponse != null) {
-			return new Gson().fromJson(specificationResponse.toString(), SpecificationModel.class);
+			try {
+				responseData = new Gson().fromJson(specificationResponse.toString(), SpecificationModel.class);
+			}catch (Exception e){
 
+			}
 		}
-		return null;
+		return responseData;
 	}
 }
