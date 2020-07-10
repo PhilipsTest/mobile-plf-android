@@ -9,7 +9,7 @@ BranchName = env.BRANCH_NAME
 String param_string_cron = BranchName == "develop" ? "H H(20-21) * * * %buildType=PSRA \nH H(21-22) * * * %GenerateAPIDocs=true \nH H(22-23) * * * %buildType=TICS\nH H(22-23) * * * %buildType=HPFortify" : ""
 
 //label for pipeline
-def nodes = '9045'
+def nodes = 'test'
 
 if (BranchName == "feature/serialVersionId") {
     nodes = nodes + " && TICS"
@@ -141,7 +141,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash -l
                     set -e
-                    ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
+                    ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
 
                     apkname=`xargs < apkname.txt`
                     dependenciesName=${apkname/.apk/.gradledependencies.gz}
@@ -468,6 +468,7 @@ def BuildAndUnitTest() {
             :mya:testReleaseUnitTest \
             :pif:testReleaseUnitTest \
             :pim:testReleaseUnitTest \
+            :conversationalChatBot:testReleaseUnitTest \
             :philipsecommercesdk:testReleaseUnitTest \
             :mec:testReleaseUnitTest \
             :pimApp:testReleaseUnitTest \
@@ -510,6 +511,7 @@ def GenerateJavaDocs() {
         :securedblibrary:generateJavadocPublicApi \
         :registrationApi:generateJavadocPublicApi \
         :pim:generateJavadocPublicApi \
+        :conversationalChatBot:generateJavadocPublicApi \
         :productselection:generateJavadocPublicApi \
         :pif:generateJavadocPublicApi \
         :digitalCare:generateJavadocPublicApi \
@@ -531,6 +533,7 @@ def BuildLint() {
          :AppInfra:lint \
          :securedblibrary:lint \
          :pim:lint \
+         :conversationalChatBot:lint \
          :registrationApi:lint \
          :productselection:lint \
          :product-registration-lib:lint \
@@ -561,6 +564,7 @@ def BuildHPFortify() {
             'iap::IAP_Android'
             'pif::plf_android'
 			'pim::PIM_Android'
+			'conversationalChatBot::CCB_Android'
 			'product-registration-lib::PR_Android'
 			'prx::PRX_Android'
 			'securedblibrary::SecureDB_Android'
@@ -768,7 +772,7 @@ def DeployingJavaDocs() {
             echo "Not published JavaDoc as build is not on a master, develop or release branch" . $BranchName
         fi
 
-        ./gradlew  :AppInfra:zipJavadoc :digitalCare:zipJavadoc :iap:zipJavadoc :pif:zipJavadoc :product-registration-lib:zipJavadoc :productselection:zipJavadoc :prx:zipJavadoc :pim:zipJavadoc  :referenceApp:zipJavadoc :pim:zipJavadoc :registrationApi:zipJavadoc :philipsecommercesdk:zipJavadoc :mec:zipJavadoc :referenceApp:printPlatformVersion
+        ./gradlew  :AppInfra:zipJavadoc :digitalCare:zipJavadoc :iap:zipJavadoc :pif:zipJavadoc :product-registration-lib:zipJavadoc :productselection:zipJavadoc :prx:zipJavadoc :pim:zipJavadoc  :referenceApp:zipJavadoc :conversationalChatBot:zipJavadoc :registrationApi:zipJavadoc :philipsecommercesdk:zipJavadoc :mec:zipJavadoc :referenceApp:printPlatformVersion
         platformVersion=`xargs < platformversion.txt`
  
         curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/AppInfra/$platformVersion/ -T ./Source/ail/Documents/External/AppInfra-api.zip
@@ -776,6 +780,7 @@ def DeployingJavaDocs() {
         
         curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/iap/$platformVersion/ -T ./Source/iap/Documents/External/iap-api.zip
         curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/pim/$platformVersion/ -T ./Source/pim/Documents/External/pim-api.zip
+        curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/ccb/$platformVersion/ -T ./Source/ccb/Documents/External/ccb-api.zip
         curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/product-registration-lib/$platformVersion/ -T ./Source/prg/Documents/External/product-registration-lib-api.zip
         curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/productselection/$platformVersion/ -T ./Source/pse/Documents/External/productselection-api.zip
         curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT $ARTIFACTORY_URL/$ARTIFACTORY_REPO/com/philips/cdp/philipsecommercesdk/$platformVersion/ -T ./Source/ecs/Documents/External/philipsecommercesdk-api.zip
@@ -807,6 +812,9 @@ def PublishUnitTestsResults() {
 
     junit allowEmptyResults: true, testResults: 'Source/pim/Source/Library/**/build/test-results/**/*.xml'
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'Source/pim/Source/Library/pim/build/reports/tests/testReleaseUnitTest', reportFiles: 'index.html', reportName: 'pim unit test release'])
+
+   junit allowEmptyResults: true, testResults: 'Source/ccb/Source/Library/**/build/test-results/**/*.xml'
+    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'Source/ccb/Source/Library/conversationalChatBot/build/reports/tests/testReleaseUnitTest', reportFiles: 'index.html', reportName: 'ccb unit test release'])
 
     junit allowEmptyResults: true, testResults: 'Source/prg/Source/Library/*/build/test-results/**/*.xml'
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'Source/prg/Source/Library/product-registration-lib/build/reports/tests/testReleaseUnitTest', reportFiles: 'index.html', reportName: 'prg unit test release'])
@@ -860,6 +868,7 @@ def PublishJavaDocs() {
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: "Source/dcc/Documents/External/digitalCare-api", reportFiles: 'index.html', reportName: "dcc Digital careLibrary API documentation"])
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: "Source/iap/Documents/External/iap-api", reportFiles: 'index.html', reportName: "iapp Inapp purchase Library API documentation"])
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: "Source/pim/Documents/External/pim-api", reportFiles: 'index.html', reportName: "pim registration Library API documentation"])
+    publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: "Source/ccb/Documents/External/ccb-api", reportFiles: 'index.html', reportName: "ccb Library API documentation"])
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: "Source/pif/Documents/External/pif-api", reportFiles: 'index.html', reportName: "pif Platform Infrastructure Library API documentation"])
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: "Source/prg/Documents/External/product-registration-lib-api", reportFiles: 'index.html', reportName: "Product registration library API documentation"])
     publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: "Source/pse/Documents/External/productselection-api", reportFiles: 'index.html', reportName: "Product selection Library API documentation"])

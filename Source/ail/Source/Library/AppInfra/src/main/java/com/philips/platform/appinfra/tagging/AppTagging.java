@@ -144,8 +144,8 @@ public class AppTagging implements AppTaggingInterface {
 //    }
 
     @Override
-    public void trackErrorAction(ErrorCategory errorCategory,  Map trackMap,TaggingError taggingErrorInstance) {
-        getAppTaggingHandler().trackErrorActionWithCategory("sendData", errorCategory,trackMap, taggingErrorInstance,  false);
+    public void trackErrorAction(ErrorCategory errorCategory, Map trackMap, TaggingError taggingErrorInstance) {
+        getAppTaggingHandler().trackErrorActionWithCategory("sendData", errorCategory, trackMap, taggingErrorInstance, false);
     }
 
     @Override

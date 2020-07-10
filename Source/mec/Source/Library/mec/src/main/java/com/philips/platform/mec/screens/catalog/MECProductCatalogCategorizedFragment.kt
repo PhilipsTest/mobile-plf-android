@@ -16,7 +16,7 @@ import com.philips.platform.uid.view.widget.AlertDialogFragment
 
 class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
     override fun getFragmentTag(): String {
-        return "MECProductCatalogCategorizedFragment"
+        return TAG
     }
 
     companion object {

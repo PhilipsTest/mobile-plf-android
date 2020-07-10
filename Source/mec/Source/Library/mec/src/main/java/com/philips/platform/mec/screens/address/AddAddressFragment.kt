@@ -41,9 +41,9 @@ import java.io.Serializable
 
 
 class AddAddressFragment : MecBaseFragment() {
-    private val TAG: String = AddAddressFragment::class.java.simpleName
+    private val TAG: String = "AddAddressFragment"
     override fun getFragmentTag(): String {
-        return "AddAddressFragment"
+        return TAG
     }
 
 

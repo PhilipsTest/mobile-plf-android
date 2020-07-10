@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name" translatable="false">CCB Demo App</string>
+    <string name="launchbutton_text" translatable="false">Launch Chatbot DemoUApp</string>
+</resources>

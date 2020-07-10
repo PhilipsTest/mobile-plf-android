@@ -263,9 +263,9 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun getProductInfo(product: ECSProduct): String {
-            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
-            protuctDetail += ";" + product.code
-            return protuctDetail
+            var productDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
+            productDetail += ";" + product.code
+           return productDetail
         }
 
         /*
@@ -274,14 +274,14 @@ class MECAnalytics {
         * changedQuantity : qty added or removed
         * */
         @JvmStatic
-        fun getProductInfoWithChangedQuantity(product: ECSProduct, basePriceEntity: BasePriceEntity, changedQuantity: Int): String {
-            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
-            protuctDetail += ";" + product.code
-            protuctDetail += ";" + changedQuantity //changed Quantity e.g. 2 product added OR 3 product deleted
-            var totalPrice: Double = getProductPrice(product, basePriceEntity) * changedQuantity.toDouble() // unit Price * quantity
+        fun getProductInfoWithChangedQuantity(product: ECSProduct,basePriceEntity: BasePriceEntity, changedQuantity: Int): String {
+            var productDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
+            productDetail += ";" + product.code
+            productDetail += ";" + changedQuantity //changed Quantity e.g. 2 product added OR 3 product deleted
+            var totalPrice: Double =getProductPrice(product,basePriceEntity)*changedQuantity.toDouble() // unit Price * quantity
             totalPrice = Math.round(totalPrice * 100.0) / 100.0 // round off to 2 decimal
-            protuctDetail += ";" + totalPrice
-            return protuctDetail
+            productDetail += ";" + totalPrice
+            return productDetail
         }
 
         /*
@@ -302,11 +302,11 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun getProductInfoWithChangedQuantity(product: ECSProduct, changedQuantity: Int): String {
-            var protuctDetail: String = MECDataHolder.INSTANCE.rootCategory
-            protuctDetail += ";" + product.code
-            protuctDetail += ";" + changedQuantity //changed Quantity e.g. 1 product added
-            protuctDetail += ";" + getProductPrice(product)
-            return protuctDetail
+            var productDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
+            productDetail += ";" + product.code
+            productDetail += ";" + changedQuantity //changed Quantity e.g. 1 product added
+            productDetail += ";" + getProductPrice(product)
+            return productDetail
         }
 
         /*
