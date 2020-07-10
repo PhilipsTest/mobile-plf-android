@@ -263,7 +263,7 @@ class ErrorHandlerTest {
 
     @Test
     fun `test ecs error  for create cart with invalid CTN`() {
-        val errorString = ClassLoader.getSystemResource("pil/cart/CreateCartMissingCTN.json").readText()
+        val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CreateCartMissingCTN.json").readText()
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var PilError = ECSError(ECSErrorType.MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.MISSING_PARAMETER_productId.errorCode, ECSErrorType.MISSING_PARAMETER_productId)

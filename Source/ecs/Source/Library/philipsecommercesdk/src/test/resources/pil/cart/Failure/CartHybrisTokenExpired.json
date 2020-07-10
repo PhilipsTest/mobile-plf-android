@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "d1cece25-d24c-4f54-b558-44861d8fc634",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "Invalid access token: ef2fa2ed-41d0-4d3b-b00b-dad870c74e08"
+            }
+        }
+    ]
+}

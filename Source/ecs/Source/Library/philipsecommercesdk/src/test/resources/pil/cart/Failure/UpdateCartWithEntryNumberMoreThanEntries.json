@@ -1,0 +1,13 @@
+{
+   "errors":[
+      {
+         "id":"d08abb39-b4c0-40e3-b452-768440e445f4",
+         "status":"400",
+         "code":"BAD_REQUEST",
+         "title":"Client error in API request",
+         "source":{
+            "parameter":" Entry not found."
+         }
+      }
+   ]
+}

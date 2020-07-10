@@ -125,7 +125,7 @@ class GetCartRequestTest {
         }
         getCartRequest = GetCartRequest(callBack)
 
-        val errorString =   ClassLoader.getSystemResource("pil/cart/AddToCartSuccessWithProductMoreQuantityThanStock.json").readText()
+        val errorString =   ClassLoader.getSystemResource("pil/cart/Success/AddToCartSuccessWithProductMoreQuantityThanStock.json").readText()
         val jsonObject = JSONObject(errorString)
         getCartRequest.onResponse(jsonObject)
     }
@@ -144,7 +144,7 @@ class GetCartRequestTest {
         }
         getCartRequest = GetCartRequest(callBack)
 
-        val errorString =   ClassLoader.getSystemResource("pil/cart/DeleteProductFromCartSuccess.json").readText()
+        val errorString =   ClassLoader.getSystemResource("pil/cart/Success/DeleteProductFromCartSuccess.json").readText()
         val jsonObject = JSONObject(errorString)
         getCartRequest.onResponse(jsonObject)
     }
@@ -164,7 +164,7 @@ class GetCartRequestTest {
         }
         getCartRequest = GetCartRequest(callBack)
 
-        val errorString =   ClassLoader.getSystemResource("pil/cart/FetchCartGermany.json").readText()
+        val errorString =   ClassLoader.getSystemResource("pil/cart/Success/FetchCartGermany.json").readText()
         val jsonObject = JSONObject(errorString)
         getCartRequest.onResponse(jsonObject)
     }
@@ -185,7 +185,7 @@ class GetCartRequestTest {
         }
         getCartRequest = GetCartRequest(callBack)
 
-        val errorString =   ClassLoader.getSystemResource("pil/cart/FetchCartUS.json").readText()
+        val errorString =   ClassLoader.getSystemResource("pil/cart/Success/FetchCartUS.json").readText()
         val jsonObject = JSONObject(errorString)
         getCartRequest.onResponse(jsonObject)
     }

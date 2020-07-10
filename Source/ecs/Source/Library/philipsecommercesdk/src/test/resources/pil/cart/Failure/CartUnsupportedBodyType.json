@@ -1,0 +1,10 @@
+{
+   "errors":[
+      {
+         "id":"da0431d4-124f-4c51-8693-986a4c8dc087",
+         "status":"415",
+         "code":"UNSUPPORTED_MEDIA_TYPE",
+         "title":"Unsupported Media Type"
+      }
+   ]
+}

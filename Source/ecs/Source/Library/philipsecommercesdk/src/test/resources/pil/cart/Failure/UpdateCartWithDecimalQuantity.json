@@ -1,0 +1,13 @@
+{
+   "errors":[
+      {
+         "id":"c3c7bbc9-e8ec-416c-93c5-4c469c7e07a1",
+         "status":"400",
+         "code":"BAD_REQUEST",
+         "title":"Client error in API request",
+         "source":{
+            "parameter":"Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'"
+         }
+      }
+   ]
+}

@@ -31,5 +31,6 @@ data class Address(
     val postalCode: String?,
     val region: Region?,
     val titleCode: String?,
-    val town: String?
+    val town: String?,
+    val isCollectionPoint: Boolean?
 ):Parcelable

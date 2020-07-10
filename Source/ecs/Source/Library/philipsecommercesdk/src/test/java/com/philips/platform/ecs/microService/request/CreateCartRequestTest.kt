@@ -172,7 +172,7 @@ class CreateCartRequestTest {
 
         mCreateCartRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart?siteId=%siteId%&language=%language%&country=%country%&productId=%ctn%&quantity=%quantity%"
 
-        val responseString = ClassLoader.getSystemResource("pil/cart/FetchCartGermany.json").readText()
+        val responseString = ClassLoader.getSystemResource("pil/cart/Success/FetchCartGermany.json").readText()
         val jsonObject = JSONObject(responseString)
         mCreateCartRequest!!.onResponse(jsonObject)
     }
@@ -211,7 +211,7 @@ class CreateCartRequestTest {
 
         mCreateCartRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart?siteId=%siteId%&language=%language%&country=%country%&productId=%ctn%&quantity=%quantity%"
 
-        val responseString = ClassLoader.getSystemResource("pil/cart/FetchCartUS.json").readText()
+        val responseString = ClassLoader.getSystemResource("pil/cart/Success/FetchCartUS.json").readText()
         val jsonObject = JSONObject(responseString)
         mCreateCartRequest!!.onResponse(jsonObject)
     }
@@ -250,7 +250,7 @@ class CreateCartRequestTest {
 
         mCreateCartRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart?siteId=%siteId%&language=%language%&country=%country%&productId=%ctn%&quantity=%quantity%"
 
-         val responseString = ClassLoader.getSystemResource("pil/cart/CreateCartUSMaster.json").readText()
+         val responseString = ClassLoader.getSystemResource("pil/cart/Success/CreateCartUSMaster.json").readText()
         val jsonObject = JSONObject(responseString)
         mCreateCartRequest!!.onResponse(jsonObject)
 

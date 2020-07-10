@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "7700fdb3-21b9-4bfc-9100-19f534bc606e",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": " Product with code 'HR3657/9011' not found!"
+            }
+        }
+    ]
+}

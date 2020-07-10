@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "8113916e-ec54-4a34-8763-c926eb57cf89",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": " Product with code 'HR1670_90' not found!"
+            }
+        }
+    ]
+}

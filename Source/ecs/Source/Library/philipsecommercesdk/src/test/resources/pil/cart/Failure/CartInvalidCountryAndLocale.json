@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "866a3dd3-ce2b-49e9-85a2-848c40c80b96",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "Language [de1_de1] is not supported"
+            }
+        }
+    ]
+}

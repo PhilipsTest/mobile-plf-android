@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "bbd1c723-5120-4745-8cfe-ed9278ae483b",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": " Product with code 'HD9220/26' not found!"
+            }
+        }
+    ]
+}

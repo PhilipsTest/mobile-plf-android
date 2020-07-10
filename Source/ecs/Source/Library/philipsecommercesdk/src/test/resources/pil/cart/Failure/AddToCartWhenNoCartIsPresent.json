@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "2eac6b0c-49ac-4538-a76e-f0e492baeda8",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "No cart created yet."
+            }
+        }
+    ]
+}

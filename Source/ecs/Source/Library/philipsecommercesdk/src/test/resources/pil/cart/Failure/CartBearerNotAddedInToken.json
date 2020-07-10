@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "16ebfb4c-2379-43bc-923e-0350544a6abb",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "Full authentication is required to access this resource"
+            }
+        }
+    ]
+}
