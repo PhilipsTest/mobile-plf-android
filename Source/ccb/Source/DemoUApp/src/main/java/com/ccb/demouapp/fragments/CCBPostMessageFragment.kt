@@ -13,6 +13,7 @@ import com.philips.platform.ccb.errors.CCBError
 import com.philips.platform.ccb.integration.ccbCallback
 import com.philips.platform.ccb.manager.CCBManager
 import com.philips.platform.ccb.model.CCBUser
+import com.philips.platform.ccb.model.Conversation
 import com.philips.platform.ccbdemouapp.R
 import kotlinx.android.synthetic.main.fetch_auth_details_fragment.*
 
@@ -36,8 +37,8 @@ class CCBPostMessageFragment : CCBBaseFragment() {
 
     private fun executeRequest() {
         progressBar?.visibility = View.VISIBLE
-        CCBManager.getCCBConversationHandlerInterface().postMessage("") { success: Boolean, ccbError: CCBError? ->
-            if(success){
+        CCBManager.getCCBConversationHandlerInterface().postMessage("") { conversion:Conversation?, ccbError: CCBError? ->
+            if(conversion != null){
                 progressBar?.visibility = View.GONE
                 textView?.text = "Request Success"
             }else if(ccbError != null){

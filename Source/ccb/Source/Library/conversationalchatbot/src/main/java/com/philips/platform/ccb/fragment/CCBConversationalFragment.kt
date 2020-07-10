@@ -16,15 +16,16 @@ import com.philips.platform.ccb.directline.CCBAzureConversationHandler
 import com.philips.platform.ccb.directline.CCBWebSocketConnection
 import com.philips.platform.ccb.listeners.BotResponseListener
 import com.philips.platform.ccb.manager.CCBManager
-import com.philips.platform.ccb.model.Activity
-import com.philips.platform.ccb.model.BotResponseData
+import com.philips.platform.ccb.model.*
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.android.synthetic.main.ans_message_layout.view.*
+import kotlinx.android.synthetic.main.user_response_layout.view.*
 import kotlinx.android.synthetic.main.fragment_ccbconversational.view.*
-import kotlinx.android.synthetic.main.ques_meesage_layout.view.*
-import kotlinx.android.synthetic.main.selection_views.view.*
+import kotlinx.android.synthetic.main.bot_response_layout.view.*
+import kotlinx.android.synthetic.main.buttons_layout.view.*
+import kotlinx.android.synthetic.main.dynamic_button.*
+import kotlinx.android.synthetic.main.dynamic_button.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -33,10 +34,16 @@ class CCBConversationalFragment() : Fragment(), BotResponseListener {
 
     lateinit var moshi: Moshi
 
-    lateinit var linearLayout1: LinearLayout
-    lateinit var linearLayout: LinearLayout
-    lateinit var scrollView: ScrollView
+    private lateinit var linearLayout1: LinearLayout
+    private lateinit var linearLayout: LinearLayout
+    private lateinit var scrollView: ScrollView
     private val TAG: String = CCBConversationalFragment::class.java.simpleName
+    private val INIT_WELCOME = "Welcome"
+    private val INIT_PRIVACY = "Privacy"
+    private val INIT_START = "START_ACTIVITY"
+    //private var conversationidPair: Pair<String, String>? = null
+    private var recentSentMessageID: String? = null;
+    private lateinit var ccbAzureConversationHandler: CCBAzureConversationHandler
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +55,7 @@ class CCBConversationalFragment() : Fragment(), BotResponseListener {
         linearLayout1 = rootview.recentChat
         linearLayout = rootview.selectionViewContainer
         scrollView = rootview.scrollview
+        ccbAzureConversationHandler = CCBAzureConversationHandler()
 
         moshi = Moshi.Builder()
                 // ... add your own JsonAdapters and factories ...
@@ -56,7 +64,6 @@ class CCBConversationalFragment() : Fragment(), BotResponseListener {
 
         Log.i(TAG, "onCreateView")
         openWebSocket()
-        postMessage("Welcome")
 
         return rootview;
     }
@@ -67,110 +74,132 @@ class CCBConversationalFragment() : Fragment(), BotResponseListener {
         ccbWebSocketConnection!!.createWebSocket()
     }
 
-    @Synchronized fun postMessage(message: String?) {
-        val ccbAzureConversationHandler = CCBAzureConversationHandler()
-        ccbAzureConversationHandler.postMessage(message) { b, _ ->
-            if (b) {
-                Log.i(TAG, "postMessage success : " + message)
+    fun postMessage(message: String) {
+        Log.i("SHASHI", "posting message : $message")
+        ccbAzureConversationHandler.postMessage(message) { conversation, _ ->
+            if (conversation != null) {
+                Log.i("SHASHI", "postMessage success : $message")
+                if (isInitMessage(message))
+                    handleResponseToInitMsg(message)
             } else {
-                Log.i(TAG, "postMessage failed")
+                Log.i("SHASHI", "postMessage failed")
             }
         }
     }
 
+    override fun onOpen() {
+        postMessage(INIT_WELCOME)
+    }
+
+    override fun onFailure() {
+    }
+
     override fun onMessageReceived(jsonResponse: String) {
         try {
-            Log.i(TAG, "CCBConversational :->$jsonResponse")
             val jsonAdapter: JsonAdapter<BotResponseData> = moshi.adapter(BotResponseData::class.java)
             val botResponseData: BotResponseData? = jsonAdapter.fromJson(jsonResponse)
-            Log.i(TAG, "CCBConversational :->$botResponseData.toString()")
-            /*if(!botResponseData?.activities?.get(0)?.conversation?.id?.equals(CCBManager.conversationId)!! ){
-                Log.i(TAG,"Conversation id is not valid")
-               // return
-            }*/
-            val responseActivity = botResponseData?.activities?.get(0)
+            Log.i("SHASHI", "CCBConversational :->$botResponseData.toString()")
 
-            if (responseActivity?.text.equals("Welcome") || responseActivity?.text.equals("Privacy") || responseActivity?.text.equals("Start Activities"))
-                return
-            else if (responseActivity?.text.equals("Hello I am your advisor bot")) {
-                postMessage("Privacy")
-            } else if (responseActivity?.text?.contains("Philips Privacy Notice")!!) {
-                postMessage("Start Activities")
+            val activity: Activity = botResponseData?.activities?.get(0) ?: return
+
+            if (botResponseData?.watermark == null) {
+                Log.i("SHASHI", "watermark null")
+                //conversationidPair = Pair(activity.id, activity.text)
+                displayUserResponse(activity.text)
+            } else {
+                Log.i("SHASHI", "watermark not null")
+                handleBotResponse(activity)
             }
-
-            parseResponse(botResponseData)
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
     }
 
-    private fun parseResponse(botResponseData: BotResponseData?) {
-        val activities = botResponseData?.activities;
-        activities?.forEach {
-            val id = it.from.id
-            if (id == "AUserOne") updateBotResponsetoUi(it.text, false)
+    private fun isInitMessage(text: String): Boolean {
+        if (text.equals(INIT_WELCOME) || text.equals(INIT_PRIVACY) || text.equals(INIT_START))
+            return true
+        return false
+    }
 
-            if (id == "karanservice-bot" && !botResponseData?.activities?.get(0)?.replyToId?.contains(CCBManager.conversationId,true)!!) return
+    private fun handleResponseToInitMsg(message: String) {
+        Log.i("SHASHI", "handleResponseToInitMsg")
 
-            if (id == "karanservice-bot" && it.attachments?.size != 0) updateActionUI(it)
-
-            if (id == "karanservice-bot" && (it.attachments?.size == 0 ||
-                            it.attachments?.get(0)?.content == null)) updateBotResponsetoUi(it.text, true)
+        if (message.equals(INIT_WELCOME)) {
+            Log.i("SHASHI", "INIT_PRIVACY")
+            postMessage(INIT_PRIVACY)
+        } else if (message.equals(INIT_PRIVACY)) {
+            Log.i("SHASHI", "INIT_START")
+            postMessage(INIT_START)
         }
     }
 
-    private fun updateBotResponsetoUi(msg: String, isResponseFromBot: Boolean) {
-        /* if(msg.equals("Privacy") || msg.equals("Start Activities"))
-             return*/
+    override fun onClosed() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun handleBotResponse(activity: Activity) {
+        Log.i("SHASHI", "handleBotResponse")
+
+        if (activity.attachments != null && activity.attachments[0].content.buttons.isNotEmpty()) {
+            updateActionUI(activity.text, buttons = activity.attachments[0].content.buttons)
+        }
+
+        if (!activity.replyToId?.contains(CCBManager.conversationId)!!) {
+            Log.i("SHASHI", "replyToId return")
+            return
+        }
+
+        displayBotRespon(activity.text)
+    }
+
+    private fun displayUserResponse(text: String) {
+        if (text.equals(INIT_WELCOME) || text.equals(INIT_PRIVACY) || text.equals(INIT_START))
+            return
+
         this.activity?.runOnUiThread {
-            if (isResponseFromBot) {
-                val view = layoutInflater.inflate(R.layout.ques_meesage_layout, linearLayout1, false)
-                if (msg.contains("Privacy", true)) {
-                    val spannable = SpannableHelper.getSpannable(msg, "**", "**", LinkSpanClickListener { })
-                    view.ques_chat_text.text = spannable
-                } else {
-                    view.ques_chat_text.text = msg
-                }
-                linearLayout1.addView(view)
-            } else {
-                val view = layoutInflater.inflate(R.layout.ans_message_layout, linearLayout1, false)
-                view.ans_chat_text.text = msg
-                linearLayout1.addView(view)
-            }
+            val view = layoutInflater.inflate(R.layout.user_response_layout, linearLayout1, false)
+            view.user_response_text.text = text
+            linearLayout1.addView(view)
             scrollToBottom()
         }
     }
 
-    private fun updateActionUI(activity: Activity) {
-        if (activity?.attachments?.size == 0) return
+    private fun displayBotRespon(msg: String) {
+        this.activity?.runOnUiThread {
+            val view = layoutInflater.inflate(R.layout.bot_response_layout, linearLayout1, false)
+            if (msg.contains("Privacy", true)) {
+                val spannable = SpannableHelper.getSpannable(msg, "**", "**", LinkSpanClickListener { })
+                view.bot_response_text.text = spannable
+            } else {
+                view.bot_response_text.text = msg
+            }
+            linearLayout1.addView(view)
+            scrollToBottom()
+        }
+    }
 
-        if (activity?.attachments?.get(0)?.content == null) return
 
+    private fun updateActionUI(ques: String, buttons: List<Button>) {
         this.activity?.runOnUiThread {
             linearLayout.removeAllViews()
-            val view = layoutInflater.inflate(R.layout.selection_views, linearLayout)
-            view.selectionTitle.text = activity?.text
-            val resButton1 = activity.attachments?.get(0)?.content?.buttons?.get(0)
-            val resButton2 = activity.attachments?.get(0)?.content?.buttons?.get(1)
-            view.button1.text = resButton1?.title
-            view.button2.text = resButton2?.title
+            // view.selectionTitle.text = ques
 
-            view.button1.setOnClickListener {
-                postMessage(resButton1?.value)
-                updateBotResponsetoUi(activity.text, true)
-            }
-
-            view.button2.setOnClickListener {
-                postMessage(resButton2?.value)
-                updateBotResponsetoUi(activity.text, true)
+            for (button: Button in buttons) {
+                val view = layoutInflater.inflate(R.layout.dynamic_button, linearLayout, false)
+                val button_view = view.ccb_dynamic_button
+                button_view.setText(button.title)
+                button_view.setOnClickListener {
+                    postMessage(button.title)
+                }
+                linearLayout.addView(view)
             }
         }
     }
 
-    fun scrollToBottom(){
+    fun scrollToBottom() {
         scrollView.post {
             scrollView.fullScroll(View.FOCUS_DOWN)
         }
     }
-
 }
+

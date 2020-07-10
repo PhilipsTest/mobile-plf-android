@@ -74,6 +74,4 @@ class CCBFragment : Fragment(){
             transaction.commitAllowingStateLoss()
         }
     }
-
-
 }

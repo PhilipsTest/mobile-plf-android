@@ -5,15 +5,16 @@
     android:layout_marginBottom="15dp"
     android:elevation="10dp"
     android:layout_marginRight="60dp"
-    android:background="@color/uid_level_white"
+    android:background="#FFFEFF"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <com.philips.platform.uid.view.widget.Label
-        android:id="@+id/ques_chat_text"
+        android:id="@+id/bot_response_text"
         android:linksClickable="true"
         android:autoLink="web|email"
-        android:layout_margin="10dp"
+        android:textColor="#151615"
+        android:layout_margin="15dp"
         android:minWidth="80dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -17,7 +17,6 @@ class CCBPostMessageRequest(message: String?) : CCBRequestInterface {
         val headers: MutableMap<String, String> = HashMap()
         headers["Content-Type"] = "application/json"
         headers["Authorization"] = "Bearer "+ CCBManager.token
-        headers["Accept-Encoding"] = "gzip"
         return headers
     }
 
