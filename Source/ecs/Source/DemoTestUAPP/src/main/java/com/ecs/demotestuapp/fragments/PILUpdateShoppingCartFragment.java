@@ -10,7 +10,7 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart;
-import com.philips.platform.ecs.microService.model.cart.Item;
+import com.philips.platform.ecs.microService.model.cart.ECSItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,8 @@ public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
     EditText  quantityET;
     int quantity=1;
     Spinner itemsSpinner; //todo
-    List<Item> items;
-    Item item;
+    List<ECSItem> items;
+    ECSItem item;
 
 
     @Override
@@ -34,7 +34,7 @@ public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
 
     private void setSpinner(){
       items= PILDataHolder.INSTANCE.getEcsShoppingCart().getData().getAttributes().getItems();
-        ListIterator<Item> it = items.listIterator();
+        ListIterator<ECSItem> it = items.listIterator();
         List<String> ctnList = new ArrayList<String>();
         ctnList.add("( Select - CTN )");
         while(it.hasNext()){

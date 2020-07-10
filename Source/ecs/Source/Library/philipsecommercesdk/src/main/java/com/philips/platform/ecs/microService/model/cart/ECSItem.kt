@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class Item(
+data class ECSItem(
         val availability: Availability?,
         val discountPrice: Price?,
         @SerializedName("id") val entryNumber: String?,

@@ -75,8 +75,9 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_INTEGRATION_TIMEOUT(R.string.ECSsomethingWentWrong, 6012),
     ECSPIL_BAD_REQUEST(R.string.ECSsomethingWentWrong, 6013  ),
     ECSPIL_UNSUPPORTED_MEDIA_TYPE(R.string.ECSsomethingWentWrong, 6014  ),
-    ECSPIL_INVALID_QUANTITY(R.string.ECSCommerceCartModificationError, 6015  ),
-    MISSING_PARAMETER_productId(R.string.ECSCtnNotProvided, 6016  );
+    ECSPIL_INVALID_QUANTITY(R.string.ECSPIL_INVALID_QUANTITY, 6015  ), //   quantity > 0
+    ECSPIL_NEGATIVE_QUANTITY(R.string.ECSCommerceCartModificationError, 6016  ), //  quantity >= 0
+    MISSING_PARAMETER_productId(R.string.ECSCtnNotProvided, 6017  );
 
     // todo promotionFilter , invalid offset
 
