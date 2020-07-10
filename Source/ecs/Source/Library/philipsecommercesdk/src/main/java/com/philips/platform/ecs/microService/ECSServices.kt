@@ -14,7 +14,6 @@ package com.philips.platform.ecs.microService
 
 import androidx.databinding.library.BuildConfig
 import com.philips.platform.appinfra.AppInfra
-
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
@@ -22,8 +21,8 @@ import com.philips.platform.ecs.microService.manager.ECSCartManager
 import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
-import com.philips.platform.ecs.microService.model.cart.Item
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -84,14 +83,14 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun createECSShoppingCart(ctn: String ,quantity : Int = 1,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+    fun createShoppingCart(ctn: String, quantity : Int = 1, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
         ecsCartManager.createECSShoppingCart(ctn.trim(),quantity,ecsCallback)
 
     }
 
     @Throws(ECSException::class)
-    fun addECSProductToShoppingCart(ctn: String ,quantity : Int,ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
-        ecsCartManager.addToCart(ctn.trim(),quantity,ecsCallback)
+    fun addProductToShoppingCart(ctn: String, quantity : Int = 1, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+        ecsCartManager.addProductToShoppingCart(ctn.trim(),quantity,ecsCallback)
 
     }
 
@@ -101,8 +100,8 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun updateShoppingCart(item: Item,quantity : Int, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
-        ecsCartManager.updateShoppingCart(item.entryNumber,quantity,ecsCallback)
+    fun updateShoppingCart(cartItem: ECSItem, quantity : Int, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
+        ecsCartManager.updateShoppingCart(cartItem.entryNumber,quantity,ecsCallback)
     }
 
 }

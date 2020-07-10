@@ -20,6 +20,7 @@ import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
@@ -74,6 +75,7 @@ class MicroECSServicesTest {
 
     @Mock
     lateinit var ecsCallback : ECSCallback<ECSProducts, ECSError>
+
 
     @Before
     fun setUp() {
@@ -140,7 +142,7 @@ class MicroECSServicesTest {
 
     @Test
     fun `create shopping cart  api should call corresponding manager method`() {
-        eCSServices.createECSShoppingCart("123  ",ecsCallback = ecsCartCallBackMock)
+        eCSServices.createShoppingCart("123  ",ecsCallback = ecsCartCallBackMock)
         Mockito.verify(cartManagerMock).createECSShoppingCart("123",ecsCallback = ecsCartCallBackMock)
     }
 
@@ -148,5 +150,18 @@ class MicroECSServicesTest {
     fun `fetch shopping cart  api should call corresponding manager method`() {
         eCSServices.fetchShoppingCart(ecsCallback = ecsCartCallBackMock)
         Mockito.verify(cartManagerMock).fetchShoppingCart(ecsCallback = ecsCartCallBackMock)
+    }
+
+    @Test
+    fun `add product to shopping cart  api should call corresponding manager method`() {
+        eCSServices.addProductToShoppingCart("123  ",ecsCallback = ecsCartCallBackMock)
+        Mockito.verify(cartManagerMock).addProductToShoppingCart("123",ecsCallback = ecsCartCallBackMock)
+    }
+
+    @Test
+    fun `update shopping cart  api should call corresponding manager method`() {
+        var item:ECSItem = ECSItem(null,null, "entry_id1",null,"HD9648/90",null,null,null,null)
+        eCSServices.updateShoppingCart(item,2,ecsCallback = ecsCartCallBackMock)
+        Mockito.verify(cartManagerMock).updateShoppingCart(item.entryNumber,2,ecsCallback = ecsCartCallBackMock)
     }
 }

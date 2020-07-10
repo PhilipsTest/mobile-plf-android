@@ -69,7 +69,7 @@ class ECSApiValidator {
     fun validateCreateCartQuantity(quantity: Int): ECSException?{
 
         if(quantity<1){
-            return ECSException(ECSErrorType.ECSCommerceCartModificationError.getLocalizedErrorString(), ECSErrorType.ECSCommerceCartModificationError.errorCode)
+            return ECSException(ECSErrorType.ECSPIL_INVALID_QUANTITY.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_QUANTITY.errorCode)
         }
         return null
     }
@@ -77,7 +77,7 @@ class ECSApiValidator {
     fun validateUpdateCartQuantity(quantity: Int): ECSException?{
 
         if(quantity<0){
-            return ECSException(ECSErrorType.ECSCommerceCartModificationError.getLocalizedErrorString(), ECSErrorType.ECSCommerceCartModificationError.errorCode)
+            return ECSException(ECSErrorType.ECSPIL_NEGATIVE_QUANTITY.getLocalizedErrorString(), ECSErrorType.ECSPIL_NEGATIVE_QUANTITY.errorCode)
         }
         return null
     }

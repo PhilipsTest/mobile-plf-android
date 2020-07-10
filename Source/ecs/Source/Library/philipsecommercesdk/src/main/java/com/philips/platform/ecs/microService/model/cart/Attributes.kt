@@ -11,7 +11,7 @@ data class Attributes(
         val deliveryUnits: Int?,
         val units: Int?,
         val email: String?,
-        val items: List<Item>?,
+        val items: List<ECSItem>?,
         val pricing: Pricing?,
         val promotions: Promotions?,
         val ageConsent: Boolean?,
