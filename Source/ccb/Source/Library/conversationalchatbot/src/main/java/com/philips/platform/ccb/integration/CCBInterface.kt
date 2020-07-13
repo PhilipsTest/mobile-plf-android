@@ -25,6 +25,7 @@ class CCBInterface: UappInterface {
 
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
         if (uiLauncher is FragmentLauncher) {
+            CCBSettingManager.fetchAppDataHandler = (uappLaunchInput as CCBLaunchInput).fetchAppDataHandler
             val ccbFragment = CCBFragment()
             addFragment(uiLauncher, ccbFragment)
         }

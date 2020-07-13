@@ -42,4 +42,6 @@ dependencies {
     implementation philipsdeps.uid
     implementation project(':AppInfra')
     implementation project(':ccbUApp')
+
+    implementation 'com.github.bhargavms:DotLoader:1.1.1'
 }

@@ -30,10 +30,4 @@ public class PimDemoApplication extends Application {
         return appInfraInterface;
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        UIDHelper.injectCalligraphyFonts();
-    }
-
 }

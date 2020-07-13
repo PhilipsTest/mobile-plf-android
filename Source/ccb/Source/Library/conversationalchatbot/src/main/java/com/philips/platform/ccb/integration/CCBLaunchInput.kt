@@ -4,5 +4,6 @@ import com.philips.platform.ccb.directline.CCBSessionHandlerInterface
 import com.philips.platform.uappframework.uappinput.UappLaunchInput
 
 class CCBLaunchInput : UappLaunchInput() {
+    var fetchAppDataHandler: FetchAppDataHandler? = null
 
 }

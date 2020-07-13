@@ -53,4 +53,14 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation("com.squareup.moshi:moshi-kotlin:1.9.3")
+
+    implementation "io.noties.markwon:core:4.4.0"
+    implementation "io.noties.markwon:image-glide:4.4.0"
+    implementation "io.noties.markwon:image:4.4.0"
+
+
+   // implementation 'com.github.m2mobi.MarkyMark-Android:markymark-android:0.2.3'
+   // implementation 'com.github.m2mobi.MarkyMark-Android:markymark-contentful:0.2.3'
+
+   // implementation 'com.squareup.picasso:picasso:2.5.2'
 }

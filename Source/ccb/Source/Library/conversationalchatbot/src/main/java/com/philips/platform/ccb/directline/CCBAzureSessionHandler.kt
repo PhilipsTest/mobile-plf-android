@@ -11,6 +11,7 @@ import com.philips.platform.ccb.manager.CCBSettingManager
 import com.philips.platform.ccb.model.CCBConversation
 import com.philips.platform.ccb.model.CCBUser
 import com.philips.platform.ccb.request.CCBAuthenticationRequest
+import com.philips.platform.ccb.request.CCBEndConversationRequest
 import com.philips.platform.ccb.request.CCBRefreshTokenRequest
 import com.philips.platform.ccb.request.CCBStartConversationRequest
 import com.philips.platform.ccb.rest.CCBRestClient
@@ -58,6 +59,11 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
     }
 
     override fun endConversation(completionHandler: (Boolean, CCBError?) -> Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val ccbEndConversationRequest = CCBEndConversationRequest()
+        ccbRestClient.invokeRequest(ccbEndConversationRequest,Response.Listener { response: String ->
+            completionHandler.invoke(true, null)
+        }, Response.ErrorListener { error: VolleyError ->
+            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+        })
     }
 }

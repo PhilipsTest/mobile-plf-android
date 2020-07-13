@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_marginLeft="15dp"
     android:layout_marginBottom="15dp"
-    android:elevation="10dp"
-    android:layout_marginRight="60dp"
+    android:elevation="5dp"
+    android:layout_marginStart="70dp"
+    android:layout_marginEnd="15dp"
     android:background="#FFFEFF"
-    android:layout_width="wrap_content"
+    android:layout_gravity="end"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.philips.platform.uid.view.widget.Label
@@ -16,7 +17,8 @@
         android:textColor="#151615"
         android:layout_margin="15dp"
         android:minWidth="80dp"
-        android:layout_width="wrap_content"
+        android:gravity="left"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

@@ -11,15 +11,20 @@ import java.lang.Exception
 class CCBWebSocketConnection : WebSocketListener() {
 
     private val TAG: String? = CCBWebSocketConnection::class.java.simpleName
-    private var botResponseListener:BotResponseListener? = null
+    private var botResponseListener: BotResponseListener? = null
+    private lateinit var webSocket: WebSocket
 
-    fun setBotResponseListener(botResponseListener: BotResponseListener){
+    fun setBotResponseListener(botResponseListener: BotResponseListener) {
         this.botResponseListener = botResponseListener
     }
 
-    fun createWebSocket(){
+    fun createWebSocket() {
         val request = Request.Builder().url(CCBManager.streamUrl).build()
-        OkHttpClient().newWebSocket(request,this)
+        webSocket = OkHttpClient().newWebSocket(request, this)
+    }
+
+    fun closeWebSocket() {
+        webSocket.close(1000, "User is closing Websocket")
     }
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
@@ -44,7 +49,7 @@ class CCBWebSocketConnection : WebSocketListener() {
         Log.i(TAG, "onMessage $text")
         try {
             if (!TextUtils.isEmpty(text)) botResponseListener?.onMessageReceived(text)
-        }catch (ex:Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
         }
 

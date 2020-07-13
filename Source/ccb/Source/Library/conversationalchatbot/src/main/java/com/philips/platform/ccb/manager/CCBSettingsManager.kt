@@ -5,6 +5,7 @@ import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.rest.RestInterface
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.ccb.BuildConfig
+import com.philips.platform.ccb.integration.FetchAppDataHandler
 import com.philips.platform.uappframework.uappinput.UappDependencies
 
 object  CCBSettingManager {
@@ -14,6 +15,8 @@ object  CCBSettingManager {
     lateinit var mLoggingInterface: LoggingInterface
     lateinit var mTaggingInterface: AppTaggingInterface
     lateinit var mRestInterface: RestInterface
+
+    var fetchAppDataHandler: FetchAppDataHandler? = null
 
     fun init(ccbDependencies: UappDependencies) {
         mAppInfraInterface = ccbDependencies.appInfra

@@ -8,7 +8,7 @@ data class Activity(
     val from: From,
     val id: String,
     val replyToId: String?,
-    val text: String,
+    var text: String,
     val timestamp: String,
     val type: String,
     val recipient: Recipient?

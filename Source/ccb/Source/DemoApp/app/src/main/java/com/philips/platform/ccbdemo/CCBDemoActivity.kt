@@ -1,5 +1,6 @@
 package com.philips.platform.ccbdemo
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
@@ -10,9 +11,12 @@ import com.ccb.demouapp.integration.CCBDemoUAppSettings
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.uappframework.launcher.ActivityLauncher
 import com.philips.platform.uappframework.uappinput.UappLaunchInput
+import com.philips.platform.uid.utils.UIDActivity
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_ccbdemo.*
 
-class CCBDemoActivity : AppCompatActivity() {
+
+class CCBDemoActivity : UIDActivity() {
 
     private lateinit var appInfraInterface: AppInfraInterface
     private lateinit var demoAppInterface: CCBDemoUAppInterface
@@ -40,4 +44,7 @@ class CCBDemoActivity : AppCompatActivity() {
         demoAppInterface.launch(ActivityLauncher(this, ActivityLauncher.ActivityOrientation.SCREEN_ORIENTATION_UNSPECIFIED, null, 0, null), UappLaunchInput())
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
+    }
 }
