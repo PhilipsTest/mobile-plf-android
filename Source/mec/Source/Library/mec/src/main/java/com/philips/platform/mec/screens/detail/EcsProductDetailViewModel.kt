@@ -79,7 +79,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
                 addProductToShoppingcart(ecsProductAsParamter,addToProductCallBack)
             }
             override fun onFailure(error: Exception?, ecsError: ECSError?) {
-                TODO(" create cart must NOT fail")
+               // create cart must NOT fail
             }
         }
         ecsProductDetailRepository.createCart(createShoppingCartCallback)
