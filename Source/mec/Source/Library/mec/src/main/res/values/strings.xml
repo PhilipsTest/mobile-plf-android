@@ -167,8 +167,7 @@
     <string name="mec_zero_results_message">This filters our product list. Please check that there are no typos in your filter term</string>
     <!--new strings-->
 
-
-    <string name="mec_enter_product_more_than_0">Please enter product quantity more than 0</string>
+    
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>

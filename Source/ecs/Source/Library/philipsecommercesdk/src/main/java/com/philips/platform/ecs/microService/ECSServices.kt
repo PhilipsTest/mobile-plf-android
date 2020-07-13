@@ -12,8 +12,8 @@
 
 package com.philips.platform.ecs.microService
 
-import androidx.databinding.library.BuildConfig
 import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
@@ -34,7 +34,7 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 
 class ECSServices(appInfra: AppInfra) {
 
-    val PIL_ECS_NOTATION = "pecs"
+    val PIL_ECS_NOTATION = "ECS"
 
     internal var ecsConfigManager = ECSConfigManager()
     internal var ecsProductManager = ECSProductManager()

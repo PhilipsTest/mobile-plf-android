@@ -59,9 +59,8 @@ class ECSApiValidator {
      }
 
     fun validateCTN(ctn: String): ECSException?{
-                     //TODO: Change the message to "Please provide valid CTN" needs transaltion
         if(ctn.trim().isEmpty() || ctn.trim().contains(" ")){
-          return ECSException(ECSErrorType.ECSUnknownIdentifierError.getLocalizedErrorString(), ECSErrorType.ECSUnknownIdentifierError.errorCode)
+          return ECSException(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode)
          }
         return null
     }

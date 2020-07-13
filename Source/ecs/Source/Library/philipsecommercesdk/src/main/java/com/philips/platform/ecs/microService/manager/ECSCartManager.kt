@@ -55,6 +55,7 @@ class ECSCartManager {
             val updateCartRequest = entryNumber?.let { UpdateCartRequest(it,quantity,ecsCallback) }
             updateCartRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/cart/%cartId%/%entryNumber%?siteId=%siteId%&language=%language%&country=%country%&quantity=%quantity%"
             updateCartRequest?.executeRequest()
+            // requestHandler.handleRequest(updateCartRequest)
         }
 
     }

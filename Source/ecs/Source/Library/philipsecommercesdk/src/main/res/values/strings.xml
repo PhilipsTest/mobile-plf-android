@@ -11,7 +11,7 @@
   <string name="ECSCartEntryError">The Product is not added in Cart</string>
   <string name="ECSCartError">No cart created yet</string>
   <string name="ECSCommerceCartModificationError">Quantity must not be less than zero</string>
-  <string name="ECSCtnNotProvided">Please provide valid CTN</string>
+  <string name="ECSCtnNotProvided">Please provide the CTN</string>
   <string name="ECSHybrisNotAvailable">Philips shop is not available for the selected country, only retailer mode is available</string>
   <string name="ECSIllegalArgumentError">Please provide valid input data</string>
   <string name="ECSInsufficientStockError">Product cannot be shipped as it is out of stock</string>
@@ -34,7 +34,7 @@
   <string name="ECSPIL_MISSING_PARAMETER_language">Please set the locale</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId">Philips shop is not available for the selected country, only retailer mode is available</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">We have encountered technical glitch. Please try after some time</string>
-  <string name="ECSPIL_NOT_FOUND_productId">Requested resource is not available</string>
+  <string name="ECSPIL_NOT_FOUND_productId">Please provide valid CTN</string>
   <string name="ECSPaymentAuthorizationError">Payment authorization was not successful</string>
   <string name="ECSPropositionIdNotFound">Please set a valid Proposition ID</string>
   <string name="ECSSiteIdNotFound">Philips shop is not available for the selected country, only retailer mode is available</string>
@@ -60,7 +60,7 @@
   <string name="ECSsomethingWentWrong">We have encountered technical glitch. Please try after some time</string>
   <string name="ECSunsupported_grant_type">We have encountered technical glitch (Unsupported grant type). Please re-login</string>
   <string name="ECSPIL_INVALID_QUANTITY">Quantity must be greater than zero</string>
-  <string name="MISSING_PARAMETER_productId"></string>
+
 
 <!--  PIL services-->
 

@@ -270,9 +270,9 @@ class ErrorHandlerTest {
         val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CreateCartMissingCTN.json").readText()
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
-        var PilError = ECSError(ECSErrorType.MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.MISSING_PARAMETER_productId.errorCode, ECSErrorType.MISSING_PARAMETER_productId)
+        var PilError = ECSError(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, ECSErrorType.ECSPIL_MISSING_PARAMETER_productId)
         errorHandler.setPILECSError(hybrisError,PilError)
-        Assert.assertEquals(ECSErrorType.MISSING_PARAMETER_productId.errorCode, PilError.errorCode)
+        Assert.assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, PilError.errorCode)
     }
 
 
