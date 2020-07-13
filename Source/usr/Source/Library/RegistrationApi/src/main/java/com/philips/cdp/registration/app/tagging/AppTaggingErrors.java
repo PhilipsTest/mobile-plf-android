@@ -34,8 +34,9 @@ public class AppTaggingErrors {
         switch (userRegistrationFailureInfo.getErrorCode()) {
 
             case ErrorCodes.NETWORK_ERROR:
-                trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
-                        AppTagingConstants.INFORMATIONAL_ERROR, FAILURE_FORGOT_PASSWORD_ERROR);
+//                trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
+//                        AppTagingConstants.INFORMATIONAL_ERROR, FAILURE_FORGOT_PASSWORD_ERROR);
+                AppTagging.trackInformationError(FAILURE_FORGOT_PASSWORD_ERROR);
                 break;
             case ErrorCodes.JANRAIN_EMAIL_ADDRESS_NOT_AVAILABLE:
                 AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.USER_ERROR, AppTagingConstants.USER_REGISTRATION + ":" + AppTagingConstants.FAILURE_FORGOT_PASSWORD + ":"
@@ -53,19 +54,21 @@ public class AppTaggingErrors {
         switch (userRegistrationFailureInfo.getErrorCode()) {
 
             case ErrorCodes.NETWORK_ERROR:
-                trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
-                        AppTagingConstants.INFORMATIONAL_ERROR, RESEND_VERIFICATION_NETWORK_ERROR);
+//                trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
+//                        AppTagingConstants.INFORMATIONAL_ERROR, RESEND_VERIFICATION_NETWORK_ERROR);
+                AppTagging.trackInformationError(RESEND_VERIFICATION_NETWORK_ERROR);
                 break;
 
             default:
-                AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.INFORMATIONAL_ERROR, AppTagingConstants.USER_REGISTRATION + ":" + AppTagingConstants.FAILURE_RESEND_EMAIL + ":"
+                AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR, AppTagingConstants.USER_REGISTRATION + ":" + AppTagingConstants.FAILURE_RESEND_EMAIL + ":"
                         + flowType + ":" + userRegistrationFailureInfo.getErrorCode() + ":" + userRegistrationFailureInfo.getErrorTagging());
+
                 break;
         }
     }
 
     public static void trackActionForErrorMapping(String sendData, String technicalError,
-                                                   String technicalRegistrationError) {
+                                                  String technicalRegistrationError) {
         AppTagging.trackAction(sendData, technicalError, technicalRegistrationError);
     }
 
@@ -73,14 +76,16 @@ public class AppTaggingErrors {
 
         switch (userRegistrationFailureInfo.getErrorCode()) {
             case ErrorCodes.NETWORK_ERROR:
-                trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
-                        AppTagingConstants.INFORMATIONAL_ERROR, WE_RE_HAVING_TROUBLE_LOGINING_USER);
+//                trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
+//                        AppTagingConstants.INFORMATIONAL_ERROR, WE_RE_HAVING_TROUBLE_LOGINING_USER);
+                AppTagging.trackInformationError(WE_RE_HAVING_TROUBLE_LOGINING_USER);
+
                 break;
             case ErrorCodes.EMAIL_NOT_VERIFIED_CODE:
                 trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
                         AppTagingConstants.USER_ERROR, EMAIL_IS_NOT_VERIFIED);
                 break;
-                //URX Errors
+            //URX Errors
             case ErrorCodes.URX_INVALID_PHONENUMBER:
             case ErrorCodes.URX_SMS_ACCOUNT_ALREADY_VERIFIED:
                 //Janrain Errors
@@ -108,8 +113,10 @@ public class AppTaggingErrors {
 
         switch (userRegistrationFailureInfo.getErrorCode()) {
             case ErrorCodes.NETWORK_ERROR:
-                trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
-                        AppTagingConstants.INFORMATIONAL_ERROR, WE_RE_HAVING_TROUBLE_REGISTRING_USER);
+//                trackActionForErrorMapping(AppTagingConstants.SEND_DATA,
+//                        AppTagingConstants.INFORMATIONAL_ERROR, WE_RE_HAVING_TROUBLE_REGISTRING_USER);
+                AppTagging.trackInformationError(WE_RE_HAVING_TROUBLE_REGISTRING_USER);
+
                 break;
 
             case ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION:
@@ -121,7 +128,7 @@ public class AppTaggingErrors {
                             AppTagingConstants.USER_ERROR, EMAIL_ALREADY_IN_USE);
                 }
                 break;
-                 //URX Errors
+            //URX Errors
             case ErrorCodes.URX_INVALID_PHONENUMBER:
             case ErrorCodes.URX_SMS_ACCOUNT_ALREADY_VERIFIED:
                 //Janrain Errors

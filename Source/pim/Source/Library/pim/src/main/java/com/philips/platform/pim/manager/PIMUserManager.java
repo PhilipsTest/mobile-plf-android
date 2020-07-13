@@ -12,6 +12,8 @@ import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
@@ -320,7 +322,7 @@ public class PIMUserManager {
         }, null);
     }
 
-    private void requestUpdateOptinAndDownloadUserprofile(UpdateUserDetailsHandler updateUserDetailsHandler, Map<String, String>  requestData) {
+    private void requestUpdateOptinAndDownloadUserprofile(UpdateUserDetailsHandler updateUserDetailsHandler, Map<String, String> requestData) {
         MarketInOptedInRequest marketInOptedInRequest = new MarketInOptedInRequest(requestData);
         PIMRestClient pimRestClient = new PIMRestClient(PIMSettingManager.getInstance().getRestClient());
         pimRestClient.invokeRequest(marketInOptedInRequest, new Response.Listener<String>() {
@@ -372,7 +374,8 @@ public class PIMUserManager {
     }
 
     private void tagTechnicalError(String tagValue) {
-        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo(PIMTaggingConstants.SET_ERROR, PIMTaggingConstants.TECHNICAL_ERROR, "UDI:".concat(tagValue));
+//        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo(PIMTaggingConstants.SET_ERROR, PIMTaggingConstants.TECHNICAL_ERROR, "UDI:".concat(tagValue));
+        PIMSettingManager.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError(tagValue));
     }
 
     private Error getTokenExpireError(VolleyError error) {

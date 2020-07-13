@@ -9,12 +9,15 @@
 package com.philips.cdp.registration.app.tagging;
 
 import android.app.Activity;
+
 import androidx.annotation.VisibleForTesting;
 
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.settings.RegistrationHelper;
 import com.philips.cdp.registration.ui.utils.RegConstants;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +27,7 @@ public class AppTagging {
 
     private static AppTaggingInterface appTaggingInterface;
 
-    public static void init(){
+    public static void init() {
         appTaggingInterface = RegistrationConfiguration.getInstance().getComponent().getAppTaggingInterface();
         appTaggingInterface = appTaggingInterface.createInstanceForComponent(RegConstants.COMPONENT_TAGS_ID, RegistrationHelper.getRegistrationApiVersion());
     }
@@ -42,6 +45,10 @@ public class AppTagging {
         final Map<String, String> commonGoalsMap = getCommonGoalsMap();
         commonGoalsMap.put(key, value);
         appTaggingInterface.trackActionWithInfo(state, commonGoalsMap);
+    }
+
+    public static void trackInformationError(String tag) {
+        appTaggingInterface.trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, getCommonGoalsMap(), new TaggingError(tag));
     }
 
     public static void trackMultipleActions(String state, Map<String, String> map) {

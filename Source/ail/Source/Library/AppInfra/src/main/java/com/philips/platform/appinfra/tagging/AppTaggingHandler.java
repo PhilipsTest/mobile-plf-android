@@ -450,7 +450,8 @@ public class AppTaggingHandler {
         return false;
     }
 
-    void trackErrorActionWithCategory(String pageName, @NonNull ErrorCategory errorCategory, Map trackMap, @NonNull TaggingError taggingErrorInstance, boolean isTrackPage) {
+    // TODO for remove pagname and put internal usage
+    void trackErrorActionWithCategory(@NonNull ErrorCategory errorCategory, Map trackMap, @NonNull TaggingError taggingErrorInstance, boolean isTrackPage) {
         String value;
         if (taggingErrorInstance.getErrorType() == null && taggingErrorInstance.getServerName() == null && taggingErrorInstance.getErrorCode() == null) {
             value = getComponentId()
@@ -462,8 +463,13 @@ public class AppTaggingHandler {
                     + ":" + taggingErrorInstance.getErrorCode()
                     + ":" + taggingErrorInstance.getErrorMsg();
         }
-        trackMap.put(errorCategory.getValue(), value);
-        track(pageName, trackMap, isTrackPage);
+        if (trackMap == null) {
+            trackMap = new HashMap();
+            trackMap.put(errorCategory.getValue(), value);
+
+        } else
+            trackMap.put(errorCategory.getValue(), value);
+        track("sendData", trackMap, isTrackPage);
     }
 
 

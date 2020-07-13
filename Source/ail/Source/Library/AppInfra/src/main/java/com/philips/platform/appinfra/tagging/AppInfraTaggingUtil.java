@@ -60,17 +60,19 @@ public class AppInfraTaggingUtil implements Serializable {
 
     public void trackErrorAction(String category, String message) {
         if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
-            String concat = "AIL:".concat(category).concat(":").concat(message);
-            appTagging.trackActionWithInfo(SEND_DATA, TECHNICAL_ERROR, concat);
-            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
+//            String concat = "AIL:".concat(category).concat(":").concat(message);
+//          appTagging.trackActionWithInfo(SEND_DATA, TECHNICAL_ERROR, concat);
+            appTagging.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError(category + ":" + message));
+            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, category + ":" + message);
+
         }
     }
 
-    public void trackInformationalErrorAction(String category, String message) {
-        if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
-            String concat = "AIL:".concat(category).concat(":").concat(message);
-            appTagging.trackActionWithInfo(SEND_DATA, INFORMATIONAL_ERROR, concat);
-            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
-        }
-    }
+//    public void trackInformationalErrorAction(String category, String message) {
+//        if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
+//            String concat = "AIL:".concat(category).concat(":").concat(message);
+//            appTagging.trackActionWithInfo(SEND_DATA, INFORMATIONAL_ERROR, concat);
+//            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
+//        }
+//    }
 }

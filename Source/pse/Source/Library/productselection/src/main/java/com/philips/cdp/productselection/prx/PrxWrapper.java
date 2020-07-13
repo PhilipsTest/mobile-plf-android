@@ -20,6 +20,8 @@ import com.philips.cdp.prxclient.request.ProductSummaryRequest;
 import com.philips.cdp.prxclient.response.ResponseData;
 import com.philips.cdp.prxclient.response.ResponseListener;
 import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,7 +150,9 @@ public class PrxWrapper {
             public void onResponseError(PrxError error) {
                 if (error.getStatusCode() == 404) {
                     if (ProductModelSelectionHelper.getInstance().getTaggingInterface() != null && mAppInfraInterface.getServiceDiscovery() != null) {
-                        ProductModelSelectionHelper.getInstance().getTaggingInterface().trackActionWithInfo(Constants.ACTION_KEY_SEND_DATA, Constants.TECHNICAL_ERROR, "PSE:".concat(Constants.CTN_NOT_FOUND));
+                        //TODO Need to check whether setError or sendData as pagename required
+//                        ProductModelSelectionHelper.getInstance().getTaggingInterface().trackActionWithInfo(Constants.ACTION_KEY_SEND_DATA, Constants.TECHNICAL_ERROR, "PSE:".concat(Constants.CTN_NOT_FOUND));
+                        ProductModelSelectionHelper.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError(Constants.CTN_NOT_FOUND));
                     }
                 }
             }

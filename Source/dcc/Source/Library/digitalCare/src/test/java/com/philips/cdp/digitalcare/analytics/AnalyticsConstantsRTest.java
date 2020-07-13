@@ -34,13 +34,13 @@ public class AnalyticsConstantsRTest extends TestCase {
         assertEquals("Value is Same", "digitalcare:productdetails:manual", AnalyticsConstants.PAGE_VIEW_PRODUCT_MANUAL);
         assertEquals("Value is Same", "digitalcare:findphilips:servicelocator", AnalyticsConstants.PAGE_SERVICE_LOCATOR);
 
-        assertEquals("Value is Same", "setError", AnalyticsConstants.ACTION_SET_ERROR);
+//        assertEquals("Value is Same", "setError", AnalyticsConstants.ACTION_SET_ERROR);
         assertEquals("Value is Same", "exit link", AnalyticsConstants.ACTION_EXIT_LINK);
 
         assertEquals("Value is Same", "serviceRequest", AnalyticsConstants.ACTION_SERVICE_REQUEST);
         assertEquals("Value is Same", "sendData", AnalyticsConstants.ACTION_SEND_DATA);
 
-        assertEquals("Value is Same", "technicalError", AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR);
+//        assertEquals("Value is Same", "technicalError", AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR);
         assertEquals("Value is Same", "socialType", AnalyticsConstants.ACTION_KEY_SOCIAL_TYPE);
         assertEquals("Value is Same", "serviceChannel", AnalyticsConstants.ACTION_KEY_SERVICE_CHANNEL);
         assertEquals("Value is Same", "url", AnalyticsConstants.ACTION_KEY_URL);

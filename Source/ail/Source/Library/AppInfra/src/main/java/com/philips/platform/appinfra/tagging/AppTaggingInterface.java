@@ -101,18 +101,18 @@ public interface AppTaggingInterface extends Serializable {
 
     /**
      * Track error action with info.
-     *
+     * @param errorCategory        the tagging error category
      * @param taggingErrorInstance the tagging error instance
-     * @since 1.0.0
+     * @since 2004.0.0
      */
-//    void trackErrorAction(TaggingError taggingErrorInstance);
+    void trackErrorAction(ErrorCategory errorCategory, TaggingError taggingErrorInstance);
 
     /**
      * Track error action with info.
-     *
      * @param errorCategory        the tagging error category
      * @param taggingErrorInstance the tagging error instance
-     * @since 1.0.0
+     * @param trackMap             the map for extra information
+     * @since 2004.0.0
      */
     void trackErrorAction(ErrorCategory errorCategory, Map trackMap, TaggingError taggingErrorInstance);
 
