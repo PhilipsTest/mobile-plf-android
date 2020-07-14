@@ -160,7 +160,7 @@ public class ProductCatalogPresenter implements ProductCatalogAPI, AbstractModel
 
     @Override
     public void onModelDataError(final Message msg) {
-        if(mProductCatalogListener== null) return;
+        if (mProductCatalogListener == null) return;
         if (msg.obj instanceof IAPNetworkError)
             mProductCatalogListener.onLoadError((IAPNetworkError) msg.obj);
         else {
@@ -171,8 +171,7 @@ public class ProductCatalogPresenter implements ProductCatalogAPI, AbstractModel
     }
 
     private void trackNoProductFoundInPRX() {
-        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
-                IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + IAPAnalyticsConstant.NO_PRODUCT_FOUND);
+        IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.PRX + IAPAnalyticsConstant.NO_PRODUCT_FOUND);
     }
 
     public void setHybrisDelegate(HybrisDelegate delegate) {

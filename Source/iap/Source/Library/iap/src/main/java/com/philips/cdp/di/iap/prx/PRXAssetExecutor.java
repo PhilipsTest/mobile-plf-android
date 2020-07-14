@@ -156,14 +156,15 @@ public class PRXAssetExecutor {
 
     protected void notifyError(final PrxError prxError) {
         Message result = Message.obtain();
-        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
-                IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + prxError.getStatusCode() + "_" + prxError.getDescription());
         if (PrxError.PrxErrorType.NO_INTERNET_CONNECTION.getId() == prxError.getStatusCode()) {
             result.obj = new IAPNetworkError(new NoConnectionError(), 0, null);
+            IAPAnalytics.trackInformationalErrorWithPrefix(IAPAnalyticsConstant.PRX + prxError.getStatusCode() + "_" + prxError.getDescription());
         } else if (PrxError.PrxErrorType.TIME_OUT.getId() == prxError.getStatusCode()) {
             result.obj = new IAPNetworkError(new TimeoutError(), 0, null);
+            IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.PRX + prxError.getStatusCode() + "_" + prxError.getDescription());
         } else {
             result.obj = prxError.getStatusCode();
+            IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.PRX + prxError.getStatusCode() + "_" + prxError.getDescription());
         }
         if (mAssetListener != null) {
             mAssetListener.onFetchAssetFailure(result);

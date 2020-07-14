@@ -96,8 +96,7 @@ public class NetworkController {
                             requestListener.getClass().getSimpleName() + " " + model.getUrl().substring(0, 20));
                 }
                 if (error != null && error.getMessage() != null) {
-                    IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
-                            IAPAnalyticsConstant.ERROR, error.getMessage());
+                    IAPAnalytics.trackTechnicalErrorWithPrefix( error.getMessage());
                 }
                 if (requestListener != null) {
                     new IAPNetworkError(error, requestCode, requestListener);

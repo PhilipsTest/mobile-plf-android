@@ -8,7 +8,10 @@ package com.philips.platform.appinfra.tagging;
 
 import android.text.TextUtils;
 
+import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.AppInfraLogEventID;
+import com.philips.platform.appinfra.BuildConfig;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 
 import java.io.Serializable;
@@ -52,9 +55,9 @@ public class AppInfraTaggingUtil implements Serializable {
     public static final String INFORMATIONAL_ERROR = "informationalError";
     static final String SUCCESS_MESSAGE = "appInfraSuccessMessage";
 
-
-    public AppInfraTaggingUtil(AppTaggingInterface appTagging, LoggingInterface appInfraLogInstance) {
-        this.appTagging = appTagging;
+    public AppInfraTaggingUtil(AppInfraInterface appInfraInstance, LoggingInterface appInfraLogInstance) {
+        appTagging = appInfraInstance.getTagging().
+                        createInstanceForComponent("AIL", BuildConfig.VERSION_NAME);
         this.appInfraLogging = appInfraLogInstance;
     }
 
@@ -68,11 +71,12 @@ public class AppInfraTaggingUtil implements Serializable {
         }
     }
 
-//    public void trackInformationalErrorAction(String category, String message) {
-//        if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
+    public void trackInformationalErrorAction(String category, String message) {
+        if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
 //            String concat = "AIL:".concat(category).concat(":").concat(message);
 //            appTagging.trackActionWithInfo(SEND_DATA, INFORMATIONAL_ERROR, concat);
+            appTagging.trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError(category + ":" + message));
 //            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
-//        }
-//    }
+        }
+    }
 }

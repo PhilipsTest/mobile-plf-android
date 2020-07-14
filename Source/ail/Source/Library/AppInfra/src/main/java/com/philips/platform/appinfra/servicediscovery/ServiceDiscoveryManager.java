@@ -31,8 +31,6 @@ import com.philips.platform.appinfra.servicediscovery.model.AISDResponse;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscovery;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.appinfra.tagging.AppInfraTaggingUtil;
-import com.philips.platform.appinfra.tagging.ErrorCategory;
-import com.philips.platform.appinfra.tagging.TaggingError;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -119,7 +117,7 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     AppInfraTaggingUtil getAppInfraTaggingUtil(AppInfraInterface aAppInfra) {
-        return new AppInfraTaggingUtil(((AppInfra) aAppInfra).getAppInfraTaggingInstance(), ((AppInfra) aAppInfra).getAppInfraLogInstance());
+        return new AppInfraTaggingUtil(aAppInfra, ((AppInfra) aAppInfra).getAppInfraLogInstance());
     }
 
     private void queueResultListener(final boolean forceRefresh, final AbstractDownloadItemListener listener, final SD_REQUEST_TYPE requestType) {
@@ -282,10 +280,10 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
             ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.VERBOSE, "SD call", " NO_NETWORK");
             service.setError(new ServiceDiscovery.Error(OnErrorListener.ERRORVALUES.NO_NETWORK, " NO_NETWORK"));
             errorvalues = OnErrorListener.ERRORVALUES.NO_NETWORK;
-//            trackInformationalErrorAction(SERVICE_DISCOVERY, " error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name())));
-            String concat = SERVICE_DISCOVERY + ":" + " error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name()));
+            String concat = SERVICE_DISCOVERY + ":" + "error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name()));
             mAppInfra.getLogging().log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
-            mAppInfra.getTagging().trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError(concat));
+            appInfraTaggingAction.trackInformationalErrorAction(SERVICE_DISCOVERY, "error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name())));
+
         } else {
             if (urlBuild != null) {
                 service = mRequestItemManager.execute(urlBuild, aisdurlType);
@@ -297,9 +295,7 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
                     holdbackTime = new Date().getTime() + 10000; // curent time + 10 Seconds
                     ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.ERROR, AppInfraLogEventID.AI_SERVICE_DISCOVERY, "Error in process request" + service.getError().toString());
                     if (service.getError().toString() != null) {
-//                        trackErrorAction(SERVICE_DISCOVERY, " error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name())));
-                        String concat = SERVICE_DISCOVERY + ":" + " error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name()));
-                        mAppInfra.getTagging().trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError(concat));
+                        appInfraTaggingAction.trackInformationalErrorAction(SERVICE_DISCOVERY, "error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name())));
                     }
                 }
             } else {

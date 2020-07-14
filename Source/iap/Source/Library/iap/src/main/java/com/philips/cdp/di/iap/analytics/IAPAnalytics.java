@@ -54,13 +54,23 @@ public class IAPAnalytics {
                     trackActionWithInfo(state, key, valueObject);
     }
 
-    public static void trackErrorWithPrefix(String state, String key, Object value) {
+    public static void trackTechnicalErrorWithPrefix(Object value) {
 //        String valueObject = "IAP:".concat((String) value);
         IAPLog.i(IAPLog.LOG, "trackAction" + (String) value);
         if (sAppTaggingInterface != null)
 //            sAppTaggingInterface.
 //                    trackActionWithInfo(state, key, valueObject);
             sAppTaggingInterface.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError((String) value));
+
+    }
+
+    public static void trackInformationalErrorWithPrefix(Object value) {
+//        String valueObject = "IAP:".concat((String) value);
+        IAPLog.i(IAPLog.LOG, "trackAction" + (String) value);
+        if (sAppTaggingInterface != null)
+//            sAppTaggingInterface.
+//                    trackActionWithInfo(state, key, valueObject);
+            sAppTaggingInterface.trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError((String) value));
 
     }
 

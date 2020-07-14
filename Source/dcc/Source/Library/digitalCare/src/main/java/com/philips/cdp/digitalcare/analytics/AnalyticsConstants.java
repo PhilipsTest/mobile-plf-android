@@ -74,7 +74,7 @@ public class AnalyticsConstants {
     public static final String ACTION_VALUE_RATE_THIS_APP = "rateThisApp";
 
     /* Error text */
-    public static final String ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON = "Error connecting to network";
+        public static final String ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON = "Error connecting to network";
     public static final String ACTION_VALUE_TECHNICAL_ERROR_RESPONSE_CDLS = "Error response from CDLS server";
 
     /* Service Channel */

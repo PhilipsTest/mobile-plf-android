@@ -707,8 +707,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
     }
 
     private void trackErrorTag(String value) {
-        IAPAnalytics.trackErrorWithPrefix(IAPAnalyticsConstant.SEND_DATA,
-                IAPAnalyticsConstant.ERROR, value);
+        IAPAnalytics.trackTechnicalErrorWithPrefix( value);
     }
 
     private void setPrice(String actualPrice, String discountedPrice) {
