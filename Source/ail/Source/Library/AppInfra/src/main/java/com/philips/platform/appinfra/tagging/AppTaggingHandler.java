@@ -297,7 +297,7 @@ public class AppTaggingHandler {
         Map contextData = addAnalyticsDataObject();
         if (paramMap != null) {
             paramMap.putAll(contextData);
-            contextData = removeSensitiveData((HashMap) paramMap);
+            contextData = removeSensitiveData((HashMap<String, Object>) paramMap);
         }
         if (null != prevPage && isTrackPage) {
             contextData.put(AppTaggingConstants.PREVIOUS_PAGE_NAME, prevPage);
@@ -470,8 +470,10 @@ public class AppTaggingHandler {
         } else
             trackMap.put(errorCategory.getValue(), value);
 
-        ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG,
-                AppInfraLogEventID.AI_TAGGING, "Error in Adobe Log" + trackMap.toString());
+        if (mAppInfra != null) {
+            ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG,
+                    AppInfraLogEventID.AI_TAGGING, "Error in Adobe Log" + trackMap.toString());
+        }
         track("sendData", trackMap, isTrackPage);
     }
 
