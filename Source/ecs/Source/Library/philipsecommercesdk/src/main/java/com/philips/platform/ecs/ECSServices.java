@@ -53,57 +53,15 @@ public class ECSServices implements ECSServiceProvider {
 
     private ECSCallValidator ecsCallValidator;
 
+    private com.philips.platform.ecs.microService.ECSServices ecsMicroServices;
+
     public ECSServices(@Nullable String propositionID, @NonNull AppInfra appInfra) {
         ECSConfiguration.INSTANCE.setAppInfra(appInfra);
         ECSConfiguration.INSTANCE.setPropositionID(propositionID);
         ECSConfiguration.INSTANCE.setEcsLogging(appInfra.getLogging().createInstanceForComponent(ECS_NOTATION, BuildConfig.VERSION_NAME));
         ecsCallValidator = new ECSCallValidator();
-    }
 
-    /**
-     * @since 1905.0.0
-     * Configure ecs.
-     *
-     * @param ecsCallback the ecs callback containing boolean response. If configuration is success returns true else false
-     *
-     */
-    public void configureECS(ECSCallback<Boolean,Exception> ecsCallback){
-
-        ArrayList<String> listOfServiceId = new ArrayList<>();
-        listOfServiceId.add(SERVICE_ID);
-
-        ServiceDiscoveryInterface.OnGetServiceUrlMapListener onGetServiceUrlMapListener = new ServiceDiscoveryInterface.OnGetServiceUrlMapListener() {
-            @Override
-            public void onError(ERRORVALUES errorvalues, String s) {
-
-                ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong,null,s+"\n"+errorvalues.name());
-                ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
-            }
-
-            @Override
-            public void onSuccess(Map<String, ServiceDiscoveryService> map) {
-
-                Collection<ServiceDiscoveryService> values = map.values();
-
-                ArrayList<ServiceDiscoveryService> serviceDiscoveryServiceArrayList = new ArrayList<>(values);
-
-                ServiceDiscoveryService serviceDiscoveryService = serviceDiscoveryServiceArrayList.get(0);
-
-                String locale = serviceDiscoveryService.getLocale();
-                ECSConfiguration.INSTANCE.setLocale(locale);
-                String configUrls = serviceDiscoveryService.getConfigUrls();
-
-                if(configUrls!=null){
-                    ECSConfiguration.INSTANCE.setBaseURL(configUrls+"/");
-                    ecsCallValidator.getHybrisConfig(ecsCallback);
-                }else {
-                    ecsCallback.onResponse(false);
-                }
-            }
-
-    };
-
-        ECSConfiguration.INSTANCE.getAppInfra().getServiceDiscovery().getServicesWithCountryPreference(listOfServiceId, onGetServiceUrlMapListener,null);
+        ecsMicroServices = new com.philips.platform.ecs.microService.ECSServices(appInfra);
     }
 
     /**
@@ -605,6 +563,10 @@ public class ECSServices implements ECSServiceProvider {
      */
     public void setVolleyTimeoutAndRetryCount(DefaultRetryPolicy defaultRetryPolicy){
         ECSConfiguration.INSTANCE.setDefaultRetryPolicy(defaultRetryPolicy);
+    }
+
+    public com.philips.platform.ecs.microService.ECSServices getMicroService(){
+        return ecsMicroServices;
     }
 
 }

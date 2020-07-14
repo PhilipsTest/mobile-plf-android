@@ -39,13 +39,6 @@ import java.util.List;
  interface ECSServiceProvider {
 
     /**
-     * Configure ecs.
-     * @since 1.0
-     * @param ecsCallback the ecs callback containing boolean response. If configuration is success returns true else false
-     */
-    void configureECS(ECSCallback<Boolean,Exception> ecsCallback);
-
-    /**
      * Configure ecs to get configuration.
      *
      * @param ecsCallback the ecs callback containing ECSConfig object

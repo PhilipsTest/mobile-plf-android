@@ -79,7 +79,7 @@ class MECManagerTest {
     @Test
     fun testIshybrisAvailableWorkerOnResponse() {
         mecManager.ishybrisavailableWorker(mecHybrisAvailabilityListener)
-        Mockito.verify(ecsServices).configureECS(captor.capture())
+        Mockito.verify(ecsServices).configureECSToGetConfiguration(captor1.capture())
         ecsCallback = captor.value
         ecsCallback.onResponse(true)
         Mockito.verify(mecHybrisAvailabilityListener, Mockito.atLeast(1)).isHybrisAvailable(true)
@@ -88,7 +88,7 @@ class MECManagerTest {
     @Test
     fun testIshybrisAvailableWorkerOnFailure() {
         mecManager.ishybrisavailableWorker(mecHybrisAvailabilityListener)
-        Mockito.verify(ecsServices).configureECS(captor.capture())
+        Mockito.verify(ecsServices).configureECSToGetConfiguration(captor1.capture())
         ecsCallback = captor.value
         ecsCallback.onFailure(exception, error)
         Mockito.verify(mecHybrisAvailabilityListener, Mockito.atLeast(0)).isHybrisAvailable(true)

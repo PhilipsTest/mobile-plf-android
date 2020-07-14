@@ -18,8 +18,9 @@ import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
+import com.philips.platform.ecs.util.ECSConfiguration
 import org.json.JSONObject
-import java.util.HashMap
+import java.util.*
 
 class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>) : ECSJsonRequest(eCSCallback) {
 
@@ -43,12 +44,11 @@ class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>)
     }
 
     override fun onResponse(response: JSONObject?) {
-        val config = response?.getData(ECSConfig::class.java) ?:ECSConfig()
-        config.locale = locale
+        val config = response?.getData(ECSConfig::class.java) ?:ECSConfig(locale)
         if(config.rootCategory!= null && config.siteId!=null ) config.isHybris = true
         ECSDataHolder.config = config
+        setOCCConfigData(config)
         eCSCallback.onResponse(config)
-
     }
 
     override fun onErrorResponse(error: VolleyError?) {
@@ -61,6 +61,12 @@ class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>)
                 "inAppConfig" + "/" +
                 ECSDataHolder.locale + "/" +
                 ECSDataHolder.getPropositionId()
+    }
+
+    //TODO to be removed
+    private fun setOCCConfigData(config : ECSConfig){
+        ECSConfiguration.INSTANCE.siteId = config.siteId
+        ECSConfiguration.INSTANCE.rootCategory = config.rootCategory
     }
 
 }

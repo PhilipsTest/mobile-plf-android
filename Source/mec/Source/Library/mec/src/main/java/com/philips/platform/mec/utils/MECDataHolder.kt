@@ -63,7 +63,6 @@ enum class MECDataHolder {
     var mecLaunchingFragmentName:String? = null
 
 
-    var config: ECSConfig? = null
     lateinit var eCSServices: ECSServices
 
     var mutableListOfPayments = mutableListOf<MECPayment>()

@@ -12,9 +12,9 @@ package com.philips.platform.mec.integration
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.config.ECSConfig
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECLauncherActivity
@@ -66,15 +66,15 @@ class MECHandler{
 
         MECDataHolder.INSTANCE.blackListedRetailers = mLaunchInput.blackListedRetailerNames
         getUrl()
-        MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(getConfigCallback(mUiLauncher, mMECSetting, mLaunchInput))
+
+        MECDataHolder.INSTANCE.eCSServices.microService.configureECS(getConfigCallback(mUiLauncher, mMECSetting, mLaunchInput))
     }
 
-    internal fun getConfigCallback(mUiLauncher: UiLauncher, mMECSetting: MECSettings, mLaunchInput: MECLaunchInput): ECSCallback<ECSConfig, Exception> {
-        return object : ECSCallback<ECSConfig, Exception> {
+    internal fun getConfigCallback(mUiLauncher: UiLauncher, mMECSetting: MECSettings, mLaunchInput: MECLaunchInput): ECSCallback<ECSConfig, ECSError> {
+        return object : ECSCallback<ECSConfig, ECSError> {
 
             override fun onResponse(config: ECSConfig) {
 
-                MECDataHolder.INSTANCE.config = config
                 if (MECDataHolder.INSTANCE.hybrisEnabled) {
                     MECDataHolder.INSTANCE.hybrisEnabled = config.isHybris
                 }
@@ -88,8 +88,8 @@ class MECHandler{
                 }
             }
 
-            override fun onFailure(error: Exception?, ecsError: ECSError?) {
-                MECLog.d(HybrisAuth.TAG, "hybrisRefreshAuthentication : onFailure : " + error!!.message + " ECS Error code " + ecsError!!.errorcode + "ECS Error type " + ecsError!!.errorType)
+            override fun onFailure(ecsError:com.philips.platform.ecs.microService.error.ECSError) {
+                MECLog.d(HybrisAuth.TAG, "hybrisRefreshAuthentication : onFailure : " + ecsError.errorMessage + " ECS Error code " + ecsError.errorCode + "ECS Error type " + ecsError.errorType)
             }
         }
     }

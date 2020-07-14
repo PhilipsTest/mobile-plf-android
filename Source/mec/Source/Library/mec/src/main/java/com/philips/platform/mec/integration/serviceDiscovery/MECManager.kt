@@ -12,6 +12,7 @@ package com.philips.platform.mec.integration.serviceDiscovery
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
@@ -30,9 +31,9 @@ class MECManager {
     // to be called by Proposition to check if Hybris available
     fun ishybrisavailableWorker(mECHybrisAvailabilityListener: MECHybrisAvailabilityListener) {
         if (null != MECDataHolder.INSTANCE.eCSServices) {
-            MECDataHolder.INSTANCE.eCSServices.configureECS(object : ECSCallback<Boolean, java.lang.Exception> {
-                override fun onResponse(result: Boolean) {
-                    mECHybrisAvailabilityListener.isHybrisAvailable(result)
+            MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : ECSCallback<ECSConfig, Exception>  {
+                override fun onResponse(result: ECSConfig) {
+                    mECHybrisAvailabilityListener.isHybrisAvailable(result.isHybris)
                 }
 
                 override fun onFailure(error: java.lang.Exception, ecsError: com.philips.platform.ecs.error.ECSError) {

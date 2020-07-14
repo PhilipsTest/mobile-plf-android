@@ -22,7 +22,7 @@ import org.json.JSONObject
 @Parcelize
 data class ECSConfig (
 
-    var locale: String? = null,
+    var locale: String,
     val catalogId: String? = null,
     val faqUrl: String?=null,
     val helpDeskEmail: String?=null,

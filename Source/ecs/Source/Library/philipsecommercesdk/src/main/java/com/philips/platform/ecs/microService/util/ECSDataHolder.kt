@@ -21,8 +21,6 @@ import com.philips.platform.ecs.util.ECSConfiguration
 
 object ECSDataHolder {
 
-
-    var baseURL: String? = null
     var locale: String? = null
     var lang = locale?.split("_")?.get(0)
     var country = locale?.split("_")?.get(1)
@@ -37,7 +35,7 @@ object ECSDataHolder {
     private val configError = AppConfigurationInterface.AppConfigurationError()
 
 
-    var config = ECSConfig(locale,null,null,null,null,null,null,null,false)
+    var config = ECSConfig("en_US",null,null,null,null,null,null,null,false)
 
 
     fun getPropositionId():String?{
