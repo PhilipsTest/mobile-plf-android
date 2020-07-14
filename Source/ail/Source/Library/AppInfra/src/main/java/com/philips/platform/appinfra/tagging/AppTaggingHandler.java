@@ -469,6 +469,9 @@ public class AppTaggingHandler {
 
         } else
             trackMap.put(errorCategory.getValue(), value);
+
+        ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG,
+                AppInfraLogEventID.AI_TAGGING, "Error in Adobe Log" + trackMap.toString());
         track("sendData", trackMap, isTrackPage);
     }
 
