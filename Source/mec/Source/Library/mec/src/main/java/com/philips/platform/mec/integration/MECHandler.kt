@@ -88,7 +88,7 @@ class MECHandler{
                 }
             }
 
-            override fun onFailure(ecsError:com.philips.platform.ecs.microService.error.ECSError) {
+            override fun onFailure(ecsError:ECSError) {
                 MECLog.d(HybrisAuth.TAG, "hybrisRefreshAuthentication : onFailure : " + ecsError.errorMessage + " ECS Error code " + ecsError.errorCode + "ECS Error type " + ecsError.errorType)
             }
         }
