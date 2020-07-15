@@ -7,7 +7,7 @@ import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
-import com.philips.platform.ecs.microService.request.any
+import com.philips.platform.ecs.microService.request.*
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.util.ECSConfiguration
 import junit.framework.Assert.assertEquals
@@ -16,8 +16,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
+@PrepareForTest(RequestHandler::class)
 @RunWith(PowerMockRunner::class)
 class ECSCartManagerTest {
 
@@ -121,9 +123,7 @@ class ECSCartManagerTest {
         ECSConfiguration.INSTANCE.setAuthToken("testAuthToken")
         ECSDataHolder.authToken = "testAuthToken"
         mECSCartManager.fetchShoppingCart(ecsCallbackMock)
-
-        //TODO uncomment the below line when urls are uploaded to service discovery
-       // Mockito.verify(requestHandlerMock).handleRequest(any(GetCartRequest::class.java))
+        Mockito.verify(requestHandlerMock).handleRequest(any(GetCartRequest::class.java))
     }
 
      // test cases for fetch cart ==================== ends
@@ -136,7 +136,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5006, e.errorCode)
+            assertEquals(6017, e.errorCode)
         }
     }
 
@@ -146,7 +146,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(validCTN,0,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5007, e.errorCode)
+            assertEquals(6015, e.errorCode)
         }
     }
 
@@ -205,8 +205,7 @@ class ECSCartManagerTest {
         ECSDataHolder.authToken = "testAuthToken"
         mECSCartManager.createECSShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
 
-        //TODO uncomment the below line when urls are uploaded to service discovery
-        // Mockito.verify(requestHandlerMock).handleRequest(any(CreateCartRequest::class.java))
+         Mockito.verify(requestHandlerMock).handleRequest(any(CreateCartRequest::class.java))
     }
 
    // test cases for create cart ==================== ends
@@ -221,7 +220,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5006, e.errorCode)
+            assertEquals(6017, e.errorCode)
         }
     }
 
@@ -231,7 +230,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(validCTN,0,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5007, e.errorCode)
+            assertEquals(6015, e.errorCode)
         }
     }
 
@@ -289,9 +288,7 @@ class ECSCartManagerTest {
         ECSConfiguration.INSTANCE.setAuthToken("testAuthToken")
         ECSDataHolder.authToken = "testAuthToken"
         mECSCartManager.addProductToShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
-
-        //TODO uncomment the below line when urls are uploaded to service discovery
-        // Mockito.verify(requestHandlerMock).handleRequest(any(CreateCartRequest::class.java))
+         Mockito.verify(requestHandlerMock).handleRequest(any(AddToCartRequest::class.java))
     }
 
     // test cases for Add to  cart ==================== ends
@@ -366,9 +363,7 @@ class ECSCartManagerTest {
         ECSConfiguration.INSTANCE.setAuthToken("testAuthToken")
         ECSDataHolder.authToken = "testAuthToken"
         mECSCartManager.updateShoppingCart("entry",8,ecsCallback = ecsCallbackMock)
-
-        //TODO uncomment the below line when urls are uploaded to service discovery
-        // Mockito.verify(requestHandlerMock).handleRequest(any(CreateCartRequest::class.java))
+        Mockito.verify(requestHandlerMock).handleRequest(any(UpdateCartRequest::class.java))
     }
 
     // test cases for Update  cart ==================== ends

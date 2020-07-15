@@ -64,7 +64,7 @@ class ECSRetailerManagerTest {
         try {
             ecsRetailerManager.fetchRetailers(inValidCTN,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5006,e.errorCode)
+            assertEquals(6017,e.errorCode)
         }
 
     }
