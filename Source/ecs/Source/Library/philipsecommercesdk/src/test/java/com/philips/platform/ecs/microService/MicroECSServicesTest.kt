@@ -130,13 +130,6 @@ class MicroECSServicesTest {
         Mockito.verify(ecsRetailerManagerMock).fetchRetailers("123",ecsCallbackRetailerListMock)
     }
 
-    @Test
-    fun `fetchRetailers for Product api should call corresponding manager method`() {
-        val ecsProduct = ECSProduct(null,"123",null)
-        eCSServices.fetchRetailers(ecsProduct,ecsCallbackRetailerListMock)
-        Mockito.verify(ecsRetailerManagerMock).fetchRetailers(ecsProduct.ctn,ecsCallbackRetailerListMock)
-    }
-
     @Mock
     lateinit var  ecsCartCallBackMock:ECSCallback<ECSShoppingCart, ECSError>
 
