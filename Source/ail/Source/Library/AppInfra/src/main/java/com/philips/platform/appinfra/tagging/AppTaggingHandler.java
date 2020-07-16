@@ -297,7 +297,7 @@ public class AppTaggingHandler {
         Map contextData = addAnalyticsDataObject();
         if (paramMap != null) {
             paramMap.putAll(contextData);
-            contextData = removeSensitiveData((HashMap<String, Object>) paramMap);
+            contextData = removeSensitiveData((HashMap) paramMap);
         }
         if (null != prevPage && isTrackPage) {
             contextData.put(AppTaggingConstants.PREVIOUS_PAGE_NAME, prevPage);
