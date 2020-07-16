@@ -29,7 +29,6 @@ import com.ecs.demotestuapp.fragments.FetchProductForCtnFragment;
 import com.ecs.demotestuapp.fragments.FetchProductSummariesFragment;
 import com.ecs.demotestuapp.fragments.FetchProductsFragment;
 import com.ecs.demotestuapp.fragments.FetchRegionsFragment;
-import com.ecs.demotestuapp.fragments.FetchRetailersForProductFragment;
 import com.ecs.demotestuapp.fragments.FetchRetailersFragment;
 import com.ecs.demotestuapp.fragments.FetchSavedAddressesFragment;
 import com.ecs.demotestuapp.fragments.FetchShoppingCartFragment;
@@ -45,7 +44,6 @@ import com.ecs.demotestuapp.fragments.PILFetchProductDetailsFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductForCtnFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductSummariesFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductsFragment;
-import com.ecs.demotestuapp.fragments.PILFetchRetailersForProductFragment;
 import com.ecs.demotestuapp.fragments.PILFetchRetailersFragment;
 import com.ecs.demotestuapp.fragments.PILFetchShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.PILUpdateShoppingCartFragment;
@@ -183,8 +181,7 @@ public class InputActivity extends AppCompatActivity {
 
             case 28:
                 return new FetchRetailersFragment();
-            case 29:
-                return new FetchRetailersForProductFragment();
+
 
                 case 30:
                 return new FetchPaymentsDetailsFragment();
@@ -240,8 +237,6 @@ public class InputActivity extends AppCompatActivity {
                 return new PILUpdateShoppingCartFragment();
             case 68:
                 return new PILFetchRetailersFragment();
-            case 69:
-                return new PILFetchRetailersForProductFragment();
 
             default:
                 return null;

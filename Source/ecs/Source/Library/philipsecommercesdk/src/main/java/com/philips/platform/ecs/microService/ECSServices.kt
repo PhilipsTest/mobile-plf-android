@@ -78,11 +78,6 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun fetchRetailers(product: ECSProduct, ecsCallback: ECSCallback<ECSRetailerList?, ECSError>) {
-        ecsRetailerManager.fetchRetailers(product.ctn,ecsCallback)
-    }
-
-    @Throws(ECSException::class)
     fun createShoppingCart(ctn: String, quantity : Int = 1, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
         ecsCartManager.createECSShoppingCart(ctn.trim(),quantity,ecsCallback)
 

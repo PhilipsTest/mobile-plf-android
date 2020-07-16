@@ -22,11 +22,6 @@ import org.json.JSONObject
 
 abstract class AbstractCartRequest(val ecsCallback: ECSCallback<ECSShoppingCart, ECSError>) :ECSJsonAuthRequest(ecsCallback) {
 
-    //TODO to be removed once service discovery is up
-    override fun getURL(): String {
-        return url.replaceParam(getReplaceURLMap())
-    }
-
     override fun onResponse(response: JSONObject?) {
         val ecsShoppingCart = response?.getData(ECSShoppingCart::class.java)
         ecsShoppingCart ?.let {  ecsCallback.onResponse(ecsShoppingCart)  } ?: kotlin.run {  ecsCallback.onFailure( ErrorHandler().getECSError(null))}

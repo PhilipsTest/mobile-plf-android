@@ -270,7 +270,7 @@ class ErrorHandlerTest {
         val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CreateCartMissingCTN.json").readText()
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
-        var PilError = ECSError(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, ECSErrorType.ECSPIL_MISSING_PARAMETER_productId)
+        var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSPIL_MISSING_PARAMETER_productId)
         errorHandler.setPILECSError(hybrisError,PilError)
         Assert.assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, PilError.errorCode)
     }
@@ -278,6 +278,14 @@ class ErrorHandlerTest {
 
     @Test
     fun `test ecs error  for create cart with OUT Of Stock CTN`() {
+
+
+        val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CartProductIsOutOfStock.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSPIL_MISSING_PARAMETER_productId)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        assertEquals(ECSErrorType.ECSPIL_STOCK_EXCEPTION.errorCode, PilError.errorCode)
     }
 
     @Test

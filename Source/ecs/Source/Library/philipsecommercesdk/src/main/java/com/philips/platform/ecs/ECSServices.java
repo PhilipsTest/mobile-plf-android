@@ -475,18 +475,6 @@ public class ECSServices implements ECSServiceProvider {
 
     /**
      * @since 1905.0.0
-     * Fetch retailers.
-     *
-     * @param product     the ECSProduct object
-     * @param ecsCallback the ecs callback containing ECSRetailerList object
-     */
-    @Override
-    public void fetchRetailers(@NonNull ECSProduct product, @NonNull ECSCallback<ECSRetailerList, Exception> ecsCallback) {
-        ecsCallValidator.getRetailers(product.getCode(),ecsCallback);
-    }
-
-    /**
-     * @since 1905.0.0
      * Fetch order history.
      *
      * @param pageNumber  the page number
