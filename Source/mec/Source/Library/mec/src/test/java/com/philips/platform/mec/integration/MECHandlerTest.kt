@@ -26,7 +26,7 @@ import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.rest.RestInterface
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.config.ECSConfig
+import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.integration.serviceDiscovery.ServiceDiscoveryMapListener
 import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment
@@ -201,10 +201,8 @@ class MECHandlerTest{
         mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
         val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, launchInputMock)
 
-        val ecsConfig = ECSConfig()
-        ecsConfig.isHybris = true
+        val ecsConfig = ECSConfig("en_US",rootCategory = "category",isHybris =true )
         ECSConfiguration.INSTANCE.locale = "en_US"
-        ecsConfig.rootCategory = "category"
         configCallback.onResponse(ecsConfig)
         Mockito.verify(contextMock).startActivity(any(Intent::class.java))
     }
@@ -216,9 +214,8 @@ class MECHandlerTest{
         mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
         val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, launchInputMock)
 
-        val ecsConfig = ECSConfig()
-        ecsConfig.isHybris = true
-        ecsConfig.locale = "en_US"
+        val ecsConfig = ECSConfig("en_US",rootCategory = "category",isHybris = true)
+
         ECSConfiguration.INSTANCE.locale = "en_US"
         configCallback.onResponse(ecsConfig)
         Mockito.verify(contextMock).startActivity(any(Intent::class.java))
@@ -249,10 +246,8 @@ class MECHandlerTest{
         mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
         val configCallback = mecHandler.getConfigCallback(fragmentLauncherMock, mECSettingMock, launchInputMock)
 
-        val ecsConfig = ECSConfig()
-        ecsConfig.isHybris = true
+        val ecsConfig = ECSConfig("en_US",rootCategory = "category",isHybris = true)
         ECSConfiguration.INSTANCE.locale = "en_US"
-        ecsConfig.rootCategory = "category"
         configCallback.onResponse(ecsConfig)
         Mockito.verify(fragmentTransactionMock).commitAllowingStateLoss()
     }

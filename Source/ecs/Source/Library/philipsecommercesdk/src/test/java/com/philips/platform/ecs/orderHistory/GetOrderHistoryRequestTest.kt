@@ -50,8 +50,8 @@ class GetOrderHistoryRequestTest{
         appInfra!!.serviceDiscovery.homeCountry = "DE"
 
 
-        mockECSServices = MockECSServices("", appInfra!!)
-        ecsServices = com.philips.platform.ecs.ECSServices("", appInfra!!)
+        mockECSServices = MockECSServices(appInfra!!)
+        ecsServices = com.philips.platform.ecs.ECSServices(appInfra!!)
 
         mockInputValidator = MockInputValidator()
 

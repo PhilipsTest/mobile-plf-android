@@ -1,21 +1,6 @@
 {
   "pil": [
     {
-      "name": "PIL Configure ECS Microservices",
-      "subgroup": [
-        {
-          "name": "configureECS",
-          "apiNumber": 40,
-          "editText": 0,
-          "spinner": 0,
-          "button": 0,
-          "editTexts": [],
-          "spinners": [],
-          "switches": []
-        }
-      ]
-    },
-    {
       "name": "PIL Products Microservices",
       "subgroup": [
         {

@@ -9,10 +9,10 @@
  */
 package com.philips.platform.mec.integration.serviceDiscovery
 
+import android.view.View
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
@@ -30,17 +30,17 @@ class MECManager {
 
     // to be called by Proposition to check if Hybris available
     fun ishybrisavailableWorker(mECHybrisAvailabilityListener: MECHybrisAvailabilityListener) {
-        if (null != MECDataHolder.INSTANCE.eCSServices) {
-            MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : ECSCallback<ECSConfig, Exception>  {
-                override fun onResponse(result: ECSConfig) {
-                    mECHybrisAvailabilityListener.isHybrisAvailable(result.isHybris)
-                }
 
-                override fun onFailure(error: java.lang.Exception, ecsError: com.philips.platform.ecs.error.ECSError) {
-                    mECHybrisAvailabilityListener.isHybrisAvailable(false)
-                }
-            })
-        }
+        MECDataHolder.INSTANCE.eCSServices.microService.configureECS(object : com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.config.ECSConfig, com.philips.platform.ecs.microService.error.ECSError> {
+            override fun onResponse(result: com.philips.platform.ecs.microService.model.config.ECSConfig) {
+                mECHybrisAvailabilityListener.isHybrisAvailable(result.isHybris)
+            }
+
+            override fun onFailure(ecsError: com.philips.platform.ecs.microService.error.ECSError) {
+                mECHybrisAvailabilityListener.isHybrisAvailable(false)
+            }
+        })
+
     }
 
     var fetchCartListener: MECFetchCartListener? = null
@@ -49,30 +49,30 @@ class MECManager {
     fun getProductCartCountWorker(mECFetchCartListener: MECFetchCartListener) {
 
         fetchCartListener = mECFetchCartListener
-        if (null != MECDataHolder.INSTANCE.eCSServices) {
-            MECDataHolder.INSTANCE.eCSServices.configureECSToGetConfiguration(object : ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception> {
-                override fun onResponse(result: com.philips.platform.ecs.model.config.ECSConfig) {
-                    if (result.isHybris && null != result!!.rootCategory) {
 
-                        getShoppingCartData(object : MECCartUpdateListener {
-                            override fun onUpdateCartCount(count: Int) {
-                                mECFetchCartListener.onGetCartCount(count)
-                            }
+        MECDataHolder.INSTANCE.eCSServices.microService.configureECS(object : com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.config.ECSConfig, com.philips.platform.ecs.microService.error.ECSError> {
+            override fun onResponse(result: com.philips.platform.ecs.microService.model.config.ECSConfig) {
+                if (result.isHybris && null != result.rootCategory) {
 
-                            override fun shouldShowCart(shouldShow: Boolean?) {
-                                // do nothing
-                            }
-                        })
-                    } else {
-                        mECFetchCartListener.onFailure(Exception(ECSErrorEnum.ECSHybrisNotAvailable.localizedErrorString))
-                    }
+                    getShoppingCartData(object : MECCartUpdateListener {
+                        override fun onUpdateCartCount(count: Int) {
+                            mECFetchCartListener.onGetCartCount(count)
+                        }
+
+                        override fun shouldShowCart(shouldShow: Boolean?) {
+                            // do nothing
+                        }
+                    })
+                }else{
+                    mECFetchCartListener.onFailure(Exception(ECSErrorEnum.ECSHybrisNotAvailable.localizedErrorString))
                 }
+            }
 
-                override fun onFailure(error: Exception, ecsError: ECSError) {
-                    mECFetchCartListener.onFailure(error)
-                }
-            })
-        }
+            override fun onFailure(ecsError: com.philips.platform.ecs.microService.error.ECSError) {
+                mECFetchCartListener.onFailure(ecsError)
+            }
+        })
+
     }
 
     //to be called by Catalog and Product Detail screen to show cart count
@@ -111,7 +111,7 @@ class MECManager {
                 getShoppingCartData(mECCartUpdateListener)
             }
 
-            override fun onFailure(error: Exception, ecsError:ECSError) {
+            override fun onFailure(error: Exception, ecsError: ECSError) {
                 fetchCartListener?.onFailure(error)
             }
         }

@@ -56,8 +56,8 @@ class ECSUserProfileProfileRequestTest{
         appInfra!!.serviceDiscovery.homeCountry = "DE"
 
 
-        mockECSServices = MockECSServices("", appInfra!!)
-        ecsServices = com.philips.platform.ecs.ECSServices("", appInfra!!)
+        mockECSServices = MockECSServices(appInfra!!)
+        ecsServices = com.philips.platform.ecs.ECSServices(appInfra!!)
 
 
         StaticBlock.initialize()

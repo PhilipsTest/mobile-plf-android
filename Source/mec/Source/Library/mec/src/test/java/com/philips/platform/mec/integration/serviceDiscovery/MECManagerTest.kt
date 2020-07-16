@@ -3,6 +3,9 @@ package com.philips.platform.mec.integration.serviceDiscovery
 import com.google.gson.Gson
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.securestorage.SecureStorage
+import com.philips.platform.ecs.microService.ECSServices
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
@@ -17,13 +20,16 @@ import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
-@PrepareForTest(Gson::class)
+@PrepareForTest(Gson::class, ECSError::class, ECSConfig::class, ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class MECManagerTest {
     private lateinit var mecManager: MECManager
 
     @Mock
     lateinit var mecHybrisAvailabilityListener: MECHybrisAvailabilityListener
+
+    @Mock
+    lateinit var ecsMicroServices : com.philips.platform.ecs.microService.ECSServices
 
     @Mock
     lateinit var ecsServices: com.philips.platform.ecs.ECSServices
@@ -35,22 +41,22 @@ class MECManagerTest {
     lateinit var captor: ArgumentCaptor<com.philips.platform.ecs.integration.ECSCallback<Boolean, java.lang.Exception>>
 
     @Captor
-    lateinit var captor1: ArgumentCaptor<com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, java.lang.Exception>>
+    lateinit var captor1: ArgumentCaptor<com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.config.ECSConfig, com.philips.platform.ecs.microService.error.ECSError>>
 
     @Mock
     lateinit var ecsCallback: com.philips.platform.ecs.integration.ECSCallback<Boolean, Exception>
 
     @Mock
-    lateinit var ecsCallback1: com.philips.platform.ecs.integration.ECSCallback<com.philips.platform.ecs.model.config.ECSConfig, Exception>
+    lateinit var ecsCallback1: com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.config.ECSConfig, com.philips.platform.ecs.microService.error.ECSError>
 
     @Mock
     lateinit var exception: java.lang.Exception
 
     @Mock
-    lateinit var error: com.philips.platform.ecs.error.ECSError
+    lateinit var error: com.philips.platform.ecs.microService.error.ECSError
 
     @Mock
-    lateinit var ecsConfig: com.philips.platform.ecs.model.config.ECSConfig
+    lateinit var ecsConfig: com.philips.platform.ecs.microService.model.config.ECSConfig
 
     @Mock
     lateinit var mecFetchCartListener: MECFetchCartListener
@@ -68,6 +74,7 @@ class MECManagerTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         PowerMockito.mockStatic(Gson::class.java)
+        Mockito.`when`(ecsServices.microService).thenReturn(ecsMicroServices)
         MECDataHolder.INSTANCE.eCSServices = ecsServices
         MECDataHolder.INSTANCE.appinfra = appInfraInterface
         Mockito.`when`(appInfraInterface.secureStorage).thenReturn(secureStorage)
@@ -79,7 +86,7 @@ class MECManagerTest {
     @Test
     fun testIshybrisAvailableWorkerOnResponse() {
         mecManager.ishybrisavailableWorker(mecHybrisAvailabilityListener)
-        Mockito.verify(ecsServices).configureECSToGetConfiguration(captor1.capture())
+        Mockito.verify(ecsServices.microService).configureECS(captor1.capture())
         ecsCallback = captor.value
         ecsCallback.onResponse(true)
         Mockito.verify(mecHybrisAvailabilityListener, Mockito.atLeast(1)).isHybrisAvailable(true)
@@ -88,16 +95,16 @@ class MECManagerTest {
     @Test
     fun testIshybrisAvailableWorkerOnFailure() {
         mecManager.ishybrisavailableWorker(mecHybrisAvailabilityListener)
-        Mockito.verify(ecsServices).configureECSToGetConfiguration(captor1.capture())
-        ecsCallback = captor.value
-        ecsCallback.onFailure(exception, error)
+        Mockito.verify(ecsServices.microService).configureECS(captor1.capture())
+        ecsCallback1 = captor1.value
+        ecsCallback1.onFailure(error)
         Mockito.verify(mecHybrisAvailabilityListener, Mockito.atLeast(0)).isHybrisAvailable(true)
     }
 
     @Test(expected = IllegalStateException::class)
     fun testGetProductCartCountWorkerOnResponse() {
         mecManager.getProductCartCountWorker(mecFetchCartListener)
-        Mockito.verify(ecsServices).configureECSToGetConfiguration(captor1.capture())
+        Mockito.verify(ecsServices.microService).configureECS(captor1.capture())
         ecsCallback1 = captor1.value
         Mockito.`when`(ecsConfig.isHybris).thenReturn(true)
         Mockito.`when`(ecsConfig.rootCategory).thenReturn("category")
@@ -109,11 +116,11 @@ class MECManagerTest {
     @Test
     fun testGetProductCartCountWorkerOnFailure() {
         mecManager.getProductCartCountWorker(mecFetchCartListener)
-        Mockito.verify(ecsServices).configureECSToGetConfiguration(captor1.capture())
+        Mockito.verify(ecsServices.microService).configureECS(captor1.capture())
         ecsCallback1 = captor1.value
         Mockito.`when`(ecsConfig.isHybris).thenReturn(true)
         Mockito.`when`(ecsConfig.rootCategory).thenReturn("category")
-        ecsCallback1.onFailure(exception, error)
+        ecsCallback1.onFailure(error)
 
         Mockito.verify(mecFetchCartListener, Mockito.atLeast(0)).onGetCartCount(1)
     }

@@ -77,7 +77,7 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
         mUserDataInterface = DependencyHolder.INSTANCE.getuAppDependencies().getUserDataInterface();
         ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
-        ECSServices ecsServices = new ECSServices(null, (AppInfra) DependencyHolder.INSTANCE.getuAppDependencies().getAppInfra());
+        ECSServices ecsServices = new ECSServices((AppInfra) DependencyHolder.INSTANCE.getuAppDependencies().getAppInfra());
 
 
         ECSDataHolder.INSTANCE.setECSService(ecsServices);
@@ -206,12 +206,6 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
         ECSDataHolder.INSTANCE.resetData();
         configInterface.setPropertyForKey("propositionid", "MEC", etPropositionID.getText().toString(), configError);
-        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(etPropositionID.getText().toString());
-
-        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(etPropositionID.getText().toString().trim());
-        Toast.makeText(this, "Proposition id is set", Toast.LENGTH_SHORT).show();
-
-        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(etPropositionID.getText().toString().trim());
     }
 
     public void setJanRainID() {

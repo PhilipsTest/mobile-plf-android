@@ -1,27 +1,26 @@
 package com.ecs.demotestuapp.fragments;
 import android.view.View;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
-import com.philips.platform.ecs.error.ECSError;
-import com.philips.platform.ecs.integration.ECSCallback;
-import com.philips.platform.ecs.model.config.ECSConfig;
+import com.philips.platform.ecs.microService.ECSServices;
+import com.philips.platform.ecs.microService.callBack.ECSCallback;
+import com.philips.platform.ecs.microService.error.ECSError;
+import com.philips.platform.ecs.microService.model.config.ECSConfig;
 
 public class ConfigureECSToGetConfigurationFragment extends BaseAPIFragment {
     public void executeRequest() {
 
-        ECSDataHolder.INSTANCE.getEcsServices().configureECSToGetConfiguration(new ECSCallback<ECSConfig, Exception>() {
+        ECSServices ECSServices = new ECSServices(mAppInfraInterface);
+
+        ECSServices.configureECS(new ECSCallback<com.philips.platform.ecs.microService.model.config.ECSConfig, com.philips.platform.ecs.microService.error.ECSError>() {
             @Override
-            public void onResponse(ECSConfig ecsConfig) {
-                gotoResultActivity(getJsonStringFromObject(ecsConfig));
+            public void onResponse(ECSConfig result) {
+                gotoResultActivity(getJsonStringFromObject(result));
                 getProgressBar().setVisibility(View.GONE);
             }
 
             @Override
-            public void onFailure(Exception e, ECSError ecsError) {
-
-                String errorString = getFailureString(e,ecsError);
-
-                gotoResultActivity(errorString);
+            public void onFailure(ECSError ecsError) {
+                gotoResultActivity(ecsError.getErrorCode() +"\n"+ ecsError.getErrorMessage());
                 getProgressBar().setVisibility(View.GONE);
             }
         });

@@ -11,4 +11,4 @@
  */
 package com.philips.platform.ecs.microService.error
 
-class ECSError(var errorMessage : String, var errorCode: Int?, var errorType: ECSErrorType?)
+class ECSError(var errorMessage : String, var errorCode: Int?, var errorType: ECSErrorType?) :Exception(errorMessage)

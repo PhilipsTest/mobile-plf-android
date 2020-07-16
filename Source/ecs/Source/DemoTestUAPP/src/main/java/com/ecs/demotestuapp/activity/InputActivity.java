@@ -38,7 +38,6 @@ import com.ecs.demotestuapp.fragments.HybrisRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.JanrainRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.MakePaymentFragment;
 import com.ecs.demotestuapp.fragments.PILAddToShoppingCartFragment;
-import com.ecs.demotestuapp.fragments.PILConfigureECSServiceFragment;
 import com.ecs.demotestuapp.fragments.PILCreateShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductDetailsFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductForCtnFragment;
@@ -213,9 +212,6 @@ public class InputActivity extends AppCompatActivity {
                 return new JanrainRefreshOAuthFragment();
 
                 //Micro services new APIS =============
-
-            case 40:
-                return new PILConfigureECSServiceFragment();
 
             case 45:
                 return new PILFetchProductsFragment();

@@ -13,22 +13,18 @@ import com.philips.platform.ecs.integration.ECSOAuthProvider;
 import com.philips.platform.ecs.model.address.ECSAddress;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 import com.philips.platform.ecs.model.address.ECSUserProfile;
-import com.philips.platform.ecs.model.cart.ECSShoppingCart;
 import com.philips.platform.ecs.model.cart.ECSEntries;
+import com.philips.platform.ecs.model.cart.ECSShoppingCart;
 import com.philips.platform.ecs.model.oauth.ECSOAuthData;
-
-
 import com.philips.platform.ecs.model.orders.ECSOrderDetail;
 import com.philips.platform.ecs.model.orders.ECSOrderHistory;
 import com.philips.platform.ecs.model.orders.ECSOrders;
 import com.philips.platform.ecs.model.payment.ECSPayment;
 import com.philips.platform.ecs.model.payment.ECSPaymentProvider;
-import com.philips.platform.ecs.model.products.ECSProducts;
 import com.philips.platform.ecs.model.products.ECSProduct;
+import com.philips.platform.ecs.model.products.ECSProducts;
 import com.philips.platform.ecs.model.region.ECSRegion;
-import com.philips.platform.ecs.model.config.ECSConfig;
 import com.philips.platform.ecs.model.retailers.ECSRetailerList;
-
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
 
 import java.util.List;
@@ -37,13 +33,6 @@ import java.util.List;
  * The interface Iap services.
  */
  interface ECSServiceProvider {
-
-    /**
-     * Configure ecs to get configuration.
-     *
-     * @param ecsCallback the ecs callback containing ECSConfig object
-     */
-    void configureECSToGetConfiguration(ECSCallback<ECSConfig, Exception> ecsCallback);
 
     void hybrisOAthAuthentication(@NonNull ECSOAuthProvider ecsoAuthProvider, @NonNull ECSCallback<ECSOAuthData,Exception> ecsListener);
 
@@ -316,13 +305,5 @@ import java.util.List;
      * @param ecsCallback the ecs callback containing ECSUserProfile object
      */
     void fetchUserProfile(ECSCallback<ECSUserProfile,Exception> ecsCallback);
-
-
-    /**
-     * Sets proposition id.
-     *
-     * @param propositionID the proposition id
-     */
-    void setPropositionID(@NonNull String propositionID);
 
 }
