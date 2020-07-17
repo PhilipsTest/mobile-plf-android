@@ -39,7 +39,6 @@ public class ECSServices implements ECSServiceProvider {
 
    // private ECSManager mECSManager;
 
-    public static final String SERVICE_ID = "iap.baseurl";
     public static final String ECS_NOTATION = "ecs";
 
     private ECSCallValidator ecsCallValidator;

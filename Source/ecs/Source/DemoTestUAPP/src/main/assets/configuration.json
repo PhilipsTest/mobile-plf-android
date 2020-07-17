@@ -853,16 +853,6 @@
       "name": "Configure ECS Microservices",
       "subgroup": [
         {
-          "name": "configureECS",
-          "apiNumber": 1,
-          "editText": 0,
-          "spinner": 0,
-          "button": 0,
-          "editTexts": [],
-          "spinners": [],
-          "switches": []
-        },
-        {
           "name": "ConfigureECSWithConfiguration",
           "apiNumber": 2,
           "editText": 0,

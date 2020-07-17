@@ -45,6 +45,7 @@ class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>)
 
     override fun onResponse(response: JSONObject?) {
         val config = response?.getData(ECSConfig::class.java) ?:ECSConfig(locale)
+        config.locale = locale
         if(config.rootCategory!= null && config.siteId!=null ) config.isHybris = true
         ECSDataHolder.config = config
         setOCCConfigData(config)
@@ -66,6 +67,7 @@ class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>)
     //TODO to be removed
     private fun setOCCConfigData(config : ECSConfig){
         ECSConfiguration.INSTANCE.siteId = config.siteId
+        ECSConfiguration.INSTANCE.locale = locale
         ECSConfiguration.INSTANCE.rootCategory = config.rootCategory
     }
 

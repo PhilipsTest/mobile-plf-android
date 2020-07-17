@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.ecs.demotestuapp.R;
 import com.ecs.demotestuapp.fragments.AddProductToShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.ApplyVoucherFragment;
-import com.ecs.demotestuapp.fragments.ConfigureECSFragment;
 import com.ecs.demotestuapp.fragments.ConfigureECSToGetConfigurationFragment;
 import com.ecs.demotestuapp.fragments.CreateAddressFragment;
 import com.ecs.demotestuapp.fragments.CreateAndFetchAddressFragment;
@@ -94,8 +93,6 @@ public class InputActivity extends AppCompatActivity {
             case 0:
                 return null;
 
-            case 1:
-                return new ConfigureECSFragment();
 
             case 2:
                 return new ConfigureECSToGetConfigurationFragment();
