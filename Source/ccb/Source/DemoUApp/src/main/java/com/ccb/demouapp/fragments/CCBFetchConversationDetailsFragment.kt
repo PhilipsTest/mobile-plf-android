@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.philips.platform.ccb.constant.CCBUrlBuilder
 import com.philips.platform.ccb.manager.CCBManager
+import com.philips.platform.ccb.model.CCBConversation
+import com.philips.platform.ccb.model.CCBUser
 import com.philips.platform.ccbdemouapp.R
 
 
 class CCBFetchConversationDetailsFragment : CCBBaseFragment() {
 
-    var conversationId: TextView? = null
-    var token: TextView? = null
-    var streamUrl: TextView? = null
-    var expiresIn: TextView? = null
-    var referenceId: TextView? = null
+    var textView: TextView? = null
     var progressBar: ProgressBar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +24,8 @@ class CCBFetchConversationDetailsFragment : CCBBaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fetch_conversation_details_fragment, container, false)
-        conversationId = rootView.findViewById(R.id.tvConversationId)
-        token = rootView.findViewById(R.id.tvToken)
-        streamUrl = rootView.findViewById(R.id.tvStreamUrl)
-        expiresIn = rootView.findViewById(R.id.tvExpiresIn)
-        referenceId = rootView.findViewById(R.id.tvReferenceId)
+        val rootView = inflater.inflate(R.layout.fetch_auth_details_fragment, container, false)
+        textView = rootView.findViewById(R.id.textView)
         progressBar = rootView.findViewById(R.id.progressBar)
 
         executeRequest()
@@ -39,19 +34,22 @@ class CCBFetchConversationDetailsFragment : CCBBaseFragment() {
 
     private fun executeRequest() {
         progressBar?.visibility = View.VISIBLE
-        CCBManager.getCCBSessionHandlerInterface().startConversation { ccbConversation, ccbError ->
-            if (ccbConversation != null) {
+        val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "", "")
+        CCBManager.getCCBSessionHandlerInterface().startConversation(ccbUser) {success: Boolean, ccbError ->
+            if (success) {
                 progressBar?.visibility = View.GONE
-                conversationId?.text = "conversationId: " + ccbConversation.conversationId
-                token?.text = "token: " + ccbConversation.token
-                expiresIn?.text = "expires_in: " + ccbConversation.expires_in
-                streamUrl?.text = "streamUrl: " + ccbConversation.streamUrl
-                referenceId?.text = "referenceGrammarId: " + ccbConversation.referenceGrammarId
+                textView?.text = "Conversation Started"
             } else if (ccbError != null) {
                 progressBar?.visibility = View.GONE
-                conversationId?.text = "Request Failed"
+                textView?.text = "Request Failed"
             }
         }
 
+    }
+
+    fun getJsonString(ccbConversation: CCBConversation): String {
+        val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+        val jsonTutPretty: String = gsonPretty.toJson(ccbConversation)
+        return jsonTutPretty
     }
 }

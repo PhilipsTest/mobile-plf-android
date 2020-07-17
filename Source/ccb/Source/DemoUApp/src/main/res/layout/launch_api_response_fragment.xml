@@ -6,7 +6,7 @@
     tools:context="com.ccb.demouapp.fragments.CCBDemoUAppHomeFragment"
     android:orientation="horizontal">
 
-    <com.philips.platform.uid.view.widget.Button
+    <!--<com.philips.platform.uid.view.widget.Button
         android:id="@+id/authenticateUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="30dp"
-        android:text="Authenticate User" />
+        android:text="Authenticate User" />-->
 
     <com.philips.platform.uid.view.widget.Button
         android:id="@+id/startConversation"
@@ -23,20 +23,8 @@
         android:padding="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/authenticateUser"
+        android:layout_marginTop="30dp"
         android:text="Start Conversation" />
-
-    <com.philips.platform.uid.view.widget.Button
-        android:id="@+id/endConversation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/startConversation"
-        android:text="End Conversation" />
 
     <com.philips.platform.uid.view.widget.Button
         android:id="@+id/refreshSession"
@@ -46,7 +34,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/endConversation"
+        android:layout_below="@+id/startConversation"
         android:text="Refresh Session" />
 
     <com.philips.platform.uid.view.widget.Button
@@ -70,4 +58,17 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/postMessage"
         android:text="Get all Messages" />
+
+    <com.philips.platform.uid.view.widget.Button
+        android:id="@+id/endConversation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/getAllMessages"
+        android:text="End Conversation" />
+
+
 </RelativeLayout>
