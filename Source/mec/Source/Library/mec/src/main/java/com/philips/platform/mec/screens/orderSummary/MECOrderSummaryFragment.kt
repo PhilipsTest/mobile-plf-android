@@ -69,7 +69,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     private lateinit var mECSOrderDetail : ECSOrderDetail
 
     override fun onItemClick(item: Any) {
-
+        //todo To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getFragmentTag(): String {

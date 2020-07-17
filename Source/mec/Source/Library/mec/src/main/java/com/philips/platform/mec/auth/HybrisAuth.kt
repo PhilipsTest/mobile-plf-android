@@ -166,7 +166,7 @@ class HybrisAuth {
 
                 override fun forcedLogout() {
                     MECLog.e(TAG, "refreshJainrain : forcedLogout ")
-                     //To change body of created functions use File | Settings | File Templates.
+                     //Todo change body of created functions use File | Settings | File Templates.
                 }
 
             }
