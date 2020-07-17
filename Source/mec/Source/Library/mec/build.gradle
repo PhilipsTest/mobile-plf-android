@@ -142,7 +142,7 @@ dependencies {
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
     } else {
-        implementation philipsdeps.ecs
+        implementation philipsdeps.philipsecommercesdk
         implementation philipsdeps.pif
         implementation philipsdeps.prx
         implementation philipsdeps.uAppFwLib
@@ -183,7 +183,7 @@ dependencies {
     implementation deps.kotlin_stdlib_jdk7
     implementation deps.kotlin_test
     implementation deps.kotlinx_coroutines_android
-    annotationProcessor deps.androidx.livedata_compiler
+    kapt deps.androidx.livedata_compiler
 
     //Kotlin test
     kaptAndroidTest deps.databinding_compiler
