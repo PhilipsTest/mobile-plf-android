@@ -56,7 +56,7 @@ public class IAPAnalytics {
 
     public static void trackTechnicalErrorWithPrefix(Object value) {
 //        String valueObject = "IAP:".concat((String) value);
-        IAPLog.i(IAPLog.LOG, "trackAction" + (String) value);
+        IAPLog.d(IAPLog.LOG, "trackAction" + (String) value);
         if (sAppTaggingInterface != null)
 //            sAppTaggingInterface.
 //                    trackActionWithInfo(state, key, valueObject);
@@ -66,7 +66,7 @@ public class IAPAnalytics {
 
     public static void trackInformationalErrorWithPrefix(Object value) {
 //        String valueObject = "IAP:".concat((String) value);
-        IAPLog.i(IAPLog.LOG, "trackAction" + (String) value);
+        IAPLog.d(IAPLog.LOG, "trackAction" + (String) value);
         if (sAppTaggingInterface != null)
 //            sAppTaggingInterface.
 //                    trackActionWithInfo(state, key, valueObject);

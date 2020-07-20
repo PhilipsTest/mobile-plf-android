@@ -46,8 +46,6 @@ public class AppTagingConstants {
 
     public static final String USER_ERROR = "userError";
 
-    public static final String INFORMATIONAL_ERROR = "informationalError";
-
     public static final String RESET_PASSWORD_SUCCESS = "A link is sent to your email to reset the password of your Philips Account";
 
     public static final int EMAIL_NOT_VERIFIED_CODE = 112;

@@ -51,20 +51,16 @@ public class AppInfraTaggingUtil implements Serializable {
 
 
     //Actions
-    public static final String TECHNICAL_ERROR = "TechnicalError";
-    public static final String INFORMATIONAL_ERROR = "informationalError";
     static final String SUCCESS_MESSAGE = "appInfraSuccessMessage";
 
     public AppInfraTaggingUtil(AppInfraInterface appInfraInstance, LoggingInterface appInfraLogInstance) {
         appTagging = appInfraInstance.getTagging().
-                        createInstanceForComponent("AIL", BuildConfig.VERSION_NAME);
+                createInstanceForComponent(((AppInfra) appInfraInstance).getComponentId(), BuildConfig.VERSION_NAME);
         this.appInfraLogging = appInfraLogInstance;
     }
 
     public void trackErrorAction(String category, String message) {
         if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
-//            String concat = "AIL:".concat(category).concat(":").concat(message);
-//          appTagging.trackActionWithInfo(SEND_DATA, TECHNICAL_ERROR, concat);
             appTagging.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError(category + ":" + message));
             appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, category + ":" + message);
 
@@ -73,10 +69,8 @@ public class AppInfraTaggingUtil implements Serializable {
 
     public void trackInformationalErrorAction(String category, String message) {
         if (!TextUtils.isEmpty(category) && !TextUtils.isEmpty(message)) {
-//            String concat = "AIL:".concat(category).concat(":").concat(message);
-//            appTagging.trackActionWithInfo(SEND_DATA, INFORMATIONAL_ERROR, concat);
             appTagging.trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError(category + ":" + message));
-//            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
+            appInfraLogging.log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, category + ":" + message);
         }
     }
 }

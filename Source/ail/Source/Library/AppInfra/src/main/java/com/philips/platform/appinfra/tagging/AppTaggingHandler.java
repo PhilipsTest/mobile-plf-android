@@ -450,7 +450,6 @@ public class AppTaggingHandler {
         return false;
     }
 
-    // TODO for remove pagname and put internal usage
     void trackErrorActionWithCategory(@NonNull ErrorCategory errorCategory, Map trackMap, @NonNull TaggingError taggingErrorInstance, boolean isTrackPage) {
         String value;
         if (taggingErrorInstance.getErrorType() == null && taggingErrorInstance.getServerName() == null && taggingErrorInstance.getErrorCode() == null) {
