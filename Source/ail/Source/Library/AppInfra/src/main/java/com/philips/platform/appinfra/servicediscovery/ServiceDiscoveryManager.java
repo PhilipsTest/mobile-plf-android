@@ -256,11 +256,6 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
             appInfraTaggingAction.trackErrorAction(msg1, msg2);
     }
 
-//    private void trackInformationalErrorAction(String msg1, String msg2) {
-//        if (appInfraTaggingAction != null)
-//            appInfraTaggingAction.trackInformationalErrorAction(msg1, msg2);
-//    }
-
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     ServiceDiscovery downloadPropositionService(SD_REQUEST_TYPE requestType) {
         final String propositionURL = getSDURLForType(AISDURLTypeProposition);
