@@ -53,9 +53,9 @@ public class AppInfraTaggingUtil implements Serializable {
     //Actions
     static final String SUCCESS_MESSAGE = "appInfraSuccessMessage";
 
-    public AppInfraTaggingUtil(AppInfraInterface appInfraInstance, LoggingInterface appInfraLogInstance) {
-        appTagging = appInfraInstance.getTagging().
-                createInstanceForComponent(((AppInfra) appInfraInstance).getComponentId(), BuildConfig.VERSION_NAME);
+
+    public AppInfraTaggingUtil(AppTaggingInterface appTagging, LoggingInterface appInfraLogInstance) {
+        this.appTagging = appTagging;
         this.appInfraLogging = appInfraLogInstance;
     }
 

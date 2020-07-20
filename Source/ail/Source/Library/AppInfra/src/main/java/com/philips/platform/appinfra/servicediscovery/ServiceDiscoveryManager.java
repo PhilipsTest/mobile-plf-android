@@ -119,7 +119,7 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     AppInfraTaggingUtil getAppInfraTaggingUtil(AppInfraInterface aAppInfra) {
-        return new AppInfraTaggingUtil(aAppInfra, ((AppInfra) aAppInfra).getAppInfraLogInstance());
+        return new AppInfraTaggingUtil(((AppInfra)aAppInfra).getAppInfraTaggingInstance(), ((AppInfra)aAppInfra).getAppInfraLogInstance());
     }
 
     private void queueResultListener(final boolean forceRefresh, final AbstractDownloadItemListener listener, final SD_REQUEST_TYPE requestType) {
