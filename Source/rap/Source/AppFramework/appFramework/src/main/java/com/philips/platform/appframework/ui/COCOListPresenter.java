@@ -44,7 +44,7 @@ public class COCOListPresenter extends AbstractUIBasePresenter implements COCOLi
     public static final String ECS_DEMO_TEST_APP = "Test ECS Test Demo";
     public static final String THS_DEMO_APP = "Test THS Demo";
     public static final String PIM_DEMO_APP = "Test PIM Demo";
-    public static final String CCB_DEMO_APP = "Test CCB Demo";
+    public static final String CCB_DEMO_APP = "Test Conversational ChatBot Demo";
     public static final String NEURA_DEMO_APP = "Test Neura Demo";
     public static final String USER_REGISTRATION_COPPA = "User Registration(Coppa)";
     public static final String DS_DEMO_APP = "Test Data Services Demo";

@@ -8,7 +8,7 @@ interface CCBSessionHandlerInterface {
 
     fun authenticateUser(ccbUser: CCBUser, completionHandler: (Boolean, CCBError?) -> Unit)
 
-    fun startConversation(completionHandler: (CCBConversation?, CCBError?) -> Unit)
+    fun startConversation(ccbUser: CCBUser,completionHandler: (Boolean, CCBError?) -> Unit)
 
     fun refreshSession(completionHandler: (Boolean, CCBError?) -> Unit)
 
