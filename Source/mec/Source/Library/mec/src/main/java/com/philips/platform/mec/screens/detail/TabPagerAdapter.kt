@@ -15,7 +15,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.features.MECProductFeaturesFragment
 import com.philips.platform.mec.screens.specification.SpecificationFragment
@@ -29,15 +30,15 @@ class TabPagerAdapter(var fm: FragmentManager, var product: ECSProduct, var cont
     override fun getItem(position: Int): Fragment {
 
         val bundle = Bundle()
-        bundle.putString(MECConstant.MEC_PRODUCT_CTN,product.code)
-        bundle.putSerializable(MECConstant.MEC_PRODUCT,product)
+        bundle.putString(MECConstant.MEC_PRODUCT_CTN,product.ctn)
+        bundle.putParcelable(MECConstant.MEC_PRODUCT,product)
 
 
 
         return when (position) {
             0 -> {
                 val fragment = MECProductInfoFragment()
-                bundle.putSerializable(MECConstant.MEC_KEY_PRODUCT,product)
+                bundle.putParcelable(MECConstant.MEC_KEY_PRODUCT,product)
                 fragment.arguments = bundle
                 return fragment
             }
@@ -62,7 +63,7 @@ class TabPagerAdapter(var fm: FragmentManager, var product: ECSProduct, var cont
             }
             else ->{
                 val fragment = MECProductInfoFragment()
-                bundle.putSerializable(MECConstant.MEC_KEY_PRODUCT,product)
+                bundle.putParcelable(MECConstant.MEC_KEY_PRODUCT,product)
                 fragment.arguments = bundle
                 return fragment
             }
