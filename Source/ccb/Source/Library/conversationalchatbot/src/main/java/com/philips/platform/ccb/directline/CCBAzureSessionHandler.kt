@@ -46,8 +46,8 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
                     if(conversation!=null) {
                         CCBManager.streamUrl = conversation.streamUrl
                     }
-                    ccbWebSocketConnection = CCBWebSocketConnection()
-                    ccbWebSocketConnection?.createWebSocket()
+                    /*ccbWebSocketConnection = CCBWebSocketConnection()
+                    ccbWebSocketConnection?.createWebSocket()*/
                     completionHandler.invoke(true, null)
                 }, Response.ErrorListener { error: VolleyError ->
                     completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
@@ -71,6 +71,15 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
             ccbWebSocketConnection?.closeSocket()
             CCBManager.conversationId = null
             CCBManager.token = null
+            completionHandler.invoke(true, null)
+        }, Response.ErrorListener { error: VolleyError ->
+            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+        })
+    }
+
+    override fun updateConversation(completionHandler: (Boolean, CCBError?) -> Unit) {
+        val ccbEndConversationRequest = CCBEndConversationRequest()
+        ccbRestClient.invokeRequest(ccbEndConversationRequest,Response.Listener { response: String ->
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
             completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
