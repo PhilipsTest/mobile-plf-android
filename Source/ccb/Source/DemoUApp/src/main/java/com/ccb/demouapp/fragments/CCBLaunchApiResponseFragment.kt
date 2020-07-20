@@ -1,11 +1,11 @@
 package com.ccb.demouapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import android.widget.Toast
+import com.ccb.demouapp.util.CCBUtility
 import com.philips.platform.ccbdemouapp.R
 import com.philips.platform.uappframework.launcher.FragmentLauncher
 import kotlinx.android.synthetic.main.launch_api_response_fragment.view.*
@@ -17,14 +17,13 @@ class CCBLaunchApiResponseFragment : CCBBaseFragment() {
                               savedInstanceState: Bundle?): View? {
 
         val rootView = inflater.inflate(R.layout.launch_api_response_fragment, container, false)
-        rootView.authenticateUser.setOnClickListener{replaceFragment(CCBFetchAuthDetailsFragment(),true)}
-        rootView.startConversation.setOnClickListener{replaceFragment(CCBFetchConversationDetailsFragment(),true)}
-        rootView.refreshSession.setOnClickListener{replaceFragment(CCBRefreshTokenFragment(),true)}
-        rootView.postMessage.setOnClickListener{replaceFragment(CCBPostMessageFragment(),true)}
-        rootView.getAllMessages.setOnClickListener{replaceFragment(CCBGetMessagesFragment(),true)}
-        rootView.endConversation.setOnClickListener{replaceFragment(CCBEndConversationFragment(),true)}
-
+        //rootView.authenticateUser.setOnClickListener{if (isNetworkAvailable()) replaceFragment(CCBFetchAuthDetailsFragment(),true) else Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show() }
+        rootView.startConversation.setOnClickListener{if (CCBUtility.isNetworkAvailable(context)) replaceFragment(CCBFetchConversationDetailsFragment(),true) else Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show() }
+        rootView.refreshSession.setOnClickListener{if (CCBUtility.isNetworkAvailable(context)) replaceFragment(CCBRefreshTokenFragment(),true) else Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show() }
+        rootView.postMessage.setOnClickListener{if (CCBUtility.isNetworkAvailable(context)) replaceFragment(CCBPostMessageFragment(),true) else Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show() }
+        rootView.getAllMessages.setOnClickListener{if (CCBUtility.isNetworkAvailable(context)) replaceFragment(CCBGetMessagesFragment(),true) else Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show() }
+        rootView.endConversation.setOnClickListener{if (CCBUtility.isNetworkAvailable(context)) replaceFragment(CCBEndConversationFragment(),true) else Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show() }
         return rootView
     }
-
+    
 }
