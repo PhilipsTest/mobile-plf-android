@@ -4,7 +4,6 @@
  */
 package com.philips.platform.appinfra.tagging;
 
-import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.AppInfraLogEventID;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 
@@ -29,7 +28,7 @@ public class AppInfraTaggingUtilTest {
         MockitoAnnotations.initMocks(this);
         appTaggingInterface = mock(AppTaggingInterface.class);
         loggingInterface = mock(LoggingInterface.class);
-        appInfraTaggingUtil = new AppInfraTaggingUtil((AppInfraInterface) appTaggingInterface, loggingInterface);
+        appInfraTaggingUtil = new AppInfraTaggingUtil(appTaggingInterface, loggingInterface);
     }
 
     @Test
