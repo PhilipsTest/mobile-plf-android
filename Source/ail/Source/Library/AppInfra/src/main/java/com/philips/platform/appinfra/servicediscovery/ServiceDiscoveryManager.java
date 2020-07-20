@@ -74,6 +74,8 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
     private static final String BASE_URL_STAGING = "stg.philips.com";
     private static final String STATE_STAGING = "STAGING";
     private static final String STATE_PRODUCTION = "PRODUCTION";
+    private static final String ERROR_WHILE_FETCHING = "error while fetching ";
+    private static final String DUE_TO = " due to ";
 
     private final AppInfraInterface mAppInfra;
     private final transient Context context;
@@ -275,9 +277,9 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
             ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.VERBOSE, "SD call", " NO_NETWORK");
             service.setError(new ServiceDiscovery.Error(OnErrorListener.ERRORVALUES.NO_NETWORK, " NO_NETWORK"));
             errorvalues = OnErrorListener.ERRORVALUES.NO_NETWORK;
-            String concat = SERVICE_DISCOVERY + ":" + "error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name()));
+            String concat = SERVICE_DISCOVERY + ":" + ERROR_WHILE_FETCHING.concat(requestType.name().concat(DUE_TO).concat(service.getError().getErrorvalue().name()));
             mAppInfra.getLogging().log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_SERVICE_DISCOVERY, concat);
-            appInfraTaggingAction.trackInformationalErrorAction(SERVICE_DISCOVERY, "error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name())));
+            appInfraTaggingAction.trackInformationalErrorAction(SERVICE_DISCOVERY, ERROR_WHILE_FETCHING.concat(requestType.name().concat(DUE_TO).concat(service.getError().getErrorvalue().name())));
 
         } else {
             if (urlBuild != null) {
@@ -290,7 +292,7 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
                     holdbackTime = new Date().getTime() + 10000; // curent time + 10 Seconds
                     ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.ERROR, AppInfraLogEventID.AI_SERVICE_DISCOVERY, "Error in process request" + service.getError().toString());
                     if (service.getError().toString() != null) {
-                        appInfraTaggingAction.trackInformationalErrorAction(SERVICE_DISCOVERY, "error while fetching ".concat(requestType.name().concat(" due to ").concat(service.getError().getErrorvalue().name())));
+                        appInfraTaggingAction.trackInformationalErrorAction(SERVICE_DISCOVERY, ERROR_WHILE_FETCHING.concat(requestType.name().concat(DUE_TO).concat(service.getError().getErrorvalue().name())));
                     }
                 }
             } else {
