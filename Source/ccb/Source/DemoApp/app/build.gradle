@@ -43,5 +43,7 @@ dependencies {
     implementation project(':AppInfra')
     implementation project(':ccbUApp')
 
-    implementation 'com.github.bhargavms:DotLoader:1.1.1'
+    implementation 'com.github.channguyen:adv:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

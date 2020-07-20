@@ -11,7 +11,6 @@ buildscript {
         maven { url repos.mavengoogle }
         maven { url repos.jcenter }
         maven { url repos.pluginsgradle }
-        maven { url "https://jitpack.io" }
         maven {
             url repos.plugin
             credentials {
@@ -74,7 +73,6 @@ subprojects {
             }
             maven { url repos.jcenter }
             maven { url repos.hsdprelease }
-            maven { url "https://jitpack.io" }
             maven {
                 url repos.plugin
                 credentials {
@@ -99,7 +97,6 @@ subprojects {
             url repos.jcenter
         }
         maven { url repos.hsdprelease }
-        maven { url "https://jitpack.io" }
         maven {
             url repos.plugin
             credentials {

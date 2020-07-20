@@ -1,6 +1,7 @@
 package com.philips.platform.ccbdemo
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
@@ -31,6 +32,8 @@ class CCBDemoActivity : UIDActivity() {
         launchButton.setOnClickListener { launchDemoUApp() }
 
         initDemoUApp()
+
+       // startActivity(Intent(applicationContext,MainActivity::class.java))
     }
 
     private fun initDemoUApp() {
