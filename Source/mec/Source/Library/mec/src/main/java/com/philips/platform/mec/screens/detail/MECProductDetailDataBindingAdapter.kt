@@ -18,7 +18,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
-import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.reviews.MECReview
 import com.philips.platform.mec.utils.MECLog
@@ -48,8 +49,8 @@ object MECProductDetailDataBindingAdapter {
     @JvmStatic
     @BindingAdapter("setStockInfo")
     fun setStockInfo(stockLabel : Label, product: ECSProduct?) {
-        if(null!=product && null!= product.stock) {
-            if (MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) {
+        if(null!=product && null!= product.attributes?.availability) {
+            if (MECutility.isStockAvailable(product.attributes?.availability!!.status, product.attributes?.availability!!.quantity)) {
                 stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
                 stockLabel.setTextColor(stockLabel.context.getColor(R.color.uid_signal_green_level_30))
                 // stockLabel.setTextColor(R.attr.uidContentItemSignalNormalTextSuccessColor)

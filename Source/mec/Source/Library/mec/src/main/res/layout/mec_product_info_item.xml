@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.philips.platform.ecs.model.products.ECSProduct" />
+            type="com.philips.platform.ecs.microService.model.product.ECSProduct" />
     </data>
 
 <RelativeLayout

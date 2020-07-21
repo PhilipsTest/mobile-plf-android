@@ -18,7 +18,8 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.platform.appinfra.AppInfra
-import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+
 import com.philips.platform.ecs.model.retailers.ECSRetailer
 import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -68,7 +69,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
 
         val bundle = arguments
         retailers = bundle?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as ECSRetailerList
-        product = bundle?.getSerializable(MECConstant.MEC_PRODUCT) as ECSProduct
+        product = bundle?.getParcelable<ECSProduct>(MECConstant.MEC_PRODUCT)!!
 
         binding.retailerList = retailers
         binding.itemClickListener = this
