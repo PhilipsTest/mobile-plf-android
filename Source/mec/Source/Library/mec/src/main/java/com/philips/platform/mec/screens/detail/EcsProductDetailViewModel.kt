@@ -17,8 +17,11 @@ import com.bazaarvoice.bvandroidsdk.ReviewResponse
 import com.google.gson.internal.LinkedTreeMap
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.asset.Asset
+import com.philips.platform.ecs.microService.model.asset.Assets
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
-import com.philips.platform.ecs.model.products.ECSProduct
+
 import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECRequestType
@@ -42,7 +45,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
-    var ecsProductDetailRepository = ECSProductDetailRepository(this,ecsServices)
+    var ecsProductDetailRepository = ECSProductDetailRepository(this,ecsServices.getMicroService())
 
     fun getRatings(ctn :String){
         ecsProductDetailRepository.getRatings(ctn)
@@ -158,7 +161,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         return retailer.isPhilipsStore.equals("Y", ignoreCase = true)
     }
 
-    fun setStockInfoWithRetailer(stockLabel : Label, product: com.philips.platform.ecs.model.products.ECSProduct?, ecsRetailers: com.philips.platform.ecs.model.retailers.ECSRetailerList) {
+    fun setStockInfoWithRetailer(stockLabel : Label, product: ECSProduct?, ecsRetailers: com.philips.platform.ecs.model.retailers.ECSRetailerList) {
             if(!MECDataHolder.INSTANCE.hybrisEnabled) {
                 if (ecsRetailers.retailers.size>0) {
                     var availability=false
@@ -185,8 +188,8 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
             }
             else if(MECDataHolder.INSTANCE.hybrisEnabled){
                 if(ecsRetailers.retailers.size==0) {
-                    if (null != product && null != product.stock) {
-                        if (MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) {
+                    if (null != product && null != product.attributes?.availability) {
+                        if (MECutility.isStockAvailable(product.attributes?.availability?.status, product.attributes?.availability!!.quantity)) {
                             stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
                             stockLabel.setTextColor(stockLabel.context.getColor(R.color.uid_signal_green_level_30))
                             // stockLabel.setTextColor(R.attr.uidContentItemSignalNormalTextSuccessColor)
@@ -208,8 +211,8 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
                         } else if(ecsRetailers.retailers.get(i).availability.contains("NO")) {
                             availability=false
                             if (!availability) {
-                                if (null != product?.stock) {
-                                    if (MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) {
+                                if (null != product?.attributes?.availability) {
+                                    if (MECutility.isStockAvailable(product.attributes?.availability?.status, product.attributes?.availability!!.quantity)) {
                                         stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
                                         stockLabel.setTextColor(stockLabel.context.getColor(R.color.uid_signal_green_level_30))
                                     } else {
@@ -237,12 +240,12 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         }
     }
 
-    fun addNoAsset(product: com.philips.platform.ecs.model.products.ECSProduct) {
-        var asset = com.philips.platform.ecs.model.asset.Asset()
+    fun addNoAsset(product: ECSProduct) {
+        var asset = Asset()
         asset.asset = "NO Image Asset Found"
         asset.type = "APP"
 
-        var assets = com.philips.platform.ecs.model.asset.Assets()
+        var assets = Assets()
         assets.asset = Arrays.asList(asset)
         product.assets = assets
 

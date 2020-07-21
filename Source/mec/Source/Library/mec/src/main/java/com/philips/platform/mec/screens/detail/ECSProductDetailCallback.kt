@@ -9,20 +9,21 @@
  */
 package com.philips.platform.mec.screens.detail
 
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.products.ECSProduct
+
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 
-class ECSProductDetailCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel)  : ECSCallback<ECSProduct, Exception> {
+class ECSProductDetailCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel)  : ECSCallback<ECSProduct, ECSError> {
     lateinit var mECRequestType : MECRequestType
-    override fun onResponse(ecsProduct: ECSProduct?) {
+    override fun onResponse(ecsProduct: ECSProduct) {
         ecsProductDetailViewModel.ecsProduct.value = ecsProduct
     }
 
-    override fun onFailure(error: Exception?, ecsError: ECSError?) {
-        val mecError = MecError(error, ecsError,mECRequestType)
+    override fun onFailure(error: ECSError) {
+        val mecError = MecError(Exception(error), error, mECRequestType)
         ecsProductDetailViewModel.mecError.value = mecError
     }
 }

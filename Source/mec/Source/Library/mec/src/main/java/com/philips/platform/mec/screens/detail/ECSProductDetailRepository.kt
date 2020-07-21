@@ -10,10 +10,13 @@
 package com.philips.platform.mec.screens.detail
 
 import com.bazaarvoice.bvandroidsdk.*
-import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.integration.ECSCallback
+
+
+import com.philips.platform.ecs.microService.ECSServices
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
-import com.philips.platform.ecs.model.products.ECSProduct
+
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
