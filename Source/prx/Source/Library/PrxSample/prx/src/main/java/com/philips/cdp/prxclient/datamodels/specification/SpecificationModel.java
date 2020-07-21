@@ -1,6 +1,7 @@
 package com.philips.cdp.prxclient.datamodels.specification;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.philips.cdp.prxclient.response.ResponseData;
@@ -22,11 +23,15 @@ public class SpecificationModel extends ResponseData implements Serializable {
 
 	@Override
 	public ResponseData parseJsonResponseData(JSONObject response) {
+		ResponseData responseData = null;
 		JSONObject specificationResponse = response;
 		if (specificationResponse != null) {
-			return new Gson().fromJson(specificationResponse.toString(), SpecificationModel.class);
+			try {
+				responseData = new Gson().fromJson(specificationResponse.toString(), SpecificationModel.class);
+			}catch (JsonParseException e){
 
+			}
 		}
-		return null;
+		return responseData;
 	}
 }
