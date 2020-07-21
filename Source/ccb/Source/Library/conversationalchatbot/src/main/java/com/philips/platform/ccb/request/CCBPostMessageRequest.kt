@@ -7,7 +7,7 @@ import com.philips.platform.ccb.rest.CCBRequestInterface
 import org.json.JSONObject
 import java.util.*
 
-class CCBPostMessageRequest(val message: String) : CCBRequestInterface {
+class CCBPostMessageRequest(val message: String?) : CCBRequestInterface {
 
 
     override fun getUrl(): String {
