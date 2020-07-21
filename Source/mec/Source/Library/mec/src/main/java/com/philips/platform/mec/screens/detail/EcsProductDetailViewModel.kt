@@ -45,7 +45,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
-    var ecsProductDetailRepository = ECSProductDetailRepository(this,ecsServices.getMicroService())
+    var ecsProductDetailRepository = ECSProductDetailRepository(this,ecsServices)
 
     fun getRatings(ctn :String){
         ecsProductDetailRepository.getRatings(ctn)
@@ -241,10 +241,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
     }
 
     fun addNoAsset(product: ECSProduct) {
-        var asset = Asset()
-        asset.asset = "NO Image Asset Found"
-        asset.type = "APP"
-
+        var asset = Asset(null,null,null,null,null,null, null,"APP", "NO Image Asset Found")
         var assets = Assets()
         assets.asset = Arrays.asList(asset)
         product.assets = assets

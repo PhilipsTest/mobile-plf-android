@@ -9,9 +9,12 @@
  */
 package com.philips.platform.mec.screens.detail
 
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.products.ECSProduct
+
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 import java.util.*
@@ -51,30 +54,37 @@ import java.util.*
 
   private fun fetchProductForRetailers() {
 
-      MECDataHolder.INSTANCE.eCSServices.fetchProductSummaries(Arrays.asList(product.code) , object : ECSCallback<List<ECSProduct>, Exception> {
-      override fun onResponse(result: List<ECSProduct>?) {
-        product = result?.get(0) ?: product
-        callParentExecute()
-      }
+      MECDataHolder.INSTANCE.eCSServices.microService.fetchProductSummaries(Arrays.asList(product.ctn) , object : ECSCallback<List<ECSProduct>, ECSError> {
 
-      override fun onFailure(error: Exception?, ecsError: ECSError?) {
-        val mecError = MecError(error, ecsError,null)
-        processError(mecError,true)
-      }
+          override fun onResponse(result: List<ECSProduct>) {
+              product = result?.get(0) ?: product
+              callParentExecute()
+          }
+
+          override fun onFailure(ecsError: ECSError) {
+
+              val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
+              val mecError = MecError(Exception(ecsError), occECSError, null)
+              processError(mecError,true)
+          }
+
     })
   }
 
   private fun fetchProductForHybris() {
-      MECDataHolder.INSTANCE.eCSServices.fetchProduct(product.code, object : ECSCallback<ECSProduct, Exception> {
-      override fun onResponse(result: ECSProduct?) {
-        product = result!!
-        callParentExecute()
-      }
+      MECDataHolder.INSTANCE.eCSServices.microService.fetchProduct(product.ctn, object : ECSCallback<ECSProduct?, ECSError> {
 
-      override fun onFailure(error: Exception?, ecsError: ECSError?) {
-        val mecError = MecError(error, ecsError,null)
-        processError(mecError,true)
-      }
+          override fun onResponse(result: ECSProduct?) {
+              product = result!!
+              callParentExecute()
+          }
+
+          override fun onFailure(ecsError: ECSError) {
+              val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
+              val mecError = MecError(Exception(ecsError), occECSError, null)
+              processError(mecError,true)
+          }
+
     })
   }
 
