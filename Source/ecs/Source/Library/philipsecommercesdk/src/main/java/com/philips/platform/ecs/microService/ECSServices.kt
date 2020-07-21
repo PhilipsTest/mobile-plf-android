@@ -53,7 +53,7 @@ class ECSServices(appInfra: AppInfra) {
 
     @Throws(ECSException::class)
     @JvmOverloads
-    fun fetchProducts( productCategory:String?=null, limit: Int=20, offset:Int=0, productFilter: ProductFilter?=null,ecsCallback :ECSCallback<ECSProducts, ECSError> ) {
+    fun fetchProducts(productCategory:String?=null, limit: Int=20, offset:Int=0, productFilter: ProductFilter?=null,ecsCallback :ECSCallback<ECSProducts, ECSError> ) {
         ecsProductManager.getProducts(productCategory,limit,offset,productFilter,ecsCallback)
     }
 

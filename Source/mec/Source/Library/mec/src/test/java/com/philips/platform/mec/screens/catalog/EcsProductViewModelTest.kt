@@ -42,7 +42,7 @@ class EcsProductViewModelTest {
 
     @Test
     fun initShouldCallGetProducts() {
-        ecsProductViewModel.init(0, 20)
+        ecsProductViewModel.fetchProducts(0, 20)
         Mockito.verify(eCSCatalogRepository).getProducts(0, 20, ecsProductsCallback, ecsServices)
     }
 

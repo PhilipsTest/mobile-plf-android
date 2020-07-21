@@ -26,6 +26,10 @@ class ECSCatalogRepository {
         eCSServices.fetchProducts(pageNumber, pageSize, ecsCallback)
     }
 
+    fun getProducts(pageNumber: Int, pageSize: Int, ecsCallback: ECSPILProductsCallback, eCSServices: ECSServices) {
+        eCSServices.microService.fetchProducts(offset = pageNumber, limit = pageSize, ecsCallback = ecsCallback)
+    }
+
     fun getCategorizedProductsForRetailer(ctnS: MutableList<String>, ecsProductListCallback: ECSProductListCallback, eCSServices: ECSServices) {
         eCSServices.fetchProductSummaries(ctnS, ecsProductListCallback)
     }
@@ -179,6 +183,21 @@ class ECSCatalogRepository {
 
         for(ecsProduct in ecsProducts){
             ctnList.add(ecsProduct.code.replace("/","_"))
+        }
+        val bvClient = MECDataHolder.INSTANCE.bvClient
+        val request = BulkRatingsRequest.Builder(ctnList, BulkRatingOptions.StatsType.All).addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(MECConstant.KEY_BAZAAR_LOCALE!!, MECDataHolder.INSTANCE.locale).build()
+        bvClient!!.prepareCall(request).loadAsync(mecConversationsDisplayCallback)
+
+    }
+
+
+    fun fetchPILProductReview(ecsProducts: List<com.philips.platform.ecs.microService.model.product.ECSProduct>, ecsProductViewModel: EcsProductViewModel){
+
+        val mecConversationsDisplayCallback = PILMECBulkRatingConversationsDisplayCallback(ecsProducts, ecsProductViewModel)
+        var ctnList: MutableList<String> = mutableListOf()
+
+        for(ecsProduct in ecsProducts){
+            ctnList.add(ecsProduct.ctn.replace("/","_"))
         }
         val bvClient = MECDataHolder.INSTANCE.bvClient
         val request = BulkRatingsRequest.Builder(ctnList, BulkRatingOptions.StatsType.All).addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(MECConstant.KEY_BAZAAR_LOCALE!!, MECDataHolder.INSTANCE.locale).build()

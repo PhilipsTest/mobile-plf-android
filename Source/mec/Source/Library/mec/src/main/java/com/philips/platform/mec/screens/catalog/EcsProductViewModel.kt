@@ -29,7 +29,11 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
     var ecsProductsList = MutableLiveData<MutableList<ECSProducts>>()
 
+    var ecsPILProducts = MutableLiveData<com.philips.platform.ecs.microService.model.product.ECSProducts>()
+
     val ecsProductsReviewList = MutableLiveData<MutableList<MECProductReview>>()
+
+    val ecsPILProductsReviewList = MutableLiveData<MutableList<PILMECProductReview>>()
 
     val ecsServices = MECDataHolder.INSTANCE.eCSServices
 
@@ -37,12 +41,19 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
     var ecsProductsCallback = ECSProductsCallback(this)
 
+    var ecsPILProductsCallback = ECSPILProductsCallback(this)
+
     var ecsProductListCallback = ECSProductListCallback(this)
 
 
-    fun init(pageNumber: Int, pageSize: Int) {
+    fun fetchProducts(pageNumber: Int, pageSize: Int) {
         ecsProductListCallback.mECRequestType=MECRequestType.MEC_FETCH_PRODUCTS
         ecsCatalogRepository.getProducts(pageNumber, pageSize,ecsProductsCallback,ecsServices)
+    }
+
+    fun fetchPILProducts(offSet: Int, limit: Int) {
+        ecsProductListCallback.mECRequestType=MECRequestType.MEC_FETCH_PRODUCTS
+        ecsCatalogRepository.getProducts(offSet,limit,ecsPILProductsCallback,ecsServices)
     }
 
     fun initCategorizedRetailer(ctn: MutableList<String>) {
@@ -58,6 +69,10 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
 
     fun fetchProductReview(products: List<ECSProduct>) {
         ecsCatalogRepository.fetchProductReview(products, this)
+    }
+
+    fun fetchPILProductReview(products: List<com.philips.platform.ecs.microService.model.product.ECSProduct>) {
+        ecsCatalogRepository.fetchPILProductReview(products, this)
     }
 
 
