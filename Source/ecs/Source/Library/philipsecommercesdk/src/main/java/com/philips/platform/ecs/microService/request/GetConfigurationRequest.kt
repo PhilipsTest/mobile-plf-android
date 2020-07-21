@@ -60,8 +60,8 @@ class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>)
     private fun getRawConfigUrl(url: String): String {
         return  url +"/"+ "pilcommercewebservices"+"/" + "v2" + "/" +
                 "inAppConfig" + "/" +
-                ECSDataHolder.locale + "/" +
-                ECSDataHolder.getPropositionId()
+                 locale + "/" +
+                 ECSDataHolder.getPropositionId()
     }
 
     //TODO to be removed

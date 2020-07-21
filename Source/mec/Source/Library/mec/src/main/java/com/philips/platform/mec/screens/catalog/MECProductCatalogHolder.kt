@@ -17,7 +17,7 @@ import com.philips.platform.mec.databinding.MecProductCatalogItemListBinding
 
 class MECProductCatalogHolder(override var binding: ViewDataBinding, override var itemClickListener: ItemClickListener) : MECProductCatalogAbstractViewHolder(binding, itemClickListener) {
 
-    override fun bind(item: MECProductReview) {
+    override fun bind(item: PILMECProductReview) {
         super.bind(item)
 
         if(binding is  MecProductCatalogItemListBinding) {

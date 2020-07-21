@@ -99,6 +99,26 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
                 priceLabel.text = product.price.formattedValue;
             }
         }
+
+        @JvmStatic
+        @BindingAdapter("setPriceInfo")
+        fun setPriceInfo(priceLabel: Label, product: com.philips.platform.ecs.microService.model.product.ECSProduct) {
+            val textSize16 = priceLabel.context.getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_discount_price_label_size);
+            val textSize12 = priceLabel.context.getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_price_label_size);
+            if (product.attributes?.discountPrice?.formattedValue?.length ?:0 > 0 && (product.attributes?.price?.value ?:0.0 - (product.attributes?.discountPrice?.value ?:0.0)) > 0) {
+                val price = SpannableString(product.attributes?.price?.formattedValue);
+                price.setSpan(AbsoluteSizeSpan(textSize12), 0, product.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                price.setSpan(StrikethroughSpan(), 0, product.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0, product.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                val discountPrice = SpannableString(product.attributes?.discountPrice?.formattedValue);
+                discountPrice.setSpan(AbsoluteSizeSpan(textSize16), 0, product.attributes?.discountPrice?.formattedValue?.length ?:0, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                val CharSequence = TextUtils.concat(price, "  ", discountPrice);
+                priceLabel.text = CharSequence;
+            } else {
+                product.attributes?.price?.let { priceLabel.text = product.attributes?.price?.formattedValue }
+            }
+        }
     }
 
 }

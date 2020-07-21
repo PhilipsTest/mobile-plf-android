@@ -15,7 +15,7 @@ import com.philips.platform.mec.common.ItemClickListener
 
 abstract class MECProductCatalogAbstractViewHolder(open val binding: ViewDataBinding, open val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root) {
 
-    open fun bind(item: MECProductReview){
+    open fun bind(item: PILMECProductReview){
 
         binding.root.setOnClickListener { itemClickListener.onItemClick(item as Object) }
     }

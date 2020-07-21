@@ -16,14 +16,13 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 
 
-abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableList<MECProductReview>) : RecyclerView.Adapter<MECProductCatalogAbstractViewHolder>(),Filterable {
+abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableList<PILMECProductReview>) : RecyclerView.Adapter<MECProductCatalogAbstractViewHolder>(),Filterable {
 
     val originalList = items
 
     lateinit var emptyView:View
     var catalogView = CatalogView.LIST
 
-    var isSearchInProgress = true
 
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MECProductCatalogAbstractViewHolder
 
@@ -39,7 +38,7 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
 
     override fun getFilter(): Filter {
 
-        var filteredList: MutableList<MECProductReview> = mutableListOf()
+        var filteredList: MutableList<PILMECProductReview> = mutableListOf()
 
         return object : Filter() {
 
@@ -53,7 +52,7 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
                 } else {
                     for (mecProducts in originalList) {
 
-                        if (mecProducts.ecsProduct.code.contains(searchString, true) || mecProducts.ecsProduct.summary.productTitle.contains(searchString, true)) {
+                        if (mecProducts.ecsProduct.ctn.contains(searchString, true) || mecProducts.ecsProduct.summary?.productTitle?.contains(searchString, true) == true) {
                             filteredList.add(mecProducts)
                         }
                     }
@@ -65,7 +64,7 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
 
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                items = results?.values as MutableList<MECProductReview>
+                items = results?.values as MutableList<PILMECProductReview>
                 if(items.size == 0){
                     emptyView.visibility = View.VISIBLE
                 }else{

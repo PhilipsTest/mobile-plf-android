@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.philips.platform.mec.screens.catalog.MECProductReview" />
+            type="com.philips.platform.mec.screens.catalog.PILMECProductReview" />
     </data>
 
     <LinearLayout
@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/iap_margin_4dp"
-                    android:text='@{ product.ecsProduct.code ?? ""}'
+                    android:text='@{ product.ecsProduct.ctn ?? ""}'
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                     android:textSize="@dimen/iap_product_original_price" />
 

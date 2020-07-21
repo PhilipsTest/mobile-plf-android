@@ -78,10 +78,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         productReviewList.clear()
         mecProductReviews?.let { productReviewList.addAll(it) }
         adapter.notifyDataSetChanged()
-        binding.progressBar.visibility = View.GONE
-        binding.mecCatalogProgress.mecProgressBar.visibility = View.GONE
+        dismissPaginationProgressBar()
+        dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         isCallOnProgress = false
-        hideProgressBar()
 
         //For categorized
         if (isCategorizedHybrisPagination()) {
@@ -93,11 +92,11 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
         mecProductReviews?.let { mPILProductsWithReview.addAll(it) }
         adapter.notifyDataSetChanged()
+        showPrivacyURL()
 
-        binding.progressBar.visibility = View.GONE
-        binding.mecCatalogProgress.mecProgressBar.visibility = View.GONE
+        dismissPaginationProgressBar()
+        dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         isCallOnProgress = false
-        hideProgressBar()
 
         //For categorized
         if (isCategorizedHybrisPagination()) {
@@ -146,13 +145,15 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
 
     private val pilProductObserver = Observer<com.philips.platform.ecs.microService.model.product.ECSProducts>{
+
           if(it.commerceProducts.size< (limit-offSet)) isAllProductDownloaded = true
           if(it.commerceProducts.isNotEmpty()){
               ecsProductViewModel.fetchPILProductReview(it.commerceProducts)
           }else{
-              hideProgressBar()
-              showNoProduct()
+              if(offSet == 0)showNoProduct()
           }
+          offSet = limit
+          limit += offSet
     }
 
     private val productObserver: Observer<MutableList<ECSProducts>> = Observer<MutableList<ECSProducts>>(fun(ecsProductsList: MutableList<ECSProducts>?) {
@@ -176,31 +177,36 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
                 binding.mecCatalogParentLayout.visibility = View.VISIBLE
 
-                if (productList.size != 0 && MECDataHolder.INSTANCE.getPrivacyUrl() != null) {
-                    binding.mecPrivacyLayout.visibility = View.VISIBLE
-                    binding.mecSeparator.visibility = View.VISIBLE
-                    binding.mecLlLayout.visibility = View.VISIBLE
+                if (productList.size != 0) {
+                    showPrivacyURL()
                 }
 
             } else {
-
-                hideProgressBar()
                 showNoProduct()
             }
 
         } else {
-            hideProgressBar()
             showNoProduct()
         }
     })
 
+    private fun showPrivacyURL() {
+
+        if(MECDataHolder.INSTANCE.getPrivacyUrl() != null) {
+            binding.mecPrivacyLayout.visibility = View.VISIBLE
+            binding.mecSeparator.visibility = View.VISIBLE
+            binding.mecLlLayout.visibility = View.VISIBLE
+        }
+    }
+
     open fun showNoProduct() {
         isCallOnProgress = false
         binding.mecCatalogParentLayout.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
-        binding.mecCatalogProgress.mecProgressBar.visibility = View.GONE
+        dismissPaginationProgressBar()
+        dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         binding.mecProductCatalogEmptyTextLabel.visibility = View.VISIBLE
     }
+
 
     private lateinit var adapter: MECProductCatalogBaseAbstractAdapter
 
@@ -225,7 +231,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             ecsProductViewModel = ViewModelProvider(this).get(EcsProductViewModel::class.java)
 
             ecsProductViewModel.ecsProductsList.observe(viewLifecycleOwner, productObserver)
+            ecsProductViewModel.ecsPILProducts.observe(viewLifecycleOwner, pilProductObserver)
             ecsProductViewModel.ecsProductsReviewList.observe(viewLifecycleOwner, productReviewObserver)
+            ecsProductViewModel.ecsPILProductsReviewList.observe(viewLifecycleOwner, pilproductReviewObserver)
             ecsProductViewModel.mecError.observe(viewLifecycleOwner, this)
 
             val bundle = arguments
@@ -313,8 +321,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
 
                     if (shouldFetchNextPage() && !isCallOnProgress) {
-                        binding.progressBar.visibility = View.VISIBLE
-                        executeRequest()
+                        showPaginationProgressBar()
+                        executePILRequest()
                     }
                 }
             })
@@ -322,7 +330,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             privacyTextView(binding.mecPrivacy)
 
-            adapter = MECProductCatalogAdapter(productReviewList, this)
+            adapter = MECProductCatalogAdapter(mPILProductsWithReview, this)
 
             binding.productCatalogRecyclerView.adapter = adapter
 
@@ -338,20 +346,27 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             if (arguments != null) {
                 categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
-                totalProductsTobeSearched = categorizedCtns?.size
+                totalProductsTobeSearched = categorizedCtns.size
             }
-            binding.mecCatalogProgress.mecProgressBar.visibility = View.VISIBLE
-            executeRequest()
+            executePILRequest()
             ////////////// start of update cart and login if required
             if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
                 GlobalScope.launch {
-                    var mecManager: MECManager = MECManager()
+                    val mecManager: MECManager = MECManager()
                     MECDataHolder.INSTANCE.mecCartUpdateListener?.let { mecManager.getShoppingCartData(it) }
                 }
             }
             ////////////// end of update cart and login if required
         }
         return binding.root
+    }
+
+    private fun showPaginationProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun dismissPaginationProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun getBackgroundColorOfFontIcon(label: Label): Int {
@@ -380,7 +395,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         spanTxt.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
                 showPrivacyFragment()
-                binding.progressBar.visibility = View.GONE
+                dismissPaginationProgressBar()
                 // hideProgressBar()
             }
 
@@ -414,8 +429,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         if (MECDataHolder.INSTANCE.hybrisEnabled) {
             isCallOnProgress = true
             ecsProductViewModel.fetchProducts(currentPage, pageSize)
+            ecsProductViewModel.fetchPILProducts(offSet,limit)
         } else {
-            hideProgressBar()
             binding.mecProductCatalogEmptyTextLabel.visibility = View.VISIBLE
 
         }
@@ -426,13 +441,12 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             isCallOnProgress = true
             ecsProductViewModel.fetchPILProducts(offSet, limit)
         } else {
-            hideProgressBar()
             binding.mecProductCatalogEmptyTextLabel.visibility = View.VISIBLE
 
         }
     }
 
-    fun shouldFetchNextPage(): Boolean {
+    private fun shouldFetchNextPage(): Boolean {
 
         if (!isPaginationSupported()) {
             return false
@@ -440,23 +454,20 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         val lay = binding.productCatalogRecyclerView
                 .layoutManager as LinearLayoutManager
 
-        if (isScrollDown(lay)) {
-            if (currentPage != totalPages - 1) {
-                ++currentPage
-                return true
-            }
+        if (isScrollDown(lay) && !isAllProductDownloaded) {
+            return true
         }
         return false
     }
 
     override fun onStop() {
         super.onStop()
-        binding.progressBar.visibility = View.GONE
+       dismissPaginationProgressBar()
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {
         super.processError(mecError, showDialog)
-        binding.progressBar.visibility = View.GONE
+        dismissPaginationProgressBar()
     }
 
 }
