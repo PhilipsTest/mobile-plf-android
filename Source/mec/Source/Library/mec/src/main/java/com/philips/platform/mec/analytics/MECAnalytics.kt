@@ -272,6 +272,16 @@ class MECAnalytics {
         }
 
         /*
+  * This method return singlet product details in format "[Category];[Product1]"
+  * */
+        @JvmStatic
+        fun getProductInfo(product: com.philips.platform.ecs.microService.model.product.ECSProduct): String {
+            var productDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
+            productDetail += ";" + product.ctn
+            return productDetail
+        }
+
+        /*
         * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
         * product : Product
         * changedQuantity : qty added or removed
@@ -313,6 +323,20 @@ class MECAnalytics {
         }
 
         /*
+   * This method return singlet product details in format "[Category];[Product1];[Quantity];[Total Price]"
+   * product : Product
+   * changedQuantity : qty added or removed
+   * */
+        @JvmStatic
+        fun getProductInfoWithChangedQuantity(product: com.philips.platform.ecs.microService.model.product.ECSProduct, changedQuantity: Int): String {
+            var productDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
+            productDetail += ";" + product.ctn
+            productDetail += ";" + changedQuantity //changed Quantity e.g. 1 product added
+            productDetail += ";" + getProductPrice(product)
+            return productDetail
+        }
+
+        /*
      * This method return product unit price (discounted if any)
      * */
         fun getProductPrice(product: ECSProduct):String{
@@ -324,6 +348,15 @@ class MECAnalytics {
                 price=""+product.discountPrice.value
             }
             return price
+        }
+
+        /*
+* This method return product unit price (discounted if any)
+* */
+        fun getProductPrice(product: com.philips.platform.ecs.microService.model.product.ECSProduct):String{
+
+            val priceInDouble = product.attributes?.price?.value ?: product.attributes?.discountPrice?.value
+            return ""+priceInDouble
         }
 
 

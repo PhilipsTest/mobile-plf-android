@@ -424,7 +424,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         var map = HashMap<String, String>()
         map.put(retailerName, name)
         map.put(stockStatus, status)
-        map.put(mecProducts, MECAnalytics.getProductInfo(product!!))
+        map.put(mecProducts, MECAnalytics.getProductInfo(product))
         MECAnalytics.trackMultipleActions(sendData, map)
     }
 
