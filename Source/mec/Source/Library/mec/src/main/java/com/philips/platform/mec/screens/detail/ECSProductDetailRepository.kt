@@ -51,7 +51,7 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
 
     fun addTocart(ecsProduct: ECSProduct){
         mECAddToProductCallback.mECRequestType= MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART
-        ecsServices.addProductToShoppingCart(ecsProduct,mECAddToProductCallback)
+        ecsServices.addProductToShoppingCart(ecsProduct.ctn,mECAddToProductCallback)
     }
 
     fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){

@@ -23,7 +23,9 @@ class ECSProductDetailCallback(private val ecsProductDetailViewModel: EcsProduct
     }
 
     override fun onFailure(error: ECSError) {
-        val mecError = MecError(Exception(error), error, mECRequestType)
+
+        val occECSError = com.philips.platform.ecs.error.ECSError(error.errorCode?:-100,error.errorType?.name)
+        val mecError = MecError(Exception(error), occECSError, mECRequestType)
         ecsProductDetailViewModel.mecError.value = mecError
     }
 }
