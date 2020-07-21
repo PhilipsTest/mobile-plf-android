@@ -208,7 +208,7 @@
                     android:layout_gravity="start"
                     style="@style/mecCentralesansBookFont"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
-                    android:text='@{product.code ?? ""}' />
+                    android:text='@{product.ctn ?? ""}' />
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_product_detail_stock_status"

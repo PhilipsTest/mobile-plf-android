@@ -429,7 +429,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         if (MECDataHolder.INSTANCE.hybrisEnabled) {
             isCallOnProgress = true
             ecsProductViewModel.fetchProducts(currentPage, pageSize)
-            ecsProductViewModel.fetchPILProducts(offSet,limit)
         } else {
             binding.mecProductCatalogEmptyTextLabel.visibility = View.VISIBLE
 
