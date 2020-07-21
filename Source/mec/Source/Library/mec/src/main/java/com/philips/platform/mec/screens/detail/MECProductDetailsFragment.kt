@@ -23,14 +23,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.Statistics
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
-
 import com.philips.platform.ecs.model.retailers.ECSRetailer
 import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
@@ -181,7 +179,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
             binding.indicator.viewPager = binding.pager
             val bundle = arguments
-            product = bundle?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as ECSProduct
+            product = bundle?.getParcelable<ECSProduct>(MECConstant.MEC_KEY_PRODUCT)!!
 
 
             //if assets are not available , we should show one Default image
