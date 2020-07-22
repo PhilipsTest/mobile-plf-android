@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.philips.platform.ccb.integration.CCBInterface
+import com.philips.platform.ccb.integration.CCBLaunchInput
 
 import com.philips.platform.ccbdemouapp.R
 import com.philips.platform.uappframework.launcher.FragmentLauncher
@@ -33,8 +34,9 @@ class CCBDemoUAppHomeFragment : CCBBaseFragment() {
     private fun launchChatBot(){
         val ccbInterface =  CCBInterface()
         val fragmentLauncher = FragmentLauncher(activity, R.id.fragment_container, null)
-        ccbInterface.launch(fragmentLauncher, UappLaunchInput())
-
+        val ccbLaunchInput = CCBLaunchInput()
+        ccbLaunchInput.fetchAppDataHandler = this
+        ccbInterface.launch(fragmentLauncher, ccbLaunchInput)
     }
 
     private fun launchDirectlineApi(){

@@ -61,17 +61,12 @@ dependencies {
         implementation philipsdeps.AppInfra
     }
 
-    implementation 'org.java-websocket:Java-WebSocket:1.5.1'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    testImplementation deps.json
-    testImplementation deps.junit
-    testImplementation deps.opengl
-    testImplementation deps.powermock_api_mockito
-    testImplementation deps.powermock_classloading_xstream
-    testImplementation deps.powermock_core
-    testImplementation deps.powermock_junit
-    testImplementation deps.powermock_junit_rule
-    testImplementation deps.powermock_junit_rule_agent
+    implementation "io.noties.markwon:core:4.4.0"
+    implementation "io.noties.markwon:image-glide:4.4.0"
+    implementation "io.noties.markwon:simple-ext:4.4.0"
+
+    implementation deps.glide
 }

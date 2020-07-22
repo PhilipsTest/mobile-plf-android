@@ -13,12 +13,8 @@ class CCBDemoApplication  : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        appInfraInterface = AppInfra.Builder().build(this)
-    }
-
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
         UIDHelper.injectCalligraphyFonts()
+        appInfraInterface = AppInfra.Builder().build(this)
     }
 
     fun getAppInfra(): AppInfraInterface {
