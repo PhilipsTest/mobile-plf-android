@@ -33,7 +33,6 @@ class ECSProductManager {
 
             val getProductsRequest= GetProductsRequest(productCategory,limit,offset,productFilter, ecsCallback)
             requestHandler.handleRequest(getProductsRequest)
-           // getProductsRequest.executeRequest()
 
         }
     }

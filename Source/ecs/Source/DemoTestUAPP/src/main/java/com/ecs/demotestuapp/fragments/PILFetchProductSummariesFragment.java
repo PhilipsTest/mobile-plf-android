@@ -21,7 +21,7 @@ import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
-import com.philips.platform.ecs.microService.model.product.ECSProduct;
+import com.philips.platform.ecs.microService.model.product.ECSProducts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,16 +63,16 @@ public class PILFetchProductSummariesFragment extends BaseAPIFragment {
         ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
         try {
-            ECSServices.fetchProductSummaries(al, new ECSCallback<List<ECSProduct>, ECSError>() {
+            ECSServices.fetchProductSummaries(al, new ECSCallback<ECSProducts, ECSError>() {
                 @Override
-                public void onResponse(List<ECSProduct> ecsProducts) {
+                public void onResponse(ECSProducts ecsProducts) {
                     gotoResultActivity(getJsonStringFromObject(ecsProducts));
                     getProgressBar().setVisibility(View.GONE);
 
                     if( PILDataHolder.INSTANCE.getProductList()!=null) {
                         if( PILDataHolder.INSTANCE.getProductList().getCommerceProducts()!=null) {
                             PILDataHolder.INSTANCE.getProductList().getCommerceProducts().clear();
-                            PILDataHolder.INSTANCE.getProductList().getCommerceProducts().addAll(ecsProducts);
+                            PILDataHolder.INSTANCE.getProductList().getCommerceProducts().addAll(ecsProducts.getCommerceProducts());
                         }
                     }
                 }

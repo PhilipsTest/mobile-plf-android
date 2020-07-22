@@ -267,7 +267,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
                     if (shouldFetchNextPage() && !isCallOnProgress) {
                         showPaginationProgressBar()
-                        executePILRequest()
+                        executeRequest()
                     }
                 }
             })
@@ -293,7 +293,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
                 totalProductsTobeSearched = categorizedCtns.size
             }
-            executePILRequest()
+            executeRequest()
             ////////////// start of update cart and login if required
             if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
                 GlobalScope.launch {
@@ -379,10 +379,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             binding.mecProductCatalogEmptyTextLabel.visibility = View.VISIBLE
 
         }
-    }
-
-    open fun executePILRequest() {
-
     }
 
     private fun shouldFetchNextPage(): Boolean {
