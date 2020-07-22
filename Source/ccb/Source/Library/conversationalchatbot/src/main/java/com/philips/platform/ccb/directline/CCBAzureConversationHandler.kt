@@ -20,6 +20,7 @@ class CCBAzureConversationHandler: CCBConversationHandlerInterface {
     override fun postMessage(text: String?,completionHandler: (Boolean, CCBError?) -> Unit) {
         val ccbPostMessageRequest = CCBPostMessageRequest(text)
         ccbRestClient.invokeRequest(ccbPostMessageRequest, Response.Listener { response: String ->
+
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
             completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
