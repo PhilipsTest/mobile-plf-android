@@ -1,11 +1,13 @@
-/* Copyright (c) Koninklijke Philips N.V., 2020
-
- * All rights are reserved. Reproduction or dissemination
-
- * in whole or in part is prohibited without the prior written
-
- * consent of the copyright holder.
-
+/*
+ *  Copyright (c) Koninklijke Philips N.V., 2020
+ *
+ *  * All rights are reserved. Reproduction or dissemination
+ *
+ *  * in whole or in part is prohibited without the prior written
+ *
+ *  * consent of the copyright holder.
+ *
+ *
  */
 package com.philips.platform.mec.screens.catalog
 
@@ -13,7 +15,7 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback
 import com.bazaarvoice.bvandroidsdk.ConversationsException
 import com.bazaarvoice.bvandroidsdk.Statistics
-import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import java.text.DecimalFormat
@@ -33,7 +35,7 @@ class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<ECSProduct
     override fun onFailure(exception: ConversationsException) {
 
         val ecsError = com.philips.platform.ecs.error.ECSError(1000, exception.localizedMessage)
-        val mecError = MecError(exception, ecsError,MECRequestType.MEC_FETCH_REVIEW)
+        val mecError = MecError(exception, ecsError, MECRequestType.MEC_FETCH_REVIEW)
         ecsProductViewModel.mecError.value = mecError
     }
 
@@ -46,14 +48,14 @@ class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<ECSProduct
 
             for(statistics in statisticsList){
 
-                if(ecsProduct.code isEqualsTo statistics.productStatistics.productId){
+                if(ecsProduct.ctn isEqualsTo statistics.productStatistics.productId){
 
                     mecProductReviewList.add (MECProductReview(ecsProduct, DecimalFormat("0.0").format(statistics.productStatistics.reviewStatistics.averageOverallRating), " ("+statistics.productStatistics.reviewStatistics.totalReviewCount.toString()))
                 }
             }
         }
 
-        ecsProductViewModel.ecsProductsReviewList.value = mecProductReviewList
+        ecsProductViewModel.ecsPILProductsReviewList.value = mecProductReviewList
     }
 
     infix fun String.isEqualsTo(value: String): Boolean = this.replace("/", "_").equals(value)

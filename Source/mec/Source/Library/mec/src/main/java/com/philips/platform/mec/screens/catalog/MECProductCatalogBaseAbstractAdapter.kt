@@ -16,7 +16,7 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 
 
-abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableList<PILMECProductReview>) : RecyclerView.Adapter<MECProductCatalogAbstractViewHolder>(),Filterable {
+abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableList<MECProductReview>) : RecyclerView.Adapter<MECProductCatalogAbstractViewHolder>(),Filterable {
 
     val originalList = items
 
@@ -38,7 +38,7 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
 
     override fun getFilter(): Filter {
 
-        var filteredList: MutableList<PILMECProductReview> = mutableListOf()
+        var filteredList: MutableList<MECProductReview> = mutableListOf()
 
         return object : Filter() {
 
@@ -64,7 +64,7 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
 
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                items = results?.values as MutableList<PILMECProductReview>
+                items = results?.values as MutableList<MECProductReview>
                 if(items.size == 0){
                     emptyView.visibility = View.VISIBLE
                 }else{

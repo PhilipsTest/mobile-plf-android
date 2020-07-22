@@ -56,14 +56,14 @@ class GetProductDisclaimerRequestTest {
     fun `should handle success respone with data`() {
         getProductDisclaimerRequest.onResponse(JSONObject(disclaimerSuccessJsonString))
         assertNotNull(ecsProduct.disclaimers)
-        assertEquals("DIS40008014", ecsProduct.disclaimers?.disclaimer!![0].code)
+        assertEquals("DIS40008014", ecsProduct.disclaimers?.disclaimerList!![0].code)
         Mockito.verify(ecsCallbackMock).onResponse(ecsProduct)
     }
 
     @Test
     fun `should handle success respone with no data`() {
         getProductDisclaimerRequest.onResponse(JSONObject(disclaimerSuccessJsonStringWithNoData))
-        assertNull(ecsProduct.disclaimers?.disclaimer)
+        assertNull(ecsProduct.disclaimers?.disclaimerList)
         Mockito.verify(ecsCallbackMock).onResponse(ecsProduct)
     }
 

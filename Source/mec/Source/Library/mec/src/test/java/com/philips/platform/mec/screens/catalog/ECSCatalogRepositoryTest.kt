@@ -29,12 +29,4 @@ class ECSCatalogRepositoryTest{
         ecsCatalogRepository = ECSCatalogRepository()
     }
 
-
-    @Test
-    fun shouldFetchProducts() {
-        ecsCatalogRepository.getProducts(0,20,ecsCallback,ecsServices)
-        Mockito.verify(ecsServices).fetchProducts(0, 20, ecsCallback)
-    }
-
-
 }
