@@ -14,6 +14,7 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 
 import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProducts
 
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
@@ -54,10 +55,10 @@ import java.util.*
 
   private fun fetchProductForRetailers() {
 
-      MECDataHolder.INSTANCE.eCSServices.microService.fetchProductSummaries(Arrays.asList(product.ctn) , object : ECSCallback<List<ECSProduct>, ECSError> {
+      MECDataHolder.INSTANCE.eCSServices.microService.fetchProductSummaries(Arrays.asList(product.ctn) , object : ECSCallback<ECSProducts, ECSError> {
 
-          override fun onResponse(result: List<ECSProduct>) {
-              product = result?.get(0) ?: product
+          override fun onResponse(result: ECSProducts) {
+              product = result.commerceProducts[0]
               callParentExecute()
           }
 

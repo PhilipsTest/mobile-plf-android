@@ -63,7 +63,7 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
+    fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<ECSProducts, ECSError>) {
         ecsProductManager.fetchProductSummaries(ctns,ecsCallback)
     }
 

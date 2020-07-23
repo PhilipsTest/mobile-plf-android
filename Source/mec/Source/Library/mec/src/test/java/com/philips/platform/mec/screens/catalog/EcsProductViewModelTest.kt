@@ -36,15 +36,10 @@ class EcsProductViewModelTest {
         MECDataHolder.INSTANCE.eCSServices = ecsServices
         ecsProductViewModel = EcsProductViewModel()
         ecsProductViewModel.ecsCatalogRepository = eCSCatalogRepository
-        ecsProductViewModel.ecsProductsCallback = ecsProductsCallback
     }
 
 
-    @Test
-    fun initShouldCallGetProducts() {
-        ecsProductViewModel.fetchProducts(0, 20)
-        Mockito.verify(eCSCatalogRepository).getProducts(0, 20, ecsProductsCallback, ecsServices)
-    }
+
 
 
 //    @Test

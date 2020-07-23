@@ -179,7 +179,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
             binding.indicator.viewPager = binding.pager
             val bundle = arguments
-            product = bundle?.getParcelable<ECSProduct>(MECConstant.MEC_KEY_PRODUCT)!!
+            product = bundle?.getParcelable(MECConstant.MEC_KEY_PRODUCT)!!
 
 
             //if assets are not available , we should show one Default image

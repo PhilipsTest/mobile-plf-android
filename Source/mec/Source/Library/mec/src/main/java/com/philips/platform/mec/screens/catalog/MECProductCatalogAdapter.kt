@@ -17,7 +17,7 @@ import com.philips.platform.mec.databinding.MecProductCatalogItemGridBinding
 import com.philips.platform.mec.databinding.MecProductCatalogItemListBinding
 
 
-class MECProductCatalogAdapter(items: MutableList<PILMECProductReview>, private val itemClickListener : ItemClickListener) :MECProductCatalogBaseAbstractAdapter(items) {
+class MECProductCatalogAdapter(items: MutableList<MECProductReview>, private val itemClickListener : ItemClickListener) :MECProductCatalogBaseAbstractAdapter(items) {
 
     private lateinit var binding: ViewDataBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MECProductCatalogAbstractViewHolder {

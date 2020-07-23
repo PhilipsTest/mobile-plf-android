@@ -63,7 +63,7 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
         builder.setPositiveButton(getString(R.string.mec_ok), fun(it: View) {
 
 
-            if(productList.size==0) {
+            if(mPILProductsWithReview.size==0) {
                 showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
             }else{
                 binding.progressBar.visibility = View.VISIBLE
@@ -89,7 +89,7 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
 
     override fun doProgressbarOperation() {
 
-        if(productList.size ==0) return
+        if(mPILProductsWithReview.size ==0) return
 
         if(isCallEnded()){
             isCallOnProgress = false
@@ -100,11 +100,11 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
         }
     }
 
-    private fun didProductsFondReachPageSize() = (productList.size / (currentPage+1)) == pageSize
+    private fun didProductsFondReachPageSize() = (mPILProductsWithReview.size / (currentPage+1)) == pageSize
 
-    private fun isProductNotFound() = productList.size == 0
+    private fun isProductNotFound() = mPILProductsWithReview.size == 0
 
-    private fun isAllProductsFound() = totalProductsTobeSearched == productList.size
+    private fun isAllProductsFound() = totalProductsTobeSearched == mPILProductsWithReview.size
 
     private fun didReachThreshold() =  0 == (currentPage + 1) % MECConstant.THRESHOLD
 

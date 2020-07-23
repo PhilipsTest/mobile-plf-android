@@ -13,28 +13,21 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingOptions
 import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest
 import com.bazaarvoice.bvandroidsdk.EqualityOperator
 import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.model.products.ECSProducts
-import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 
 class ECSCatalogRepository {
 
-
-    fun getProducts(pageNumber: Int, pageSize: Int, ecsCallback: ECSProductsCallback, eCSServices: ECSServices) {
-        eCSServices.fetchProducts(pageNumber, pageSize, ecsCallback)
-    }
-
     fun getProducts(pageNumber: Int, pageSize: Int, ecsCallback: ECSPILProductsCallback, eCSServices: ECSServices) {
-        eCSServices.microService.fetchProducts(offset = pageNumber, limit = pageSize, ecsCallback = ecsCallback)
+        eCSServices.microService.fetchProducts(productCategory = MECDataHolder.INSTANCE.rootCategory, offset = pageNumber, limit = pageSize, ecsCallback = ecsCallback)
     }
 
-    fun getCategorizedProductsForRetailer(ctnS: MutableList<String>, ecsProductListCallback: ECSProductListCallback, eCSServices: ECSServices) {
-        eCSServices.fetchProductSummaries(ctnS, ecsProductListCallback)
+    fun getCategorizedProductsForRetailer(ctnS: MutableList<String>, ecsCallback: ECSPILProductsCallback, eCSServices: ECSServices) {
+        eCSServices.microService.fetchProductSummaries(ctnS, ecsCallback)
     }
 
-    //TODO
+  /*  //TODO
     fun getCategorizedProducts(pageNumber: Int, pageSize: Int, numberOFCTnsTobeSerached: Int, ctns: List<String>, existingList : MutableList<ECSProducts>?, ecsProductViewModel: EcsProductViewModel) {
 
 
@@ -49,6 +42,7 @@ class ECSCatalogRepository {
 
             override fun onResponse(ecsProducts: ECSProducts) {
 
+                //TODO
                 val mutableLiveData = ecsProductViewModel.ecsProductsList
 
 
@@ -117,7 +111,7 @@ class ECSCatalogRepository {
             }
 
         })
-    }
+    }*/
 
     /*
     *   These are the below conditions to break the loop
@@ -176,24 +170,10 @@ class ECSCatalogRepository {
     private fun didReachLastPage(pageNumber : Int,ecsProducts: MutableList<ECSProducts>) = pageNumber == ecsProducts.get(ecsProducts.size -1).pagination.totalPages-1
 
 
-    fun fetchProductReview(ecsProducts: List<ECSProduct>, ecsProductViewModel: EcsProductViewModel){
-
-        val mecConversationsDisplayCallback = MECBulkRatingConversationsDisplayCallback(ecsProducts, ecsProductViewModel)
-        var ctnList: MutableList<String> = mutableListOf()
-
-        for(ecsProduct in ecsProducts){
-            ctnList.add(ecsProduct.code.replace("/","_"))
-        }
-        val bvClient = MECDataHolder.INSTANCE.bvClient
-        val request = BulkRatingsRequest.Builder(ctnList, BulkRatingOptions.StatsType.All).addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(MECConstant.KEY_BAZAAR_LOCALE!!, MECDataHolder.INSTANCE.locale).build()
-        bvClient!!.prepareCall(request).loadAsync(mecConversationsDisplayCallback)
-
-    }
-
 
     fun fetchPILProductReview(ecsProducts: List<com.philips.platform.ecs.microService.model.product.ECSProduct>, ecsProductViewModel: EcsProductViewModel){
 
-        val mecConversationsDisplayCallback = PILMECBulkRatingConversationsDisplayCallback(ecsProducts, ecsProductViewModel)
+        val mecConversationsDisplayCallback = MECBulkRatingConversationsDisplayCallback(ecsProducts, ecsProductViewModel)
         var ctnList: MutableList<String> = mutableListOf()
 
         for(ecsProduct in ecsProducts){
