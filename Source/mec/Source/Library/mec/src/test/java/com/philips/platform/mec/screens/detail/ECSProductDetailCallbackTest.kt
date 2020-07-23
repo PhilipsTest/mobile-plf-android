@@ -1,6 +1,7 @@
 package com.philips.platform.mec.screens.detail
 
 import androidx.lifecycle.MutableLiveData
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
@@ -14,7 +15,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 import org.powermock.reflect.Whitebox
 
-@PrepareForTest(com.philips.platform.ecs.model.products.ECSProduct::class, EcsProductDetailViewModel::class, ECSProductDetailCallback::class, MECDataHolder::class, MECRequestType::class)
+@PrepareForTest(ECSProduct::class, EcsProductDetailViewModel::class, ECSProductDetailCallback::class, MECDataHolder::class, MECRequestType::class)
 @RunWith(PowerMockRunner::class)
 class ECSProductDetailCallbackTest {
 
@@ -31,7 +32,7 @@ class ECSProductDetailCallbackTest {
     lateinit var mutableLiveDataMecErrorMock: MutableLiveData<MecError>
 
     @Mock
-    val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
+    val ecsProduct = ECSProduct(null,"ctn",null)
 
     @Mock
     lateinit var mecRequestType: MECRequestType
