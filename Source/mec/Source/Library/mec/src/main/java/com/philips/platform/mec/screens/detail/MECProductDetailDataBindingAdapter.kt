@@ -36,7 +36,7 @@ object MECProductDetailDataBindingAdapter {
 
         val disclaimerStringBuilder = StringBuilder()
 
-        if (ecsProduct?.disclaimers != null) {
+        if (ecsProduct?.disclaimers?.disclaimer != null) {
 
             for (disclaimer in ecsProduct.disclaimers?.disclaimer!!) {
                 disclaimer.disclaimerText
