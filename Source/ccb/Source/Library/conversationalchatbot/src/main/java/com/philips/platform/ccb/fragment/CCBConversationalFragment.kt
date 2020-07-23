@@ -1,25 +1,32 @@
 package com.philips.platform.ccb.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
-
 import com.philips.platform.ccb.R
 import com.philips.platform.ccb.directline.CCBAzureConversationHandler
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
 import com.philips.platform.ccb.directline.CCBWebSocketConnection
 import com.philips.platform.ccb.listeners.BotResponseListener
-import com.philips.platform.ccb.model.*
+import com.philips.platform.ccb.model.CCBActions
+import com.philips.platform.ccb.model.CCBActivities
+import com.philips.platform.ccb.model.CCBMessage
 import com.philips.platform.ccb.util.CCBLog
 import kotlinx.android.synthetic.main.ccb_bot_response_layout.view.*
 import kotlinx.android.synthetic.main.ccb_conversation_fragment.view.*
 import kotlinx.android.synthetic.main.ccb_dynamic_button.view.*
 import kotlinx.android.synthetic.main.ccb_user_response_layout.view.*
+import net.frakbot.jumpingbeans.JumpingBeans
+import pl.droidsonroids.gif.GifImageView
 
 
 class CCBConversationalFragment : Fragment(), BotResponseListener {
@@ -30,6 +37,8 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private val TAG: String = CCBConversationalFragment::class.java.simpleName
     private lateinit var ccbAzureConversationHandler: CCBAzureConversationHandler
     private lateinit var ccbAzureSessionHandler: CCBAzureSessionHandler
+    lateinit var typing : GifImageView
+    private lateinit var botView: View
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -90,6 +99,13 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                 displayUserResponse(activity.text)
             } else if(activity.text!=null){
                 CCBLog.d(TAG, "watermark not null")
+                this.activity?.runOnUiThread {
+                    botView = layoutInflater.inflate(R.layout.ccb_bot_response_layout, chatLayout, false)
+                    chatLayout.addView(botView)
+                    JumpingBeans.with(botView.text1)
+                          .appendJumpingDots()
+                          .build()
+                }
                 handleBotResponse(activity)
             }
         } catch (exception: Exception) {
@@ -128,10 +144,22 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     }
 
     private fun displayBotRespon(msg: String?) {
+        Thread.sleep(1000)
         this.activity?.runOnUiThread {
-            val view = layoutInflater.inflate(R.layout.ccb_bot_response_layout, chatLayout, false)
-                view.ccb_bot_response_text.text = msg
-            chatLayout.addView(view)
+            //val view = layoutInflater.inflate(R.layout.ccb_bot_response_layout, chatLayout, false)
+            botView.ccb_bot_response_text?.text = msg
+            val animFadein: Animation = AnimationUtils.loadAnimation(context,
+                    R.anim.bounce)
+
+              /*JumpingBeans.with(view!!.text1)
+                    .appendJumpingDots()
+                    .build()*/
+            //view.text1.startAnimation(animFadein)
+            botView.bot_response?.visibility= View.VISIBLE
+           if((msg.toString().contains("Privacy"))|| (msg.toString().contains("SleepMapper"))) {
+               postMessage("Tuscany")
+           }
+            //chatLayout.addView(view)
             scrollToBottom()
         }
     }
@@ -149,6 +177,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                 }
                 selectionViewLayout.addView(view)
             }
+            scrollToBottom()
         }
     }
 

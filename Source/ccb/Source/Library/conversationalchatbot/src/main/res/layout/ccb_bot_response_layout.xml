@@ -13,14 +13,32 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         android:src="@drawable/chatbot" />
 
+    <LinearLayout
+        android:id="@+id/animLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/imageView">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="typing"/>
+
+    </LinearLayout>
+
 <LinearLayout
+    android:id="@+id/bot_response"
     android:orientation="vertical"
     android:layout_marginEnd="60dp"
     android:background="#FFFEFF"
     android:elevation="10dp"
+    android:visibility="gone"
     android:layout_toRightOf="@+id/imageView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
