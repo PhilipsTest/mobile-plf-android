@@ -1,6 +1,9 @@
 package com.philips.platform.mec.screens.catalog
 
 import androidx.lifecycle.MutableLiveData
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.mec.common.MecError
 import org.junit.Before
 import org.junit.Test
@@ -16,7 +19,7 @@ import org.powermock.reflect.Whitebox
 class ECSProductsCallbackTest {
 
 
-    lateinit var callback: ECSProductsCallback
+    lateinit var callback: ECSPILProductsCallback
 
     @Mock
     lateinit var ecsProductViewModel: EcsProductViewModel
@@ -32,7 +35,7 @@ class ECSProductsCallbackTest {
     lateinit var exception: Exception
 
     @Mock
-    lateinit var ecsError: com.philips.platform.ecs.error.ECSError
+    lateinit var ecsError: ECSError
 
 
     @Before
@@ -42,16 +45,17 @@ class ECSProductsCallbackTest {
         Whitebox.setInternalState(ecsProductViewModel, "mecError", mutableMECError)
 //        Mockito.`when`(ecsProductViewModel.ecsProductsList).thenReturn(mutableLiveData)
 //        Mockito.`when`(ecsProductViewModel.mecError).thenReturn(mutableMECError)
-        callback = ECSProductsCallback(ecsProductViewModel)
+        callback = ECSPILProductsCallback(ecsProductViewModel)
     }
 
     @Test
     fun onResponse() {
 
         //TODO
-        val ecsProducts = com.philips.platform.ecs.model.products.ECSProducts()
-        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
-        ecsProducts.products = listOf(ecsProduct)
+        var list: List<ECSProduct> = ArrayList<ECSProduct>()
+        val ecsProducts = ECSProducts(list)
+        val ecsProduct = ECSProduct(null,"ctn",null)
+        ecsProducts.commerceProducts = listOf(ecsProduct)
 
         callback.onResponse(ecsProducts)
 
@@ -61,7 +65,7 @@ class ECSProductsCallbackTest {
     @Test
     fun onFailure() {
         //TODO
-        callback.onFailure(exception, ecsError)
+        callback.onFailure( ecsError)
         // assertNotNull(ecsProductViewModel.mecError.value)
     }
 }

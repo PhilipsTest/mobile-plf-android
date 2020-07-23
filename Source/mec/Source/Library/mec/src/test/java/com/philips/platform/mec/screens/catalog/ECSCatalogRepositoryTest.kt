@@ -1,15 +1,13 @@
 package com.philips.platform.mec.screens.catalog
 
 import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
-@PrepareForTest(ECSProductsCallback::class)
+@PrepareForTest(ECSPILProductsCallback::class)
 @RunWith(PowerMockRunner::class)
 class ECSCatalogRepositoryTest{
 
@@ -20,7 +18,7 @@ class ECSCatalogRepositoryTest{
     lateinit var ecsServices: com.philips.platform.ecs.ECSServices
 
     @Mock
-    lateinit var ecsCallback: ECSProductsCallback
+    lateinit var ecsCallback: ECSPILProductsCallback
 
 
     @Before
