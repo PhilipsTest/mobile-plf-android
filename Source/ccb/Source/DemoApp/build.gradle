@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        maven { url repos.jcenter
+            credentials {
+                username = "readonly"
+                password = "123qweasdzxc"
+            }
+        }
+    }
+    dependencies {
+        classpath builddeps.gradle
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url repos.jcenter
+            credentials {
+                username = "readonly"
+                password = "123qweasdzxc"
+            }
+        }
+    }
+}

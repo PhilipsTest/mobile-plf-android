@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/MYA_padding"
+            android:visibility="gone"
             android:background="?attr/uidContentSecondaryBackgroundColor"
             android:orientation="vertical">
 

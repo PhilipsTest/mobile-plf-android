@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ccb.demouapp.fragments.CCBDemoUAppHomeFragment"
+    android:orientation="horizontal">
+
+    <!--<com.philips.platform.uid.view.widget.Button
+        android:id="@+id/authenticateUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Authenticate User" />-->
+
+    <com.philips.platform.uid.view.widget.Button
+        android:id="@+id/startConversation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Start Conversation" />
+
+    <com.philips.platform.uid.view.widget.Button
+        android:id="@+id/refreshSession"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/startConversation"
+        android:text="Refresh Session" />
+
+    <com.philips.platform.uid.view.widget.Button
+        android:id="@+id/postMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/refreshSession"
+        android:text="Post Message" />
+
+    <com.philips.platform.uid.view.widget.Button
+        android:id="@+id/getAllMessages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/postMessage"
+        android:text="Get all Messages" />
+
+    <com.philips.platform.uid.view.widget.Button
+        android:id="@+id/endConversation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/getAllMessages"
+        android:text="End Conversation" />
+
+
+</RelativeLayout>
