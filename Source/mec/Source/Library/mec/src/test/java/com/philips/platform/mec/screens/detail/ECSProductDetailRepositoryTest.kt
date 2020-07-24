@@ -3,6 +3,7 @@ package com.philips.platform.mec.screens.detail
 
 import android.content.Context
 import com.bazaarvoice.bvandroidsdk.*
+import com.philips.platform.ecs.microService.ECSServices
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
@@ -17,7 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 
 
 @PrepareForTest(EcsProductDetailViewModel::class, ECSProductDetailRepository::class, ECSProductDetailCallback::class, LoadCallDisplay::class, BVConversationsClient::class,
-        MECReviewConversationsDisplayCallback::class, MECDetailBulkRatingConversationsDisplayCallback::class)
+        MECReviewConversationsDisplayCallback::class, MECDetailBulkRatingConversationsDisplayCallback::class, ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class ECSProductDetailRepositoryTest {
 
@@ -34,6 +35,9 @@ class ECSProductDetailRepositoryTest {
 
     @Mock
     lateinit var ecsServices: com.philips.platform.ecs.ECSServices
+
+    @Mock
+    lateinit var microEcsServices: ECSServices
 
     @Mock
     lateinit var loadCallDisplayRatingsMock: LoadCallDisplay<BulkRatingsRequest, BulkRatingsResponse>
@@ -57,6 +61,7 @@ class ECSProductDetailRepositoryTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        //ecsServices.microService=microEcsServices
         eCSProductDetailRepository = ECSProductDetailRepository(ecsProductDetailViewModel, ecsServices)
         eCSProductDetailRepository.ecsProductDetailCallBack = ecsProductDetailCallBack
 

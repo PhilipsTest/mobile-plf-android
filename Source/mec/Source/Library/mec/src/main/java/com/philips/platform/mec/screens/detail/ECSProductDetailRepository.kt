@@ -35,7 +35,7 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
 
     fun getProductDetail(ecsProduct: ECSProduct){
         ecsProductDetailCallBack.mECRequestType=MECRequestType.MEC_FETCH_PRODUCT_DETAILS
-        ecsServices.microService.fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
+        ecsServices.getMicroService().fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
     }
 
     fun fetchProductReview(ctn: String, pageNumber: Int, pageSize: Int){
