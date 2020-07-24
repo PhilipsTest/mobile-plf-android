@@ -142,8 +142,8 @@ project(':pimApp').projectDir = new File('./Source/pim/Source/DemoApp/app')
 
 //include ':dcc-demoapp'
 //project(':dcc-demoapp').projectDir = new File('./Source/dcc/Source/DemoApp/launchDigitalCare')
-//include ':ail-demoapp'
-//project(':ail-demoapp').projectDir = new File('./Source/ail/Source/DemoApp/app')
+include ':ail-demoapp'
+project(':ail-demoapp').projectDir = new File('./Source/ail/Source/DemoApp/app')
 
 //Theme generator
 //include ':dlsresources'

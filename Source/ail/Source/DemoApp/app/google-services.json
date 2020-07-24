@@ -1,39 +1,37 @@
 {
   "project_info": {
-    "project_number": "953856295099",
-    "firebase_url": "https://app-infra-demo-app.firebaseio.com",
-    "project_id": "app-infra-demo-app",
-    "storage_bucket": "app-infra-demo-app.appspot.com"
+    "project_number": "736887101664",
+    "firebase_url": "https://appinfra-d12e5.firebaseio.com",
+    "project_id": "appinfra-d12e5",
+    "storage_bucket": "appinfra-d12e5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:953856295099:android:6f0bfac4a614f67c",
+        "mobilesdk_app_id": "1:736887101664:android:45fc9c2c5932c584405885",
         "android_client_info": {
           "package_name": "com.philips.platform.appinfra.demoapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "953856295099-054vrunpjj3h900297phfveu809v8ptr.apps.googleusercontent.com",
+          "client_id": "736887101664-8fs7hgf6sn73jv6auesl51cppsb680c5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyADI4u324tyHtOhg4I9q05MMG6Odm-5L-k"
+          "current_key": "AIzaSyAtsGdnZdtBfffAeniVHhFV2GAT_EES_tA"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736887101664-8fs7hgf6sn73jv6auesl51cppsb680c5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
