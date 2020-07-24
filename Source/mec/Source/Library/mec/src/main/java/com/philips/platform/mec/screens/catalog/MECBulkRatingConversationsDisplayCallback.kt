@@ -20,7 +20,7 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import java.text.DecimalFormat
 
-class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<ECSProduct>, val ecsProductViewModel: EcsProductViewModel) : ConversationsDisplayCallback<BulkRatingsResponse> {
+class MECBulkRatingConversationsDisplayCallback(private val ecsProducts: List<ECSProduct>, private val ecsProductViewModel: EcsProductViewModel) : ConversationsDisplayCallback<BulkRatingsResponse> {
 
 
     override fun onSuccess(response: BulkRatingsResponse) {
@@ -42,7 +42,7 @@ class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<ECSProduct
 
     private fun createMECProductReviewObject(ecsProducts: List<ECSProduct>, statisticsList: List<Statistics>) {
 
-        var mecProductReviewList :MutableList<MECProductReview> = mutableListOf()
+        val mecProductReviewList :MutableList<MECProductReview> = mutableListOf()
 
         for(ecsProduct in ecsProducts){
 
@@ -58,5 +58,5 @@ class MECBulkRatingConversationsDisplayCallback(val ecsProducts: List<ECSProduct
         ecsProductViewModel.ecsPILProductsReviewList.value = mecProductReviewList
     }
 
-    infix fun String.isEqualsTo(value: String): Boolean = this.replace("/", "_").equals(value)
+    private infix fun String.isEqualsTo(value: String): Boolean = this.replace("/", "_") == value
 }

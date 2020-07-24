@@ -69,7 +69,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     var mRootView: View? = null
 
-
     private val mProductReviewObserver: Observer<MutableList<MECProductReview>> = Observer<MutableList<MECProductReview>> { mecProductReviews ->
 
         mecProductReviews?.let { mPILProductsWithReview.addAll(it) }
@@ -111,9 +110,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     private var highLightedBackgroundColor: Int = 0
 
-    var totalPages: Int = 0
-    var currentPage: Int = 0
-    var pageSize: Int = 20
     var shouldSupportPagination = true
     var isCallOnProgress: Boolean = true
 

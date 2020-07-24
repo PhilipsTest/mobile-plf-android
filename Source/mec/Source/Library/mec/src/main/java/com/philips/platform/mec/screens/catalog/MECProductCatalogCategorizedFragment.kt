@@ -11,7 +11,6 @@ package com.philips.platform.mec.screens.catalog
 
 import android.view.View
 import com.philips.platform.mec.R
-import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.uid.view.widget.AlertDialogFragment
 
 class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
@@ -27,13 +26,6 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
 
     override fun executeRequest(){
 
-        if(isAllProductsFound()) {
-            binding.progressBar.visibility = View.GONE
-            dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-        }else{
-            isCallOnProgress =true
-            ecsProductViewModel.initCategorized(currentPage, pageSize, categorizedCtns)
-        }
     }
 
     override fun isPaginationSupported(): Boolean {
@@ -41,15 +33,7 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
     }
 
     override fun showNoProduct() {
-
-        isCallOnProgress =false
-
-        currentPage += 1
-        if (currentPage < totalPages) {
-            showCategorizedFetchDialog()
-        }else{
-            super.showNoProduct()
-        }
+        super.showNoProduct()
     }
 
 
@@ -68,7 +52,7 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
             }else{
                 binding.progressBar.visibility = View.VISIBLE
             }
-            ecsProductViewModel.initCategorized(currentPage, pageSize, categorizedCtns)
+           // ecsProductViewModel.initCategorized(currentPage, pageSize, categorizedCtns)
             alertDialogFragment.dismiss()
         })
 
@@ -100,21 +84,11 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
         }
     }
 
-    private fun didProductsFondReachPageSize() = (mPILProductsWithReview.size / (currentPage+1)) == pageSize
 
-    private fun isProductNotFound() = mPILProductsWithReview.size == 0
-
-    private fun isAllProductsFound() = totalProductsTobeSearched == mPILProductsWithReview.size
-
-    private fun didReachThreshold() =  0 == (currentPage + 1) % MECConstant.THRESHOLD
-
-    private fun didReachLastPage() = currentPage == totalPages-1
 
 
     private fun isCallEnded(): Boolean {
-        return  didReachLastPage( ) ||
-                isAllProductsFound() ||
-                didProductsFondReachPageSize()
+        return  true
     }
 
 

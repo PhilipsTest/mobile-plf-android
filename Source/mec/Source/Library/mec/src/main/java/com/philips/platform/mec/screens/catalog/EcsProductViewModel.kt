@@ -38,7 +38,6 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
     var ecsProductsCallback = ECSPILProductsCallback(this)
 
 
-
     fun fetchProducts(offSet: Int, limit: Int) {
         ecsCatalogRepository.getProducts(offSet,limit,ecsProductsCallback,ecsServices)
     }
@@ -47,14 +46,8 @@ class EcsProductViewModel : com.philips.platform.mec.common.CommonViewModel() {
         ecsCatalogRepository.getCategorizedProductsForRetailer(ctns,ecsProductsCallback ,ecsServices)
     }
 
-
-    //TODO categorized flow
-    fun initCategorized(pageNumber: Int, pageSize: Int, ctns: List<String>) {
-       // ecsCatalogRepository.getCategorizedProducts(pageNumber, pageSize,ctns.size, ctns,this.ecsProductsList.value, this)
-    }
-
     fun fetchProductReview(products: List<com.philips.platform.ecs.microService.model.product.ECSProduct>) {
-        ecsCatalogRepository.fetchPILProductReview(products, this)
+        ecsCatalogRepository.fetchProductReview(products, this)
     }
 
 
