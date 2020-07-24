@@ -2,6 +2,7 @@ package com.philips.platform.mec.screens.catalog
 
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -38,11 +39,11 @@ class EcsProductViewModelTest {
 
 
 
-//    @Test
-//    fun initCategorizedShouldGetCategorizedProducts() {
-//        val arrayList = ArrayList<String>()
-//        arrayList.add("CTN")
-//        ecsProductViewModel.initCategorized(0, 20, arrayList)
-////        Mockito.verify(eCSCatalogRepository).getCategorizedProducts(0, 20, 1, arrayList, null, ecsProductViewModel)
-//    }
+    @Test
+    fun initCategorizedShouldGetCategorizedProducts() {
+      /*  val arrayList = ArrayList<String>()
+        arrayList.add("CTN")
+        ecsProductViewModel.initCategorized(0, 20, arrayList)
+//       Mockito.verify(eCSCatalogRepository).getCategorizedProducts(0, 20, 1, arrayList, null, ecsProductViewModel)*/
+    }
 }

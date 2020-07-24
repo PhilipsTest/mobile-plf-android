@@ -1,6 +1,7 @@
 package com.philips.platform.mec.screens.catalog
 
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -25,6 +26,11 @@ class ECSCatalogRepositoryTest{
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         ecsCatalogRepository = ECSCatalogRepository()
+    }
+
+    @Test
+    fun test1(){
+
     }
 
 }
