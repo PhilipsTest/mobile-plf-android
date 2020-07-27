@@ -15,4 +15,17 @@
         android:layout_height="wrap_content"
         android:text="Launch Demo Micro App"
         />
+
+    <EditText
+        android:id="@+id/et_pageName"
+        android:hint="enter page name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnFirebase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send to Firebase"
+        />
+
 </LinearLayout>

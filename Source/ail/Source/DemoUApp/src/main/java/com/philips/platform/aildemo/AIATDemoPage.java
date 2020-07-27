@@ -8,8 +8,6 @@ package com.philips.platform.aildemo;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +18,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.demo.R;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
@@ -42,6 +44,8 @@ public class AIATDemoPage extends AppCompatActivity  {
 	byte[] plainByte;
 	byte[] encryptedByte;
 
+	FirebaseAnalytics firebaseAnalytics;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,6 +54,8 @@ public class AIATDemoPage extends AppCompatActivity  {
 		SecureStorageInterface mSecureStorage = appInfra.getSecureStorage();
 
 		String enc = "12.000343242342";
+
+		firebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
 
 		try {
 			plainByte= enc.getBytes("UTF-8");
@@ -217,6 +223,14 @@ public class AIATDemoPage extends AppCompatActivity  {
 
 						/*if(page_event_name.getText().toString().length()>0){*/
 						AILDemouAppInterface.getInstance().getAppInfra().getTagging().trackPageWithInfo(page_event_name.getText().toString(), key.getText().toString(), value.getText().toString());
+						firebaseAnalytics.setCurrentScreen(AIATDemoPage.this, "Test page", null /* class override */);
+
+
+						Bundle bundle = new Bundle();
+						bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id");
+						bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name");
+						bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+						firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 						/*}else
 						{
 							showAlertDialog("Warning", "Page Name shouldn't be Empty");

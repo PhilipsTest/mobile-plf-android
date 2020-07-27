@@ -39,6 +39,17 @@ dependencies {
     }
     implementation deps.gson
     implementation deps.volley
+
+    implementation (deps.firebase_config) {
+        exclude group: 'com.google.android.gms', module: 'play-services-measurement-base'
+    }
+    implementation (deps.firebase_core) {
+        exclude group: 'com.google.firebase', module: 'firebase-iid'
+    }
+    implementation (deps.firebase_iid) {
+        exclude group: 'com.google.android.gms', module: 'play-services-measurement-base'
+
+    }
 }
 
 tasks.withType(Test) {

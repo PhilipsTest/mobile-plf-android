@@ -8,11 +8,11 @@ package com.philips.platform.appinfra.tagging;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
-import androidx.annotation.NonNull;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.adobe.mobile.Analytics;
 import com.adobe.mobile.Config;
@@ -466,4 +466,5 @@ public class AppTaggingHandler {
             return privacyStatus != OPTOUT;
         }
     }
+
 }
