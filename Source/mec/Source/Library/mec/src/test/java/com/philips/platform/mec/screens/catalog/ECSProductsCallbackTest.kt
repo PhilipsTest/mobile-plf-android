@@ -1,7 +1,6 @@
 package com.philips.platform.mec.screens.catalog
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.mec.common.MecError
@@ -25,7 +24,7 @@ class ECSProductsCallbackTest {
     lateinit var ecsProductViewModel: EcsProductViewModel
 
     @Mock
-    lateinit var mutableLiveData: MutableLiveData<MutableList<com.philips.platform.ecs.model.products.ECSProducts>>
+    lateinit var mutableLiveData: MutableLiveData<MutableList<ECSProducts>>
 
 
     @Mock
@@ -34,14 +33,13 @@ class ECSProductsCallbackTest {
     @Mock
     lateinit var exception: Exception
 
-    @Mock
-    lateinit var ecsError: ECSError
-
+    /*@Mock
+    lateinit var ecsError: ECSError*/
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        Whitebox.setInternalState(ecsProductViewModel, "ecsProductsList", mutableLiveData)
+        Whitebox.setInternalState(ecsProductViewModel, "ecsPILProducts", mutableLiveData)
         Whitebox.setInternalState(ecsProductViewModel, "mecError", mutableMECError)
 //        Mockito.`when`(ecsProductViewModel.ecsProductsList).thenReturn(mutableLiveData)
 //        Mockito.`when`(ecsProductViewModel.mecError).thenReturn(mutableMECError)
@@ -65,7 +63,7 @@ class ECSProductsCallbackTest {
     @Test
     fun onFailure() {
         //TODO
-        callback.onFailure( ecsError)
+      // callback.onFailure( ecsError)
         // assertNotNull(ecsProductViewModel.mecError.value)
     }
 }
