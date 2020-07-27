@@ -8,7 +8,7 @@ import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
-@PrepareForTest(ECSCatalogRepository::class,ECSPILProductsCallback::class)
+@PrepareForTest(ECSCatalogRepository::class,ECSProductsCallback::class)
 @RunWith(PowerMockRunner::class)
 class EcsProductViewModelTest {
 
@@ -22,7 +22,7 @@ class EcsProductViewModelTest {
     lateinit var eCSCatalogRepository: ECSCatalogRepository
 
     @Mock
-    lateinit var ecsProductsCallback: ECSPILProductsCallback
+    lateinit var ecsProductsCallback: ECSProductsCallback
 
 
 

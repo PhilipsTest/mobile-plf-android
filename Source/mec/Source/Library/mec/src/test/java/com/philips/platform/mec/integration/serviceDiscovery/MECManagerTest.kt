@@ -29,7 +29,7 @@ class MECManagerTest {
     lateinit var mecHybrisAvailabilityListener: MECHybrisAvailabilityListener
 
     @Mock
-    lateinit var ecsMicroServices : com.philips.platform.ecs.microService.ECSServices
+    lateinit var ecsMicroServices : ECSServices
 
     @Mock
     lateinit var ecsServices: com.philips.platform.ecs.ECSServices
@@ -41,22 +41,22 @@ class MECManagerTest {
     lateinit var captor: ArgumentCaptor<com.philips.platform.ecs.integration.ECSCallback<Boolean, java.lang.Exception>>
 
     @Captor
-    lateinit var captor1: ArgumentCaptor<com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.config.ECSConfig, com.philips.platform.ecs.microService.error.ECSError>>
+    lateinit var captor1: ArgumentCaptor<com.philips.platform.ecs.microService.callBack.ECSCallback<ECSConfig,ECSError>>
 
     @Mock
     lateinit var ecsCallback: com.philips.platform.ecs.integration.ECSCallback<Boolean, Exception>
 
     @Mock
-    lateinit var ecsCallback1: com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.config.ECSConfig, com.philips.platform.ecs.microService.error.ECSError>
+    lateinit var ecsCallback1: com.philips.platform.ecs.microService.callBack.ECSCallback<ECSConfig,ECSError>
 
     @Mock
     lateinit var exception: java.lang.Exception
 
     @Mock
-    lateinit var error: com.philips.platform.ecs.microService.error.ECSError
+    lateinit var error: ECSError
 
     @Mock
-    lateinit var ecsConfig: com.philips.platform.ecs.microService.model.config.ECSConfig
+    lateinit var ecsConfig: ECSConfig
 
     @Mock
     lateinit var mecFetchCartListener: MECFetchCartListener

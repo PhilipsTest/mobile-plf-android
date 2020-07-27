@@ -19,7 +19,7 @@ import org.powermock.reflect.Whitebox
 class ECSProductsCallbackTest {
 
 
-    lateinit var callback: ECSPILProductsCallback
+    lateinit var callback: ECSProductsCallback
 
     @Mock
     lateinit var ecsProductViewModel: EcsProductViewModel
@@ -45,7 +45,7 @@ class ECSProductsCallbackTest {
         Whitebox.setInternalState(ecsProductViewModel, "mecError", mutableMECError)
 //        Mockito.`when`(ecsProductViewModel.ecsProductsList).thenReturn(mutableLiveData)
 //        Mockito.`when`(ecsProductViewModel.mecError).thenReturn(mutableMECError)
-        callback = ECSPILProductsCallback(ecsProductViewModel)
+        callback = ECSProductsCallback(ecsProductViewModel)
     }
 
     @Test

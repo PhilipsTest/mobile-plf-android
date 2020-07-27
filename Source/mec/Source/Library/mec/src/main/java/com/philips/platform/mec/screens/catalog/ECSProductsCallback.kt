@@ -18,7 +18,7 @@ import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 
-class ECSPILProductsCallback(private var ecsProductViewModel:EcsProductViewModel) : ECSCallback<ECSProducts, ECSError>{
+class ECSProductsCallback(private var ecsProductViewModel:EcsProductViewModel) : ECSCallback<ECSProducts, ECSError>{
 
     var mECRequestType : MECRequestType = MECRequestType.MEC_FETCH_PRODUCTS
 
