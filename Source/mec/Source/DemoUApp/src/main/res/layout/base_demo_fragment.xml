@@ -119,13 +119,43 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_below="@id/ll_maxCount"
+                android:id="@+id/ll_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/reg_dimen_8dp"
+                android:layout_marginLeft="@dimen/border8_margin"
+                android:layout_marginRight="@dimen/border8_margin"
+                >
+
+                <com.philips.platform.uid.view.widget.EditText
+                    android:layout_weight="0.75"
+                    android:id="@+id/et_product_category"
+                    android:layout_width="0dp"
+                    android:hint="enter max count"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    />
+                <com.philips.platform.uid.view.widget.Button
+                    android:layout_weight="0.25"
+                    android:id="@+id/btn_set_product_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Set" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:id="@+id/linear_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ll_maxCount"
+                android:layout_below="@id/ll_category"
                 android:layout_marginTop="@dimen/reg_dimen_8dp"
                 android:layout_marginLeft="@dimen/border8_margin"
                 android:layout_marginRight="@dimen/border8_margin"
