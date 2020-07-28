@@ -80,7 +80,7 @@ class MECHandler{
                 }
                 MECDataHolder.INSTANCE.locale = config.locale
                 MECAnalytics.setCurrencyString(config.locale)
-                MECDataHolder.INSTANCE.rootCategory = config.rootCategory
+                MECDataHolder.INSTANCE.rootCategory = mLaunchInput.flowConfigurator?.productCategory?:config.rootCategory
                 if (mUiLauncher is ActivityLauncher) {
                     launchMECasActivity(MECDataHolder.INSTANCE.hybrisEnabled, mMECSetting, mUiLauncher, mLaunchInput)
                 } else {

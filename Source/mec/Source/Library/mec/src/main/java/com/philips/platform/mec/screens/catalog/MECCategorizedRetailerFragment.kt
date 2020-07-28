@@ -29,7 +29,7 @@ class MECCategorizedRetailerFragment : MECProductCatalogFragment(){
 
 
     override fun executeRequest(){
-        ecsProductViewModel.initCategorizedRetailer(categorizedCtns)
+        categorizedCtns?.let { ecsProductViewModel.initCategorizedRetailer(it) }
     }
 
     override fun isCategorizedHybrisPagination(): Boolean {

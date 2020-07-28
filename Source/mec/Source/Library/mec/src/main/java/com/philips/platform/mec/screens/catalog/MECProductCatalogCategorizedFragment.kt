@@ -24,9 +24,6 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
 
 
 
-    override fun executeRequest(){
-
-    }
 
     override fun isPaginationSupported(): Boolean {
         return true
@@ -47,12 +44,7 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
         builder.setPositiveButton(getString(R.string.mec_ok), fun(it: View) {
 
 
-            if(mPILProductsWithReview.size==0) {
-                showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-            }else{
-                binding.progressBar.visibility = View.VISIBLE
-            }
-           // ecsProductViewModel.initCategorized(currentPage, pageSize, categorizedCtns)
+            executeCategorizedRequest()
             alertDialogFragment.dismiss()
         })
 
@@ -67,30 +59,38 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
 
     }
 
+    private fun executeCategorizedRequest() {
+        if (mProductsWithReview.size == 0) {
+            showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
+        } else {
+            binding.progressBar.visibility = View.VISIBLE
+        }
+        executeRequest()
+    }
+
     override fun isCategorizedHybrisPagination(): Boolean {
         return true
     }
 
-    override fun doProgressbarOperation() {
+    override fun handleHybrisCategorized() {
 
-        if(mPILProductsWithReview.size ==0) return
-
-        if(isCallEnded()){
-            isCallOnProgress = false
-            binding.progressBar.visibility = View.GONE
+        dismissPaginationProgressBar()
+        dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
+        if(offSet == 0 && mProductsWithReview.size == 0){
+            showCategorizedFetchDialog()
         }else{
-            isCallOnProgress = true
-            binding.progressBar.visibility = View.VISIBLE
+            if(!isAllProductDownloaded && !isAllCategorizedProductFound()){
+
+                if(mProductsWithReview.size == 0 || mProductsWithReview.size % limit !=0) { //TODO for zero product found first
+                    executeCategorizedRequest()
+                }
+            }
+
         }
     }
 
-
-
-
-    private fun isCallEnded(): Boolean {
-        return  true
+    private fun isAllCategorizedProductFound() :Boolean{
+        return categorizedCtns?.size == mProductsWithReview.size
     }
-
-
 }
 

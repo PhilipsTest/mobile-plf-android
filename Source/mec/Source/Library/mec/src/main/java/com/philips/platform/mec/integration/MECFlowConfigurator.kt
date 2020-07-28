@@ -22,11 +22,14 @@ class MECFlowConfigurator : Serializable {
 
     var productCTNs: ArrayList<String>? =null
 
+    var productCategory : String?= null
+
      /**
       * landingView: enum to set Landing View
       * @since 2001.0
       */
     var landingView: MECLandingView? =null
+
 
 
     /**
