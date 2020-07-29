@@ -170,14 +170,16 @@
                "collectionPoint":false
             }
          ],
-         "appliedVouchers":[
+         "appliedVouchers": [
             {
-               "id":"ECS-_PIL-_Vou-cher-TZ8S-5XZ5-S7E7",
-               "freeShipping":false,
-               "value":{
-                  "currency":"USD",
-                  "formattedValue":"10.00 $",
-                  "value":"10.0"
+               "id": "ECS-_PIL-_Vou-cher-TZ8S-5XZ5-S7E7",
+               "name": "",
+               "description": "",
+               "freeShipping": false,
+               "value": {
+                  "currency": "USD",
+                  "formattedValue": "10,00 $",
+                  "value": 10.0
                }
             }
          ],

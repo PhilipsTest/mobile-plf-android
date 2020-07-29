@@ -139,7 +139,7 @@
                }
             }
          ],
-         "deliveryModes":{
+         "deliveryMode":{
             "id":"UPS_COLLECTION_POINT",
             "deliveryCost":{
                "currency":"USD",
