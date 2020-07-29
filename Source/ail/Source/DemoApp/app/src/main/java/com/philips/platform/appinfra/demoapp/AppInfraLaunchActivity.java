@@ -105,9 +105,9 @@ public class AppInfraLaunchActivity extends AppCompatActivity {
 
 
                 Bundle bundle = new Bundle();
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id");
-                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name");
-                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "12345");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "pabitra");
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "text");
                 firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
         });
