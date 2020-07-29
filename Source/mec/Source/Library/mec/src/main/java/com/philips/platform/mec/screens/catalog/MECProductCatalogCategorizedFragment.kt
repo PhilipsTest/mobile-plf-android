@@ -22,17 +22,11 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
         val TAG:String="MECProductCatalogCategorizedFragment"
     }
 
-
-
-
     override fun isPaginationSupported(): Boolean {
         return true
     }
 
-    override fun showNoProduct() {
-        super.showNoProduct()
-    }
-
+    private var isBatchFetched = false
 
     private fun showCategorizedFetchDialog(){
 
@@ -76,7 +70,7 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
 
         dismissPaginationProgressBar()
         dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-        if(offSet == 0 && mProductsWithReview.size == 0){
+        if(offSet == limit*5 && mProductsWithReview.size == 0){
             showCategorizedFetchDialog()
         }else{
             if(!isAllProductDownloaded && !isAllCategorizedProductFound()){

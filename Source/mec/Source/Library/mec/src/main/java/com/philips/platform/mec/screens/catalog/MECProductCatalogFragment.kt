@@ -133,7 +133,10 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
               if(isCategorizedHybrisPagination()){
                   commerceProducts = mECProductCatalogService.getCategorizedProducts(categorizedCtns,commerceProducts)
-                  if(commerceProducts.isEmpty()) handleHybrisCategorized()
+                  if(commerceProducts.isEmpty()){
+                      isCallOnProgress = false
+                      handleHybrisCategorized()
+                  }
               }
 
               if(commerceProducts.isNotEmpty()) {
@@ -188,9 +191,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             mECProductCatalogService = MECProductCatalogService()
             ecsProductViewModel = ViewModelProvider(this).get(EcsProductViewModel::class.java)
 
-            ecsProductViewModel.ecsPILProducts.observe(viewLifecycleOwner, mProductObserver)
-            ecsProductViewModel.ecsPILProductsReviewList.observe(viewLifecycleOwner, mProductReviewObserver)
-            ecsProductViewModel.mecError.observe(viewLifecycleOwner, this)
+            ecsProductViewModel.ecsPILProducts.observe(this, mProductObserver)
+            ecsProductViewModel.ecsPILProductsReviewList.observe(this, mProductReviewObserver)
+            ecsProductViewModel.mecError.observe(this, this)
 
             val bundle = arguments
 
