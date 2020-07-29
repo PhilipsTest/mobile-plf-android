@@ -66,7 +66,7 @@ public class UpdateReceiveMarketingEmail extends UpdateUserDetailsBase {
                 mUpdatedUserdata.put(USER_RECEIVE_MARKETING_EMAIL, mReceiveMarketingEmail);
 
                 JSONObject marketingOptIn = new JSONObject();
-                marketingOptIn.put(LOCALE, RegistrationHelper.getInstance().getLocale().toString());
+                marketingOptIn.put(LOCALE, RegistrationHelper.getInstance().getLocaleWithHyphen());
                 marketingOptIn.put(TIMESTAMP, ServerTime.getCurrentUTCTimeWithFormat(DATE_FORMAT));
                 mUpdatedUserdata.put(MARKETING_OPT_IN, marketingOptIn);
                 UpdateUser updateUser = new UpdateUser();
