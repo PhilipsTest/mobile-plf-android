@@ -19,7 +19,7 @@ class CCBWebSocketConnection : WebSocketListener() {
     }
 
     fun createWebSocket(){
-        val request = Request.Builder().url(CCBManager.streamUrl).build()
+        val request = Request.Builder().url(CCBManager.streamUrl!!).build()
         newWebSocket = OkHttpClient().newWebSocket(request, this)
         newWebSocket
     }
