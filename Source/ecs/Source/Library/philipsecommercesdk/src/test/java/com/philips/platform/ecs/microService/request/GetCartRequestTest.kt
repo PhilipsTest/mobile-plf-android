@@ -23,10 +23,9 @@ import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.util.ECSConfiguration
 import org.json.JSONObject
 import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -177,6 +176,10 @@ class GetCartRequestTest {
             override fun onResponse(result: ECSShoppingCart) {
                 assertNotEquals(0,result.data?.attributes?.promotions?.appliedProductPromotions?.size)
                 assertNotEquals(0,result.data?.attributes?.promotions?.appliedPromotions?.size)
+
+                assertEquals("ECS PIL Voucher Description",result.data?.attributes?.appliedVouchers?.get(0)?.name)
+                assertEquals("ECS PIL Voucher Promotion",result.data?.attributes?.appliedVouchers?.get(0)?.description)
+                assertEquals(10.0,result.data?.attributes?.appliedVouchers?.get(0)?.value?.value)
             }
 
             override fun onFailure(ecsError: ECSError) {

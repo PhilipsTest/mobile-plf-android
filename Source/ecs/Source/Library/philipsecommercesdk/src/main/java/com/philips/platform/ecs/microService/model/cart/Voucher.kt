@@ -13,6 +13,7 @@
 package com.philips.platform.ecs.microService.model.cart
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import com.philips.platform.ecs.microService.model.common.Price
 import kotlinx.android.parcel.Parcelize
 
@@ -20,5 +21,7 @@ import kotlinx.android.parcel.Parcelize
 data class Voucher(
     val freeShipping: Boolean?,
     val id: String?,
-    val value: Price?
+    val value: Price?,
+    val name: String?,
+    val description: String?
 ):Parcelable
