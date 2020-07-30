@@ -19,9 +19,8 @@ import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.request.GetRetailersInfoRequest
 import com.philips.platform.ecs.microService.request.any
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import org.junit.Assert.assertEquals
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -64,7 +63,7 @@ class ECSRetailerManagerTest {
         try {
             ecsRetailerManager.fetchRetailers(inValidCTN,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6017,e.errorCode)
+            assertEquals(6019,e.errorCode)
         }
 
     }

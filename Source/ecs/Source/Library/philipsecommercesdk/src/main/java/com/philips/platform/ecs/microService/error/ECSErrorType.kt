@@ -148,8 +148,8 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_INVALID_QUANTITY(R.string.ECSPIL_INVALID_PARAMETER_VALUE_quantity, 6016  ), //  quantity >= 0
     ECSPIL_INVALID_PARAMETER_VALUE_quantity(R.string.ECSPIL_INVALID_PARAMETER_VALUE_quantity, 6017  ),
     ECSPIL_NEGATIVE_QUANTITY(R.string.ECSCommerceCartModificationError, 6018  ),
-    ECSPIL_MISSING_PARAMETER_productId(R.string.ECSCtnNotProvided, 6019 ),
-    ECSPIL_INVALID_PARAMETER_VALUE_productId(R.string.ECSPIL_NOT_FOUND_productId, 6020  ),
+    ECSPIL_MISSING_PARAMETER_productId(R.string.ECSCtnNotProvided, 6019 ),//Please provide the CTN
+    ECSPIL_INVALID_PARAMETER_VALUE_productId(R.string.ECSPIL_NOT_FOUND_productId, 6020  ),//Please provide valid CTN
     ECSPIL_STOCK_EXCEPTION(R.string.ECSPIL_STOCK_EXCEPTION, 6021  ),
     ECSPIL_INVALID_PARAMETER_VALUE_itemId(R.string.ECSCartEntryError, 6022 ),
     ECSPIL_NOT_FOUND_cartId(R.string.ECSPIL_NOT_FOUND_cartId, 6023  ),

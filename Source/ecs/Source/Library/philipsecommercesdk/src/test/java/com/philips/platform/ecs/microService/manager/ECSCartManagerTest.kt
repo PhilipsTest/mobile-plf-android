@@ -4,6 +4,7 @@ import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
@@ -136,7 +137,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6017, e.errorCode)
+            assertEquals(6019, e.errorCode)
         }
     }
 
@@ -146,7 +147,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(validCTN,0,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6015, e.errorCode)
+            assertEquals(6016, e.errorCode)
         }
     }
 
@@ -220,7 +221,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6017, e.errorCode)
+            assertEquals(6019, e.errorCode)
         }
     }
 
@@ -230,7 +231,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(validCTN,0,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6015, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_QUANTITY.errorCode, e.errorCode)
         }
     }
 
