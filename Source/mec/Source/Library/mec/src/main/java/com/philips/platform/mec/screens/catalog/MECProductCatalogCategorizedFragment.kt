@@ -33,7 +33,7 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
         val builder = AlertDialogFragment.Builder(context)
         builder.setCancelable(false)
 
-        var alertDialogFragment = builder.create()
+        val alertDialogFragment = builder.create()
         builder.setMessage(resources.getString(R.string.mec_threshold_message))
         builder.setPositiveButton(getString(R.string.mec_ok), fun(it: View) {
 
@@ -83,10 +83,13 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
             }
 
         }
+
+        if(isNoProductFound()) showNoProduct()
     }
 
     private fun isAllCategorizedProductFound() :Boolean{
         return categorizedCtns?.size == mProductsWithReview.size
     }
+
 }
 

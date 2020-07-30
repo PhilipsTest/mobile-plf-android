@@ -135,7 +135,7 @@
                     android:layout_weight="0.75"
                     android:id="@+id/et_product_category"
                     android:layout_width="0dp"
-                    android:hint="enter max count"
+                    android:hint="enter product category"
                     android:inputType="number"
                     android:layout_height="wrap_content"
                     />

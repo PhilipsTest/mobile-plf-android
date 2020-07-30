@@ -125,12 +125,13 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
 
     private val mProductObserver = Observer<com.philips.platform.ecs.microService.model.product.ECSProducts>{
-
+          offSet += limit
           var commerceProducts = it.commerceProducts
           if(commerceProducts.size< limit) isAllProductDownloaded = true
 
           if(commerceProducts.isNotEmpty()){
 
+              //Process commerce product for categorization
               if(isCategorizedHybrisPagination()){
                   commerceProducts = mECProductCatalogService.getCategorizedProducts(categorizedCtns,commerceProducts)
                   if(commerceProducts.isEmpty()){
@@ -146,10 +147,20 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
           }else{
               dismissPaginationProgressBar()
               dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-              if(offSet == 0)showNoProduct()
+              decideToShowNoProduct()
               isCallOnProgress = false
           }
-        offSet += limit
+
+    }
+
+    private fun decideToShowNoProduct() {
+        if (isPaginationSupported()) {
+            if (isNoProductFound()) {
+                showNoProduct() // if pagination is supported , check all pages are downloaded and still no products shown on recyclerview
+            }
+        } else {
+            showNoProduct()
+        }
     }
 
 
@@ -420,6 +431,10 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         dismissPaginationProgressBar()
         dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         if(offSet == 0)showNoProduct()
+    }
+
+    internal fun isNoProductFound() : Boolean{
+        return isAllProductDownloaded && mProductsWithReview.size == 0
     }
 
 }
