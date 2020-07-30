@@ -171,17 +171,17 @@
             }
          ],
          "appliedVouchers": [
-            {
-               "id": "ECS-_PIL-_Vou-cher-TZ8S-5XZ5-S7E7",
-               "name": "ECS PIL Voucher Description",
-               "description": "ECS PIL Voucher Promotion",
-               "freeShipping": false,
-               "value": {
-                  "currency": "USD",
-                  "formattedValue": "10.00 $",
-                  "value": 10.0
-               }
-            }
+             {
+                 "id": "ECS-_PIL-_Vou-cher-TZ8S-5XZ5-S7E7",
+                 "name": "ECS PIL Voucher Description",
+                 "description": "ECS PIL Voucher Promotion",
+                 "freeShipping": false,
+                 "value": {
+                     "currency": "USD",
+                     "formattedValue": "10.00 $",
+                     "value": 10.0
+                 }
+             }
          ],
          "deliveryAddress":{
             "billingAddress":false,
