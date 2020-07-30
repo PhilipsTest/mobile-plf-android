@@ -95,7 +95,7 @@ class ECSProductManagerTest {
     fun getProducts() {
 
         ECSDataHolder.locale = "en_US"
-        ECSDataHolder.config = ECSConfig("en_US",isHybris = true)
+        ECSDataHolder.config = ECSConfig(isHybris = true)
         setApiKey()
 
         var ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {
@@ -122,7 +122,7 @@ class ECSProductManagerTest {
     fun `getProducts With limit greater than 50  when Locale is present and hybris is available with api key`() {
 
         ECSDataHolder.locale = "en_US"
-        ECSDataHolder.config = ECSConfig("en_US",isHybris = true)
+        ECSDataHolder.config = ECSConfig(isHybris = true)
         setApiKey()
 
         var ecsCallbackGetProducts = object : ECSCallback<ECSProducts, ECSError> {
@@ -173,7 +173,7 @@ class ECSProductManagerTest {
     fun `get Product should throw exception when hybris is there but api key is not present`() {
 
         ECSDataHolder.locale = "en_US"
-        ECSDataHolder.config = ECSConfig("en_US",isHybris = true)
+        ECSDataHolder.config = ECSConfig(isHybris = true)
 
         setApiKeyNull()
 
@@ -256,11 +256,11 @@ class ECSProductManagerTest {
     @Test
     fun fetchProductSummaries() {
 
-        var eCSCallbackGetSummaryForSingleProduct = object : ECSCallback<ECSProducts, ECSError> {
+        var eCSCallbackGetSummaryForSingleProduct = object : ECSCallback<List<ECSProduct>, ECSError> {
 
-            override fun onResponse(result: ECSProducts) {
+            override fun onResponse(result: List<ECSProduct>) {
                 assertNotNull(result)
-                assertEquals(2, result.commerceProducts.size)
+                assertEquals(2, result.size)
             }
 
             override fun onFailure(ecsError: ECSError) {
@@ -276,8 +276,7 @@ class ECSProductManagerTest {
             var ecsProduct = ECSProduct(null, ctn, null)
             ecsProductList.add(ecsProduct)
         }
-        var ecsProducts = ECSProducts(ecsProductList)
-        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetSummaryForSingleProduct.onResponse(ecsProducts) }
+        Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetSummaryForSingleProduct.onResponse(ecsProductList) }
         mECSProductManager.fetchProductSummaries(ctnList, eCSCallbackGetSummaryForSingleProduct)
         Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetSummaryForSingleProductMock.onResponse(productListMock) }
 

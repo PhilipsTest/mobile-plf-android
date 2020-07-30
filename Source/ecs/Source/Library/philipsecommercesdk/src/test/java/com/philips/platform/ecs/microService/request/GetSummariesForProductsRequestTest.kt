@@ -18,10 +18,10 @@ import com.android.volley.NetworkError
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
-import com.philips.platform.ecs.microService.model.product.ECSProducts
 import org.json.JSONObject
-import org.junit.Assert.*
 import org.junit.Before
+
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -41,7 +41,7 @@ class GetSummariesForProductsRequestTest {
 
   //  val ecsProducts:List<ECSProduct>,
     @Mock
-    lateinit var ecsCallbackMock: ECSCallback<ECSProducts, ECSError>
+    lateinit var ecsCallbackMock: ECSCallback<List<ECSProduct>, ECSError>
 
 
     var ecsProduct1 = ECSProduct(null,"QP2520/70",null)
@@ -49,7 +49,6 @@ class GetSummariesForProductsRequestTest {
     var ecsProduct3 = ECSProduct(null,"HX505/01",null)
 
     var productList = mutableListOf<ECSProduct>()
-    var ecsProducts =  ECSProducts(productList)
 
     @Before
     fun setUp() {
@@ -91,7 +90,7 @@ class GetSummariesForProductsRequestTest {
         assertNotNull(productList[0].summary)
         assertNotNull(productList[1].summary)
         assertNull(productList[2].summary)
-        Mockito.verify(ecsCallbackMock).onResponse(ecsProducts)
+        Mockito.verify(ecsCallbackMock).onResponse(productList)
     }
 
 
@@ -103,7 +102,7 @@ class GetSummariesForProductsRequestTest {
         assertNotNull(productList[0].summary)
         assertNotNull(productList[1].summary)
         assertNull(productList[2].summary)
-        Mockito.verify(ecsCallbackMock).onResponse(ecsProducts)
+        Mockito.verify(ecsCallbackMock).onResponse(productList)
     }
 
     @Mock
