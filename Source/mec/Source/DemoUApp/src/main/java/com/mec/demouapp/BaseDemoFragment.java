@@ -126,6 +126,7 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
 
             mBtn_add_voucher.setOnClickListener(this);
             mbtnSetMaxCount.setOnClickListener(this);
+            mBtnSetProductCategory.setOnClickListener(this);
 
             bvCheckBox.setOnCheckedChangeListener(this);
 
@@ -475,6 +476,8 @@ public class BaseDemoFragment extends Fragment implements View.OnClickListener, 
         } else if (view == mBtnSetProductCategory) {
             if (mEtProductCategory.getText().toString().length() > 0) {
                 productCategory = mEtProductCategory.getText().toString();
+            }else{
+                productCategory =null;
             }
             mEtProductCategory.setText("");
         }
