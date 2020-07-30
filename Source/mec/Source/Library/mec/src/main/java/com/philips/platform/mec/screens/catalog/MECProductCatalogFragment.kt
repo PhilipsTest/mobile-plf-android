@@ -33,9 +33,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.productCataloguePage
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.gridView
+import com.philips.platform.mec.analytics.MECAnalyticsConstant.listView
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecCatalogFragmentBinding
@@ -220,8 +223,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
-                    //TODO
-                    // MECAnalytics.tagProductList(mPILProductsWithReview, gridView)
+                    MECAnalytics.tagProductList(getProductsFromProductsWithReview(), gridView)
                 }
             }
 
@@ -233,8 +235,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
-                     //TODO
-                   // MECAnalytics.tagProductList(productList, listView)
+                    MECAnalytics.tagProductList(getProductsFromProductsWithReview(), listView)
                 }
             }
 
@@ -320,6 +321,15 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             fetchShoppingCartData()
         }
         return binding.root
+    }
+
+    private fun getProductsFromProductsWithReview(): MutableList<ECSProduct> {
+        val ecsProductList = mutableListOf<ECSProduct>()
+
+        for(productWithReview in mProductsWithReview){
+            ecsProductList.add(productWithReview.ecsProduct)
+        }
+        return ecsProductList
     }
 
     private fun fetchShoppingCartData() {

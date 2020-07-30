@@ -205,16 +205,16 @@ class MECAnalytics {
         * format "[Category];[Product1];[Quantity];[Total Price]"
         * */
         @JvmStatic
-        fun tagProductList(productList: MutableList<ECSProduct>, listOrGrid: String) {
+        fun tagProductList(productList: MutableList<com.philips.platform.ecs.microService.model.product.ECSProduct>, listOrGrid: String) {
             val map = getProductListAndGridMap( productList, listOrGrid)
             if(map.size>0) {
                 trackMultipleActions(sendData, map)
             }
         }
 
-        internal fun getProductListAndGridMap( productList: MutableList<ECSProduct>, listOrGrid: String): HashMap<String, String> {
+        internal fun getProductListAndGridMap( productList: MutableList<com.philips.platform.ecs.microService.model.product.ECSProduct>, listOrGrid: String): HashMap<String, String> {
             val map = HashMap<String, String>()
-            if (productList != null && productList.size > 0) {
+            if (productList.size > 0) {
                 map.put(productListLayout, listOrGrid)
                 val mutableProductIterator = productList.iterator()
                 var productListString: String = ""
