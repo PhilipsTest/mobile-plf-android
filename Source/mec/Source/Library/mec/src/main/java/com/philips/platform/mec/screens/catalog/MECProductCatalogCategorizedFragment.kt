@@ -26,7 +26,7 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
         return true
     }
 
-    private var isBatchFetched = false
+    private var batchValue = limit
 
     private fun showCategorizedFetchDialog(){
 
@@ -75,8 +75,10 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
         }else{
             if(!isAllProductDownloaded && !isAllCategorizedProductFound()){
 
-                if(mProductsWithReview.size == 0 || mProductsWithReview.size % limit !=0) { //TODO for zero product found first
+                if(mProductsWithReview.size == 0 || mProductsWithReview.size % batchValue !=0) {
                     executeCategorizedRequest()
+                }else{
+                    batchValue += limit //To fetch searched item in limit batch ex- 20,40,60
                 }
             }
 

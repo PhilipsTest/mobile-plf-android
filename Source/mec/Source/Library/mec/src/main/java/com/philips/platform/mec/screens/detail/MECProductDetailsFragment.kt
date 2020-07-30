@@ -166,14 +166,14 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
             ecsRetailerViewModel = ViewModelProvider(this).get(ECSRetailerViewModel::class.java)
 
-            ecsRetailerViewModel.ecsRetailerList.observe(viewLifecycleOwner, eCSRetailerListObserver)
+            ecsRetailerViewModel.ecsRetailerList.observe(this, eCSRetailerListObserver)
 
 
-            ecsProductDetailViewModel.ecsProduct.observe(viewLifecycleOwner, productObserver)
+            ecsProductDetailViewModel.ecsProduct.observe(this, productObserver)
 
 
-            ecsProductDetailViewModel.bulkRatingResponse.observe(viewLifecycleOwner, ratingObserver)
-            ecsProductDetailViewModel.mecError.observe(viewLifecycleOwner, this)
+            ecsProductDetailViewModel.bulkRatingResponse.observe(this, ratingObserver)
+            ecsProductDetailViewModel.mecError.observe(this, this)
 
 
 
