@@ -288,6 +288,29 @@ class ErrorHandlerTest {
         assertEquals(ECSErrorType.ECSPIL_STOCK_EXCEPTION.errorCode, PilError.errorCode)
     }
 
+
+    @Test
+    fun `cart invalid mime type`(){
+
+        val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CartInvalidMimeType.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        assertEquals(ECSErrorType.ECSPIL_NOT_ACCEPTABLE_mimeType.errorCode, PilError.errorCode)
+    }
+
+    @Test
+    fun ` invalid quantity format  `(){
+
+        val errorString = ClassLoader.getSystemResource("pil/cart/Failure/UpdateCartWithInvalidFormatEntryNumber.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_quantity.errorCode, PilError.errorCode)
+    }
+
     @Test
     fun `test ecs error  for create cart with quantity more than stock`() {
     }

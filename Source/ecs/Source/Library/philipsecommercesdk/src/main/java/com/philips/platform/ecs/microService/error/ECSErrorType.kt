@@ -60,73 +60,6 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     //PIL Service
 
 
-    /*
-  case ECSPIL_MISSING_PARAMETER_siteId            = 6000
-
-    case ECSPIL_INVALID_PARAMETER_VALUE_siteId      = 6001
-
-    case ECSPIL_MISSING_PARAMETER_country           = 6002
-
-    case ECSPIL_MISSING_PARAMETER_language          = 6003
-
-    case ECSPIL_INVALID_PARAMETER_VALUE_locale      = 6004
-
-    case ECSPIL_NOT_FOUND_productId                 = 6005
-
-    case ECSPIL_MISSING_API_VERSION                 = 6006
-
-    case ECSPIL_INVALID_API_VERSION                 = 6007
-
-    case ECSPIL_MISSING_API_KEY                     = 6008
-
-    case ECSPIL_INVALID_API_KEY                     = 6009
-
-    case ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT        = 6010
-
-    case ECSPIL_NOT_ACCEPTABLE                      = 6011
-
-    case ECSPIL_INTEGRATION_TIMEOUT                 = 6012
-
-    case ECSPIL_BAD_REQUEST                         = 6013
-
-    case ECSPIL_UNSUPPORTED_MEDIA_TYPE              = 6014
-
-    case ECSPIL_NOT_ACCEPTABLE_mimeType             = 6015
-
-    case ECSPIL_INVALID_QUANTITY                    = 6016
-
-    case ECSPIL_INVALID_PARAMETER_VALUE_quantity    = 6017
-
-    case ECSPIL_NEGATIVE_QUANTITY                   = 6018
-
-    case ECSPIL_MISSING_PARAMETER_productId         = 6019
-
-    case ECSPIL_INVALID_PARAMETER_VALUE_productId   = 6020
-
-    case ECSPIL_STOCK_EXCEPTION                     = 6021
-
-    case ECSPIL_INVALID_PARAMETER_VALUE_itemId      = 6022
-
-    case ECSPIL_NOT_FOUND_cartId                    = 6023
-
-    case ECSPIL_BAD_REQUEST_cartId                  = 6024
-
-    case ECSPIL_INVALID_AUTHORIZATION_accessToken   = 6025
-
-    "ECSPIL_INVALID_PARAMETER_VALUE_quantity" = "Please provide a valid quantity";
-
-"ECSPIL_NOT_FOUND_cartId" = "Please provide a valid Cart Id";
-
-"ECSPIL_NOT_ACCEPTABLE_mimeType" = "We have encountered technical glitch. Please try after some time";
-
-"ECSPIL_INVALID_PARAMETER_VALUE_productId" = "Please provide valid CTN";
-
-"ECSPIL_INVALID_PARAMETER_VALUE_itemId" = "The Product is not added in Cart";
-
-"ECSPIL_BAD_REQUEST_cartId" = "No cart created yet";
-
-"ECSPIL_INVALID_AUTHORIZATION_accessToken" = "We have encountered technical glitch (Invalid access token). Please do Hybris Re-Auth";
-     */
 
 
     ECSPIL_MISSING_PARAMETER_siteId(R.string.ECSPIL_MISSING_PARAMETER_siteId, 6000),
@@ -156,7 +89,7 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_BAD_REQUEST_cartId(R.string.ECSCartError, 6024  ),
     ECSPIL_INVALID_AUTHORIZATION_accessToken(R.string.ECSInvalidTokenError, 6025  );
 
-    // todo promotionFilter , invalid offset
+
 
 
 

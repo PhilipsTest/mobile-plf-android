@@ -193,6 +193,33 @@ class GetCartRequestTest {
         getCartRequest.onResponse(jsonObject)
     }
 
+
+    @Test
+    fun `Fetch Cart US Success Json with no delivery address`() {
+
+        val callBack = object : ECSCallback<ECSShoppingCart, ECSError>{
+            override fun onResponse(result: ECSShoppingCart) {
+                assertNotEquals(0,result.data?.attributes?.promotions?.appliedProductPromotions?.size)
+                assertNotEquals(0,result.data?.attributes?.promotions?.appliedPromotions?.size)
+
+                assertEquals("ECS PIL Voucher Description",result.data?.attributes?.appliedVouchers?.get(0)?.name)
+                assertEquals("ECS PIL Voucher Promotion",result.data?.attributes?.appliedVouchers?.get(0)?.description)
+                assertEquals(10.0,result.data?.attributes?.appliedVouchers?.get(0)?.value?.value)
+            }
+
+            override fun onFailure(ecsError: ECSError) {
+                fail()
+            }
+        }
+        getCartRequest = GetCartRequest(callBack)
+
+        val errorString =   ClassLoader.getSystemResource("pil/cart/Success/FetchCartNoDeliveryAddress.json").readText()
+      // todo json need to be replaced with new one, this old json has format error
+
+       /* val jsonObject = JSONObject(errorString)
+        getCartRequest.onResponse(jsonObject)*/
+    }
+
     private fun setApiKey() {
         Mockito.`when`(appConfigurationInterfaceMock.getPropertyForKey(any(String::class.java), any(String::class.java), any(AppConfigurationInterface.AppConfigurationError::class.java))).thenReturn("yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP")
         Mockito.`when`(appInfraMock.configInterface).thenReturn(appConfigurationInterfaceMock)
