@@ -1,12 +1,12 @@
 {
     "errors": [
         {
-            "id": "bbd1c723-5120-4745-8cfe-ed9278ae483b",
+            "id": "4876bc2a-0c1a-4b62-9b1f-665eb338df8e",
             "status": "400",
-            "code": "BAD_REQUEST",
+            "code": "INVALID_PARAMETER_VALUE",
             "title": "Client error in API request",
             "source": {
-                "parameter": " Product with code 'HD9220/26' not found!"
+                "parameter": "[productId]"
             }
         }
     ]

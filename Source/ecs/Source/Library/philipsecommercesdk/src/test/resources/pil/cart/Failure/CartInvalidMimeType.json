@@ -1,0 +1,13 @@
+{
+   "errors":[
+      {
+         "id":"f1bde970-9bba-4c8a-a679-9af141e8e846",
+         "status":"406",
+         "code":"NOT_ACCEPTABLE",
+         "title":"Content type not acceptable.",
+         "source":{
+            "parameter":"[mimeType]"
+         }
+      }
+   ]
+}

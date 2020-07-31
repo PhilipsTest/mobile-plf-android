@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "b3f7bdb4-86fa-4bce-a852-d905458f6ee6",
+            "status": "412",
+            "code": "INVALID_PARAMETER_VALUE",
+            "title": "The parameter value is invalid",
+            "source": {
+                "parameter": "[quantity]"
+            }
+        }
+    ]
+}

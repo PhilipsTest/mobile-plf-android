@@ -21,10 +21,15 @@
   <string name="ECSOAuthDetailError">Укажите полные сведения OAuth</string>
   <string name="ECSOAuthNotCalled">Для этого действия требуется авторизация пользователя</string>
   <string name="ECSPIL_BAD_REQUEST">Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Корзина еще не создана</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Мы столкнулись с технической ошибкой (недопустимый маркер доступа). Выполните Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Продукт не добавлен в корзину</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Выберите локаль</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[ru]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[ru]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Магазин Philips недоступен для выбранной страны, доступен только режим ритейлера</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
   <string name="ECSPIL_INVALID_QUANTITY">[ru]Quantity must be greater than zero</string>
@@ -36,6 +41,8 @@
   <string name="ECSPIL_MISSING_PARAMETER_siteId">Магазин Philips недоступен для выбранной страны, доступен только режим ритейлера</string>
   <string name="ECSPIL_NEGATIVE_QUANTITY">Количество не может быть меньше нуля</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[ru]Please provide a valid Cart Id</string>
   <string name="ECSPIL_NOT_FOUND_productId">[ru]Please provide valid CTN</string>
   <string name="ECSPIL_STOCK_EXCEPTION">Продукт не может быть отправлен, поскольку он отсутствует на складе</string>
   <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время</string>

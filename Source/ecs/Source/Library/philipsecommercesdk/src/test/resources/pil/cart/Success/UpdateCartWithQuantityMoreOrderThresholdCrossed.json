@@ -153,11 +153,11 @@
             "town":"Berlin"
          },
          "notifications":[
-             {
-                 "id":"thresholdExceeded",
-                 "message":"<b>Order cannot exceed €2300</b>,-  Please lower your order value to proceed to check out.",
-                 "orderBlocking":true
-             }
+            {
+               "id":"thresholdExceeded",
+               "message":"<b>Order cannot exceed €2300</b>,-  Please lower your order value to proceed to check out.",
+               "orderBlocking":true
+            }
          ]
       }
    }

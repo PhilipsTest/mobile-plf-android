@@ -21,10 +21,15 @@
   <string name="ECSOAuthDetailError">Εισαγάγετε πλήρη στοιχεία OAuth</string>
   <string name="ECSOAuthNotCalled">Απαιτείται έλεγχος ταυτότητας χρήστη για αυτήν την ενέργεια</string>
   <string name="ECSPIL_BAD_REQUEST">Αντιμετωπίσαμε τεχνικό πρόβλημα. Δοκιμάστε ξανά σε λίγη ώρα</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Δεν δημιουργήθηκε καλάθι ακόμη</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Αντιμετωπίσαμε τεχνικό πρόβλημα. Δοκιμάστε ξανά σε λίγη ώρα</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Αντιμετωπίσαμε τεχνικό πρόβλημα (μη έγκυρο διακριτικό πρόσβασης). Πραγματοποιήστε Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Το προϊόν δεν προστέθηκε στο καλάθι</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Επιλέξτε τοπικές ρυθμίσεις</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[el]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[el]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
   <string name="ECSPIL_INVALID_QUANTITY">[el]Quantity must be greater than zero</string>
@@ -36,6 +41,8 @@
   <string name="ECSPIL_MISSING_PARAMETER_siteId">Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής</string>
   <string name="ECSPIL_NEGATIVE_QUANTITY">Η ποσότητα δεν πρέπει να είναι μικρότερη από μηδέν</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Αντιμετωπίσαμε τεχνικό πρόβλημα. Δοκιμάστε ξανά σε λίγη ώρα</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Αντιμετωπίσαμε τεχνικό πρόβλημα. Δοκιμάστε ξανά σε λίγη ώρα</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[el]Please provide a valid Cart Id</string>
   <string name="ECSPIL_NOT_FOUND_productId">[el]Please provide valid CTN</string>
   <string name="ECSPIL_STOCK_EXCEPTION">Το προϊόν δεν μπορεί να αποσταλεί καθώς έχει εξαντληθεί</string>
   <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Αντιμετωπίσαμε τεχνικό πρόβλημα. Δοκιμάστε ξανά σε λίγη ώρα</string>

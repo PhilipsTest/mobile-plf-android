@@ -1,12 +1,12 @@
 {
     "errors": [
         {
-            "id": "866a3dd3-ce2b-49e9-85a2-848c40c80b96",
+            "id": "945aab87-aa6c-43f6-8781-ca6bbab47c09",
             "status": "400",
-            "code": "BAD_REQUEST",
+            "code": "INVALID_PARAMETER_VALUE",
             "title": "Client error in API request",
             "source": {
-                "parameter": "Language [de1_de1] is not supported"
+                "parameter": "[locale]"
             }
         }
     ]

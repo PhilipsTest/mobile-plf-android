@@ -1,12 +1,12 @@
 {
     "errors": [
         {
-            "id": "7700fdb3-21b9-4bfc-9100-19f534bc606e",
+            "id": "566bb834-e783-4f97-afe3-a2eabca8de20",
             "status": "400",
-            "code": "BAD_REQUEST",
+            "code": "INVALID_PARAMETER_VALUE",
             "title": "Client error in API request",
             "source": {
-                "parameter": " Product with code 'HR3657/9011' not found!"
+                "parameter": "[productId]"
             }
         }
     ]

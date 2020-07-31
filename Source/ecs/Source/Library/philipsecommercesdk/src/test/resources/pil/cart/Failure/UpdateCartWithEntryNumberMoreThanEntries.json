@@ -1,13 +1,13 @@
 {
-   "errors":[
-      {
-         "id":"d08abb39-b4c0-40e3-b452-768440e445f4",
-         "status":"400",
-         "code":"BAD_REQUEST",
-         "title":"Client error in API request",
-         "source":{
-            "parameter":" Entry not found."
-         }
-      }
-   ]
+    "errors": [
+        {
+            "id": "43c52a27-6733-4319-b541-38135f0e7bd3",
+            "status": "400",
+            "code": "INVALID_PARAMETER_VALUE",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "[itemId]"
+            }
+        }
+    ]
 }

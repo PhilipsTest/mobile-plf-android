@@ -4,6 +4,7 @@ import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
@@ -75,7 +76,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.fetchShoppingCart(ecsCallbackMock)
         }catch (e : ECSException){
-          assertEquals(5052, e.errorCode)
+          assertEquals(ECSErrorType.ECSLocaleNotFound.errorCode, e.errorCode)
         }
     }
 
@@ -88,7 +89,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.fetchShoppingCart(ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5054, e.errorCode)
+            assertEquals(ECSErrorType.ECSSiteIdNotFound.errorCode, e.errorCode)
         }
     }
 
@@ -99,7 +100,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.fetchShoppingCart(ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6009, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode, e.errorCode)
         }
     }
 
@@ -112,7 +113,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.fetchShoppingCart(ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5057, e.errorCode)
+            assertEquals(ECSErrorType.ECSOAuthNotCalled.errorCode, e.errorCode)
         }
     }
 
@@ -136,7 +137,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6017, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, e.errorCode)
         }
     }
 
@@ -146,7 +147,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(validCTN,0,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6015, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_QUANTITY.errorCode, e.errorCode)
         }
     }
 
@@ -158,7 +159,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5052, e.errorCode)
+            assertEquals(ECSErrorType.ECSLocaleNotFound.errorCode, e.errorCode)
         }
     }
 
@@ -171,7 +172,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5054, e.errorCode)
+            assertEquals(ECSErrorType.ECSSiteIdNotFound.errorCode, e.errorCode)
         }
     }
 
@@ -182,7 +183,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6009, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode, e.errorCode)
         }
     }
 
@@ -193,7 +194,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5057, e.errorCode)
+            assertEquals(ECSErrorType.ECSOAuthNotCalled.errorCode, e.errorCode)
         }
     }
 
@@ -220,7 +221,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6017, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, e.errorCode)
         }
     }
 
@@ -230,7 +231,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(validCTN,0,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6015, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_QUANTITY.errorCode, e.errorCode)
         }
     }
 
@@ -242,7 +243,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5052, e.errorCode)
+            assertEquals(ECSErrorType.ECSLocaleNotFound.errorCode, e.errorCode)
         }
     }
 
@@ -255,7 +256,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5054, e.errorCode)
+            assertEquals(ECSErrorType.ECSSiteIdNotFound.errorCode, e.errorCode)
         }
     }
 
@@ -266,7 +267,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6009, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode, e.errorCode)
         }
     }
 
@@ -277,7 +278,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(validCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5057, e.errorCode)
+            assertEquals(ECSErrorType.ECSOAuthNotCalled.errorCode, e.errorCode)
         }
     }
 
@@ -305,7 +306,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.updateShoppingCart("entry",0,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5007, e.errorCode)
+            assertEquals(ECSErrorType.ECSCommerceCartModificationError.errorCode, e.errorCode)
         }
     }
 
@@ -317,7 +318,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.updateShoppingCart("entry",6,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5052, e.errorCode)
+            assertEquals(ECSErrorType.ECSLocaleNotFound.errorCode, e.errorCode)
         }
     }
 
@@ -330,7 +331,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.updateShoppingCart("entry", 2,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5054, e.errorCode)
+            assertEquals(ECSErrorType.ECSSiteIdNotFound.errorCode, e.errorCode)
         }
     }
 
@@ -341,7 +342,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.updateShoppingCart("entry",5,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6009, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode, e.errorCode)
         }
     }
 
@@ -352,7 +353,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.updateShoppingCart("entry",4,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5057, e.errorCode)
+            assertEquals(ECSErrorType.ECSOAuthNotCalled.errorCode, e.errorCode)
         }
     }
 

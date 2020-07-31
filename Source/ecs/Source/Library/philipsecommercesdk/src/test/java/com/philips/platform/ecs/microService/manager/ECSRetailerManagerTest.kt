@@ -14,14 +14,14 @@ package com.philips.platform.ecs.microService.manager
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.error.ECSException
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.microService.request.GetRetailersInfoRequest
 import com.philips.platform.ecs.microService.request.any
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import org.junit.Assert.assertEquals
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -53,7 +53,7 @@ class ECSRetailerManagerTest {
         try {
             ecsRetailerManager.fetchRetailers(validCTN,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(5052,e.errorCode)
+            assertEquals(ECSErrorType.ECSLocaleNotFound.errorCode,e.errorCode)
         }
 
     }
@@ -64,7 +64,7 @@ class ECSRetailerManagerTest {
         try {
             ecsRetailerManager.fetchRetailers(inValidCTN,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(6017,e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode,e.errorCode)
         }
 
     }

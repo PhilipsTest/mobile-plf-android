@@ -21,10 +21,15 @@
   <string name="ECSOAuthDetailError">OAuth の完全な詳細を提供してください</string>
   <string name="ECSOAuthNotCalled">この操作にはユーザー認証が必要です</string>
   <string name="ECSPIL_BAD_REQUEST">技術的な問題が発生しました。しばらくしてから再試行してください</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">カートはまだ作成されていません</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">技術的な問題が発生しました。しばらくしてから再試行してください</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">技術的な問題が発生しました（無効なアクセストークン）。Hybris Re-Auth を実行してください</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">この製品はカードに追加されていません</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">ロケールを設定してください</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[ja]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[ja]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">選択された国ではフィリップスショップはご利用いただけません。リテーラーモードのみご利用いただけます。</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
   <string name="ECSPIL_INVALID_QUANTITY">[ja]Quantity must be greater than zero</string>
@@ -36,6 +41,8 @@
   <string name="ECSPIL_MISSING_PARAMETER_siteId">選択された国ではフィリップスショップはご利用いただけません。リテーラーモードのみご利用いただけます。</string>
   <string name="ECSPIL_NEGATIVE_QUANTITY">数量は 0 以上で指定してください</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">技術的な問題が発生しました。しばらくしてから再試行してください</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">技術的な問題が発生しました。しばらくしてから再試行してください</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[ja]Please provide a valid Cart Id</string>
   <string name="ECSPIL_NOT_FOUND_productId">[ja]Please provide valid CTN</string>
   <string name="ECSPIL_STOCK_EXCEPTION">製品は在庫切れのため発送できません</string>
   <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">技術的な問題が発生しました。しばらくしてから再試行してください</string>

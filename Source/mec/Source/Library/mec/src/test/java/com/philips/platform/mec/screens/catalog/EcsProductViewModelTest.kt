@@ -62,9 +62,5 @@ class EcsProductViewModelTest {
         ecsProductViewModel.fetchProductReview(products)
         Mockito.verify(eCSCatalogRepository).fetchProductReview(products, ecsProductViewModel)
     }
-
-    @Test
-    fun `get price to display for product should be as expected`() {
-        
-    }
+    
 }

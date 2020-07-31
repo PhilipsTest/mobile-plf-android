@@ -21,10 +21,15 @@
   <string name="ECSOAuthDetailError">ספק פרטי OAuth מלאים בבקשה</string>
   <string name="ECSOAuthNotCalled">לביצוע פעולה זו נדרש אישור משתמש</string>
   <string name="ECSPIL_BAD_REQUEST">נתקלנו בתקלה טכנית. נסה שוב במועד מאוחר יותר בבקשה</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">עדיין לא נוצרה עגלה</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">נתקלנו בתקלה טכנית. נסה שוב במועד מאוחר יותר בבקשה</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">נתקלנו בתקלה טכנית (אסימון גישה לא חוקי). בצע בבקשה Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">המוצר לא הוסף לעגלה</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">הגדר מקום בבקשה</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[he]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[he]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">החנות של פיליפס אינה זמינה במדינה שנבחרה, רק מצב קמעונאי זמין</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
   <string name="ECSPIL_INVALID_QUANTITY">[he]Quantity must be greater than zero</string>
@@ -36,6 +41,8 @@
   <string name="ECSPIL_MISSING_PARAMETER_siteId">החנות של פיליפס אינה זמינה במדינה שנבחרה, רק מצב קמעונאי זמין</string>
   <string name="ECSPIL_NEGATIVE_QUANTITY">הכמות לא יכולה להיות פחות מאפס</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">נתקלנו בתקלה טכנית. נסה שוב במועד מאוחר יותר בבקשה</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">נתקלנו בתקלה טכנית. נסה שוב במועד מאוחר יותר בבקשה</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[he]Please provide a valid Cart Id</string>
   <string name="ECSPIL_NOT_FOUND_productId">[he]Please provide valid CTN</string>
   <string name="ECSPIL_STOCK_EXCEPTION">לא ניתן לשלוח את המוצר כיוון שהוא אזל מהמלאי</string>
   <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">נתקלנו בתקלה טכנית. נסה שוב במועד מאוחר יותר בבקשה</string>

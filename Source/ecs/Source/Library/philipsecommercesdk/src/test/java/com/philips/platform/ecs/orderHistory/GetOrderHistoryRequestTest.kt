@@ -3,11 +3,11 @@ package com.philips.platform.ecs.orderHistory
 import android.content.Context
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.volley.NoConnectionError
+import com.philips.platform.appinfra.AppInfra
+import com.philips.platform.appinfra.rest.RestInterface
 import com.philips.platform.ecs.MockECSServices
 import com.philips.platform.ecs.MockInputValidator
 import com.philips.platform.ecs.StaticBlock
-import com.philips.platform.appinfra.AppInfra
-import com.philips.platform.appinfra.rest.RestInterface
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -16,7 +16,7 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.robolectric.RobolectricTestRunner
-import java.util.HashMap
+import java.util.*
 
 @RunWith(RobolectricTestRunner::class)
 class GetOrderHistoryRequestTest{
@@ -119,7 +119,7 @@ class GetOrderHistoryRequestTest{
     fun isValidURL() {
 
         System.out.println("print url: "+mockGetOrderHistoryRequest.getURL())
-        val excepted = StaticBlock.getBaseURL() + "pilcommercewebservices" + "/v2/" + StaticBlock.getSiteID() + "/users/current/orders?fields=FULL&lang=" + StaticBlock.getLocale()+"&currentPage="+currentPage
+        val excepted = StaticBlock.getBaseURL() + "pilcommercewebservices" + "/v2/" + StaticBlock.getSiteID() + "/users/current/orders?fields=FULL&lang=" + StaticBlock.getLocale()+"&currentPage="+currentPage +"&pageSize=2"
         assertEquals(excepted, mockGetOrderHistoryRequest.getURL())
     }
 

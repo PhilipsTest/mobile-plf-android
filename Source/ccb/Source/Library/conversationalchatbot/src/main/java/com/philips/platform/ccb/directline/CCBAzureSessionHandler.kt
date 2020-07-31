@@ -1,5 +1,6 @@
 package com.philips.platform.ccb.directline
 
+import android.view.View
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.google.gson.Gson
@@ -35,19 +36,24 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
         })
     }
 
-    override fun startConversation(completionHandler: (CCBConversation?, CCBError?) -> Unit) {
-            val ccbStartConversationRequest = CCBStartConversationRequest()
-            ccbRestClient.invokeRequest(ccbStartConversationRequest, Response.Listener { response: String ->
-                val conversation = Gson().fromJson(response, CCBConversation::class.java)
-                if(conversation!=null) {
-                    CCBManager.streamUrl = conversation.streamUrl
-                }
-                ccbWebSocketConnection = CCBWebSocketConnection()
-                ccbWebSocketConnection!!.connectWebSocket()
-                completionHandler.invoke(conversation, null)
-            }, Response.ErrorListener { error: VolleyError ->
-                completionHandler.invoke(null, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
-            })
+    override fun startConversation(ccbUser: CCBUser, completionHandler: (Boolean, CCBError?) -> Unit) {
+
+        authenticateUser(ccbUser){ success: Boolean, ccbError: CCBError? ->
+            if(success){
+                val ccbStartConversationRequest = CCBStartConversationRequest()
+                ccbRestClient.invokeRequest(ccbStartConversationRequest, Response.Listener { response: String ->
+                    val conversation = Gson().fromJson(response, CCBConversation::class.java)
+                    if(conversation!=null) {
+                        CCBManager.streamUrl = conversation.streamUrl
+                    }
+                    ccbWebSocketConnection = CCBWebSocketConnection()
+                    ccbWebSocketConnection?.createWebSocket()
+                    completionHandler.invoke(true, null)
+                }, Response.ErrorListener { error: VolleyError ->
+                    completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+                })
+            }
+        }
     }
 
     override fun refreshSession(completionHandler: (Boolean, CCBError?) -> Unit) {
@@ -62,6 +68,9 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
     override fun endConversation(completionHandler: (Boolean, CCBError?) -> Unit) {
         val ccbEndConversationRequest = CCBEndConversationRequest()
         ccbRestClient.invokeRequest(ccbEndConversationRequest,Response.Listener { response: String ->
+            ccbWebSocketConnection?.closeSocket()
+            CCBManager.conversationId = null
+            CCBManager.token = null
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
             completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
