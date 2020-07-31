@@ -23,7 +23,7 @@ class ECSCatalogRepository {
         microService.fetchProducts(productCategory = MECDataHolder.INSTANCE.rootCategory, offset = offset, limit = limit, ecsCallback = ecsCallback)
     }
 
-    fun getCategorizedProductsForRetailer(ctnS: MutableList<String>, ecsCallback: ECSProductsCallback, microService: ECSServices) {
+    fun fetchProductSummaries(ctnS: MutableList<String>, ecsCallback: ECSProductsCallback, microService: ECSServices) {
         microService.fetchProductSummaries(ctnS, ecsCallback)
     }
 
@@ -33,7 +33,8 @@ class ECSCatalogRepository {
         val ctnList: MutableList<String> = getCtnList(ecsProducts)
         val bvClient = MECDataHolder.INSTANCE.bvClient
         val request = BulkRatingsRequest.Builder(ctnList, BulkRatingOptions.StatsType.All).addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(MECConstant.KEY_BAZAAR_LOCALE, MECDataHolder.INSTANCE.locale).build()
-        bvClient?.prepareCall(request)?.loadAsync(mecConversationsDisplayCallback)
+        val prepareCall = bvClient?.prepareCall(request)
+        prepareCall?.loadAsync(mecConversationsDisplayCallback)
     }
 
     internal fun getCtnList(ecsProducts: List<ECSProduct>): MutableList<String> {

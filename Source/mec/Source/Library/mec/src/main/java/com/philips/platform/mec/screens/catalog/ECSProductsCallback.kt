@@ -22,13 +22,13 @@ class ECSProductsCallback(private var ecsProductViewModel:EcsProductViewModel) :
 
     var mECRequestType : MECRequestType = MECRequestType.MEC_FETCH_PRODUCTS
 
-    override fun onResponse(ecsProducts:ECSProducts) {
-        ecsProductViewModel.ecsPILProducts.value = ecsProducts
+    override fun onResponse(result:ECSProducts) {
+        ecsProductViewModel.ecsPILProducts.value = result
     }
 
-    override fun onFailure(error: ECSError) {
-        val occECSError = com.philips.platform.ecs.error.ECSError(error.errorCode?:-100,error.errorType?.name)
-        val mecError = MecError(Exception(error), occECSError, mECRequestType)
+    override fun onFailure(ecsError: ECSError) {
+        val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
+        val mecError = MecError(Exception(ecsError), occECSError, mECRequestType)
         ecsProductViewModel.mecError.value = mecError
     }
 }
