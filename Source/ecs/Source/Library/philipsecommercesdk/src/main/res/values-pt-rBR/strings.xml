@@ -21,10 +21,15 @@
   <string name="ECSOAuthDetailError">Forneça detalhes Oauth completos</string>
   <string name="ECSOAuthNotCalled">A autorização do usuário é necessária para esta ação</string>
   <string name="ECSPIL_BAD_REQUEST">Encontramos uma falha técnica. Tente novamente mais tarde</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Nenhum carrinho criado ainda</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Encontramos uma falha técnica. Tente novamente mais tarde</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Encontramos uma falha técnica (token de acesso inválido). Faça a Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">O produto não foi adicionado ao carrinho</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Defina a localidade</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[pt-BR]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[pt-BR]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">A loja Philips não está disponível para o país selecionado, somente o modo de revendedor está disponível</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
   <string name="ECSPIL_INVALID_QUANTITY">[pt-BR]Quantity must be greater than zero</string>
@@ -36,6 +41,8 @@
   <string name="ECSPIL_MISSING_PARAMETER_siteId">A loja Philips não está disponível para o país selecionado, somente o modo de revendedor está disponível</string>
   <string name="ECSPIL_NEGATIVE_QUANTITY">A quantidade não deve ser menor que zero</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Encontramos uma falha técnica. Tente novamente mais tarde</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Encontramos uma falha técnica. Tente novamente mais tarde</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[pt-BR]Please provide a valid Cart Id</string>
   <string name="ECSPIL_NOT_FOUND_productId">[pt-BR]Please provide valid CTN</string>
   <string name="ECSPIL_STOCK_EXCEPTION">Não é possível enviar o produto, pois está fora de estoque</string>
   <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Encontramos uma falha técnica. Tente novamente mais tarde</string>

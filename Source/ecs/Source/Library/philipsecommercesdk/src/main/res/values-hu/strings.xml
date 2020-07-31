@@ -21,10 +21,15 @@
   <string name="ECSOAuthDetailError">Adjon meg teljes OAuth-adatokat</string>
   <string name="ECSOAuthNotCalled">Ehhez a művelethez felhasználói jogosultság szükséges</string>
   <string name="ECSPIL_BAD_REQUEST">Műszaki hiba történt. Próbálja meg később</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Még nincs létrehozva kosár</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Műszaki hiba történt. Próbálja meg később</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Műszaki hiba történt (érvénytelen hozzáférési token). Végezze el a Hybris Re-Auth műveletet</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">A termék nincs hozzáadva a kosárhoz</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Állítsa be a régiót</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[hu]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[hu]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">A Philips bolt nem érhető el a kiválasztott országban, csak a viszonteladói mód érhető el</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
   <string name="ECSPIL_INVALID_QUANTITY">[hu]Quantity must be greater than zero</string>
@@ -36,6 +41,8 @@
   <string name="ECSPIL_MISSING_PARAMETER_siteId">A Philips bolt nem érhető el a kiválasztott országban, csak a viszonteladói mód érhető el</string>
   <string name="ECSPIL_NEGATIVE_QUANTITY">A mennyiség nem lehet nullánál kisebb</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Műszaki hiba történt. Próbálja meg később</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Műszaki hiba történt. Próbálja meg később</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[hu]Please provide a valid Cart Id</string>
   <string name="ECSPIL_NOT_FOUND_productId">[hu]Please provide valid CTN</string>
   <string name="ECSPIL_STOCK_EXCEPTION">A termék nem szállítható, mert nincs raktáron</string>
   <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Műszaki hiba történt. Próbálja meg később</string>

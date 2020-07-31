@@ -21,10 +21,15 @@
   <string name="ECSOAuthDetailError">Uveďte úplné podrobnosti OAuth</string>
   <string name="ECSOAuthNotCalled">Na tento úkon sa vyžaduje oprávnenie používateľa</string>
   <string name="ECSPIL_BAD_REQUEST">Zaznamenali sme technickú závadu. Skúste to znova o chvíľu</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Zatiaľ nebol vytvorený žiadny košík</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Zaznamenali sme technickú závadu. Skúste to znova o chvíľu</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Zaznamenali sme technickú závadu (neplatný prístupový token). Vykonajte opätovnú autorizáciu Hybris</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Produkt nebol pridaný do košíka</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Nastavte miestne nastavenia</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[sk]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[sk]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Obchod Philips nie je k dispozícii pre vybratú krajinu, je k dispozícii iba režim predajcov</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
   <string name="ECSPIL_INVALID_QUANTITY">[sk]Quantity must be greater than zero</string>
@@ -36,6 +41,8 @@
   <string name="ECSPIL_MISSING_PARAMETER_siteId">Obchod Philips nie je k dispozícii pre vybratú krajinu, je k dispozícii iba režim predajcov</string>
   <string name="ECSPIL_NEGATIVE_QUANTITY">Počet nesmie byť menší ako nula</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Zaznamenali sme technickú závadu. Skúste to znova o chvíľu</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Zaznamenali sme technickú závadu. Skúste to znova o chvíľu</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[sk]Please provide a valid Cart Id</string>
   <string name="ECSPIL_NOT_FOUND_productId">[sk]Please provide valid CTN</string>
   <string name="ECSPIL_STOCK_EXCEPTION">Produkt nie je možné expedovať, pretože je na sklade</string>
   <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Zaznamenali sme technickú závadu. Skúste to znova o chvíľu</string>
