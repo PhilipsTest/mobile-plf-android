@@ -3,11 +3,8 @@ package com.philips.platform.ccb.directline
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.philips.platform.ccb.errors.CCBError
-import com.philips.platform.ccb.integration.ccbCallback
 import com.philips.platform.ccb.manager.CCBManager
-import com.philips.platform.ccb.manager.CCBSettingManager
 import com.philips.platform.ccb.model.CCBConversation
 import com.philips.platform.ccb.model.CCBUser
 import com.philips.platform.ccb.request.CCBAuthenticationRequest
@@ -24,7 +21,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
     private val ccbRestClient by lazy { CCBRestClient() }
 
     override fun authenticateUser(ccbUser: CCBUser, completionHandler: (Boolean, CCBError?) -> Unit) {
-        val ccbAuthenticationRequest = CCBAuthenticationRequest(ccbUser.secretKey)
+        val ccbAuthenticationRequest = CCBAuthenticationRequest(ccbUser.secretKey,ccbUser.name)
 
         ccbRestClient.invokeRequest(ccbAuthenticationRequest, Response.Listener { response: String ->
             val tokenObject = JSONObject(response)
@@ -34,7 +31,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
             CCBManager.conversationId = conversationId
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(false, error.networkResponse?.statusCode?.let { CCBError(it, "Chatbot Error")})
         })
     }
 
@@ -45,7 +42,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
             CCBManager.streamUrl = conversation.streamUrl
             completionHandler.invoke(conversation, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(null, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(null, error.networkResponse?.statusCode?.let { CCBError(it, "Chatbot Error")})
         })
     }
 
@@ -54,7 +51,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
         ccbRestClient.invokeRequest(ccbRefreshTokenRequest,Response.Listener {
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(false, error.networkResponse?.statusCode?.let { CCBError(it, "Chatbot Error")})
         })
     }
 
@@ -63,7 +60,16 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
         ccbRestClient.invokeRequest(ccbEndConversationRequest,Response.Listener { response: String ->
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(false, error.networkResponse?.statusCode?.let { CCBError(it, "Chatbot Error")})
+        })
+    }
+
+    override fun updateConversation(completionHandler: (Boolean, CCBError?) -> Unit) {
+        val ccbEndConversationRequest = CCBEndConversationRequest()
+        ccbRestClient.invokeRequest(ccbEndConversationRequest,Response.Listener { response: String ->
+            completionHandler.invoke(true, null)
+        }, Response.ErrorListener { error: VolleyError ->
+            completionHandler.invoke(false, error.networkResponse?.statusCode?.let { CCBError(it, "Chatbot Error") })
         })
     }
 }

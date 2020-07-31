@@ -12,5 +12,7 @@ interface CCBSessionHandlerInterface {
 
     fun refreshSession(completionHandler: (Boolean, CCBError?) -> Unit)
 
+    fun updateConversation(completionHandler: (Boolean, CCBError?) -> Unit)
+
     fun endConversation(completionHandler: (Boolean, CCBError?) -> Unit)
 }

@@ -1,14 +1,20 @@
 package com.ccb.demouapp.fragments
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.net.wifi.WifiManager
+import android.os.Build
+import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.philips.platform.ccb.integration.FetchAppDataHandler
 
 
 open class CCBBaseFragment : Fragment(), FetchAppDataHandler {
+
+    var deviceSettingsListener: FetchAppDataHandler.DeviceSettingsListener? = null
 
     fun addFragment(newFragment: CCBBaseFragment,
                     isAddWithBackStack: Boolean) {
@@ -46,13 +52,23 @@ open class CCBBaseFragment : Fragment(), FetchAppDataHandler {
                 else
                     "OFF"
 
-            "PUT_SSD" ->
+            "PUT_SSID" ->
                 return getWifiSSD()
         }
         return null
     }
 
-    private fun isWiFiConnected(): Boolean {
+    override fun changeDeviceSettings(key: String, deviceSettingsListener: FetchAppDataHandler.DeviceSettingsListener) {
+        when (key) {
+            "ACTION_WiFi" -> {
+                this.deviceSettingsListener = deviceSettingsListener
+                Log.i("SHASHI", "getDataFromApp : $key")
+                toggleWifi(true)
+            }
+        }
+    }
+
+     private fun isWiFiConnected(): Boolean {
         val connMgr = context?.applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         var isWifiConn: Boolean = false
         var isMobileConn: Boolean = false
@@ -73,5 +89,24 @@ open class CCBBaseFragment : Fragment(), FetchAppDataHandler {
         if (!isWiFiConnected()) return null
         val wifiManager = context?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
         return wifiManager.connectionInfo.ssid
+    }
+
+    private fun toggleWifi(enable: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val panelIntent = Intent(Settings.Panel.ACTION_WIFI)
+            startActivityForResult(panelIntent, 100)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+       // super.onActivityResult(requestCode, resultCode, data)
+        Log.i("Shashi","onActivityResult : $requestCode  $resultCode")
+        if (requestCode == 100 && isWiFiConnected()){
+            deviceSettingsListener?.onSuccess("APP_SYNC-WiFi_Enabled")
+        }else{
+            deviceSettingsListener?.onFailure()
+        }
+
+
     }
 }

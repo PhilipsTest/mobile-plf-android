@@ -8,8 +8,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <application>
         <activity
+            android:configChanges="orientation|layoutDirection|screenLayout|screenSize"
             android:name="com.ccb.demouapp.CCBDemoUAppActivity"
             android:theme="@style/Theme.DLS.Blue.VeryDark"></activity>
     </application>

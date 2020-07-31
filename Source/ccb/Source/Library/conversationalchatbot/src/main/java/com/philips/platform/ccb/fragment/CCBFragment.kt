@@ -34,7 +34,7 @@ class CCBFragment : Fragment(){
     }
 
     private fun connectChatBot(){
-        val ccbUser = CCBUser(CCBUrlBuilder.SECRET_KEY, "SHASHI RANJAN", "")
+        val ccbUser = CCBUser(CCBUrlBuilder.SECRET_KEY, "EMS", "")
         CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser){ success, ccbError ->
             if(success){
                 Log.i(TAG,"Authenticated success!!")
