@@ -2,7 +2,6 @@ package com.philips.cdp.prxclient.datamodels.specification;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.philips.cdp.prxclient.response.ResponseData;

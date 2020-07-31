@@ -425,17 +425,16 @@ class MECutility {
 
         var formattedAddress = ""
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
-        var countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
-        var countryName = countryDisplayName?:""
-        val houseNumber = ecsAddress.houseNumber?:""
+        val countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
+        val countryName = countryDisplayName?:""
+        var houseNumber = ecsAddress.houseNumber?:""
+        if(houseNumber.isNotEmpty()) houseNumber += ", "
         val line1 = ecsAddress.line1?:""
         val line2 = ecsAddress.line2?:""
         val town = ecsAddress.town?:""
         val postalCode = ecsAddress.postalCode?:""
-        formattedAddress = (houseNumber.validateStr()) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
+        formattedAddress = (houseNumber) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
         formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+countryName
-
-        //Remove last comma
 
         return formattedAddress
     }
