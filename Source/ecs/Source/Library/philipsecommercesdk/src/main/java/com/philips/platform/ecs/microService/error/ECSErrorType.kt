@@ -145,7 +145,7 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_BAD_REQUEST(R.string.ECSsomethingWentWrong, 6013  ),
     ECSPIL_UNSUPPORTED_MEDIA_TYPE(R.string.ECSsomethingWentWrong, 6014  ),
     ECSPIL_NOT_ACCEPTABLE_mimeType(R.string.ECSsomethingWentWrong, 6015  ), //   quantity > 0
-    ECSPIL_INVALID_QUANTITY(R.string.ECSPIL_INVALID_PARAMETER_VALUE_quantity, 6016  ), //  quantity >= 0
+    ECSPIL_INVALID_QUANTITY(R.string.ECSPIL_INVALID_QUANTITY, 6016  ), //  quantity >= 0
     ECSPIL_INVALID_PARAMETER_VALUE_quantity(R.string.ECSPIL_INVALID_PARAMETER_VALUE_quantity, 6017  ),
     ECSPIL_NEGATIVE_QUANTITY(R.string.ECSCommerceCartModificationError, 6018  ),
     ECSPIL_MISSING_PARAMETER_productId(R.string.ECSCtnNotProvided, 6019 ),//Please provide the CTN
