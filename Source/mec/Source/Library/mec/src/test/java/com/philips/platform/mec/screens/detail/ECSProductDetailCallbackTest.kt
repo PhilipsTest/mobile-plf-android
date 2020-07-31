@@ -59,13 +59,4 @@ class ECSProductDetailCallbackTest {
         //TODO check value
     }
 
-//    @Test
-//    fun onFailure() {
-//
-//        val exception = Exception()
-//        val ecsError = ECSError(1000, "UNKNOWN")
-//        ecsProductDetailCallback.onFailure(exception, ecsError)
-//        assertNotNull(ecsProductDetailViewModel.mecError)
-//        //TODO check value
-//    }
 }

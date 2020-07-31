@@ -61,8 +61,9 @@ class EcsProductDetailViewModelTest {
 
     @Test(expected = KotlinNullPointerException::class)
     fun shouldGetBazaarVoiceReview() {
-        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
         ecsProductDetailViewModel.getBazaarVoiceReview("CTN", 0, 20)
         Mockito.verify(eCSCatalogRepository).fetchProductReview("CTN", 0, 20)
     }
+
+
 }

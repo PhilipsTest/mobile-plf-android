@@ -76,7 +76,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         authAndCallAPIagain(retryAPI,authFailCallback)
     }
 
-    fun createShoppingCart(request: String){
+    fun createShoppingCart() {
         val createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, Exception> {
             override fun onResponse(result: ECSShoppingCart?) {
                 addProductToShoppingcart(ecsProductAsParamter,addToProductCallBack)

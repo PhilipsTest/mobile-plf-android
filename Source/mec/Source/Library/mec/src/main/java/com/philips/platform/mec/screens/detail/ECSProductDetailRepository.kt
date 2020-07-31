@@ -26,16 +26,17 @@ import com.philips.platform.mec.utils.MECDataHolder
 class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProductDetailViewModel, val ecsServices: ECSServices) {
 
     var ecsProductDetailCallBack= ECSProductDetailCallback(ecsProductDetailViewModel)
-    var mECAddToProductCallback = MECAddToProductCallback(ecsProductDetailViewModel,"AddToCart")
+    var mECAddToProductCallback = MECAddToProductCallback(ecsProductDetailViewModel)
 
 
     var bvClient = MECDataHolder.INSTANCE.bvClient
     var reviewsCb = MECReviewConversationsDisplayCallback(ecsProductDetailViewModel)
     var ratingCb = MECDetailBulkRatingConversationsDisplayCallback(ecsProductDetailViewModel)
 
+
     fun getProductDetail(ecsProduct: ECSProduct){
         ecsProductDetailCallBack.mECRequestType=MECRequestType.MEC_FETCH_PRODUCT_DETAILS
-        ecsServices.getMicroService().fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
+        ecsServices.microService.fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
     }
 
     fun fetchProductReview(ctn: String, pageNumber: Int, pageSize: Int){
@@ -45,7 +46,7 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
     }
 
     fun getRatings(ctn: String) {
-        var ctns = mutableListOf(ctn)
+        val ctns = mutableListOf(ctn)
         val request = BulkRatingsRequest.Builder(ctns, BulkRatingOptions.StatsType.All).addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(MECConstant.KEY_BAZAAR_LOCALE!!, MECDataHolder.INSTANCE.locale).build()
         val prepareCall = bvClient!!.prepareCall(request)
         prepareCall.loadAsync(ratingCb)
@@ -54,7 +55,7 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
     fun addTocart(ecsProduct: ECSProduct){
         mECAddToProductCallback.mECRequestType= MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART
         // todo remove this occ product when integrated with hybris flow
-        var ecsProductOCC: com.philips.platform.ecs.model.products.ECSProduct = com.philips.platform.ecs.model.products.ECSProduct()
+        val ecsProductOCC: com.philips.platform.ecs.model.products.ECSProduct = com.philips.platform.ecs.model.products.ECSProduct()
         ecsProductOCC.code= ecsProduct.ctn
         ecsServices.addProductToShoppingCart(ecsProductOCC,mECAddToProductCallback)
     }
@@ -62,9 +63,5 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
     fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){
        ecsServices.createShoppingCart(createShoppingCartCallback)
     }
-
-
-
-
 
 }
