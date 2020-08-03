@@ -181,6 +181,7 @@ class MECHandlerTest{
 
     }
 
+
     class BazaarVoiceInput : MECBazaarVoiceInput(){
 
         override fun getBazaarVoiceClientID(): String {
@@ -212,6 +213,47 @@ class MECHandlerTest{
     }
 
     @Test
+    fun `hybris should be false if hard set from proposition`() {
+        mECSettingMock = MECSettings(contextMock)
+        mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
+        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, launchInputMock)
+        MECDataHolder.INSTANCE.hybrisEnabled = false
+        val ecsConfig = ECSConfig("en_US",rootCategory = "category",isHybris =true )
+        ECSConfiguration.INSTANCE.locale = "en_US"
+
+        configCallback.onResponse(ecsConfig)
+        assertFalse( MECDataHolder.INSTANCE.hybrisEnabled)
+    }
+
+    @Test
+    fun `category should be taken from proposition instead of config if proposition has set it`() {
+        mECSettingMock = MECSettings(contextMock)
+        mecFlowConfiguratorMock.productCategory = "proposition_productCategory"
+        mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
+        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, mecLaunchInputMock)
+
+        val ecsConfig = ECSConfig("en_US",rootCategory = "config_category",isHybris =true )
+        ECSConfiguration.INSTANCE.locale = "en_US"
+
+        configCallback.onResponse(ecsConfig)
+        assertEquals("proposition_productCategory",MECDataHolder.INSTANCE.rootCategory)
+        assertNotEquals("config_category",MECDataHolder.INSTANCE.rootCategory)
+    }
+
+    @Test
+    fun `category should be taken from config  if proposition has not set it`() {
+        mECSettingMock = MECSettings(contextMock)
+        mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
+        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, mecLaunchInputMock)
+
+        val ecsConfig = ECSConfig("en_US",rootCategory = "config_category",isHybris =true )
+        ECSConfiguration.INSTANCE.locale = "en_US"
+
+        configCallback.onResponse(ecsConfig)
+        assertEquals("config_category",MECDataHolder.INSTANCE.rootCategory)
+    }
+
+    @Test
     fun `should start activity on config call back success with only locale`() {
 
         mECSettingMock = MECSettings(contextMock)
@@ -224,6 +266,8 @@ class MECHandlerTest{
         configCallback.onResponse(ecsConfig)
         Mockito.verify(contextMock).startActivity(any(Intent::class.java))
     }
+
+
 
     @Mock
     lateinit var fragmentActivityMock : FragmentActivity
