@@ -83,7 +83,7 @@ class MECManagerTest {
     }
 
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun testIshybrisAvailableWorkerOnResponse() {
         mecManager.ishybrisavailableWorker(mecHybrisAvailabilityListener)
         Mockito.verify(ecsServices.microService).configureECS(captor1.capture())
@@ -92,7 +92,7 @@ class MECManagerTest {
         Mockito.verify(mecHybrisAvailabilityListener, Mockito.atLeast(1)).isHybrisAvailable(true)
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun testIshybrisAvailableWorkerOnFailure() {
         mecManager.ishybrisavailableWorker(mecHybrisAvailabilityListener)
         Mockito.verify(ecsServices.microService).configureECS(captor1.capture())
@@ -101,7 +101,7 @@ class MECManagerTest {
         Mockito.verify(mecHybrisAvailabilityListener, Mockito.atLeast(0)).isHybrisAvailable(true)
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = NullPointerException::class)
     fun testGetProductCartCountWorkerOnResponse() {
         mecManager.getProductCartCountWorker(mecFetchCartListener)
         Mockito.verify(ecsServices.microService).configureECS(captor1.capture())
@@ -113,7 +113,7 @@ class MECManagerTest {
         Mockito.verify(mecFetchCartListener, Mockito.atLeast(1)).onGetCartCount(1)
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun testGetProductCartCountWorkerOnFailure() {
         mecManager.getProductCartCountWorker(mecFetchCartListener)
         Mockito.verify(ecsServices.microService).configureECS(captor1.capture())

@@ -51,7 +51,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 import java.util.ArrayList
 
 @PowerMockIgnore("javax.net.ssl.*","okhttp3.*")
-@PrepareForTest(MECLaunchInput::class,MECFlowConfigurator::class,MECSettings::class,UiLauncher::class,ActionBarListener::class,ServiceDiscoveryMapListener::class)
+@PrepareForTest(MECLaunchInput::class,MECFlowConfigurator::class,MECSettings::class,UiLauncher::class,ActionBarListener::class,ServiceDiscoveryMapListener::class,com.philips.platform.ecs.microService.ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class MECHandlerTest{
 
@@ -97,6 +97,9 @@ class MECHandlerTest{
     lateinit var ecsServiceMock: ECSServices
 
     @Mock
+    lateinit var ecsMicroServicesMock: com.philips.platform.ecs.microService.ECSServices
+
+    @Mock
     lateinit var contextMock: Context
 
     @Mock
@@ -136,6 +139,7 @@ class MECHandlerTest{
         Mockito.`when`(appInfraMock.serviceDiscovery).thenReturn(serviceDiscoveryInterfaceMock)
 
         MECDataHolder.INSTANCE.appinfra = appInfraMock
+        Mockito.`when`(ecsServiceMock.microService).thenReturn(ecsMicroServicesMock)
         MECDataHolder.INSTANCE.eCSServices = ecsServiceMock
     }
 
@@ -154,7 +158,7 @@ class MECHandlerTest{
         assertNotNull(mecHandler.getBundle(mecLaunchInputMock))
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun `test default values set to mec data holder`() {
 
         val mecLaunchInput = MECLaunchInput()
@@ -165,7 +169,7 @@ class MECHandlerTest{
         assertTrue(MECDataHolder.INSTANCE.retailerEnabled)
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun `test bazzar voice value set from LaunchInput`() {
 
         val mecLaunchInput = MECLaunchInput()

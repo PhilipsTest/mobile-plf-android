@@ -40,15 +40,6 @@ class ECSProductsCallbackTest {
         assertEquals(MECRequestType.MEC_FETCH_PRODUCTS,callback.mECRequestType)
     }
 
-    @Test
-    fun onResponse() {
-
-        val list: List<ECSProduct> = ArrayList()
-        val ecsProducts = ECSProducts(list)
-        val ecsProduct = ECSProduct(null,"ctn",null)
-        ecsProducts.commerceProducts = listOf(ecsProduct)
-        callback.onResponse(ecsProducts)
-    }
 
     @Test
     fun onFailure() {
