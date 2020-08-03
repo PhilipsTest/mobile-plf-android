@@ -32,6 +32,8 @@ public class PILAddToShoppingCartFragment extends  BaseAPIFragment {
         }
         if(!quantityET.getText().toString().trim().isEmpty()){
             quantity = Integer.valueOf(quantityET.getText().toString().trim());
+        }else{
+            quantity=1;
         }
 
         ECSServices microECSServices = new ECSServices(mAppInfraInterface);
@@ -43,6 +45,7 @@ public class PILAddToShoppingCartFragment extends  BaseAPIFragment {
                 public void onFailure(ECSError ecsError) {
                     gotoResultActivity(ecsError.getErrorCode() +"\n"+ ecsError.getErrorMessage());
                     getProgressBar().setVisibility(View.GONE);
+
                 }
 
                 @Override
