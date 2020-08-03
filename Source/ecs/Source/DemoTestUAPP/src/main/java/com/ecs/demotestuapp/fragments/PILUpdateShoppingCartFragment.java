@@ -56,6 +56,11 @@ public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
                 item= items.get(itemsSpinner.getSelectedItemPosition()-1);
             }
 
+            if(item==null){
+                getProgressBar().setVisibility(View.GONE);
+                return;
+            }
+
             ECSCallback ecsCallback= new ECSCallback<ECSShoppingCart, ECSError>(){
 
                 @Override
