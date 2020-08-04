@@ -18,7 +18,7 @@ import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SER
 import com.philips.platform.ecs.microService.error.ECSError
 import org.json.JSONObject
 
-class ProductAvailabilityRequest(val email: String,val ctn: String,val ecsCallback: ECSCallback<Boolean, ECSError>) : ECSJsonRequest(ecsCallback) {
+class ProductAvailabilityRequest(val email: String, val ctn: String, val ecsCallback: ECSCallback<Boolean, ECSError>) : ECSJsonRequest(ecsCallback) {
 
     override fun getServiceID(): String {
         return SERVICEID_ECS_NOTIFY_ME
@@ -29,13 +29,14 @@ class ProductAvailabilityRequest(val email: String,val ctn: String,val ecsCallba
     }
 
     override fun onResponse(response: JSONObject?) {
-        println(response.toString())
+        val isRegistered = response?.getBoolean("success") ?: false
+        ecsCallback.onResponse(isRegistered)
     }
 
     override fun getBody(): Map<String, String>? {
         val map = HashMap<String, String>()
         map["email"] = email
         map["productId"] = ctn
-        return super.getBody()
+        return map
     }
 }

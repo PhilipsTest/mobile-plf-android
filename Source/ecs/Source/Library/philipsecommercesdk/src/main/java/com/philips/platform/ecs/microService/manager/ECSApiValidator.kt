@@ -82,7 +82,7 @@ class ECSApiValidator {
         return null
     }
 
-    fun validateEmail(email: String) : ECSException? = if (isValidEmail(email)) null else ECSException(ECSErrorType.ECSPIL_INVALID_EMAIL.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_EMAIL.errorCode)
+    fun validateEmail(email: String) : ECSException? = if (isValidEmail(email)) null else ECSException(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode)
 
 
 

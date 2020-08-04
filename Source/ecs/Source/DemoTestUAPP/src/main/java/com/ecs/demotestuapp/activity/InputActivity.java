@@ -44,6 +44,7 @@ import com.ecs.demotestuapp.fragments.PILFetchProductSummariesFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductsFragment;
 import com.ecs.demotestuapp.fragments.PILFetchRetailersFragment;
 import com.ecs.demotestuapp.fragments.PILFetchShoppingCartFragment;
+import com.ecs.demotestuapp.fragments.PILNotifyProductAvailabilityFragment;
 import com.ecs.demotestuapp.fragments.PILUpdateShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.RemoveVoucherFragment;
 import com.ecs.demotestuapp.fragments.SetAndFetchDeliveryAddressFragment;
@@ -81,7 +82,7 @@ public class InputActivity extends AppCompatActivity {
     void loadFragmeent() {
 
         Fragment newFragment = getFragment(subgroupItem.getApiNumber());
-        if(newFragment==null) return;
+        if (newFragment == null) return;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, newFragment).commit();
     }
@@ -113,8 +114,6 @@ public class InputActivity extends AppCompatActivity {
             case 8:
                 return new FetchProductSummariesFragment();
 
-
-
             case 9:
                 return new FetchShoppingCartFragment();
             case 10:
@@ -124,7 +123,6 @@ public class InputActivity extends AppCompatActivity {
 
             case 12:
                 return new UpdateShoppingCartFragment();
-
 
 
             case 13:
@@ -137,7 +135,6 @@ public class InputActivity extends AppCompatActivity {
                 return new RemoveVoucherFragment();
 
 
-
             case 16:
                 return new FetchDeliveryModesFragment();
 
@@ -145,9 +142,7 @@ public class InputActivity extends AppCompatActivity {
                 return new SetDeliveryModeFragment();
 
 
-
-
-                case 18:
+            case 18:
                 return new FetchRegionsFragment();
 
 
@@ -179,7 +174,7 @@ public class InputActivity extends AppCompatActivity {
                 return new FetchRetailersFragment();
 
 
-                case 30:
+            case 30:
                 return new FetchPaymentsDetailsFragment();
 
             case 31:
@@ -189,7 +184,6 @@ public class InputActivity extends AppCompatActivity {
 
             case 33:
                 return new SubmitOrderFragment();
-
 
 
             case 34:
@@ -208,7 +202,7 @@ public class InputActivity extends AppCompatActivity {
             case 39:
                 return new JanrainRefreshOAuthFragment();
 
-                //Micro services new APIS =============
+            //Micro services new APIS =============
 
             case 45:
                 return new PILFetchProductsFragment();
@@ -230,6 +224,9 @@ public class InputActivity extends AppCompatActivity {
                 return new PILUpdateShoppingCartFragment();
             case 68:
                 return new PILFetchRetailersFragment();
+
+            case 79:
+                return new PILNotifyProductAvailabilityFragment();
 
             default:
                 return null;

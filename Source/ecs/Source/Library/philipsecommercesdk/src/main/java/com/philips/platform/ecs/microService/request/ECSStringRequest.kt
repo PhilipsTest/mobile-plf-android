@@ -31,4 +31,5 @@ abstract class ECSStringRequest(ecsErrorCallback: ECSCallback<*, ECSError>) : EC
         ECSDataHolder.appInfra?.restClient?.requestQueue?.add(getStringRequest())
     }
 
+
 }

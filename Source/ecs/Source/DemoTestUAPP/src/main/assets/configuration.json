@@ -172,6 +172,33 @@
       ]
     },
     {
+      "name": "PIL Product Availability Microservices",
+      "subgroup": [
+        {
+          "name": "Notify product availability",
+          "apiNumber": 79,
+          "editText": 3,
+          "spinner": 2,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "inputType": 1,
+              "hint": "enter email"
+            },
+            {
+              "tag": "et_two",
+              "text": "secret",
+              "inputType": 1,
+              "hint": "enter ctn"
+            }
+          ],
+          "spinners": [],
+          "switches": []
+        }
+      ]
+    },
+    {
       "name": "PIL Voucher Microservices",
       "subgroup": [
         {

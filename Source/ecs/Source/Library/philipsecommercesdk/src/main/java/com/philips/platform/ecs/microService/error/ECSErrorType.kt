@@ -89,7 +89,7 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_BAD_REQUEST_cartId(R.string.ECSCartError, 6024  ),
     ECSPIL_INVALID_AUTHORIZATION_accessToken(R.string.ECSInvalidTokenError, 6025  ),
 
-    ECSPIL_INVALID_EMAIL(R.string.ECSPIL_INVALID_EMAIL, 6026  );
+    ECSPIL_INVALID_PARAMETER_VALUE_Email(R.string.ECSPIL_INVALID_PARAMETER_VALUE_Email, 6026);
 
 
 
