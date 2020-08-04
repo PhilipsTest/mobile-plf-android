@@ -27,9 +27,6 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
     lateinit var url: String
     lateinit var locale: String
 
-    var jsonObjectForRequest : JSONObject? = null
-
-
     abstract fun getServiceID():String
     abstract fun executeRequest()
 
@@ -69,5 +66,11 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
     open fun  getParams(): Map<String, String>?{
         return null
     }
+
+    open fun getBody():Map<String, String>?{
+        return null
+    }
+
+    fun getJsonBody(map :Map<String, String>?) = if (map == null) null else JSONObject(map)
 
 }

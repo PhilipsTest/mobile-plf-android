@@ -152,4 +152,10 @@ class ECSProductManager {
         requestHandler.handleRequest(getProductDisclaimerRequest)
     }
 
+    fun registerForProductAvailability(email: String, ctn: String, ecsCallback: ECSCallback<Boolean, ECSError>) {
+        val ecsException = ECSApiValidator().validateCTN(ctn) ?: ECSApiValidator().validateEmail(email) ?:ECSApiValidator().getECSException(APIType.LocaleAndHybris)
+        val productAvailabilityRequest = ProductAvailabilityRequest(email,ctn,ecsCallback)
+        requestHandler.handleRequest(productAvailabilityRequest)
+    }
+
 }

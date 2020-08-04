@@ -99,4 +99,9 @@ class ECSServices(appInfra: AppInfra) {
         ecsCartManager.updateShoppingCart(cartItem.entryNumber,quantity,ecsCallback)
     }
 
+    @Throws(ECSException::class)
+    fun registerForProductAvailability(email: String, ctn: String, ecsCallback: ECSCallback<Boolean, ECSError>){
+        ecsProductManager.registerForProductAvailability(email.trim(),ctn.trim(),ecsCallback)
+    }
+
 }

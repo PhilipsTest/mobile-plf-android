@@ -30,6 +30,7 @@ class ECSConstants {
         const val SERVICEID_ECS_GET_CART    = "ecs.getCart"
         const val SERVICEID_ECS_ADD_TO_CART = "ecs.addToCart"
         const val SERVICEID_ECS_UPDATE_CART = "ecs.updateCart"
+        const val SERVICEID_ECS_NOTIFY_ME = "ecs.notifyMe"
     }
 
 

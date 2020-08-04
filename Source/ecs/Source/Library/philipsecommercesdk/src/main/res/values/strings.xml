@@ -71,7 +71,7 @@
 
   <!--  PIL services-->
 
-
+  <string name="ECSPIL_INVALID_EMAIL" translatable="false">Invalid email address. Please check.</string>
 
 
 
