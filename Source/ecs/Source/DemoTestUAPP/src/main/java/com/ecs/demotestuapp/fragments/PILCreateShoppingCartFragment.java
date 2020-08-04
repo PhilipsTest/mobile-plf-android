@@ -32,6 +32,8 @@ public class PILCreateShoppingCartFragment extends BaseAPIFragment {
         }
         if(!quantityET.getText().toString().trim().isEmpty()){
             quantity = Integer.valueOf(quantityET.getText().toString().trim());
+        }else{
+            quantity=1;
         }
 
         ECSServices microECSServices = new ECSServices(mAppInfraInterface);

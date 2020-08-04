@@ -3,6 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
@@ -18,9 +19,9 @@ import java.util.ListIterator;
 
 public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
     EditText  quantityET;
-    int quantity=1;
+    int quantity=-100; // just a negative random number initialization ..
     Spinner itemsSpinner; //todo
-    List<ECSItem> items;
+    List<ECSItem> items = new ArrayList<>();
     ECSItem item;
 
 
@@ -33,7 +34,9 @@ public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
     }
 
     private void setSpinner(){
-      items= PILDataHolder.INSTANCE.getEcsShoppingCart().getData().getAttributes().getItems();
+        if(PILDataHolder.INSTANCE.getEcsShoppingCart()!=null && PILDataHolder.INSTANCE.getEcsShoppingCart().getData()!=null) {
+            items = PILDataHolder.INSTANCE.getEcsShoppingCart().getData().getAttributes().getItems();
+        }
         ListIterator<ECSItem> it = items.listIterator();
         List<String> ctnList = new ArrayList<String>();
         ctnList.add("( Select - CTN )");
@@ -54,6 +57,12 @@ public class PILUpdateShoppingCartFragment extends  BaseAPIFragment {
 
             if(itemsSpinner.getSelectedItem()!=null && itemsSpinner.getSelectedItemPosition()!=0) {
                 item= items.get(itemsSpinner.getSelectedItemPosition()-1);
+            }
+
+            if(item==null || quantity == -100){
+                Toast.makeText(getActivity(),"Please provide a cart item ID to update cart",Toast.LENGTH_LONG).show();
+                getProgressBar().setVisibility(View.GONE);
+                return;
             }
 
             ECSCallback ecsCallback= new ECSCallback<ECSShoppingCart, ECSError>(){
