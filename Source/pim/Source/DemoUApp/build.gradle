@@ -48,6 +48,11 @@ android {
                 udiRedirectScheme: '',
                 appAuthRedirectScheme: ''
         ]
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
 
     buildTypes {
@@ -128,5 +133,8 @@ dependencies {
         implementation philipsdeps.pim
         implementation philipsdeps.iap
         implementation philipsdeps.registrationApi
+        implementation philipsdeps.ecsTestUApp
+        implementation philipsdeps.mecUApp
+        implementation philipsdeps.product_registration_libUApp
     }
 }
