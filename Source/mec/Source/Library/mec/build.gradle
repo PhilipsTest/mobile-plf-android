@@ -142,7 +142,7 @@ dependencies {
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
     } else {
-        implementation philipsdeps.ecs
+        implementation philipsdeps.philipsecommercesdk
         implementation philipsdeps.pif
         implementation philipsdeps.prx
         implementation philipsdeps.uAppFwLib

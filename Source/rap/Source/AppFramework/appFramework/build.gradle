@@ -151,6 +151,11 @@ android {
         manifestPlaceholders = [
                 appAuthRedirectScheme: 'com.philips.apps.referenceapp'
         ]
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
 
     apply from: "../scripts/proposition_specific.gradle"
@@ -281,7 +286,7 @@ dependencies {
 
         implementation project(strings.tse.projectName)
         implementation philipsdeps.AppInfraUApp
-        implementation philipsdeps.ecstestuapp
+       // implementation philipsdeps.ecstestuapp
     }
     testImplementation deps.json
     testImplementation deps.junit

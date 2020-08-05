@@ -4,15 +4,18 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.ecs.demotestuapp.integration.EcsDemoTestAppSettings;
-import com.ecs.demotestuapp.integration.EcsDemoTestUAppDependencies;
-import com.ecs.demotestuapp.integration.EcsDemoTestUAppInterface;
+import com.iap.demouapp.IapDemoAppSettings;
+import com.iap.demouapp.IapDemoUAppDependencies;
+import com.iap.demouapp.IapDemoUAppInterface;
 import com.philips.platform.appframework.flowmanager.AppStates;
+import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.baseapp.base.AppFrameworkApplication;
 import com.philips.platform.baseapp.screens.utility.RALog;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by philips on 30/03/17.
@@ -30,9 +33,10 @@ public class DemoECSTestState extends DemoBaseState {
     @Override
     public void navigate(UiLauncher uiLauncher) {
         UserDataInterface userDataInterface = ((AppFrameworkApplication) appContext.getApplicationContext()).getUserRegistrationState().getUserDataInterface();
-        EcsDemoTestUAppInterface uAppInterface = getEcsDemoUAppInterface();
+        IapDemoUAppInterface uAppInterface = getEcsDemoUAppInterface();
         try {
-            uAppInterface.init(new EcsDemoTestUAppDependencies(((AppFrameworkApplication) appContext.getApplicationContext()).getAppInfra(), userDataInterface), new EcsDemoTestAppSettings(appContext));
+            uAppInterface.init(new IapDemoUAppDependencies(new AppInfra.Builder().build(getApplicationContext())), new IapDemoAppSettings(getApplicationContext()));
+           // uAppInterface.init(new IapDemoUAppDependencies(((AppFrameworkApplication) appContext.getApplicationContext()).getAppInfra(), userDataInterface), new IapDemoAppSettings(appContext));
         }catch (RuntimeException ex){
             RALog.d(TAG,ex.getMessage());
         }
@@ -41,8 +45,8 @@ public class DemoECSTestState extends DemoBaseState {
     }
 
     @NonNull
-    protected EcsDemoTestUAppInterface getEcsDemoUAppInterface() {
-        return new EcsDemoTestUAppInterface();
+    protected IapDemoUAppInterface getEcsDemoUAppInterface() {
+        return new IapDemoUAppInterface();
     }
 
     @Override
