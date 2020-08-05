@@ -1,0 +1,13 @@
+{
+  "errors": [
+    {
+      "id": "0bc60ee5-35cd-4f2f-a0b2-98cd8d43174b",
+      "status": "400",
+      "code": "INVALID_PARAMETER_VALUE",
+      "title": "Client error in API request",
+      "source": {
+        "parameter": "[productId]"
+      }
+    }
+  ]
+}

@@ -16,6 +16,7 @@ import com.android.volley.Request
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants.Companion.SERVICEID_ECS_NOTIFY_ME
 import com.philips.platform.ecs.microService.error.ECSError
+import org.json.JSONException
 import org.json.JSONObject
 
 class ProductAvailabilityRequest(val email: String, val ctn: String, val ecsCallback: ECSCallback<Boolean, ECSError>) : ECSJsonRequest(ecsCallback) {
@@ -29,8 +30,12 @@ class ProductAvailabilityRequest(val email: String, val ctn: String, val ecsCall
     }
 
     override fun onResponse(response: JSONObject?) {
-        val isRegistered = response?.getBoolean("success") ?: false
-        ecsCallback.onResponse(isRegistered)
+        try {
+            val isRegistered = response?.getBoolean("success") ?: false
+            ecsCallback.onResponse(isRegistered)
+        } catch (e: JSONException) {
+            ecsCallback.onResponse(false)
+        }
     }
 
     override fun getBody(): Map<String, String>? {

@@ -65,16 +65,13 @@ class MicroECSServicesTest {
 
 
     @Mock
-    lateinit var ecsCallbackProductListMock: ECSCallback<List<ECSProduct>, ECSError>
-
-    @Mock
     lateinit var ecsCallbackRetailerListMock: ECSCallback<ECSRetailerList?, ECSError>
 
     @Mock
     lateinit var appInfraMock: AppInfra
 
     @Mock
-    lateinit var ecsCallback : ECSCallback<ECSProducts, ECSError>
+    lateinit var ecsProductsCallback : ECSCallback<ECSProducts, ECSError>
 
 
     @Before
@@ -100,7 +97,7 @@ class MicroECSServicesTest {
         var productFilter= ProductFilter()
         productFilter.sortType= ECSSortType.priceAscending
         productFilter.stockLevel=ECSStockLevel.InStock
-        eCSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsCallback)
+        eCSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsProductsCallback)
     }
 
     @Test
@@ -111,8 +108,8 @@ class MicroECSServicesTest {
 
     @Test
     fun `fetchProductSummaries api should call corresponding manager method`() {
-        eCSServices.fetchProductSummaries(listOf("123"),ecsCallbackProductListMock)
-        Mockito.verify(ecsProductManagerMock).fetchProductSummaries(listOf("123"),ecsCallbackProductListMock)
+        eCSServices.fetchProductSummaries(listOf("123"),ecsProductsCallback)
+        Mockito.verify(ecsProductManagerMock).fetchProductSummaries(listOf("123"),ecsProductsCallback)
 
     }
 
