@@ -59,7 +59,7 @@ class ECSApiValidator {
      }
 
     fun validateCTN(ctn: String): ECSException?{
-        if(ctn.trim().isEmpty() || ctn.trim().contains(" ")){
+        if(ctn.isEmpty() || ctn.contains(" ")){
           return ECSException(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode)
          }
         return null
