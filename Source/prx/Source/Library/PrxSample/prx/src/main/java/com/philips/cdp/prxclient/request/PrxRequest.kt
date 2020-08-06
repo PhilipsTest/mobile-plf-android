@@ -65,7 +65,7 @@ abstract class PrxRequest {
      * @return returns the ctn
      * @since 1.0.0
      */
-    var ctn: String? = null
+    public var ctn: String? = null
         private set
     private val mServiceId: String
 

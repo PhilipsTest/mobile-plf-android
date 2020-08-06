@@ -35,6 +35,6 @@ class PRXContactsResponseCallback(private val mecOrderDetailViewModel: MECOrderD
 
     override fun onResponseSuccess(responseData: ResponseData?) {
         var CDLSDataModel: CDLSDataModel =  responseData as CDLSDataModel
-        mecOrderDetailViewModel.contactPhone.value = CDLSDataModel.data.phone.get(0)
+        mecOrderDetailViewModel.contactPhone.value = CDLSDataModel.data!!.phone!!.get(0)
     }
 }

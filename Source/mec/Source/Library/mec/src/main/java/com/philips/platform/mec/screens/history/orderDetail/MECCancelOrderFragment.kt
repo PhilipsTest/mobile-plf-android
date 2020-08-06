@@ -31,16 +31,16 @@ class MECCancelOrderFragment : MecBaseFragment() {
 
         val arguments = arguments
 
-        var orderNumber: String? = arguments?.getString(MECConstant.MEC_ORDER_NUMBER)
+        val orderNumber: String? = arguments?.getString(MECConstant.MEC_ORDER_NUMBER)
         binding.orderNumber =  orderNumber
 
         var contactPhone: ContactPhone? = null
         if (arguments != null && arguments.containsKey(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE)) {
-            contactPhone = arguments?.getSerializable(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE) as ContactPhone
+            contactPhone = arguments.getSerializable(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE) as ContactPhone
         }
 
         binding.contactPhone = contactPhone
-        binding.mecCancelOrderCallBtn.setOnClickListener { callPhone(binding.contactPhone!!.phoneNumber) }
+        binding.mecCancelOrderCallBtn.setOnClickListener { callPhone(binding.contactPhone!!.phoneNumber!!) }
         
         val yourRefText : String= String.format(getString(R.string.mec_cancel_order_dls_for_your_ref_sg),"")
         val boldSpanned: Spanned

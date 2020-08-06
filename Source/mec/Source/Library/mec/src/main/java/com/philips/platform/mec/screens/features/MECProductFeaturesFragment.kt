@@ -51,18 +51,18 @@ class MECProductFeaturesFragment : MecBaseFragment() {
     }
 
     private fun setImageForFeatureItem(featuresModel: FeaturesModel?) {
-        for (keyBenefitAreaItem in featuresModel!!.data.keyBenefitArea) {
+        for (keyBenefitAreaItem in featuresModel!!.data!!.keyBenefitArea!!) {
 
-            for (featureItem in keyBenefitAreaItem.feature) {
+            for (featureItem in keyBenefitAreaItem.feature!!) {
 
-                var singleAssetImageFromFeatureCode = featuresModel.data.getSingleAssetImageFromFeatureCode(featureItem.featureCode)
+                var singleAssetImageFromFeatureCode = featuresModel.data!!.getSingleAssetImageFromFeatureCode(featureItem.featureCode)
 
                 if(singleAssetImageFromFeatureCode!=null){
                     singleAssetImageFromFeatureCode = singleAssetImageFromFeatureCode + "?wid=" + 220 +
                               "&hei=" + 220 + "&\$pnglarge$" + "&fit=fit,1"
                 }
 
-                featureItem.setSingleFeatureImage(singleAssetImageFromFeatureCode)
+                featureItem.singleFeatureImage =(singleAssetImageFromFeatureCode)
             }
         }
     }
@@ -83,8 +83,8 @@ class MECProductFeaturesFragment : MecBaseFragment() {
 
         productFeaturesViewModel = ViewModelProviders.of(this).get(ProductFeaturesViewModel::class.java)
 
-        productFeaturesViewModel.mecError.observe(this,this)
-        productFeaturesViewModel.features.observe(this,featuresObserver)
+        productFeaturesViewModel.mecError.observe(viewLifecycleOwner,this)
+        productFeaturesViewModel.features.observe(viewLifecycleOwner,featuresObserver)
 
         val bundle = arguments
         val productCtn = bundle!!.getString(MECConstant.MEC_PRODUCT_CTN,"INVALID")

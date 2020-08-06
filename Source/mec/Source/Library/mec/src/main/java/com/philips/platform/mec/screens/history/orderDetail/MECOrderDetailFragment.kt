@@ -62,7 +62,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         mContactphone= contactPhone
         binding.contactPhone = contactPhone
         dismissProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
-        binding.mecOrderHistoryDetailCallBtn.setOnClickListener { callPhone(contactPhone.phoneNumber) }
+        binding.mecOrderHistoryDetailCallBtn.setOnClickListener { callPhone(contactPhone.phoneNumber!!) }
     }
 
     private fun  updateUI(){

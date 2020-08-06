@@ -26,10 +26,10 @@ class ProductFeatureParentRecyclerAdapter (private val featuresModel:FeaturesMod
 
 
     override fun getItemCount(): Int {
-        return featuresModel.data.keyBenefitArea.size
+        return featuresModel.data!!.keyBenefitArea!!.size
     }
 
     override fun onBindViewHolder(viewHolder : ProductFeatureParentViewHolder, position: Int) {
-        viewHolder.bind(featuresModel.data.keyBenefitArea[position])
+        viewHolder.bind(featuresModel.data!!.keyBenefitArea?.get(position)!!)
     }
 }

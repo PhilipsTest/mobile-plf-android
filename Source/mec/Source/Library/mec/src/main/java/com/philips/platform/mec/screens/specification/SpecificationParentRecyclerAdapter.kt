@@ -26,11 +26,11 @@ class SpecificationParentRecyclerAdapter (val items: SpecificationModel) : Recyc
 
 
     override fun getItemCount(): Int {
-        return items.data.csChapter.size
+        return items.data!!.csChapter!!.size
     }
 
     override fun onBindViewHolder(viewHolder : SpecificationParentViewHolder, position: Int) {
 
-        viewHolder.bind(items.data.csChapter.get(position))
+        viewHolder.bind(items.data!!.csChapter!!.get(position))
     }
 }

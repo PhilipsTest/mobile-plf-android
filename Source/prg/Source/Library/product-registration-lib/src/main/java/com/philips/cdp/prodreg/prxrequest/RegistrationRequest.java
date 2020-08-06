@@ -193,10 +193,10 @@ public class RegistrationRequest extends PrxRequest {
     public void setCountry(String country) {
         this.country = country;
     }
-
-    public String getCtn() {
-        return ctn;
-    }
+//
+//    public String getCtn() {
+//        return ctn;
+//    }
 
     public String getAccessToken() {
         return accessToken;
