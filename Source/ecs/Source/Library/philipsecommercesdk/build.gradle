@@ -117,8 +117,11 @@ dependencies {
     if (useprojectdependencies) {
         implementation project(strings.ail.projectName)
         implementation project(strings.pif.projectName)
+        implementation project(strings.prx.projectName)
     } else {
         implementation philipsdeps.AppInfra
+        implementation philipsdeps.prx
+
     }
     // Tests
     testImplementation deps.junit

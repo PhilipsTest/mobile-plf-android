@@ -78,12 +78,15 @@
                 app:uidProgressIndicatorButtonProgressText="@string/USR_DLS_VerifySMS_VerifyCode_Button_Title"
                 app:uidProgressIndicatorButtonText="@string/USR_DLS_VerifySMS_VerifyCode_Button_Title"/>
 
-            <com.philips.platform.uid.view.widget.Button
+            <Button
+                android:textAlignment="center"
                 android:id="@+id/btn_reg_resend_code"
                 android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/reg_dimen_16dp"
-                android:text="@string/USR_DLS_VerifySMS_DidNotReceieve_Button_Title"
+                android:text="Sample text with multiple lines. To test  the text alignment of the button"
                 app:uidComponentType="Secondary"/>
 
             <com.philips.cdp.registration.ui.customviews.XRegError

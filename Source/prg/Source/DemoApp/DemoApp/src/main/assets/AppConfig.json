@@ -19,7 +19,7 @@
   "appinfra": {
     "appidentity.micrositeId" : "77000",
     "appidentity.sector"  : "b2c",
-    "appidentity.appState"  : "Staging",
+    "appidentity.appState"  : "Productio",
     "appidentity.serviceDiscoveryEnvironment"  : "Production",
     "abtest.precache": ["DOT-ReceiveMarketingOptIn"],
     "servicediscovery.platformMicrositeId":"70000",
