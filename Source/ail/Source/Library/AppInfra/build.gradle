@@ -114,9 +114,7 @@ dependencies {
     androidTestImplementation deps.dexmaker_mockito
     androidTestImplementation deps.junit
 
-    implementation (deps.firebase_analytics) {
-        exclude group: 'com.google.android.gms'
-    }
+    implementation (deps.firebase_analytics)
 }
 
 tasks.withType(Test) {
