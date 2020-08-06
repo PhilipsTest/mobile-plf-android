@@ -129,7 +129,7 @@ class MecPrivacyFragment : MecBaseFragment() {
             }
         }
 
-        mWebView!!.loadUrl(mUrl)
+        mWebView!!.loadUrl(mUrl!!)
     }
 
     private fun shouldHandleError(errorCode: Int): Boolean {
