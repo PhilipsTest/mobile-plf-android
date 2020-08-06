@@ -150,8 +150,18 @@ class MicroECSServicesTest {
 
     @Test
     fun `update shopping cart  api should call corresponding manager method`() {
-        var item:ECSItem = ECSItem(null,null, "entry_id1",null,"HD9648/90",null,null,null,null)
+        val item:ECSItem = ECSItem(null,null, "entry_id1",null,"HD9648/90",null,null,null,null)
         eCSServices.updateShoppingCart(item,2,ecsCallback = ecsCartCallBackMock)
         Mockito.verify(cartManagerMock).updateShoppingCart(item.entryNumber,2,ecsCallback = ecsCartCallBackMock)
+    }
+
+
+    @Mock
+    lateinit var  ecsBooleanCallBackMock:ECSCallback<Boolean, ECSError>
+
+    @Test
+    fun `register product availability should call product maanger register product availability`() {
+        eCSServices.registerForProductAvailability("pabitrakumar.sahoo@philips.com"," HX2345/00 ",ecsBooleanCallBackMock)
+        Mockito.verify(ecsProductManagerMock).registerForProductAvailability("pabitrakumar.sahoo@philips.com","HX2345/00",ecsBooleanCallBackMock)
     }
 }

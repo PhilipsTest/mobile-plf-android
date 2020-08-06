@@ -312,7 +312,42 @@ class ECSProductManagerTest {
 
     //======================================================================================================================================================================
 
+    //======test case for product availability starts ===========
+    @Mock
+    lateinit var ecsCallbackBooleanMock: ECSCallback<Boolean, ECSError>
 
-    //======================================================================================================================================================================
+    @Test
+    fun `product availability with invalid product should through invalid product exception`() {
+        try {
+            mECSProductManager.registerForProductAvailability("pabitrabapi1@gmail.com", " HX3245/00 ", ecsCallbackBooleanMock)
+        }catch (e : ECSException){
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_productId.errorCode,e.errorCode)
+        }
+    }
+
+
+    @Test
+    fun `product availability with blank product should through blank product exception`() {
+        try {
+            mECSProductManager.registerForProductAvailability("pabitrabapi1@gmail.com", "", ecsCallbackBooleanMock)
+        }catch (e : ECSException){
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_productId.errorCode,e.errorCode)
+        }
+    }
+
+
+    @Test
+    fun `product availability with invalid  email should through invalid email exception`() {
+
+        try {
+            mECSProductManager.registerForProductAvailability("pabitrabapi", "HX3245/00", ecsCallbackBooleanMock)
+            mECSProductManager.registerForProductAvailability("", "HX3245/00", ecsCallbackBooleanMock)
+            mECSProductManager.registerForProductAvailability("pabitrabapi.com", "HX3245/00", ecsCallbackBooleanMock)
+            mECSProductManager.registerForProductAvailability("pabitrabapi@gmail", "HX3245/00", ecsCallbackBooleanMock)
+        }catch (e : ECSException){
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode,e.errorCode)
+        }
+    }
+
 
 }

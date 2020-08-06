@@ -242,29 +242,8 @@ class ErrorHandlerTest {
     }
 
 
-    // get cart relates error test cases =======
 
-    @Test
-    fun `test ecs error  for get cart with invalid auth`() {
-    }
-
-
-    @Test
-    fun `test ecs error  for get cart with missing  auth`() {
-    }
-
-
-    @Test
-    fun `test ecs error  for get cart with invalid cart id`() {
-    }
-
-    @Test
-    fun `test ecs error  for get cart with No delivery address`() {
-    }
-
-    // create cart error test cases ==============
-
-
+   // cart related test  casee
     @Test
     fun `test ecs error  for create cart with invalid CTN`() {
         val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CreateCartMissingCTN.json").readText()
@@ -306,92 +285,23 @@ class ErrorHandlerTest {
         val errorString = ClassLoader.getSystemResource("pil/cart/Failure/UpdateCartWithInvalidFormatEntryNumber.json").readText()
         val jsonObject = JSONObject(errorString)
         val hybrisError = jsonObject.getData(HybrisError::class.java)
-        var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        val PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         errorHandler.setPILECSError(hybrisError,PilError)
         assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_quantity.errorCode, PilError.errorCode)
     }
 
-    @Test
-    fun `test ecs error  for create cart with quantity more than stock`() {
-    }
 
-    //error test cases for add to cart
+    //Notify me related error test cases
 
     @Test
-    fun `test ecs error when adding product to cart but cart is not yet created`() {
-        //TODO("Not yet implemented")
+    fun `invalid email should create ecs error type of Invalid Email`() {
+        val errorString = ClassLoader.getSystemResource("pil/notifyMe/failure/wrong_email.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        val PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode, PilError.errorCode)
     }
-
-    @Test
-    fun `test ecs error for adding invalid ctn to cart`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error for adding invalid ctn with '_' to cart`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error for passing auth without bearer while adding product to cart`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error when hybris token is expired while adding product to cart`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error for invalid country and locale while adding product to cart`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error for calling add to cart api without product ID or CTN`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error while adding product to cart and that is out of stock`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error while adding product to cart with a negative quantity`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error while adding product to cart with a  quantity more than STOCK`() {
-        //TODO("Not yet implemented")
-    }
-
-    // error test cases for update cart
-
-    @Test
-    fun `test ecs error for updating cart with decimal quantity`() {
-        //TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error for updating cart with item entry number is not present in cart`() {
-       // TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error for updating cart with item entry number is negative `() {
-     //   TODO("Not yet implemented")
-    }
-
-    @Test
-    fun `test ecs error for updating cart without entry number`() {
-    }
-
-    @Test
-    fun `test ecs error for updating cart with wrong cart ID`() {
-    }
-
 
     fun byteArrayOfInts(vararg ints: Int) = ByteArray(ints.size) { pos -> ints[pos].toByte() }
 
