@@ -41,7 +41,7 @@ class ECSRetailerManagerTest {
     lateinit var ecsCallbackMock: ECSCallback<ECSRetailerList?, ECSError>
 
      val validCTN = "HX3631/06"
-     val inValidCTN = " HX   3631/06 "
+     val inValidCTN = "HX   3631/06"
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
