@@ -6,7 +6,6 @@
 package com.philips.platform.ecs.request;
 
 import com.android.volley.Request;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -15,11 +14,7 @@ import com.philips.platform.ecs.error.ECSNetworkError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.integration.ECSOAuthProvider;
 import com.philips.platform.ecs.integration.GrantType;
-import com.philips.platform.ecs.model.oauth.ECSOAuthData;
-import com.philips.platform.ecs.store.ECSURLBuilder;
-import com.philips.platform.ecs.util.ECSConfiguration;
-import com.philips.platform.ecs.error.ECSErrorWrapper;
-import com.philips.platform.ecs.error.ECSNetworkError;
+import com.philips.platform.ecs.microService.util.ECSDataHolder;
 import com.philips.platform.ecs.model.oauth.ECSOAuthData;
 import com.philips.platform.ecs.store.ECSURLBuilder;
 import com.philips.platform.ecs.util.ECSConfiguration;
@@ -98,6 +93,7 @@ public class OAuthRequest extends AppInfraAbstractRequest  implements Response.L
             ECSOAuthData oAuthResponse = new Gson().fromJson(response.toString(),
                     ECSOAuthData.class);
             ECSConfiguration.INSTANCE.setAuthToken( oAuthResponse.getAccessToken());
+            ECSDataHolder.INSTANCE.setAuthToken( oAuthResponse.getAccessToken());
             ecsCallback.onResponse(oAuthResponse);
         }
     }
