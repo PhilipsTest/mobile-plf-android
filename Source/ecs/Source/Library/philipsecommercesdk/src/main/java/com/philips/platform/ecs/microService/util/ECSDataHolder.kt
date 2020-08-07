@@ -30,7 +30,7 @@ object ECSDataHolder {
     var urlMap: MutableMap<String, ServiceDiscoveryService>? = null
 
     //TODO to be removed later , for now we are using occ accesstoken
-    var authToken: String? = ECSConfiguration.INSTANCE.accessToken
+    var authToken: String? = null
 
     private val configError = AppConfigurationInterface.AppConfigurationError()
 
