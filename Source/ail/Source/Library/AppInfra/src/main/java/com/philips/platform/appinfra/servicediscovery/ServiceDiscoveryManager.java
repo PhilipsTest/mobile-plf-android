@@ -291,8 +291,10 @@ public class ServiceDiscoveryManager implements ServiceDiscoveryInterface {
                 } else {
                     holdbackTime = new Date().getTime() + 10000; // curent time + 10 Seconds
                     ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.ERROR, AppInfraLogEventID.AI_SERVICE_DISCOVERY, "Error in process request" + service.getError().toString());
-                    if (service.getError().toString() != null) {
+                    if (service.getError().getErrorvalue() != OnErrorListener.ERRORVALUES.NO_NETWORK) {
                         appInfraTaggingAction.trackInformationalErrorAction(SERVICE_DISCOVERY, ERROR_WHILE_FETCHING.concat(requestType.name().concat(DUE_TO).concat(service.getError().getErrorvalue().name())));
+                    }else{
+                        appInfraTaggingAction.trackErrorAction(SERVICE_DISCOVERY, ERROR_WHILE_FETCHING.concat(requestType.name().concat(DUE_TO).concat(service.getError().getErrorvalue().name())));
                     }
                 }
             } else {
