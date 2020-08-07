@@ -113,12 +113,14 @@ dependencies {
     implementation philipsdeps.uid
     implementation deps.volley
     if (useprojectdependencies) {
+        project.logger.lifecycle('mecUApp: Picking the dependencies from the code')
         implementation project(strings.mec.projectName)
         implementation project(strings.usr.projectName)
         implementation project(strings.ail.projectName)
         implementation project(strings.ufw.projectName)
         implementation project(strings.pif.projectName)
     } else {
+        project.logger.lifecycle('mecUApp: Picking the dependencies from the artifactory')
         implementation philipsdeps.mec
         implementation philipsdeps.pif
         implementation philipsdeps.registrationApi

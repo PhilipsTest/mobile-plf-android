@@ -117,6 +117,7 @@ dependencies {
     implementation project(path: ':product-registration-lib')
     implementation project(path: ':prx')
     if (useprojectdependencies) {
+        project.logger.lifecycle('pimUApp: Picking the dependencies from the code')
         implementation project(strings.pim.projectName)
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
@@ -127,6 +128,7 @@ dependencies {
         implementation project(strings.ecstestuapp.projectName)
         implementation project(strings.mecuapp.projectName)
     } else {
+        project.logger.lifecycle('pimUApp: Picking the dependencies from the artifactory')
         implementation philipsdeps.uAppFwLib
         implementation philipsdeps.AppInfra
         implementation philipsdeps.pif

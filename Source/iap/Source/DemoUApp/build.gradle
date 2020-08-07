@@ -108,12 +108,14 @@ dependencies {
     testImplementation deps.junit
     implementation philipsdeps.uid
     if (useprojectdependencies) {
+        project.logger.lifecycle('iapUApp: Picking the dependencies from the code')
         implementation project(strings.iap.projectName)
         implementation project(strings.usr.projectName)
         implementation project(strings.ail.projectName)
         implementation project(strings.ufw.projectName)
         implementation project(strings.pif.projectName)
     } else {
+        project.logger.lifecycle('iapUApp: Picking the dependencies from the artifactory')
         implementation philipsdeps.iap
         implementation philipsdeps.pif
         implementation philipsdeps.registrationApi
