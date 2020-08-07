@@ -5,6 +5,8 @@
  */
 package com.philips.platform.ecs;
 
+import com.philips.cdp.prxclient.datamodels.Disclaimer.Disclaimers;
+import com.philips.cdp.prxclient.datamodels.summary.Data;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.error.ECSErrorEnum;
 import com.philips.platform.ecs.error.ECSErrorWrapper;
@@ -18,7 +20,6 @@ import com.philips.platform.ecs.model.asset.Assets;
 import com.philips.platform.ecs.model.cart.ECSEntries;
 import com.philips.platform.ecs.model.cart.ECSShoppingCart;
 import com.philips.platform.ecs.model.config.ECSConfig;
-import com.philips.platform.ecs.model.disclaimer.Disclaimers;
 import com.philips.platform.ecs.model.oauth.ECSOAuthData;
 import com.philips.platform.ecs.model.orders.ECSOrderDetail;
 import com.philips.platform.ecs.model.orders.ECSOrderHistory;
@@ -29,7 +30,6 @@ import com.philips.platform.ecs.model.products.ECSProduct;
 import com.philips.platform.ecs.model.products.ECSProducts;
 import com.philips.platform.ecs.model.region.ECSRegion;
 import com.philips.platform.ecs.model.retailers.ECSRetailerList;
-import com.philips.platform.ecs.model.summary.Data;
 import com.philips.platform.ecs.model.summary.ECSProductSummary;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
 import com.philips.platform.ecs.prx.serviceDiscovery.AssetServiceDiscoveryRequest;

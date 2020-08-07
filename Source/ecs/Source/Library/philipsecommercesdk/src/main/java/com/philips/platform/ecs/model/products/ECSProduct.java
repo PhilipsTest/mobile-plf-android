@@ -7,9 +7,9 @@
 package com.philips.platform.ecs.model.products;
 
 
+import com.philips.cdp.prxclient.datamodels.Disclaimer.Disclaimers;
+import com.philips.cdp.prxclient.datamodels.summary.Data;
 import com.philips.platform.ecs.model.asset.Assets;
-import com.philips.platform.ecs.model.disclaimer.Disclaimers;
-import com.philips.platform.ecs.model.summary.Data;
 
 import java.io.Serializable;
 
@@ -40,11 +40,11 @@ public class ECSProduct implements Serializable {
         this.assets = assets;
     }
 
-    public com.philips.platform.ecs.model.disclaimer.Disclaimers getDisclaimers() {
+    public com.philips.cdp.prxclient.datamodels.Disclaimer.Disclaimers getDisclaimers() {
         return Disclaimers;
     }
 
-    public void setDisclaimers(com.philips.platform.ecs.model.disclaimer.Disclaimers disclaimers) {
+    public void setDisclaimers(Disclaimers disclaimers) {
         Disclaimers = disclaimers;
     }
 

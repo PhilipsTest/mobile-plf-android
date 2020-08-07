@@ -12,18 +12,12 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.philips.cdp.prxclient.datamodels.summary.Data;
 import com.philips.platform.ecs.error.ECSErrorEnum;
 import com.philips.platform.ecs.error.ECSErrorWrapper;
 import com.philips.platform.ecs.error.ECSNetworkError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.products.ECSProduct;
-import com.philips.platform.ecs.model.summary.Data;
-import com.philips.platform.ecs.store.ECSURLBuilder;
-import com.philips.platform.ecs.error.ECSErrorEnum;
-import com.philips.platform.ecs.error.ECSErrorWrapper;
-import com.philips.platform.ecs.error.ECSNetworkError;
-import com.philips.platform.ecs.model.products.ECSProduct;
-import com.philips.platform.ecs.model.summary.Data;
 import com.philips.platform.ecs.store.ECSURLBuilder;
 
 

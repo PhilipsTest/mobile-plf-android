@@ -5,8 +5,8 @@
  */
 package com.philips.platform.ecs.model.cart;
 
+import com.philips.cdp.prxclient.datamodels.summary.Price;
 import com.philips.platform.ecs.model.products.ECSProduct;
-import com.philips.platform.ecs.model.summary.Price;
 
 import java.io.Serializable;
 
