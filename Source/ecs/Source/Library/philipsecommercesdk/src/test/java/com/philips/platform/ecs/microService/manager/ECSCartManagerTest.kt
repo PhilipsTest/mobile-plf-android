@@ -137,7 +137,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.createECSShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_productId.errorCode, e.errorCode)
         }
     }
 
@@ -221,7 +221,7 @@ class ECSCartManagerTest {
         try {
             mECSCartManager.addProductToShoppingCart(inValidCTN,ecsCallback = ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_productId.errorCode, e.errorCode)
         }
     }
 

@@ -84,10 +84,7 @@ class ECSApiValidator {
 
     fun validateEmail(email: String) : ECSException? = if (isValidEmail(email)) null else ECSException(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode)
 
-
-
-    fun isValidEmail(email: String): Boolean {
-
+    private fun isValidEmail(email: String): Boolean {
         if (email.isEmpty()) return false
         if (email.length != email.trim { it <= ' ' }.length) return false
         if (email.contains(" ")) return false

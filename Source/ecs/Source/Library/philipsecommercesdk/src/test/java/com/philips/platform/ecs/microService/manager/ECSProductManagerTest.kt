@@ -256,7 +256,7 @@ class ECSProductManagerTest {
     @Test
     fun fetchProductSummaries() {
 
-        var eCSCallbackGetSummaryForSingleProduct = object : ECSCallback<ECSProducts, ECSError> {
+        val eCSCallbackGetSummaryForSingleProduct = object : ECSCallback<ECSProducts, ECSError> {
 
             override fun onResponse(result: ECSProducts) {
                 assertNotNull(result)
@@ -267,16 +267,16 @@ class ECSProductManagerTest {
                 fail()
             }
         }
-        var ctnList: ArrayList<String> = ArrayList<String>()
+        val ctnList: ArrayList<String> = ArrayList<String>()
         ctnList.add("ctn1")
         ctnList.add("ctn2")
 
-        var ecsProductList: ArrayList<ECSProduct> = ArrayList<ECSProduct>()
+        val ecsProductList: ArrayList<ECSProduct> = ArrayList<ECSProduct>()
         for (ctn in ctnList) {
-            var ecsProduct = ECSProduct(null, ctn, null)
+            val ecsProduct = ECSProduct(null, ctn, null)
             ecsProductList.add(ecsProduct)
         }
-        var ecsProducts = ECSProducts(ecsProductList)
+        val ecsProducts = ECSProducts(ecsProductList)
         Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetSummaryForSingleProduct.onResponse(ecsProducts) }
         mECSProductManager.fetchProductSummaries(ctnList, eCSCallbackGetSummaryForSingleProduct)
         Mockito.`when`(requestHandlerMock.handleRequest(mGetSummariesForProductsRequestMock)).then { eCSCallbackGetSummaryForSingleProductMock.onResponse(productListMock) }
@@ -288,7 +288,7 @@ class ECSProductManagerTest {
 
     @Test
     fun fetchProductDetails() {
-        var mEcscallback = object : ECSCallback<ECSProduct, ECSError> {
+        val mEcscallback = object : ECSCallback<ECSProduct, ECSError> {
 
             override fun onResponse(result: ECSProduct) {
                 assertNotNull(result)
@@ -300,7 +300,7 @@ class ECSProductManagerTest {
             }
         }
 
-        var mECSProduct = ECSProduct(null, "id", "type")
+        val mECSProduct = ECSProduct(null, "id", "type")
         mECSProduct.ctn = "new id"
 
         Mockito.`when`(requestHandlerMock.handleRequest(mGetProductAssetRequestMock)).then { mEcscallback.onResponse(mECSProduct) }
@@ -337,17 +337,76 @@ class ECSProductManagerTest {
 
 
     @Test
-    fun `product availability with invalid  email should through invalid email exception`() {
+    fun `product availability with invalid  email one should through invalid email exception`() {
 
         try {
             mECSProductManager.registerForProductAvailability("pabitrabapi", "HX3245/00", ecsCallbackBooleanMock)
-            mECSProductManager.registerForProductAvailability("", "HX3245/00", ecsCallbackBooleanMock)
+        }catch (e : ECSException){
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode,e.errorCode)
+        }
+    }
+
+    @Test
+    fun `product availability with invalid  email two should through invalid email exception`() {
+
+        try {
             mECSProductManager.registerForProductAvailability("pabitrabapi.com", "HX3245/00", ecsCallbackBooleanMock)
+        }catch (e : ECSException){
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode,e.errorCode)
+        }
+    }
+
+    @Test
+    fun `product availability with invalid  email three should through invalid email exception`() {
+
+        try {
+
             mECSProductManager.registerForProductAvailability("pabitrabapi@gmail", "HX3245/00", ecsCallbackBooleanMock)
         }catch (e : ECSException){
             assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode,e.errorCode)
         }
     }
 
+    @Test
+    fun `product availability with blank  email one should through invalid email exception`() {
 
+        try {
+            mECSProductManager.registerForProductAvailability("", "HX3245/00", ecsCallbackBooleanMock)
+        }catch (e : ECSException){
+            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode,e.errorCode)
+        }
+    }
+
+    @Test
+    fun `product availability with without locale should through locale not set exception`() {
+
+        ECSDataHolder.locale = null
+        try {
+            mECSProductManager.registerForProductAvailability("pabitrakumar.sahoo@philips.com", "HX3245/00", ecsCallbackBooleanMock)
+        }catch (e : ECSException){
+            assertEquals(ECSErrorType.ECSLocaleNotFound.errorCode,e.errorCode)
+        }
+    }
+
+
+    @Test
+    fun `product availability with without hybris should through hybris not set exception`() {
+
+        ECSDataHolder.config = ECSConfig("en_US",isHybris = false)
+        try {
+            mECSProductManager.registerForProductAvailability("pabitrakumar.sahoo@philips.com", "HX3245/00", ecsCallbackBooleanMock)
+        }catch (e : ECSException){
+            assertEquals(ECSErrorType.ECSSiteIdNotFound.errorCode,e.errorCode)
+        }
+    }
+
+    @Test
+    fun `product availabilty api should call request handler to execute request when local validation is passed`() {
+        ECSDataHolder.config = ECSConfig("en_US",isHybris = true)
+        ECSDataHolder.locale = "en_US"
+        setApiKey()
+        mECSProductManager.registerForProductAvailability("pabitrakumar.sahoo@philips.com", "HX3245/00", ecsCallbackBooleanMock)
+        Mockito.verify(requestHandlerMock).handleRequest(any(ProductAvailabilityRequest::class.java))
+
+    }
 }
