@@ -61,7 +61,6 @@ task getBuildFlavour() {
     project.logger.lifecycle('task : Total Task: ' +  gradle.startParameter.taskNames.size())
     project.logger.lifecycle('task : Task name:  ' +  gradle.startParameter.taskNames.get(0))
     if(gradle.startParameter.taskNames.get(0).contains("Debug") || gradle.startParameter.taskNames.get(0).contains("debug")) {
-        gradle.startParameter.taskNames.size()
         buildFlavour = true
         project.logger.lifecycle('debug: buildFlavour = ' + buildFlavour)
     } else {
