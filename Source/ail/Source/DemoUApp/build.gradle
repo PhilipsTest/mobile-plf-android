@@ -29,10 +29,12 @@ dependencies {
     implementation deps.androidx.constraintlayout
     implementation deps.androidx.localbroadcastmanager
     if (useprojectdependencies) {
+        project.logger.lifecycle('ufw: Picking the dependencies from the code')
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
         implementation project(strings.pif.projectName)
     } else {
+        project.logger.lifecycle('ufw: Picking the dependencies from the artifactory')
         implementation philipsdeps.uAppFwLib
         implementation philipsdeps.AppInfra
         implementation philipsdeps.pif

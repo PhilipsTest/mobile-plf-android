@@ -46,11 +46,13 @@ dependencies {
     implementation deps.design
     implementation philipsdeps.uid
     if (useprojectdependencies) {
+        project.logger.lifecycle('digitalCareUApp: Picking the dependencies from the code')
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
         implementation project(strings.prx.projectName)
         implementation project(strings.pse.projectName)
     } else {
+        project.logger.lifecycle('digitalCareUApp: Picking the dependencies from the artifactory')
         implementation philipsdeps.uAppFwLib
         implementation philipsdeps.AppInfra
         implementation philipsdeps.prx

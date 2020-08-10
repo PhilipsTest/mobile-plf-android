@@ -55,6 +55,21 @@ ext.commitHash = objcdp.getCommitHash()
 
 println "Working branch: ${objcdp.getWorkingBranch()}"
 
+def buildFlavour
+task getBuildFlavour() {
+    project.logger.lifecycle('task : getBuildFlavour():  ' +  gradle.startParameter.taskNames)
+    project.logger.lifecycle('task : Total Task: ' +  gradle.startParameter.taskNames.size())
+    project.logger.lifecycle('task : Task name:  ' +  gradle.startParameter.taskNames.get(0))
+    if(gradle.startParameter.taskNames.get(0).contains("Debug") || gradle.startParameter.taskNames.get(0).contains("debug")) {
+        buildFlavour = true
+        project.logger.lifecycle('debug: buildFlavour = ' + buildFlavour)
+    } else {
+        buildFlavour = false
+        project.logger.lifecycle('Not debug: buildFlavour ' + buildFlavour)
+    }
+
+}
+
 subprojects {
     task reportAllProjectDependencies(type: DependencyReportTask) {}
 
@@ -158,7 +173,8 @@ subprojects {
 //        throw new GradleException("Project not found ${it}")
     }
 
-    ext.useprojectdependencies = false
+    ext.useprojectdependencies = buildFlavour
+    project.logger.lifecycle('Root: ext.useprojectdependencies ' + ext.useprojectdependencies)
 }
 
 dependencyUpdates.resolutionStrategy {

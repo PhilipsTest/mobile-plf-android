@@ -83,8 +83,10 @@ dependencies {
     releaseImplementation deps.chuck_release
     implementation deps.okhttp3
     if (useprojectdependencies) {
+        project.logger.lifecycle('AppInfra: Picking the dependencies from the code')
         implementation project(strings.pif.projectName)
     } else {
+        project.logger.lifecycle('AppInfra: Picking the dependencies from the artifactory')
         implementation philipsdeps.pif
     }
 

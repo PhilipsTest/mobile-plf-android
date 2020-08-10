@@ -70,11 +70,13 @@ dependencies {
     implementation deps.greenrobot
     implementation philipsdeps.uid
     if (useprojectdependencies) {
+        project.logger.lifecycle('UserRegistrationUApp: Picking the dependencies from the code')
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
         implementation project(strings.usr.projectName)
         implementation project(strings.pif.projectName)
     } else {
+        project.logger.lifecycle('UserRegistrationUApp: Picking the dependencies from the artifactory')
         implementation philipsdeps.uAppFwLib
         implementation philipsdeps.AppInfra
         //implementation philipsdeps.jump

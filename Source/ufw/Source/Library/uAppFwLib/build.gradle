@@ -90,8 +90,10 @@ dependencies {
     testImplementation deps.robolectric
     api(philipsdeps.uid)
     if (useprojectdependencies) {
+        project.logger.lifecycle('AppInfraUApp: Picking the dependencies from the code')
         implementation project(strings.ail.projectName)
     } else {
+        project.logger.lifecycle('AppInfraUApp: Picking the dependencies from the artifactory')
         implementation(philipsdeps.AppInfra)
 
     }
