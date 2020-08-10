@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">請提供 app infra object</string>
@@ -26,6 +33,7 @@
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">我們遇到技術問題 (存取權杖無效)。請執行 Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">電子郵件地址無效。請檢查。</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">產品未放入購物車</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">請設定地區</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[zh-TW]Please provide valid CTN</string>
