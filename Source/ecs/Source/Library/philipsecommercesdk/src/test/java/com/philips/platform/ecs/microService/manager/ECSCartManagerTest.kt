@@ -41,7 +41,7 @@ class ECSCartManagerTest {
     lateinit var ecsCallbackMock: ECSCallback<ECSShoppingCart, ECSError>
 
     val validCTN = "HX3631/06"
-    val inValidCTN = " HX   3631/06 "
+    val inValidCTN = "HX   3631/06"
 
     @Before
     fun setUp() {
