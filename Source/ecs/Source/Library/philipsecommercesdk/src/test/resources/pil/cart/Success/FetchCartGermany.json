@@ -1,0 +1,160 @@
+{
+   "data":{
+      "id":"24019116764",
+      "type":"commerceCart",
+      "attributes":{
+         "email":"susmit.guha@philips.com",
+         "pricing":{
+            "net":false,
+            "total":{
+               "currency":"EUR",
+               "formattedValue":"179,99 €",
+               "value":179.99
+            },
+            "subTotal":{
+               "currency":"EUR",
+               "formattedValue":"179,99 €",
+               "value":179.99
+            },
+            "tax":{
+               "currency":"EUR",
+               "formattedValue":"28,74 €",
+               "value":28.74
+            },
+            "orderDiscount":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "itemDiscount":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "delivery":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "totalDelivery":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "orderDiscountNoDelivery":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "totalDiscountNoDelivery":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "totalNoDelivery":{
+               "currency":"EUR",
+               "formattedValue":"179,99 €",
+               "value":179.99
+            },
+            "totalDiscount":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            }
+         },
+         "promotions":{
+            "potentialPromotions":[
+
+            ],
+            "appliedPromotions":[
+
+            ],
+            "potentialProductPromotions":[
+
+            ],
+            "appliedProductPromotions":[
+
+            ]
+         },
+         "ageConsent":false,
+         "ageConsentApplied":false,
+         "marketingOptinApplied":false,
+         "units":1,
+         "deliveryUnits":1,
+         "items":[
+            {
+               "id":"0",
+               "itemId":"HR2098/30",
+               "title":"Avance Collection Standmixer mit Kochfunktion",
+               "image":"https://images.philips.com/is/image/PhilipsConsumer/HR2098_30-IMS-de_DE",
+               "quantity":1,
+               "availability":{
+                  "status":"IN_STOCK",
+                  "quantity":52
+               },
+               "price":{
+                  "currency":"EUR",
+                  "formattedValue":"254,99 €",
+                  "value":254.99
+               },
+               "discountPrice":{
+                  "currency":"EUR",
+                  "formattedValue":"179,99 €",
+                  "value":179.99
+               },
+               "totalPrice":{
+                  "currency":"EUR",
+                  "formattedValue":"179,99 €",
+                  "value":179.99
+               }
+            }
+         ],
+         "deliveryMode":{
+            "id":"DHL_STANDARD",
+            "deliveryCost":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "description":"2 bis 3 Werktage Lieferzeit",
+            "label":"DHL STANDARD",
+            "collectionPoint":false
+         },
+         "applicableDeliveryModes":[
+            {
+               "id":"DHL_STANDARD",
+               "deliveryCost":{
+                  "currency":"EUR",
+                  "formattedValue":"0,00 €",
+                  "value":0.0
+               },
+               "description":"2 bis 3 Werktage Lieferzeit",
+               "label":"DHL STANDARD",
+               "collectionPoint":false
+            }
+         ],
+         "deliveryAddress":{
+            "billingAddress":false,
+            "country":{
+               "isocode":"DE",
+               "name":"Deutschland"
+            },
+            "defaultAddress":false,
+            "firstName":"Susmit Shipping",
+            "houseNumber":"23",
+            "id":"9354530095127",
+            "lastName":"Billing",
+            "line1":"23,Berline",
+            "line2":"",
+            "phone":"49301234566",
+            "postalCode":"10117",
+            "deliveryAddress":true,
+            "titleCode":"mr.",
+            "town":"Berlin"
+         },
+         "notifications":[
+
+         ]
+      }
+   }
+}

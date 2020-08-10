@@ -37,13 +37,11 @@ class MECReviewsAdapter(private val mecReviews: List<MECReview>?) : RecyclerView
         val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         viewHolder.binding.mecRetailerItemProductLayout.setLayoutParams(params)
 
-        viewHolder.binding.mecProsLayout.visibility = if(review.pros.equals("null")) View.GONE else View.VISIBLE
-        viewHolder.binding.mecConsLayout.visibility = if(review.cons.equals("null")) View.GONE else View.VISIBLE
+        viewHolder.binding.mecProsLayout.visibility = if(review.pros.equals("null") || review.pros.isEmpty()) View.GONE else View.VISIBLE
+        viewHolder.binding.mecConsLayout.visibility = if(review.cons.equals("null") || review.cons.isEmpty()) View.GONE else View.VISIBLE
         if (position % 2 == 0) {
-            //viewHolder.binding.root.setBackgroundColor(R.attr.uidContentPrimaryBackgroundColor)
-            viewHolder.binding.mecRetailerItemProductLayout.setBackgroundColor(getColor(viewHolder.binding.root.context, R.color.uidColorWhite))
+             viewHolder.binding.mecRetailerItemProductLayout.setBackgroundColor(getColor(viewHolder.binding.root.context, R.color.uidColorWhite))
         } else {
-            //viewHolder.binding.root.setBackgroundColor(R.attr.uidContentSecondaryNeutralBackgroundColor)
             viewHolder.binding.mecRetailerItemProductLayout.setBackgroundColor(Color.parseColor("#F5F5F5"))
         }
         //android:text='@{ (mecReview.submitter+" - "+mecReview.formattedDate): (mecReview.submitter+" - "+mecReview.formattedDate + "@string/mec_has_used_this_product_for"+mecReview.useDuration) }'

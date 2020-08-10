@@ -1,0 +1,164 @@
+{
+   "data":{
+      "id":"24019660940",
+      "type":"commerceCart",
+      "attributes":{
+         "email":"susmit.guha@philips.com",
+         "pricing":{
+            "net":false,
+            "total":{
+               "currency":"EUR",
+               "formattedValue":"8.254,54 €",
+               "value":8254.54
+            },
+            "subTotal":{
+               "currency":"EUR",
+               "formattedValue":"8.254,54 €",
+               "value":8254.54
+            },
+            "tax":{
+               "currency":"EUR",
+               "formattedValue":"1.138,56 €",
+               "value":1138.56
+            },
+            "orderDiscount":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "orderDiscountNoDelivery":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "totalDiscountNoDelivery":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            },
+            "totalNoDelivery":{
+               "currency":"EUR",
+               "formattedValue":"8.254,54 €",
+               "value":8254.54
+            },
+            "itemDiscount":{
+               "currency":"EUR",
+               "formattedValue":"0,00 €",
+               "value":0.0
+            }
+         },
+         "promotions":{
+            "potentialPromotions":[
+
+            ],
+            "appliedPromotions":[
+
+            ],
+            "potentialProductPromotions":[
+
+            ],
+            "appliedProductPromotions":[
+
+            ]
+         },
+         "ageConsent":false,
+         "ageConsentApplied":false,
+         "marketingOptinApplied":false,
+         "units":46,
+         "deliveryUnits":46,
+         "items":[
+            {
+               "id":"0",
+               "itemId":"HR3657/90",
+               "title":"Avance Collection Standmixer",
+               "image":"https://images.philips.com/is/image/PhilipsConsumer/HR3657_90-IMS-de_DE",
+               "quantity":1,
+               "availability":{
+                  "status":"IN_STOCK",
+                  "quantity":111
+               },
+               "price":{
+                  "currency":"EUR",
+                  "formattedValue":"229,99 €",
+                  "value":229.99
+               },
+               "discountPrice":{
+                  "currency":"EUR",
+                  "formattedValue":"154,99 €",
+                  "value":154.99
+               },
+               "totalPrice":{
+                  "currency":"EUR",
+                  "formattedValue":"154,99 €",
+                  "value":154.99
+               }
+            },
+            {
+               "id":"1",
+               "itemId":"HR2098/30",
+               "title":"Avance Collection Standmixer mit Kochfunktion",
+               "image":"https://images.philips.com/is/image/PhilipsConsumer/HR2098_30-IMS-de_DE",
+               "quantity":45,
+               "availability":{
+                  "status":"IN_STOCK",
+                  "quantity":45
+               },
+               "price":{
+                  "currency":"EUR",
+                  "formattedValue":"254,99 €",
+                  "value":254.99
+               },
+               "discountPrice":{
+                  "currency":"EUR",
+                  "formattedValue":"179,99 €",
+                  "value":179.99
+               },
+               "totalPrice":{
+                  "currency":"EUR",
+                  "formattedValue":"8.099,55 €",
+                  "value":8099.55
+               }
+            }
+         ],
+         "applicableDeliveryModes":[
+            {
+               "id":"DHL_STANDARD",
+               "deliveryCost":{
+                  "currency":"EUR",
+                  "formattedValue":"0,00 €",
+                  "value":0.0
+               },
+               "description":"2 bis 3 Werktage Lieferzeit",
+               "label":"DHL STANDARD",
+               "isCollectionPoint":false
+            }
+         ],
+         "deliveryAddress":{
+            "billingAddress":false,
+            "country":{
+               "isocode":"DE",
+               "name":"Deutschland"
+            },
+            "defaultAddress":false,
+            "firstName":"Susmit Shipping",
+            "houseNumber":"23 A",
+            "id":"9354530095127",
+            "lastName":"Billing",
+            "line1":"Berline",
+            "line2":"",
+            "phone":"49301234566",
+            "postalCode":"10117",
+            "deliveryAddress":true,
+            "titleCode":"mr.",
+            "town":"Berlin"
+         },
+         "notifications":[
+            {
+               "id":"thresholdExceeded",
+               "message":"<b>Order cannot exceed €2300</b>,-  Please lower your order value to proceed to check out.",
+               "orderBlocking":true
+            }
+         ]
+      }
+   }
+}

@@ -1,93 +1,15 @@
 {
-
-  "pil": [{
-    "name": "PIL Configure ECS Microservices",
-    "subgroup": [{
-      "name": "configureECS",
-      "apiNumber": 40,
-      "editText": 0,
-      "spinner": 0,
-      "button": 0,
-      "editTexts": [],
-      "spinners": [],
-      "switches": []
-    }
-    ]
-  },
+  "pil": [
     {
-      "name": "PIL OAuth Microservices",
-      "subgroup": [{
-        "name": "hybrisOAthAuthentication",
-        "apiNumber": 42,
-        "editText": 3,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "text": "secret",
-          "hint": "client secret"
-        },
-          {
-            "tag": "et_two",
-            "text": "mobile_android",
-            "hint": "client ID"
-          },
-          {
-            "tag": "et_three",
-            "text": "refreshToken",
-            "hint": "refresh Token"
-          }
-        ],
-        "spinners": [],
-        "switches": []
-      },
+      "name": "PIL Configure ECS Microservices",
+      "subgroup": [
         {
-          "name": "hybrisRefreshOAuth",
-          "apiNumber": 43,
-          "editText": 3,
+          "name": "configureECS",
+          "apiNumber": 40,
+          "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "client secret"
-          },
-            {
-              "tag": "et_two",
-              "text": "mobile_android",
-              "hint": "client ID"
-            },
-            {
-              "tag": "et_three",
-              "text": "refreshToken",
-              "hint": "refresh Token"
-            }
-          ],
-          "spinners": [],
-          "switches": []
-        },
-        {
-          "name": "refreshJanrain",
-          "apiNumber": 44,
-          "editText": 3,
-          "spinner": 0,
-          "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "client secret"
-          },
-            {
-              "tag": "et_two",
-              "text": "mobile_android",
-              "hint": "client ID"
-            },
-            {
-              "tag": "et_three",
-              "text": "refreshToken",
-              "hint": "refresh Token"
-            }
-          ],
+          "editTexts": [],
           "spinners": [],
           "switches": []
         }
@@ -95,53 +17,58 @@
     },
     {
       "name": "PIL Products Microservices",
-      "subgroup": [{
-        "name": "fetchProducts",
-        "apiNumber": 45,
-        "editText": 3,
-        "spinner": 2,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "inputType": 2,
-          "hint": "enter offset"
+      "subgroup": [
+        {
+          "name": "fetchProducts",
+          "apiNumber": 45,
+          "editText": 3,
+          "spinner": 2,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "inputType": 2,
+              "hint": "enter offset"
+            },
+            {
+              "tag": "et_two",
+              "text": "secret",
+              "inputType": 2,
+              "hint": "enter limit"
+            },
+            {
+              "tag": "et_three",
+              "text": "FOOD_PREPARATION_CA2",
+              "hint": "enter category"
+            }
+          ],
+          "spinners": [
+            {
+              "tag": "spinner_sort_type",
+              "text": "Sort",
+              "hint": "Sort by"
+            },
+            {
+              "tag": "spinner_stock_level",
+              "text": "Stock",
+              "hint": "Stock level"
+            }
+          ],
+          "switches": []
         },
-          {
-            "tag": "et_two",
-            "text": "secret",
-            "inputType": 2,
-            "hint": "enter limit"
-          },
-          {
-            "tag": "et_three",
-            "text": "FOOD_PREPARATION_CA2",
-            "hint": "enter category"
-          }
-        ],
-        "spinners": [{
-          "tag": "spinner_sort_type",
-          "text": "Sort",
-          "hint": "Sort by"
-        },
-          {
-            "tag": "spinner_stock_level",
-            "text": "Stock",
-            "hint": "Stock level"
-          }
-        ],
-        "switches": []
-      },
         {
           "name": "fetchProductForCTN",
           "apiNumber": 46,
           "editText": 1,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter product ctn"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter product ctn"
+            }
+          ],
           "spinners": [],
           "switches": []
         },
@@ -152,11 +79,13 @@
           "spinner": 1,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -165,11 +94,13 @@
           "editText": 1,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter ctns in comma separated"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter ctns in comma separated"
+            }
+          ],
           "spinners": [],
           "switches": []
         }
@@ -177,37 +108,56 @@
     },
     {
       "name": "PIL Cart Microservices",
-      "subgroup": [{
-        "name": "fetchShoppingCart",
-        "apiNumber": 49,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "fetchShoppingCart",
+          "apiNumber": 49,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "addProductToShoppingCart",
           "apiNumber": 50,
-          "editText": 0,
-          "spinner": 1,
+          "editText": 2,
+          "spinner": 0,
           "button": 0,
-          "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "hint": "enter CTN"
+            },
+            {
+              "tag": "et_two",
+              "text": "1",
+              "inputType": 2,
+              "hint": "enter Quantity"
+            }
+          ],
+          "spinners": [],
           "switches": []
         },
         {
           "name": "createShoppingCart",
           "apiNumber": 51,
-          "editText": 0,
+          "editText": 2,
           "spinner": 0,
           "button": 0,
-          "editTexts": [],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "hint": "enter CTN"
+            },
+            {
+              "tag": "et_two",
+              "text": "1",
+              "inputType": 2,
+              "hint": "enter Quantity"
+            }
+          ],
           "spinners": [],
           "switches": []
         },
@@ -217,36 +167,44 @@
           "editText": 1,
           "spinner": 1,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter quantity"
-          }],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "inputType": 2,
+              "text": "enter quantity",
+              "hint": "enter quantity"
+            }
+          ],
+          "spinners": [
+            {
+              "tag": "spinner_items",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         }
       ]
     },
     {
       "name": "PIL Voucher Microservices",
-      "subgroup": [{
-        "name": "applyVoucher",
-        "apiNumber": 53,
-        "editText": 1,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "text": "secret",
-          "hint": "enter voucher code"
-        }],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "applyVoucher",
+          "apiNumber": 53,
+          "editText": 1,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter voucher code"
+            }
+          ],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "fetchAppliedVouchers",
           "apiNumber": 54,
@@ -263,11 +221,13 @@
           "editText": 1,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter voucher code"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter voucher code"
+            }
+          ],
           "spinners": [],
           "switches": []
         }
@@ -275,16 +235,17 @@
     },
     {
       "name": "PIL Delivery Mode Microservices",
-      "subgroup": [{
-        "name": "fetchDeliveryModes",
-        "apiNumber": 56,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "fetchDeliveryModes",
+          "apiNumber": 56,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "setDeliveryMode",
           "apiNumber": 57,
@@ -292,57 +253,62 @@
           "spinner": 1,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         }
       ]
     },
     {
       "name": "PIL Fetch Regions Microservices",
-      "subgroup": [{
-        "name": "fetchRegionsForCountryISO",
-        "apiNumber": 58,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [
-
-          {
-            "tag": "et_one",
-            "hint": "enter Country ISO code"
-          }
-        ],
-        "spinners": [],
-        "switches": []
-      }]
+      "subgroup": [
+        {
+          "name": "fetchRegionsForCountryISO",
+          "apiNumber": 58,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "hint": "enter Country ISO code"
+            }
+          ],
+          "spinners": [],
+          "switches": []
+        }
+      ]
     },
     {
       "name": "PIL Address Microservices",
-      "subgroup": [{
-        "name": "fetchSavedAddresses",
-        "apiNumber": 59,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "fetchSavedAddresses",
+          "apiNumber": 59,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "createAddressWithSingleAddressReturn",
           "apiNumber": 60,
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_first_name",
-            "text": "secret",
-            "hint": "enter first name"
-          },
+          "editTexts": [
+            {
+              "tag": "et_first_name",
+              "text": "secret",
+              "hint": "enter first name"
+            },
             {
               "tag": "et_last_name",
               "text": "secret",
@@ -394,11 +360,12 @@
               "hint": "enter house number"
             }
           ],
-          "spinners": [{
-            "tag": "spinner_salutation",
-            "text": "secret",
-            "hint": "hint"
-          },
+          "spinners": [
+            {
+              "tag": "spinner_salutation",
+              "text": "secret",
+              "hint": "hint"
+            },
             {
               "tag": "spinner_state",
               "text": "secret",
@@ -413,11 +380,12 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_first_name",
-            "text": "secret",
-            "hint": "enter first name"
-          },
+          "editTexts": [
+            {
+              "tag": "et_first_name",
+              "text": "secret",
+              "hint": "enter first name"
+            },
             {
               "tag": "et_last_name",
               "text": "secret",
@@ -469,11 +437,12 @@
               "hint": "enter house number"
             }
           ],
-          "spinners": [{
-            "tag": "spinner_salutation",
-            "text": "secret",
-            "hint": "hint"
-          },
+          "spinners": [
+            {
+              "tag": "spinner_salutation",
+              "text": "secret",
+              "hint": "hint"
+            },
             {
               "tag": "spinner_state",
               "text": "secret",
@@ -488,11 +457,12 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_first_name",
-            "text": "secret",
-            "hint": "enter first name"
-          },
+          "editTexts": [
+            {
+              "tag": "et_first_name",
+              "text": "secret",
+              "hint": "enter first name"
+            },
             {
               "tag": "et_last_name",
               "text": "secret",
@@ -544,11 +514,12 @@
               "hint": "enter house number"
             }
           ],
-          "spinners": [{
-            "tag": "spinner_salutation",
-            "text": "secret",
-            "hint": "hint"
-          },
+          "spinners": [
+            {
+              "tag": "spinner_salutation",
+              "text": "secret",
+              "hint": "hint"
+            },
             {
               "tag": "spinner_state",
               "text": "secret",
@@ -568,11 +539,12 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_first_name",
-            "text": "secret",
-            "hint": "enter first name"
-          },
+          "editTexts": [
+            {
+              "tag": "et_first_name",
+              "text": "secret",
+              "hint": "enter first name"
+            },
             {
               "tag": "et_last_name",
               "text": "secret",
@@ -624,11 +596,12 @@
               "hint": "enter house number"
             }
           ],
-          "spinners": [{
-            "tag": "spinner_salutation",
-            "text": "secret",
-            "hint": "hint"
-          },
+          "spinners": [
+            {
+              "tag": "spinner_salutation",
+              "text": "secret",
+              "hint": "hint"
+            },
             {
               "tag": "spinner_state",
               "text": "secret",
@@ -649,11 +622,13 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -663,11 +638,13 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -677,11 +654,13 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -691,70 +670,64 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         }
       ]
     },
     {
       "name": "PIL Retailers Microservices",
-      "subgroup": [{
-        "name": "fetchRetailers for ctn",
-        "apiNumber": 68,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "text": "secret",
-          "hint": "enter ctn to get available retailers"
-        }],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
         {
-          "name": "fetchRetailers for product",
-          "apiNumber": 69,
-          "editText": 1,
+          "name": "fetchRetailers for ctn",
+          "apiNumber": 68,
+          "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter ctn to get available retailers"
+            }
+          ],
+          "spinners": [],
           "switches": []
         }
       ]
     },
     {
       "name": "PIL Place order Microservices",
-      "subgroup": [{
-        "name": "FetchPayments Details",
-        "apiNumber": 70,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "FetchPayments Details",
+          "apiNumber": 70,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "SetPaymentDetails",
           "apiNumber": 71,
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter payment detail ID"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter payment detail ID"
+            }
+          ],
           "spinners": [],
           "switches": []
         },
@@ -764,16 +737,20 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "order detail ID"
-          }],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "order detail ID"
+            }
+          ],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -782,11 +759,13 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter cvv number"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter cvv number"
+            }
+          ],
           "spinners": [],
           "switches": []
         }
@@ -794,39 +773,43 @@
     },
     {
       "name": "PIL Order History Microservices",
-      "subgroup": [{
-        "name": "fetchOrderHistory",
-        "apiNumber": 74,
-        "editText": 2,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "inputType": 2,
-          "text": "secret",
-          "hint": "enter current page "
+      "subgroup": [
+        {
+          "name": "fetchOrderHistory",
+          "apiNumber": 74,
+          "editText": 2,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "inputType": 2,
+              "text": "secret",
+              "hint": "enter current page "
+            },
+            {
+              "tag": "et_two",
+              "inputType": 2,
+              "text": "secret",
+              "hint": "enter current page sizee"
+            }
+          ],
+          "spinners": [],
+          "switches": []
         },
-          {
-            "tag": "et_two",
-            "inputType": 2,
-            "text": "secret",
-            "hint": "enter current page sizee"
-          }
-        ],
-        "spinners": [],
-        "switches": []
-      },
         {
           "name": "fetchOrderDetail for oderDetail ID",
           "apiNumber": 75,
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter order Detail ID"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter order Detail ID"
+            }
+          ],
           "spinners": [],
           "switches": []
         },
@@ -837,11 +820,13 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -851,91 +836,100 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         }
       ]
     },
     {
       "name": "PIL Profile Microservices",
-      "subgroup": [{
-        "name": "fetchUserProfile",
-        "apiNumber": 78,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      }]
+      "subgroup": [
+        {
+          "name": "fetchUserProfile",
+          "apiNumber": 78,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        }
+      ]
     }
   ],
-  "occ": [{
-    "name": "Configure ECS Microservices",
-    "subgroup": [{
-      "name": "configureECS",
-      "apiNumber": 1,
-      "editText": 0,
-      "spinner": 0,
-      "button": 0,
-      "editTexts": [],
-      "spinners": [],
-      "switches": []
+  "occ": [
+    {
+      "name": "Configure ECS Microservices",
+      "subgroup": [
+        {
+          "name": "configureECS",
+          "apiNumber": 1,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
+        {
+          "name": "ConfigureECSWithConfiguration",
+          "apiNumber": 2,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        }
+      ]
     },
-      {
-        "name": "ConfigureECSWithConfiguration",
-        "apiNumber": 2,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      }
-    ]
-  },
     {
       "name": "OAuth Microservices",
-      "subgroup": [{
-        "name": "hybrisOAthAuthentication",
-        "apiNumber": 3,
-        "editText": 3,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "text": "secret",
-          "hint": "client secret"
+      "subgroup": [
+        {
+          "name": "hybrisOAthAuthentication",
+          "apiNumber": 3,
+          "editText": 3,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "client secret"
+            },
+            {
+              "tag": "et_two",
+              "text": "mobile_android",
+              "hint": "client ID"
+            },
+            {
+              "tag": "et_three",
+              "text": "refreshToken",
+              "hint": "refresh Token"
+            }
+          ],
+          "spinners": [],
+          "switches": []
         },
-          {
-            "tag": "et_two",
-            "text": "mobile_android",
-            "hint": "client ID"
-          },
-          {
-            "tag": "et_three",
-            "text": "refreshToken",
-            "hint": "refresh Token"
-          }
-        ],
-        "spinners": [],
-        "switches": []
-      },
         {
           "name": "hybrisRefreshOAuth",
           "apiNumber": 4,
           "editText": 3,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "client secret"
-          },
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "client secret"
+            },
             {
               "tag": "et_two",
               "text": "mobile_android",
@@ -956,11 +950,12 @@
           "editText": 3,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "client secret"
-          },
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "client secret"
+            },
             {
               "tag": "et_two",
               "text": "mobile_android",
@@ -979,38 +974,42 @@
     },
     {
       "name": "Products Microservices",
-      "subgroup": [{
-        "name": "fetchProducts",
-        "apiNumber": 5,
-        "editText": 2,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "inputType": 2,
-          "hint": "enter current pagee"
+      "subgroup": [
+        {
+          "name": "fetchProducts",
+          "apiNumber": 5,
+          "editText": 2,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "inputType": 2,
+              "hint": "enter current pagee"
+            },
+            {
+              "tag": "et_two",
+              "text": "secret",
+              "inputType": 2,
+              "hint": "enter page size"
+            }
+          ],
+          "spinners": [],
+          "switches": []
         },
-          {
-            "tag": "et_two",
-            "text": "secret",
-            "inputType": 2,
-            "hint": "enter page size"
-          }
-        ],
-        "spinners": [],
-        "switches": []
-      },
         {
           "name": "fetchProductForCTN",
           "apiNumber": 6,
           "editText": 1,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter product ctn"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter product ctn"
+            }
+          ],
           "spinners": [],
           "switches": []
         },
@@ -1021,11 +1020,13 @@
           "spinner": 1,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -1034,11 +1035,13 @@
           "editText": 1,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter ctns in comma separated"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter ctns in comma separated"
+            }
+          ],
           "spinners": [],
           "switches": []
         }
@@ -1046,16 +1049,17 @@
     },
     {
       "name": "Cart Microservices",
-      "subgroup": [{
-        "name": "fetchShoppingCart",
-        "apiNumber": 9,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "fetchShoppingCart",
+          "apiNumber": 9,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "addProductToShoppingCart",
           "apiNumber": 10,
@@ -1063,11 +1067,13 @@
           "spinner": 1,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -1086,36 +1092,43 @@
           "editText": 1,
           "spinner": 1,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter quantity"
-          }],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter quantity"
+            }
+          ],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         }
       ]
     },
     {
       "name": "Voucher Microservices",
-      "subgroup": [{
-        "name": "applyVoucher",
-        "apiNumber": 13,
-        "editText": 1,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "text": "secret",
-          "hint": "enter voucher code"
-        }],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "applyVoucher",
+          "apiNumber": 13,
+          "editText": 1,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter voucher code"
+            }
+          ],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "fetchAppliedVouchers",
           "apiNumber": 14,
@@ -1132,11 +1145,13 @@
           "editText": 1,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter voucher code"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter voucher code"
+            }
+          ],
           "spinners": [],
           "switches": []
         }
@@ -1144,16 +1159,17 @@
     },
     {
       "name": "Delivery Mode Microservices",
-      "subgroup": [{
-        "name": "fetchDeliveryModes",
-        "apiNumber": 16,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "fetchDeliveryModes",
+          "apiNumber": 16,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "setDeliveryMode",
           "apiNumber": 17,
@@ -1161,57 +1177,62 @@
           "spinner": 1,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         }
       ]
     },
     {
       "name": "Fetch Regions Microservices",
-      "subgroup": [{
-        "name": "fetchRegionsForCountryISO",
-        "apiNumber": 18,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [
-
-          {
-            "tag": "et_one",
-            "hint": "enter Country ISO code"
-          }
-        ],
-        "spinners": [],
-        "switches": []
-      }]
+      "subgroup": [
+        {
+          "name": "fetchRegionsForCountryISO",
+          "apiNumber": 18,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "hint": "enter Country ISO code"
+            }
+          ],
+          "spinners": [],
+          "switches": []
+        }
+      ]
     },
     {
       "name": "Address Microservices",
-      "subgroup": [{
-        "name": "fetchSavedAddresses",
-        "apiNumber": 19,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "fetchSavedAddresses",
+          "apiNumber": 19,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "createAddressWithSingleAddressReturn",
           "apiNumber": 20,
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_first_name",
-            "text": "secret",
-            "hint": "enter first name"
-          },
+          "editTexts": [
+            {
+              "tag": "et_first_name",
+              "text": "secret",
+              "hint": "enter first name"
+            },
             {
               "tag": "et_last_name",
               "text": "secret",
@@ -1263,11 +1284,12 @@
               "hint": "enter house number"
             }
           ],
-          "spinners": [{
-            "tag": "spinner_salutation",
-            "text": "secret",
-            "hint": "hint"
-          },
+          "spinners": [
+            {
+              "tag": "spinner_salutation",
+              "text": "secret",
+              "hint": "hint"
+            },
             {
               "tag": "spinner_state",
               "text": "secret",
@@ -1282,11 +1304,12 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_first_name",
-            "text": "secret",
-            "hint": "enter first name"
-          },
+          "editTexts": [
+            {
+              "tag": "et_first_name",
+              "text": "secret",
+              "hint": "enter first name"
+            },
             {
               "tag": "et_last_name",
               "text": "secret",
@@ -1338,11 +1361,12 @@
               "hint": "enter house number"
             }
           ],
-          "spinners": [{
-            "tag": "spinner_salutation",
-            "text": "secret",
-            "hint": "hint"
-          },
+          "spinners": [
+            {
+              "tag": "spinner_salutation",
+              "text": "secret",
+              "hint": "hint"
+            },
             {
               "tag": "spinner_state",
               "text": "secret",
@@ -1357,11 +1381,12 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_first_name",
-            "text": "secret",
-            "hint": "enter first name"
-          },
+          "editTexts": [
+            {
+              "tag": "et_first_name",
+              "text": "secret",
+              "hint": "enter first name"
+            },
             {
               "tag": "et_last_name",
               "text": "secret",
@@ -1413,11 +1438,12 @@
               "hint": "enter house number"
             }
           ],
-          "spinners": [{
-            "tag": "spinner_salutation",
-            "text": "secret",
-            "hint": "hint"
-          },
+          "spinners": [
+            {
+              "tag": "spinner_salutation",
+              "text": "secret",
+              "hint": "hint"
+            },
             {
               "tag": "spinner_state",
               "text": "secret",
@@ -1437,11 +1463,12 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_first_name",
-            "text": "secret",
-            "hint": "enter first name"
-          },
+          "editTexts": [
+            {
+              "tag": "et_first_name",
+              "text": "secret",
+              "hint": "enter first name"
+            },
             {
               "tag": "et_last_name",
               "text": "secret",
@@ -1493,11 +1520,12 @@
               "hint": "enter house number"
             }
           ],
-          "spinners": [{
-            "tag": "spinner_salutation",
-            "text": "secret",
-            "hint": "hint"
-          },
+          "spinners": [
+            {
+              "tag": "spinner_salutation",
+              "text": "secret",
+              "hint": "hint"
+            },
             {
               "tag": "spinner_state",
               "text": "secret",
@@ -1518,11 +1546,13 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -1532,11 +1562,13 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -1546,11 +1578,13 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -1560,70 +1594,64 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         }
       ]
     },
     {
       "name": "Retailers Microservices",
-      "subgroup": [{
-        "name": "fetchRetailers for ctn",
-        "apiNumber": 28,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "text": "secret",
-          "hint": "enter ctn to get available retailers"
-        }],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
         {
-          "name": "fetchRetailers for product",
-          "apiNumber": 29,
-          "editText": 1,
+          "name": "fetchRetailers for ctn",
+          "apiNumber": 28,
+          "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter ctn to get available retailers"
+            }
+          ],
+          "spinners": [],
           "switches": []
         }
       ]
     },
     {
       "name": "Place order Microservices",
-      "subgroup": [{
-        "name": "FetchPayments Details",
-        "apiNumber": 30,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      },
+      "subgroup": [
+        {
+          "name": "FetchPayments Details",
+          "apiNumber": 30,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        },
         {
           "name": "SetPaymentDetails",
           "apiNumber": 31,
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter payment detail ID"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter payment detail ID"
+            }
+          ],
           "spinners": [],
           "switches": []
         },
@@ -1633,16 +1661,20 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "order detail ID"
-          }],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "order detail ID"
+            }
+          ],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -1651,11 +1683,13 @@
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter cvv number"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter cvv number"
+            }
+          ],
           "spinners": [],
           "switches": []
         }
@@ -1663,39 +1697,43 @@
     },
     {
       "name": "Order History Microservices",
-      "subgroup": [{
-        "name": "fetchOrderHistory",
-        "apiNumber": 34,
-        "editText": 2,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [{
-          "tag": "et_one",
-          "inputType": 2,
-          "text": "secret",
-          "hint": "enter current page "
+      "subgroup": [
+        {
+          "name": "fetchOrderHistory",
+          "apiNumber": 34,
+          "editText": 2,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "inputType": 2,
+              "text": "secret",
+              "hint": "enter current page "
+            },
+            {
+              "tag": "et_two",
+              "inputType": 2,
+              "text": "secret",
+              "hint": "enter current page sizee"
+            }
+          ],
+          "spinners": [],
+          "switches": []
         },
-          {
-            "tag": "et_two",
-            "inputType": 2,
-            "text": "secret",
-            "hint": "enter current page sizee"
-          }
-        ],
-        "spinners": [],
-        "switches": []
-      },
         {
           "name": "fetchOrderDetail for oderDetail ID",
           "apiNumber": 35,
           "editText": 0,
           "spinner": 0,
           "button": 0,
-          "editTexts": [{
-            "tag": "et_one",
-            "text": "secret",
-            "hint": "enter order Detail ID"
-          }],
+          "editTexts": [
+            {
+              "tag": "et_one",
+              "text": "secret",
+              "hint": "enter order Detail ID"
+            }
+          ],
           "spinners": [],
           "switches": []
         },
@@ -1706,11 +1744,13 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         },
         {
@@ -1720,27 +1760,31 @@
           "spinner": 0,
           "button": 0,
           "editTexts": [],
-          "spinners": [{
-            "tag": "spinner_one",
-            "text": "secret",
-            "hint": "hint"
-          }],
+          "spinners": [
+            {
+              "tag": "spinner_one",
+              "text": "secret",
+              "hint": "hint"
+            }
+          ],
           "switches": []
         }
       ]
     },
     {
       "name": "Profile Microservices",
-      "subgroup": [{
-        "name": "fetchUserProfile",
-        "apiNumber": 38,
-        "editText": 0,
-        "spinner": 0,
-        "button": 0,
-        "editTexts": [],
-        "spinners": [],
-        "switches": []
-      }]
+      "subgroup": [
+        {
+          "name": "fetchUserProfile",
+          "apiNumber": 38,
+          "editText": 0,
+          "spinner": 0,
+          "button": 0,
+          "editTexts": [],
+          "spinners": [],
+          "switches": []
+        }
+      ]
     }
   ]
 }

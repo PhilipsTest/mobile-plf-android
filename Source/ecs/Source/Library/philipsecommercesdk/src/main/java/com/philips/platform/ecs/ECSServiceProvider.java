@@ -253,14 +253,6 @@ import java.util.List;
     void fetchRetailers(String ctn, ECSCallback<ECSRetailerList,Exception> ecsCallback);
 
     /**
-     * Fetch retailers.
-     *
-     * @param product     the ECSProduct object
-     * @param ecsCallback the ecs callback containing ECSRetailerList object
-     */
-    void fetchRetailers(ECSProduct product, ECSCallback<ECSRetailerList,Exception> ecsCallback);
-
-    /**
      * Fetch payments details.
      *
      * @param ecsCallback the ecs callback containing list of ECSPayment object

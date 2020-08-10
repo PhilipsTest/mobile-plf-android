@@ -60,6 +60,8 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     //PIL Service
 
 
+
+
     ECSPIL_MISSING_PARAMETER_siteId(R.string.ECSPIL_MISSING_PARAMETER_siteId, 6000),
     ECSPIL_INVALID_PARAMETER_VALUE_siteId(R.string.ECSPIL_MISSING_PARAMETER_siteId, 6001),
     ECSPIL_MISSING_PARAMETER_country(R.string.ECSLocaleNotFound, 6002),
@@ -73,10 +75,21 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT(R.string.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT, 6010),
     ECSPIL_NOT_ACCEPTABLE(R.string.ECSsomethingWentWrong, 6011  ),
     ECSPIL_INTEGRATION_TIMEOUT(R.string.ECSsomethingWentWrong, 6012),
-    ECSPIL_BAD_REQUEST(R.string.ECSsomethingWentWrong, 6013  );
+    ECSPIL_BAD_REQUEST(R.string.ECSsomethingWentWrong, 6013  ),
+    ECSPIL_UNSUPPORTED_MEDIA_TYPE(R.string.ECSsomethingWentWrong, 6014  ),
+    ECSPIL_NOT_ACCEPTABLE_mimeType(R.string.ECSsomethingWentWrong, 6015  ), //   quantity > 0
+    ECSPIL_INVALID_QUANTITY(R.string.ECSPIL_INVALID_QUANTITY, 6016  ), //  quantity >= 0
+    ECSPIL_INVALID_PARAMETER_VALUE_quantity(R.string.ECSPIL_INVALID_PARAMETER_VALUE_quantity, 6017  ),
+    ECSPIL_NEGATIVE_QUANTITY(R.string.ECSCommerceCartModificationError, 6018  ),
+    ECSPIL_MISSING_PARAMETER_productId(R.string.ECSCtnNotProvided, 6019 ),//Please provide the CTN
+    ECSPIL_INVALID_PARAMETER_VALUE_productId(R.string.ECSPIL_NOT_FOUND_productId, 6020  ),//Please provide valid CTN
+    ECSPIL_STOCK_EXCEPTION(R.string.ECSPIL_STOCK_EXCEPTION, 6021  ),
+    ECSPIL_INVALID_PARAMETER_VALUE_itemId(R.string.ECSCartEntryError, 6022 ),
+    ECSPIL_NOT_FOUND_cartId(R.string.ECSPIL_NOT_FOUND_cartId, 6023  ),
+    ECSPIL_BAD_REQUEST_cartId(R.string.ECSCartError, 6024  ),
+    ECSPIL_INVALID_AUTHORIZATION_accessToken(R.string.ECSInvalidTokenError, 6025  );
 
 
-    // todo promotionFilter , invalid offset
 
 
 

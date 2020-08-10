@@ -205,9 +205,10 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
     public void set(View view) {
 
         ECSDataHolder.INSTANCE.resetData();
-
         configInterface.setPropertyForKey("propositionid", "MEC", etPropositionID.getText().toString(), configError);
+        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(etPropositionID.getText().toString());
 
+        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(etPropositionID.getText().toString().trim());
         Toast.makeText(this, "Proposition id is set", Toast.LENGTH_SHORT).show();
 
         ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(etPropositionID.getText().toString().trim());
