@@ -120,10 +120,12 @@ dependencies {
     implementation deps.jump
     implementation deps.androidx.localbroadcastmanager
     if (useprojectdependencies) {
+        project.logger.lifecycle('RegistrationApi: Picking the dependencies from the code')
         implementation project(strings.ufw.projectName)
         implementation project(strings.pif.projectName)
         implementation project(strings.ail.projectName)
     } else {
+        project.logger.lifecycle('RegistrationApi: Picking the dependencies from the artifactory')
         implementation philipsdeps.uAppFwLib
     }
 

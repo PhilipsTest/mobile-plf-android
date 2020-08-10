@@ -52,10 +52,12 @@ dependencies {
     implementation deps.androidx.appcompat
     implementation deps.androidx.annotations
     if (useprojectdependencies) {
+        project.logger.lifecycle('conversationalchatbot: Picking the dependencies from the code')
         implementation project(strings.pif.projectName)
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
     } else {
+        project.logger.lifecycle('conversationalchatbot: Picking the dependencies from the artifactory')
         implementation philipsdeps.pif
         implementation philipsdeps.uAppFwLib
         implementation philipsdeps.AppInfra

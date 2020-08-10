@@ -103,11 +103,13 @@ dependencies {
     // Philips components
 
         if(useprojectdependencies){
+            project.logger.lifecycle('mya: Picking the dependencies from the code')
             implementation project(strings.ufw.projectName)
             implementation project(strings.ail.projectName)
             implementation project(strings.usr.projectName)
             implementation project(strings.pif.projectName)
         }else{
+            project.logger.lifecycle('mya: Picking the dependencies from the artifactory')
             implementation philipsdeps.registrationApi
             implementation philipsdeps.AppInfra
             implementation philipsdeps.pif

@@ -136,12 +136,14 @@ dependencies {
     // Philips components
     implementation philipsdeps.uid
     if (useprojectdependencies) {
+        project.logger.lifecycle('mec: Picking the dependencies from the code')
         implementation project(strings.ecs.projectName)
         implementation project(strings.pif.projectName)
         implementation project(strings.prx.projectName)
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
     } else {
+        project.logger.lifecycle('mec: Picking the dependencies from the artifactory')
         implementation philipsdeps.philipsecommercesdk
         implementation philipsdeps.pif
         implementation philipsdeps.prx

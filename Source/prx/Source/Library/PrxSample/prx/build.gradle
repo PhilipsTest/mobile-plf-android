@@ -66,8 +66,10 @@ dependencies {
     implementation deps.volley
 
     if (useprojectdependencies) {
+        project.logger.lifecycle('prx: Picking the dependencies from the code')
         implementation project(strings.ail.projectName)
     } else {
+        project.logger.lifecycle('prx: Picking the dependencies from the artifactory')
         implementation philipsdeps.AppInfra
     }
     testImplementation deps.junit
