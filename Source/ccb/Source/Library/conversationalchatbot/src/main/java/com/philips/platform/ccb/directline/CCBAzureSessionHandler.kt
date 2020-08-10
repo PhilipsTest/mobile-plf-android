@@ -68,7 +68,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
     override fun endConversation(completionHandler: (Boolean, CCBError?) -> Unit) {
         val ccbEndConversationRequest = CCBEndConversationRequest()
         ccbRestClient.invokeRequest(ccbEndConversationRequest,Response.Listener { response: String ->
-            ccbWebSocketConnection?.closeSocket()
+            ccbWebSocketConnection?.closeWebSocket()
             CCBManager.conversationId = null
             CCBManager.token = null
             completionHandler.invoke(true, null)
