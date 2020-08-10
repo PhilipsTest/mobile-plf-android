@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "8ffb79e3-b013-43ed-a84f-996e868bed82",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "Invalid Request"
+            }
+        }
+    ]
+}

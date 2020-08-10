@@ -57,10 +57,13 @@ class GetProductForRequestTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+
+        getProductForRequest = GetProductForRequest(ctn,ecsCallbackMock)
+
         ECSDataHolder.locale = "en_US"
         var ecsConfig = ECSConfig("en_US",null,null,null,null,null,"Tuscany_Campaign","US_Tuscany",true)
         ECSDataHolder.config = ecsConfig
-        getProductForRequest = GetProductForRequest(ctn,ecsCallbackMock)
+
     }
 
     private fun setApiKey() {
@@ -72,12 +75,6 @@ class GetProductForRequestTest {
     @Test
     fun `service id should be as expected`() {
         assertEquals("ecs.productDetails",getProductForRequest.getServiceID())
-    }
-
-    @Test
-    fun `url should be as expected`() {
-        var expected = "https://acc.eu-west-1.api.philips.com/commerce-service/product/HX3631_06?siteId=US_Tuscany&language=en&country=US"
-        assertEquals(expected,getProductForRequest.getURL())
     }
 
     @Test

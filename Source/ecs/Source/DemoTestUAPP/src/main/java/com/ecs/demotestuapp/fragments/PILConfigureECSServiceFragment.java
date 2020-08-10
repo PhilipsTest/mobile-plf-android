@@ -34,7 +34,7 @@ public class PILConfigureECSServiceFragment extends BaseAPIFragment {
 
             @Override
             public void onFailure(ECSError ecsError) {
-                gotoResultActivity(ecsError.getErrorMessage());
+                gotoResultActivity(ecsError.getErrorCode() +"\n"+ ecsError.getErrorMessage());
                 getProgressBar().setVisibility(View.GONE);
             }
         });

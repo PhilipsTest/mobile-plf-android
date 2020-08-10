@@ -1,0 +1,10 @@
+{
+   "errors":[
+      {
+         "id":"d8214dd5-12c1-469d-b1c0-7b59ddb1c17b",
+         "status":"400",
+         "code":"DEFAULT_4XX",
+         "title":"'802a8b76-9eb1-4e11-94bc-9aa997e0d796' not a valid key=value pair (missing equal-sign) in Authorization header: 'bearer 802a8b76-9eb1-4e11-94bc-9aa997e0d796'."
+      }
+   ]
+}

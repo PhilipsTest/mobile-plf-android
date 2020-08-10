@@ -17,15 +17,15 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Catalog(
-    val catalogId: String?,
-    val clearance: Boolean,
-    val eop: String?,
-    val isDeleted: Boolean,
-    val price: List<Price>?,
-    val priority: Int,
-    val rank: Int,
-    val somp: String?,
-    val sop: String?,
-    val status: String?,
-    val visibility: Boolean
+        val catalogId: String?,
+        val clearance: Boolean,
+        val eop: String?,
+        val isDeleted: Boolean,
+        val price: List<SummaryPrice>?,
+        val priority: Int,
+        val rank: Int,
+        val somp: String?,
+        val sop: String?,
+        val status: String?,
+        val visibility: Boolean
 ):Parcelable

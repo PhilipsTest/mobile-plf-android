@@ -1,0 +1,10 @@
+{
+    "errors": [
+        {
+            "id": "cd839cca-23c3-4d1d-9827-4c088b019c8f",
+            "status": "412",
+            "code": "STOCK_EXCEPTION",
+            "title": "Requested product is out of stock"
+        }
+    ]
+}

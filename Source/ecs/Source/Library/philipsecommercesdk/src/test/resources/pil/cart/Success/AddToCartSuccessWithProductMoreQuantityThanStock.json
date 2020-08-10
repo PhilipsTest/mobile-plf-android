@@ -1,0 +1,197 @@
+{
+   "data":{
+      "id":"24019421060",
+      "type":"commerceCart",
+      "attributes":{
+         "email":"susmit.guha@philips.com",
+         "pricing":{
+            "net":true,
+            "total":{
+               "currency":"USD",
+               "formattedValue":"2,689.55 $",
+               "value":2689.55
+            },
+            "subTotal":{
+               "currency":"USD",
+               "formattedValue":"2,699.55 $",
+               "value":2699.55
+            },
+            "tax":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "orderDiscount":{
+               "currency":"USD",
+               "formattedValue":"15.00 $",
+               "value":15.0
+            },
+            "delivery":{
+               "currency":"USD",
+               "formattedValue":"5.00 $",
+               "value":5.0
+            },
+            "totalDelivery":{
+               "currency":"USD",
+               "formattedValue":"5.00 $",
+               "value":5.0
+            },
+            "orderDiscountNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"15.00 $",
+               "value":15.0
+            },
+            "totalDiscountNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"314.95 $",
+               "value":314.95
+            },
+            "totalNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"2,684.55 $",
+               "value":2684.55
+            },
+            "itemDiscount":{
+               "currency":"USD",
+               "formattedValue":"299.95 $",
+               "value":299.95
+            }
+         },
+         "promotions":{
+            "potentialPromotions":[
+
+            ],
+            "appliedPromotions":[
+               {
+                  "code":"ECS_PIL_Order_Promotion",
+                  "type":"OrderThresholdDiscountPromotion",
+                  "enabled":"true",
+                  "endDate":"2099-01-01T00:00:00+0000",
+                  "message":"Error, message not found"
+               }
+            ],
+            "potentialProductPromotions":[
+
+            ],
+            "appliedProductPromotions":[
+               {
+                  "consumedItems":[
+                     {
+                        "adjustedUnitPrice":{
+                           "value":269.96,
+                           "currency":"USD",
+                           "formattedValue":"269.96 $"
+                        },
+                        "itemCartOrder":0,
+                        "quantity":9
+                     },
+                     {
+                        "adjustedUnitPrice":{
+                           "value":269.91,
+                           "currency":"USD",
+                           "formattedValue":"269.91 $"
+                        },
+                        "itemCartOrder":0,
+                        "quantity":1
+                     }
+                  ],
+                  "id":"ECS_PIL_Product_Promotion",
+                  "promotionDiscount":{
+                     "currency":"USD",
+                     "formattedValue":"299.95 $",
+                     "value":299.95
+                  },
+                  "type":"PROMOTION_PERCENTAGE_DISCOUNT",
+                  "percentageDiscount":10.0
+               }
+            ]
+         },
+         "ageConsent":false,
+         "ageConsentApplied":false,
+         "marketingOptinApplied":false,
+         "units":10,
+         "deliveryUnits":10,
+         "items":[
+            {
+               "id":"0",
+               "itemId":"HD9240/94",
+               "title":"Avance Collection Airfryer XL",
+               "image":"https://images.philips.com/is/image/PhilipsConsumer/HD9240_94-IMS-en_US",
+               "availability":{
+                  "status":"IN_STOCK",
+                  "quantity":37
+               },
+               "quantity":10,
+               "price":{
+                  "currency":"USD",
+                  "formattedValue":"349.95 $",
+                  "value":349.95
+               },
+               "discountPrice":{
+                  "currency":"USD",
+                  "formattedValue":"299.95 $",
+                  "value":299.95
+               },
+               "totalPrice":{
+                  "currency":"USD",
+                  "formattedValue":"2,699.55 $",
+                  "value":2699.55
+               }
+            }
+         ],
+         "deliveryMode":{
+            "id":"UPS_COLLECTION_POINT",
+            "deliveryCost":{
+               "currency":"USD",
+               "formattedValue":"5.00 $",
+               "value":5.0
+            },
+            "description":"2-4 business days",
+            "label":"UPS Access Point",
+            "collectionPoint":true
+         },
+         "appliedVouchers":[
+            {
+               "id":"ECS-_PIL-_Vou-cher-TZ8S-5XZ5-S7E7",
+               "freeShipping":false,
+               "value":{
+                  "currency":"USD",
+                  "formattedValue":"10.00 $",
+                  "value":10.0
+               }
+            }
+         ],
+         "deliveryAddress":{
+            "billingAddress":false,
+            "country":{
+               "isocode":"US",
+               "name":"United States"
+            },
+            "defaultAddress":false,
+            "firstName":"Susmit First",
+            "houseNumber":"",
+            "id":"9359768682519",
+            "lastName":"Check",
+            "line1":"Line1",
+            "line2":"",
+            "phone":"2139999999",
+            "postalCode":"10017",
+            "region":{
+               "isocode":"US-NY",
+               "isocodeShort":"NY",
+               "name":"New York"
+            },
+            "deliveryAddress":true,
+            "titleCode":"mr.",
+            "town":"New York"
+         },
+         "notifications":[
+            {
+               "id":"maxOrderQuantityExceeded",
+               "message":"Unfortunately the quantity you chose exceeded the maximum order quantity for this product. The quantity in your cart has been reduced to the maximum order quantity.",
+               "orderBlocking":false
+            }
+         ]
+      }
+   }
+}

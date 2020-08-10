@@ -73,7 +73,7 @@ class FragmentSelector {
         bundle.putStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS, ctnList)
 
         val ecsProduct = ECSProduct()
-        if(ctnList.size !=0) {
+        if(ctnList.isNotEmpty()) {
             ecsProduct.code = ctnList[0]
         }else{
             ecsProduct.code = ""

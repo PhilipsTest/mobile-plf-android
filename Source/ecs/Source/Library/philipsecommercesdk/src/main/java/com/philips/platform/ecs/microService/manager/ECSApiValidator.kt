@@ -40,16 +40,45 @@ class ECSApiValidator {
         return null
     }
 
-    //TODO
+    private fun validateAuth(): ECSException? {
+        if (ECSDataHolder.authToken == null) return ECSException(ECSErrorType.ECSOAuthNotCalled.getLocalizedErrorString(), ECSErrorType.ECSOAuthNotCalled.errorCode)
+        return null
+    }
+
+
     private fun validateLocaleHybrisAndAuth(): ECSException? {
 
         if (validateLocale() != null) return validateLocale()
         if (validateLocaleAndHybris() != null) return validateLocaleAndHybris()
+        if (validateAuth()!=null) return validateAuth()
         return null
     }
 
      fun validatePageLimit(limitSize:Int): ECSException? {
         return if(limitSize>50) ECSException(ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT.errorCode) else null
      }
+
+    fun validateCTN(ctn: String): ECSException?{
+        if(ctn.isEmpty() || ctn.contains(" ")){
+          return ECSException(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.getLocalizedErrorString(), ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode)
+         }
+        return null
+    }
+
+    fun validateCreateCartQuantity(quantity: Int): ECSException?{
+
+        if(quantity<1){
+            return ECSException(ECSErrorType.ECSPIL_INVALID_QUANTITY.getLocalizedErrorString(), ECSErrorType.ECSPIL_INVALID_QUANTITY.errorCode)
+        }
+        return null
+    }
+
+    fun validateUpdateCartQuantity(quantity: Int): ECSException?{
+
+        if(quantity<0){
+            return ECSException(ECSErrorType.ECSPIL_NEGATIVE_QUANTITY.getLocalizedErrorString(), ECSErrorType.ECSPIL_NEGATIVE_QUANTITY.errorCode)
+        }
+        return null
+    }
 
 }

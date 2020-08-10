@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "065402d6-27ab-4ae7-996c-4639968ce88d",
+            "status": "400",
+            "code": "MISSING_PARAMETER",
+            "title": "The required parameter is missing",
+            "source": {
+                "parameter": "[productId]"
+            }
+        }
+    ]
+}

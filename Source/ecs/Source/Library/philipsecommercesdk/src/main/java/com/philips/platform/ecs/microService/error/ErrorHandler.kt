@@ -70,12 +70,7 @@ class ErrorHandler {
         val parameter = pilError?.errors?.get(0)?.source?.parameter
         val code = pilError?.errors?.get(0)?.code
 
-        try {
-            val ecsErrorType = ECSErrorType.valueOf("ECSPIL_$code")
-            setEcsError(ecsError, ecsErrorType)
-            return
-        } catch (e: Exception) {
-        }
+
 
 
         val commaSeparatedParameterString = parameter?.replace("[", "")?.replace("]", "")
@@ -90,6 +85,13 @@ class ErrorHandler {
                 val ecsErrorType = ECSErrorType.valueOf(localizedStringID)
                 setEcsError(ecsError, ecsErrorType)
             } catch (e: Exception) {
+                try {
+                    val ecsErrorType = ECSErrorType.valueOf("ECSPIL_$code")
+                    setEcsError(ecsError, ecsErrorType)
+
+                } catch (e: Exception) {
+
+                }
             }
 
         }
