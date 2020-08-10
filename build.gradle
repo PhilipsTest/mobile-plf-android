@@ -58,8 +58,8 @@ println "Working branch: ${objcdp.getWorkingBranch()}"
 def buildFlavour
 task getBuildFlavour() {
     project.logger.lifecycle('task : getBuildFlavour():  ' +  gradle.startParameter.taskNames)
-    project.logger.lifecycle('task : size():  ' +  gradle.startParameter.taskNames.size())
-    project.logger.lifecycle('task : get(0):  ' +  gradle.startParameter.taskNames.get(0))
+    project.logger.lifecycle('task : Total Task: ' +  gradle.startParameter.taskNames.size())
+    project.logger.lifecycle('task : Task name:  ' +  gradle.startParameter.taskNames.get(0))
     if(gradle.startParameter.taskNames.get(0).contains("Debug") || gradle.startParameter.taskNames.get(0).contains("debug")) {
         gradle.startParameter.taskNames.size()
         buildFlavour = true
