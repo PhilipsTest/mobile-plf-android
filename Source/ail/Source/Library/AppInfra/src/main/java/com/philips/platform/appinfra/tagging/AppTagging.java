@@ -7,10 +7,12 @@ package com.philips.platform.appinfra.tagging;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.os.Bundle;
 
 import com.adobe.mobile.Analytics;
 import com.adobe.mobile.Config;
 import com.adobe.mobile.Visitor;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.consentmanager.ConsentManagerInterface;
 import com.philips.platform.pif.chi.ConsentHandlerInterface;
@@ -126,16 +128,36 @@ public class AppTagging implements AppTaggingInterface {
     @Override
     public void trackPageWithInfo(String pageName, Map<String, String> paramMap) {
         getAppTaggingHandler().track(pageName, paramMap, true);
+
+        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(mAppInfra.getAppInfraContext());
+        Bundle bundle = new Bundle();
+
+        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+            System.out.println(entry.getKey() + "/" + entry.getValue());
+            bundle.putString(entry.getKey(),entry.getValue());
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     @Override
     public void trackActionWithInfo(String pageName, String key, String value) {
         getAppTaggingHandler().trackWithInfo(pageName, key, value, false);
+
+
     }
 
     @Override
     public void trackActionWithInfo(String pageName, Map<String, String> paramMap) {
         getAppTaggingHandler().track(pageName, paramMap, false);
+
+        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(mAppInfra.getAppInfraContext());
+        Bundle bundle = new Bundle();
+
+        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+            System.out.println(entry.getKey() + "/" + entry.getValue());
+            bundle.putString(entry.getKey(),entry.getValue());
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     @Override

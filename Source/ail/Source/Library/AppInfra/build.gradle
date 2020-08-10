@@ -114,7 +114,7 @@ dependencies {
     androidTestImplementation deps.dexmaker_mockito
     androidTestImplementation deps.junit
 
-    implementation (deps.firebase_analytics)
+    compileOnly (deps.firebase_analytics)
 }
 
 tasks.withType(Test) {
