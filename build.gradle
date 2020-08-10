@@ -55,17 +55,21 @@ ext.commitHash = objcdp.getCommitHash()
 
 println "Working branch: ${objcdp.getWorkingBranch()}"
 
-def buildFlavour
+def isDebugTask
 task getBuildFlavour() {
-    project.logger.lifecycle('task : getBuildFlavour():  ' +  gradle.startParameter.taskNames)
+    project.logger.lifecycle('task : isDebugTask():  ' +  gradle.startParameter.taskNames)
     project.logger.lifecycle('task : Total Task: ' +  gradle.startParameter.taskNames.size())
-    project.logger.lifecycle('task : Task name:  ' +  gradle.startParameter.taskNames.get(0))
-    if(gradle.startParameter.taskNames.get(0).contains("Debug") || gradle.startParameter.taskNames.get(0).contains("debug")) {
-        buildFlavour = true
-        project.logger.lifecycle('debug: buildFlavour = ' + buildFlavour)
+      project.logger.lifecycle('task : is empty:  ' +  gradle.startParameter.taskNames.isEmpty())
+    if(gradle.startParameter.taskNames.isEmpty()){
+        // gradle sync
+        // do nothing
+    }
+   else if( gradle.startParameter.taskNames.contains("assembleDebug")  || gradle.startParameter.taskNames.get(0).contains("Debug") || gradle.startParameter.taskNames.get(0).contains("debug")) {
+        isDebugTask = true
+        project.logger.lifecycle('debug: isDebugTask = ' + isDebugTask)
     } else {
-        buildFlavour = false
-        project.logger.lifecycle('Not debug: buildFlavour ' + buildFlavour)
+        isDebugTask = false
+        project.logger.lifecycle('Not debug: isDebugTask ' + isDebugTask)
     }
 
 }
@@ -173,7 +177,7 @@ subprojects {
 //        throw new GradleException("Project not found ${it}")
     }
 
-    ext.useprojectdependencies = buildFlavour
+    ext.useprojectdependencies = isDebugTask
     project.logger.lifecycle('Root: ext.useprojectdependencies ' + ext.useprojectdependencies)
 }
 
