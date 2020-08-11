@@ -35,10 +35,6 @@ import kotlinx.android.synthetic.main.ccb_fragment.view.*
 import kotlinx.android.synthetic.main.ccb_user_response_layout.view.*
 import net.frakbot.jumpingbeans.JumpingBeans
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class CCBConversationalFragment : Fragment(), BotResponseListener {
 
     private lateinit var rootView: View

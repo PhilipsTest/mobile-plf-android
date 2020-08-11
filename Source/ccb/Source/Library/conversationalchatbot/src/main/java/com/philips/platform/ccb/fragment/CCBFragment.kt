@@ -9,9 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.philips.platform.ccb.R
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class CCBFragment : Fragment(){
     var textView: TextView? = null
 
