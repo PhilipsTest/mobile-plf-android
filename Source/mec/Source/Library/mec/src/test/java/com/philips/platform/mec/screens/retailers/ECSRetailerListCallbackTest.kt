@@ -1,9 +1,9 @@
 package com.philips.platform.mec.screens.retailers
 
 import androidx.lifecycle.MutableLiveData
-import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
-import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
+import com.philips.platform.ecs.microService.model.retailer.*
 import com.philips.platform.mec.common.MecError
+import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -14,6 +14,7 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
+import kotlin.test.assertFalse
 
 
 @PrepareForTest(ECSRetailerViewModel::class)
@@ -26,21 +27,6 @@ class ECSRetailerListCallbackTest {
     @Mock
     lateinit var ecsRetailerViewModelMock: ECSRetailerViewModel
 
-    @Mock
-    lateinit var ecsRetailerList: ECSRetailerList
-
-    @Mock
-    lateinit var mutableLiveDataMock: MutableLiveData<ECSRetailerList>
-
-    @Mock
-    lateinit var mutableLiveDataMecErrorMock: MutableLiveData<MecError>
-
-    @Mock
-    lateinit var ecsRetailer: ECSRetailer
-
-    @Mock
-    lateinit var mecErrorMutableLiveData: MutableLiveData<MecError>
-
 
     @Before
     fun setUp() {
@@ -51,23 +37,57 @@ class ECSRetailerListCallbackTest {
 
     @Test(expected = NullPointerException::class)
     fun onResponse() {
-        Mockito.`when`(ecsRetailerList.getRetailers()).thenReturn(listOf(ecsRetailer))
-        ecsRetailerListCallback.onResponse(ecsRetailerList)
+        ecsRetailerListCallback.onResponse(createECSRetailerList())
         assertNotNull(ecsRetailerViewModelMock.ecsRetailerList)
     }
 
     @Test
     fun shouldRemovePhilipsStoreIfHybrisIsOn() {
 
-        val ecsRetailerList = ECSRetailerList()
-
-        val ecsRetailer = ECSRetailer(null,null,"Y",null,null,null,null,null,null,null)
+        MECDataHolder.INSTANCE.hybrisEnabled = true
+        val ecsRetailer = ECSRetailer(null, null, "Y", null, null, null, null, null, null, null)
+        val ecsRetailer1 = ECSRetailer(null, null, "N", null, null, null, null, null, null, null)
+        val ecsRetailer2 = ECSRetailer(null, null, "N", null, null, null, null, null, null, null)
 
 
         val list = ArrayList<ECSRetailer>()
         list.add(ecsRetailer)
+        list.add(ecsRetailer1)
+        list.add(ecsRetailer2)
 
-        assertEquals(0, ecsRetailerListCallback.removePhilipsStoreForHybris(ecsRetailerList))
+
+        val ECSRetailers = ECSRetailers(list)
+        val OnlineStoresForProduct = OnlineStoresForProduct(ECSRetailers, null, null, null)
+        val Wrbresults = Wrbresults(null, null, null, OnlineStoresForProduct, null, null, null, null)
+
+        val ecsRetailerList = ECSRetailerList(Wrbresults)
+
+        val removePhilipsStoreForHybris = ecsRetailerListCallback.removePhilipsStoreForHybris(ecsRetailerList)
+        val retailers = removePhilipsStoreForHybris?.getRetailers()
+        val contains = retailers?.contains(ecsRetailer) ?:false
+
+        assertFalse(contains)
+
+    }
+
+    private fun createECSRetailerList(): ECSRetailerList {
+        val ecsRetailer = ECSRetailer(null, null, "Y", null, null, null, null, null, null, null)
+        val ecsRetailer1 = ECSRetailer(null, null, "N", null, null, null, null, null, null, null)
+        val ecsRetailer2 = ECSRetailer(null, null, "N", null, null, null, null, null, null, null)
+
+
+        val list = ArrayList<ECSRetailer>()
+        list.add(ecsRetailer)
+        list.add(ecsRetailer1)
+        list.add(ecsRetailer2)
+
+
+        val ECSRetailers = ECSRetailers(list)
+        val OnlineStoresForProduct = OnlineStoresForProduct(ECSRetailers, null, null, null)
+        val Wrbresults = Wrbresults(null, null, null, OnlineStoresForProduct, null, null, null, null)
+
+        val ecsRetailerList = ECSRetailerList(Wrbresults)
+        return ecsRetailerList
     }
 
 }
