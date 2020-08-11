@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -27,8 +28,11 @@ import com.philips.platform.ccb.model.CCBActivities
 import com.philips.platform.ccb.model.CCBMessage
 import com.philips.platform.ccb.model.CCBUser
 import com.philips.platform.ccb.util.CCBLog
+import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonVisitor
 import io.noties.markwon.image.AsyncDrawable
+import io.noties.markwon.image.AsyncDrawableScheduler
 import io.noties.markwon.image.glide.GlideImagesPlugin
 import kotlinx.android.synthetic.main.botreponse_waiting_layout.view.*
 import kotlinx.android.synthetic.main.ccb_bot_response_layout.view.*
@@ -37,6 +41,7 @@ import kotlinx.android.synthetic.main.ccb_dynamic_button.view.*
 import kotlinx.android.synthetic.main.ccb_fragment.view.*
 import kotlinx.android.synthetic.main.ccb_user_response_layout.view.*
 import net.frakbot.jumpingbeans.JumpingBeans
+import org.w3c.dom.Node
 
 
 /**
@@ -46,17 +51,11 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
     private lateinit var rootView: View
     private val TAG: String = CCBConversationalFragment::class.java.simpleName
-    private val INIT_START = "Wake Up Light"
     private lateinit var ccbAzureConversationHandler: CCBAzureConversationHandler
     private lateinit var ccbAzureSessionHandler: CCBAzureSessionHandler
     private val ccbWebSocketConnection: CCBWebSocketConnection = CCBWebSocketConnection()
-    private var prevBotResponse: String? = null
     private lateinit var watingResponseView: View
     private lateinit var jumpingBeans: JumpingBeans
-
-
-    private lateinit var markwon: Markwon
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -68,7 +67,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
         ccbAzureSessionHandler = CCBAzureSessionHandler()
 
-        markwon = Markwon.create(context!!)
+        ccbWebSocketConnection.setBotResponseListener(this)
 
         initViewListener()
 
@@ -80,11 +79,14 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private fun initViewListener() {
         rootView.fbclosebutton.setOnClickListener {
             closeConversation()
+            activity?.finish()
         }
 
         rootView.fbrestartbutton.setOnClickListener {
-            rootView.ccb_actionbutton_view.removeAllViews()
-            postMessage("Restart Conversation")
+            //rootView.ccb_actionbutton_view.removeAllViews()
+            //postMessage("Restart Conversation")
+            closeConversation()
+            connectChatBot()
         }
 
         rootView.ccb_recentchat_view.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
@@ -109,13 +111,11 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "EMS", "")
         CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success, ccbError ->
             if (success) {
-                Log.i(TAG, "Authenticated success!!")
                 startConverssation()
             }
 
             if (ccbError != null) {
                 rootView.ccb_progressBar.visibility = View.GONE
-                Log.i(TAG, "Authentication failed!!")
                 showToastOnError()
                 closeConversation()
             }
@@ -126,11 +126,9 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "", "")
         CCBManager.getCCBSessionHandlerInterface().startConversation(ccbUser) { ccbConversation, ccbError ->
             if (ccbConversation != null) {
-                Log.i(TAG, "Conversation started!!")
                 openWebSocket()
             }
             if (ccbError != null) {
-                Log.i(TAG, "Conversation Failed!!")
                 rootView.ccb_progressBar.visibility = View.GONE
                 showToastOnError()
                 closeConversation()
@@ -138,15 +136,13 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         }
     }
 
-    fun openWebSocket() {
-        ccbWebSocketConnection.setBotResponseListener(this)
+    private fun openWebSocket() {
         ccbWebSocketConnection.createWebSocket()
     }
 
-    fun postMessage(message: String?) {
+    private fun postMessage(message: String?) {
         message?.let { displayUserResponse(it) }
-        if (!message?.contains("FOLLOW_UP-")!!)
-            waitForBotResponse()
+        waitForBotResponse()
         ccbAzureConversationHandler.postMessage(message) { conversation, _ ->
             if (conversation != null) {
                 CCBLog.d(TAG, "postMessage success : $message")
@@ -161,34 +157,16 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         waitForBotResponse()
         ccbAzureSessionHandler.updateConversation { success, ccbError ->
             if (success) {
-                //postMessage()
+                CCBLog.d(TAG, "updateConversation success")
             }
             if (ccbError != null) {
-                CCBLog.d(TAG, "Update failed")
+                CCBLog.d(TAG, "updateConversation failed")
             }
         }
     }
 
     override fun onFailure() {
     }
-
-    /*fun onMessageReceived2(jsonResponse: String) {
-        try {
-            val botResponseData = Gson().fromJson(jsonResponse, CCBMessage::class.java)
-            CCBLog.d(TAG, "CCBConversational :->$botResponseData.toString()")
-            val activity: CCBActivities = botResponseData?.activities?.get(0) ?: return
-
-            if (botResponseData.watermark == null && activity.type.equals("message")) {
-                CCBLog.d(TAG, "watermark null")
-                displayUserResponse(activity.text)
-            } else if(activity.text!=null){
-                CCBLog.d(TAG, "watermark not null")
-                handleBotResponse(activity)
-            }
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-        }
-    }*/
 
     override fun onMessageReceived(jsonResponse: String) {
         try {
@@ -199,10 +177,11 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
             if (botResponseData.watermark == null && activity.type.equals("message")) {
                 CCBLog.d(TAG, "watermark null")
-                //displayUserResponse(activity.text)
             } else if (activity.text != null) {
                 CCBLog.d(TAG, "watermark not null")
-                handleBotResponse(activity)
+                removeWaitingView {
+                    handleBotResponse(activity)
+                }
             }
 
         } catch (exception: Exception) {
@@ -215,19 +194,6 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    /*private fun handleBotResponse(activity: CCBActivities) {
-        CCBLog.d(TAG, "handleBotResponse")
-
-        if (activity.suggestedActions != null && activity.suggestedActions.actions.isNotEmpty()) {
-            updateActionUI(activity.text, buttons = activity.suggestedActions.actions)
-        }
-
-//        if (!CCBManager.conversationId?.let { activity.replyToId?.contains(it) }!!) {
-//            return
-//        }
-
-        displayBotRespon(activity.text)
-    }*/
 
     private fun handleBotResponse(activity: CCBActivities) {
         CCBLog.d(TAG, "handleBotResponse")
@@ -238,17 +204,6 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         displayBotRespon(activity.text)
     }
 
-
-    /*private fun displayUserResponse2(text: String?) {
-
-        this.activity?.runOnUiThread {
-            val view = layoutInflater.inflate(R.layout.ccb_user_response_layout, chatLayout, false)
-            view.ccb_user_response_text.text = text
-            chatLayout.addView(view)
-            scrollToBottom()
-        }
-    }*/
-
     private fun displayUserResponse(text: String) {
         this.activity?.runOnUiThread {
             val view = layoutInflater.inflate(layout.ccb_user_response_layout, rootView.ccb_recentchat_view, false)
@@ -258,17 +213,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         }
     }
 
-/*    private fun displayBotRespon2(msg: String?) {
-        this.activity?.runOnUiThread {
-            val view = layoutInflater.inflate(R.layout.ccb_bot_response_layout, chatLayout, false)
-            view.bot_response_text.text = msg
-            //chatLayout.addView(view)
-            scrollToBottom()
-        }
-    }*/
-
     private fun displayBotRespon(msg: String) {
-        Log.i(TAG, "msg : $msg")
         this.activity?.runOnUiThread {
             val view = layoutInflater.inflate(layout.ccb_bot_response_layout, rootView.ccb_recentchat_view, false)
 
@@ -281,74 +226,16 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                     override fun load(drawable: AsyncDrawable): RequestBuilder<Drawable> {
                         view.bot_response_imageview.visibility = View.VISIBLE
                         val request = Glide.with(it).load(drawable.getDestination())
-                        request.into(view.bot_response_imageview)
                         return request
                     }
-
-
                 }
                 )).build()
 
-                        /*usePlugin(object : AbstractMarkwonPlugin() {
-
-                    override fun beforeRender(node: Node) {
-                        CCBLog.d(TAG, "beforeRender : ${node}")
-                        //super.beforeRender(node)
-                        //AsyncDrawableScheduler.unschedule(node)
-                    }
-
-                    override fun beforeSetText(textView: TextView, markdown: Spanned) {
-                        CCBLog.d(TAG, "beforeSetText : ${textView.text}")
-                        super.beforeSetText(textView, markdown)
-                        markdown
-                    }
-
-                    override fun afterSetText(textView: TextView) {
-                        *//* val text = textView.text
-                         CCBLog.d(TAG,"afterSetText : ${textView.text}")
-                         if (text.contains("Wake Up light")) {
-                             textView.text = text.toString().replace("Wake Up light", "")
-                         } *//*
-                        AsyncDrawableScheduler.unschedule(textView)
-                        super.afterSetText(textView)
-
-                    }
-                }).build()*/
-
-                val toMarkdown = markwon.toMarkdown(msg)
-
-                isContainsDrawableSpan(toMarkdown,view.bot_response_text,markwon,msg)
-
-                /*if (!isContainsDrawableSpan(toMarkdown,view.bot_response_text,markwon))
-                    markwon.setMarkdown(view.bot_response_text, msg)*/
+                markwon.setMarkdown(view.bot_response_text, msg)
             }
             rootView.ccb_recentchat_view.addView(view)
             rootView.avatarIV.visibility = View.VISIBLE
         }
-    }
-
-    private fun isContainsDrawableSpan(spanned: Spanned,view: View,markwon: Markwon,msg: String): Boolean{
-        val spans = spanned.getSpans(0, spanned.length, CharacterStyle::class.java)
-        if(spans.size == 0)
-            return false
-
-       /* for(i : Int in spans.indices){
-            val characterStyle = spans[i]
-            markwon.setParsedMarkdown(view.bot_response_text,characterStyle)
-        }*/
-
-       /* val a = intArrayOf(1, 2, 3, 4)
-        for (i in a.indices) {
-            val q = a[i]
-        }*/
-
-        for(charStyleSpan:CharacterStyle in spans){
-            //if (charStyleSpan !is AsyncDrawableSpan){
-                view.bot_response_text.append(charStyleSpan.toString())
-            //}
-        }
-       // markwon.setMarkdown(view.bot_response_text, msg)
-        return false
     }
 
     private fun waitForBotResponse() {
@@ -370,7 +257,6 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     }
 
     private fun updateActionUI(ques: String, buttons: List<CCBActions>) {
-        displayBotRespon(ques)
         this.activity?.runOnUiThread {
             rootView.ccb_actionbutton_view.removeAllViews()
             for (button: CCBActions in buttons) {
@@ -379,11 +265,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                 button_view.setText(button.title)
                 button_view.setOnClickListener {
                     rootView.ccb_actionbutton_view.removeAllViews()
-                    // if (performAction == null) {
                     postMessage(button.title)
-                    // } else {
-                    //   changeDeviceSettings(performAction)
-                    //}
                 }
                 rootView.ccb_actionbutton_view.addView(view)
             }
@@ -396,14 +278,13 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         }
     }
 
-    fun closeConversation() {
+    private fun closeConversation() {
         ccbWebSocketConnection.closeWebSocket()
         CCBManager.getCCBSessionHandlerInterface().endConversation { b, ccbError ->
         }
-        activity?.finish()
     }
 
-    fun disableProgressBar() {
+    private fun disableProgressBar() {
         this.activity?.runOnUiThread {
             if (rootView.conversation_progressbar.visibility == View.VISIBLE)
                 rootView.conversation_progressbar.visibility = View.GONE

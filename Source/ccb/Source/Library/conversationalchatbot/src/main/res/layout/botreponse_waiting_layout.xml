@@ -12,7 +12,7 @@
         android:id="@+id/botresponse_waiting_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/uid_level_white"
+        android:textColor="@color/uid_blue_level_50"
         android:gravity="left"
         android:textSize="40sp"/>
 </LinearLayout>
