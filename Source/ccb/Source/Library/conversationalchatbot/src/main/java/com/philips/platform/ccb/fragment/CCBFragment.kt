@@ -9,20 +9,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.philips.platform.ccb.R
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class CCBFragment : Fragment(){
     var textView: TextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_ccb, container, false)
-        textView = rootView.findViewById(R.id.tvResponse)
-
+        val rootView = inflater.inflate(R.layout.ccb_fragment, container, false)
         return rootView
-
     }
-
-
 }
