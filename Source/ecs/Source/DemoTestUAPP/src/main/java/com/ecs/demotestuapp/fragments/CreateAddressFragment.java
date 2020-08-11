@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSAddress;
@@ -42,7 +42,7 @@ public class CreateAddressFragment extends BaseAPIFragment {
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().createAddress(createdAddress, new ECSCallback<ECSAddress, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().createAddress(createdAddress, new ECSCallback<ECSAddress, Exception>() {
             @Override
             public void onResponse(ECSAddress ecsAddress) {
                 gotoResultActivity(getJsonStringFromObject(ecsAddress));
@@ -69,7 +69,7 @@ public class CreateAddressFragment extends BaseAPIFragment {
 
     private void fillSpinnerDataForState(Spinner spinner) {
 
-        List<ECSRegion> ecsRegions = ECSDataHolder.INSTANCE.getEcsRegions();
+        List<ECSRegion> ecsRegions = ECSDemoDataHolder.INSTANCE.getEcsRegions();
         List<String> list = new ArrayList<String>();
 
         for(ECSRegion ecsRegion:ecsRegions){

@@ -12,6 +12,7 @@ package com.philips.platform.mec.screens.detail
 
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSException
 
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
@@ -23,74 +24,94 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
- class MECLandingProductDetailsFragment : MECProductDetailsFragment() {
+class MECLandingProductDetailsFragment : MECProductDetailsFragment() {
 
     override fun getFragmentTag(): String {
         return "MECLandingProductDetailsFragment"
     }
 
     companion object {
-        val TAG:String="MECLandingProductDetailsFragment"
+        val TAG: String = "MECLandingProductDetailsFragment"
     }
 
-  override fun executeRequest() {
+    override fun executeRequest() {
 
-    fetchProductDetailForCtn(MECDataHolder.INSTANCE.hybrisEnabled)
-  }
-
-  private fun fetchProductDetailForCtn(isHybris: Boolean) {
-
-
-    if (isHybris) {
-
-      fetchProductForHybris()
-
-    } else {
-
-       fetchProductForRetailers()
-
-
+        fetchProductDetailForCtn(MECDataHolder.INSTANCE.hybrisEnabled)
     }
-  }
 
-  private fun fetchProductForRetailers() {
+    private fun fetchProductDetailForCtn(isHybris: Boolean) {
 
-      MECDataHolder.INSTANCE.eCSServices.microService.fetchProductSummaries(Arrays.asList(product.ctn) , object : ECSCallback<ECSProducts, ECSError> {
 
-          override fun onResponse(result: ECSProducts) {
-              product = result.commerceProducts[0]
-              callParentExecute()
-          }
+        if (isHybris) {
 
-          override fun onFailure(ecsError: ECSError) {
+            fetchProductForHybris()
 
-              val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
-              val mecError = MecError(Exception(ecsError), occECSError, null)
-              processError(mecError,true)
-          }
+        } else {
 
-    })
-  }
+            fetchProductForRetailers()
 
-  private fun fetchProductForHybris() {
-      MECDataHolder.INSTANCE.eCSServices.microService.fetchProduct(product.ctn, object : ECSCallback<ECSProduct?, ECSError> {
 
-          override fun onResponse(result: ECSProduct?) {
-              product = result!!
-              callParentExecute()
-          }
+        }
+    }
 
-          override fun onFailure(ecsError: ECSError) {
-              val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
-              val mecError = MecError(Exception(ecsError), occECSError, null)
-              processError(mecError,true)
-          }
+    private fun fetchProductForRetailers() {
 
-    })
-  }
+        try {
+            MECDataHolder.INSTANCE.eCSServices.microService.fetchProductSummaries(Arrays.asList(product.ctn), object : ECSCallback<ECSProducts, ECSError> {
 
-  private fun callParentExecute(){
-    super.executeRequest()
-  }
+                override fun onResponse(result: ECSProducts) {
+                    product = result.commerceProducts[0]
+                    callParentExecute()
+                }
+
+                override fun onFailure(ecsError: ECSError) {
+
+                    val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode
+                            ?: -100, ecsError.errorType?.name)
+                    val mecError = MecError(Exception(ecsError.errorMessage), occECSError, null)
+                    processError(mecError, true)
+                }
+
+            })
+
+        } catch (e: ECSException) {
+            val ecsError = ECSError(e.message ?: "", e.errorCode, null)
+            val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode
+                    ?: -100, ecsError.errorType?.name)
+            val mecError = MecError(Exception(ecsError.errorMessage), occECSError, null)
+            processError(mecError, true)
+        }
+    }
+
+    private fun fetchProductForHybris() {
+
+        try {
+            MECDataHolder.INSTANCE.eCSServices.microService.fetchProduct(product.ctn, object : ECSCallback<ECSProduct?, ECSError> {
+
+                override fun onResponse(result: ECSProduct?) {
+                    product = result!!
+                    callParentExecute()
+                }
+
+                override fun onFailure(ecsError: ECSError) {
+                    val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode
+                            ?: -100, ecsError.errorType?.name)
+                    val mecError = MecError(Exception(ecsError.errorMessage), occECSError, null)
+                    processError(mecError, true)
+                }
+
+            })
+        } catch (e: ECSException) {
+            val ecsError = ECSError(e.message ?: "", e.errorCode, null)
+            val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode
+                    ?: -100, ecsError.errorType?.name)
+            val mecError = MecError(Exception(ecsError.errorMessage), occECSError, null)
+            processError(mecError, true)
+        }
+    }
+
+    private fun callParentExecute() {
+        super.executeRequest()
+    }
 
 }

@@ -69,7 +69,7 @@ class MECManager {
             }
 
             override fun onFailure(ecsError: com.philips.platform.ecs.microService.error.ECSError) {
-                mECFetchCartListener.onFailure(ecsError)
+                mECFetchCartListener.onFailure(Exception(ecsError.errorMessage))
             }
         })
 

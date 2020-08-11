@@ -15,7 +15,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
@@ -43,8 +43,8 @@ public class PILNotifyProductAvailabilityFragment extends  BaseAPIFragment {
         HashMap<String, Object> userDetails = null;
         userDataMap.add(UserDetailConstants.EMAIL);
         try{
-            if(ECSDataHolder.INSTANCE.getUserDataInterface()!=null)
-                userDetails = ECSDataHolder.INSTANCE.getUserDataInterface().getUserDetails(userDataMap);
+            if(ECSDemoDataHolder.INSTANCE.getUserDataInterface()!=null)
+                userDetails = ECSDemoDataHolder.INSTANCE.getUserDataInterface().getUserDetails(userDataMap);
 
         } catch (UserDataInterfaceException e) {
             e.printStackTrace();

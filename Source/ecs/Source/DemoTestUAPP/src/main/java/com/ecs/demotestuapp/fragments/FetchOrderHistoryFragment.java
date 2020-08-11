@@ -2,7 +2,7 @@ package com.ecs.demotestuapp.fragments;
 
 import android.view.View;
 import android.widget.EditText;
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.orders.ECSOrderHistory;
@@ -34,12 +34,12 @@ public class FetchOrderHistoryFragment extends BaseAPIFragment {
         }
 
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchOrderHistory(pageNumber, pageSize, new ECSCallback<ECSOrderHistory, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchOrderHistory(pageNumber, pageSize, new ECSCallback<ECSOrderHistory, Exception>() {
             @Override
             public void onResponse(ECSOrderHistory ecsOrderHistory) {
 
                 gotoResultActivity(getJsonStringFromObject(ecsOrderHistory));
-                ECSDataHolder.INSTANCE.setEcsOrderHistory(ecsOrderHistory);
+                ECSDemoDataHolder.INSTANCE.setEcsOrderHistory(ecsOrderHistory);
                 getProgressBar().setVisibility(View.GONE);
             }
 
@@ -56,6 +56,6 @@ public class FetchOrderHistoryFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsOrderHistory(null);
+        ECSDemoDataHolder.INSTANCE.setEcsOrderHistory(null);
     }
 }

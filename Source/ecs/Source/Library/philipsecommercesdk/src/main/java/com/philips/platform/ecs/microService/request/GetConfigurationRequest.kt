@@ -64,7 +64,7 @@ class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>)
                  ECSDataHolder.getPropositionId()
     }
 
-    //TODO to be removed
+    //TODO to be removed once all pil apis are consumed
     private fun setOCCConfigData(config : ECSConfig){
         ECSConfiguration.INSTANCE.siteId = config.siteId
         ECSConfiguration.INSTANCE.locale = locale

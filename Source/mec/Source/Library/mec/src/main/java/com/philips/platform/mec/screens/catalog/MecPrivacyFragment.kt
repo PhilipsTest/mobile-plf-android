@@ -66,8 +66,6 @@ class MecPrivacyFragment : MecBaseFragment() {
 
 
     //TODO take this code to a separate class
-
-    @SuppressLint("SetJavaScriptEnabled")
     internal fun initializeWebView(group: View) {
         mWebView = group.findViewById<View>(R.id.mec_webView) as WebView
         mWebView?.settings?.javaScriptEnabled = true

@@ -3,7 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
@@ -28,10 +28,10 @@ public class RemoveVoucherFragment extends BaseAPIFragment {
         if(etVoucherCode.getText()!=null)
             voucherCode = etVoucherCode.getText().toString().trim();
 
-        ECSDataHolder.INSTANCE.getEcsServices().removeVoucher(voucherCode, new ECSCallback<List<ECSVoucher>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().removeVoucher(voucherCode, new ECSCallback<List<ECSVoucher>, Exception>() {
             @Override
             public void onResponse(List<ECSVoucher> ecsVouchers) {
-                ECSDataHolder.INSTANCE.setVouchers(ecsVouchers);
+                ECSDemoDataHolder.INSTANCE.setVouchers(ecsVouchers);
                 gotoResultActivity(getJsonStringFromObject(ecsVouchers));
                 getProgressBar().setVisibility(View.GONE);
             }
@@ -49,7 +49,7 @@ public class RemoveVoucherFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setVouchers(null);
+        ECSDemoDataHolder.INSTANCE.setVouchers(null);
     }
 }
 

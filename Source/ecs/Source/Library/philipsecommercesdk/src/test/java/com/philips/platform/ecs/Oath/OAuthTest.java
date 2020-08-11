@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(RobolectricTestRunner.class)
-public class OathTest {
+public class OAuthTest {
     private Context mContext;
 
 

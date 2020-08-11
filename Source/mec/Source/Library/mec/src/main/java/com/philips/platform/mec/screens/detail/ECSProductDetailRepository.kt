@@ -12,8 +12,8 @@ package com.philips.platform.mec.screens.detail
 import com.bazaarvoice.bvandroidsdk.*
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.integration.ECSCallback
-
-
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSException
 
 
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -36,7 +36,12 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
 
     fun getProductDetail(ecsProduct: ECSProduct){
         ecsProductDetailCallBack.mECRequestType=MECRequestType.MEC_FETCH_PRODUCT_DETAILS
+        try{
         ecsServices.microService.fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
+        }catch (e : ECSException){
+            val ecsError = ECSError(e.message ?:"",e.errorCode,null)
+            ecsProductDetailCallBack.onFailure(ecsError)
+        }
     }
 
     fun fetchProductReview(ctn: String, pageNumber: Int, pageSize: Int){

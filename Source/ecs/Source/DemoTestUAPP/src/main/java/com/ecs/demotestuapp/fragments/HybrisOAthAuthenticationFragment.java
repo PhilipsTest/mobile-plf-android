@@ -3,7 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ClientID;
 import com.philips.platform.ecs.integration.ECSCallback;
@@ -25,8 +25,8 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
     public void onResume() {
         super.onResume();
 
-        if (ECSDataHolder.INSTANCE.getJanrainID() != null) {
-            refreshToken = ECSDataHolder.INSTANCE.getJanrainID();
+        if (ECSDemoDataHolder.INSTANCE.getJanrainID() != null) {
+            refreshToken = ECSDemoDataHolder.INSTANCE.getJanrainID();
         }
         etSecret = getLinearLayout().findViewWithTag("et_one");
         if (ECSConfiguration.INSTANCE.getAppInfra().getAppIdentity().getAppState().equals(AppIdentityInterface.AppState.PRODUCTION)) {
@@ -38,7 +38,7 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
         }
 
         etClient = getLinearLayout().findViewWithTag("et_two");
-        if (ECSDataHolder.INSTANCE.getUserDataInterface()!=null && ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
+        if (ECSDemoDataHolder.INSTANCE.getUserDataInterface()!=null && ECSDemoDataHolder.INSTANCE.getUserDataInterface().isOIDCToken())
             etClient.setText(ClientID.OIDC.getType());
         else
             etClient.setText(ClientID.JANRAIN.getType());
@@ -49,11 +49,11 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
 
     public void executeRequest() {
 
-        ECSDataHolder.INSTANCE.getEcsServices().hybrisOAthAuthentication(getECSOAuthProvider(), new ECSCallback<ECSOAuthData, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().hybrisOAthAuthentication(getECSOAuthProvider(), new ECSCallback<ECSOAuthData, Exception>() {
             @Override
             public void onResponse(ECSOAuthData ecsoAuthData) {
 
-                ECSDataHolder.INSTANCE.setEcsoAuthData(ecsoAuthData);
+                ECSDemoDataHolder.INSTANCE.setEcsoAuthData(ecsoAuthData);
                 gotoResultActivity(getJsonStringFromObject(ecsoAuthData));
                 getProgressBar().setVisibility(View.GONE);
             }
@@ -86,9 +86,9 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
 
             @Override
             public ClientID getClientID() {
-                if(ECSDataHolder.INSTANCE.getUserDataInterface()!=null){
+                if(ECSDemoDataHolder.INSTANCE.getUserDataInterface()!=null){
 
-                    if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()){
+                    if (ECSDemoDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()){
                         return ClientID.OIDC;
                     }
                 }
@@ -103,8 +103,8 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
 
             @Override
             public GrantType getGrantType() {
-                if(ECSDataHolder.INSTANCE.getUserDataInterface()!=null){
-                    if (ECSDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()) {
+                if(ECSDemoDataHolder.INSTANCE.getUserDataInterface()!=null){
+                    if (ECSDemoDataHolder.INSTANCE.getUserDataInterface().isOIDCToken()) {
                         return GrantType.OIDC;
                     }
                 }
@@ -118,6 +118,6 @@ public class HybrisOAthAuthenticationFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsoAuthData(null);
+        ECSDemoDataHolder.INSTANCE.setEcsoAuthData(null);
     }
 }

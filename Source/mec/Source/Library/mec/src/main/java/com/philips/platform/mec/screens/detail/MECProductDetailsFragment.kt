@@ -135,14 +135,14 @@ open class MECProductDetailsFragment : MecBaseFragment() {
             binding.mecFindRetailerButtonPrimary.visibility = View.GONE
             binding.mecFindRetailerButtonSecondary.visibility = View.GONE
             if (MECDataHolder.INSTANCE.hybrisEnabled) {
-                if (null != product && null != product!!.attributes?.availability) {
-                    if (MECutility.isStockAvailable(product!!.attributes?.availability!!.status, product!!.attributes?.availability!!.quantity)) {
+                if (null != product && null != product.attributes?.availability) {
+                    if (MECutility.isStockAvailable(product.attributes?.availability!!.status, product.attributes?.availability?.quantity ?:0)) {
                         binding.mecProductDetailStockStatus.text = binding.mecProductDetailStockStatus.context.getString(R.string.mec_in_stock)
                         binding.mecProductDetailStockStatus.setTextColor(binding.mecProductDetailStockStatus.context.getColor(R.color.uid_signal_green_level_30))
                     } else {
                         binding.mecProductDetailStockStatus.text = binding.mecProductDetailStockStatus.context.getString(R.string.mec_out_of_stock)
                         binding.mecProductDetailStockStatus.setTextColor(binding.mecProductDetailStockStatus.context.getColor(R.color.uid_signal_red_level_30))
-                        tagOutOfStockActions(product!!)
+                        tagOutOfStockActions(product)
                     }
                 }
             }

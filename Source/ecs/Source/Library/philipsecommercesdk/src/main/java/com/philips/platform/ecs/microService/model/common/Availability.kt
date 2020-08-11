@@ -17,6 +17,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Availability(
-    val quantity: Int,
+    val quantity: Int?,
     val status: String?
 ): Parcelable

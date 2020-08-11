@@ -50,7 +50,7 @@ object MECProductDetailDataBindingAdapter {
     @BindingAdapter("setStockInfo")
     fun setStockInfo(stockLabel: Label, product: ECSProduct?) {
         if (null != product && null != product.attributes?.availability) {
-            if (MECutility.isStockAvailable(product.attributes?.availability!!.status, product.attributes?.availability!!.quantity)) {
+            if (MECutility.isStockAvailable(product.attributes?.availability!!.status, product.attributes?.availability?.quantity ?:0)) {
                 stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
                 stockLabel.setTextColor(stockLabel.context.getColor(R.color.uid_signal_green_level_30))
                 // stockLabel.setTextColor(R.attr.uidContentItemSignalNormalTextSuccessColor)

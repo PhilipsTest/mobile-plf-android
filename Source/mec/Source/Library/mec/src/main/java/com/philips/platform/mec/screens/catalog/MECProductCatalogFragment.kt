@@ -117,7 +117,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     var isCallOnProgress: Boolean = true
 
     var offSet:Int = 0
-    val limit:Int = 10
+    val limit:Int = 50
     var isAllProductDownloaded = false
 
     //Categorized
@@ -262,7 +262,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     adapter.filter.filter(s)
 
 
-                    val text = String.format(context?.getResources()?.getText(R.string.mec_no_result).toString(), s)
+                    val text = context?.resources?.getText(R.string.mec_no_result).toString()+ " "+s
                     binding.tvEmptyListFound.text = text
 
                     if (MECDataHolder.INSTANCE.getPrivacyUrl() != null) {
