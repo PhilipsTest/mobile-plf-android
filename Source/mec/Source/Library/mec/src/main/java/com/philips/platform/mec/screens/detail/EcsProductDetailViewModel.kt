@@ -123,12 +123,15 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
     }
 
     fun removeBlacklistedRetailers(ecsRetailers: ECSRetailerList): ECSRetailerList {
+
         val list = MECDataHolder.INSTANCE.blackListedRetailers
+
+        val mutableRetailerList =  ecsRetailers.getRetailers()?.toMutableList()
 
         if (list != null) {
             for (name in list) {
 
-                val iterator = ecsRetailers.getRetailers()?.toMutableList()?.iterator()
+                val iterator = mutableRetailerList?.iterator()
 
                 while (iterator?.hasNext() == true) {
 
@@ -136,15 +139,15 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
                     if (name.equals(retailerName, true)) {
 
                         if (MECutility.indexOfSubString(true, retailerName, name) >= 0) {
-                            iterator.remove()
 
+                           iterator.remove()
                         }
                     }
                 }
 
             }
         }
-
+        ecsRetailers.wrbresults?.OnlineStoresForProduct?.Stores?.Store = mutableRetailerList?.toList()
         return ecsRetailers
     }
 

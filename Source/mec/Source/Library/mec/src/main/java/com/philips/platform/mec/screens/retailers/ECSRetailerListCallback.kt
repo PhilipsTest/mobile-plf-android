@@ -53,7 +53,13 @@ class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewM
             }
         }
 
-        ecsPhilipsRetailer?.let {retailers?.toMutableList()?.remove(ecsPhilipsRetailer)}
+        ecsPhilipsRetailer?.let {
+            val mutableList = retailers?.toMutableList()
+            mutableList?.remove(ecsPhilipsRetailer)
+            val list = mutableList?.toList()
+            result?.wrbresults?.OnlineStoresForProduct?.Stores?.Store = list
+        }
+
 
         return result
     }
