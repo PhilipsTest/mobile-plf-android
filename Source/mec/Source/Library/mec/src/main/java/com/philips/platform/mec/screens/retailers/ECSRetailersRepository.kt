@@ -21,10 +21,10 @@ class ECSRetailersRepository(private val ecsServices: ECSServices, private val e
     fun getRetailers(ctn: String) {
         try {
             ecsServices.microService.fetchRetailers(ctn, eCSRetailerListCallback)
-        }catch (e : ECSException){
-        val ecsError = ECSError(e.message ?:"",e.errorCode,null)
+        } catch (e: ECSException) {
+            val ecsError = ECSError(e.message ?: "", e.errorCode, null)
             eCSRetailerListCallback.onFailure(ecsError)
-    }
+        }
     }
 
 }
