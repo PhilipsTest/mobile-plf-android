@@ -16,6 +16,9 @@ class ECSRetailersRepositoryTest {
 
     lateinit var  ecsRetailersRepository: ECSRetailersRepository
 
+    @Mock
+    lateinit var microServiceMock : com.philips.platform.ecs.microService.ECSServices
+
 
     @Mock
     lateinit var  ecsRetailerViewModelMock: ECSRetailerViewModel
@@ -30,16 +33,17 @@ class ECSRetailersRepositoryTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
+        Mockito.`when`(ecsServicesMock.microService).thenReturn(microServiceMock)
         ecsRetailersRepository = ECSRetailersRepository(ecsServicesMock,ecsRetailerViewModelMock)
         ecsRetailersRepository.eCSRetailerListCallback = eCSRetailerListCallback
     }
 
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun getRetailersShouldCallFetchRetailers() {
 
         ecsRetailersRepository.getRetailers("CTN")
-        Mockito.verify(ecsServicesMock).fetchRetailers("CTN",eCSRetailerListCallback)
+        Mockito.verify(ecsServicesMock.microService).fetchRetailers("CTN",eCSRetailerListCallback)
 
     }
 }

@@ -9,37 +9,40 @@
  */
 package com.philips.platform.mec.screens.retailers
 
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.retailers.ECSRetailer
-import com.philips.platform.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 
-class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewModel) : ECSCallback<ECSRetailerList, Exception> {
+class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewModel) : ECSCallback<ECSRetailerList?, ECSError> {
 
-    override fun onResponse(result: ECSRetailerList?) {
+    var mECRequestType : MECRequestType = MECRequestType.MEC_FETCH_RETAILER_FOR_PRODUCT
 
-        if (result != null)
-            removePhilipsStoreForHybris(result)
-
+    override fun onResponse(result:ECSRetailerList?) {
+        removePhilipsStoreForHybris(result)
         ecsRetailerViewModel.ecsRetailerList.value = result
     }
 
-    override fun onFailure(error: Exception?, ecsError: com.philips.platform.ecs.error.ECSError?) {
-        val mecError = MecError(error, ecsError,MECRequestType.MEC_FETCH_RETAILER_FOR_CTN)
+    override fun onFailure(ecsError: ECSError) {
+        val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
+        val mecError = MecError(Exception(ecsError.errorMessage), occECSError, mECRequestType)
         ecsRetailerViewModel.mecError.value = mecError
     }
 
 
-    fun removePhilipsStoreForHybris(result:ECSRetailerList): ECSRetailerList {
+    fun removePhilipsStoreForHybris(result:ECSRetailerList?): ECSRetailerList? {
 
         if (!MECDataHolder.INSTANCE.hybrisEnabled) return result
-        val retailers = result.retailers
+        val retailers = result?.retailers
 
-        val iterator = retailers.iterator()
+        val toMutableList = retailers?.toMutableList()
 
-        while (iterator.hasNext()){
+        val iterator = toMutableList?.iterator()
+
+        while (iterator?.hasNext() == true){
 
             val ecsRetailer = iterator.next()
 

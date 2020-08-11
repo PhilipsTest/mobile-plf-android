@@ -20,9 +20,10 @@ import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.microService.model.asset.Asset
 import com.philips.platform.ecs.microService.model.asset.Assets
 import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
 
-import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.detail.MECProductDetailsFragment.Companion.tagOutOfStockActions
@@ -123,26 +124,25 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
     fun removeBlacklistedRetailers(ecsRetailers: ECSRetailerList): ECSRetailerList {
         val list = MECDataHolder.INSTANCE.blackListedRetailers
-        if(list == null){
-            return ecsRetailers
-        }
 
-        for (name in list!!) {
+        if (list != null) {
+            for (name in list) {
 
-            val iterator = ecsRetailers.retailers.iterator()
+                val iterator = ecsRetailers.retailers?.toMutableList()?.iterator()
 
-            while (iterator.hasNext()) {
+                while (iterator?.hasNext() == true) {
 
-                val retailerName = iterator.next().getName().replace("\\s+".toRegex(), "")
-                if (name.equals(retailerName, true)) {
+                    val retailerName = iterator.next().name?.replace("\\s+".toRegex(), "")
+                    if (name.equals(retailerName, true)) {
 
-                    if (MECutility.indexOfSubString(true, retailerName, name) >= 0) {
-                        iterator.remove()
+                        if (MECutility.indexOfSubString(true, retailerName, name) >= 0) {
+                            iterator.remove()
 
+                        }
                     }
                 }
-            }
 
+            }
         }
 
         return ecsRetailers
@@ -157,16 +157,16 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         return supplierLinkWithUUID + UUID.randomUUID().toString()
     }
 
-    fun isPhilipsShop(retailer: com.philips.platform.ecs.model.retailers.ECSRetailer): Boolean {
+    fun isPhilipsShop(retailer: ECSRetailer): Boolean {
         return retailer.isPhilipsStore.equals("Y", ignoreCase = true)
     }
 
-    fun setStockInfoWithRetailer(stockLabel : Label, product: ECSProduct?, ecsRetailers: com.philips.platform.ecs.model.retailers.ECSRetailerList) {
+    fun setStockInfoWithRetailer(stockLabel : Label, product: ECSProduct?, ecsRetailers: ECSRetailerList) {
             if(!MECDataHolder.INSTANCE.hybrisEnabled) {
-                if (ecsRetailers.retailers.size>0) {
+                if (ecsRetailers.retailers?.size ?:0 >0) {
                     var availability=false
-                    for (i in 0..ecsRetailers.retailers.size) {
-                        if(ecsRetailers.retailers.get(i).availability.contains("YES")){
+                    for (i in 0..(ecsRetailers.retailers?.size ?:0)) {
+                        if(ecsRetailers.retailers?.get(i)?.availability?.contains("YES") == true){
                             availability=true
                             break
                         }
@@ -180,14 +180,14 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
                         product?.let { tagOutOfStockActions(it) }
                     }
 
-                } else if (ecsRetailers.retailers.size==0) {
+                } else if (ecsRetailers.retailers?.size ?:0 ==0) {
                     stockLabel.text = stockLabel.context.getString(R.string.mec_out_of_stock)
                     stockLabel.setTextColor(stockLabel.context.getColor(R.color.uid_signal_red_level_30))
                     product?.let { tagOutOfStockActions(it) }
                 }
             }
             else if(MECDataHolder.INSTANCE.hybrisEnabled){
-                if(ecsRetailers.retailers.size==0) {
+                if(ecsRetailers.retailers?.size==0) {
                     if (null != product && null != product.attributes?.availability) {
                         if (MECutility.isStockAvailable(product.attributes?.availability?.status, product.attributes?.availability?.quantity ?:0)) {
                             stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
@@ -202,13 +202,13 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
                     }
                 }
 
-             else if (ecsRetailers.retailers.size>0) {
+             else if (ecsRetailers.retailers?.size ?:0 >0) {
                     var availability=false
-                    for (i in 0..ecsRetailers.retailers.size) {
-                        if(ecsRetailers.retailers.get(i).availability.contains("YES")){
+                    for (i in 0..(ecsRetailers.retailers?.size ?:0)) {
+                        if(ecsRetailers.retailers?.get(i)?.availability?.contains("YES") == true){
                             availability=true
                             break
-                        } else if(ecsRetailers.retailers.get(i).availability.contains("NO")) {
+                        } else if(ecsRetailers.retailers?.get(i)?.availability?.contains("NO") == true) {
                             availability=false
                             if (!availability) {
                                 if (null != product?.attributes?.availability) {

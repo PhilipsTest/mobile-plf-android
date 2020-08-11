@@ -28,9 +28,9 @@ import com.bazaarvoice.bvandroidsdk.Statistics
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
-import com.philips.platform.ecs.model.retailers.ECSRetailer
-import com.philips.platform.ecs.model.retailers.ECSRetailerList
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.productDetailsPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -85,8 +85,8 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         override fun onChanged(retailers: ECSRetailerList?) {
             retailersList = retailers!!
             ecsProductDetailViewModel.removeBlacklistedRetailers(retailersList)
-            if (retailers.wrbresults.onlineStoresForProduct != null) {
-                if (retailersList.wrbresults.onlineStoresForProduct.stores.retailerList.size > 0) {
+            if (retailers.wrbresults?.OnlineStoresForProduct != null) {
+                if (retailersList.wrbresults?.OnlineStoresForProduct?.Stores?.Store?.size ?:0 > 0) {
                     if (binding.mecAddToCartButton.visibility == View.GONE) {
                         binding.mecFindRetailerButtonPrimary.visibility = View.VISIBLE
                         binding.mecFindRetailerButtonSecondary.visibility = View.GONE
@@ -365,7 +365,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     private fun buyFromRetailers() {
         val bundle = Bundle()
         var bottomSheetFragment = MECRetailersFragment()
-        bundle.putSerializable(MECConstant.MEC_KEY_PRODUCT, retailersList)
+        bundle.putParcelable(MECConstant.MEC_KEY_PRODUCT, retailersList)
         bundle.putParcelable(MEC_PRODUCT, binding.product)
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.setTargetFragment(this, MECConstant.RETAILER_REQUEST_CODE)
@@ -380,14 +380,14 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         if (requestCode == MECConstant.RETAILER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
             if (data?.extras?.containsKey(MECConstant.SELECTED_RETAILER)!!) {
-                val ecsRetailer: ECSRetailer = data.getSerializableExtra(MECConstant.SELECTED_RETAILER) as ECSRetailer
-                param = ecsRetailer.xactparam
+                val ecsRetailer: ECSRetailer = data.getParcelableExtra(MECConstant.SELECTED_RETAILER) as ECSRetailer
+                param = ecsRetailer?.xactparam ?:""
                 val bundle = Bundle()
-                bundle.putString(MECConstant.MEC_BUY_URL, ecsProductDetailViewModel.uuidWithSupplierLink(ecsRetailer.buyURL, param))
+                bundle.putString(MECConstant.MEC_BUY_URL, ecsProductDetailViewModel.uuidWithSupplierLink(ecsRetailer.buyURL ?:"", param))
                 bundle.putString(MECConstant.MEC_STORE_NAME, ecsRetailer.name)
                 bundle.putBoolean(MECConstant.MEC_IS_PHILIPS_SHOP, ecsProductDetailViewModel.isPhilipsShop(ecsRetailer))
 
-                tagActionsforRetailer(ecsRetailer.name, MECutility.stockStatus(ecsRetailer.availability))
+                tagActionsforRetailer(ecsRetailer?.name ?:"", MECutility.stockStatus(ecsRetailer.availability ?:"NO"))
                 val fragment = WebBuyFromRetailersFragment()
                 fragment.arguments = bundle
                 replaceFragment(fragment, fragment.getFragmentTag(), true)

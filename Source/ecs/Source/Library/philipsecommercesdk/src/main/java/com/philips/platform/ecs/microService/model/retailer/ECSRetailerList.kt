@@ -14,10 +14,9 @@ package com.philips.platform.ecs.microService.model.retailer
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.ArrayList
 
 @Parcelize
-data class ECSRetailerList(val wrbresults: Wrbresults?): Parcelable {
+data class ECSRetailerList(val wrbresults: Wrbresults? = null): Parcelable {
 
     val retailers: List<ECSRetailer>? = wrbresults?.OnlineStoresForProduct?.Stores?.Store
 }
