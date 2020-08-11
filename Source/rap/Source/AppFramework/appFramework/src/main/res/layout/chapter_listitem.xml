@@ -9,7 +9,7 @@
     <com.philips.platform.uid.view.widget.Label
         android:id="@+id/chapter_textview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="5dp"
         android:textColor="@color/uid_list_item_text_selector"
