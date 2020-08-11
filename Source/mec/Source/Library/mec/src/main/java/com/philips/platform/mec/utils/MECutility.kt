@@ -305,7 +305,7 @@ class MECutility {
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context) {
             var errorMessage: String=""
-            if (mecError!!.ecsError!!.errorType.equals("No internet connection")) {
+            if (mecError?.ecsError?.errorType?.equals("No internet connection") == true) {
                 MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(Acontext, R.string.mec_no_internet))
             } else {
                 errorMessage = getErrorString(mecError,Acontext)
@@ -317,24 +317,24 @@ class MECutility {
         }
 
         @JvmStatic
-        fun getErrorString(mecError: MecError, acontext: Context):String{
+        fun getErrorString(mecError: MecError?, acontext: Context):String{
             var errorMessage: String = ""
             try {
                 //tag all techinical defect except "No internet connection"
                 var errorString: String = "$COMPONENT_NAME:"
                 errorString = setErrorPrefix(mecError, errorString)
-                errorString += mecError.mECRequestType?.category + ":"// Error_Category
+                errorString += mecError?.mECRequestType?.category + ":"// Error_Category
 
 
-                if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
+                if (null == mecError?.exception?.message && mecError?.ecsError?.errorType.equals("ECS_volley_error", true)) {
                     errorMessage = acontext.getString(R.string.mec_time_out_error)
-                } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message!!.contains("java.net.UnknownHostException") || (mecError.exception.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+                } else if (null != mecError?.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message?.contains("java.net.UnknownHostException") == true || (mecError.exception.message?.contains("I/O error during system call, Software caused connection abort") == true))) {
                     // No Internet: Information Error
                     //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                     //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                    MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!,R.string.mec_no_internet ))
+                    MECDataProvider.context?.let { MECAnalytics.getDefaultString(it,R.string.mec_no_internet ) }?.let { MECAnalytics.trackInformationError(it) }
                     errorMessage =acontext.getString(R.string.mec_no_internet)
-                } else if (mecError.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                } else if (mecError?.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                     //voucher apply fail:  User error
                     val errorMsg = mecError.exception?.message?:""
                     errorString +=errorMsg
@@ -342,9 +342,9 @@ class MECutility {
                     errorMessage=mecError.exception?.message?:""
                 }else{
                     // Remaining all errors: Technical errors
-                    errorMessage = mecError.exception?.message?:""
+                    errorMessage = mecError?.exception?.message?:""
                     errorString += errorMessage
-                    errorString = errorString + mecError.ecsError?.errorcode + ":"
+                    errorString = errorString + mecError?.ecsError?.errorcode + ":"
                     MECAnalytics.trackTechnicalError(errorString)
                 }
 
@@ -356,16 +356,16 @@ class MECutility {
 
         }
 
-        private fun setErrorPrefix(mecError: MecError, errorString: String): String {
+        private fun setErrorPrefix(mecError: MecError?, errorString: String): String {
             var errorString1 = errorString
             errorString1 += when {
-                mecError.ecsError?.errorcode == 1000 -> {
+                mecError?.ecsError?.errorcode == 1000 -> {
                     "$bazaarVoice:"
                 }
-                mecError.ecsError?.errorcode in 5000..5999 -> {
+                mecError?.ecsError?.errorcode in 5000..5999 -> {
                     "$hybris:"
                 }
-                mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> {
+                mecError?.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> {
                     "$wtb:"
                 }
                 else -> {
