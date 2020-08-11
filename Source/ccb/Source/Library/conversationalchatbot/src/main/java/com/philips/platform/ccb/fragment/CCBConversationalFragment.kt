@@ -3,13 +3,9 @@ package com.philips.platform.ccb.fragment
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.Spanned
-import android.text.style.CharacterStyle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -28,20 +24,16 @@ import com.philips.platform.ccb.model.CCBActivities
 import com.philips.platform.ccb.model.CCBMessage
 import com.philips.platform.ccb.model.CCBUser
 import com.philips.platform.ccb.util.CCBLog
-import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
-import io.noties.markwon.MarkwonVisitor
 import io.noties.markwon.image.AsyncDrawable
-import io.noties.markwon.image.AsyncDrawableScheduler
 import io.noties.markwon.image.glide.GlideImagesPlugin
-import kotlinx.android.synthetic.main.botreponse_waiting_layout.view.*
+import kotlinx.android.synthetic.main.ccb_waiting_layout.view.*
 import kotlinx.android.synthetic.main.ccb_bot_response_layout.view.*
 import kotlinx.android.synthetic.main.ccb_conversation_fragment.view.*
 import kotlinx.android.synthetic.main.ccb_dynamic_button.view.*
 import kotlinx.android.synthetic.main.ccb_fragment.view.*
 import kotlinx.android.synthetic.main.ccb_user_response_layout.view.*
 import net.frakbot.jumpingbeans.JumpingBeans
-import org.w3c.dom.Node
 
 
 /**
@@ -59,7 +51,6 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
 
         rootView = inflater.inflate(layout.ccb_conversation_fragment, container, false)
 
@@ -83,8 +74,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         }
 
         rootView.fbrestartbutton.setOnClickListener {
-            //rootView.ccb_actionbutton_view.removeAllViews()
-            //postMessage("Restart Conversation")
+            rootView.ccb_actionbutton_view.removeAllViews()
             closeConversation()
             connectChatBot()
         }
@@ -183,7 +173,6 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                     handleBotResponse(activity)
                 }
             }
-
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
@@ -240,7 +229,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
     private fun waitForBotResponse() {
         activity?.runOnUiThread {
-            watingResponseView = layoutInflater.inflate(layout.botreponse_waiting_layout, rootView.ccb_recentchat_view, false)
+            watingResponseView = layoutInflater.inflate(layout.ccb_waiting_layout, rootView.ccb_recentchat_view, false)
             rootView.avatarIV.visibility = View.VISIBLE
             watingResponseView.botresponse_waiting_text.visibility = View.VISIBLE
             jumpingBeans = JumpingBeans.with(watingResponseView.botresponse_waiting_text).appendJumpingDots().build()
