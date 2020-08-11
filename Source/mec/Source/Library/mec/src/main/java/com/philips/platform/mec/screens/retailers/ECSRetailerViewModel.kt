@@ -36,7 +36,7 @@ class ECSRetailerViewModel : com.philips.platform.mec.common.CommonViewModel() {
         @JvmStatic
         @BindingAdapter("retailers","listener")
         fun setAdapter(recyclerView: RecyclerView, ecsRetailerList: ECSRetailerList, itemClickListener: ItemClickListener) {
-            recyclerView.adapter = MECRetailersAdapter(ecsRetailerList.retailers,itemClickListener)
+            recyclerView.adapter = MECRetailersAdapter(ecsRetailerList.getRetailers(),itemClickListener)
         }
 
         @JvmStatic

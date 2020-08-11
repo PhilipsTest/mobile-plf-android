@@ -18,5 +18,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ECSRetailerList(val wrbresults: Wrbresults? = null): Parcelable {
 
-    val retailers: List<ECSRetailer>? = wrbresults?.OnlineStoresForProduct?.Stores?.Store
+    fun getRetailers() : List<ECSRetailer>?{
+      return wrbresults?.OnlineStoresForProduct?.Stores?.Store
+    }
+
 }

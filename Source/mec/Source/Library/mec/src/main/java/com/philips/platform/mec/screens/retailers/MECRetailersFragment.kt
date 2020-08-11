@@ -80,8 +80,8 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
     private fun tagRetailerAndBlackListedRetailerList(retailers: ECSRetailerList, product : ECSProduct){
         // add retailer list if present
         val map = HashMap<String, String>()
-        if(retailers?.retailers != null && retailers?.retailers?.size ?:0 >0) {
-            val mutableRetailersIterator = retailers?.retailers?.iterator()
+        if(retailers?.getRetailers() != null && retailers?.getRetailers()?.size ?:0 >0) {
+            val mutableRetailersIterator = retailers?.getRetailers()?.iterator()
             var retailerListString: String = ""
             if (mutableRetailersIterator != null) {
                 for (ecsRetailer in mutableRetailersIterator) {
@@ -97,7 +97,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
         }
         // add Blacklisted retailer list if present otherwise send empty string
         var blackListedRetailerListString: String? = null
-        if(MECDataHolder.INSTANCE.blackListedRetailers!=null && MECDataHolder.INSTANCE.blackListedRetailers!!.size>0){
+        if(MECDataHolder.INSTANCE.blackListedRetailers!=null && MECDataHolder.INSTANCE.blackListedRetailers?.size ?:0>0){
             for(blackListedRetailer: String in MECDataHolder.INSTANCE.blackListedRetailers!!){
                 blackListedRetailerListString+= "|" +blackListedRetailer
             }

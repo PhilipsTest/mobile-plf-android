@@ -36,20 +36,24 @@ class ECSRetailerListCallback(private val ecsRetailerViewModel: ECSRetailerViewM
     fun removePhilipsStoreForHybris(result:ECSRetailerList?): ECSRetailerList? {
 
         if (!MECDataHolder.INSTANCE.hybrisEnabled) return result
-        val retailers = result?.retailers
+        val retailers = result?.getRetailers()
 
-        val toMutableList = retailers?.toMutableList()
 
-        val iterator = toMutableList?.iterator()
+        var ecsPhilipsRetailer : ECSRetailer ? = null
+
+
+        val iterator = retailers?.iterator()
 
         while (iterator?.hasNext() == true){
 
             val ecsRetailer = iterator.next()
 
             if(isPhilipsRetailer(ecsRetailer)){
-                iterator.remove()
+                ecsPhilipsRetailer = ecsRetailer
             }
         }
+
+        ecsPhilipsRetailer?.let {retailers?.toMutableList()?.remove(ecsPhilipsRetailer)}
 
         return result
     }

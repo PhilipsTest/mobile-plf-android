@@ -51,7 +51,7 @@ class ECSRetailerListCallbackTest {
 
     @Test(expected = NullPointerException::class)
     fun onResponse() {
-        Mockito.`when`(ecsRetailerList.retailers).thenReturn(listOf(ecsRetailer))
+        Mockito.`when`(ecsRetailerList.getRetailers()).thenReturn(listOf(ecsRetailer))
         ecsRetailerListCallback.onResponse(ecsRetailerList)
         assertNotNull(ecsRetailerViewModelMock.ecsRetailerList)
     }
