@@ -364,8 +364,12 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     override fun onStart() {
         super.onStart()
         MECAnalytics.trackPage(productCataloguePage)
-        //TODO
-       // MECAnalytics.tagProductList(productList, listView)
+
+        val productList = mutableListOf<ECSProduct>()
+        for(productWithReview in mProductsWithReview){
+            productList.add(productWithReview.ecsProduct)
+        }
+        MECAnalytics.tagProductList(productList, listView)
     }
 
     private fun privacyTextView(view: TextView) {
@@ -437,7 +441,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     override fun processError(mecError: MecError?, showDialog: Boolean) {
         super.processError(mecError, showDialog)
 
-        //TODO
         dismissPaginationProgressBar()
         dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         if(offSet == 0)showNoProduct()
