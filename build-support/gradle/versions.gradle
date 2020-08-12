@@ -203,7 +203,7 @@ ext.deps = [
         rubygems                      : 'rubygems:roo:2.8.3',
         rxbinding                     : 'com.jakewharton.rxbinding2:rxbinding:2.2.0',
         rxjava2                       : 'io.reactivex.rxjava2:rxandroid:2.1.1',
-        okhttp3                       : 'com.squareup.okhttp3:okhttp:4.8.0',
+        okhttp3                       : 'com.squareup.okhttp3:okhttp:3.10.0',
         chuck_debug                   : 'com.readystatesoftware.chuck:library:1.1.0',
         chuck_release                 : 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
