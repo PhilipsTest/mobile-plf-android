@@ -178,7 +178,7 @@ subprojects {
     }
 
     ext.useprojectdependencies = isDebugTask
-    project.logger.lifecycle('Root: ext.useprojectdependencies ' + ext.useprojectdependencies)
+    //project.logger.lifecycle('Root: ext.useprojectdependencies ' + ext.useprojectdependencies)
 }
 
 dependencyUpdates.resolutionStrategy {
