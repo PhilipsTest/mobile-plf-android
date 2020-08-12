@@ -31,11 +31,13 @@ android {
 
 dependencies {
     if (useprojectdependencies) {
+        project.logger.lifecycle('ccbUApp: Picking the dependencies from the code')
         implementation project(strings.ccb.projectName)
         implementation project(strings.pif.projectName)
         implementation project(strings.ufw.projectName)
         implementation project(strings.ail.projectName)
     } else {
+        project.logger.lifecycle('ccbUApp: Picking the dependencies from the artifactory')
         implementation philipsdeps.pif
         implementation philipsdeps.uAppFwLib
         implementation philipsdeps.AppInfra
