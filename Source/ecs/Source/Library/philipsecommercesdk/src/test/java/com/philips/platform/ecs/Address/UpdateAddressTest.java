@@ -67,8 +67,8 @@ public class UpdateAddressTest {
 
 
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         StaticBlock.initialize();
 

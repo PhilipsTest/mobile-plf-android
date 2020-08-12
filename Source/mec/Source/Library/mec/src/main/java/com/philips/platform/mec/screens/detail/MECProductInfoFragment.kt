@@ -14,7 +14,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+
 import com.philips.platform.mec.databinding.MecProductInfoFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
@@ -35,7 +36,7 @@ class MECProductInfoFragment : MecBaseFragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = MecProductInfoFragmentBinding.inflate(inflater, container, false)
-        var product = arguments?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as ECSProduct
+        var product = arguments?.getParcelable<ECSProduct>(MECConstant.MEC_KEY_PRODUCT)!!
         binding.product = product
         return binding.root
     }

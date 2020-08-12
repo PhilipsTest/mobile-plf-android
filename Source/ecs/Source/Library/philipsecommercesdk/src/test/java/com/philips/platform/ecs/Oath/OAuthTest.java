@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(RobolectricTestRunner.class)
-public class OathTest {
+public class OAuthTest {
     private Context mContext;
 
 
@@ -69,8 +69,8 @@ public class OathTest {
         appInfra.getServiceDiscovery().setHomeCountry("DE");
 
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         StaticBlock.initialize();
 

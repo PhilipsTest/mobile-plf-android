@@ -4,7 +4,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSAddress;
@@ -24,11 +24,11 @@ public class DeleteAndFetchAddressFragment extends DeleteAddressFragment {
         }
 
 
-        ECSDataHolder.INSTANCE.getEcsServices().deleteAndFetchAddress(ecsAddress, new ECSCallback<List<ECSAddress>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().deleteAndFetchAddress(ecsAddress, new ECSCallback<List<ECSAddress>, Exception>() {
             @Override
             public void onResponse(List<ECSAddress> ecsAddresses) {
 
-                ECSDataHolder.INSTANCE.setEcsAddressList(ecsAddresses);
+                ECSDemoDataHolder.INSTANCE.setEcsAddressList(ecsAddresses);
                 gotoResultActivity(getJsonStringFromObject(ecsAddresses));
                 getProgressBar().setVisibility(View.GONE);
             }
@@ -47,6 +47,6 @@ public class DeleteAndFetchAddressFragment extends DeleteAddressFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsAddressList(null);
+        ECSDemoDataHolder.INSTANCE.setEcsAddressList(null);
     }
 }

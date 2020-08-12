@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">ספק בבקשה app infra object</string>
@@ -26,6 +33,7 @@
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">נתקלנו בתקלה טכנית (אסימון גישה לא חוקי). בצע בבקשה Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">כתובת דוא\"ל לא חוקית. אנא בדוק.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">המוצר לא הוסף לעגלה</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">הגדר מקום בבקשה</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[he]Please provide valid CTN</string>

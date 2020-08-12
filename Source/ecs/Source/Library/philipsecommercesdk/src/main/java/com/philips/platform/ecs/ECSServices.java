@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.volley.DefaultRetryPolicy;
-import com.philips.platform.ecs.error.ECSErrorEnum;
-import com.philips.platform.ecs.error.ECSErrorWrapper;
+import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.appinfra.BuildConfig;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.integration.ECSOAuthProvider;
+import com.philips.platform.ecs.microService.util.ECSDataHolder;
 import com.philips.platform.ecs.model.address.ECSAddress;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 import com.philips.platform.ecs.model.address.ECSUserProfile;
 import com.philips.platform.ecs.model.cart.ECSEntries;
 import com.philips.platform.ecs.model.cart.ECSShoppingCart;
-import com.philips.platform.ecs.model.config.ECSConfig;
 import com.philips.platform.ecs.model.oauth.ECSOAuthData;
 import com.philips.platform.ecs.model.orders.ECSOrderDetail;
 import com.philips.platform.ecs.model.orders.ECSOrderHistory;
@@ -32,130 +32,27 @@ import com.philips.platform.ecs.model.region.ECSRegion;
 import com.philips.platform.ecs.model.retailers.ECSRetailerList;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
 import com.philips.platform.ecs.util.ECSConfiguration;
-import com.philips.platform.appinfra.AppInfra;
-import com.philips.platform.appinfra.BuildConfig;
-import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
-import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-
-import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedErrorMessage;
 
 public class ECSServices implements ECSServiceProvider {
 
    // private ECSManager mECSManager;
 
-    public static final String SERVICE_ID = "iap.baseurl";
     public static final String ECS_NOTATION = "ecs";
 
     private ECSCallValidator ecsCallValidator;
 
-    public ECSServices(@Nullable String propositionID, @NonNull AppInfra appInfra) {
+    private com.philips.platform.ecs.microService.ECSServices ecsMicroServices;
+
+    public ECSServices(@NonNull AppInfra appInfra) {
         ECSConfiguration.INSTANCE.setAppInfra(appInfra);
-        ECSConfiguration.INSTANCE.setPropositionID(propositionID);
         ECSConfiguration.INSTANCE.setEcsLogging(appInfra.getLogging().createInstanceForComponent(ECS_NOTATION, BuildConfig.VERSION_NAME));
         ecsCallValidator = new ECSCallValidator();
+
+        ecsMicroServices = new com.philips.platform.ecs.microService.ECSServices(appInfra);
+        ECSConfiguration.INSTANCE.setPropositionID(ECSDataHolder.INSTANCE.getPropositionId());
     }
-
-    /**
-     * @since 1905.0.0
-     * Configure ecs.
-     *
-     * @param ecsCallback the ecs callback containing boolean response. If configuration is success returns true else false
-     *
-     */
-    public void configureECS(ECSCallback<Boolean,Exception> ecsCallback){
-
-        ArrayList<String> listOfServiceId = new ArrayList<>();
-        listOfServiceId.add(SERVICE_ID);
-
-        ServiceDiscoveryInterface.OnGetServiceUrlMapListener onGetServiceUrlMapListener = new ServiceDiscoveryInterface.OnGetServiceUrlMapListener() {
-            @Override
-            public void onError(ERRORVALUES errorvalues, String s) {
-
-                ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong,null,s+"\n"+errorvalues.name());
-                ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
-            }
-
-            @Override
-            public void onSuccess(Map<String, ServiceDiscoveryService> map) {
-
-                Collection<ServiceDiscoveryService> values = map.values();
-
-                ArrayList<ServiceDiscoveryService> serviceDiscoveryServiceArrayList = new ArrayList<>(values);
-
-                ServiceDiscoveryService serviceDiscoveryService = serviceDiscoveryServiceArrayList.get(0);
-
-                String locale = serviceDiscoveryService.getLocale();
-                ECSConfiguration.INSTANCE.setLocale(locale);
-                String configUrls = serviceDiscoveryService.getConfigUrls();
-
-                if(configUrls!=null){
-                    ECSConfiguration.INSTANCE.setBaseURL(configUrls+"/");
-                    ecsCallValidator.getHybrisConfig(ecsCallback);
-                }else {
-                    ecsCallback.onResponse(false);
-                }
-            }
-
-    };
-
-        ECSConfiguration.INSTANCE.getAppInfra().getServiceDiscovery().getServicesWithCountryPreference(listOfServiceId, onGetServiceUrlMapListener,null);
-    }
-
-    /**
-     * @since 1905.0.0
-     * Configure ecs to get configuration.
-     *
-     * @param ecsCallback the ecs callback containing ECSConfig object
-     */
-    @Override
-    public void configureECSToGetConfiguration(@NonNull ECSCallback<ECSConfig, Exception> ecsCallback) {
-
-        ArrayList<String> listOfServiceId = new ArrayList<>();
-        listOfServiceId.add(SERVICE_ID);
-
-        ServiceDiscoveryInterface.OnGetServiceUrlMapListener onGetServiceUrlMapListener = new ServiceDiscoveryInterface.OnGetServiceUrlMapListener() {
-            @Override
-            public void onError(ERRORVALUES errorvalues, String s) {
-
-                ECSErrorWrapper ecsErrorWrapper = getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong,null,s+"\n"+errorvalues.name());
-                ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
-            }
-
-            @Override
-            public void onSuccess(Map<String, ServiceDiscoveryService> map) {
-
-                Collection<ServiceDiscoveryService> values = map.values();
-
-                ArrayList<ServiceDiscoveryService> serviceDiscoveryServiceArrayList = new ArrayList<>(values);
-
-                ServiceDiscoveryService serviceDiscoveryService = serviceDiscoveryServiceArrayList.get(0);
-
-                String locale = serviceDiscoveryService.getLocale();
-                ECSConfiguration.INSTANCE.setLocale(locale);
-                String configUrls = serviceDiscoveryService.getConfigUrls();
-
-                if(configUrls!=null){
-                    ECSConfiguration.INSTANCE.setBaseURL(configUrls+"/");
-                    ecsCallValidator.getECSConfig(ecsCallback);
-                }else {
-                    ECSConfig hybrisConfigResponse = new ECSConfig();
-                    hybrisConfigResponse.setLocale(locale);
-                    hybrisConfigResponse.setHybris(false);
-                    ecsCallback.onResponse(hybrisConfigResponse);
-                }
-            }
-
-        };
-
-        ECSConfiguration.INSTANCE.getAppInfra().getServiceDiscovery().getServicesWithCountryPreference(listOfServiceId, onGetServiceUrlMapListener,null);
-    }
-
-
 
     /**
      * @since 1905.0.0
@@ -576,23 +473,16 @@ public class ECSServices implements ECSServiceProvider {
     }
 
     /**
-     * @since 1905.0.0
-     * Sets proposition id.
-     *
-     * @param propositionID the proposition id
-     */
-    @Override
-    public void setPropositionID(@NonNull String propositionID) {
-        ECSConfiguration.INSTANCE.setPropositionID(propositionID);
-    }
-
-    /**
      * Set volley timeout and retry count.
      *
      * @param defaultRetryPolicy the default retry policy
      */
     public void setVolleyTimeoutAndRetryCount(DefaultRetryPolicy defaultRetryPolicy){
         ECSConfiguration.INSTANCE.setDefaultRetryPolicy(defaultRetryPolicy);
+    }
+
+    public com.philips.platform.ecs.microService.ECSServices getMicroService(){
+        return ecsMicroServices;
     }
 
 }

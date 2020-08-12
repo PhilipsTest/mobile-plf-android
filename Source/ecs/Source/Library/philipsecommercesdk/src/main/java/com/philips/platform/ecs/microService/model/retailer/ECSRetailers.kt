@@ -17,5 +17,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ECSRetailers(
-    val Store: List<ECSRetailer>?
+    var Store: List<ECSRetailer>?
 ):Parcelable

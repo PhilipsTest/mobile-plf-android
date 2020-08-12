@@ -1,6 +1,6 @@
 package com.ecs.demotestuapp.fragments;
 import android.view.View;
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
@@ -12,11 +12,11 @@ public class FetchDeliveryModesFragment extends BaseAPIFragment {
 
 
     public void executeRequest() {
-        ECSDataHolder.INSTANCE.getEcsServices().fetchDeliveryModes(new ECSCallback<List<ECSDeliveryMode>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchDeliveryModes(new ECSCallback<List<ECSDeliveryMode>, Exception>() {
             @Override
             public void onResponse(List<ECSDeliveryMode> ecsDeliveryModes) {
 
-                ECSDataHolder.INSTANCE.setEcsDeliveryModes(ecsDeliveryModes);
+                ECSDemoDataHolder.INSTANCE.setEcsDeliveryModes(ecsDeliveryModes);
                 String jsonString = getJsonStringFromObject(ecsDeliveryModes);
                 gotoResultActivity(jsonString);
                 getProgressBar().setVisibility(View.GONE);
@@ -34,6 +34,6 @@ public class FetchDeliveryModesFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsDeliveryModes(null);
+        ECSDemoDataHolder.INSTANCE.setEcsDeliveryModes(null);
     }
 }

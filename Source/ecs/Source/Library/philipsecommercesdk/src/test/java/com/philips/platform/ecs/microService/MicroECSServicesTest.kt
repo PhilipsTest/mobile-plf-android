@@ -65,16 +65,13 @@ class MicroECSServicesTest {
 
 
     @Mock
-    lateinit var ecsCallbackProductListMock: ECSCallback<List<ECSProduct>, ECSError>
-
-    @Mock
     lateinit var ecsCallbackRetailerListMock: ECSCallback<ECSRetailerList?, ECSError>
 
     @Mock
     lateinit var appInfraMock: AppInfra
 
     @Mock
-    lateinit var ecsCallback : ECSCallback<ECSProducts, ECSError>
+    lateinit var ecsProductsCallback : ECSCallback<ECSProducts, ECSError>
 
 
     @Before
@@ -100,7 +97,7 @@ class MicroECSServicesTest {
         var productFilter= ProductFilter()
         productFilter.sortType= ECSSortType.priceAscending
         productFilter.stockLevel=ECSStockLevel.InStock
-        eCSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsCallback)
+        eCSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsProductsCallback)
     }
 
     @Test
@@ -111,8 +108,8 @@ class MicroECSServicesTest {
 
     @Test
     fun `fetchProductSummaries api should call corresponding manager method`() {
-        eCSServices.fetchProductSummaries(listOf("123"),ecsCallbackProductListMock)
-        Mockito.verify(ecsProductManagerMock).fetchProductSummaries(listOf("123"),ecsCallbackProductListMock)
+        eCSServices.fetchProductSummaries(listOf("123"),ecsProductsCallback)
+        Mockito.verify(ecsProductManagerMock).fetchProductSummaries(listOf("123"),ecsProductsCallback)
 
     }
 
@@ -153,8 +150,18 @@ class MicroECSServicesTest {
 
     @Test
     fun `update shopping cart  api should call corresponding manager method`() {
-        var item:ECSItem = ECSItem(null,null, "entry_id1",null,"HD9648/90",null,null,null,null)
+        val item:ECSItem = ECSItem(null,null, "entry_id1",null,"HD9648/90",null,null,null,null)
         eCSServices.updateShoppingCart(item,2,ecsCallback = ecsCartCallBackMock)
         Mockito.verify(cartManagerMock).updateShoppingCart(item.entryNumber,2,ecsCallback = ecsCartCallBackMock)
+    }
+
+
+    @Mock
+    lateinit var  ecsBooleanCallBackMock:ECSCallback<Boolean, ECSError>
+
+    @Test
+    fun `register product availability should call product maanger register product availability`() {
+        eCSServices.registerForProductAvailability("pabitrakumar.sahoo@philips.com"," HX2345/00 ",ecsBooleanCallBackMock)
+        Mockito.verify(ecsProductManagerMock).registerForProductAvailability("pabitrakumar.sahoo@philips.com","HX2345/00",ecsBooleanCallBackMock)
     }
 }

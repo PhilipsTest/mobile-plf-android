@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.ecs.demotestuapp.activity.ResultActivity;
 import com.ecs.demotestuapp.jsonmodel.Property;
 import com.ecs.demotestuapp.jsonmodel.SubgroupItem;
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.philips.platform.ecs.error.ECSError;
@@ -127,8 +127,8 @@ public abstract class BaseFragment extends Fragment {
         userDataMap.add(UserDetailConstants.FAMILY_NAME);
         userDataMap.add(UserDetailConstants.EMAIL);
         try{
-            if(ECSDataHolder.INSTANCE.getUserDataInterface()!=null)
-            userDetails = ECSDataHolder.INSTANCE.getUserDataInterface().getUserDetails(userDataMap);
+            if(ECSDemoDataHolder.INSTANCE.getUserDataInterface()!=null)
+            userDetails = ECSDemoDataHolder.INSTANCE.getUserDataInterface().getUserDetails(userDataMap);
 
         } catch (UserDataInterfaceException e) {
             e.printStackTrace();
@@ -254,7 +254,7 @@ public abstract class BaseFragment extends Fragment {
 
     private void fillSpinnerDataForState(Spinner spinner,ECSAddress ecsAddress) {
 
-        List<ECSRegion> ecsRegions = ECSDataHolder.INSTANCE.getEcsRegions();
+        List<ECSRegion> ecsRegions = ECSDemoDataHolder.INSTANCE.getEcsRegions();
 
         if(ecsRegions==null || ecsAddress ==null) return;
 
@@ -278,9 +278,9 @@ public abstract class BaseFragment extends Fragment {
 
     private Region getRegionFromName(String stateName) {
 
-        if(stateName == null || ECSDataHolder.INSTANCE.getEcsRegions()==null) return null;
+        if(stateName == null || ECSDemoDataHolder.INSTANCE.getEcsRegions()==null) return null;
 
-        for(ECSRegion ecsRegion: ECSDataHolder.INSTANCE.getEcsRegions()){
+        for(ECSRegion ecsRegion: ECSDemoDataHolder.INSTANCE.getEcsRegions()){
 
             if(stateName.equalsIgnoreCase(ecsRegion.getName())){
 

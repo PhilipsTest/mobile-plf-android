@@ -64,8 +64,8 @@ public class GetRegionsRequestTest {
         appInfra = new AppInfra.Builder().setRestInterface(mockRestInterface).build(mContext);
         appInfra.getServiceDiscovery().setHomeCountry("DE");
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         mockInputValidator = new MockInputValidator();
 

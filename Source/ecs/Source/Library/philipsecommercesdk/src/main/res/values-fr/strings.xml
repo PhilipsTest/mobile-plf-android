@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Veuillez fournir l\'objet de l\'infrastructure d\'appli</string>
@@ -26,6 +33,7 @@
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Nous avons rencontré un problème technique (Jeton d\'accès non valide). Veuillez procéder à une ré-authentification Hybris</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Adresse e-mail non valide. Veuillez vérifier.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Le Produit n\'a pas été ajouté au Panier</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Veuillez définir l\'emplacement</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[fr]Please provide valid CTN</string>

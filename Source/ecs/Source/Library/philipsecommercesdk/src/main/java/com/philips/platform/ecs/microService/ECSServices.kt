@@ -53,7 +53,7 @@ class ECSServices(appInfra: AppInfra) {
 
     @Throws(ECSException::class)
     @JvmOverloads
-    fun fetchProducts( productCategory:String?=null, limit: Int=20, offset:Int=0, productFilter: ProductFilter?=null,ecsCallback :ECSCallback<ECSProducts, ECSError> ) {
+    fun fetchProducts(productCategory:String?=null, limit: Int=20, offset:Int=0, productFilter: ProductFilter?=null,ecsCallback :ECSCallback<ECSProducts, ECSError> ) {
         ecsProductManager.getProducts(productCategory,limit,offset,productFilter,ecsCallback)
     }
 
@@ -63,7 +63,7 @@ class ECSServices(appInfra: AppInfra) {
     }
 
     @Throws(ECSException::class)
-    fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
+    fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<ECSProducts, ECSError>) {
         ecsProductManager.fetchProductSummaries(ctns,ecsCallback)
     }
 
@@ -97,6 +97,11 @@ class ECSServices(appInfra: AppInfra) {
     @Throws(ECSException::class)
     fun updateShoppingCart(cartItem: ECSItem, quantity : Int, ecsCallback: ECSCallback<ECSShoppingCart, ECSError>){
         ecsCartManager.updateShoppingCart(cartItem.entryNumber,quantity,ecsCallback)
+    }
+
+    @Throws(ECSException::class)
+    fun registerForProductAvailability(email: String, ctn: String, ecsCallback: ECSCallback<Boolean, ECSError>){
+        ecsProductManager.registerForProductAvailability(email.trim(),ctn.trim(),ecsCallback)
     }
 
 }

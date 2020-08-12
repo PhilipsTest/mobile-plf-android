@@ -14,7 +14,8 @@ package com.philips.platform.mec.screens.detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+
 import com.philips.platform.mec.databinding.MecProductInfoItemBinding
 
 

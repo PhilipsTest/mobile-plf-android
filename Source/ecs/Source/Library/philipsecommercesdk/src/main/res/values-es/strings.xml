@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Proporciona el app infra object</string>
@@ -26,6 +33,7 @@
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Hemos detectado un problema técnico (token de acceso no válido). Realiza una nueva Hybris Re-Auth.</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">La dirección de correo electrónico no es válida. Compruébala.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">El producto no se ha añadido al carro</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Establece la configuración regional</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[es]Please provide valid CTN</string>

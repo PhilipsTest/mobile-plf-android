@@ -53,8 +53,8 @@ public class ProductDetailTest {
         StaticBlock.initialize();
         mockInputValidator = new MockInputValidator();
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
     }
 

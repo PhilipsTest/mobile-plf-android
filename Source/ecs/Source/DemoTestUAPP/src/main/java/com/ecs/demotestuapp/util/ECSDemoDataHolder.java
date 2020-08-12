@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public enum ECSDataHolder {
+public enum ECSDemoDataHolder {
 
     INSTANCE;
 
@@ -250,8 +250,8 @@ public enum ECSDataHolder {
 
                 HashMap<String, Object> userDetailsMap = mUserDataInterface.getUserDetails(detailsKey);
                 String janrainID = userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN).toString();
-                ECSDataHolder.INSTANCE.setJanrainID(janrainID);
-                ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
+                ECSDemoDataHolder.INSTANCE.setJanrainID(janrainID);
+                ECSDemoDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
             }
         } catch (Exception e) {
             e.printStackTrace();

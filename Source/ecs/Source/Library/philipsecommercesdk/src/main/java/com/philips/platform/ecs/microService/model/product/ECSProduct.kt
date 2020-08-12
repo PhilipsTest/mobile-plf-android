@@ -20,7 +20,7 @@ import com.philips.platform.ecs.microService.model.summary.Summary
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ECSProduct(var attributes: Attributes?,@SerializedName("id") var ctn: String, var type: String?) : Parcelable{
+data class ECSProduct(var attributes: Attributes? = null,@SerializedName("id") var ctn: String, var type: String? =null) : Parcelable{
 
     var summary: Summary? =null
     var assets: Assets?=null

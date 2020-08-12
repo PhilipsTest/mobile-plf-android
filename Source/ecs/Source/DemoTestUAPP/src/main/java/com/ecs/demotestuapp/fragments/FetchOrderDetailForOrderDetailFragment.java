@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.orders.ECSOrderDetail;
@@ -14,18 +14,18 @@ public class FetchOrderDetailForOrderDetailFragment extends BaseAPIFragment {
 
     public void executeRequest() {
 
-        if(ECSDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder()==null){
+        if(ECSDemoDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder()==null){
 
             Toast.makeText(getActivity(),"Order Detail field can not be empty",Toast.LENGTH_SHORT).show();
             getProgressBar().setVisibility(View.GONE);
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchOrderDetail(ECSDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder(), new ECSCallback<ECSOrderDetail, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchOrderDetail(ECSDemoDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder(), new ECSCallback<ECSOrderDetail, Exception>() {
             @Override
             public void onResponse(ECSOrderDetail ecsOrderDetail) {
 
-                ECSDataHolder.INSTANCE.setEcsOrderDetailOfPlaceOrder(ecsOrderDetail);
+                ECSDemoDataHolder.INSTANCE.setEcsOrderDetailOfPlaceOrder(ecsOrderDetail);
                 gotoResultActivity(getJsonStringFromObject(ecsOrderDetail));
                 getProgressBar().setVisibility(View.GONE);
             }
