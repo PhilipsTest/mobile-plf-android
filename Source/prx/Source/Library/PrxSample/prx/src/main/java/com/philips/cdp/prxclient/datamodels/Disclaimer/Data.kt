@@ -1,16 +1,13 @@
 package com.philips.cdp.prxclient.datamodels.Disclaimer
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
-class Data {
+@Parcelize
+data class Data (
+    var disclaimers:@RawValue Disclaimers? = null
 
-    @SerializedName("disclaimers")
-    @Expose
-    var disclaimers: Disclaimers? = null
-
-    constructor() {}
-    constructor(disclaimers: Disclaimers?) {
-        this.disclaimers = disclaimers
-    }
-}
+):Parcelable

@@ -1,36 +1,18 @@
 package com.philips.cdp.prxclient.datamodels.specification
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
-class CsItemItem : Serializable {
-    @SerializedName("csItemRank")
-    @Expose
-    var csItemRank: String? = null
+@Parcelize
+data class CsItemItem(
+        var csItemRank: String? = null,
+        var unitOfMeasure: UnitOfMeasure? = null,
+        var csItemName: String? = null,
+        var csItemCode: String? = null,
+        var csItemIsFreeFormat: String? = null,
+        var csValue: List<CsValueItem>? = null
 
-    @SerializedName("unitOfMeasure")
-    @Expose
-    var unitOfMeasure: UnitOfMeasure? = null
-
-    @kotlin.jvm.JvmField
-    @SerializedName("csItemName")
-    @Expose
-    var csItemName: String? = null
-
-    @SerializedName("csItemCode")
-    @Expose
-    var csItemCode: String? = null
-
-    @SerializedName("csItemIsFreeFormat")
-    @Expose
-    var csItemIsFreeFormat: String? = null
-
-    @SerializedName("csValue")
-    @Expose
-    var csValue: List<CsValueItem>? = null
-
-    companion object {
-        private const val serialVersionUID = -6883419441341473202L
-    }
-}
+) : Parcelable

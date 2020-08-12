@@ -1,7 +1,9 @@
 package com.philips.cdp.prxclient.datamodels.assets
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 /**
@@ -9,33 +11,5 @@ import java.util.*
  * Project : PRX Common Component.
  * Created by naveen@philips.com on 02-Nov-15.
  */
-class Assets {
-    /**
-     *
-     * @return
-     * The asset
-     */
-    /**
-     *
-     * @param asset
-     * The asset
-     */
-    @SerializedName("asset")
-    @Expose
-    var asset: List<Asset> = ArrayList()
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    constructor() {}
-
-    /**
-     *
-     * @param asset
-     */
-    constructor(asset: List<Asset>) {
-        this.asset = asset
-    }
-
-}
+@Parcelize
+data class Assets(var asset: List<Asset> = ArrayList()): Parcelable

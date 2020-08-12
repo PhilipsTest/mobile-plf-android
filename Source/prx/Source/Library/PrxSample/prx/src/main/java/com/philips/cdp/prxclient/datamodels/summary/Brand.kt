@@ -1,40 +1,15 @@
 package com.philips.cdp.prxclient.datamodels.summary
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Description :
  * Project : PRX Common Component.
  * Created by naveen@philips.com on 02-Nov-15.
  */
-class Brand {
-    /**
-     *
-     * @return
-     * The brandLogo
-     */
-    /**
-     *
-     * @param brandLogo
-     * The brandLogo
-     */
-    @SerializedName("brandLogo")
-    @Expose
-    var brandLogo: String? = null
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    constructor() {}
-
-    /**
-     *
-     * @param brandLogo
-     */
-    constructor(brandLogo: String?) {
-        this.brandLogo = brandLogo
-    }
-
-}
+@Parcelize
+class Brand (var brandLogo: String? = null):Parcelable

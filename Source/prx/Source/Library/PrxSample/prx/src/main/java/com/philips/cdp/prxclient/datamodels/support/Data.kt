@@ -1,24 +1,15 @@
 package com.philips.cdp.prxclient.datamodels.support
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 /**
  * Data Model class.
  */
-class Data {
-    /**
-     *
-     * @return
-     * The richTexts
-     */
-    /**
-     *
-     * @param richTexts
-     * The richTexts
-     */
-    @SerializedName("richTexts")
-    @Expose
-    var richTexts: RichTexts? = null
-
-}
+@Parcelize
+data class Data(
+    var richTexts: @RawValue RichTexts? = null
+):Parcelable

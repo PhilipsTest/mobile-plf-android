@@ -1,15 +1,10 @@
 package com.philips.cdp.prxclient.datamodels.specification
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
-class Filters : Serializable {
-    @SerializedName("purpose")
-    @Expose
-    var purpose: List<PurposeItem>? = null
-
-    companion object {
-        private const val serialVersionUID = 2540428616162907708L
-    }
-}
+@Parcelize
+data class Filters(var purpose: List<PurposeItem>? = null) : Parcelable

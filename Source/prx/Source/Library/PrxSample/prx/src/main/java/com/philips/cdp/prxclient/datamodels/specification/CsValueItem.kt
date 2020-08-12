@@ -1,23 +1,11 @@
 package com.philips.cdp.prxclient.datamodels.specification
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
-class CsValueItem : Serializable {
-    @SerializedName("csValueRank")
-    @Expose
-    var csValueRank: String? = null
-
-    @SerializedName("csValueName")
-    @Expose
-    var csValueName: String? = null
-
-    @SerializedName("csValueCode")
-    @Expose
-    var csValueCode: String? = null
-
-    companion object {
-        private const val serialVersionUID = -8911022862913057105L
-    }
-}
+@Parcelize
+data class CsValueItem (var csValueRank: String? = null, var csValueName: String? = null,var csValueCode: String? = null
+):Parcelable

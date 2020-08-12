@@ -5,6 +5,8 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 
 apply from: project.rootDir.absolutePath + '/build-support/gradle/cdpscm.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/projectnames.gradle'
@@ -38,6 +40,10 @@ task zipDocuments(type: Zip) {
 android {
     compileSdkVersion versions.sdk
     buildToolsVersion versions.buildtools
+
+    androidExtensions {
+        experimental = true
+    }
 
     defaultConfig {
         versionCode 1

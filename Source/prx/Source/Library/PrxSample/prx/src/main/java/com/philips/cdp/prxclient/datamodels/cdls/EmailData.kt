@@ -14,5 +14,4 @@ package com.philips.cdp.prxclient.datamodels.cdls
 class EmailData {
     var label: String? = null
     var contentPath: String? = null
-
 }
