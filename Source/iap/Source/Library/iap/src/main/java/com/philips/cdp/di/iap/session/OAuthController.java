@@ -79,7 +79,7 @@ public class OAuthController implements OAuthListener {
 
             @Override
             public void onSyncRequestError(final VolleyError volleyError) {
-                if (volleyError instanceof com.android.volley.ServerError) {
+                if (volleyError instanceof com.android.volley.ServerError ||  volleyError instanceof com.android.volley.AuthFailureError) {
                     mStore.refreshLoginSession();
                     if (mStore.getUser().isTokenRefreshSuccessful()) {
                         requestSyncOAuthToken(listener);
