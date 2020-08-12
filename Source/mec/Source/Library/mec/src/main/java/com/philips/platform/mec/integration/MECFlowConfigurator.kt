@@ -22,6 +22,14 @@ class MECFlowConfigurator : Serializable {
 
     var productCTNs: ArrayList<String>? =null
 
+    /*
+    *  This variable is used to pass a Product Category (eg: PRX Product Category, Hybris Product Category, etc)
+    *  which will be used to fetch the relevant Products for the Category and display in the Product List screen.
+    *
+    *  You can pass this value while launching MEC with all the landing views, except mecOrderHistoryView(evn if you pass it will be for no use)
+    *  This value will only be used when Hybris is available.
+    *  @since 2004.0
+    * */
     var productCategory : String?= null
 
      /**
