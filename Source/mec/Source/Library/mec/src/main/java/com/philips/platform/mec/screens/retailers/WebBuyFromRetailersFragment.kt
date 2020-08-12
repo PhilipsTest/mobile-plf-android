@@ -93,7 +93,6 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
 
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
-                dismissProgressBar(mProgressBar)
             }
 
             override fun onPageCommitVisible(view: WebView?, url: String) {
@@ -105,6 +104,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                 map.put(exitLinkNameKey, tagUrl)
                 MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
                 super.onPageCommitVisible(view, url)
+                dismissProgressBar(mProgressBar)
             }
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
