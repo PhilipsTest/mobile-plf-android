@@ -255,12 +255,15 @@ public class MobileVerifyResendCodeFragment extends RegistrationBaseFragment imp
         errorMessage.hideError();
         hidePopup();
         RLog.i(TAG, TAG + ".verifyClicked");
+        RLog.e(TAG, TAG + ".verifyClicked");
         if (phoneNumberEditText.getText().toString().equals(user.getMobile())) {
+            RLog.e(TAG, TAG + "resendOTPRequestCalled");
             mobileVerifyResendCodePresenter.resendOTPRequest(user.getMobile());
             disableResendButton();
         } else {
             if (FieldsValidator.isValidMobileNumber(phoneNumberEditText.getText().toString())) {
                 disableResendButton();
+                RLog.e(TAG, TAG + "updatePhoneNumberCalled");
                 mobileVerifyResendCodePresenter.updatePhoneNumber(
                         FieldsValidator.getMobileNumber(phoneNumberEditText.getText().toString()));
             } else {

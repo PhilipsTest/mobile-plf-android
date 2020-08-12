@@ -435,6 +435,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
             if (!UserRegistrationInitializer.getInstance().isRegInitializationInProgress()) {
                 handleBtnClickableStates(false);
                 if (providerName.equalsIgnoreCase(SOCIAL_PROVIDER_WECHAT)) {
+                    RLog.e(TAG, "weChatClicked ");
                     if (homePresenter.isWeChatAuthenticate()) {
                         homePresenter.startWeChatAuthentication();
                     } else {

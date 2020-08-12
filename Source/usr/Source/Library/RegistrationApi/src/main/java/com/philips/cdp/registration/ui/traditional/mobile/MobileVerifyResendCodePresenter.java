@@ -95,11 +95,14 @@ public class MobileVerifyResendCodePresenter implements NetworkStateListener {
 
 
     void handleOnSuccess(int resultCode, String response) {
+        RLog.e(TAG, "printResponse" + response);
         if (resultCode == RESEND_OTP_REQUEST_CODE) {
             mobileVerifyCodeContract.hideProgressSpinner();
+            RLog.e(TAG, "handleResendSmsCalled");
             handleResendSms(response);
         } else if (resultCode == CHANGE_NUMBER_REQUEST_CODE) {
             RLog.d(TAG, "CHANGE_NUMBER_REQUEST_CODE" + response);
+            RLog.e(TAG, "checkResponse" + response);
             handlePhoneNumberChange(response);
         } else {
             mobileVerifyCodeContract.hideProgressSpinner();
@@ -107,16 +110,20 @@ public class MobileVerifyResendCodePresenter implements NetworkStateListener {
     }
 
     private void handlePhoneNumberChange(String response) {
+        RLog.e(TAG, "seeResponse " + response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             RLog.d(TAG, "CHANGE_NUMBER_REQUEST_STAT " + jsonObject.get(STAT));
+            RLog.e(TAG, "CHANGE_NUMBER_REQUEST_STAT " + jsonObject.get(STAT));
 
             if (jsonObject.get(STAT).equals("ok")) {
+                RLog.e(TAG, "statsOk ");
                 RLog.d(TAG, "CHANGE_NUMBER_REQUEST_CODE" + response);
                 mobileVerifyCodeContract.refreshUser();
             } else {
                 mobileVerifyCodeContract.hideProgressSpinner();
                 final String errorCode = jsonObject.getString(ERROR_CODE);
+                RLog.e(TAG, "errorCode "+errorCode);
                 mobileVerifyCodeContract.showNumberChangeTechincalError(Integer.parseInt(errorCode));
             }
         } catch (Exception e) {
