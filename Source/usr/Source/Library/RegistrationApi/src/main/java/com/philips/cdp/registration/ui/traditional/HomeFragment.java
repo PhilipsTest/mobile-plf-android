@@ -380,6 +380,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
     @Override
     public void countryChangeStarted() {
         RLog.d(TAG, "countryChangeStarted : is called");
+        RLog.e(TAG, "countryChangeStarted : is called");
         showProgressDialog();
     }
 
@@ -399,6 +400,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
 
     private void launchCreateAccountFragment() {
         RLog.d(TAG, "launchCreateAccountFragment : is called");
+        RLog.e(TAG, "launchCreateAccountFragment : is called");
         trackPage(AppTaggingPages.CREATE_ACCOUNT);
         if (UserRegistrationInitializer.getInstance().isJanrainIntialized()) {
             trackCreateAccount();
@@ -757,6 +759,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
 
     private void handleSocialProviders(final String countryCode) {
         RLog.d(TAG, "handleSocialProviders method country code : " + countryCode);
+        RLog.e(TAG, "handleSocialProviders method country code : " + countryCode);
         mLlSocialProviderBtnContainer.post(new Runnable() {
             @Override
             public void run() {
@@ -768,6 +771,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
                         inflateEachProviderBtn(providers.get(i));
                     }
                     RLog.d(TAG, "social providers : " + providers);
+                    RLog.e(TAG, "social providers : " + providers);
                 }
                 UIOverProvidersSize(providers);
                 homePresenter.updateHomeControls();

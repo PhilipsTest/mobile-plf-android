@@ -76,7 +76,7 @@
       "fileName": "AppInfraLog",
       "numberOfFiles": 5,
       "fileSizeInBytes": 50000,
-      "logLevel": "Info",
+      "logLevel": "All",
       "fileLogEnabled": false,
       "consoleLogEnabled": true,
       "cloudLogEnabled": false,
