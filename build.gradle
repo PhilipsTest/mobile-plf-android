@@ -3,6 +3,7 @@
  * All rights reserved.
  */
 buildscript {
+    ext.kotlin_version = '1.4.0-rc'
     apply from: projectDir.absolutePath + '/build-support/gradle/versions.gradle'
 
     repositories {
@@ -19,6 +20,7 @@ buildscript {
             }
         }
         mavenCentral()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     }
 
     dependencies {
@@ -31,6 +33,7 @@ buildscript {
         classpath builddeps.use_latest_versions
         classpath builddeps.ben_manes_versions
         classpath builddeps.kotlin_plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
