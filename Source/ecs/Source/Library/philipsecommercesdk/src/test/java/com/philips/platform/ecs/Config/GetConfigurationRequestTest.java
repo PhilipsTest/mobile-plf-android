@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.VolleyError;
+import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.ecs.ECSServices;
 import com.philips.platform.ecs.MockECSServices;
 import com.philips.platform.ecs.MockInputValidator;
@@ -12,8 +14,6 @@ import com.philips.platform.ecs.TestUtil;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.config.ECSConfig;
-import com.philips.platform.appinfra.AppInfra;
-import com.philips.platform.appinfra.rest.RestInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +29,6 @@ import java.io.InputStream;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(RobolectricTestRunner.class)
@@ -59,8 +58,8 @@ public class GetConfigurationRequestTest {
         appInfra = new AppInfra.Builder().setRestInterface(mockRestInterface).build(mContext);
         appInfra.getServiceDiscovery().setHomeCountry("DE");
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         mockInputValidator = new MockInputValidator();
 
@@ -80,49 +79,6 @@ public class GetConfigurationRequestTest {
 
         //Creating config request object
         mockGetConfigurationRequest = new MockGetConfigurationRequest("GetConfigSuccess.json", ecsCallback);
-    }
-
-
-    @Test
-    public void getConfigurationRequestSuccess() {
-        mockInputValidator.setJsonFileName("GetConfigSuccess.json");
-        mockECSServices.configureECSToGetConfiguration(new ECSCallback<ECSConfig, Exception>() {
-            @Override
-            public void onResponse(ECSConfig result) {
-                assertNotNull(result);
-                assertNotNull(result.getSiteId());
-                assertNotNull(result.getRootCategory());
-                //test case passed
-
-            }
-
-            @Override
-            public void onFailure(Exception error, ECSError ecsError) {
-                assertTrue(false);
-                //test case failed
-            }
-        });
-
-    }
-
-    @Test
-    public void getConfigurationRequestFailure() {
-        mockInputValidator.setJsonFileName("GetConfigFailure.json");
-        mockECSServices.configureECSToGetConfiguration(new ECSCallback<ECSConfig, Exception>() {
-            @Override
-            public void onResponse(ECSConfig result) {
-                assertTrue(false);
-                //test case failed
-
-            }
-
-            @Override
-            public void onFailure(Exception error, ECSError ecsError) {
-                assertTrue(true);
-                //test case passed
-            }
-        });;
-
     }
 
     @Test

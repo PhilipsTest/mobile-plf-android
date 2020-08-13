@@ -159,12 +159,10 @@ class MECAnalyticsTest {
 
     @Test
     fun `tag Product List With List OR Grid`() {
-        var productlist: MutableList<ECSProduct> = mutableListOf()
-        var mECSProduct1 = ECSProduct()
-        mECSProduct1.code = "HX1234/01"
+        var productlist: MutableList<com.philips.platform.ecs.microService.model.product.ECSProduct> = mutableListOf()
+        val mECSProduct1 = com.philips.platform.ecs.microService.model.product.ECSProduct(ctn = "HX1234/01")
 
-        var mECSProduct2 = ECSProduct()
-        mECSProduct2.code = "HX1290/03"
+        var mECSProduct2 = com.philips.platform.ecs.microService.model.product.ECSProduct(ctn = "HX1234/01")
         productlist.add(mECSProduct1)
         productlist.add(mECSProduct2)
 
@@ -172,8 +170,8 @@ class MECAnalyticsTest {
         assert(map.size>1)
         assert(map.containsKey(mecProducts))
         assert(map.containsKey(productListLayout))
-        map.get(mecProducts)?.contains(mECSProduct1.code)?.let { assert (it) }
-        map.get(mecProducts)?.contains(mECSProduct2.code)?.let { assert (it) }
+        map.get(mecProducts)?.contains(mECSProduct1.ctn)?.let { assert (it) }
+        map.get(mecProducts)?.contains(mECSProduct2.ctn)?.let { assert (it) }
 
         mECAnalytics.tagProductList(productlist, "Grid")
         Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
@@ -182,7 +180,7 @@ class MECAnalyticsTest {
 
     @Test
     fun `tag Product Empty List With List OR Grid`() {
-        var productlist: MutableList<ECSProduct> = mutableListOf()
+        var productlist: MutableList<com.philips.platform.ecs.microService.model.product.ECSProduct> = mutableListOf()
         val map= mECAnalytics.getProductListAndGridMap(productlist,"Grid")
         assert(map.isEmpty())
         assert(!map.containsKey(mecProducts))

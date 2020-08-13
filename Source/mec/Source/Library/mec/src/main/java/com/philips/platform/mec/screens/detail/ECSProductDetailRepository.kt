@@ -12,8 +12,13 @@ package com.philips.platform.mec.screens.detail
 import com.bazaarvoice.bvandroidsdk.*
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSException
+
+
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
-import com.philips.platform.ecs.model.products.ECSProduct
+
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
@@ -21,16 +26,22 @@ import com.philips.platform.mec.utils.MECDataHolder
 class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProductDetailViewModel, val ecsServices: ECSServices) {
 
     var ecsProductDetailCallBack= ECSProductDetailCallback(ecsProductDetailViewModel)
-    var mECAddToProductCallback = MECAddToProductCallback(ecsProductDetailViewModel,"AddToCart")
+    var mECAddToProductCallback = MECAddToProductCallback(ecsProductDetailViewModel)
 
 
     var bvClient = MECDataHolder.INSTANCE.bvClient
     var reviewsCb = MECReviewConversationsDisplayCallback(ecsProductDetailViewModel)
     var ratingCb = MECDetailBulkRatingConversationsDisplayCallback(ecsProductDetailViewModel)
 
+
     fun getProductDetail(ecsProduct: ECSProduct){
         ecsProductDetailCallBack.mECRequestType=MECRequestType.MEC_FETCH_PRODUCT_DETAILS
-        ecsServices.fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
+        try{
+        ecsServices.microService.fetchProductDetails(ecsProduct,ecsProductDetailCallBack)
+        }catch (e : ECSException){
+            val ecsError = ECSError(e.message ?:"",e.errorCode,null)
+            ecsProductDetailCallBack.onFailure(ecsError)
+        }
     }
 
     fun fetchProductReview(ctn: String, pageNumber: Int, pageSize: Int){
@@ -40,7 +51,7 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
     }
 
     fun getRatings(ctn: String) {
-        var ctns = mutableListOf(ctn)
+        val ctns = mutableListOf(ctn)
         val request = BulkRatingsRequest.Builder(ctns, BulkRatingOptions.StatsType.All).addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(MECConstant.KEY_BAZAAR_LOCALE!!, MECDataHolder.INSTANCE.locale).build()
         val prepareCall = bvClient!!.prepareCall(request)
         prepareCall.loadAsync(ratingCb)
@@ -48,15 +59,14 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
 
     fun addTocart(ecsProduct: ECSProduct){
         mECAddToProductCallback.mECRequestType= MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART
-        ecsServices.addProductToShoppingCart(ecsProduct,mECAddToProductCallback)
+        // todo remove this occ product when integrated with hybris flow
+        val ecsProductOCC: com.philips.platform.ecs.model.products.ECSProduct = com.philips.platform.ecs.model.products.ECSProduct()
+        ecsProductOCC.code= ecsProduct.ctn
+        ecsServices.addProductToShoppingCart(ecsProductOCC,mECAddToProductCallback)
     }
 
     fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){
        ecsServices.createShoppingCart(createShoppingCartCallback)
     }
-
-
-
-
 
 }

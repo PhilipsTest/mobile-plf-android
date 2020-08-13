@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "f92aee12-0586-4de0-bcb9-719a5b1a2020",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "[cartId]"
+            }
+        }
+    ]
+}

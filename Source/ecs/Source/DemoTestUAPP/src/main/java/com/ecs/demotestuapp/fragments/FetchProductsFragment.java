@@ -3,7 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.products.ECSProducts;
@@ -35,11 +35,11 @@ public class FetchProductsFragment extends BaseAPIFragment {
             pageNumber = Integer.valueOf(etPageNumber.getText().toString().trim());
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchProducts(pageNumber, pageSize, new ECSCallback<ECSProducts, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchProducts(pageNumber, pageSize, new ECSCallback<ECSProducts, Exception>() {
             @Override
             public void onResponse(ECSProducts ecsProducts) {
                 gotoResultActivity(getJsonStringFromObject(ecsProducts));
-                ECSDataHolder.INSTANCE.setEcsProducts(ecsProducts);
+                ECSDemoDataHolder.INSTANCE.setEcsProducts(ecsProducts);
                 getProgressBar().setVisibility(View.GONE);
             }
 
@@ -56,6 +56,6 @@ public class FetchProductsFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsProducts(null);
+        ECSDemoDataHolder.INSTANCE.setEcsProducts(null);
     }
 }

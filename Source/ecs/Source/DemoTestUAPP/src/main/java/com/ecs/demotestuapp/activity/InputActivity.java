@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.ecs.demotestuapp.R;
 import com.ecs.demotestuapp.fragments.AddProductToShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.ApplyVoucherFragment;
-import com.ecs.demotestuapp.fragments.ConfigureECSFragment;
 import com.ecs.demotestuapp.fragments.ConfigureECSToGetConfigurationFragment;
 import com.ecs.demotestuapp.fragments.CreateAddressFragment;
 import com.ecs.demotestuapp.fragments.CreateAndFetchAddressFragment;
@@ -29,7 +28,6 @@ import com.ecs.demotestuapp.fragments.FetchProductForCtnFragment;
 import com.ecs.demotestuapp.fragments.FetchProductSummariesFragment;
 import com.ecs.demotestuapp.fragments.FetchProductsFragment;
 import com.ecs.demotestuapp.fragments.FetchRegionsFragment;
-import com.ecs.demotestuapp.fragments.FetchRetailersForProductFragment;
 import com.ecs.demotestuapp.fragments.FetchRetailersFragment;
 import com.ecs.demotestuapp.fragments.FetchSavedAddressesFragment;
 import com.ecs.demotestuapp.fragments.FetchShoppingCartFragment;
@@ -38,13 +36,16 @@ import com.ecs.demotestuapp.fragments.HybrisOAthAuthenticationFragment;
 import com.ecs.demotestuapp.fragments.HybrisRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.JanrainRefreshOAuthFragment;
 import com.ecs.demotestuapp.fragments.MakePaymentFragment;
-import com.ecs.demotestuapp.fragments.PILConfigureECSServiceFragment;
+import com.ecs.demotestuapp.fragments.PILAddToShoppingCartFragment;
+import com.ecs.demotestuapp.fragments.PILCreateShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductDetailsFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductForCtnFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductSummariesFragment;
 import com.ecs.demotestuapp.fragments.PILFetchProductsFragment;
-import com.ecs.demotestuapp.fragments.PILFetchRetailersForProductFragment;
 import com.ecs.demotestuapp.fragments.PILFetchRetailersFragment;
+import com.ecs.demotestuapp.fragments.PILFetchShoppingCartFragment;
+import com.ecs.demotestuapp.fragments.PILNotifyProductAvailabilityFragment;
+import com.ecs.demotestuapp.fragments.PILUpdateShoppingCartFragment;
 import com.ecs.demotestuapp.fragments.RemoveVoucherFragment;
 import com.ecs.demotestuapp.fragments.SetAndFetchDeliveryAddressFragment;
 import com.ecs.demotestuapp.fragments.SetDeliveryAddressFragment;
@@ -81,7 +82,7 @@ public class InputActivity extends AppCompatActivity {
     void loadFragmeent() {
 
         Fragment newFragment = getFragment(subgroupItem.getApiNumber());
-        if(newFragment==null) return;
+        if (newFragment == null) return;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, newFragment).commit();
     }
@@ -93,8 +94,6 @@ public class InputActivity extends AppCompatActivity {
             case 0:
                 return null;
 
-            case 1:
-                return new ConfigureECSFragment();
 
             case 2:
                 return new ConfigureECSToGetConfigurationFragment();
@@ -115,8 +114,6 @@ public class InputActivity extends AppCompatActivity {
             case 8:
                 return new FetchProductSummariesFragment();
 
-
-
             case 9:
                 return new FetchShoppingCartFragment();
             case 10:
@@ -126,7 +123,6 @@ public class InputActivity extends AppCompatActivity {
 
             case 12:
                 return new UpdateShoppingCartFragment();
-
 
 
             case 13:
@@ -139,7 +135,6 @@ public class InputActivity extends AppCompatActivity {
                 return new RemoveVoucherFragment();
 
 
-
             case 16:
                 return new FetchDeliveryModesFragment();
 
@@ -147,9 +142,7 @@ public class InputActivity extends AppCompatActivity {
                 return new SetDeliveryModeFragment();
 
 
-
-
-                case 18:
+            case 18:
                 return new FetchRegionsFragment();
 
 
@@ -179,10 +172,9 @@ public class InputActivity extends AppCompatActivity {
 
             case 28:
                 return new FetchRetailersFragment();
-            case 29:
-                return new FetchRetailersForProductFragment();
 
-                case 30:
+
+            case 30:
                 return new FetchPaymentsDetailsFragment();
 
             case 31:
@@ -192,7 +184,6 @@ public class InputActivity extends AppCompatActivity {
 
             case 33:
                 return new SubmitOrderFragment();
-
 
 
             case 34:
@@ -211,10 +202,7 @@ public class InputActivity extends AppCompatActivity {
             case 39:
                 return new JanrainRefreshOAuthFragment();
 
-                //Micro services new APIS =============
-
-            case 40:
-                return new PILConfigureECSServiceFragment();
+            //Micro services new APIS =============
 
             case 45:
                 return new PILFetchProductsFragment();
@@ -226,10 +214,19 @@ public class InputActivity extends AppCompatActivity {
 
             case 48:
                 return new PILFetchProductSummariesFragment();
+            case 49:
+                return new PILFetchShoppingCartFragment();
+            case 50:
+                return new PILAddToShoppingCartFragment();
+            case 51:
+                return new PILCreateShoppingCartFragment();
+            case 52:
+                return new PILUpdateShoppingCartFragment();
             case 68:
                 return new PILFetchRetailersFragment();
-            case 69:
-                return new PILFetchRetailersForProductFragment();
+
+            case 79:
+                return new PILNotifyProductAvailabilityFragment();
 
             default:
                 return null;

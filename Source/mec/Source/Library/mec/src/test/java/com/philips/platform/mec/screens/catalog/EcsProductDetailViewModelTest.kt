@@ -1,6 +1,7 @@
 package com.philips.platform.mec.screens.catalog
 
 import android.content.Context
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.screens.detail.ECSProductDetailRepository
 import com.philips.platform.mec.screens.detail.EcsProductDetailViewModel
 import com.philips.platform.mec.utils.MECDataHolder
@@ -53,15 +54,16 @@ class EcsProductDetailViewModelTest {
 
     @Test(expected = NullPointerException::class)
     fun shouldGetProductDetail() {
-        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
+        val ecsProduct = ECSProduct(null, "ctn", null)
         ecsProductDetailViewModel.getProductDetail(ecsProduct)
         Mockito.verify(eCSCatalogRepository).getProductDetail(ecsProduct)
     }
 
     @Test(expected = KotlinNullPointerException::class)
     fun shouldGetBazaarVoiceReview() {
-        val ecsProduct = com.philips.platform.ecs.model.products.ECSProduct()
         ecsProductDetailViewModel.getBazaarVoiceReview("CTN", 0, 20)
         Mockito.verify(eCSCatalogRepository).fetchProductReview("CTN", 0, 20)
     }
+
+
 }

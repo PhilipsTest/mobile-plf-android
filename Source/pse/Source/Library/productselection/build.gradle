@@ -77,10 +77,12 @@ dependencies {
     testImplementation deps.mockito
     implementation philipsdeps.uid
     if (useprojectdependencies) {
+        project.logger.lifecycle('productselection: Picking the dependencies from the code')
         implementation project(strings.ufw.projectName)
         implementation project(strings.prx.projectName)
         implementation project(strings.ail.projectName)
     } else {
+        project.logger.lifecycle('productselection: Picking the dependencies from the artifactory')
         implementation philipsdeps.uAppFwLib
         implementation philipsdeps.prx
         implementation philipsdeps.AppInfra

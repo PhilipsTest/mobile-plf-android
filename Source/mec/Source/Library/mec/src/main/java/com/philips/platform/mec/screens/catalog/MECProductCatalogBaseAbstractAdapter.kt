@@ -23,7 +23,6 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
     lateinit var emptyView:View
     var catalogView = CatalogView.LIST
 
-    var isSearchInProgress = true
 
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MECProductCatalogAbstractViewHolder
 
@@ -52,8 +51,7 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
                     filteredList = originalList
                 } else {
                     for (mecProducts in originalList) {
-
-                        if (mecProducts.ecsProduct.code.contains(searchString, true) || mecProducts.ecsProduct.summary.productTitle!!.contains(searchString, true)) {
+                        if (mecProducts.ecsProduct.ctn.contains(searchString, true) || mecProducts.ecsProduct.summary?.productTitle?.contains(searchString, true) == true) {
                             filteredList.add(mecProducts)
                         }
                     }

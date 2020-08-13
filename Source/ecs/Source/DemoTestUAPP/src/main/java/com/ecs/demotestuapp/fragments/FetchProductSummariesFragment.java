@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.products.ECSProduct;
@@ -46,7 +46,7 @@ public class FetchProductSummariesFragment extends BaseAPIFragment {
         List<String> al = new ArrayList<String>();
         al = Arrays.asList(split);
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchProductSummaries(al, new ECSCallback<List<ECSProduct>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchProductSummaries(al, new ECSCallback<List<ECSProduct>, Exception>() {
             @Override
             public void onResponse(List<ECSProduct> ecsProducts) {
                 gotoResultActivity(getJsonStringFromObject(ecsProducts));

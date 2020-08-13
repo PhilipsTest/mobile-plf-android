@@ -16,10 +16,10 @@ import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.request.GetConfigurationRequest
 import com.philips.platform.ecs.microService.util.ECSDataHolder
+import com.philips.platform.ecs.util.ECSConfiguration
 
 class BaseURLCallback(private val getConfigurationRequest: GetConfigurationRequest) : ServiceDiscoveryInterface.OnGetServiceUrlMapListener{
 
@@ -30,13 +30,14 @@ class BaseURLCallback(private val getConfigurationRequest: GetConfigurationReque
         val serviceDiscoveryService =urlMap?.get(ECSConstants.SERVICEID_IAP_BASEURL)
         val locale = serviceDiscoveryService?.locale ?:""
         ECSDataHolder.locale = locale
+        ECSConfiguration.INSTANCE.locale = locale
         val configUrls = serviceDiscoveryService?.configUrls
-        ECSDataHolder.baseURL = configUrls
 
         if(configUrls==null || ECSDataHolder.getPropositionId() == null){
             val ecsConfig = ECSConfig(locale)
             getConfigurationRequest.eCSCallback.onResponse(ecsConfig)
         }else{
+            ECSConfiguration.INSTANCE.baseURL = "$configUrls/"
             getConfigurationRequest.url = configUrls
             getConfigurationRequest.locale = locale
             getConfigurationRequest.executeRequest()

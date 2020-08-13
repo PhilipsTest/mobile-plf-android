@@ -1,0 +1,139 @@
+{
+   "data":{
+      "id":"24019421060",
+      "type":"commerceCart",
+      "attributes":{
+         "email":"susmit.guha@philips.com",
+         "pricing":{
+            "net":true,
+            "total":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "subTotal":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "tax":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "orderDiscount":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "delivery":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "totalDelivery":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "orderDiscountNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "totalDiscountNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "totalNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "itemDiscount":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            }
+         },
+         "promotions":{
+            "potentialPromotions":[
+               {
+                  "code":"ECS_PIL_Order_Promotion",
+                  "type":"OrderThresholdDiscountPromotion",
+                  "enabled":"true",
+                  "endDate":"2099-01-01T00:00:00+0000",
+                  "message":"Error, message not found"
+               }
+            ],
+            "appliedPromotions":[
+
+            ],
+            "potentialProductPromotions":[
+
+            ],
+            "appliedProductPromotions":[
+
+            ]
+         },
+         "ageConsent":false,
+         "ageConsentApplied":false,
+         "marketingOptinApplied":false,
+         "units":0,
+         "deliveryUnits":0,
+         "items":[
+
+         ],
+         "deliveryMode":{
+            "id":"UPS_COLLECTION_POINT",
+            "deliveryCost":{
+               "currency":"USD",
+               "formattedValue":"0.00 $",
+               "value":0.0
+            },
+            "description":"2-4 business days",
+            "label":"UPS Access Point",
+            "collectionPoint":true
+         },
+         "appliedVouchers":[
+            {
+               "id":"ECS-_PIL-_Vou-cher-TZ8S-5XZ5-S7E7",
+               "freeShipping":false,
+               "value":{
+                  "currency":"USD",
+                  "formattedValue":"0.00 $",
+                  "value":10.0
+               }
+            }
+         ],
+         "deliveryAddress":{
+            "billingAddress":false,
+            "country":{
+               "isocode":"US",
+               "name":"United States"
+            },
+            "defaultAddress":false,
+            "firstName":"Susmit First",
+            "houseNumber":"",
+            "id":"9359768682519",
+            "lastName":"Check",
+            "line1":"Line1",
+            "line2":"",
+            "phone":"2139999999",
+            "postalCode":"10017",
+            "region":{
+               "isocode":"US-NY",
+               "isocodeShort":"NY",
+               "name":"New York"
+            },
+            "deliveryAddress":true,
+            "titleCode":"mr.",
+            "town":"New York"
+         },
+         "notifications":[
+
+         ]
+      }
+   }
+}

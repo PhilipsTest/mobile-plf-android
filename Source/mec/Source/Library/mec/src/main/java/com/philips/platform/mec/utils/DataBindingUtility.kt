@@ -22,6 +22,7 @@ import com.philips.cdp.prxclient.datamodels.features.FeatureItem
 import com.philips.cdp.prxclient.datamodels.features.FeaturesModel
 import com.philips.cdp.prxclient.datamodels.specification.CsItemItem
 import com.philips.cdp.prxclient.datamodels.specification.SpecificationModel
+import com.philips.platform.ecs.microService.model.asset.Asset
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.detail.ImageAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureChildRecyclerAdapter
@@ -67,7 +68,7 @@ class DataBindingUtility {
 
         @JvmStatic
         @BindingAdapter("assets")
-        fun setAdapter(pager: ViewPager, assets: List<com.philips.platform.ecs.model.asset.Asset> ?) {
+        fun setAdapter(pager: ViewPager, assets: List<Asset> ?) {
             if(assets!=null) {
 
                 // modifying url for specific size image

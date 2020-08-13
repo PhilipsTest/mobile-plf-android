@@ -110,8 +110,8 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
             binding = MecOrderHistoryFragmentBinding.inflate(inflater, container, false)
 
             mecOrderHistoryViewModel = ViewModelProvider(this).get(MECOrderHistoryViewModel::class.java)
-            mecOrderHistoryViewModel.ecsOrderHistory.observe(viewLifecycleOwner, orderHistoryObserver)
-            mecOrderHistoryViewModel.mecError.observe(viewLifecycleOwner, this)
+            mecOrderHistoryViewModel.ecsOrderHistory.observe(this, orderHistoryObserver)
+            mecOrderHistoryViewModel.mecError.observe(this, this)
 
             mecOrderHistoryAdapter = MECOrderHistoryAdapter(dateOrdersMap,this )
 

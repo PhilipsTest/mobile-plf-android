@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSAddress;
@@ -36,11 +36,11 @@ public class DeleteAddressFragment extends BaseAPIFragment {
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().deleteAddress(ecsAddress, new ECSCallback<Boolean, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().deleteAddress(ecsAddress, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean aBoolean) {
 
-                List<ECSAddress> ecsAddressList = ECSDataHolder.INSTANCE.getEcsAddressList();
+                List<ECSAddress> ecsAddressList = ECSDemoDataHolder.INSTANCE.getEcsAddressList();
                 if(ecsAddressList!=null && ecsAddressList.size()!=0){
                     ecsAddressList.remove(ecsAddress);
                 }
@@ -62,7 +62,7 @@ public class DeleteAddressFragment extends BaseAPIFragment {
 
     private void fillSpinnerData(Spinner spinner) {
 
-        List<ECSAddress> ecsAddressList = ECSDataHolder.INSTANCE.getEcsAddressList();
+        List<ECSAddress> ecsAddressList = ECSDemoDataHolder.INSTANCE.getEcsAddressList();
 
         if(ecsAddressList==null) return;
 
@@ -79,7 +79,7 @@ public class DeleteAddressFragment extends BaseAPIFragment {
 
        ECSAddress ecsAddress = new ECSAddress() ;
 
-       List<ECSAddress> ecsAddressList = ECSDataHolder.INSTANCE.getEcsAddressList();
+       List<ECSAddress> ecsAddressList = ECSDemoDataHolder.INSTANCE.getEcsAddressList();
        if(ecsAddressList == null) return null;
 
         for(ECSAddress ecsAddress1:ecsAddressList){

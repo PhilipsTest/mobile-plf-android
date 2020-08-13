@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSAddress;
@@ -41,7 +41,7 @@ public class UpdateAddressFragment extends BaseAPIFragment {
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().updateAddress( ecsAddress, new ECSCallback<Boolean, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().updateAddress( ecsAddress, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean aBoolean) {
 
@@ -64,7 +64,7 @@ public class UpdateAddressFragment extends BaseAPIFragment {
 
     private void fillSpinnerData(Spinner spinner) {
 
-        List<ECSAddress> ecsAddressList = ECSDataHolder.INSTANCE.getEcsAddressList();
+        List<ECSAddress> ecsAddressList = ECSDemoDataHolder.INSTANCE.getEcsAddressList();
 
         if(ecsAddressList!=null) {
 
@@ -82,7 +82,7 @@ public class UpdateAddressFragment extends BaseAPIFragment {
 
         ECSAddress ecsAddress = new ECSAddress() ;
 
-        List<ECSAddress> ecsAddressList = ECSDataHolder.INSTANCE.getEcsAddressList();
+        List<ECSAddress> ecsAddressList = ECSDemoDataHolder.INSTANCE.getEcsAddressList();
         for(ECSAddress ecsAddress1:ecsAddressList){
             if(ecsAddress1.getId().equalsIgnoreCase(addressID)){
                 return ecsAddress1;

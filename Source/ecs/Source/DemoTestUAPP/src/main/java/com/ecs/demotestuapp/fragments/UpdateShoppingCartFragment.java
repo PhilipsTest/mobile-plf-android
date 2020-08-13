@@ -5,7 +5,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.cart.ECSEntries;
@@ -54,11 +54,11 @@ public class UpdateShoppingCartFragment extends BaseAPIFragment {
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().updateShoppingCart(quantity, ecsEntriesFromID, new ECSCallback<ECSShoppingCart, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().updateShoppingCart(quantity, ecsEntriesFromID, new ECSCallback<ECSShoppingCart, Exception>() {
             @Override
             public void onResponse(ECSShoppingCart ecsShoppingCart) {
 
-                ECSDataHolder.INSTANCE.setEcsShoppingCart(ecsShoppingCart);
+                ECSDemoDataHolder.INSTANCE.setEcsShoppingCart(ecsShoppingCart);
                 gotoResultActivity(getJsonStringFromObject(ecsShoppingCart));
                 getProgressBar().setVisibility(View.GONE);
             }
@@ -78,9 +78,9 @@ public class UpdateShoppingCartFragment extends BaseAPIFragment {
     private void fillSpinnerData(Spinner spinner) {
         ArrayList<String> ctns = new ArrayList<>();
 
-        if (ECSDataHolder.INSTANCE.getEcsShoppingCart() != null) {
+        if (ECSDemoDataHolder.INSTANCE.getEcsShoppingCart() != null) {
 
-            List<ECSEntries> entries = ECSDataHolder.INSTANCE.getEcsShoppingCart().getEntries();
+            List<ECSEntries> entries = ECSDemoDataHolder.INSTANCE.getEcsShoppingCart().getEntries();
 
             if (entries!=null && entries.size() != 0) {
 
@@ -95,9 +95,9 @@ public class UpdateShoppingCartFragment extends BaseAPIFragment {
 
     private ECSEntries getECSEntriesFromID(String ctn) {
 
-        if(ECSDataHolder.INSTANCE.getEcsShoppingCart()==null) return  null;
+        if(ECSDemoDataHolder.INSTANCE.getEcsShoppingCart()==null) return  null;
 
-        List<ECSEntries> entries = ECSDataHolder.INSTANCE.getEcsShoppingCart().getEntries();
+        List<ECSEntries> entries = ECSDemoDataHolder.INSTANCE.getEcsShoppingCart().getEntries();
         if (entries.size() != 0) {
 
             for (ECSEntries ecsEntries : entries) {
@@ -112,6 +112,6 @@ public class UpdateShoppingCartFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsShoppingCart(null);
+        ECSDemoDataHolder.INSTANCE.setEcsShoppingCart(null);
     }
 }

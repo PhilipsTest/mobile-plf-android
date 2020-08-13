@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">يُرجى توفير غرض هيكل التطبيق الأساسي</string>
@@ -21,19 +28,32 @@
   <string name="ECSOAuthDetailError">يُرجى توفير تفاصيل OAuth كاملة</string>
   <string name="ECSOAuthNotCalled">إذن المستخدم مطلوب لهذا الإجراء</string>
   <string name="ECSPIL_BAD_REQUEST">لقد واجهَنا خلل فني. يُرجى إعادة المحاولة فيما بعد</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">لم يتم تكوين عربة تسوق بعد</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">لقد واجهَنا خلل فني. يُرجى إعادة المحاولة فيما بعد</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">لقد واجهَنا خلل فني (رمز الوصول غير صالح). يُرجى القيام بإعادة التحقق من Hybris</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">عنوان البريد الإلكتروني غير صالح. يرجى التحقق.</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">لم تتم إضافة المنتج إلى عربة التسوق</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">يُرجى ضبط الموقع</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[ar]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[ar]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">إن متجر Philips غير متاح في البلد المحدد، غير مُتاح سوى وضع البائع فقط</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
+  <string name="ECSPIL_INVALID_QUANTITY">[ar]Quantity must be greater than zero</string>
   <string name="ECSPIL_MISSING_API_KEY">The required API key header is missing</string>
   <string name="ECSPIL_MISSING_API_VERSION">The required API version header is missing</string>
   <string name="ECSPIL_MISSING_PARAMETER_country">يُرجى ضبط الموقع</string>
   <string name="ECSPIL_MISSING_PARAMETER_language">يُرجى ضبط الموقع</string>
+  <string name="ECSPIL_MISSING_PARAMETER_productId">يُرجى توفير شبكة الهاتف الجوّال CTN</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId">إن متجر Philips غير متاح في البلد المحدد، غير مُتاح سوى وضع البائع فقط</string>
+  <string name="ECSPIL_NEGATIVE_QUANTITY">يجب ألا تقل الكمية عن صفر</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">لقد واجهَنا خلل فني. يُرجى إعادة المحاولة فيما بعد</string>
-  <string name="ECSPIL_NOT_FOUND_productId">المورد المطلوب غير متاح</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">لقد واجهَنا خلل فني. يُرجى إعادة المحاولة فيما بعد</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[ar]Please provide a valid Cart Id</string>
+  <string name="ECSPIL_NOT_FOUND_productId">[ar]Please provide valid CTN</string>
+  <string name="ECSPIL_STOCK_EXCEPTION">لا يمكن شحن المنتج لأنه قد نفد من المخزون</string>
+  <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">لقد واجهَنا خلل فني. يُرجى إعادة المحاولة فيما بعد</string>
   <string name="ECSPaymentAuthorizationError">لم ينجح إذن الدفع</string>
   <string name="ECSPropositionIdNotFound">يُرجى ضبط معرّف اقتراح صالح</string>
   <string name="ECSSiteIdNotFound">إن متجر Philips غير متاح في البلد المحدد، غير مُتاح سوى وضع البائع فقط</string>

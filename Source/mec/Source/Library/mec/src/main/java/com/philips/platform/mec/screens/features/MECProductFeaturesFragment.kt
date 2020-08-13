@@ -16,8 +16,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.platform.ecs.model.products.ECSProduct
+
 import com.philips.cdp.prxclient.datamodels.features.FeaturesModel
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.features
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
@@ -88,7 +89,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
 
         val bundle = arguments
         val productCtn = bundle!!.getString(MECConstant.MEC_PRODUCT_CTN,"INVALID")
-        mECSProduct =bundle!!.getSerializable(MEC_PRODUCT) as ECSProduct
+        mECSProduct =bundle!!.getParcelable<ECSProduct>(MEC_PRODUCT)!!
 
         if(null==mFeaturesModel) {
             context?.let { productFeaturesViewModel.fetchProductFeatures(it, productCtn) }

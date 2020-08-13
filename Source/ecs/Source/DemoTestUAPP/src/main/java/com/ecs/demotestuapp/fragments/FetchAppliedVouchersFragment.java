@@ -2,7 +2,7 @@ package com.ecs.demotestuapp.fragments;
 
 import android.view.View;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
@@ -15,11 +15,11 @@ public class FetchAppliedVouchersFragment extends BaseAPIFragment {
 
     public void executeRequest() {
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchAppliedVouchers(new ECSCallback<List<ECSVoucher>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchAppliedVouchers(new ECSCallback<List<ECSVoucher>, Exception>() {
             @Override
             public void onResponse(List<ECSVoucher> ecsVouchers) {
 
-                ECSDataHolder.INSTANCE.setVouchers(ecsVouchers);
+                ECSDemoDataHolder.INSTANCE.setVouchers(ecsVouchers);
                 String jsonString = getJsonStringFromObject(ecsVouchers);
                 gotoResultActivity(jsonString);
                 getProgressBar().setVisibility(View.GONE);

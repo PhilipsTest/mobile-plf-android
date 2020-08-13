@@ -167,7 +167,7 @@
     <string name="mec_zero_results_message">This filters our product list. Please check that there are no typos in your filter term</string>
     <!--new strings-->
 
-
+    
 
     <!-- Specific Android strings -->
     <string name="mec_pros_plus" translatable="false">\uFF0B</string>

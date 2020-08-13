@@ -1,0 +1,39 @@
+{
+    "data": {
+        "id": "",
+        "type": "commerceCart",
+        "attributes": {
+            "email": "",
+            "pricing": {
+                "net": ,
+                "total": {
+                    "currency": "",
+                    "formattedValue": "",
+                    "value":
+                },
+                "subTotal": {
+                    "currency": "",
+                    "formattedValue": "",
+                    "value":
+                },
+                "tax": {
+                    "currency": "",
+                    "formattedValue": "",
+                    "value":
+                }
+            },
+            "promotions": {
+                "potentialPromotions": [],
+                "appliedPromotions": [],
+                "potentialProductPromotions": [],
+                "appliedProductPromotions": []
+            },
+            "ageConsentApplied": false,
+            "marketingOptinApplied": false,
+            "units": ,
+            "deliveryUnits": ,
+            "items": [],
+            "notifications": []
+        }
+    }
+}

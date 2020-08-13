@@ -18,8 +18,9 @@ import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
+import com.philips.platform.ecs.util.ECSConfiguration
 import org.json.JSONObject
-import java.util.HashMap
+import java.util.*
 
 class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>) : ECSJsonRequest(eCSCallback) {
 
@@ -43,12 +44,12 @@ class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>)
     }
 
     override fun onResponse(response: JSONObject?) {
-        val config = response?.getData(ECSConfig::class.java) ?:ECSConfig()
+        val config = response?.getData(ECSConfig::class.java) ?:ECSConfig(locale)
         config.locale = locale
         if(config.rootCategory!= null && config.siteId!=null ) config.isHybris = true
         ECSDataHolder.config = config
+        setOCCConfigData(config)
         eCSCallback.onResponse(config)
-
     }
 
     override fun onErrorResponse(error: VolleyError?) {
@@ -59,8 +60,15 @@ class GetConfigurationRequest(val eCSCallback: ECSCallback<ECSConfig, ECSError>)
     private fun getRawConfigUrl(url: String): String {
         return  url +"/"+ "pilcommercewebservices"+"/" + "v2" + "/" +
                 "inAppConfig" + "/" +
-                ECSDataHolder.locale + "/" +
-                ECSDataHolder.getPropositionId()
+                 locale + "/" +
+                 ECSDataHolder.getPropositionId()
+    }
+
+    //TODO to be removed once all pil apis are consumed
+    private fun setOCCConfigData(config : ECSConfig){
+        ECSConfiguration.INSTANCE.siteId = config.siteId
+        ECSConfiguration.INSTANCE.locale = locale
+        ECSConfiguration.INSTANCE.rootCategory = config.rootCategory
     }
 
 }

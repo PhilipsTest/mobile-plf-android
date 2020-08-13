@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
@@ -95,8 +95,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
 
                 @Override
                 public void onFailure(ECSError ecsError) {
-                    String errorString = ecsError.getErrorMessage();
-                    gotoResultActivity(errorString);
+                    gotoResultActivity(ecsError.getErrorCode() +"\n"+ ecsError.getErrorMessage());
                     getProgressBar().setVisibility(View.GONE);
                 }
             };
@@ -111,8 +110,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             microECSServices.fetchProducts(ecsCallback,category, limit, offset,productFilter);*/
 
         } catch (ECSException e) {
-            e.printStackTrace();
-            gotoResultActivity(e.getMessage());
+            gotoResultActivity(e.getErrorCode() +"\n"+ e.getMessage());
             getProgressBar().setVisibility(View.GONE);
         }
 
@@ -126,6 +124,6 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsProducts(null);
+        ECSDemoDataHolder.INSTANCE.setEcsProducts(null);
     }
 }

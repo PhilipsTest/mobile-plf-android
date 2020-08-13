@@ -3,7 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.retailers.ECSRetailerList;
@@ -25,7 +25,7 @@ public class FetchRetailersFragment extends BaseAPIFragment {
          if(etCtn.getText()!=null){
              ctn = etCtn.getText().toString();
          }
-        ECSDataHolder.INSTANCE.getEcsServices().fetchRetailers(ctn, new ECSCallback<ECSRetailerList, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchRetailers(ctn, new ECSCallback<ECSRetailerList, Exception>() {
             @Override
             public void onResponse(ECSRetailerList ecsRetailerList) {
 

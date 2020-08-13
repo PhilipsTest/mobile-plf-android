@@ -16,4 +16,4 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 @Parcelize
-data class DisclaimerModel(var success :Boolean = false,var data: Data?) : Parcelable
+data class DisclaimerModel(var success :Boolean?,var data: Data?) : Parcelable

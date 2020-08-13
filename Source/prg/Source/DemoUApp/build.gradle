@@ -76,7 +76,7 @@ dependencies {
     implementation deps.design
     implementation(philipsdeps.uid)
     if (useprojectdependencies) {
-        
+        project.logger.lifecycle('product-registration-libUapp: Picking the dependencies from the code')
         implementation project(strings.prg.projectName)
         implementation project(strings.usr.projectName)
         implementation project(strings.prx.projectName)
@@ -84,6 +84,7 @@ dependencies {
         implementation project(strings.ail.projectName)
         implementation project(strings.pif.projectName)
     } else {
+        project.logger.lifecycle('product-registration-libUapp: Picking the dependencies from the artifactory')
         implementation philipsdeps.product_registration_lib
         implementation philipsdeps.registrationApi
         implementation philipsdeps.prx

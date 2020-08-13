@@ -68,8 +68,8 @@ public class GetVoucherListTest {
         appInfra.getServiceDiscovery().setHomeCountry("DE");
 
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         StaticBlock.initialize();
 
