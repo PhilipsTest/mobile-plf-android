@@ -12,7 +12,7 @@ class CCBWebSocketConnection : WebSocketListener() {
 
     private val TAG: String? = CCBWebSocketConnection::class.java.simpleName
     private var botResponseListener: BotResponseListener? = null
-    private lateinit var webSocket: WebSocket
+    private var webSocket: WebSocket? = null
 
     fun setBotResponseListener(botResponseListener: BotResponseListener) {
         this.botResponseListener = botResponseListener
@@ -24,7 +24,7 @@ class CCBWebSocketConnection : WebSocketListener() {
     }
 
     fun closeWebSocket() {
-        webSocket.close(1000, "User is closing Websocket")
+        webSocket?.close(1000, "User is closing Websocket")
     }
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
@@ -37,22 +37,15 @@ class CCBWebSocketConnection : WebSocketListener() {
         botResponseListener?.onFailure()
     }
 
-    override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-        super.onClosing(webSocket, code, reason)
-    }
-
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text)
+        Log.i(TAG, "CCBConversational onMessage:->$text")
         try {
             if (!TextUtils.isEmpty(text)) botResponseListener?.onMessageReceived(text)
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
 
-    }
-
-    override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-        super.onMessage(webSocket, bytes)
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {

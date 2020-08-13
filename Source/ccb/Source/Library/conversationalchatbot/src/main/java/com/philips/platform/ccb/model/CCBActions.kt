@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 data class CCBActions(
         val type: String?,
-        val title: String?,
-        val value: String?
+        val title: String,
+        val value: String
 )

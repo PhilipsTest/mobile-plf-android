@@ -25,6 +25,7 @@ class CCBInterface: UappInterface {
 
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
         if (uiLauncher is FragmentLauncher) {
+            CCBSettingsManager.ccbDeviceCapabilityInterface = (uappLaunchInput as CCBLaunchInput).ccbDeviceCapabilityInterface
             val ccbFragment = CCBConversationalFragment()
             addFragment(uiLauncher, ccbFragment)
         }
