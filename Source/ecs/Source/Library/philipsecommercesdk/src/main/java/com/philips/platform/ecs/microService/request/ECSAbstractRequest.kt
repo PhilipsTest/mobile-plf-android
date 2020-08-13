@@ -26,14 +26,13 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
 
     lateinit var url: String
     lateinit var locale: String
-    var requestMethod = Request.Method.GET
-
-    var tokenProviderInterface : TokenProviderInterface? = null
-    var jsonObjectForRequest : JSONObject? = null
-
 
     abstract fun getServiceID():String
     abstract fun executeRequest()
+
+    open fun getRequestMethod() : Int{
+       return Request.Method.GET
+    }
 
     open fun getURL():String{
         return url
@@ -67,5 +66,11 @@ abstract class ECSAbstractRequest(val ecsErrorCallback: ECSCallback<*, ECSError>
     open fun  getParams(): Map<String, String>?{
         return null
     }
+
+    open fun getBody():Map<String, String>?{
+        return null
+    }
+
+    fun getJsonBody(map :Map<String, String>?) = if (map == null) null else JSONObject(map)
 
 }

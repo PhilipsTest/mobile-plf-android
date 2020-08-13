@@ -16,25 +16,6 @@
 
     <activity
         android:label="ECS Demo Activity"
-        android:name=".activity.EcsDemoResultActivity"
-        android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-        android:theme="@style/Theme.DLS.GroupBlue.UltraLight" />
-
-
-    <activity
-        android:label="ECS Demo Activity"
-        android:name=".activity.FetchProductsInputActivity"
-        android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-        android:theme="@style/Theme.DLS.GroupBlue.UltraLight" />
-
-    <activity
-        android:label="ECS Demo Activity"
-        android:name=".activity.SpinnerInputActivity"
-        android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-        android:theme="@style/Theme.DLS.GroupBlue.UltraLight" />
-
-    <activity
-        android:label="ECS Demo Activity"
         android:name=".activity.SubGroupActivity"
         android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
         android:theme="@style/Theme.DLS.GroupBlue.UltraLight" />

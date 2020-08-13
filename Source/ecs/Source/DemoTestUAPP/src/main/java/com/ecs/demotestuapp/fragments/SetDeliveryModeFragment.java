@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
@@ -34,9 +34,9 @@ public class SetDeliveryModeFragment extends BaseAPIFragment {
 
         ArrayList<String> deliveryModeCodes = new ArrayList<>();
 
-        if (ECSDataHolder.INSTANCE.getEcsProducts() != null) {
+        if (ECSDemoDataHolder.INSTANCE.getEcsProducts() != null) {
 
-            List<ECSDeliveryMode> ecsDeliveryModes = ECSDataHolder.INSTANCE.getEcsDeliveryModes();
+            List<ECSDeliveryMode> ecsDeliveryModes = ECSDemoDataHolder.INSTANCE.getEcsDeliveryModes();
             if(ecsDeliveryModes!=null) {
                 if (ecsDeliveryModes.size() != 0) {
 
@@ -52,9 +52,9 @@ public class SetDeliveryModeFragment extends BaseAPIFragment {
 
     private ECSDeliveryMode getDeliveryMode(String deliveryModeID){
 
-        if (ECSDataHolder.INSTANCE.getEcsProducts() != null) {
+        if (ECSDemoDataHolder.INSTANCE.getEcsProducts() != null) {
 
-            List<ECSDeliveryMode> ecsDeliveryModes = ECSDataHolder.INSTANCE.getEcsDeliveryModes();
+            List<ECSDeliveryMode> ecsDeliveryModes = ECSDemoDataHolder.INSTANCE.getEcsDeliveryModes();
             if (ecsDeliveryModes.size() != 0) {
 
                 for (ECSDeliveryMode ecsDeliveryMode : ecsDeliveryModes) {
@@ -85,7 +85,7 @@ public class SetDeliveryModeFragment extends BaseAPIFragment {
         }
 
 
-        ECSDataHolder.INSTANCE.getEcsServices().setDeliveryMode(deliveryMode, new ECSCallback<Boolean, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().setDeliveryMode(deliveryMode, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean aBoolean) {
 

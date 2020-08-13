@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.orders.ECSOrderHistory;
@@ -29,7 +29,7 @@ public class FetchOrderDetailForOdersFragment extends BaseAPIFragment {
 
     private void fillSpinnerData(Spinner spinner) {
 
-        ECSOrderHistory ecsOrderHistory = ECSDataHolder.INSTANCE.getEcsOrderHistory();
+        ECSOrderHistory ecsOrderHistory = ECSDemoDataHolder.INSTANCE.getEcsOrderHistory();
 
         if(ecsOrderHistory!=null){
 
@@ -49,7 +49,7 @@ public class FetchOrderDetailForOdersFragment extends BaseAPIFragment {
 
     private ECSOrders getOrderFromOrderID(String orderID){
 
-        ECSOrderHistory ecsOrderHistory = ECSDataHolder.INSTANCE.getEcsOrderHistory();
+        ECSOrderHistory ecsOrderHistory = ECSDemoDataHolder.INSTANCE.getEcsOrderHistory();
 
         if(ecsOrderHistory!=null){
 
@@ -86,7 +86,7 @@ public class FetchOrderDetailForOdersFragment extends BaseAPIFragment {
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchOrderDetail(ecsOrders, new ECSCallback<ECSOrders, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchOrderDetail(ecsOrders, new ECSCallback<ECSOrders, Exception>() {
             @Override
             public void onResponse(ECSOrders ecsOrders) {
 

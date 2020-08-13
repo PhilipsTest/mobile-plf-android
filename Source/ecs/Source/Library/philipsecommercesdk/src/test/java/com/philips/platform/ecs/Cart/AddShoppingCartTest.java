@@ -65,8 +65,8 @@ public class AddShoppingCartTest {
         appInfra.getServiceDiscovery().setHomeCountry("DE");
 
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         mockInputValidator = new MockInputValidator();
 

@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "35dc97ea-cecc-4551-8cee-3e89b729bbc9",
+            "status": "500",
+            "code": "SERVER_ERROR",
+            "title": "Internal server error",
+            "source": {
+                "parameter": "INTERNAL_SERVER_ERROR"
+            }
+        }
+    ]
+

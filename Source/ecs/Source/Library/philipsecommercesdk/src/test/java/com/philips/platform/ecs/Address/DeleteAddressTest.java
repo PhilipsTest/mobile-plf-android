@@ -64,8 +64,8 @@ public class DeleteAddressTest {
 
 
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         mockInputValidator = new MockInputValidator();
 

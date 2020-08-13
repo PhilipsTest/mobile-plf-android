@@ -10,13 +10,21 @@
 package com.philips.platform.mec.screens.retailers
 
 import com.philips.platform.ecs.ECSServices
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSException
 
 class ECSRetailersRepository(private val ecsServices: ECSServices, private val ecsRetailerViewModel: ECSRetailerViewModel) {
 
     var eCSRetailerListCallback = ECSRetailerListCallback(ecsRetailerViewModel)
 
+
     fun getRetailers(ctn: String) {
-        ecsServices.fetchRetailers(ctn, eCSRetailerListCallback)
+        try {
+            ecsServices.microService.fetchRetailers(ctn, eCSRetailerListCallback)
+        } catch (e: ECSException) {
+            val ecsError = ECSError(e.message ?: "", e.errorCode, null)
+            eCSRetailerListCallback.onFailure(ecsError)
+        }
     }
 
 }

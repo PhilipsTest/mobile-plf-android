@@ -6,7 +6,6 @@
 package com.philips.platform.ecs.util;
 
 import com.android.volley.DefaultRetryPolicy;
-import com.philips.platform.ecs.model.oauth.ECSOAuthData;
 import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 
@@ -20,7 +19,6 @@ public enum ECSConfiguration {
 
     private LoggingInterface ecsLoggingInterface;
 
-    private ECSOAuthData oAuthResponse;
 
     public String getAccessToken() {
         return accessToken;
@@ -99,14 +97,6 @@ public enum ECSConfiguration {
 
     public String getCountry() {
         return getCountryFromLocale(ECSConfiguration.INSTANCE.getLocale());
-    }
-
-    public ECSOAuthData getAuthResponse() {
-        return oAuthResponse;
-    }
-
-    public void setAuthResponse(ECSOAuthData oAuthResponse) {
-        this.oAuthResponse = oAuthResponse;
     }
 
     public LoggingInterface getEcsLogging() {

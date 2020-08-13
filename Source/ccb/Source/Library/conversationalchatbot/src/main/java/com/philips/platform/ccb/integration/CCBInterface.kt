@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
 import com.philips.platform.ccb.directline.CCBSessionHandlerInterface
+import com.philips.platform.ccb.fragment.CCBConversationalFragment
 import com.philips.platform.ccb.fragment.CCBFragment
 import com.philips.platform.ccb.manager.CCBSettingsManager
 import com.philips.platform.uappframework.UappInterface
@@ -20,12 +21,11 @@ class CCBInterface: UappInterface {
     override fun init(uappDependencies: UappDependencies, uappSettings: UappSettings) {
        context = uappSettings.context.applicationContext
         CCBSettingsManager.init(uappDependencies)
-        //init called
     }
 
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
         if (uiLauncher is FragmentLauncher) {
-            val ccbFragment = CCBFragment()
+            val ccbFragment = CCBConversationalFragment()
             addFragment(uiLauncher, ccbFragment)
         }
     }

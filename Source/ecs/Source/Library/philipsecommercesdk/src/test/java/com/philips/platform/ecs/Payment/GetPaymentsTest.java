@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.VolleyError;
+import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.ecs.ECSServices;
 import com.philips.platform.ecs.MockECSServices;
 import com.philips.platform.ecs.MockInputValidator;
@@ -14,10 +16,6 @@ import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.orders.ECSOrderHistory;
 import com.philips.platform.ecs.model.orders.ECSOrders;
 import com.philips.platform.ecs.model.payment.ECSPayment;
-import com.philips.platform.ecs.model.products.ECSProduct;
-import com.philips.platform.ecs.model.retailers.ECSRetailerList;
-import com.philips.platform.appinfra.AppInfra;
-import com.philips.platform.appinfra.rest.RestInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static com.philips.platform.ecs.error.ECSErrorEnum.ECSCtnNotProvided;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -71,8 +68,8 @@ public class GetPaymentsTest {
         appInfra = new AppInfra.Builder().setRestInterface(mockRestInterface).build(mContext);
         appInfra.getServiceDiscovery().setHomeCountry("DE");
 
-        mockECSServices = new MockECSServices("", appInfra);
-        ecsServices = new ECSServices("",appInfra);
+        mockECSServices = new MockECSServices(appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         StaticBlock.initialize();
 
@@ -157,41 +154,7 @@ public class GetPaymentsTest {
         });
     }
 
-    @Test
-    public void getRetailerSuccess() {
-        mockInputValidator.setJsonFileName("GetRetailerInfoSuccess.json");
-        ECSProduct product = new ECSProduct();
-        product.setCode("1234");
-        mockECSServices.fetchRetailers(product, new ECSCallback<ECSRetailerList, Exception>() {
-            @Override
-            public void onResponse(ECSRetailerList result) {
-                assertNotNull(result);
-            }
 
-            @Override
-            public void onFailure(Exception error, ECSError ecsError) {
-                assertTrue(false);
-            }
-        });
-    }
-
-    @Test
-    public void getRetailerSuccessError() {
-        mockInputValidator.setJsonFileName("GetRetailerInfoSuccess.json");
-        ECSProduct product = new ECSProduct();
-        mockECSServices.fetchRetailers(product, new ECSCallback<ECSRetailerList, Exception>() {
-            @Override
-            public void onResponse(ECSRetailerList result) {
-                assertNotNull(result);
-            }
-
-            @Override
-            public void onFailure(Exception error, ECSError ecsError) {
-                assertTrue(true);
-                assertEquals(ECSCtnNotProvided.toString(), ecsError.getErrorType());
-            }
-        });
-    }
 
 
     @Test

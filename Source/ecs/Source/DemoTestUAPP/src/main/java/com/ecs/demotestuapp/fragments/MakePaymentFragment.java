@@ -5,7 +5,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSAddress;
@@ -33,9 +33,9 @@ public class MakePaymentFragment extends BaseAPIFragment {
 
         etOrderDetailID = getLinearLayout().findViewWithTag("et_one");
 
-        if(ECSDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder()!=null){
-            ecsOrderDetail = ECSDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder();
-            etOrderDetailID.setText(ECSDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder().getCode());
+        if(ECSDemoDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder()!=null){
+            ecsOrderDetail = ECSDemoDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder();
+            etOrderDetailID.setText(ECSDemoDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder().getCode());
         }
 
         spinner2 = getLinearLayout().findViewWithTag("spinner_one");
@@ -59,13 +59,13 @@ public class MakePaymentFragment extends BaseAPIFragment {
             return;
         }
 
-        if(ECSDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder() == null){
+        if(ECSDemoDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder() == null){
             Toast.makeText(getActivity(),"Order Detail can not be null",Toast.LENGTH_SHORT).show();
             getProgressBar().setVisibility(View.GONE);
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().makePayment(ECSDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder(), ecsAddress, new ECSCallback<ECSPaymentProvider, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().makePayment(ECSDemoDataHolder.INSTANCE.getEcsOrderDetailFromPlaceOrder(), ecsAddress, new ECSCallback<ECSPaymentProvider, Exception>() {
             @Override
             public void onResponse(ECSPaymentProvider ecsPaymentProvider) {
 
@@ -86,7 +86,7 @@ public class MakePaymentFragment extends BaseAPIFragment {
 
     private void fillSpinnerData(Spinner spinner) {
 
-        List<ECSAddress> ecsAddressList = ECSDataHolder.INSTANCE.getEcsAddressList();
+        List<ECSAddress> ecsAddressList = ECSDemoDataHolder.INSTANCE.getEcsAddressList();
 
         List<String> list = new ArrayList<>();
 
@@ -103,7 +103,7 @@ public class MakePaymentFragment extends BaseAPIFragment {
 
         ECSAddress ecsAddress = new ECSAddress() ;
 
-        List<ECSAddress> ecsAddressList = ECSDataHolder.INSTANCE.getEcsAddressList();
+        List<ECSAddress> ecsAddressList = ECSDemoDataHolder.INSTANCE.getEcsAddressList();
         if(ecsAddressList == null) return null;
 
         for(ECSAddress ecsAddress1:ecsAddressList){

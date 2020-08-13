@@ -12,7 +12,7 @@ def static epochTime() {
 }
 
 
-ext.baseplatformversion = "2003.0" //platform initial version
+ext.baseplatformversion = "2004.0" //platform initial version
 ext.platformversion = baseplatformversion + "." + epochTime() // platform initial version appended with current timestamp.
 ext.platformversionsuffix = baseplatformversion + ".+"
 
@@ -84,8 +84,9 @@ ext.philipsdeps = [
         philipsecommercesdk         : [group: 'com.philips.platform', name: strings.ecs.artifactName, version: platformversionsuffix, changing: true],
         mec                         : [group: 'com.philips.platform', name: strings.mec.artifactName, version: platformversionsuffix, changing: true],
         mecUApp                     : [group: 'com.philips.platform', name: strings.mecuapp.artifactName, version: platformversionsuffix, changing: true],
-        conversationalChatBot      : [group: 'com.philips.platform', name: strings.ccb.artifactName, version: platformversionsuffix, changing: true],
-        ccbUApp                     : [group: 'com.philips.platform', name: strings.ccbuapp.artifactName, version: platformversionsuffix, changing: true]
+        conversationalChatBot       : [group: 'com.philips.platform', name: strings.ccb.artifactName, version: platformversionsuffix, changing: true],
+        ccbUApp                     : [group: 'com.philips.platform', name: strings.ccbuapp.artifactName, version: platformversionsuffix, changing: true],
+        ecsTestUApp                 : [group: 'com.philips.platform', name: strings.ecstestuapp.artifactName, version: platformversionsuffix, changing: true]
 ]
 
 /**

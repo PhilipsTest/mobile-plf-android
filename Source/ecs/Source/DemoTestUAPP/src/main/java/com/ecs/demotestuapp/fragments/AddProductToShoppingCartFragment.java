@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.cart.ECSShoppingCart;
@@ -42,10 +42,10 @@ public class AddProductToShoppingCartFragment extends BaseAPIFragment {
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().addProductToShoppingCart(ecsProduct, new ECSCallback<ECSShoppingCart, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().addProductToShoppingCart(ecsProduct, new ECSCallback<ECSShoppingCart, Exception>() {
             @Override
             public void onResponse(ECSShoppingCart ecsShoppingCart) {
-                ECSDataHolder.INSTANCE.setEcsShoppingCart(ecsShoppingCart);
+                ECSDemoDataHolder.INSTANCE.setEcsShoppingCart(ecsShoppingCart);
                 gotoResultActivity(getJsonStringFromObject(ecsProduct));
                 getProgressBar().setVisibility(View.GONE);
             }
@@ -64,9 +64,9 @@ public class AddProductToShoppingCartFragment extends BaseAPIFragment {
     private void fillSpinnerData(Spinner spinner) {
         ArrayList<String> ctns = new ArrayList<>();
 
-        if(ECSDataHolder.INSTANCE.getEcsProducts()!=null){
+        if(ECSDemoDataHolder.INSTANCE.getEcsProducts()!=null){
 
-            List<ECSProduct> products = ECSDataHolder.INSTANCE.getEcsProducts().getProducts();
+            List<ECSProduct> products = ECSDemoDataHolder.INSTANCE.getEcsProducts().getProducts();
             if(products.size()!=0) {
 
                 for(ECSProduct ecsProduct:products){
@@ -80,10 +80,10 @@ public class AddProductToShoppingCartFragment extends BaseAPIFragment {
 
     private ECSProduct getECSProductFromID(String ctn) {
 
-        if(ECSDataHolder.INSTANCE.getEcsProducts() == null){
+        if(ECSDemoDataHolder.INSTANCE.getEcsProducts() == null){
             return null;
         }
-        List<ECSProduct> ecsProducts = ECSDataHolder.INSTANCE.getEcsProducts().getProducts();
+        List<ECSProduct> ecsProducts = ECSDemoDataHolder.INSTANCE.getEcsProducts().getProducts();
 
         for(ECSProduct ecsProduct:ecsProducts){
             if(ecsProduct.getCode().equalsIgnoreCase(ctn)){
@@ -98,7 +98,7 @@ public class AddProductToShoppingCartFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsShoppingCart(null);
+        ECSDemoDataHolder.INSTANCE.setEcsShoppingCart(null);
     }
 }
 

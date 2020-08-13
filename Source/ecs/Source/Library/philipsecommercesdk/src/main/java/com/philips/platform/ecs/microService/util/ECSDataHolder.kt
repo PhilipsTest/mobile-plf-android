@@ -17,12 +17,10 @@ import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService
 import com.philips.platform.ecs.microService.model.config.ECSConfig
+import com.philips.platform.ecs.util.ECSConfiguration
 
 object ECSDataHolder {
 
-
-
-    var baseURL: String? = null
     var locale: String? = null
     var lang = locale?.split("_")?.get(0)
     var country = locale?.split("_")?.get(1)
@@ -31,10 +29,13 @@ object ECSDataHolder {
 
     var urlMap: MutableMap<String, ServiceDiscoveryService>? = null
 
+    //TODO to be removed later , for now we are using occ accesstoken
+    var authToken: String? = null
+
     private val configError = AppConfigurationInterface.AppConfigurationError()
 
 
-    var config = ECSConfig(locale,null,null,null,null,null,null,null,false)
+    var config = ECSConfig("en_US",null,null,null,null,null,null,null,false)
 
 
     fun getPropositionId():String?{

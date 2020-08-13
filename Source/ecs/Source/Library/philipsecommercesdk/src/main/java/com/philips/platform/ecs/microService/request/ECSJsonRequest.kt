@@ -13,6 +13,7 @@
 package com.philips.platform.ecs.microService.request
 
 import com.android.volley.Response
+import com.google.gson.JsonObject
 import com.philips.platform.appinfra.rest.request.JsonObjectRequest
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
@@ -27,9 +28,10 @@ abstract class ECSJsonRequest(ecsErrorCallback: ECSCallback<*, ECSError>) : ECSA
     }
 
     private fun getJsonObjectRequest():JsonObjectRequest{
-        return JsonObjectRequest(requestMethod , getURL(), jsonObjectForRequest
+        return JsonObjectRequest(getRequestMethod() , getURL(), getJsonBody(getBody())
                 , this, this,
-                getHeader(), getParams(),tokenProviderInterface)
+                getHeader(), getParams(),null)
     }
+
 
 }

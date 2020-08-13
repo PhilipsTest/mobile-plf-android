@@ -17,7 +17,7 @@ import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel, private val request: String) : ECSCallback<ECSShoppingCart, Exception> {
+class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel) : ECSCallback<ECSShoppingCart, Exception> {
 
     lateinit var mECRequestType: MECRequestType
 
@@ -31,8 +31,8 @@ class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductD
             MECutility.isAuthError(ecsError) -> {
                 ecsProductDetailViewModel.retryAPI(mECRequestType)
             }
-            ecsError!!.errorcode == ECSErrorEnum.ECSCartError.errorCode -> {
-                ecsProductDetailViewModel.createShoppingCart(request)
+            ecsError?.errorcode == ECSErrorEnum.ECSCartError.errorCode -> {
+                ecsProductDetailViewModel.createShoppingCart()
             }
             else -> {
 

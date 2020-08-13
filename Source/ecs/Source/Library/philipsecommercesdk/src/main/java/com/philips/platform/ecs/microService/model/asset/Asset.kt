@@ -20,10 +20,10 @@ data class Asset (
     var description: String?,
     var extension: String?,
     var extent: String?,
-    var lastModified: String,
+    var lastModified: String?,
     var locale: String?,
     var number: String?,
     var type: String?,
     var asset: String?
-):Parcelable
+) :Parcelable
 

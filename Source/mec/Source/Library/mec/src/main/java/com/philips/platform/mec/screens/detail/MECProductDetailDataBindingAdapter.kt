@@ -18,7 +18,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
-import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.reviews.MECReview
 import com.philips.platform.mec.utils.MECLog
@@ -35,9 +36,9 @@ object MECProductDetailDataBindingAdapter {
 
         val disclaimerStringBuilder = StringBuilder()
 
-        if (ecsProduct?.disclaimers != null) {
+        ecsProduct?.disclaimers?.disclaimerList?.let {
 
-            for (disclaimer in ecsProduct.disclaimers?.disclaimer!!) {
+            for (disclaimer in it) {
                 disclaimer.disclaimerText
                 disclaimerStringBuilder.append("- ").append(disclaimer.disclaimerText).append(System.getProperty("line.separator"))
             }
@@ -47,9 +48,9 @@ object MECProductDetailDataBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("setStockInfo")
-    fun setStockInfo(stockLabel : Label, product: ECSProduct?) {
-        if(null!=product && null!= product.stock) {
-            if (MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) {
+    fun setStockInfo(stockLabel: Label, product: ECSProduct?) {
+        if (null != product && null != product.attributes?.availability) {
+            if (MECutility.isStockAvailable(product.attributes?.availability!!.status, product.attributes?.availability?.quantity ?:0)) {
                 stockLabel.text = stockLabel.context.getString(R.string.mec_in_stock)
                 stockLabel.setTextColor(stockLabel.context.getColor(R.color.uid_signal_green_level_30))
                 // stockLabel.setTextColor(R.attr.uidContentItemSignalNormalTextSuccessColor)
@@ -63,7 +64,7 @@ object MECProductDetailDataBindingAdapter {
     }
 
 
-    @BindingAdapter("mec_item_progressbar","pager_item_image")
+    @BindingAdapter("mec_item_progressbar", "pager_item_image")
     @JvmStatic
     fun loadImage(imageView: ImageView, mec_item_progressbar: ProgressBar, pager_item_image: String?) {
 
@@ -74,7 +75,7 @@ object MECProductDetailDataBindingAdapter {
             override fun onResponse(response: ImageLoader.ImageContainer?, isImmediate: Boolean) {
 
 
-                if(response?.bitmap!=null){
+                if (response?.bitmap != null) {
                     mec_item_progressbar.visibility = View.GONE
                     imageView.visibility = View.VISIBLE
                     imageView.setImageBitmap(response.bitmap)
@@ -84,7 +85,7 @@ object MECProductDetailDataBindingAdapter {
             override fun onErrorResponse(error: VolleyError?) {
                 mec_item_progressbar.visibility = View.GONE
 
-                if(error?.message!=null) {
+                if (error?.message != null) {
                     MECLog.e("Volley Loading", error?.message)
                 }
                 imageView.visibility = View.VISIBLE
@@ -105,7 +106,7 @@ object MECProductDetailDataBindingAdapter {
 
         product?.let {
 
-            var products : MutableList<ECSProduct> = mutableListOf()
+            var products: MutableList<ECSProduct> = mutableListOf()
             products.add(product)
 
             val mecProductInfoRecyclerAdapter = MECProductInfoRecyclerAdapter(products)

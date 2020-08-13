@@ -39,7 +39,6 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     protected val SMALL = 0
     protected val MEDIUM = 1
     protected val BIG = 2
-    private var mMECBaseFragmentProgressBar: ProgressBar? = null
 
     enum class AnimationType {
         NONE
@@ -136,15 +135,6 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
 
     }
 
-    fun hideProgressBar() {
-        if (mMECBaseFragmentProgressBar != null) {
-            mMECBaseFragmentProgressBar!!.setVisibility(View.GONE)
-            if (activity != null) {
-                activity!!.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            }
-        }
-    }
-
     fun showProgressBar(mecProgressBar: FrameLayout?) {
         mecProgressBar?.visibility = View.VISIBLE
         if (activity != null) {
@@ -177,7 +167,6 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     }
 
     override fun onChanged(mecError: MecError?) {
-        hideProgressBar()
         processError(mecError,true)
     }
 

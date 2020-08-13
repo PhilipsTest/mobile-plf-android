@@ -13,7 +13,7 @@ package com.philips.platform.mec.screens.detail
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.databinding.MecProductInfoItemBinding
 
 class MECProductInfoViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root){

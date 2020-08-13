@@ -89,7 +89,8 @@
   },
   "MEC": {
     "propositionid": "IAP_MOB_DKA",
-    "voucherCode.enable": true
+    "voucherCode.enable": true,
+    "PIL_ECommerce_API_KEY": "yaTmSAVqDR4GNwijaJie3aEa3ivy7Czu22BxZwKP"
 
   }
 }

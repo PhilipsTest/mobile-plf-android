@@ -10,7 +10,6 @@
 package com.philips.platform.mec.screens.catalog
 import android.view.View
 import com.philips.platform.mec.common.MecError
-import com.philips.platform.mec.utils.MECConstant
 import kotlinx.android.synthetic.main.mec_catalog_fragment.*
 
 class MECCategorizedRetailerFragment : MECProductCatalogFragment(){
@@ -29,7 +28,7 @@ class MECCategorizedRetailerFragment : MECProductCatalogFragment(){
 
 
     override fun executeRequest(){
-        ecsProductViewModel.initCategorizedRetailer(categorizedCtns)
+        categorizedCtns?.let { ecsProductViewModel.fetchProductSummaries(it) }
     }
 
     override fun isCategorizedHybrisPagination(): Boolean {

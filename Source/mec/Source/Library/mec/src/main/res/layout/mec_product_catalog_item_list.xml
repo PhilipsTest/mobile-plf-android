@@ -30,7 +30,7 @@
                 android:layout_width="@dimen/iap_network_image_width_height"
                 android:layout_height="@dimen/iap_network_image_width_height"
                 android:layout_marginEnd="@dimen/border12_margin"
-                android:tooltipText="@{ product.ecsProduct.name}"
+                android:tooltipText='@{ product.ecsProduct.attributes.title ?? ""}'
                 app:image_url="@{ product.ecsProduct.summary.imageURL}" />
         </FrameLayout>
 
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/iap_margin_4dp"
-                android:text='@{ product.ecsProduct.code ?? ""}'
+                android:text='@{ product.ecsProduct.ctn ?? ""}'
                 android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                 android:textSize="@dimen/iap_product_original_price" />
 

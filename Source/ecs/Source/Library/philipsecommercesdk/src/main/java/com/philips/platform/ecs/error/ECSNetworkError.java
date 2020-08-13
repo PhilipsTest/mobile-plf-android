@@ -153,12 +153,10 @@ public class ECSNetworkError {
 
             Gson gsonObj = new Gson();
             Map<String, String> inputMap = new HashMap<String, String>();
-            String errorDescription=errorJsonObject.optString("error_description","");
-            inputMap.put("message", errorDescription);
+            inputMap.put("type", errorJsonObject.optString("error"));
+            inputMap.put("message", errorJsonObject.optString("error_description",""));
 
-            // this mapping is done from  "401 Unauthorized" to "invalid_grant"  specific to PIM
-            String errorType = (!errorDescription.equalsIgnoreCase(PIM_401_UNAUTHORISED))?errorJsonObject.optString("error"):INVALID_GRANT;
-            inputMap.put("type", errorType);
+
             String jsonStr = gsonObj.toJson(inputMap);
             error = new Gson().fromJson(jsonStr, Error.class);
             errorList.add(error);

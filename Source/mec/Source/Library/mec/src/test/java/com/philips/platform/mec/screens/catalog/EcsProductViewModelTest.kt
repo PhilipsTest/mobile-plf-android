@@ -1,5 +1,6 @@
 package com.philips.platform.mec.screens.catalog
 
+import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before
 import org.junit.Test
@@ -10,7 +11,7 @@ import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
-@PrepareForTest(ECSCatalogRepository::class, ECSProductListCallback::class, ECSProductsCallback::class)
+@PrepareForTest(ECSCatalogRepository::class,ECSProductsCallback::class,com.philips.platform.ecs.microService.ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class EcsProductViewModelTest {
 
@@ -24,34 +25,42 @@ class EcsProductViewModelTest {
     lateinit var eCSCatalogRepository: ECSCatalogRepository
 
     @Mock
-    lateinit var ecsProductsCallback: ECSProductsCallback
+    lateinit var ecsProductsCallbackMock: ECSProductsCallback
 
     @Mock
-    lateinit var eCSProductListCallback: ECSProductListCallback
-
+    lateinit var microServiceMock : com.philips.platform.ecs.microService.ECSServices
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        Mockito.`when`(ecsServices.microService).thenReturn(microServiceMock)
         MECDataHolder.INSTANCE.eCSServices = ecsServices
         ecsProductViewModel = EcsProductViewModel()
+        ecsProductViewModel.ecsProductsCallback = ecsProductsCallbackMock
         ecsProductViewModel.ecsCatalogRepository = eCSCatalogRepository
-        ecsProductViewModel.ecsProductsCallback = ecsProductsCallback
     }
 
+    @Test(expected = NullPointerException::class)
+    fun `fetch products should call repository pil getProduct api`() {
+        ecsProductViewModel.fetchProducts(0,20)
+        Mockito.verify(eCSCatalogRepository).getProducts(0,20,ecsProductsCallbackMock,microServiceMock)
+    }
+
+    @Test(expected = NullPointerException::class)
+    fun `fetch product summaries should call repository product summaries`() {
+        val ctnList : MutableList<String> = mutableListOf()
+        ctnList.add("HX2054/00")
+        ecsProductViewModel.fetchProductSummaries(ctnList)
+        Mockito.verify(eCSCatalogRepository).fetchProductSummaries(ctnList,ecsProductsCallbackMock ,microServiceMock)
+    }
 
     @Test
-    fun initShouldCallGetProducts() {
-        ecsProductViewModel.init(0, 20)
-        Mockito.verify(eCSCatalogRepository).getProducts(0, 20, ecsProductsCallback, ecsServices)
+    fun `fetch product review should call repository product review`() {
+        MECDataHolder.INSTANCE.locale = "en_US"
+        val products : MutableList<ECSProduct> = mutableListOf()
+        products.add(ECSProduct(ctn = "HX2054/00"))
+        ecsProductViewModel.fetchProductReview(products)
+        Mockito.verify(eCSCatalogRepository).fetchProductReview(products, ecsProductViewModel)
     }
-
-
-//    @Test
-//    fun initCategorizedShouldGetCategorizedProducts() {
-//        val arrayList = ArrayList<String>()
-//        arrayList.add("CTN")
-//        ecsProductViewModel.initCategorized(0, 20, arrayList)
-////        Mockito.verify(eCSCatalogRepository).getCategorizedProducts(0, 20, 1, arrayList, null, ecsProductViewModel)
-//    }
+    
 }
