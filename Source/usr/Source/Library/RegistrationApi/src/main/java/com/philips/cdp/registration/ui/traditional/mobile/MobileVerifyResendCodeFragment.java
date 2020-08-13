@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.philips.cdp.registration.R;
@@ -258,12 +259,20 @@ public class MobileVerifyResendCodeFragment extends RegistrationBaseFragment imp
         RLog.e(TAG, TAG + ".verifyClicked");
         if (phoneNumberEditText.getText().toString().equals(user.getMobile())) {
             RLog.e(TAG, TAG + "resendOTPRequestCalled");
+            RLog.d(TAG, TAG + "resendOTPRequestCalled");
+            RLog.i(TAG, TAG + "resendOTPRequestCalled");
+            Toast.makeText(getActivity(), "resendOTPRequestCalled ", Toast.LENGTH_LONG).show();
+            System.out.println("resendOTPRequestCalled");
             mobileVerifyResendCodePresenter.resendOTPRequest(user.getMobile());
             disableResendButton();
         } else {
             if (FieldsValidator.isValidMobileNumber(phoneNumberEditText.getText().toString())) {
                 disableResendButton();
                 RLog.e(TAG, TAG + "updatePhoneNumberCalled");
+                RLog.d(TAG, TAG + "updatePhoneNumberCalled");
+                RLog.i(TAG, TAG + "updatePhoneNumberCalled");
+                Toast.makeText(getActivity(), "updatePhoneNumberCalled ", Toast.LENGTH_LONG).show();
+                System.out.println("updatePhoneNumberCalled");
                 mobileVerifyResendCodePresenter.updatePhoneNumber(
                         FieldsValidator.getMobileNumber(phoneNumberEditText.getText().toString()));
             } else {
@@ -374,6 +383,11 @@ public class MobileVerifyResendCodeFragment extends RegistrationBaseFragment imp
 
     @Override
     public void onSuccessResponse(int requestCode, String response) {
+        RLog.e(TAG, TAG + "responseData" +response);
+        RLog.d(TAG, TAG + "responseData" +response);
+        RLog.i(TAG, TAG + "responseData" +response);
+        Toast.makeText(getActivity(), "responseData " + response, Toast.LENGTH_LONG).show();
+        System.out.println("responseData" +response);
         mobileVerifyResendCodePresenter.handleOnSuccess(requestCode, response);
     }
 

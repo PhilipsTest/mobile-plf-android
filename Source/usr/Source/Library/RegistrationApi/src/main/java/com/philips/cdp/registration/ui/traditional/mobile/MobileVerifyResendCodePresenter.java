@@ -1,5 +1,7 @@
 package com.philips.cdp.registration.ui.traditional.mobile;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
@@ -98,17 +100,20 @@ public class MobileVerifyResendCodePresenter implements NetworkStateListener {
         RLog.e(TAG, "printResponse" + response);
         RLog.d(TAG, "printResponse" + response);
         RLog.i(TAG, "printResponse" + response);
+        System.out.println("printResponse" + response);
         if (resultCode == RESEND_OTP_REQUEST_CODE) {
             mobileVerifyCodeContract.hideProgressSpinner();
             RLog.e(TAG, "handleResendSmsCalled");
             RLog.d(TAG, "handleResendSmsCalled");
             RLog.i(TAG, "handleResendSmsCalled");
+            System.out.println("handleResendSmsCalled");
             handleResendSms(response);
         } else if (resultCode == CHANGE_NUMBER_REQUEST_CODE) {
             RLog.d(TAG, "CHANGE_NUMBER_REQUEST_CODE" + response);
             RLog.e(TAG, "checkResponse" + response);
             RLog.d(TAG, "checkResponse" + response);
             RLog.i(TAG, "checkResponse" + response);
+            System.out.println("checkResponse"+response);
             handlePhoneNumberChange(response);
         } else {
             mobileVerifyCodeContract.hideProgressSpinner();
@@ -119,6 +124,7 @@ public class MobileVerifyResendCodePresenter implements NetworkStateListener {
         RLog.e(TAG, "seeResponse " + response);
         RLog.d(TAG, "seeResponse " + response);
         RLog.i(TAG, "seeResponse " + response);
+        System.out.println("seeResponse"+response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             RLog.d(TAG, "CHANGE_NUMBER_REQUEST_STAT " + jsonObject.get(STAT));
@@ -137,6 +143,7 @@ public class MobileVerifyResendCodePresenter implements NetworkStateListener {
             }
         } catch (Exception e) {
             mobileVerifyCodeContract.hideProgressSpinner();
+            System.out.println("exceptionResponse"+response);
             RLog.e(TAG, "handlePhoneNumberChange : Exception " + e.getMessage());
             RLog.d(TAG, "handlePhoneNumberChangeforDebug : Exception " + e.getMessage());
             RLog.i(TAG, "handlePhoneNumberChangeforInfo : Exception " + e.getMessage());

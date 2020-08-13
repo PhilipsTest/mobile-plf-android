@@ -158,6 +158,11 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         RLog.i(TAG, "Screen name is " + TAG);
+        RLog.i(TAG, "Testing home screen " + "for weChat");
+        RLog.d(TAG, "Testing home screen " + "for weChat");
+        RLog.e(TAG, "Testing home screen " + "for weChat");
+        Toast.makeText(getActivity(), "Screen name is " + TAG, Toast.LENGTH_LONG).show();
+        System.out.println("Screen name is" + TAG);
 
         registerInlineNotificationListener(this);
         if (RegistrationConfiguration.getInstance().isFacebookSDKSupport()) {
