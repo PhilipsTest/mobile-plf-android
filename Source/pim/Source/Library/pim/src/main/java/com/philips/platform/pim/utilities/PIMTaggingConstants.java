@@ -2,9 +2,9 @@ package com.philips.platform.pim.utilities;
 
 public class PIMTaggingConstants {
 
-    public static final String SET_ERROR = "setError";
+//    public static final String SET_ERROR = "setError";
 
-    public static final String TECHNICAL_ERROR = "technicalError";
+//    public static final String TECHNICAL_ERROR = "technicalError";
 
     public static final String REFRESH_SESSION = "refresh_session";
 

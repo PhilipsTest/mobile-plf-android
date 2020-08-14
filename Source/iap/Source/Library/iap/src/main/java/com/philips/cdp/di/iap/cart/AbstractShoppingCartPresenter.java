@@ -47,7 +47,9 @@ public abstract class AbstractShoppingCartPresenter implements ShoppingCartAPI {
     public interface ShoppingCartListener<T> {
 
         void onLoadFinished(ArrayList<? extends Object> data);
+
         void onLoadError(Message msg);
+
         void onRetailerError(IAPNetworkError errorMsg);
     }
 
@@ -121,8 +123,7 @@ public abstract class AbstractShoppingCartPresenter implements ShoppingCartAPI {
                             model.getClass().getSimpleName() + " " + model.getUrl().substring(0, 20));
                 }
                 if (error != null && error.getMessage() != null) {
-                    IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                            IAPAnalyticsConstant.ERROR, error.getMessage());
+                    IAPAnalytics.trackTechnicalErrorWithPrefix(error.getMessage());
                 }
                 if (model != null) {
                     new IAPNetworkError(error, 0, model);
@@ -172,8 +173,7 @@ public abstract class AbstractShoppingCartPresenter implements ShoppingCartAPI {
 
 
     private void trackRetailer(String pCtn) {
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.WTB + String.valueOf(pCtn) + "_" + IAPAnalyticsConstant.NO_RETAILER_FOUND);
+        IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.WTB + String.valueOf(pCtn) + "_" + IAPAnalyticsConstant.NO_RETAILER_FOUND);
     }
 
     private void handlePhilipsFlagShipStore() {

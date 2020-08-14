@@ -14,6 +14,8 @@ import android.content.res.Configuration
 import androidx.annotation.NonNull
 import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
+import com.philips.platform.appinfra.tagging.ErrorCategory
+import com.philips.platform.appinfra.tagging.TaggingError
 import com.philips.platform.ecs.model.cart.BasePriceEntity
 import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
@@ -24,7 +26,6 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.country
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.currency
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.deliveryMethod
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.exceptionErrorCode
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.informationalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentType
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.productListLayout
@@ -32,14 +33,11 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.promotion
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.purchase
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.userError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCode
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeRedeemed
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeStatus
 import com.philips.platform.mec.integration.MECDependencies
-import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import java.util.*
@@ -80,7 +78,6 @@ class MECAnalytics {
         }
 
 
-
         @JvmStatic
         fun trackMultipleActions(state: String, map: Map<String, String>) {
             if (mAppTaggingInterface != null) {
@@ -110,16 +107,18 @@ class MECAnalytics {
         @JvmStatic
         fun trackTechnicalError(value: Any) {
             val errorObject = value as String
-            MECLog.e(technicalError, javaClass.simpleName + " : " + errorObject)
-            val map = getTechnicalErrorMap(errorObject)
-            trackMultipleActions(sendData, map)
+            MECLog.e(MECAnalytics.TAG, javaClass.simpleName + " : " + errorObject)
+//            val map = getTechnicalErrorMap(errorObject)
+//            trackMultipleActions(sendData, map)
+            mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, addCountryAndCurrency(mapOf()),
+                    TaggingError(errorObject))
         }
 
-        internal fun getTechnicalErrorMap(errorObject: String): HashMap<String, String> {
-            val map = HashMap<String, String>()
-            map.put(technicalError, errorObject)
-            return map
-        }
+//        internal fun getTechnicalErrorMap(errorObject: String): HashMap<String, String> {
+//            val map = HashMap<String, String>()
+//            map.put(technicalError, errorObject)
+//            return map
+//        }
 
         /*
        * This API is used To tag and log User error at Error level
@@ -127,20 +126,22 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun trackUserError(value: Any) {
-            var errorString: String = MECConstant.COMPONENT_NAME + ":"
-            errorString += userError + ":"
-            val errorObject = value as String
-            errorString += errorObject
-            MECLog.e(userError, javaClass.simpleName + " : " + errorString)
-            val map = getUserErrorMap(errorString)
-            trackMultipleActions(sendData, map)
+//            var errorString: String = MECConstant.COMPONENT_NAME + ":"
+//            errorString += userError + ":"
+//            val errorObject = value as String
+//            errorString += errorObject
+//            MECLog.e(MECAnalytics.TAG, javaClass.simpleName + " : " + errorString)
+//            val map = getUserErrorMap(errorString)
+//            trackMultipleActions(sendData, map)
+            mAppTaggingInterface!!.trackErrorAction(ErrorCategory.USER_ERROR, addCountryAndCurrency(mapOf()),
+                    TaggingError(value as String))
         }
 
-        internal fun getUserErrorMap(errorString: String): HashMap<String, String> {
-            val map = HashMap<String, String>()
-            map.put(userError, errorString)
-            return map
-        }
+//        internal fun getUserErrorMap(errorString: String): HashMap<String, String> {
+//            val map = HashMap<String, String>()
+//            map.put(userError, errorString)
+//            return map
+//        }
 
         /*
       * This API is used To tag and log Information error at Info level
@@ -149,25 +150,21 @@ class MECAnalytics {
         @JvmStatic
         fun trackInformationError(value: Any) {
             val errorObject = value as String
-            MECLog.i(informationalError, javaClass.simpleName + " : " + errorObject)
-            val map = getInformationErrorMap(errorObject)
-            trackMultipleActions(sendData, map)
+
+            MECLog.i(MECAnalytics.TAG, javaClass.simpleName + " : " + errorObject)
+            mAppTaggingInterface!!.trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, addCountryAndCurrency(mapOf()),
+                    TaggingError(errorObject))
         }
 
-        internal fun getInformationErrorMap(errorObject: String): HashMap<String, String> {
-            val map = HashMap<String, String>()
-            map.put(informationalError, errorObject)
-            return map
-        }
+//        internal fun getInformationErrorMap(errorObject: String): HashMap<String, String> {
+//            val map = HashMap<String, String>()
+//            map.put(informationalError, errorObject)
+//            return map
+//        }
 
 
-        private fun addCountryAndCurrency(map: Map<String, String>): Map<String, String> {
-            val newMap = HashMap(map)
-            newMap.put(country, countryCode)
-            newMap.put(currency, currencyCode)
-            return newMap;
-
-        }
+        internal fun addCountryAndCurrency(map: Map<String, String>) =
+                hashMapOf(country to countryCode, currency to currencyCode);
 
 
         /*
@@ -177,13 +174,13 @@ class MECAnalytics {
         * */
         @JvmStatic
         fun tagProductList(productList: MutableList<ECSProduct>) {
-            val map=getProductListMap(productList)
-            if(map.size>0) {
+            val map = getProductListMap(productList)
+            if (map.size > 0) {
                 trackMultipleActions(sendData, getProductListMap(productList))
             }
         }
 
-        internal fun getProductListMap(productList: MutableList<ECSProduct>):Map<String, String>  {
+        internal fun getProductListMap(productList: MutableList<ECSProduct>): Map<String, String> {
             val map = HashMap<String, String>()
             if (productList != null && productList.size > 0) {
                 val mutableProductIterator = productList.iterator()
@@ -191,7 +188,7 @@ class MECAnalytics {
                 for (product in mutableProductIterator) {
                     productListString += "," + getProductInfo(product)
                 }
-                productListString = productListString.substring(1, productListString.length )
+                productListString = productListString.substring(1, productListString.length)
                 MECLog.v(TAG, "prodList : $productListString")
                 map.put(mecProducts, productListString)
             }
@@ -225,7 +222,7 @@ class MECAnalytics {
                         break
                     }
                 }
-                productListString = productListString.substring(1, productListString.length )
+                productListString = productListString.substring(1, productListString.length)
                 MECLog.v("MEC_LOG", "prodList : $productListString")
                 map.put(mecProducts, productListString);
             }
@@ -238,13 +235,13 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<ECSEntries>) {
-            val productsMap = getOrderProductInfoMap( actionMap ,entryList)
-            if(productsMap.size>0) { //
+            val productsMap = getOrderProductInfoMap(actionMap, entryList)
+            if (productsMap.size > 0) { //
                 trackMultipleActions(sendData, productsMap)
             }
         }
 
-        internal fun getOrderProductInfoMap( actionMap: Map<String, String>, entryList: List<ECSEntries>): HashMap<String, String> {
+        internal fun getOrderProductInfoMap(actionMap: Map<String, String>, entryList: List<ECSEntries>): HashMap<String, String> {
             val productsMap = HashMap<String, String>()
             if (entryList != null && entryList.size > 0) { //Entries
                 val mutableEntryIterator = entryList.iterator()
@@ -300,10 +297,10 @@ class MECAnalytics {
         /*
         * This method return product unit price (discounted if any)
         * */
-        fun getProductPrice(product: ECSProduct,basePriceEntity: BasePriceEntity):Double{
-         var  productPrice :Double = (if (product.price.value != null) product.price.value else 0.0)
-            if(null!=basePriceEntity && null!=basePriceEntity.value ){
-                productPrice=basePriceEntity.value
+        fun getProductPrice(product: ECSProduct, basePriceEntity: BasePriceEntity): Double {
+            var productPrice: Double = (if (product.price.value != null) product.price.value else 0.0)
+            if (null != basePriceEntity && null != basePriceEntity.value) {
+                productPrice = basePriceEntity.value
             }
             return productPrice
         }
@@ -339,13 +336,13 @@ class MECAnalytics {
         /*
      * This method return product unit price (discounted if any)
      * */
-        fun getProductPrice(product: ECSProduct):String{
-            var price:String=""
-             if (product.price!= null && product.price.value!= null) {
-                 price=""+product.price.value
-             }
-            if(product.discountPrice!= null && product.discountPrice.value!= null ){
-                price=""+product.discountPrice.value
+        fun getProductPrice(product: ECSProduct): String {
+            var price: String = ""
+            if (product.price != null && product.price.value != null) {
+                price = "" + product.price.value
+            }
+            if (product.discountPrice != null && product.discountPrice.value != null) {
+                price = "" + product.discountPrice.value
             }
             return price
         }
@@ -364,21 +361,21 @@ class MECAnalytics {
         * This method will tag a successful purchase order details
         * */
         @JvmStatic
-        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew :String) {
-            var orderMap = getPurchaseOrderMap( mECSOrderDetail,paymentTypeOldOrNew)
-            if(orderMap.size>=4) {
+        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew: String) {
+            var orderMap = getPurchaseOrderMap(mECSOrderDetail, paymentTypeOldOrNew)
+            if (orderMap.size >= 4) {
                 tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
             }
         }
 
-        internal fun getPurchaseOrderMap( mECSOrderDetail: ECSOrderDetail,paymentTypeOldOrNew: String): HashMap<String, String> {
+        internal fun getPurchaseOrderMap(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew: String): HashMap<String, String> {
             var orderMap = HashMap<String, String>()
             orderMap.put(specialEvents, purchase)
             orderMap.put(paymentType, paymentTypeOldOrNew)
-            if(null!=mECSOrderDetail.code) {
+            if (null != mECSOrderDetail.code) {
                 orderMap.put(transationID, mECSOrderDetail.code)
             }
-            if(null!=mECSOrderDetail.deliveryMode) {
+            if (null != mECSOrderDetail.deliveryMode) {
                 orderMap.put(deliveryMethod, mECSOrderDetail.deliveryMode.name)
             }
             var orderPromotionList: String = ""
@@ -425,7 +422,10 @@ class MECAnalytics {
                 currencyCode = currency.currencyCode
             } catch (e: Exception) {
                 MECLog.d(TAG, "Exception : " + e.message)
-                trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + exceptionErrorCode)
+
+//                trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + exceptionErrorCode)
+                mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                        TaggingError(appError, other, exceptionErrorCode, e.toString()))
             }
 
         }

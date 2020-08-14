@@ -37,7 +37,7 @@ public class AnalyticsConstants {
     /*****************
      * Action Names
      **************/
-    public static final String ACTION_SET_ERROR = "setError";
+//    public static final String ACTION_SET_ERROR = "setError";
     public static final String ACTION_EXIT_LINK = "exit link";
     public static final String ACTION_SERVICE_REQUEST = "serviceRequest";
     /* ACTION KEY FOR LOCATE PHILIPS */
@@ -46,7 +46,7 @@ public class AnalyticsConstants {
     /*****************
      * Action Keys
      **************/
-    public static final String ACTION_KEY_TECHNICAL_ERROR = "technicalError";
+//    public static final String ACTION_KEY_TECHNICAL_ERROR = "technicalError";
     
     public static final String ACTION_KEY_SOCIAL_TYPE = "socialType";
     public static final String ACTION_KEY_SERVICE_CHANNEL = "serviceChannel";
@@ -74,7 +74,7 @@ public class AnalyticsConstants {
     public static final String ACTION_VALUE_RATE_THIS_APP = "rateThisApp";
 
     /* Error text */
-    public static final String ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON = "Error connecting to network";
+        public static final String ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON = "Error connecting to network";
     public static final String ACTION_VALUE_TECHNICAL_ERROR_RESPONSE_CDLS = "Error response from CDLS server";
 
     /* Service Channel */

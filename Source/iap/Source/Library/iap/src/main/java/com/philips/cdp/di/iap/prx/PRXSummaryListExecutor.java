@@ -66,8 +66,7 @@ public class PRXSummaryListExecutor {
         Message result = Message.obtain();
         result.obj = prxError.getDescription();
 
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + "_" + prxError.getStatusCode() + prxError.getDescription());
+        IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.PRX + "_" + prxError.getStatusCode() + prxError.getDescription());
         mDataLoadListener.onModelDataError(result);
     }
 
@@ -78,7 +77,7 @@ public class PRXSummaryListExecutor {
             PRXSummaryListResponse prxSummaryListResponse = (PRXSummaryListResponse) model;
             CartModelContainer.getInstance().setPRXSummaryList(prxSummaryListResponse.getData());
 
-            if (prxSummaryListResponse.getData()!=null && !prxSummaryListResponse.getData().isEmpty()) {
+            if (prxSummaryListResponse.getData() != null && !prxSummaryListResponse.getData().isEmpty()) {
 
                 for (Data data : prxSummaryListResponse.getData())
                     mPRXSummaryData.put(data.getCtn(), data);

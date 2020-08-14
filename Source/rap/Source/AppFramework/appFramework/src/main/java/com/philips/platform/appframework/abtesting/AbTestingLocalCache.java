@@ -17,7 +17,7 @@ class AbTestingLocalCache {
     private static final String ABTEST_PREFERENCE = "abTest_preference";
     private final SharedPreferences sharedPreferences;
     private CacheModel preferenceCacheModel;
-    private String key = "abtestcachedobj";
+    private String kString = "abtestcachedobj";
     private AppInfraInterface appInfraInterface;
     private Gson gson;
 
@@ -34,14 +34,14 @@ class AbTestingLocalCache {
 
     private void saveToDisk(String cacheModel) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, cacheModel);
+        editor.putString(kString, cacheModel);
         editor.apply();
         appInfraInterface.getLogging().log(LoggingInterface.LogLevel.DEBUG, AppInfraLogEventID.AI_ABTEST_CLIENT,
                 "save Cache to Preference " + cacheModel);
     }
 
     String fetchFromDisk() {
-        return sharedPreferences.getString(key, null);
+        return sharedPreferences.getString(kString, null);
     }
 
     void initAppInfra(AppInfraInterface appInfraInterface) {

@@ -1,7 +1,6 @@
 package com.philips.cdp.productselection.prx;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.philips.cdp.productselection.ProductModelSelectionHelper;
 import com.philips.cdp.productselection.utils.Constants;
@@ -21,11 +20,12 @@ import com.philips.cdp.prxclient.request.ProductSummaryRequest;
 import com.philips.cdp.prxclient.response.ResponseData;
 import com.philips.cdp.prxclient.response.ResponseListener;
 import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * This is the wrapper Class , which holds responsibility to hit the PRX component by getting the relevant input's from the
@@ -76,7 +76,7 @@ public class PrxWrapper {
                     listener.onSuccess(summaryModel);
                 } else
                     ProductSelectionLogger.e(TAG, "Response Failed  for the CTN as \"isSuccess\" false: " + mCtn);
-                    listener.onFail("Response Failed  for the CTN as \"isSuccess\" false: " + mCtn);
+                listener.onFail("Response Failed  for the CTN as \"isSuccess\" false: " + mCtn);
             }
 
             @Override
@@ -142,7 +142,7 @@ public class PrxWrapper {
             @Override
             public void onResponseSuccess(ResponseData responseData) {
 
-                getSummaryModels(responseData, listener ,ctnList);
+                getSummaryModels(responseData, listener, ctnList);
 
             }
 
@@ -150,7 +150,9 @@ public class PrxWrapper {
             public void onResponseError(PrxError error) {
                 if (error.getStatusCode() == 404) {
                     if (ProductModelSelectionHelper.getInstance().getTaggingInterface() != null && mAppInfraInterface.getServiceDiscovery() != null) {
-                        ProductModelSelectionHelper.getInstance().getTaggingInterface().trackActionWithInfo(Constants.ACTION_KEY_SEND_DATA, Constants.TECHNICAL_ERROR, Constants.CTN_NOT_FOUND);
+                        //TODO Need to check whether setError or sendData as pagename required
+//                        ProductModelSelectionHelper.getInstance().getTaggingInterface().trackActionWithInfo(Constants.ACTION_KEY_SEND_DATA, Constants.TECHNICAL_ERROR, "PSE:".concat(Constants.CTN_NOT_FOUND));
+                        ProductModelSelectionHelper.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError(Constants.CTN_NOT_FOUND));
                     }
                 }
             }
@@ -172,7 +174,7 @@ public class PrxWrapper {
             }
         }
         //log the error if , we do not get information for all the ctns ,we asked for .
-        if(responseCtns.size() != ctnList.length) {
+        if (responseCtns.size() != ctnList.length) {
             for (int i = 0; i < ctnList.length; i++) {
                 if (!responseCtns.contains(ctnList[i])) {
                     ProductSelectionLogger.e(TAG, "Response Failed  for the CTN as \"isSuccess\" false: " + ctnList[i]);
