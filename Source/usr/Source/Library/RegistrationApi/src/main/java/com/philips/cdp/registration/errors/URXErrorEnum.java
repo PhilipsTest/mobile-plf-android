@@ -71,9 +71,6 @@ public enum URXErrorEnum {
             case ErrorCodes.URX_SMS_NOT_SENT:
                 return String.format(context.getString(URXErrorEnum.getStringId(ErrorCodes.URX_SMS_NOT_SENT)), context.getString(R.string.USR_Error_PleaseTryLater_Txt));
 
-            case ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION:
-                return String.format(context.getString(URXErrorEnum.getStringId(ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION)), "This number has been registered");
-
             default:
 
                 if(getStringId(errorCode) == RegConstants.UNKNOWN_ERROR_ID ){

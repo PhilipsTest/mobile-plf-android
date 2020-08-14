@@ -158,7 +158,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         RLog.i(TAG, "Screen name is " + TAG);
-        RLog.i(TAG, "Screen name is check " + TAG);
+        RLog.i(TAG, "Screen name is Home " + TAG);
         RLog.i(TAG, "Testing home screen " + "for weChat");
         RLog.d(TAG, "Testing home screen " + "for weChat");
         RLog.e(TAG, "Testing home screen " + "for weChat");
