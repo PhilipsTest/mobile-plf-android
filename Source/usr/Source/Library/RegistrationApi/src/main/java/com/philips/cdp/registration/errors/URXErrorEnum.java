@@ -3,6 +3,7 @@ package com.philips.cdp.registration.errors;
 import android.content.Context;
 
 import com.philips.cdp.registration.R;
+import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.RegConstants;
 
 /**
@@ -70,6 +71,10 @@ public enum URXErrorEnum {
 
             case ErrorCodes.URX_SMS_NOT_SENT:
                 return String.format(context.getString(URXErrorEnum.getStringId(ErrorCodes.URX_SMS_NOT_SENT)), context.getString(R.string.USR_Error_PleaseTryLater_Txt));
+
+                case ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION:
+                    RLog.i("TAG", "JANRAIN_INVALID_DATA_FOR_VALIDATION ");
+                    return "This number has been registered" +" "+ "["+errorCode+"]";
 
             default:
 
