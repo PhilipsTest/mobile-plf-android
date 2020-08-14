@@ -110,7 +110,7 @@ class MECAnalytics {
             MECLog.e(MECAnalytics.TAG, javaClass.simpleName + " : " + errorObject)
 //            val map = getTechnicalErrorMap(errorObject)
 //            trackMultipleActions(sendData, map)
-            mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, addCountryAndCurrency(mapOf()),
+            mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, addCountryAndCurrency(mapOf()),
                     TaggingError(errorObject))
         }
 
@@ -152,7 +152,7 @@ class MECAnalytics {
             val errorObject = value as String
 
             MECLog.i(MECAnalytics.TAG, javaClass.simpleName + " : " + errorObject)
-            mAppTaggingInterface!!.trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, addCountryAndCurrency(mapOf()),
+            mAppTaggingInterface?.trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, addCountryAndCurrency(mapOf()),
                     TaggingError(errorObject))
         }
 
