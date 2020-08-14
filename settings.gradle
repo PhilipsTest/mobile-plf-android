@@ -97,8 +97,8 @@ project(ext.strings.mecuapp.projectName).projectDir = new File('./Source/mec/Sou
 project(ext.strings.ccb.projectName).projectDir = new File('./Source/ccb/Source/Library/conversationalchatbot')
 project(ext.strings.ccbuapp.projectName).projectDir = new File('./Source/ccb/Source/DemoUApp')
 
-include(':ccbApp')
-project(':ccbApp').projectDir = new File('./Source/ccb/Source/DemoApp/app')
+//include(':ccbApp')
+//project(':ccbApp').projectDir = new File('./Source/ccb/Source/DemoApp/app')
 
 include(':pimApp')
 project(':pimApp').projectDir = new File('./Source/pim/Source/DemoApp/app')
