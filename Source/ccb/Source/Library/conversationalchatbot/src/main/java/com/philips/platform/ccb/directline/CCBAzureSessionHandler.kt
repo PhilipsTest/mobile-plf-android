@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) Koninklijke Philips N.V., 2020
+ *
+ * All rights are reserved. Reproduction or dissemination
+ * in whole or in part is prohibited without the prior written
+ * consent of the copyright holder.
+ *
+ */
+
 package com.philips.platform.ccb.directline
 
 import android.view.View
@@ -5,6 +14,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.google.gson.Gson
 import com.philips.platform.ccb.errors.CCBError
+import com.philips.platform.ccb.errors.CCBErrorCdes
 import com.philips.platform.ccb.manager.CCBManager
 import com.philips.platform.ccb.model.CCBConversation
 import com.philips.platform.ccb.model.CCBUser
@@ -32,7 +42,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
             CCBManager.conversationId = conversationId
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(false, CCBError(CCBErrorCdes.NETWORK_ERROR, "Chatbot Error"))
         })
     }
 
@@ -50,7 +60,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
                     ccbWebSocketConnection?.createWebSocket()*/
                     completionHandler.invoke(true, null)
                 }, Response.ErrorListener { error: VolleyError ->
-                    completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+                    completionHandler.invoke(false, CCBError(CCBErrorCdes.NETWORK_ERROR, "Chatbot Error"))
                 })
             }
         }
@@ -61,7 +71,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
         ccbRestClient.invokeRequest(ccbRefreshTokenRequest,Response.Listener { response: String ->
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(false, CCBError(CCBErrorCdes.NETWORK_ERROR, "Chatbot Error"))
         })
     }
 
@@ -73,7 +83,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
             CCBManager.token = null
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(false, CCBError(CCBErrorCdes.NETWORK_ERROR, "Chatbot Error"))
         })
     }
 
@@ -82,7 +92,7 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
         ccbRestClient.invokeRequest(ccbEndConversationRequest,Response.Listener { response: String ->
             completionHandler.invoke(true, null)
         }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(error.networkResponse.statusCode, "Chatbot Error"))
+            completionHandler.invoke(false, CCBError(CCBErrorCdes.NETWORK_ERROR, "Chatbot Error"))
         })
     }
 }

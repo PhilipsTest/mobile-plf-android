@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) Koninklijke Philips N.V., 2020
+ *
+ * All rights are reserved. Reproduction or dissemination
+ * in whole or in part is prohibited without the prior written
+ * consent of the copyright holder.
+ *
+ */
+
 package com.philips.platform.ccb.fragment
 
 
@@ -17,6 +26,7 @@ import com.philips.platform.ccb.constant.CCBUrlBuilder
 import com.philips.platform.ccb.directline.CCBAzureConversationHandler
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
 import com.philips.platform.ccb.directline.CCBWebSocketConnection
+import com.philips.platform.ccb.integration.CCBDeviceUtility
 import com.philips.platform.ccb.listeners.BotResponseListener
 import com.philips.platform.ccb.manager.CCBManager
 import com.philips.platform.ccb.model.CCBActions
@@ -44,11 +54,14 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private val ccbWebSocketConnection: CCBWebSocketConnection = CCBWebSocketConnection()
     private lateinit var watingResponseView: View
     private lateinit var jumpingBeans: JumpingBeans
+    private var ccbDeviceUtility: CCBDeviceUtility? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         rootView = inflater.inflate(layout.ccb_conversation_fragment, container, false)
+
+        ccbDeviceUtility = context?.let { CCBDeviceUtility(it) }
 
         ccbAzureConversationHandler = CCBAzureConversationHandler()
 
@@ -101,7 +114,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
             }
 
             if (ccbError != null) {
-                rootView.ccb_progressBar.visibility = View.GONE
+                rootView.ccb_progressBar?.visibility = View.GONE
                 showToastOnError()
                 closeConversation()
             }
@@ -183,10 +196,10 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private fun handleBotResponse(activity: CCBActivities) {
         CCBLog.d(TAG, "handleBotResponse")
 
+        displayBotRespon(activity.text)
         if (activity.suggestedActions != null && activity.suggestedActions.actions.isNotEmpty()) {
             updateActionUI(activity.text, buttons = activity.suggestedActions.actions)
         }
-        displayBotRespon(activity.text)
     }
 
     private fun displayUserResponse(text: String) {
@@ -245,17 +258,28 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         this.activity?.runOnUiThread {
             rootView.ccb_actionbutton_view.removeAllViews()
             for (button: CCBActions in buttons) {
-                val view = layoutInflater.inflate(layout.ccb_dynamic_button, rootView.ccb_actionbutton_view, false)
-                val button_view = view.ccb_dynamic_button
-                button_view.setText(button.title)
-                button_view.setOnClickListener {
-                    rootView.ccb_actionbutton_view.removeAllViews()
-                    postMessage(button.title)
+                if (isDataExchangeCommand(button.title)) {
+                    ccbDeviceUtility?.performCommand(button.title){
+                        postMessage(it)
+                    }
+                } else {
+                    val view = layoutInflater.inflate(layout.ccb_dynamic_button, rootView.ccb_actionbutton_view, false)
+                    val button_view = view.ccb_dynamic_button
+                    button_view.setText(button.title)
+                    button_view.setOnClickListener {
+                        rootView.ccb_actionbutton_view.removeAllViews()
+                        postMessage(button.title)
+                    }
+                    rootView.ccb_actionbutton_view.addView(view)
                 }
-                rootView.ccb_actionbutton_view.addView(view)
             }
         }
     }
+
+    private fun isDataExchangeCommand(actionTitle: String): Boolean {
+        return actionTitle.split(":").size == 3
+    }
+
 
     fun scrollToBottom() {
         rootView.scrollview.post {
@@ -279,6 +303,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private fun showToastOnError() {
         activity?.runOnUiThread {
             Toast.makeText(context, "Failed to connect to the bot.", Toast.LENGTH_SHORT).show()
+            disableProgressBar()
         }
     }
 }
