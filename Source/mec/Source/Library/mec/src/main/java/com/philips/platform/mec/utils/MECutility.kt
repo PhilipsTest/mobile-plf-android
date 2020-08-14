@@ -322,20 +322,20 @@ class MECutility {
         @JvmStatic
         fun getErrorString(mecError: MecError, acontext: Context): String {
 
-            val taggingError = TaggingError()
+            val taggingError: TaggingError? = null
             var errorMessage: String = ""
             try {
                 when {
-                    mecError.ecsError?.errorcode == 1000 -> taggingError.serverName = bazaarVoice
-                    mecError.ecsError?.errorcode in 5000..5999 -> taggingError.serverName = hybris
-                    mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError.serverName = wtb
-                    else -> taggingError.serverName = prx
+                    mecError.ecsError?.errorcode == 1000 -> taggingError!!.serverName = bazaarVoice
+                    mecError.ecsError?.errorcode in 5000..5999 -> taggingError!!.serverName = hybris
+                    mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError!!.serverName = wtb
+                    else -> taggingError!!.serverName = prx
                 }
 
-                var errorString: String = "$COMPONENT_NAME:"
+                var errorString: String? = null
 //                errorString = setErrorPrefix(mecError, errorString)
                 errorString += mecError.mECRequestType?.category + ":"// Error_Category
-                taggingError.errorType = mecError.mECRequestType?.category
+                taggingError!!.errorType = mecError.mECRequestType?.category
 
                 if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
                     taggingError.errorMsg = acontext.getString(R.string.mec_time_out_error)

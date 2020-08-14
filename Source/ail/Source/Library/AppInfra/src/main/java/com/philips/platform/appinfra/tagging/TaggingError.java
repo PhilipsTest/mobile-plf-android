@@ -1,6 +1,7 @@
 package com.philips.platform.appinfra.tagging;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class TaggingError {
     private String errorType = null;
@@ -8,7 +9,7 @@ public class TaggingError {
     private String errorCode = null;
     private String errorMsg = null;
 
-    public TaggingError(@NonNull String errorType, @NonNull String serverName, @NonNull String errorCode, @NonNull String errorMsg) {
+    public TaggingError(@Nullable String errorType, @Nullable String serverName, @Nullable String errorCode, @NonNull String errorMsg) {
         this.errorType = errorType;
         this.serverName = serverName;
         this.errorCode = errorCode;
@@ -17,9 +18,6 @@ public class TaggingError {
 
     public TaggingError(@NonNull String errorMsg) {
         this.errorMsg = errorMsg;
-    }
-
-    public TaggingError() {
     }
 
     public void setErrorType(String errorType) {

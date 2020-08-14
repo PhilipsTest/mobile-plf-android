@@ -451,23 +451,26 @@ public class AppTaggingHandler {
     }
 
     void trackErrorActionWithCategory(@NonNull ErrorCategory errorCategory, Map trackMap, @NonNull TaggingError taggingErrorInstance, boolean isTrackPage) {
-        String value;
-        if (taggingErrorInstance.getErrorType() == null && taggingErrorInstance.getServerName() == null && taggingErrorInstance.getErrorCode() == null) {
-            value = getComponentId()
-                    + ":" + taggingErrorInstance.getErrorMsg();
-        } else {
-            value = getComponentId()
-                    + ":" + taggingErrorInstance.getErrorType()
-                    + ":" + taggingErrorInstance.getServerName()
-                    + ":" + taggingErrorInstance.getErrorCode()
-                    + ":" + taggingErrorInstance.getErrorMsg();
+        String errorTag = getComponentId();
+        if (taggingErrorInstance.getErrorType() != null) {
+            errorTag += ":" + taggingErrorInstance.getErrorType();
         }
+        if (taggingErrorInstance.getServerName() != null) {
+            errorTag += ":" + taggingErrorInstance.getServerName();
+        }
+        if (taggingErrorInstance.getErrorMsg() != null) {
+            errorTag += ":" + taggingErrorInstance.getErrorMsg();
+        }
+        if (taggingErrorInstance.getErrorCode() != null) {
+            errorTag += ":" + taggingErrorInstance.getErrorCode();
+        }
+
         if (trackMap == null) {
             trackMap = new HashMap();
-            trackMap.put(errorCategory.getValue(), value);
+            trackMap.put(errorCategory.getValue(), errorTag);
 
         } else
-            trackMap.put(errorCategory.getValue(), value);
+            trackMap.put(errorCategory.getValue(), errorTag);
 
         if (mAppInfra != null) {
             ((AppInfra) mAppInfra).getAppInfraLogInstance().log(LoggingInterface.LogLevel.DEBUG,
