@@ -162,7 +162,7 @@ enum class MECDataHolder {
             }
         } catch (e: Exception) {
 //            MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
-            MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+            MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                     TaggingError(appError, other, MECAnalyticsConstant.exceptionErrorCode, e.toString()))
         }
 
