@@ -137,6 +137,9 @@ public class MobileVerifyResendCodePresenter implements NetworkStateListener {
                 mobileVerifyCodeContract.hideProgressSpinner();
                 final String errorCode = jsonObject.getString("code");
                 RLog.e(TAG, "errorCode "+errorCode);
+                RLog.i(TAG, "errorCode "+errorCode);
+                RLog.d(TAG, "errorCode "+errorCode);
+                RLog.i(TAG, "technicalError ");
                 mobileVerifyCodeContract.showNumberChangeTechincalError(Integer.parseInt(errorCode));
             }
         } catch (Exception e) {
