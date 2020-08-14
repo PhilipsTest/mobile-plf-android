@@ -59,7 +59,6 @@ public class PIMUserManager {
     private PIMAuthManager pimAuthManager;
     private String uuid;
     private int refreshCount=0;
-    private Boolean isFirstTime= true;
 
     private static final String PIM_LOGIN_FLOW = "LOGIN_FLOW";
 
