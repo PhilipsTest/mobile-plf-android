@@ -26,20 +26,20 @@ class ECSProductManager {
     var requestHandler = RequestHandler()
 
     fun getProducts(productCategory:String?, limit:Int, offset:Int, productFilter: ProductFilter?, ecsCallback :ECSCallback<ECSProducts, ECSError>){
-        var ecsException = ECSApiValidator().getECSException(APIType.LocaleAndHybris)?:ECSApiValidator().validatePageLimit(limit)
+        val ecsException = ECSApiValidator().getECSException(APIType.LocaleAndHybris)?:ECSApiValidator().validatePageLimit(limit)
 
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
 
             val getProductsRequest= GetProductsRequest(productCategory,limit,offset,productFilter, ecsCallback)
             requestHandler.handleRequest(getProductsRequest)
-           // getProductsRequest.executeRequest()
 
         }
     }
 
     fun getProductFor(ctn: String, eCSCallback: ECSCallback<ECSProduct?, ECSError>) {
-        val ecsException = ECSApiValidator().getECSException(APIType.Locale)
+
+        val ecsException = ECSApiValidator().validateCTN(ctn) ?: ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
 
@@ -55,11 +55,11 @@ class ECSProductManager {
     }
 
     fun getSummaryForSingleProduct(ecsProduct: ECSProduct, eCSCallback: ECSCallback<ECSProduct?, ECSError>) {
-        val getSummariesForProductsRequest = GetSummariesForProductsRequest(listOf(ecsProduct), object : ECSCallback<List<ECSProduct>, ECSError> {
-            override fun onResponse(result: List<ECSProduct>) {
+        val getSummariesForProductsRequest = GetSummariesForProductsRequest(listOf(ecsProduct), object : ECSCallback<ECSProducts, ECSError> {
+            override fun onResponse(result: ECSProducts) {
 
-                if (!result.isNullOrEmpty()) {
-                    eCSCallback.onResponse(result[0])
+                if (!result.commerceProducts.isNullOrEmpty()) {
+                    eCSCallback.onResponse(result.commerceProducts[0])
                 } else {
                     eCSCallback.onResponse(ecsProduct)
                 }
@@ -77,14 +77,14 @@ class ECSProductManager {
         requestHandler.handleRequest(getSummariesForProductsRequest)
     }
 
-    fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
+    fun fetchProductSummaries(ctns: List<String>, ecsCallback: ECSCallback<ECSProducts, ECSError>) {
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
 
-            var ecsProductList = mutableListOf<ECSProduct>()
+            val ecsProductList = mutableListOf<ECSProduct>()
             for (ctn in ctns) {
-                var ecsProduct = ECSProduct(null, ctn, null)
+                val ecsProduct = ECSProduct(null, ctn, null)
                 ecsProductList.add(ecsProduct)
             }
             val getSummariesForProductsRequest = GetSummariesForProductsRequest(ecsProductList, ecsCallback)
@@ -92,7 +92,7 @@ class ECSProductManager {
         }
     }
 
-    fun fetchProductSummaries(ecsProducts: ECSProducts, ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) {
+    fun fetchProductSummaries(ecsProducts: ECSProducts, ecsCallback: ECSCallback<ECSProducts, ECSError>) {
         val ecsException = ECSApiValidator().getECSException(APIType.Locale)
 
         ecsException?.let { throw ecsException } ?: kotlin.run {
@@ -150,6 +150,15 @@ class ECSProductManager {
         })
 
         requestHandler.handleRequest(getProductDisclaimerRequest)
+    }
+
+    fun registerForProductAvailability(email: String, ctn: String, ecsCallback: ECSCallback<Boolean, ECSError>) {
+        val ecsException = ECSApiValidator().validateCTN(ctn) ?: ECSApiValidator().validateEmail(email) ?:ECSApiValidator().getECSException(APIType.LocaleAndHybris)
+
+        ecsException?.let { throw ecsException } ?: kotlin.run {
+            val productAvailabilityRequest = ProductAvailabilityRequest(email,ctn,ecsCallback)
+            requestHandler.handleRequest(productAvailabilityRequest)
+        }
     }
 
 }

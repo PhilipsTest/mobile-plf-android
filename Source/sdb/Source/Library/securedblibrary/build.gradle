@@ -59,8 +59,10 @@ configurations.all {
 
 dependencies {
     if (useprojectdependencies) {
+        project.logger.lifecycle('sdb: Picking the dependencies from the code')
         api project(':AppInfra')
     } else {
+        project.logger.lifecycle('sdb: Picking the dependencies from the artifactory')
         api philipsdeps.AppInfra
     }
 

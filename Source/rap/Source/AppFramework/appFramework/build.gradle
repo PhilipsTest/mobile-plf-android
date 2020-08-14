@@ -151,6 +151,11 @@ android {
         manifestPlaceholders = [
                 appAuthRedirectScheme: 'com.philips.apps.referenceapp'
         ]
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
 
     apply from: "../scripts/proposition_specific.gradle"
@@ -221,7 +226,7 @@ dependencies {
         exclude group: 'com.philips.platform'
     }
     if (useprojectdependencies) {
-
+        project.logger.lifecycle('RefApp: Picking the dependencies from the code')
         implementation project(strings.mec.projectName)
 
         implementation project(strings.prg.projectName)
@@ -257,7 +262,7 @@ dependencies {
         implementation project(strings.tse.projectName)
         implementation project(strings.ailuapp.projectName)
     } else {
-
+        project.logger.lifecycle('RefApp: Picking the dependencies from the artifactory')
         implementation philipsdeps.mec
 
         implementation philipsdeps.product_registration_lib
@@ -281,7 +286,7 @@ dependencies {
 
         implementation project(strings.tse.projectName)
         implementation philipsdeps.AppInfraUApp
-        implementation philipsdeps.ecstestuapp
+        implementation philipsdeps.ecsTestUApp
     }
     testImplementation deps.json
     testImplementation deps.junit

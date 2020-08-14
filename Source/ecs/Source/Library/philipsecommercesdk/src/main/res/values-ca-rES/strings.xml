@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">|Bitte geben Sie die App-Metrik für das Objekt an|</string>
@@ -21,19 +28,32 @@
   <string name="ECSOAuthDetailError">|Bitte stellen Sie vollständige OAuth-Datenblätter bereit|</string>
   <string name="ECSOAuthNotCalled">|За това действие е необходимо удостоверяване на потребител|</string>
   <string name="ECSPIL_BAD_REQUEST">|Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время|</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">|Det er ikke opprettet noen handlevogn ennå|</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">|Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время|</string>
   <string name="ECSPIL_INVALID_API_KEY">|Invalid API key|</string>
   <string name="ECSPIL_INVALID_API_VERSION">|Invalid API version|</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">|Nous avons rencontré un problème technique (Jeton d\'accès non valide). Veuillez procéder à une ré-authentification Hybris|</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">|Недопустимый адрес электронной почты. Проверьте введенные данные.|</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">|Das Produkt wurde nicht in den Warenkorb gelegt|</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">|Встановіть регіональні налаштування|</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">|[zh-TW]Please provide valid CTN|</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">|[zh-TW]Please provide a valid quantity|</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">|Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής|</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">|Product search limit cannot be more than 50|</string>
+  <string name="ECSPIL_INVALID_QUANTITY">|[zh-TW]Quantity must be greater than zero|</string>
   <string name="ECSPIL_MISSING_API_KEY">|The required API key header is missing|</string>
   <string name="ECSPIL_MISSING_API_VERSION">|The required API version header is missing|</string>
   <string name="ECSPIL_MISSING_PARAMETER_country">|Встановіть регіональні налаштування|</string>
   <string name="ECSPIL_MISSING_PARAMETER_language">|Встановіть регіональні налаштування|</string>
+  <string name="ECSPIL_MISSING_PARAMETER_productId">|يُرجى توفير شبكة الهاتف الجوّال CTN|</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId">|Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής|</string>
+  <string name="ECSPIL_NEGATIVE_QUANTITY">|Количеството не трябва да бъде по-малко от нула|</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">|Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время|</string>
-  <string name="ECSPIL_NOT_FOUND_productId">|Die angeforderte Ressource ist nicht verfügbar|</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">|Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время|</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">|[zh-TW]Please provide a valid Cart Id|</string>
+  <string name="ECSPIL_NOT_FOUND_productId">|[zh-TW]Please provide valid CTN|</string>
+  <string name="ECSPIL_STOCK_EXCEPTION">|Продукт не может быть отправлен, поскольку он отсутствует на складе|</string>
+  <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">|Мы столкнулись с технической ошибкой. Повторите попытку через некоторое время|</string>
   <string name="ECSPaymentAuthorizationError">|La autorización del pago no se ha realizado correctamente|</string>
   <string name="ECSPropositionIdNotFound">|Встановіть дійсний ідентифікатор Proposition ID|</string>
   <string name="ECSSiteIdNotFound">|Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής|</string>

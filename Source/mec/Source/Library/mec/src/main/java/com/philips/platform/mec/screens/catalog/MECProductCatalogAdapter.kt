@@ -30,7 +30,7 @@ class MECProductCatalogAdapter(items: MutableList<MECProductReview>, private val
             binding = MecProductCatalogItemGridBinding.inflate(inflater)
         }
 
-        return MECProductCatalogHolder( binding ,itemClickListener!!)
+        return MECProductCatalogHolder( binding ,itemClickListener)
     }
 
 

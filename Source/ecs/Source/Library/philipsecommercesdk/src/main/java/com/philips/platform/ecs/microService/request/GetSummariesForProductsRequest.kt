@@ -15,6 +15,7 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.model.summary.ECSProductSummary
 import com.philips.platform.ecs.microService.model.summary.Summary
 import com.philips.platform.ecs.microService.prx.PrxConstants
@@ -26,7 +27,7 @@ import kotlin.collections.MutableMap
 import kotlin.collections.mutableListOf
 import kotlin.collections.set
 
-class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private val ecsCallback: ECSCallback<List<ECSProduct>, ECSError>) : ECSJsonRequest(ecsCallback) {
+class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private val ecsCallback:ECSCallback<ECSProducts, ECSError>) : ECSJsonRequest(ecsCallback) {
 
     override fun getServiceID(): String {
         return ECSConstants.SERVICEID_PRX_SUMMARY_LIST
@@ -36,7 +37,7 @@ class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private v
         val ecsProductSummary = response.getData(ECSProductSummary::class.java)
         if(ecsProductSummary?.success == true) {
             updateProductsWithSummary(ecsProducts, ecsProductSummary)
-            ecsCallback.onResponse(ecsProducts)
+            ecsCallback.onResponse(ECSProducts(ecsProducts))
         }else{
             var ecsError : ECSError= ECSError(ecsProductSummary?.failureReason?:"",null,null)
             ecsCallback.onFailure(ecsError)
@@ -60,7 +61,7 @@ class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private v
     private fun getCTNsFromProducts():List<String>{
         var arrayList = mutableListOf<String>()
         for (product in ecsProducts){
-            product.id.let { arrayList.add(it) }
+            product.ctn.let { arrayList.add(it) }
         }
         return arrayList
     }
@@ -75,7 +76,7 @@ class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private v
             }
         }
         for (product in products) {
-            val productSummaryData = summaryCtnMap[product.id]
+            val productSummaryData = summaryCtnMap[product.ctn]
             if (productSummaryData != null) {
                 product.summary = productSummaryData
                 productArrayList.add(product)

@@ -12,9 +12,10 @@ import android.view.ViewGroup
 import android.webkit.*
 import android.widget.FrameLayout
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.trackOrder
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
-import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import java.net.MalformedURLException
 import java.net.URL
@@ -40,6 +41,7 @@ class MECOrderDetailTrackUrlFragment : MecBaseFragment() {
     override fun onResume() {
         super.onResume()
         setTitleAndBackButtonVisibility(getString(R.string.mec_track_order), true)
+        MECAnalytics.trackPage(trackOrder)
         mWebView!!.onResume()
     }
 

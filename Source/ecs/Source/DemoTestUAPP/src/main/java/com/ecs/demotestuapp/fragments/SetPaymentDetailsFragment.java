@@ -3,7 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 
@@ -25,7 +25,7 @@ public class SetPaymentDetailsFragment extends BaseAPIFragment {
             paymentDetailID = etPaymentDetail.getText().toString();
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().setPaymentDetails(paymentDetailID, new ECSCallback<Boolean, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().setPaymentDetails(paymentDetailID, new ECSCallback<Boolean, Exception>() {
             @Override
             public void onResponse(Boolean aBoolean) {
 

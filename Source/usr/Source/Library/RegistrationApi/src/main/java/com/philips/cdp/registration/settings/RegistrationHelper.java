@@ -242,6 +242,14 @@ public class RegistrationHelper {
         return mLocale;
     }
 
+    public synchronized String getLocaleWithHyphen() {
+        String locale = null;
+        if(mLocale.toString().contains("_")){
+            locale = (mLocale.toString().replace("_", "-"));
+        }
+        return locale;
+    }
+
     public synchronized static String getRegistrationApiVersion() {
         return BuildConfig.VERSION_NAME;
     }

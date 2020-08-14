@@ -32,4 +32,16 @@ tools:context="com.ccb.demouapp.fragments.CCBDemoUAppHomeFragment">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/launchChatbotUiButton"
     app:layout_constraintVertical_chainStyle="packed" />
+
+    <Switch
+        android:id="@+id/switchConnectDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Device Connected"
+        android:layout_marginStart="20dp"
+        android:switchPadding="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/launchDirectLineApiButton"
+        tools:layout_editor_absoluteX="20dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,20 +61,23 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
                     @Override
                     public void onResponse(ECSProduct ecsProduct) {
                         gotoResultActivity(getJsonStringFromObject(ecsProduct));
+                        if( PILDataHolder.INSTANCE.getProductList()!=null) {
+                            if( PILDataHolder.INSTANCE.getProductList().getCommerceProducts()!=null) {
+                                PILDataHolder.INSTANCE.getProductList().getCommerceProducts().clear();
+                                PILDataHolder.INSTANCE.getProductList().getCommerceProducts().add(ecsProduct);
+                            }
+                        }
                         getProgressBar().setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(ECSError ecsError) {
-                        String errorString = ecsError.toString();
-                        gotoResultActivity(errorString);
+                        gotoResultActivity(ecsError.getErrorCode() +"\n"+ ecsError.getErrorMessage());
                         getProgressBar().setVisibility(View.GONE);
                     }
                 });
         } catch (ECSException e) {
-            e.printStackTrace();
-
-            gotoResultActivity(e.getMessage());
+            gotoResultActivity(e.getErrorCode() +"\n"+ e.getMessage());
             getProgressBar().setVisibility(View.GONE);
         }
 
@@ -93,7 +96,7 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
             if(products.size()!=0) {
 
                 for(ECSProduct ecsProduct:products){
-                    ctns.add(ecsProduct.getId());
+                    ctns.add(ecsProduct.getCtn());
                 }
 
                 fillSpinner(spinner,ctns);
@@ -110,7 +113,7 @@ public class PILFetchProductDetailsFragment extends BaseAPIFragment {
         List<ECSProduct> ecsProducts = PILDataHolder.INSTANCE.getProductList().getCommerceProducts();
 
         for(ECSProduct ecsProduct:ecsProducts){
-            if(ecsProduct.getId().equalsIgnoreCase(ctn)){
+            if(ecsProduct.getCtn().equalsIgnoreCase(ctn)){
                 return ecsProduct;
             }
         }

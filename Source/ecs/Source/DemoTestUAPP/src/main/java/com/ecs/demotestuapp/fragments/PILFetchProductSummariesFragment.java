@@ -16,11 +16,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
 import com.philips.platform.ecs.microService.callBack.ECSCallback;
 import com.philips.platform.ecs.microService.error.ECSError;
 import com.philips.platform.ecs.microService.error.ECSException;
-import com.philips.platform.ecs.microService.model.product.ECSProduct;
+import com.philips.platform.ecs.microService.model.product.ECSProducts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,24 +63,30 @@ public class PILFetchProductSummariesFragment extends BaseAPIFragment {
         ECSServices ECSServices = new ECSServices(mAppInfraInterface);
 
         try {
-            ECSServices.fetchProductSummaries(al, new ECSCallback<List<ECSProduct>, ECSError>() {
+            ECSServices.fetchProductSummaries(al, new ECSCallback<ECSProducts, ECSError>() {
                 @Override
-                public void onResponse(List<ECSProduct> ecsProducts) {
+                public void onResponse(ECSProducts ecsProducts) {
                     gotoResultActivity(getJsonStringFromObject(ecsProducts));
                     getProgressBar().setVisibility(View.GONE);
+
+                    if( PILDataHolder.INSTANCE.getProductList()!=null) {
+                        if( PILDataHolder.INSTANCE.getProductList().getCommerceProducts()!=null) {
+                            PILDataHolder.INSTANCE.getProductList().getCommerceProducts().clear();
+                            PILDataHolder.INSTANCE.getProductList().getCommerceProducts().addAll(ecsProducts.getCommerceProducts());
+                        }
+                    }
                 }
 
                 @Override
                 public void onFailure(ECSError ecsError) {
 
-                    gotoResultActivity(ecsError.getErrorMessage());
+                    gotoResultActivity(ecsError.getErrorCode() +"\n"+ ecsError.getErrorMessage());
                     getProgressBar().setVisibility(View.GONE);
                 }
             });
         } catch (ECSException e) {
 
-            e.printStackTrace();
-            gotoResultActivity(e.getMessage());
+            gotoResultActivity(e.getErrorCode() +"\n"+ e.getMessage());
             getProgressBar().setVisibility(View.GONE);
 
         }

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Specificeer app infra-object</string>
@@ -21,19 +28,32 @@
   <string name="ECSOAuthDetailError">Specificeer volledige OAuth-gegevens</string>
   <string name="ECSOAuthNotCalled">Gebruikersautorisatie is vereist voor deze actie</string>
   <string name="ECSPIL_BAD_REQUEST">We hebben een technisch probleem. Probeer het later opnieuw</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Er is nog geen winkelwagen aangemaakt</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">We hebben een technisch probleem. Probeer het later opnieuw</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">We hebben een technisch probleem (ongeldige toegangstoken). Voer Hybris Re-Auth uit</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Ongeldig e-mailadres. Controleer het alstublieft.</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Het product is niet toegevoegd aan winkelwagen</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Stel de landinstelling in</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[nl]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[nl]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Philips shop is niet beschikbaar voor het geselecteerde land, alleen winkelmodus is beschikbaar</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
+  <string name="ECSPIL_INVALID_QUANTITY">[nl]Quantity must be greater than zero</string>
   <string name="ECSPIL_MISSING_API_KEY">The required API key header is missing</string>
   <string name="ECSPIL_MISSING_API_VERSION">The required API version header is missing</string>
   <string name="ECSPIL_MISSING_PARAMETER_country">Stel de landinstelling in</string>
   <string name="ECSPIL_MISSING_PARAMETER_language">Stel de landinstelling in</string>
+  <string name="ECSPIL_MISSING_PARAMETER_productId">Specificeer het CTN</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId">Philips shop is niet beschikbaar voor het geselecteerde land, alleen winkelmodus is beschikbaar</string>
+  <string name="ECSPIL_NEGATIVE_QUANTITY">Aantal mag niet minder zijn dan nul</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">We hebben een technisch probleem. Probeer het later opnieuw</string>
-  <string name="ECSPIL_NOT_FOUND_productId">Gevraagde bron is niet beschikbaar</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">We hebben een technisch probleem. Probeer het later opnieuw</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[nl]Please provide a valid Cart Id</string>
+  <string name="ECSPIL_NOT_FOUND_productId">[nl]Please provide valid CTN</string>
+  <string name="ECSPIL_STOCK_EXCEPTION">Product kan niet worden verzonden omdat het niet op voorraad is</string>
+  <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">We hebben een technisch probleem. Probeer het later opnieuw</string>
   <string name="ECSPaymentAuthorizationError">Betalingsautorisatie mislukt</string>
   <string name="ECSPropositionIdNotFound">Specificeer een geldige propositie-ID</string>
   <string name="ECSSiteIdNotFound">Philips shop is niet beschikbaar voor het geselecteerde land, alleen winkelmodus is beschikbaar</string>

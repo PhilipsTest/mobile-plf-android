@@ -173,7 +173,7 @@ class MECProductReviewsFragment : MecBaseFragment() {
     private fun executeRequest() {
         binding.mecProgressLayout.visibility = View.VISIBLE
         offset += limit
-        this!!.productctn?.let { ecsProductDetailViewModel.getBazaarVoiceReview(it, offset, limit) }
+        productctn?.let { ecsProductDetailViewModel.getBazaarVoiceReview(it, offset, limit) }
     }
 
     private fun isScrollDown(lay: LinearLayoutManager): Boolean {

@@ -3,7 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSAddress;
@@ -21,7 +21,7 @@ public class SetAndFetchDeliveryAddressFragment extends SetDeliveryAddressFragme
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().setAndFetchDeliveryAddress(true, ecsAddress, new ECSCallback<List<ECSAddress>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().setAndFetchDeliveryAddress(true, ecsAddress, new ECSCallback<List<ECSAddress>, Exception>() {
             @Override
             public void onResponse(List<ECSAddress> ecsAddresses) {
 

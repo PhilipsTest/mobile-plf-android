@@ -69,6 +69,34 @@ class MECutilityTest {
     }
 
     @Test
+    fun `should construct address as expected when house number is there`() {
+        val ecsAddress = ECSAddress()
+        ecsAddress.houseNumber = "23"
+        val region = Region()
+        region.isocodeShort = "US"
+
+        val country = Country()
+        country.isocode = "USA"
+
+        ecsAddress.region = region
+        ecsAddress.country = country
+
+        ecsAddress.firstName = "pabitra"
+        ecsAddress.lastName = "sahoo"
+
+        ecsAddress.line1 = "White Field"
+        ecsAddress.line2 = "Patel layout"
+
+        val expectedString = "23, White Field,\n" +
+                "Patel layout,\n" +
+                "US,\n" +
+                "USA"
+        val constructShippingAddressDisplayField = mECutility.constructShippingAddressDisplayField(ecsAddress)
+
+        assertEquals(expectedString, constructShippingAddressDisplayField)
+    }
+
+    @Test
     fun `construct card detail for invalid mecPayment`() {
 
 

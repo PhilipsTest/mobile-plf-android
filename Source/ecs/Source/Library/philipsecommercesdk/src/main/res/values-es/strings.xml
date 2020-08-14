@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Proporciona el app infra object</string>
@@ -21,19 +28,32 @@
   <string name="ECSOAuthDetailError">Proporciona los detalles de OAuth completos</string>
   <string name="ECSOAuthNotCalled">Se requiere autorización del usuario para esta acción</string>
   <string name="ECSPIL_BAD_REQUEST">Hemos detectado un problema técnico. Inténtalo más tarde</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Aún no se ha creado ningún carro</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Hemos detectado un problema técnico. Inténtalo más tarde</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Hemos detectado un problema técnico (token de acceso no válido). Realiza una nueva Hybris Re-Auth.</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">La dirección de correo electrónico no es válida. Compruébala.</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">El producto no se ha añadido al carro</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Establece la configuración regional</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[es]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[es]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">La tienda Philips no está disponible para el país seleccionado, solo está disponible el modo de tienda.</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
+  <string name="ECSPIL_INVALID_QUANTITY">[es]Quantity must be greater than zero</string>
   <string name="ECSPIL_MISSING_API_KEY">The required API key header is missing</string>
   <string name="ECSPIL_MISSING_API_VERSION">The required API version header is missing</string>
   <string name="ECSPIL_MISSING_PARAMETER_country">Establece la configuración regional</string>
   <string name="ECSPIL_MISSING_PARAMETER_language">Establece la configuración regional</string>
+  <string name="ECSPIL_MISSING_PARAMETER_productId">Proporciona el CTN</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId">La tienda Philips no está disponible para el país seleccionado, solo está disponible el modo de tienda.</string>
+  <string name="ECSPIL_NEGATIVE_QUANTITY">La cantidad no debe ser inferior a cero</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Hemos detectado un problema técnico. Inténtalo más tarde</string>
-  <string name="ECSPIL_NOT_FOUND_productId">El recurso solicitado no está disponible</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Hemos detectado un problema técnico. Inténtalo más tarde</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[es]Please provide a valid Cart Id</string>
+  <string name="ECSPIL_NOT_FOUND_productId">[es]Please provide valid CTN</string>
+  <string name="ECSPIL_STOCK_EXCEPTION">El producto no se puede enviar porque está agotado</string>
+  <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Hemos detectado un problema técnico. Inténtalo más tarde</string>
   <string name="ECSPaymentAuthorizationError">La autorización del pago no se ha realizado correctamente</string>
   <string name="ECSPropositionIdNotFound">Establece un Proposition ID válido</string>
   <string name="ECSSiteIdNotFound">La tienda Philips no está disponible para el país seleccionado, solo está disponible el modo de tienda.</string>

@@ -47,6 +47,8 @@ import com.philips.platform.mec.screens.payment.MECPayment
 import com.philips.platform.mec.utils.MECConstant.COMPONENT_NAME
 import com.philips.platform.mec.utils.MECConstant.IN_STOCK
 import com.philips.platform.mec.utils.MECConstant.LOW_STOCK
+import com.philips.platform.mec.utils.MECConstant.PIL_IN_STOCK
+import com.philips.platform.mec.utils.MECConstant.PIL_LOW_STOCK
 import com.philips.platform.uid.thememanager.UIDHelper
 import com.philips.platform.uid.utils.DialogConstants
 import com.philips.platform.uid.view.widget.AlertDialogFragment
@@ -251,7 +253,7 @@ class MECutility {
                 return false
             }
 
-            return ((stockLevelStatus.equals(IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(LOW_STOCK, ignoreCase = true)) && stockLevel > 0)
+            return ((stockLevelStatus.equals(IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(PIL_IN_STOCK, ignoreCase = true)  || stockLevelStatus.equals(LOW_STOCK, ignoreCase = true) || stockLevelStatus.equals(PIL_LOW_STOCK, ignoreCase = true)) && stockLevel > 0)
         }
 
         fun stockStatus(availability: String): String {
@@ -304,8 +306,8 @@ class MECutility {
 
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context) {
-            var errorMessage: String = ""
-            if (mecError!!.ecsError!!.errorType.equals("No internet connection")) {
+            var errorMessage: String=""
+            if (mecError?.ecsError?.errorType?.equals("No internet connection") == true) {
                 MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(Acontext, R.string.mec_no_internet))
             } else {
                 errorMessage = getErrorString(mecError, Acontext)
@@ -322,42 +324,32 @@ class MECutility {
             val taggingError = TaggingError()
             var errorMessage: String = ""
             try {
-                when {
-                    mecError.ecsError?.errorcode == 1000 -> taggingError.serverName = bazaarVoice
-                    mecError.ecsError?.errorcode in 5000..5999 -> taggingError.serverName = hybris
-                    mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError.serverName = wtb
-                    else -> taggingError.serverName = prx
-                }
-
+                //tag all techinical defect except "No internet connection"
                 var errorString: String = "$COMPONENT_NAME:"
                 errorString = setErrorPrefix(mecError, errorString)
-                errorString += mecError.mECRequestType?.category + ":"// Error_Category
-                taggingError.errorType = mecError.mECRequestType?.category
+                errorString += mecError?.mECRequestType?.category + ":"// Error_Category
 
-                if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
-                    taggingError.errorMsg = acontext.getString(R.string.mec_time_out_error)
-                } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message!!.contains("java.net.UnknownHostException") || (mecError.exception.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+
+                if (null == mecError?.exception?.message && mecError?.ecsError?.errorType.equals("ECS_volley_error", true)) {
+                    errorMessage = acontext.getString(R.string.mec_time_out_error)
+                } else if (null != mecError?.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message?.contains("java.net.UnknownHostException") == true || (mecError.exception.message?.contains("I/O error during system call, Software caused connection abort") == true))) {
                     // No Internet: Information Error
                     //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                     //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                    MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
-                    taggingError.errorMsg = acontext.getString(R.string.mec_no_internet)
-                } else if (mecError.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                    MECDataProvider.context?.let { MECAnalytics.getDefaultString(it,R.string.mec_no_internet ) }?.let { MECAnalytics.trackInformationError(it) }
+                    errorMessage =acontext.getString(R.string.mec_no_internet)
+                } else if (mecError?.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                     //voucher apply fail:  User error
-                    taggingError.errorMsg = mecError.exception?.message ?: ""
-                    errorString += taggingError.errorMsg
-//                    MECAnalytics.trackUserError(errorString)
-                    MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.USER_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
-                            taggingError)
-                } else {
+                    val errorMsg = mecError.exception?.message?:""
+                    errorString +=errorMsg
+                    MECAnalytics.trackUserError(errorString)
+                    errorMessage=mecError.exception?.message?:""
+                }else{
                     // Remaining all errors: Technical errors
-                    taggingError.errorMsg = mecError.exception?.message ?: ""
+                    errorMessage = mecError?.exception?.message?:""
                     errorString += errorMessage
-                    errorString = errorString + mecError.ecsError?.errorcode + ":"
-                    taggingError.errorCode = mecError.ecsError?.errorcode.toString()
-//                    MECAnalytics.trackTechnicalError(errorString)
-                    MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
-                            taggingError)
+                    errorString = errorString + mecError?.ecsError?.errorcode + ":"
+                    MECAnalytics.trackTechnicalError(errorString)
                 }
 
             } catch (e: Exception) {
@@ -365,22 +357,21 @@ class MECutility {
                 MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                         TaggingError(appError, other, MECAnalyticsConstant.exceptionErrorCode, e.toString()))
             }
-            errorMessage = mecError.exception?.message!!
             return errorMessage
 
 
         }
 
-        private fun setErrorPrefix(mecError: MecError, errorString: String): String {
+        private fun setErrorPrefix(mecError: MecError?, errorString: String): String {
             var errorString1 = errorString
             errorString1 += when {
-                mecError.ecsError?.errorcode == 1000 -> {
+                mecError?.ecsError?.errorcode == 1000 -> {
                     "$bazaarVoice:"
                 }
-                mecError.ecsError?.errorcode in 5000..5999 -> {
+                mecError?.ecsError?.errorcode in 5000..5999 -> {
                     "$hybris:"
                 }
-                mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> {
+                mecError?.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> {
                     "$wtb:"
                 }
                 else -> {
@@ -451,6 +442,16 @@ class MECutility {
 
         var formattedAddress = ""
         val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
+        val countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
+        val countryName = countryDisplayName?:""
+        var houseNumber = ecsAddress.houseNumber?:""
+        if(houseNumber.isNotEmpty()) houseNumber += ", "
+        val line1 = ecsAddress.line1?:""
+        val line2 = ecsAddress.line2?:""
+        val town = ecsAddress.town?:""
+        val postalCode = ecsAddress.postalCode?:""
+        formattedAddress = (houseNumber) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
+        formattedAddress = formattedAddress+(regionDisplayName.validateStr()) + (postalCode.validateStr())+countryName
         var countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
         var countryName = countryDisplayName ?: ""
         val houseNumber = ecsAddress.houseNumber ?: ""
@@ -460,8 +461,6 @@ class MECutility {
         val postalCode = ecsAddress.postalCode ?: ""
         formattedAddress = (houseNumber.validateStr()) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
         formattedAddress = formattedAddress + (regionDisplayName.validateStr()) + (postalCode.validateStr()) + countryName
-
-        //Remove last comma
 
         return formattedAddress
     }

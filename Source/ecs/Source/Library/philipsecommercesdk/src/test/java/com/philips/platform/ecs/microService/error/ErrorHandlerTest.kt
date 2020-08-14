@@ -19,6 +19,7 @@ import com.philips.platform.ecs.microService.model.error.HybrisError
 import com.philips.platform.ecs.microService.util.ECSDataHolder
 import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject
+import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -159,16 +160,6 @@ class ErrorHandlerTest {
         assertEquals(ecsErrorType, ecsError.errorType)
     }
 
-    @Test
-    fun `test When error string is not present `() {
-        //volleyHandler.setPILECSError()
-        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNInvalidAPIKeyError.json").readText()
-        val jsonObject = JSONObject(errorString)
-        val hybrisError = jsonObject.getData(HybrisError::class.java)
-        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
-        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
-        assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode,ecsDefaultError.errorCode)
-    }
 
     @Test
     fun `test When error string is not valid `() {
@@ -235,8 +226,82 @@ class ErrorHandlerTest {
         errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_BAD_REQUEST.errorCode,ecsDefaultError.errorCode)
     }
+    //Product search related test cases ======
 
 
+    // product detail related test cases ======
+    @Test
+    fun `test ecs error  for CTN not found on hybris`() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILCTNInvalidAPIKeyError.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_API_KEY.errorCode,ecsDefaultError.errorCode)
+    }
+
+
+
+   // cart related test  casee
+    @Test
+    fun `test ecs error  for create cart with invalid CTN`() {
+        val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CreateCartMissingCTN.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSPIL_MISSING_PARAMETER_productId)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        Assert.assertEquals(ECSErrorType.ECSPIL_MISSING_PARAMETER_productId.errorCode, PilError.errorCode)
+    }
+
+
+    @Test
+    fun `test ecs error  for create cart with OUT Of Stock CTN`() {
+
+
+        val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CartProductIsOutOfStock.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSPIL_MISSING_PARAMETER_productId)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        assertEquals(ECSErrorType.ECSPIL_STOCK_EXCEPTION.errorCode, PilError.errorCode)
+    }
+
+
+    @Test
+    fun `cart invalid mime type`(){
+
+        val errorString = ClassLoader.getSystemResource("pil/cart/Failure/CartInvalidMimeType.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        assertEquals(ECSErrorType.ECSPIL_NOT_ACCEPTABLE_mimeType.errorCode, PilError.errorCode)
+    }
+
+    @Test
+    fun ` invalid quantity format  `(){
+
+        val errorString = ClassLoader.getSystemResource("pil/cart/Failure/UpdateCartWithInvalidFormatEntryNumber.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        val PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_quantity.errorCode, PilError.errorCode)
+    }
+
+
+    //Notify me related error test cases
+
+    @Test
+    fun `invalid email should create ecs error type of Invalid Email`() {
+        val errorString = ClassLoader.getSystemResource("pil/notifyMe/failure/wrong_email.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        val PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,PilError)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_Email.errorCode, PilError.errorCode)
+    }
 
     fun byteArrayOfInts(vararg ints: Int) = ByteArray(ints.size) { pos -> ints[pos].toByte() }
 

@@ -7,20 +7,23 @@ package com.philips.cdp.di.iap.screens;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.annotation.Nullable;
 
 import com.philips.cdp.di.iap.R;
 import com.philips.cdp.di.iap.analytics.IAPAnalytics;
@@ -30,11 +33,7 @@ import com.philips.cdp.di.iap.utils.IAPConstant;
 import com.philips.cdp.di.iap.utils.IAPUtility;
 
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-
-import static android.provider.CalendarContract.CalendarCache.URI;
 
 public class WebBuyFromRetailers extends InAppBaseFragment {
     public static final String TAG = WebBuyFromRetailers.class.getName();
@@ -139,6 +138,24 @@ public class WebBuyFromRetailers extends InAppBaseFragment {
                     }
                 }
             }
+        });
+
+        mWebView.setWebChromeClient(new WebChromeClient() {
+
+            @Nullable
+            @Override
+            public Bitmap getDefaultVideoPoster() {
+                if (super.getDefaultVideoPoster() == null) {
+                    try {
+                        return BitmapFactory.decodeResource(getResources(), R.drawable.ic_media_video_poster);
+                    } catch (Exception e) {
+                        return super.getDefaultVideoPoster();
+                    }
+                } else {
+                    return super.getDefaultVideoPoster();
+                }
+            }
+
         });
 
         mWebView.loadUrl(mUrl);

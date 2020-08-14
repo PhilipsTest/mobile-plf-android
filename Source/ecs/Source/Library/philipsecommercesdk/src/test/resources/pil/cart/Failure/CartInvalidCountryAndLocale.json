@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "945aab87-aa6c-43f6-8781-ca6bbab47c09",
+            "status": "400",
+            "code": "INVALID_PARAMETER_VALUE",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "[locale]"
+            }
+        }
+    ]
+}

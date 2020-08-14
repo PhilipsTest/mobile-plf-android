@@ -17,7 +17,6 @@ import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
 import com.philips.platform.appinfra.tagging.ErrorCategory
 import com.philips.platform.appinfra.tagging.TaggingError
 import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.config.ECSConfig
 import com.philips.platform.mec.analytics.MECAnalyticServer
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -64,7 +63,6 @@ enum class MECDataHolder {
     var mecLaunchingFragmentName:String? = null
 
 
-    var config: ECSConfig? = null
     lateinit var eCSServices: ECSServices
 
     var mutableListOfPayments = mutableListOf<MECPayment>()
@@ -170,7 +168,7 @@ enum class MECDataHolder {
 
         propositionId = propertyForKey
         voucherEnabled = voucher
-        val ecsServices = com.philips.platform.ecs.ECSServices(propertyForKey, appinfra as AppInfra)
+        val ecsServices = com.philips.platform.ecs.ECSServices(appinfra as AppInfra)
 
         val defaultRetryPolicy = DefaultRetryPolicy( // 30 second time out
                 30000,

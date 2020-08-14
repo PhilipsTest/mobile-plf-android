@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.platform.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.utils.MECDataHolder
@@ -36,7 +36,7 @@ class ECSRetailerViewModel : com.philips.platform.mec.common.CommonViewModel() {
         @JvmStatic
         @BindingAdapter("retailers","listener")
         fun setAdapter(recyclerView: RecyclerView, ecsRetailerList: ECSRetailerList, itemClickListener: ItemClickListener) {
-            recyclerView.adapter = MECRetailersAdapter(ecsRetailerList.retailers,itemClickListener)
+            recyclerView.adapter = MECRetailersAdapter(ecsRetailerList.getRetailers(),itemClickListener)
         }
 
         @JvmStatic

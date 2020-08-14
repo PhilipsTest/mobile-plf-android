@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "1bc8b257-ba61-4f4c-8a9f-1ac0c01038d2",
+            "status": "403",
+            "code": "INVALID_AUTHORIZATION",
+            "title": "Authorization failed",
+            "source": {
+                "parameter": "[accessToken]"
+            }
+        }
+    ]
+}

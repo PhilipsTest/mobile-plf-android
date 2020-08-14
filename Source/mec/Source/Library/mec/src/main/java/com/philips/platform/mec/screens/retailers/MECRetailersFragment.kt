@@ -18,9 +18,10 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.platform.appinfra.AppInfra
-import com.philips.platform.ecs.model.products.ECSProduct
-import com.philips.platform.ecs.model.retailers.ECSRetailer
-import com.philips.platform.ecs.model.retailers.ECSRetailerList
+import com.philips.platform.ecs.microService.model.product.ECSProduct
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
+
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
@@ -42,7 +43,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
         val ecsRetailer = item as ECSRetailer
 
         val bundle = Bundle()
-        bundle.putSerializable(MECConstant.SELECTED_RETAILER, ecsRetailer)
+        bundle.putParcelable(MECConstant.SELECTED_RETAILER, ecsRetailer)
 
         val intent = Intent().putExtras(bundle)
 
@@ -67,8 +68,8 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
         bottomSheetBehavior.peekHeight = metrics.heightPixels / 2
 
         val bundle = arguments
-        retailers = bundle?.getSerializable(MECConstant.MEC_KEY_PRODUCT) as ECSRetailerList
-        product = bundle?.getSerializable(MECConstant.MEC_PRODUCT) as ECSProduct
+        retailers = bundle?.getParcelable<ECSRetailerList>(MECConstant.MEC_KEY_PRODUCT) as ECSRetailerList
+        product = bundle?.getParcelable<ECSProduct>(MECConstant.MEC_PRODUCT) as ECSProduct
 
         binding.retailerList = retailers
         binding.itemClickListener = this
@@ -79,11 +80,13 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
     private fun tagRetailerAndBlackListedRetailerList(retailers: ECSRetailerList, product : ECSProduct){
         // add retailer list if present
         val map = HashMap<String, String>()
-        if(retailers?.retailers != null && retailers.retailers.size>0) {
-            val mutableRetailersIterator = retailers.retailers.iterator()
+        if(retailers?.getRetailers() != null && retailers?.getRetailers()?.size ?:0 >0) {
+            val mutableRetailersIterator = retailers?.getRetailers()?.iterator()
             var retailerListString: String = ""
-            for (ecsRetailer in mutableRetailersIterator) {
-                retailerListString += "|" + ecsRetailer.name
+            if (mutableRetailersIterator != null) {
+                for (ecsRetailer in mutableRetailersIterator) {
+                    retailerListString += "|" + ecsRetailer.name
+                }
             }
             retailerListString = retailerListString.substring(1, retailerListString.length )
 
@@ -94,7 +97,7 @@ class MECRetailersFragment : BottomSheetDialogFragment(), ItemClickListener{
         }
         // add Blacklisted retailer list if present otherwise send empty string
         var blackListedRetailerListString: String? = null
-        if(MECDataHolder.INSTANCE.blackListedRetailers!=null && MECDataHolder.INSTANCE.blackListedRetailers!!.size>0){
+        if(MECDataHolder.INSTANCE.blackListedRetailers!=null && MECDataHolder.INSTANCE.blackListedRetailers?.size ?:0>0){
             for(blackListedRetailer: String in MECDataHolder.INSTANCE.blackListedRetailers!!){
                 blackListedRetailerListString+= "|" +blackListedRetailer
             }

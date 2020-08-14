@@ -19,7 +19,7 @@ import com.ecs.demotestuapp.R;
 import com.ecs.demotestuapp.adapter.CategoryExpandableAdapter;
 import com.ecs.demotestuapp.jsonmodel.GroupItem;
 import com.ecs.demotestuapp.jsonmodel.JSONConfiguration;
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.google.gson.Gson;
 import com.philips.platform.appinfra.AppInfra;
 import com.philips.platform.appinfra.AppInfraInterface;
@@ -76,11 +76,11 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
         showAppVersion();
 
         mUserDataInterface = DependencyHolder.INSTANCE.getuAppDependencies().getUserDataInterface();
-        ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
-        ECSServices ecsServices = new ECSServices(null, (AppInfra) DependencyHolder.INSTANCE.getuAppDependencies().getAppInfra());
+        ECSDemoDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
+        ECSServices ecsServices = new ECSServices((AppInfra) DependencyHolder.INSTANCE.getuAppDependencies().getAppInfra());
 
 
-        ECSDataHolder.INSTANCE.setECSService(ecsServices);
+        ECSDemoDataHolder.INSTANCE.setECSService(ecsServices);
 
         actionBar();
 
@@ -204,13 +204,8 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
 
     public void set(View view) {
 
-        ECSDataHolder.INSTANCE.resetData();
-
+        ECSDemoDataHolder.INSTANCE.resetData();
         configInterface.setPropertyForKey("propositionid", "MEC", etPropositionID.getText().toString(), configError);
-
-        Toast.makeText(this, "Proposition id is set", Toast.LENGTH_SHORT).show();
-
-        ECSDataHolder.INSTANCE.getEcsServices().setPropositionID(etPropositionID.getText().toString().trim());
     }
 
     public void setJanRainID() {
@@ -220,8 +215,8 @@ public class EcsDemoTestActivity extends FragmentActivity implements View.OnClic
         try {
             HashMap<String, Object> userDetailsMap = mUserDataInterface.getUserDetails(detailsKey);
             String janrainID = userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN).toString();
-            ECSDataHolder.INSTANCE.setJanrainID(janrainID);
-            ECSDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
+            ECSDemoDataHolder.INSTANCE.setJanrainID(janrainID);
+            ECSDemoDataHolder.INSTANCE.setUserDataInterface(mUserDataInterface);
         } catch (Exception e) {
             e.printStackTrace();
         }

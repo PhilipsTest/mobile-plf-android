@@ -1,9 +1,19 @@
+/*
+ * Copyright (c) Koninklijke Philips N.V., 2020
+ *
+ * All rights are reserved. Reproduction or dissemination
+ * in whole or in part is prohibited without the prior written
+ * consent of the copyright holder.
+ *
+ */
+
 package com.philips.platform.ccb.integration
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
 import com.philips.platform.ccb.directline.CCBSessionHandlerInterface
+import com.philips.platform.ccb.fragment.CCBConversationalFragment
 import com.philips.platform.ccb.fragment.CCBFragment
 import com.philips.platform.ccb.manager.CCBSettingsManager
 import com.philips.platform.uappframework.UappInterface
@@ -20,12 +30,12 @@ class CCBInterface: UappInterface {
     override fun init(uappDependencies: UappDependencies, uappSettings: UappSettings) {
        context = uappSettings.context.applicationContext
         CCBSettingsManager.init(uappDependencies)
-        //init called
     }
 
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
         if (uiLauncher is FragmentLauncher) {
-            val ccbFragment = CCBFragment()
+            CCBSettingsManager.ccbDeviceCapabilityInterface = (uappLaunchInput as CCBLaunchInput).ccbDeviceCapabilityInterface
+            val ccbFragment = CCBConversationalFragment()
             addFragment(uiLauncher, ccbFragment)
         }
     }

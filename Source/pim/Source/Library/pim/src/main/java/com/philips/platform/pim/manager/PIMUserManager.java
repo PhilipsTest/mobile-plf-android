@@ -59,6 +59,7 @@ public class PIMUserManager {
     private PIMRestClient pimRestClient;
     private PIMAuthManager pimAuthManager;
     private String uuid;
+    private int refreshCount=0;
 
     private static final String PIM_LOGIN_FLOW = "LOGIN_FLOW";
 
@@ -137,10 +138,26 @@ public class PIMUserManager {
 
             @Override
             public void onTokenRequestFailed(Error error) {
-                tagTechnicalError(PIMTaggingConstants.REFRESH_SESSION);
-                refreshSessionListener.refreshSessionFailed(error);
+                if(shouldRetryTheRefresh(error) && refreshCount <= 2){
+                    refreshSession(refreshSessionListener);
+                } else {
+                    tagTechnicalError(PIMTaggingConstants.REFRESH_SESSION);
+                    refreshSessionListener.refreshSessionFailed(error);
+                }
             }
         });
+    }
+
+    private Boolean shouldRetryTheRefresh(Error error){
+        Boolean shouldRetry;
+       if((refreshCount < 2) && (error.getErrCode()== PIMErrorCodes.UDI_SERVER_ERROR || error.getErrCode()== PIMErrorCodes.SERVER_ERROR || error.getErrCode()== PIMErrorCodes.NETWORK_ERROR || error.getErrCode()== PIMErrorCodes.AUTH_REQUEST_SERVER_ERROR)){
+           refreshCount +=1;
+           shouldRetry = true;
+       } else {
+           refreshCount = 0;
+           shouldRetry = false;
+       }
+       return shouldRetry;
     }
 
     public void logoutSession(LogoutSessionListener logoutSessionListener) {

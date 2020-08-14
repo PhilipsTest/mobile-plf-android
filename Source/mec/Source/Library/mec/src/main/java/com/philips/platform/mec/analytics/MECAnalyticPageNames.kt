@@ -24,5 +24,9 @@ object MECAnalyticPageNames {
     val cvvPage                             = "iap_cvv"
     val paymentPage                         = "iap_payment"
     val orderConfirmationPage               = "iap_order_confirmation"
+    val orderHistory                        = "iap_order_history"
+    val orderDetail                         = "iap_order_detail"
+    val trackOrder                          = "iap_track_order"
+    val cancelOrder                         = "iap_cancel_order"
 
 }

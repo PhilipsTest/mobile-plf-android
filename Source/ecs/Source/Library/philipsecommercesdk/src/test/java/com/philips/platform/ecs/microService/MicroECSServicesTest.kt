@@ -15,9 +15,12 @@ package com.philips.platform.ecs.microService
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.manager.ECSCartManager
 import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
@@ -36,7 +39,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 @RunWith(PowerMockRunner::class)
 class MicroECSServicesTest {
 
-    lateinit var ECSServices: ECSServices
+    lateinit var eCSServices: ECSServices
 
     @Mock
     lateinit var ecsConfigManagerMock : ECSConfigManager
@@ -44,6 +47,9 @@ class MicroECSServicesTest {
     lateinit var ecsProductManagerMock : ECSProductManager
     @Mock
     lateinit var ecsRetailerManagerMock: ECSRetailerManager
+
+    @Mock
+    lateinit var cartManagerMock: ECSCartManager
 
     @Mock
     lateinit var ecsCallBackBooleanMock: ECSCallback<Boolean, ECSError>
@@ -59,29 +65,28 @@ class MicroECSServicesTest {
 
 
     @Mock
-    lateinit var ecsCallbackProductListMock: ECSCallback<List<ECSProduct>, ECSError>
-
-    @Mock
     lateinit var ecsCallbackRetailerListMock: ECSCallback<ECSRetailerList?, ECSError>
 
     @Mock
     lateinit var appInfraMock: AppInfra
 
     @Mock
-    lateinit var ecsCallback : ECSCallback<ECSProducts, ECSError>
+    lateinit var ecsProductsCallback : ECSCallback<ECSProducts, ECSError>
+
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        ECSServices = ECSServices(appInfraMock)
-        ECSServices.ecsConfigManager = ecsConfigManagerMock
-        ECSServices.ecsProductManager = ecsProductManagerMock
-        ECSServices.ecsRetailerManager = ecsRetailerManagerMock
+        eCSServices = ECSServices(appInfraMock)
+        eCSServices.ecsConfigManager = ecsConfigManagerMock
+        eCSServices.ecsProductManager = ecsProductManagerMock
+        eCSServices.ecsRetailerManager = ecsRetailerManagerMock
+        eCSServices.ecsCartManager = cartManagerMock
     }
 
     @Test
     fun `configureECSToGetConfiguration api should call corresponding manager method`() {
-        ECSServices.configureECS(ecsCallbackConfigMock)
+        eCSServices.configureECS(ecsCallbackConfigMock)
         Mockito.verify(ecsConfigManagerMock).getConfigObject(ecsCallbackConfigMock)
 
     }
@@ -92,30 +97,19 @@ class MicroECSServicesTest {
         var productFilter= ProductFilter()
         productFilter.sortType= ECSSortType.priceAscending
         productFilter.stockLevel=ECSStockLevel.InStock
-        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsCallback) //TODO
-
-
-/*
-        ECSServices.fetchProducts( ecsCallback =  ecsCallback)
-        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",ecsCallback =  ecsCallback)
-        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",7,ecsCallback =  ecsCallback)
-        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",7,8,ecsCallback =  ecsCallback)
-        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",offset = 8,ecsCallback =  ecsCallback)
-        ECSServices.fetchProducts("FOOD_PREPARATION_CA2",7,8,productFilter,ecsCallback =  ecsCallback)
-        ECSServices.fetchProducts(ecsCallback =  ecsCallback,limit = 4)
-        ECSServices.fetchProducts(ecsCallback =  ecsCallback,productFilter = productFilter)*/
+        eCSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsProductsCallback)
     }
 
     @Test
     fun `fetchProduct api should call corresponding manager method`() {
-        ECSServices.fetchProduct("123",eCSCallbackProductMock)
+        eCSServices.fetchProduct("123",eCSCallbackProductMock)
         Mockito.verify(ecsProductManagerMock).getProductFor("123",eCSCallbackProductMock)
     }
 
     @Test
     fun `fetchProductSummaries api should call corresponding manager method`() {
-        ECSServices.fetchProductSummaries(listOf("123"),ecsCallbackProductListMock)
-        Mockito.verify(ecsProductManagerMock).fetchProductSummaries(listOf("123"),ecsCallbackProductListMock)
+        eCSServices.fetchProductSummaries(listOf("123"),ecsProductsCallback)
+        Mockito.verify(ecsProductManagerMock).fetchProductSummaries(listOf("123"),ecsProductsCallback)
 
     }
 
@@ -123,20 +117,51 @@ class MicroECSServicesTest {
     fun `fetchProductDetails api should call corresponding manager method`() {
 
         var ecsProduct = ECSProduct(null,"123",null)
-        ECSServices.fetchProductDetails(ecsProduct,eCSCallbackNotNullProductMock)
+        eCSServices.fetchProductDetails(ecsProduct,eCSCallbackNotNullProductMock)
         Mockito.verify(ecsProductManagerMock).fetchProductDetails(ecsProduct,eCSCallbackNotNullProductMock)
     }
 
     @Test
     fun `fetchRetailers for ctn api should call corresponding manager method`() {
-        ECSServices.fetchRetailers("123",ecsCallbackRetailerListMock)
+        eCSServices.fetchRetailers("123",ecsCallbackRetailerListMock)
         Mockito.verify(ecsRetailerManagerMock).fetchRetailers("123",ecsCallbackRetailerListMock)
     }
 
+    @Mock
+    lateinit var  ecsCartCallBackMock:ECSCallback<ECSShoppingCart, ECSError>
+
     @Test
-    fun `fetchRetailers for Product api should call corresponding manager method`() {
-        var ecsProduct = ECSProduct(null,"123",null)
-        ECSServices.fetchRetailers(ecsProduct,ecsCallbackRetailerListMock)
-        Mockito.verify(ecsRetailerManagerMock).fetchRetailers(ecsProduct.id,ecsCallbackRetailerListMock)
+    fun `create shopping cart  api should call corresponding manager method`() {
+        eCSServices.createShoppingCart("123  ",ecsCallback = ecsCartCallBackMock)
+        Mockito.verify(cartManagerMock).createECSShoppingCart("123",ecsCallback = ecsCartCallBackMock)
+    }
+
+    @Test
+    fun `fetch shopping cart  api should call corresponding manager method`() {
+        eCSServices.fetchShoppingCart(ecsCallback = ecsCartCallBackMock)
+        Mockito.verify(cartManagerMock).fetchShoppingCart(ecsCallback = ecsCartCallBackMock)
+    }
+
+    @Test
+    fun `add product to shopping cart  api should call corresponding manager method`() {
+        eCSServices.addProductToShoppingCart("123  ",ecsCallback = ecsCartCallBackMock)
+        Mockito.verify(cartManagerMock).addProductToShoppingCart("123",ecsCallback = ecsCartCallBackMock)
+    }
+
+    @Test
+    fun `update shopping cart  api should call corresponding manager method`() {
+        val item:ECSItem = ECSItem(null,null, "entry_id1",null,"HD9648/90",null,null,null,null)
+        eCSServices.updateShoppingCart(item,2,ecsCallback = ecsCartCallBackMock)
+        Mockito.verify(cartManagerMock).updateShoppingCart(item.entryNumber,2,ecsCallback = ecsCartCallBackMock)
+    }
+
+
+    @Mock
+    lateinit var  ecsBooleanCallBackMock:ECSCallback<Boolean, ECSError>
+
+    @Test
+    fun `register product availability should call product maanger register product availability`() {
+        eCSServices.registerForProductAvailability("pabitrakumar.sahoo@philips.com"," HX2345/00 ",ecsBooleanCallBackMock)
+        Mockito.verify(ecsProductManagerMock).registerForProductAvailability("pabitrakumar.sahoo@philips.com","HX2345/00",ecsBooleanCallBackMock)
     }
 }

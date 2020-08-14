@@ -67,12 +67,12 @@ public class ProductForCTNTest {
        // appInfra.getServiceDiscovery().setHomeCountry("DE");
 
 
-        mockECSServices = new MockECSServices("", appInfra);
+        mockECSServices = new MockECSServices(appInfra);
 
         StaticBlock.initialize();
 
         mockInputValidator = new MockInputValidator();
-        ecsServices = new ECSServices("",appInfra);
+        ecsServices = new ECSServices(appInfra);
 
         ecsCallback = new ECSCallback<ECSProduct, Exception>() {
             @Override

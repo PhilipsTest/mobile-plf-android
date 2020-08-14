@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Надайте app infra object</string>
@@ -21,19 +28,32 @@
   <string name="ECSOAuthDetailError">Надайте усі деталі авторизації OAuth</string>
   <string name="ECSOAuthNotCalled">Для цієї дії необхідна авторизація користувача</string>
   <string name="ECSPIL_BAD_REQUEST">Стався технічний збій. Спробуйте пізніше</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Кошика ще не створено</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Стався технічний збій. Спробуйте пізніше</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Стався технічний збій (недійсний маркер доступу). Виконайте Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Недійсна адреса електронної пошти. Перевірте.</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Продукт не додано до кошика</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Встановіть регіональні налаштування</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[uk]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[uk]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Магазин Philips недоступний у вибраній країні, можливий лише режим роздрібної торгівлі</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
+  <string name="ECSPIL_INVALID_QUANTITY">[uk]Quantity must be greater than zero</string>
   <string name="ECSPIL_MISSING_API_KEY">The required API key header is missing</string>
   <string name="ECSPIL_MISSING_API_VERSION">The required API version header is missing</string>
   <string name="ECSPIL_MISSING_PARAMETER_country">Встановіть регіональні налаштування</string>
   <string name="ECSPIL_MISSING_PARAMETER_language">Встановіть регіональні налаштування</string>
+  <string name="ECSPIL_MISSING_PARAMETER_productId">Надайте код CTN</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId">Магазин Philips недоступний у вибраній країні, можливий лише режим роздрібної торгівлі</string>
+  <string name="ECSPIL_NEGATIVE_QUANTITY">Кількість має бути не менше нуля</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Стався технічний збій. Спробуйте пізніше</string>
-  <string name="ECSPIL_NOT_FOUND_productId">Потрібний ресурс недоступний</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Стався технічний збій. Спробуйте пізніше</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[uk]Please provide a valid Cart Id</string>
+  <string name="ECSPIL_NOT_FOUND_productId">[uk]Please provide valid CTN</string>
+  <string name="ECSPIL_STOCK_EXCEPTION">Продукт неможливо доставити, бо його немає в наявності</string>
+  <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Стався технічний збій. Спробуйте пізніше</string>
   <string name="ECSPaymentAuthorizationError">Авторизація оплати невдала</string>
   <string name="ECSPropositionIdNotFound">Встановіть дійсний ідентифікатор Proposition ID</string>
   <string name="ECSSiteIdNotFound">Магазин Philips недоступний у вибраній країні, можливий лише режим роздрібної торгівлі</string>

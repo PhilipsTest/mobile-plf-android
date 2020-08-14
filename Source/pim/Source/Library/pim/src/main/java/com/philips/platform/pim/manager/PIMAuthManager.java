@@ -224,22 +224,28 @@ public class PIMAuthManager {
     }
 
     public Intent extractResponseData(String responseData, AuthorizationRequest authorizationRequest) {
-        Uri responseUri = Uri.parse(responseData);
-        if (responseUri.getQueryParameterNames().contains(AuthorizationException.PARAM_ERROR)) {
-            return AuthorizationException.fromOAuthRedirect(responseUri).toIntent();
-        } else {
-            AuthorizationResponse response = new AuthorizationResponse.Builder(authorizationRequest)
-                    .fromUri(responseUri)
-                    .build();
+        try {
+            Uri responseUri = Uri.parse(responseData);
+            if (responseUri.getQueryParameterNames().contains(AuthorizationException.PARAM_ERROR)) {
+                return AuthorizationException.fromOAuthRedirect(responseUri).toIntent();
+            } else {
+                AuthorizationResponse response = new AuthorizationResponse.Builder(authorizationRequest)
+                        .fromUri(responseUri)
+                        .build();
 
-            if (authorizationRequest.state == null && response.state != null
-                    || (authorizationRequest.state != null && !authorizationRequest.state.equals(response.state))) {
+                if (authorizationRequest.state == null && response.state != null
+                        || (authorizationRequest.state != null && !authorizationRequest.state.equals(response.state))) {
 
-                mLoggingInterface.log(DEBUG, TAG, "State returned in authorization response " + response.state + " does not match state from request " + authorizationRequest.state + "  discarding response");
+                    mLoggingInterface.log(DEBUG, TAG, "State returned in authorization response " + response.state + " does not match state from request " + authorizationRequest.state + "  discarding response");
 
-                return AuthorizationException.AuthorizationRequestErrors.STATE_MISMATCH.toIntent();
+                    return AuthorizationException.AuthorizationRequestErrors.STATE_MISMATCH.toIntent();
+                }
+                return response.toIntent();
             }
-            return response.toIntent();
+        } catch (Exception ex){
+            if(mLoggingInterface != null)
+                mLoggingInterface.log(DEBUG,TAG,"Failed to parse response data.");
+            return null;
         }
     }
 }

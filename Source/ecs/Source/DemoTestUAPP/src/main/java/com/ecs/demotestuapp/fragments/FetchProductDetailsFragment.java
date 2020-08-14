@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.products.ECSProduct;
@@ -40,7 +40,7 @@ public class FetchProductDetailsFragment extends BaseAPIFragment {
             return;
         }
 
-            ECSDataHolder.INSTANCE.getEcsServices().fetchProductDetails(ecsProduct, new ECSCallback<ECSProduct, Exception>() {
+            ECSDemoDataHolder.INSTANCE.getEcsServices().fetchProductDetails(ecsProduct, new ECSCallback<ECSProduct, Exception>() {
                 @Override
                 public void onResponse(ECSProduct ecsProduct) {
                     gotoResultActivity(getJsonStringFromObject(ecsProduct));
@@ -62,9 +62,9 @@ public class FetchProductDetailsFragment extends BaseAPIFragment {
     private void fillSpinnerData(Spinner spinner) {
         ArrayList<String> ctns = new ArrayList<>();
 
-        if(ECSDataHolder.INSTANCE.getEcsProducts()!=null){
+        if(ECSDemoDataHolder.INSTANCE.getEcsProducts()!=null){
 
-            List<ECSProduct> products = ECSDataHolder.INSTANCE.getEcsProducts().getProducts();
+            List<ECSProduct> products = ECSDemoDataHolder.INSTANCE.getEcsProducts().getProducts();
             if(products.size()!=0) {
 
                 for(ECSProduct ecsProduct:products){
@@ -79,10 +79,10 @@ public class FetchProductDetailsFragment extends BaseAPIFragment {
 
     private ECSProduct getECSProductFromID(String ctn) {
 
-        if(ECSDataHolder.INSTANCE.getEcsProducts()==null){
+        if(ECSDemoDataHolder.INSTANCE.getEcsProducts()==null){
             return null;
         }
-        List<ECSProduct> ecsProducts = ECSDataHolder.INSTANCE.getEcsProducts().getProducts();
+        List<ECSProduct> ecsProducts = ECSDemoDataHolder.INSTANCE.getEcsProducts().getProducts();
 
         for(ECSProduct ecsProduct:ecsProducts){
             if(ecsProduct.getCode().equalsIgnoreCase(ctn)){
