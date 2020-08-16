@@ -57,7 +57,6 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
     companion object {
         const val TAG: String = "ManageAddressFragment"
     }
-    private var mRootView: View? = null
 
     private val fetchAddressObserver: Observer<List<ECSAddress>> = Observer(fun(addressList: List<ECSAddress>?) {
 
@@ -121,58 +120,58 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        if (null == mRootView) {
+        binding = MecAddressManageBinding.inflate(inflater, container, false)
+
+        addressViewModel = ViewModelProviders.of(this).get(AddressViewModel::class.java)
+        addressViewModel.ecsAddresses.observe(this, fetchAddressObserver)
+        addressViewModel.mecError.observe(this, errorObserver)
+        addressViewModel.isDeliveryAddressSet.observe(this, setDeliveryAddressObserver)
+        addressViewModel.isAddressDelete.observe(this, deleteAddressObserver)
 
 
-            binding = MecAddressManageBinding.inflate(inflater, container, false)
-
-            addressViewModel = ViewModelProviders.of(this).get(AddressViewModel::class.java)
-            addressViewModel.ecsAddresses.observe(this, fetchAddressObserver)
-            addressViewModel.mecError.observe(this, errorObserver)
-            addressViewModel.isDeliveryAddressSet.observe(this, setDeliveryAddressObserver)
-            addressViewModel.isAddressDelete.observe(this, deleteAddressObserver)
+        ecsShoppingCartViewModel = ViewModelProviders.of(this).get(EcsShoppingCartViewModel::class.java)
+        ecsShoppingCartViewModel.ecsShoppingCart.observe(this, cartObserver)
+        ecsShoppingCartViewModel.mecError.observe(this, errorObserver)
 
 
-            ecsShoppingCartViewModel = ViewModelProviders.of(this).get(EcsShoppingCartViewModel::class.java)
-            ecsShoppingCartViewModel.ecsShoppingCart.observe(this, cartObserver)
-            ecsShoppingCartViewModel.mecError.observe(this, errorObserver)
+        val ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<ECSAddress>
+        defaultAddressId = arguments?.getSerializable(MECConstant.KEY_MEC_DEFAULT_ADDRESSES_ID) as String
+        val itemClickListener = arguments?.getSerializable(MECConstant.KEY_ITEM_CLICK_LISTENER) as ItemClickListener
 
+        mecAddresses = MECAddresses(ecsAddresses)
 
-            val ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<ECSAddress>
-            defaultAddressId = arguments?.getSerializable(MECConstant.KEY_MEC_DEFAULT_ADDRESSES_ID) as String
-            val itemClickListener = arguments?.getSerializable(MECConstant.KEY_ITEM_CLICK_LISTENER) as ItemClickListener
-
-            mecAddresses = MECAddresses(ecsAddresses)
-
-            //if only one Address is there , make the delete button disable
-            if (ecsAddresses.size == 1) {
-                binding.root.mec_btn_delete_address.isEnabled = false
-            }
-
-            addressBottomSheetRecyclerAdapter = AddressBottomSheetRecyclerAdapter(mecAddresses, defaultAddressId, itemClickListener)
-            addressBottomSheetRecyclerAdapter.setDefaultSelectedAddressAndPosition()
-            binding.recyclerView.adapter = addressBottomSheetRecyclerAdapter
-
-
-
-            binding.mecBtnDeleteAddress.setOnClickListener {
-                isAddressPopup = false
-                MECutility.showActionDialog(binding.mecBtnDeleteAddress.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_address, R.string.mec_delete_item_alert_message, fragmentManager!!, this)
-            }
-
-            binding.mecBtnSetAddress.setOnClickListener {
-                isAddressPopup = true
-                MECutility.showActionDialog(binding.mecBtnSetAddress.context, R.string.mec_set_text, R.string.mec_cancel, R.string.mec_address, R.string.mec_set_shipping_address_alert_message, fragmentManager!!, this)
-            }
-            MECAnalytics.trackPage(shippingAddressSelectionPage)
-            mRootView = binding.root
+        //if only one Address is there , make the delete button disable
+        if (ecsAddresses.size == 1) {
+            binding.root.mec_btn_delete_address.isEnabled = false
         }
-        return mRootView
+
+        addressBottomSheetRecyclerAdapter = AddressBottomSheetRecyclerAdapter(mecAddresses, defaultAddressId, itemClickListener)
+        addressBottomSheetRecyclerAdapter.setDefaultSelectedAddressAndPosition()
+        binding.recyclerView.adapter = addressBottomSheetRecyclerAdapter
+
+
+
+        binding.mecBtnDeleteAddress.setOnClickListener {
+            isAddressPopup = false
+            MECutility.showActionDialog(binding.mecBtnDeleteAddress.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_address, R.string.mec_delete_item_alert_message, fragmentManager!!, this)
+        }
+
+        binding.mecBtnSetAddress.setOnClickListener {
+            isAddressPopup = true
+            MECutility.showActionDialog(binding.mecBtnSetAddress.context, R.string.mec_set_text, R.string.mec_cancel, R.string.mec_address, R.string.mec_set_shipping_address_alert_message, fragmentManager!!, this)
+        }
+        MECAnalytics.trackPage(shippingAddressSelectionPage)
+        return binding.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
+    }
+
+    override fun onPause() {
+        dismiss()
+        super.onPause()
     }
 
 

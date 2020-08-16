@@ -258,13 +258,6 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
     }
 
-    override fun onPause() {
-        super.onPause()
-        if (bottomSheetFragment?.isVisible == true) {
-            bottomSheetFragment?.dismiss()
-        }
-    }
-
 
     override fun onItemClick(item: Any) {
 
