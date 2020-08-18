@@ -29,6 +29,7 @@ import com.philips.cdp.registration.R2;
 import com.philips.cdp.registration.User;
 import com.philips.cdp.registration.app.tagging.AppTagging;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
+import com.philips.cdp.registration.errors.ErrorCodes;
 import com.philips.cdp.registration.errors.ErrorType;
 import com.philips.cdp.registration.errors.URError;
 import com.philips.cdp.registration.handlers.RefreshUserHandler;
@@ -358,8 +359,16 @@ public class MobileVerifyResendCodeFragment extends RegistrationBaseFragment imp
     @Override
     public void showNumberChangeTechincalError(int errorCode) {
         trackActionStatus(SEND_DATA, TECHNICAL_ERROR, MOBILE_RESEND_SMS_VERFICATION_FAILURE);
+        if(errorCode == ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION ){
+            RLog.i(TAG, "errorDescription" + getPhoneString(context.getResources().getString(R.string.USR_DLS_Phonenumber_Label_Text)));
+            updateErrorNotification(getPhoneString(context.getResources().getString(R.string.USR_DLS_Phonenumber_Label_Text)), errorCode);
+        }
         updateErrorNotification(new URError(context).getLocalizedError(ErrorType.URX, errorCode), errorCode);
         enableUpdateButton();
+    }
+
+    private String getPhoneString(String string) {
+        return String.format(context.getResources().getString(R.string.USR_Janrain_EntityAlreadyExists_ErrorMsg), string);
     }
 
     @Override
