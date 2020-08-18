@@ -23,9 +23,9 @@ import com.philips.cdp.prodreg.listener.ProdRegListener;
 import com.philips.cdp.prodreg.listener.SummaryListener;
 import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponse;
 import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponseData;
-import com.philips.cdp.prodreg.model.summary.Data;
 import com.philips.cdp.prodreg.model.summary.ProductSummaryResponse;
 import com.philips.cdp.prodreg.util.ProdRegUtil;
+import com.philips.cdp.prxclient.datamodels.summary.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +111,7 @@ public class ProdRegRegistrationController {
             registeredProducts = (ArrayList<RegisteredProduct>) bundle.getSerializable(ProdRegConstants.MUL_PROD_REG_CONSTANT);
             registeredProduct = (RegisteredProduct) bundle.getSerializable(ProdRegConstants.PROD_REG_PRODUCT);
             productMetadataResponseData = (ProductMetadataResponseData) bundle.getSerializable(ProdRegConstants.PROD_REG_PRODUCT_METADATA);
-            final Data summaryData = (Data) bundle.getSerializable(ProdRegConstants.PROD_REG_PRODUCT_SUMMARY);
+            final Data summaryData = (Data) bundle.getParcelable(ProdRegConstants.PROD_REG_PRODUCT_SUMMARY);
             updateSummaryView(summaryData);
             updateProductView();
             registerControllerCallBacks.updateProductCache();
@@ -312,7 +312,7 @@ public class ProdRegRegistrationController {
             @Override
             public void onSummaryResponse(final ProductSummaryResponse productSummaryResponse) {
                 if (productSummaryResponse != null) {
-                    dependencyBundle.putSerializable(ProdRegConstants.PROD_REG_PRODUCT_SUMMARY, productSummaryResponse.getData());
+                    dependencyBundle.putParcelable(ProdRegConstants.PROD_REG_PRODUCT_SUMMARY, productSummaryResponse.getData());
                     registerControllerCallBacks.dismissLoadingDialog();
                     init(dependencyBundle);
 //                    final ProdRegRegistrationFragment prodRegRegistrationFragment = getProdRegRegistrationFragment();

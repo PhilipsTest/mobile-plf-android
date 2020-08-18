@@ -35,12 +35,13 @@ class RequestManager {
         }
 
         val appInfra = mPrxDependencies?.appInfra ?: return
+
         if (mPrxDependencies!!.parentTLA != null) {
             mPrxDependencies!!.mAppInfraLogging = appInfra.logging.createInstanceForComponent(String.format("%s/prx", mPrxDependencies?.parentTLA), libVersion)
             mPrxDependencies!!.mAppInfraLogging!!.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, String.format("PRX is initialized with  %s", mPrxDependencies?.parentTLA))
         } else {
             mPrxDependencies!!.mAppInfraLogging = appInfra.logging.createInstanceForComponent("/prx", libVersion)
-            mPrxDependencies?.mAppInfraLogging!!.log(LoggingInterface.LogLevel.INFO, PrxConstants.PRX_REQUEST_MANAGER, "PRX is initialized ")
+            mPrxDependencies!!.mAppInfraLogging!!.log(LoggingInterface.LogLevel.INFO, PrxConstants.PRX_REQUEST_MANAGER, "PRX is initialized ")
         }
     }
 

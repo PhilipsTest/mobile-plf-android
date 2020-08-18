@@ -13,7 +13,7 @@ import java.util.*
  * Created by naveen@philips.com on 02-Nov-15.
  */
 @Parcelize
-data class Data(var locale: String? = null, var ctn: String? = null, var dtn: String? = null, var leafletUrl: String? = null,
+ data class Data(var locale: String? = null, var ctn: String? = null, var dtn: String? = null, var leafletUrl: String? = null,
                 var productTitle: String? = null, var alphanumeric: String? = null, var brandName: String? = null,
                 var brand: @RawValue Brand? = null, var familyName: String? = null, var productURL: String? = null,
                 var productPagePath: String? = null, var descriptor: String? = null, var domain: String? = null,
@@ -22,5 +22,5 @@ data class Data(var locale: String? = null, var ctn: String? = null, var dtn: St
                 var priority: Long = 0, var price: Price? = null, var reviewStatistics: ReviewStatistics? = null,
                 var keyAwards: List<String> = ArrayList(), var wow: String? = null, var subWOW: String? = null,
                 var marketingTextHeader: String? = null, var careSop: String? = null, var filterKeys: List<String> = ArrayList(),
-                var subcategory: String? = null
+                var subcategory: String? = null,var additionalProperties :@RawValue Map<String, Object>?=null
 ) : Parcelable
