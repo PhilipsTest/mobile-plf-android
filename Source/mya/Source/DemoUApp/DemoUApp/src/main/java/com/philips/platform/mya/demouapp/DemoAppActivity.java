@@ -41,7 +41,7 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -50,7 +50,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import io.github.inflationx.calligraphy.CalligraphyContextWrapper;
 
 
-public class DemoAppActivity extends UIDActivity {
+public class DemoAppActivity extends UIDLangPackActivity {
 
     public static final String TITLE_TEXT = "TITLE_TEXT";
     public static final String THEMESETTINGS_ACTIVITY_RESTART = "THEMESETTINGS_ACTIVITY_RESTART";
