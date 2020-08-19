@@ -564,7 +564,7 @@ def BuildHPFortify() {
             'iap::IAP_Android'
             'pif::plf_android'
 			'pim::PIM_Android'
-			'conversationalChatBot::CCB_Android'
+			'conversationalChatBot::CCB_ANDROID'
 			'product-registration-lib::PR_Android'
 			'prx::PRX_Android'
 			'securedblibrary::SecureDB_Android'
