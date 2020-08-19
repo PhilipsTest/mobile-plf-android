@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) Koninklijke Philips N.V., 2020
+ *
+ * All rights are reserved. Reproduction or dissemination
+ * in whole or in part is prohibited without the prior written
+ * consent of the copyright holder.
+ *
+ */
+
 package com.philips.platform.ccb.integration
 
 import android.content.Context
@@ -25,6 +34,7 @@ class CCBInterface: UappInterface {
 
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
         if (uiLauncher is FragmentLauncher) {
+            CCBSettingsManager.ccbDeviceCapabilityInterface = (uappLaunchInput as CCBLaunchInput).ccbDeviceCapabilityInterface
             val ccbFragment = CCBConversationalFragment()
             addFragment(uiLauncher, ccbFragment)
         }

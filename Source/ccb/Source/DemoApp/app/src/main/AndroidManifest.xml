@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DLS" >
         <activity android:name=".CCBDemoActivity"
-            android:theme="@style/Theme.DLS.Blue.UltraLight">
+            android:theme="@style/Theme.DLS.Blue.VeryDark">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

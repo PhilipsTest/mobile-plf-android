@@ -167,7 +167,7 @@ public class PIMLoginManager {
         mPimLoginListener = pimLoginListener;
         Intent authIntent = mPimAuthManager.extractResponseData(pimSecureStorageHelper.getAuthorizationResponse(), pimSecureStorageHelper.getAuthorizationRequest());
         pimSecureStorageHelper.deleteAuthorizationResponse();
-        if (mPimAuthManager.isAuthorizationSuccess(authIntent)) {
+        if (authIntent != null && mPimAuthManager.isAuthorizationSuccess(authIntent)) {
             exchangeAuthorizationCode(authIntent);
         } else {
             Error error = new Error(PIMErrorCodes.USER_CANCELED_AUTH_FLOW, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorCodes.USER_CANCELED_AUTH_FLOW));

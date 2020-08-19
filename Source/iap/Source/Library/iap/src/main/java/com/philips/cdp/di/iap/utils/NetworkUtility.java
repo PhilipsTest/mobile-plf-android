@@ -9,10 +9,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Message;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
@@ -52,21 +53,23 @@ public class NetworkUtility {
                                 String pButtonText, String pErrorString, String pErrorDescription) {
 
         //Track pop up
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                IAPAnalyticsConstant.IN_APP_NOTIFICATION_POP_UP, pErrorDescription);
+//        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+//                IAPAnalyticsConstant.IN_APP_NOTIFICATION_POP_UP, pErrorDescription);
+        IAPAnalytics.trackInformationalErrorWithPrefix(pErrorDescription);
         if (!((Activity) context).isFinishing()) {
             showDLSDialog(UIDHelper.getPopupThemedContext(context), pButtonText, pErrorString, pErrorDescription, pFragmentManager);
         }
     }
 
     private void showErrorDialogPayment(Context context, FragmentManager pFragmentManager,
-                                       String pButtonText, String pErrorString, String pErrorDescription,final AlertListener alertListener) {
+                                        String pButtonText, String pErrorString, String pErrorDescription, final AlertListener alertListener) {
 
         //Track pop up
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                IAPAnalyticsConstant.IN_APP_NOTIFICATION_POP_UP, pErrorDescription);
+//        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
+//                IAPAnalyticsConstant.IN_APP_NOTIFICATION_POP_UP, pErrorDescription);
+        IAPAnalytics.trackInformationalErrorWithPrefix(pErrorDescription);
         if (!((Activity) context).isFinishing()) {
-            showDLSDialogForPayment(UIDHelper.getPopupThemedContext(context), pButtonText, pErrorString, pErrorDescription, pFragmentManager,alertListener);
+            showDLSDialogForPayment(UIDHelper.getPopupThemedContext(context), pButtonText, pErrorString, pErrorDescription, pFragmentManager, alertListener);
         }
     }
 
@@ -79,19 +82,20 @@ public class NetworkUtility {
                     getErrorDescriptionMessageFromErrorCode(context, error));
         }
     }
+
     public void showDialogMessage(String title, String description, FragmentManager pFragmentManager, Context context, final AlertListener alertListener) {
         if (context == null) return;
         showErrorDialogPayment(context, pFragmentManager, context.getString(R.string.iap_ok),
                 title,
-                description,alertListener);
+                description, alertListener);
     }
 
     public void showVoucherSuccessMessage(final Message msg, FragmentManager pFragmentManager, Context context) {
         if (context == null) return;
 
-            showErrorDialog(context, pFragmentManager, context.getString(R.string.iap_ok),
-                    "Successful",
-                    "Vouchers Applied Successfully");
+        showErrorDialog(context, pFragmentManager, context.getString(R.string.iap_ok),
+                "Successful",
+                "Vouchers Applied Successfully");
     }
 
     public void showVoucherErrorMessage(final Message msg, FragmentManager pFragmentManager, Context context) {
@@ -118,8 +122,7 @@ public class NetworkUtility {
                                                           IAPNetworkError error) {
         if (error.getIAPErrorCode() != IAPConstant.IAP_ERROR_NO_CONNECTION
                 && !TextUtils.isEmpty(error.getMessage())) {
-            IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                    IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.SERVER + error.getIAPErrorCode() + "_" + error.getMessage());
+            IAPAnalytics.trackInformationalErrorWithPrefix(IAPAnalyticsConstant.SERVER + error.getIAPErrorCode() + "_" + error.getMessage());
             return error.getMessage();
         }
 
@@ -127,15 +130,18 @@ public class NetworkUtility {
         int errorCode = error.getIAPErrorCode();
         if (errorCode == IAPConstant.IAP_ERROR_NO_CONNECTION) {
             errorMessage = context.getString(R.string.iap_no_internet);
+            IAPAnalytics.trackInformationalErrorWithPrefix(IAPAnalyticsConstant.SERVER + errorCode + "_" + errorMessage);
         } else if (errorCode == IAPConstant.IAP_ERROR_CONNECTION_TIME_OUT) {
             errorMessage = context.getString(R.string.iap_time_out_error);
+            IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.SERVER + errorCode + "_" + errorMessage);
         } else if (errorCode == IAPConstant.IAP_ERROR_AUTHENTICATION_FAILURE) {
             errorMessage = context.getString(R.string.iap_authentication_failure);
+            IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.SERVER + errorCode + "_" + errorMessage);
         } else {
             errorMessage = context.getString(R.string.iap_something_went_wrong);
+            IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.SERVER + errorCode + "_" + errorMessage);
         }
-        IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.SERVER + errorCode + "_" + errorMessage);
+
         return errorMessage;
     }
 
@@ -157,16 +163,16 @@ public class NetworkUtility {
                         setPositiveButton(pButtonText, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                dismissAlertFragmentDialog(alertDialogFragment,pFragmentManager);
+                                dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager);
                             }
                         });
 
         builder.setTitle(pErrorString);
         if (alertDialogFragment != null) {
-            dismissAlertFragmentDialog(alertDialogFragment,pFragmentManager);
+            dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager);
         }
         alertDialogFragment = builder.create();
-        if(alertDialogFragment==null) {
+        if (alertDialogFragment == null) {
             alertDialogFragment = builder.setCancelable(false).create();
         }
 
@@ -175,23 +181,24 @@ public class NetworkUtility {
         }
 
     }
-    void showDLSDialogForPayment(final Context context, String pButtonText, String pErrorString, String pErrorDescription, final FragmentManager pFragmentManager,final AlertListener alertListener) {
+
+    void showDLSDialogForPayment(final Context context, String pButtonText, String pErrorString, String pErrorDescription, final FragmentManager pFragmentManager, final AlertListener alertListener) {
         final AlertDialogFragment.Builder builder = new AlertDialogFragment.Builder(context)
                 .setMessage(pErrorDescription).
                         setPositiveButton(pButtonText, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 alertListener.onPositiveBtnClick();
-                                dismissAlertFragmentDialog(alertDialogFragment,pFragmentManager);
+                                dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager);
                             }
                         });
 
         builder.setTitle(pErrorString);
         if (alertDialogFragment != null) {
-            dismissAlertFragmentDialog(alertDialogFragment,pFragmentManager);
+            dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager);
         }
         alertDialogFragment = builder.create();
-        if(alertDialogFragment==null) {
+        if (alertDialogFragment == null) {
             alertDialogFragment = builder.setCancelable(false).create();
         }
 
@@ -201,13 +208,13 @@ public class NetworkUtility {
 
     }
 
-    void dismissAlertFragmentDialog(AlertDialogFragment alertDialogFragment,FragmentManager fragmentManager) {
+    void dismissAlertFragmentDialog(AlertDialogFragment alertDialogFragment, FragmentManager fragmentManager) {
 
-        if(alertDialogFragment==null){
+        if (alertDialogFragment == null) {
             alertDialogFragment = (AlertDialogFragment) fragmentManager.findFragmentByTag(ALERT_DIALOG_TAG);
         }
-        if(alertDialogFragment!=null && alertDialogFragment.isVisible() && isCallingFragmentVisible(fragmentManager))
-        alertDialogFragment.dismiss();
+        if (alertDialogFragment != null && alertDialogFragment.isVisible() && isCallingFragmentVisible(fragmentManager))
+            alertDialogFragment.dismiss();
     }
 
     boolean isCallingFragmentVisible(FragmentManager fragmentManager) {

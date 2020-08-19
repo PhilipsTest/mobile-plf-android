@@ -58,7 +58,7 @@ ext.commitHash = objcdp.getCommitHash()
 
 println "Working branch: ${objcdp.getWorkingBranch()}"
 
-def isDebugTask
+/*def isDebugTask
 task getBuildFlavour() {
     project.logger.lifecycle('task : isDebugTask():  ' +  gradle.startParameter.taskNames)
     project.logger.lifecycle('task : Total Task: ' +  gradle.startParameter.taskNames.size())
@@ -75,7 +75,7 @@ task getBuildFlavour() {
         project.logger.lifecycle('Not debug: isDebugTask ' + isDebugTask)
     }
 
-}
+}*/
 
 subprojects {
     task reportAllProjectDependencies(type: DependencyReportTask) {}
@@ -179,9 +179,13 @@ subprojects {
     if (!it.projectDir.exists()) {
 //        throw new GradleException("Project not found ${it}")
     }
+    ext.useprojectdependencies = true
+    /*
+    * to be set false for consecutive identical build without any other code change
+    * this used be used during development test and RC creation in release build.
+    */
+    // ext.useprojectdependencies = false
 
-    ext.useprojectdependencies = isDebugTask
-    //project.logger.lifecycle('Root: ext.useprojectdependencies ' + ext.useprojectdependencies)
 }
 
 dependencyUpdates.resolutionStrategy {

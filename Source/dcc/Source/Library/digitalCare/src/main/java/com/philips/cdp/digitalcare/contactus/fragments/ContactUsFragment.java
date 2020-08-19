@@ -45,6 +45,8 @@ import com.philips.cdp.digitalcare.util.DigiCareLogger;
 import com.philips.cdp.digitalcare.util.MenuItem;
 import com.philips.cdp.digitalcare.util.Utils;
 import com.philips.cdp.digitalcare.view.ProgressAlertDialog;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 import com.philips.platform.uid.utils.DialogConstants;
 import com.philips.platform.uid.view.widget.AlertDialogFragment;
 import com.philips.platform.uid.view.widget.Label;
@@ -56,7 +58,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("serial")
-public class ContactUsFragment extends DigitalCareBaseFragment implements ContactUsContract,OnClickListener {
+public class ContactUsFragment extends DigitalCareBaseFragment implements ContactUsContract, OnClickListener {
     private static final String USER_PREFERENCE = "user_product";
     private static final String USER_SELECTED_PRODUCT_CTN_CALL = "contact_call";
     private static final String USER_SELECTED_PRODUCT_CTN_HOURS = "contact_hours";
@@ -97,7 +99,7 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     }
 
     private void initView(View view) {
-        mContactUsSocilaProviderButtonsParent =  view.findViewById(
+        mContactUsSocilaProviderButtonsParent = view.findViewById(
                 R.id.contactUsSocialProvideButtonsParent);
         mSecondContainerParams = (LinearLayout.LayoutParams) mContactUsSocilaProviderButtonsParent
                 .getLayoutParams();
@@ -133,14 +135,14 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
             }
         }
         DigitalCareConfigManager.getInstance().getTaggingInterface().trackPageWithInfo
-                    (AnalyticsConstants.PAGE_CONTACT_US,
-                            getPreviousName(), getPreviousName());
+                (AnalyticsConstants.PAGE_CONTACT_US,
+                        getPreviousName(), getPreviousName());
 
-    config = getResources().getConfiguration();
+        config = getResources().getConfiguration();
 
-    createContactUsSocialProvideMenu();
-    setViewParams(config);
-}
+        createContactUsSocialProvideMenu();
+        setViewParams(config);
+    }
 
     public void initServiceDiscovery() {
         contactUsFragmentPresenter.initialiseSD(getAppName());
@@ -160,8 +162,8 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     }
 
     @Override
-    public void setTextCallPhilipsBtn(String phoneNumber){
-        mCallPhilipsBtn.setText(getResources().getString(R.string.call_number)+ " "+ phoneNumber);
+    public void setTextCallPhilipsBtn(String phoneNumber) {
+        mCallPhilipsBtn.setText(getResources().getString(R.string.call_number) + " " + phoneNumber);
     }
 
     public boolean isContactNumberCached() {
@@ -225,11 +227,11 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     protected void callPhilips() {
         try {
             final Intent myintent = new Intent(Intent.ACTION_DIAL);
-            myintent.setData(Uri.parse("tel:"+ prefs.getString(USER_SELECTED_PRODUCT_CTN_CALL, "")));
+            myintent.setData(Uri.parse("tel:" + prefs.getString(USER_SELECTED_PRODUCT_CTN_CALL, "")));
             myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(myintent);
         } catch (NullPointerException e) {
-      }
+        }
     }
 
     @Override
@@ -261,15 +263,14 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
         } else if (id == R.id.contactUsCall) {
             if (!isContactNumberCached()) {
                 showDialog(getActivity().getString(R.string.no_data));
-            } else if (isSimAvailable() && !isTelephonyEnabled()){
+            } else if (isSimAvailable() && !isTelephonyEnabled()) {
                 showDialog(getActivity().getString(R.string.no_call_functionality));
             } else if (isSimAvailable()) {
                 tagServiceRequest(AnalyticsConstants.ACTION_VALUE_SERVICE_CHANNEL_CALL);
                 callPhilips();
             } else if (!isSimAvailable()) {
                 showDialog(getActivity().getString(R.string.check_sim));
-            }
-            else {
+            } else {
                 showDialog(getActivity().getString(R.string.check_sim));
             }
         } else if (tag != null
@@ -288,7 +289,7 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
         return mUtils.isSimAvailable(getActivity());
     }
 
-    boolean isTelephonyEnabled(){
+    boolean isTelephonyEnabled() {
         return mUtils.isTelephonyEnabled(getActivity());
     }
 
@@ -378,10 +379,13 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     }
 
     private void tagTechnicalError() {
-        DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo
-                (AnalyticsConstants.ACTION_SET_ERROR,
-                        AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
-                        AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_RESPONSE_CDLS);
+//        String val = "DCC:".concat(AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_RESPONSE_CDLS);
+//        DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo
+//                (AnalyticsConstants.ACTION_SET_ERROR,
+//                        AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
+//                        val);
+
+        DigitalCareConfigManager.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError(AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_RESPONSE_CDLS));
     }
 
     @Override
@@ -443,11 +447,11 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(null != mAlertDialog)
+        if (null != mAlertDialog)
             mAlertDialog.dismiss();
     }
 
-    private void showDialog(String message){
+    private void showDialog(String message) {
         final AlertDialogFragment.Builder builder = new AlertDialogFragment.Builder(getContext())
                 .setDialogType(DialogConstants.TYPE_ALERT)
                 .setMessage(message)
@@ -473,17 +477,17 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
         TypedArray resources = getResources().obtainTypedArray(R.array.social_service_provider_menu_resources);
         ArrayList<MenuItem> menus = new ArrayList<>();
 
-        if (DigitalCareConfigManager.getInstance().getEmailUrl() != null){
+        if (DigitalCareConfigManager.getInstance().getEmailUrl() != null) {
             menus.add(new MenuItem(R.string.dls_message, R.string.dcc_send_email));
         }
 
-        if(!Utils.isCountryChina())
+        if (!Utils.isCountryChina())
             for (int i = 0; i < titles.length(); i++) {
                 menus.add(new MenuItem(resources.getResourceId(i, 0), titles.getResourceId(i, 0)));
             }
 
-        if(mContactUsUtils.serviceDiscoveryTwitterUrl() == null && getActivity().getString(R.string.twitter_page).trim().length() == 0 ){
-            DigiCareLogger.d(TAG,"Removed Twitter");
+        if (mContactUsUtils.serviceDiscoveryTwitterUrl() == null && getActivity().getString(R.string.twitter_page).trim().length() == 0) {
+            DigiCareLogger.d(TAG, "Removed Twitter");
             for (int i = 0; i < menus.size(); i++) {
                 if (menus.get(i).mText == R.string.dcc_twitter) {
                     menus.remove(i);
@@ -492,8 +496,8 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
             }
         }
 
-        if(mContactUsUtils.serviceDiscoveryFacebookUrl() == null  && getActivity().getString(R.string.facebook_product_pageID).trim().length() == 0 ){
-            DigiCareLogger.d(TAG,"Removed Facebook");
+        if (mContactUsUtils.serviceDiscoveryFacebookUrl() == null && getActivity().getString(R.string.facebook_product_pageID).trim().length() == 0) {
+            DigiCareLogger.d(TAG, "Removed Facebook");
             for (int i = 0; i < menus.size(); i++) {
                 if (menus.get(i).mText == R.string.dcc_facebook) {
                     menus.remove(i);
@@ -502,7 +506,7 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
             }
         }
 
-        if(menus.size() == 0){
+        if (menus.size() == 0) {
             hideSocialView();
         }
 
@@ -510,14 +514,14 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     }
 
     @Override
-    public void updateFirstRowSharePreference(StringBuilder stringBuilder,String phoneNumber){
+    public void updateFirstRowSharePreference(StringBuilder stringBuilder, String phoneNumber) {
         mFirstRowText.setText(getSpannedText(stringBuilder.toString()));
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(USER_SELECTED_PRODUCT_CTN_HOURS, stringBuilder.toString());
         editor.putString(USER_SELECTED_PRODUCT_CTN_CALL, phoneNumber);
         editor.apply();
     }
-    
+
     private Spanned getSpannedText(String string) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -552,8 +556,8 @@ public class ContactUsFragment extends DigitalCareBaseFragment implements Contac
     }
 
     @Override
-    public boolean isViewAdded(){
-       return isAdded();
+    public boolean isViewAdded() {
+        return isAdded();
     }
 
 

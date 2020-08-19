@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.philips.cdp.prxclient.datamodels.cdls.ContactPhone
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.cancelOrder
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.databinding.MecCancelOrderFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
@@ -59,7 +61,7 @@ class MECCancelOrderFragment : MecBaseFragment() {
         super.onStart()
         setTitleAndBackButtonVisibility(R.string.mec_cancel_your_order, true)
         setCartIconVisibility(false)
-
+        MECAnalytics.trackPage(cancelOrder)
     }
 
     fun callPhone(phone: String) {

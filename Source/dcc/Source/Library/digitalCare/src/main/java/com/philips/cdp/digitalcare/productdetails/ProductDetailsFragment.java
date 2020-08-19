@@ -18,8 +18,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +30,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -51,6 +52,8 @@ import com.philips.cdp.digitalcare.util.CommonRecyclerViewAdapter;
 import com.philips.cdp.digitalcare.util.MenuItem;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.cdp.prxclient.datamodels.support.SupportModel;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.RecyclerViewSeparatorItemDecoration;
 
@@ -82,7 +85,7 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
     private ViewProductDetailsModel mViewProductDetailsModel = null;
     private PrxWrapper mPrxWrapper = null;
     private CommonRecyclerViewAdapter<MenuItem> mAdapter;
-    private static final String TAG ="ProductDetailsFragment";
+    private static final String TAG = "ProductDetailsFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,7 +142,7 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
             return;
         }
 
-        final int totalVideoCount = mVideoLength.size()>20?20:mVideoLength.size(); // Max video count 20 to avoid any out of memory situation
+        final int totalVideoCount = mVideoLength.size() > 20 ? 20 : mVideoLength.size(); // Max video count 20 to avoid any out of memory situation
         for (int i = 0; i < totalVideoCount; i++) {
             View child = getActivity().getLayoutInflater().inflate(R.layout.consumercare_viewproduct_video_view, null);
             ImageView videoThumbnail = child.findViewById(R.id.videoContainer);
@@ -160,7 +163,7 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
 
                 videoLeftArrow.bringToFront();
                 videoRightArrow.bringToFront();
-                if(mVideoLength.size() < 2){
+                if (mVideoLength.size() < 2) {
                     videoLeftArrow.setVisibility(View.GONE);
                     videoRightArrow.setVisibility(View.GONE);
                 }
@@ -269,7 +272,7 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
                         @Override
                         public void run() {
 
-                            Log.d(TAG,"getWidthOfScreen"+mScrollPosition+" "+getDisplayWidth());
+                            Log.d(TAG, "getWidthOfScreen" + mScrollPosition + " " + getDisplayWidth());
                             mVideoScrollView.smoothScrollTo((mScrollPosition - getDisplayWidth()), 0);
                         }
                     }, 5);
@@ -283,7 +286,7 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
                 mVideoScrollView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d(TAG,"getWidthOfScreen"+mScrollPosition+" "+getDisplayWidth());
+                        Log.d(TAG, "getWidthOfScreen" + mScrollPosition + " " + getDisplayWidth());
                         mVideoScrollView.smoothScrollTo((mScrollPosition + getDisplayWidth()), 0);
                     }
                 }, 5);
@@ -291,7 +294,6 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
         });
         mProdVideoContainer.addView(child);
     }
-
 
 
     private void createProductDetailsMenu() {
@@ -307,7 +309,7 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
                 Label label = container.findViewById(R.id.icon_button_text1);
                 label.setText(item.mText);
                 TextView icon = container.findViewById(R.id.icon_button_icon1);
-                if(label.getText().equals(getString(R.string.FAQ_KEY)))
+                if (label.getText().equals(getString(R.string.FAQ_KEY)))
                     icon.setText(getString(R.string.dls_navigationright_32));
                 else
                     icon.setText(getString(R.string.dls_linkexternal_32));
@@ -323,13 +325,13 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
         mViewProductDetailsModel = DigitalCareConfigManager.getInstance().getViewProductDetailsData();
         TypedArray titles = getResources().obtainTypedArray(R.array.product_menu_title);
         ArrayList<MenuItem> menus = new ArrayList<>();
-        if(mViewProductDetailsModel != null){
+        if (mViewProductDetailsModel != null) {
             for (int i = 0; i < titles.length(); i++) {
                 if (titles.getText(i).equals(getResources().getString(R.string.dcc_productDownloadManual)) && mViewProductDetailsModel.getManualLink() == null) {
                     continue;
-                }else if(titles.getText(i).equals(getResources().getString(R.string.dcc_productInformationOnWebsite)) && mViewProductDetailsModel.getProductInfoLink() == null){
+                } else if (titles.getText(i).equals(getResources().getString(R.string.dcc_productInformationOnWebsite)) && mViewProductDetailsModel.getProductInfoLink() == null) {
                     continue;
-                } else if(titles.getText(i).equals(getResources().getString(R.string.dcc_productDownloadDfu)) && mViewProductDetailsModel.getDfuLink() == null){
+                } else if (titles.getText(i).equals(getResources().getString(R.string.dcc_productDownloadDfu)) && mViewProductDetailsModel.getDfuLink() == null) {
                     continue;
                 }
                 menus.add(new MenuItem(R.drawable.consumercare_list_right_arrow, titles.getResourceId(i, 0)));
@@ -429,7 +431,7 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
                     showAlert(getResources().getString(R.string.no_data));
                 }
 
-            }  else if (tag.equalsIgnoreCase(getResources().getResourceEntryName(
+            } else if (tag.equalsIgnoreCase(getResources().getResourceEntryName(
                     R.string.dcc_productDownloadDfu))) {
                 String mFilePath = mViewProductDetailsModel.getDfuLink();
 
@@ -519,13 +521,16 @@ public class ProductDetailsFragment extends DigitalCareBaseFragment implements
                     new Response.ErrorListener() {
                         public void onErrorResponse(VolleyError error) {
                             Map<String, String> contextData = new HashMap<>();
-                            contextData.put(AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
-                                    error.getMessage());
-                            contextData.put(AnalyticsConstants.ACTION_KEY_URL,
-                                    mViewProductDetailsModel.getProductImage());
-                            DigitalCareConfigManager.getInstance().getTaggingInterface().
-                                    trackActionWithInfo(AnalyticsConstants.ACTION_SET_ERROR,
-                                            contextData);
+//                            contextData.put(AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
+//                                    error.getMessage());
+//                            contextData.put(AnalyticsConstants.ACTION_KEY_URL,
+//                                    "DCC:".concat(mViewProductDetailsModel.getProductImage()));
+
+//                            DigitalCareConfigManager.getInstance().getTaggingInterface().
+//                                    trackActionWithInfo(AnalyticsConstants.ACTION_SET_ERROR,
+//                                            contextData);
+
+                            DigitalCareConfigManager.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.TECHNICAL_ERROR, contextData, new TaggingError(mViewProductDetailsModel.getProductImage()));
                         }
                     });
             RequestQueue imageRequestQueue = Volley.newRequestQueue(getContext());

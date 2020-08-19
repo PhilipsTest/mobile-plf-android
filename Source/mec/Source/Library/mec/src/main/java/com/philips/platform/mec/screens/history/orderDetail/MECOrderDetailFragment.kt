@@ -26,6 +26,8 @@ import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderDetail
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
@@ -108,7 +110,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         super.onStart()
         setTitleAndBackButtonVisibility(R.string.mec_order_details, true)
         setCartIconVisibility(false)
-
+        MECAnalytics.trackPage(orderDetail)
     }
 
     override fun onDestroy() {

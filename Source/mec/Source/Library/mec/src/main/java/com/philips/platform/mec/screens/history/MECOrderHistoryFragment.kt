@@ -25,6 +25,8 @@ import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.model.orders.ECSOrderHistory
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderHistory
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -131,6 +133,7 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
         super.onStart()
         setTitleAndBackButtonVisibility(R.string.mec_my_orders, true)
         setCartIconVisibility(false)
+        MECAnalytics.trackPage(orderHistory)
     }
 
     private fun handlePagination() {

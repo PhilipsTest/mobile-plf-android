@@ -14,12 +14,13 @@ import com.bazaarvoice.bvandroidsdk.BVConversationsClient
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface
+import com.philips.platform.appinfra.tagging.ErrorCategory
+import com.philips.platform.appinfra.tagging.TaggingError
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.mec.analytics.MECAnalyticServer
 import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.COMPONENT_NAME
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.integration.MECBannerConfigurator
 import com.philips.platform.mec.integration.MECBazaarVoiceInput
@@ -46,12 +47,12 @@ enum class MECDataHolder {
     var mecOrderFlowCompletion: MECOrderFlowCompletion? = null
     lateinit var locale: String
     lateinit var propositionId: String
-    var voucherCode: String?=null
+    var voucherCode: String? = null
     var maxCartCount: Int = 0
     lateinit var userDataInterface: UserDataInterface
     var refreshToken: String? = null //To avoid null check and Null pointer exception
     var blackListedRetailers: List<String>? = null
-    var mecBazaarVoiceInput: MECBazaarVoiceInput?=null
+    var mecBazaarVoiceInput: MECBazaarVoiceInput? = null
     private var privacyUrl: String? = null
     private var faqUrl: String? = null
     private var termsUrl: String? = null
@@ -99,15 +100,15 @@ enum class MECDataHolder {
             try {
                 val hashMap = userDataInterface.getUserDetails(userDataMap)
                 var firstNameValue = hashMap[UserDetailConstants.GIVEN_NAME]
-                if(null!=firstNameValue) {
+                if (null != firstNameValue) {
                     firstName = firstNameValue as String
                 }
                 var lastNameValue = hashMap[UserDetailConstants.FAMILY_NAME]
-                if(null!=lastNameValue) {
+                if (null != lastNameValue) {
                     lastName = lastNameValue as String
                 }
                 var emailValue = hashMap[UserDetailConstants.EMAIL]
-                if(null!=emailValue) {
+                if (null != emailValue) {
                     email = emailValue as String
                 }
             } catch (e: UserDataInterfaceException) {
@@ -140,7 +141,7 @@ enum class MECDataHolder {
     }
 
     fun isInternetActive(): Boolean {
-        return appinfra.restClient?.isInternetReachable ?:false
+        return appinfra.restClient?.isInternetReachable ?: false
     }
 
     fun initECSSDK() {
@@ -153,13 +154,16 @@ enum class MECDataHolder {
 
         var voucher: Boolean = true // if voucher key is not mentioned Appconfig then by default it will be considered True
         try {
-            voucher =appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
-            if(configError.errorCode!=null) {
-                MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError+ ":" + other + configError.toString() + ":" + configError.errorCode)
+            voucher = appinfra.configInterface.getPropertyForKey("voucherCode.enable", "MEC", configError) as Boolean
+            if (configError.errorCode != null) {
+//                MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError + ":" + other + configError.toString() + ":" + configError.errorCode)
+                MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                        TaggingError(appError, other, configError.errorCode.toString(), configError.toString()))
             }
         } catch (e: Exception) {
-            MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
-
+//            MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+            MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                    TaggingError(appError, other, MECAnalyticsConstant.exceptionErrorCode, e.toString()))
         }
 
         propositionId = propertyForKey
