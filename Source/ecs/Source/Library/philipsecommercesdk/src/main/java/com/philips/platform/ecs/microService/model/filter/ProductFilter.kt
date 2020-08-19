@@ -2,19 +2,19 @@ package com.philips.platform.ecs.microService.model.filter
 
 class ProductFilter {
 
-    var sortType: ECSSortType?=null
+    var sortType: ECSSortType? = null
 
-    var stockLevel: ECSStockLevel?=null
+    var stockLevelList: ArrayList<ECSStockLevel>? = null
 
 }
 
 
 enum class ECSStockLevel(var value: String) {
-     InStock("IN_STOCK"),
+    InStock("IN_STOCK"),
 
-     OutOfStock("OUT_OF_STOCK"),
+    OutOfStock("OUT_OF_STOCK"),
 
-     LowStock("LOW_STOCK");
+    LowStock("LOW_STOCK");
 
     override fun toString(): String {
         return value
@@ -24,15 +24,15 @@ enum class ECSStockLevel(var value: String) {
 
 enum class ECSSortType(var value: String) {
 
-     topRated("topRated"),
+    topRated("topRated"),
 
-     priceAscending("price"),
+    priceAscending("price"),
 
-     priceDescending("-price"),
+    priceDescending("-price"),
 
-     discountPercentageAscending("discountPercentage"),
+    discountPercentageAscending("discountPercentage"),
 
-     discountPercentageDescending("-discountPercentage");
+    discountPercentageDescending("-discountPercentage");
 
 
     override fun toString(): String {

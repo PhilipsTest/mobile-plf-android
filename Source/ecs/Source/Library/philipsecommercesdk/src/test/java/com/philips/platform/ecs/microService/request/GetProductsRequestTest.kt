@@ -59,7 +59,9 @@ class GetProductsRequestTest {
 
     @Test
     fun getURL() {// this method will internally test method addParams()
-        mProductFilter!!.stockLevel = ECSStockLevel.OutOfStock
+        var stockLevelList: ArrayList<ECSStockLevel> = ArrayList()
+        stockLevelList.add(ECSStockLevel.OutOfStock)
+        mProductFilter!!.stockLevelList = stockLevelList
         mProductFilter!!.sortType = ECSSortType.priceAscending
 
 
@@ -76,7 +78,9 @@ class GetProductsRequestTest {
 
     @Test
     fun getURLwithNegativeLimitAndOffset() {// this method will internally test method addParams()
-        mProductFilter!!.stockLevel = ECSStockLevel.OutOfStock
+        var stockLevelList: ArrayList<ECSStockLevel> = ArrayList()
+        stockLevelList.add(ECSStockLevel.OutOfStock)
+        mProductFilter!!.stockLevelList = stockLevelList
         mProductFilter!!.sortType = ECSSortType.priceAscending
 
 
@@ -135,7 +139,7 @@ class GetProductsRequestTest {
         }
         mGetProductsRequest = GetProductsRequest("Category Does Not Exist", limit, defaultOffset, mProductFilter, ecsCallback)
         mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
-        val modifiedURL: String? = mGetProductsRequest?.getURL()
+//        val modifiedURL: String? = mGetProductsRequest?.getURL()
         val errorString = ClassLoader.getSystemResource("pil/fetchProductsPILwithEmptyResponse.json").readText()
         val jsonObject = JSONObject(errorString)
         mGetProductsRequest!!.onResponse(jsonObject)

@@ -1,0 +1,155 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="filterList"
+            type="com.philips.platform.ecs.microService.model.filter.ProductFilter" />
+
+        <variable
+            name="itemClickListener"
+            type="com.philips.platform.mec.common.ItemClickListener" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:id="@+id/design_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_gravity="bottom"
+            android:fadeScrollbars="false"
+            android:scrollbarSize="5dip"
+            android:scrollbars="vertical"
+            android:visibility="visible"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="320dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <RelativeLayout
+                android:id="@+id/rLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/uidContentSecondaryNeutralBackgroundColor">
+
+                    <com.philips.platform.uid.view.widget.Label
+                        android:id="@+id/mec_online_retailers_lebel"
+                        style="@style/mecCentralesansBookFont"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Category"
+                        android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                        android:textSize="14sp"
+                        tools:ignore="RtlSymmetry" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/retailer_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/lLayout"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/uidContentSecondaryNeutralBackgroundColor">
+
+                    <com.philips.platform.uid.view.widget.Label
+                        android:id="@+id/mec_online_retailers_lebel1"
+                        style="@style/mecCentralesansBookFont"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Rating"
+                        android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                        android:textSize="14sp"
+                        tools:ignore="RtlSymmetry" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/retailer_recycler_view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/lLayout1"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+            <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/mec_find_retailer_button_secondary"
+                style="@style/MecRetailersButton"
+                fontPath="fonts/iconfont.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="1dp"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="Clear"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:uidComponentType="Secondary" />
+
+            <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/mec_add_to_cart_button"
+                style="@style/MecAddToCartButton"
+                fontPath="fonts/mec_iconfont.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="1dp"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical"
+                android:text="Apply"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:uidComponentType="Primary" />
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

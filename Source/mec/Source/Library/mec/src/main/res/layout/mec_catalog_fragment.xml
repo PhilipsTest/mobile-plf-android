@@ -29,16 +29,15 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_list"
-                    style="@style/mec_dls_list"
-
-                    />
+                    style="@style/mec_dls_list" />
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_grid"
-                    style="@style/mec_dls_grid"
+                    style="@style/mec_dls_grid" />
 
-                    />
-
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_filter"
+                    style="@style/mec_dls_filter" />
 
                 <com.philips.platform.uid.view.widget.SearchBox
                     android:id="@+id/mec_search_box"
