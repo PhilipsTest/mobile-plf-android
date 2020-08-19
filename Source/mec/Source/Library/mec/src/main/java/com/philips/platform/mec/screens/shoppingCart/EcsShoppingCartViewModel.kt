@@ -18,11 +18,12 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.cart.ECSItem
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.cart.BasePriceEntity
 import com.philips.platform.ecs.model.cart.ECSEntries
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.products.ECSProduct
 import com.philips.platform.ecs.model.voucher.ECSVoucher
 import com.philips.platform.mec.R
@@ -52,7 +53,7 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
 
     var ecsServices = MECDataHolder.INSTANCE.eCSServices
 
-     var updateQuantityEntries : ECSEntries? =null
+     var updateQuantityCartItem : ECSItem? =null
      var updateQuantityNumber:Int = 0
      lateinit  var addVoucherString :String
      lateinit var deleteVoucherString :String
@@ -69,28 +70,29 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
     }
 
     fun createShoppingCart(request: String){
-        ecsShoppingCartRepository.createCart(createShoppingCartCallback)
+        ecsShoppingCartRepository.createCart("CTN",createShoppingCartCallback)
     }
 
-    var createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, Exception> {
-        override fun onResponse(result: ECSShoppingCart?) {
+    var createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, ECSError> {
+        override fun onResponse(result: ECSShoppingCart) {
             getShoppingCart()
         }
-        override fun onFailure(error: Exception?, ecsError: ECSError?) {
-            val mECError = MecError(error, ecsError,null)
+        override fun onFailure(ecsError: ECSError) {
+            val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
+            val mECError = MecError(Exception(ecsError.errorMessage), occECSError, null)
             mecError.value = mECError
         }
     }
 
 
-    fun updateQuantity(entries: ECSEntries, quantity: Int) {
-        updateQuantityEntries=entries
+    fun updateQuantity(cartItem: ECSItem, quantity: Int) {
+        updateQuantityCartItem=cartItem
         updateQuantityNumber=quantity
-        ecsShoppingCartRepository.updateShoppingCart(entries,quantity)
+        ecsShoppingCartRepository.updateShoppingCart(cartItem,quantity)
     }
 
-    fun fetchProductReview(entries: MutableList<ECSEntries>) {
-        ecsShoppingCartRepository.fetchProductReview(entries, this,MECDataHolder.INSTANCE.bvClient)
+    fun fetchProductReview(items: MutableList<ECSItem>) {
+        ecsShoppingCartRepository.fetchProductReview(items, this,MECDataHolder.INSTANCE.bvClient)
     }
 
     fun addVoucher(voucherCode : String,  mECRequestType :MECRequestType){
@@ -114,21 +116,24 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
             actionMap[MECAnalyticsConstant.specialEvents] = voucherCodeRevoked
             actionMap[voucherCode] = deleteVoucherString
         }
-        ecsShoppingCart.value?.entries?.let { MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it) }
+        //TODO tagging
+       // ecsShoppingCart.value?.data?.attributes?.items.let { MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it) }
 
     }
 
     fun tagProductAddedOrDeleted(){
-        var actionMap = HashMap<String, String>()
-        if(updateQuantityNumber< updateQuantityEntries?.quantity!!){ // if product quantity is reduced or deleted(updateQuantityNumber=0)
+
+        //TODO tag deleted product
+     /*   var actionMap = HashMap<String, String>()
+        if(updateQuantityNumber< updateQuantityCartItem?.quantity!!){ // if product quantity is reduced or deleted(updateQuantityNumber=0)
             actionMap.put(MECAnalyticsConstant.specialEvents, scRemove)
-            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(updateQuantityEntries?.product!!, updateQuantityEntries?.basePrice!!, updateQuantityEntries?.quantity!!-updateQuantityNumber))
+            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(updateQuantityCartItem?.product!!, updateQuantityCartItem?.basePrice!!, updateQuantityCartItem?.quantity!!-updateQuantityNumber))
             MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
         } else{// if product quantity is added
             actionMap.put(MECAnalyticsConstant.specialEvents, scAdd)
-            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(updateQuantityEntries?.product!!, updateQuantityEntries?.basePrice!!, updateQuantityNumber-updateQuantityEntries?.quantity!!))
+            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(updateQuantityCartItem?.product!!, updateQuantityCartItem?.basePrice!!, updateQuantityNumber-updateQuantityCartItem?.quantity!!))
             MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
-        }
+        }*/
 
     }
 
@@ -137,7 +142,7 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
         lateinit  var APIcall: () -> Unit
         when(mecRequestType) {
             MECRequestType.MEC_FETCH_SHOPPING_CART  -> APIcall = { getShoppingCart() }
-            MECRequestType.MEC_UPDATE_SHOPPING_CART -> APIcall = { updateQuantityEntries?.let { updateQuantity(it,updateQuantityNumber) } }
+            MECRequestType.MEC_UPDATE_SHOPPING_CART -> APIcall = { updateQuantityCartItem?.let { updateQuantity(it,updateQuantityNumber) } }
             MECRequestType.MEC_APPLY_VOUCHER        -> APIcall = { addVoucher(addVoucherString,ecsVoucherCallback.mECRequestType) }
             MECRequestType.MEC_REMOVE_VOUCHER       -> APIcall = { removeVoucher(deleteVoucherString) }
 

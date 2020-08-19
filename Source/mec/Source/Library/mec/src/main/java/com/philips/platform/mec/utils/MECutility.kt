@@ -278,9 +278,36 @@ class MECutility {
             return quantity
         }
 
+        fun getQuantity(cart: com.philips.platform.ecs.microService.model.cart.ECSShoppingCart): Int {
+
+            var quantity = 0
+
+            cart.data?.attributes?.items?.let {
+                for (item in it){
+                    quantity += (item.quantity ?: 0)
+                }
+            }
+            return quantity
+        }
+
         fun isAuthError(ecsError: ECSError?): Boolean {
             var authError: Boolean = false
             with(ecsError?.errorcode) {
+                if (this == ECSErrorEnum.ECSInvalidTokenError.errorCode
+                        || this == ECSErrorEnum.ECSinvalid_grant.errorCode
+                        || this == ECSErrorEnum.ECSinvalid_client.errorCode
+                        || this == ECSErrorEnum.ECSOAuthDetailError.errorCode
+                        || this == ECSErrorEnum.ECSOAuthNotCalled.errorCode) {
+                    authError = true
+                }
+            }
+
+            return authError
+        }
+
+        fun isAuthError(ecsError: com.philips.platform.ecs.microService.error.ECSError?): Boolean {
+            var authError: Boolean = false
+            with(ecsError?.errorCode) {
                 if (this == ECSErrorEnum.ECSInvalidTokenError.errorCode
                         || this == ECSErrorEnum.ECSinvalid_grant.errorCode
                         || this == ECSErrorEnum.ECSinvalid_client.errorCode

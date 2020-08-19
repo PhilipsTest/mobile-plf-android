@@ -10,7 +10,7 @@
 
         <variable
             name="shoppingCart"
-            type="com.philips.platform.ecs.model.cart.ECSShoppingCart" />
+            type="com.philips.platform.ecs.microService.model.cart.ECSShoppingCart" />
 
         <variable
             name="mecDataHolder"
