@@ -14,6 +14,7 @@ import com.philips.cdp.prodreg.constants.ProdRegError;
 import com.philips.cdp.prodreg.listener.ProdRegListener;
 import com.philips.cdp.prodreg.localcache.ProdRegCache;
 import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponseData;
+import com.philips.cdp.prxclient.datamodels.summary.Data;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 
 import org.junit.Before;
@@ -71,7 +72,7 @@ public class ProdRegRegistrationControllerTest {
         when(registeredProductMock.getSerialNumber()).thenReturn("1234");
         when(bundle.getSerializable(ProdRegConstants.PROD_REG_PRODUCT)).thenReturn(registeredProductMock);
         when(bundle.getSerializable(ProdRegConstants.PROD_REG_PRODUCT_METADATA)).thenReturn(productMetadataResponseData);
-        when(bundle.getSerializable(ProdRegConstants.PROD_REG_PRODUCT_SUMMARY)).thenReturn(summaryDataMock);
+        when(bundle.getParcelable(ProdRegConstants.PROD_REG_PRODUCT_SUMMARY)).thenReturn(summaryDataMock);
     }
 
     @Test
