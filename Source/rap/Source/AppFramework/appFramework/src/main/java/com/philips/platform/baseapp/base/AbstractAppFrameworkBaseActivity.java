@@ -59,7 +59,7 @@ public abstract class AbstractAppFrameworkBaseActivity extends  UIDActivity impl
     public abstract int getContainerId();
 
     public AbstractAppFrameworkBaseActivity(){
-        setLanguagePackNeeded(false);
+        //setLanguagePackNeeded(false);
     }
 
     @Override

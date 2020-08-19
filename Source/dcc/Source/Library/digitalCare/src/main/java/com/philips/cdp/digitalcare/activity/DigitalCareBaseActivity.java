@@ -44,7 +44,7 @@ public abstract class DigitalCareBaseActivity extends UIDActivity implements Act
     private Toolbar toolbar;
 
     public DigitalCareBaseActivity() {
-        setLanguagePackNeeded(false);
+        //setLanguagePackNeeded(false);
     }
 
     @Override

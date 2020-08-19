@@ -71,7 +71,7 @@ public class CCDemoUAppFragmentActivity extends UIDActivity implements View.OnCl
     };
 
     public CCDemoUAppFragmentActivity() {
-        setLanguagePackNeeded(false);
+        //setLanguagePackNeeded(false);
     }
 
     @Override
