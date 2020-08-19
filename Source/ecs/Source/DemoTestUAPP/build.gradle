@@ -100,6 +100,7 @@ dependencies {
     implementation philipsdeps.uid
     // implementation project(path: ':philipsecommercesdk' , configuration: 'default')
     if (useprojectdependencies) {
+        project.logger.lifecycle('ecsTestUApp: Picking the dependencies from the code')
         // implementation project(strings.iap.projectName)
         implementation project(strings.prx.projectName)
         implementation project(strings.usr.projectName)
@@ -112,6 +113,7 @@ dependencies {
         //  implementation project(strings.ecs.projectName)
         // implementation project(path: strings.ecs.projectName, configuration: 'default')
     } else {
+        project.logger.lifecycle('ecsTestUApp: Picking the dependencies from the artifactory')
         // implementation philipsdeps.iap
         implementation philipsdeps.prx
         implementation philipsdeps.pif

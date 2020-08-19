@@ -2,7 +2,7 @@ package com.ecs.demotestuapp.fragments;
 
 import android.view.View;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSAddress;
@@ -13,11 +13,11 @@ public class FetchSavedAddressesFragment extends BaseAPIFragment {
 
     public void executeRequest() {
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchSavedAddresses(new ECSCallback<List<ECSAddress>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchSavedAddresses(new ECSCallback<List<ECSAddress>, Exception>() {
             @Override
             public void onResponse(List<ECSAddress> ecsAddressList) {
 
-                ECSDataHolder.INSTANCE.setEcsAddressList(ecsAddressList);
+                ECSDemoDataHolder.INSTANCE.setEcsAddressList(ecsAddressList);
                 gotoResultActivity(getJsonStringFromObject(ecsAddressList));
                 getProgressBar().setVisibility(View.GONE);
             }
@@ -35,6 +35,6 @@ public class FetchSavedAddressesFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsAddressList(null);
+        ECSDemoDataHolder.INSTANCE.setEcsAddressList(null);
     }
 }

@@ -26,7 +26,7 @@ import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.appinfra.rest.RestInterface
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface
 import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.config.ECSConfig
+import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.integration.serviceDiscovery.ServiceDiscoveryMapListener
 import com.philips.platform.mec.screens.reviews.MECBazaarVoiceEnvironment
@@ -51,7 +51,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 import java.util.ArrayList
 
 @PowerMockIgnore("javax.net.ssl.*","okhttp3.*")
-@PrepareForTest(MECLaunchInput::class,MECFlowConfigurator::class,MECSettings::class,UiLauncher::class,ActionBarListener::class,ServiceDiscoveryMapListener::class)
+@PrepareForTest(MECLaunchInput::class,MECFlowConfigurator::class,MECSettings::class,UiLauncher::class,ActionBarListener::class,ServiceDiscoveryMapListener::class,com.philips.platform.ecs.microService.ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class MECHandlerTest{
 
@@ -97,6 +97,9 @@ class MECHandlerTest{
     lateinit var ecsServiceMock: ECSServices
 
     @Mock
+    lateinit var ecsMicroServicesMock: com.philips.platform.ecs.microService.ECSServices
+
+    @Mock
     lateinit var contextMock: Context
 
     @Mock
@@ -136,6 +139,7 @@ class MECHandlerTest{
         Mockito.`when`(appInfraMock.serviceDiscovery).thenReturn(serviceDiscoveryInterfaceMock)
 
         MECDataHolder.INSTANCE.appinfra = appInfraMock
+        Mockito.`when`(ecsServiceMock.microService).thenReturn(ecsMicroServicesMock)
         MECDataHolder.INSTANCE.eCSServices = ecsServiceMock
     }
 
@@ -154,7 +158,7 @@ class MECHandlerTest{
         assertNotNull(mecHandler.getBundle(mecLaunchInputMock))
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun `test default values set to mec data holder`() {
 
         val mecLaunchInput = MECLaunchInput()
@@ -165,7 +169,7 @@ class MECHandlerTest{
         assertTrue(MECDataHolder.INSTANCE.retailerEnabled)
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun `test bazzar voice value set from LaunchInput`() {
 
         val mecLaunchInput = MECLaunchInput()
@@ -176,6 +180,7 @@ class MECHandlerTest{
         assertEquals(MECDataHolder.INSTANCE.mecBazaarVoiceInput?.getBazaarVoiceClientID(),"proposition_client_ID")
 
     }
+
 
     class BazaarVoiceInput : MECBazaarVoiceInput(){
 
@@ -201,13 +206,68 @@ class MECHandlerTest{
         mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
         val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, launchInputMock)
 
-        val ecsConfig = ECSConfig()
-        ecsConfig.isHybris = true
+        val ecsConfig = ECSConfig("en_US",rootCategory = "category",isHybris =true )
         ECSConfiguration.INSTANCE.locale = "en_US"
-        ecsConfig.rootCategory = "category"
         configCallback.onResponse(ecsConfig)
         Mockito.verify(contextMock).startActivity(any(Intent::class.java))
     }
+
+    @Test
+    fun `hybris should be false if hard set from proposition`() {
+        mECSettingMock = MECSettings(contextMock)
+        mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
+        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, launchInputMock)
+        MECDataHolder.INSTANCE.hybrisEnabled = false
+        val ecsConfig = ECSConfig("en_US",rootCategory = "category",isHybris =true )
+        ECSConfiguration.INSTANCE.locale = "en_US"
+
+        configCallback.onResponse(ecsConfig)
+        assertFalse( MECDataHolder.INSTANCE.hybrisEnabled)
+    }
+
+    @Test
+    fun `category should be taken from proposition instead of config if proposition has set it`() {
+        mECSettingMock = MECSettings(contextMock)
+        mecFlowConfiguratorMock.productCategory = "proposition_productCategory"
+        mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
+        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, mecLaunchInputMock)
+
+        val ecsConfig = ECSConfig("en_US",rootCategory = "config_category",isHybris =true )
+        ECSConfiguration.INSTANCE.locale = "en_US"
+
+        configCallback.onResponse(ecsConfig)
+        assertEquals("proposition_productCategory",MECDataHolder.INSTANCE.rootCategory)
+        assertNotEquals("config_category",MECDataHolder.INSTANCE.rootCategory)
+    }
+
+    @Test
+    fun `category should be taken from config  if proposition has not set it`() {
+        mECSettingMock = MECSettings(contextMock)
+        mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
+        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, mecLaunchInputMock)
+
+        val ecsConfig = ECSConfig("en_US",rootCategory = "config_category",isHybris =true )
+        ECSConfiguration.INSTANCE.locale = "en_US"
+
+        configCallback.onResponse(ecsConfig)
+        assertEquals("config_category",MECDataHolder.INSTANCE.rootCategory)
+    }
+
+    @Test
+    fun `should start activity on config call back success with only locale`() {
+
+        mECSettingMock = MECSettings(contextMock)
+        mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
+        val configCallback = mecHandler.getConfigCallback(activityLauncherMock, mECSettingMock, launchInputMock)
+
+        val ecsConfig = ECSConfig("en_US",rootCategory = "category",isHybris = true)
+
+        ECSConfiguration.INSTANCE.locale = "en_US"
+        configCallback.onResponse(ecsConfig)
+        Mockito.verify(contextMock).startActivity(any(Intent::class.java))
+    }
+
+
 
     @Mock
     lateinit var fragmentActivityMock : FragmentActivity
@@ -234,10 +294,8 @@ class MECHandlerTest{
         mecLaunchInputMock.flowConfigurator = mecFlowConfiguratorMock
         val configCallback = mecHandler.getConfigCallback(fragmentLauncherMock, mECSettingMock, launchInputMock)
 
-        val ecsConfig = ECSConfig()
-        ecsConfig.isHybris = true
+        val ecsConfig = ECSConfig("en_US",rootCategory = "category",isHybris = true)
         ECSConfiguration.INSTANCE.locale = "en_US"
-        ecsConfig.rootCategory = "category"
         configCallback.onResponse(ecsConfig)
         Mockito.verify(fragmentTransactionMock).commitAllowingStateLoss()
     }

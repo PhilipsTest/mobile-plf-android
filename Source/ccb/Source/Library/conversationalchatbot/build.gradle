@@ -1,0 +1,89 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+apply from: project.rootDir.absolutePath + '/build-support/gradle/cdpscm.gradle'
+apply from: project.rootDir.absolutePath + '/build-support/gradle/projectnames.gradle'
+apply from: project.rootDir.absolutePath + '/build-support/gradle/lib.gradle'
+apply from: project.rootDir.absolutePath + '/build-support/gradle/versions.gradle'
+apply from: project.rootDir.absolutePath + '/build-support/gradle/zipdocs.gradle'
+
+archivesBaseName = strings.ccb.artifactName
+
+buildscript {
+    apply from: project.rootDir.absolutePath + '/build-support/gradle/versions.gradle'
+
+    dependencies {
+        classpath builddeps.gradle
+        classpath builddeps.buildinfoextractor
+    }
+}
+
+
+android {
+    compileSdkVersion versions.sdk
+    buildToolsVersion versions.buildtools
+
+
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            consumerProguardFiles 'proguard-rules-ccb.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+
+    }
+
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation deps.volley
+    implementation deps.gson
+    implementation deps.okhttp3
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.annotations
+    if (useprojectdependencies) {
+        project.logger.lifecycle('conversationalchatbot: Picking the dependencies from the code')
+        implementation project(strings.pif.projectName)
+        implementation project(strings.ufw.projectName)
+        implementation project(strings.ail.projectName)
+    } else {
+        project.logger.lifecycle('conversationalchatbot: Picking the dependencies from the artifactory')
+        implementation philipsdeps.pif
+        implementation philipsdeps.uAppFwLib
+        implementation philipsdeps.AppInfra
+    }
+
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
+
+    implementation 'net.frakbot:jumpingbeans:1.3.0'
+
+    implementation "io.noties.markwon:core:4.4.0"
+    implementation "io.noties.markwon:image-glide:4.4.0"
+
+    testImplementation deps.json
+    testImplementation deps.junit
+    testImplementation deps.opengl
+    testImplementation deps.powermock_api_mockito
+    testImplementation deps.powermock_classloading_xstream
+    testImplementation deps.powermock_core
+    testImplementation deps.powermock_junit
+    testImplementation deps.powermock_junit_rule
+    testImplementation deps.powermock_junit_rule_agent
+}

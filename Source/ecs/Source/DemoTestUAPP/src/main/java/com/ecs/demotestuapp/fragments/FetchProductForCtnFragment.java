@@ -3,7 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.products.ECSProduct;
@@ -17,9 +17,9 @@ public class FetchProductForCtnFragment extends BaseAPIFragment {
         super.onResume();
 
         etCTN = getLinearLayout().findViewWithTag("et_one");
-        if(ECSDataHolder.INSTANCE.getEcsProducts()!=null){
-            if(ECSDataHolder.INSTANCE.getEcsProducts().getProducts().size()!=0){
-                etCTN.setText(ECSDataHolder.INSTANCE.getEcsProducts().getProducts().get(0).getCode());
+        if(ECSDemoDataHolder.INSTANCE.getEcsProducts()!=null){
+            if(ECSDemoDataHolder.INSTANCE.getEcsProducts().getProducts().size()!=0){
+                etCTN.setText(ECSDemoDataHolder.INSTANCE.getEcsProducts().getProducts().get(0).getCode());
             }
         }
     }
@@ -28,7 +28,7 @@ public class FetchProductForCtnFragment extends BaseAPIFragment {
 
         String ctn = etCTN.getText().toString().trim();
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchProduct(ctn, new ECSCallback<ECSProduct, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchProduct(ctn, new ECSCallback<ECSProduct, Exception>() {
             @Override
             public void onResponse(ECSProduct ecsProduct) {
 

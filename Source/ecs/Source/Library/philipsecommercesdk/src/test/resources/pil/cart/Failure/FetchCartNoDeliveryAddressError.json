@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "60ef4759-ec25-42e6-b855-67e691190391",
+            "status": "400",
+            "code": "BAD_REQUEST",
+            "title": "Client error in API request",
+            "source": {
+                "parameter": "while trying to invoke the method de.hybris.platform.commercefacades.product.data.PriceData.getFormattedValue() of a null object returned from de.hybris.platform.commercefacades.order.data.DeliveryModeData.getDeliveryCost()"
+            }
+        }
+    ]
+}

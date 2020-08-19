@@ -2,7 +2,7 @@ package com.ecs.demotestuapp.fragments;
 
 import android.view.View;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.cart.ECSShoppingCart;
@@ -13,11 +13,11 @@ public class CreateShoppingCartFragment extends BaseAPIFragment {
     public void executeRequest() {
 
 
-        ECSDataHolder.INSTANCE.getEcsServices().createShoppingCart(new ECSCallback<ECSShoppingCart, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().createShoppingCart(new ECSCallback<ECSShoppingCart, Exception>() {
             @Override
             public void onResponse(ECSShoppingCart ecsShoppingCart) {
 
-                ECSDataHolder.INSTANCE.setEcsShoppingCart(ecsShoppingCart);
+                ECSDemoDataHolder.INSTANCE.setEcsShoppingCart(ecsShoppingCart);
                 gotoResultActivity(getJsonStringFromObject(ecsShoppingCart));
                 getProgressBar().setVisibility(View.GONE);
             }
@@ -35,6 +35,6 @@ public class CreateShoppingCartFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsShoppingCart(null);
+        ECSDemoDataHolder.INSTANCE.setEcsShoppingCart(null);
     }
 }

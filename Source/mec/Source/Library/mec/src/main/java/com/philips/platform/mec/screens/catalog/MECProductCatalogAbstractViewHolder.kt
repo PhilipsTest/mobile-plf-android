@@ -17,6 +17,6 @@ abstract class MECProductCatalogAbstractViewHolder(open val binding: ViewDataBin
 
     open fun bind(item: MECProductReview){
 
-        binding.root.setOnClickListener { itemClickListener.onItemClick(item as Object) }
+        binding.root.setOnClickListener { itemClickListener.onItemClick(item as Any) }
     }
 }

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Lūdzu, norādiet app infra object</string>
@@ -21,19 +28,32 @@
   <string name="ECSOAuthDetailError">Lūdzu, norādiet pilnīgu OAuth informāciju</string>
   <string name="ECSOAuthNotCalled">Šīs darbības veikšanai nepieciešama lietotāja autorizācija</string>
   <string name="ECSPIL_BAD_REQUEST">Radusies tehniska kļūme. Lūdzu, vēlāk mēģiniet vēlreiz</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Grozs vēl nav izveidots</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Radusies tehniska kļūme. Lūdzu, vēlāk mēģiniet vēlreiz</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Radusies tehniska kļūme (nederīgs piekļuves marķieris). Lūdzu, veiciet Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Epasta adrese nav derīga. Lūdzu, pārbaudiet.</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Izstrādājums nav ievietots grozā</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Lūdzu, iestatiet lokalizāciju</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[lv]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[lv]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Atlasītajā valstī nav pieejams Philips veikals, tajā ir pieejams tikai mazumtirgotāja režīms</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
+  <string name="ECSPIL_INVALID_QUANTITY">[lv]Quantity must be greater than zero</string>
   <string name="ECSPIL_MISSING_API_KEY">The required API key header is missing</string>
   <string name="ECSPIL_MISSING_API_VERSION">The required API version header is missing</string>
   <string name="ECSPIL_MISSING_PARAMETER_country">Lūdzu, iestatiet lokalizāciju</string>
   <string name="ECSPIL_MISSING_PARAMETER_language">Lūdzu, iestatiet lokalizāciju</string>
+  <string name="ECSPIL_MISSING_PARAMETER_productId">Lūdzu, norādiet CTN</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId">Atlasītajā valstī nav pieejams Philips veikals, tajā ir pieejams tikai mazumtirgotāja režīms</string>
+  <string name="ECSPIL_NEGATIVE_QUANTITY">Daudzums nedrīkst būt mazāks par nulli</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Radusies tehniska kļūme. Lūdzu, vēlāk mēģiniet vēlreiz</string>
-  <string name="ECSPIL_NOT_FOUND_productId">Pieprasītais resurss nav pieejams</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Radusies tehniska kļūme. Lūdzu, vēlāk mēģiniet vēlreiz</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[lv]Please provide a valid Cart Id</string>
+  <string name="ECSPIL_NOT_FOUND_productId">[lv]Please provide valid CTN</string>
+  <string name="ECSPIL_STOCK_EXCEPTION">Izstrādājumu nav iespējams nosūtīt, jo tā vairs nav noliktavā</string>
+  <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Radusies tehniska kļūme. Lūdzu, vēlāk mēģiniet vēlreiz</string>
   <string name="ECSPaymentAuthorizationError">Maksājuma autorizācija neizdevās</string>
   <string name="ECSPropositionIdNotFound">Lūdzu, iestatiet derīgu Proposition ID</string>
   <string name="ECSSiteIdNotFound">Atlasītajā valstī nav pieejams Philips veikals, tajā ir pieejams tikai mazumtirgotāja režīms</string>

@@ -61,10 +61,9 @@ class GetProductsRequest  (private val productCategory: String?, private val lim
     }
 
     private fun getProductsSummary(eCSProductManager: ECSProductManager, ecsProducts: ECSProducts) {
-        eCSProductManager.fetchProductSummaries(ecsProducts, object : ECSCallback<List<ECSProduct>, ECSError> {
-            override fun onResponse(result: List<ECSProduct>) {
-                ecsProducts.commerceProducts = result
-                ecsCallback.onResponse(ecsProducts)
+        eCSProductManager.fetchProductSummaries(ecsProducts, object : ECSCallback<ECSProducts, ECSError> {
+            override fun onResponse(result: ECSProducts) {
+                ecsCallback.onResponse(result)
             }
 
             override fun onFailure(ecsError: ECSError) {

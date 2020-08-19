@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.region.ECSRegion;
@@ -37,11 +37,11 @@ public class FetchRegionsFragment extends BaseAPIFragment {
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().fetchRegions(countryISO,new ECSCallback<List<ECSRegion>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().fetchRegions(countryISO,new ECSCallback<List<ECSRegion>, Exception>() {
             @Override
             public void onResponse(List<ECSRegion> ecsRegions) {
 
-                ECSDataHolder.INSTANCE.setEcsRegions(ecsRegions);
+                ECSDemoDataHolder.INSTANCE.setEcsRegions(ecsRegions);
                 gotoResultActivity(getJsonStringFromObject(ecsRegions));
                 getProgressBar().setVisibility(View.GONE);
             }
@@ -60,7 +60,7 @@ public class FetchRegionsFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsRegions(null);
+        ECSDemoDataHolder.INSTANCE.setEcsRegions(null);
     }
 }
 

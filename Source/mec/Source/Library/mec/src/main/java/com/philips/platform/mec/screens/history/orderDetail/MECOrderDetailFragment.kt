@@ -26,6 +26,8 @@ import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderDetail
+import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
@@ -87,8 +89,8 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         binding = MecOrderHistoryDetailBinding.inflate(inflater, container, false)
         binding.mecOrderHistoryService = mECOrderHistoryService
         mecOrderDetailViewModel = ViewModelProvider(this).get(MECOrderDetailViewModel::class.java)
-        mecOrderDetailViewModel.contactPhone.observe(viewLifecycleOwner, contactsObserver)
-        mecOrderDetailViewModel.mecError.observe(viewLifecycleOwner, this)
+        mecOrderDetailViewModel.contactPhone.observe(this, contactsObserver)
+        mecOrderDetailViewModel.mecError.observe(this, this)
         ecsOrders = arguments?.getSerializable(MECConstant.MEC_ORDERS) as ECSOrders?
         binding.ecsOrders = ecsOrders
         binding.cardInfo = ecsOrders?.orderDetail?.paymentInfo?.let { MECutility().constructCardDetails(it) }
@@ -108,7 +110,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         super.onStart()
         setTitleAndBackButtonVisibility(R.string.mec_order_details, true)
         setCartIconVisibility(false)
-
+        MECAnalytics.trackPage(orderDetail)
     }
 
     override fun onDestroy() {

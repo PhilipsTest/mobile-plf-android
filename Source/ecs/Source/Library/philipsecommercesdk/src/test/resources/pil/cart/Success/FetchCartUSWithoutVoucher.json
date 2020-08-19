@@ -1,0 +1,202 @@
+{
+   "data":{
+      "id":"24019549131",
+      "type":"commerceCart",
+      "attributes":{
+         "email":"susmit.guha@philips.com",
+         "pricing":{
+            "net":true,
+            "total":{
+               "currency":"USD",
+               "formattedValue":"296.09 $",
+               "value":296.09
+            },
+            "subTotal":{
+               "currency":"USD",
+               "formattedValue":"269.96 $",
+               "value":269.96
+            },
+            "tax":{
+               "currency":"USD",
+               "formattedValue":"24.14 $",
+               "value":24.14
+            },
+            "orderDiscount":{
+               "currency":"USD",
+               "formattedValue":"5.00 $",
+               "value":5.0
+            },
+            "itemDiscount":{
+               "currency":"USD",
+               "formattedValue":"29.99 $",
+               "value":29.99
+            },
+            "delivery":{
+               "currency":"USD",
+               "formattedValue":"6.99 $",
+               "value":6.99
+            },
+            "totalDelivery":{
+               "currency":"USD",
+               "formattedValue":"6.99 $",
+               "value":6.99
+            },
+            "orderDiscountNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"5.00 $",
+               "value":5.0
+            },
+            "totalDiscountNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"34.99 $",
+               "value":34.99
+            },
+            "totalNoDelivery":{
+               "currency":"USD",
+               "formattedValue":"264.96 $",
+               "value":264.96
+            },
+            "totalDiscount":{
+               "currency":"USD",
+               "formattedValue":"34.99 $",
+               "value":34.99
+            }
+         },
+         "promotions":{
+            "potentialPromotions":[
+
+            ],
+            "appliedPromotions":[
+               {
+                  "code":"ECS_PIL_Order_Promotion",
+                  "type":"OrderThresholdDiscountPromotion",
+                  "enabled":"true",
+                  "endDate":"2099-01-01T00:00:00+0000",
+                  "message":"Error, message not found"
+               }
+            ],
+            "potentialProductPromotions":[
+
+            ],
+            "appliedProductPromotions":[
+               {
+                  "consumedItems":[
+                     {
+                        "adjustedUnitPrice":{
+                           "value":269.96,
+                           "currency":"USD",
+                           "formattedValue":"269.96 $"
+                        },
+                        "itemCartOrder":0,
+                        "quantity":1
+                     }
+                  ],
+                  "id":"ECS_PIL_Product_Promotion",
+                  "promotionDiscount":{
+                     "currency":"USD",
+                     "formattedValue":"29.99 $",
+                     "value":29.99
+                  },
+                  "type":"PROMOTION_PERCENTAGE_DISCOUNT",
+                  "percentageDiscount":10.0
+               }
+            ]
+         },
+         "ageConsent":false,
+         "ageConsentApplied":false,
+         "marketingOptinApplied":false,
+         "units":1,
+         "deliveryUnits":1,
+         "items":[
+            {
+               "id":"0",
+               "itemId":"HD9240/94",
+               "title":"Avance Collection Airfryer XL",
+               "image":"https://images.philips.com/is/image/PhilipsConsumer/HD9240_94-IMS-en_US",
+               "quantity":1,
+               "availability":{
+                  "status":"IN_STOCK",
+                  "quantity":26
+               },
+               "price":{
+                  "currency":"USD",
+                  "formattedValue":"349.95 $",
+                  "value":349.95
+               },
+               "discountPrice":{
+                  "currency":"USD",
+                  "formattedValue":"299.95 $",
+                  "value":299.95
+               },
+               "totalPrice":{
+                  "currency":"USD",
+                  "formattedValue":"269.96 $",
+                  "value":269.96
+               }
+            }
+         ],
+         "deliveryMode":{
+            "id":"STANDARD-GROUND",
+            "deliveryCost":{
+               "currency":"USD",
+               "formattedValue":"6.99 $",
+               "value":6.99
+            },
+            "description":"3-9 business days",
+            "label":"standard ground",
+            "collectionPoint":false
+         },
+         "applicableDeliveryModes":[
+            {
+               "id":"UPS_COLLECTION_POINT",
+               "deliveryCost":{
+                  "currency":"USD",
+                  "formattedValue":"5.00 $",
+                  "value":5.0
+               },
+               "description":"2-4 business days",
+               "label":"Pickup",
+               "collectionPoint":true
+            },
+            {
+               "id":"STANDARD-GROUND",
+               "deliveryCost":{
+                  "currency":"USD",
+                  "formattedValue":"6.99 $",
+                  "value":6.99
+               },
+               "description":"3-9 business days",
+               "label":"Standard",
+               "collectionPoint":false
+            }
+         ],
+         "deliveryAddress":{
+            "billingAddress":false,
+            "country":{
+               "isocode":"US",
+               "name":"United States"
+            },
+            "defaultAddress":false,
+            "firstName":"MEC1",
+            "houseNumber":"",
+            "id":"9371839987735",
+            "lastName":"Last",
+            "line1":"Treena St",
+            "line2":"",
+            "phone":"2139999999",
+            "postalCode":"10017",
+            "region":{
+               "isocode":"US-NY",
+               "isocodeShort":"NY",
+               "name":"New York"
+            },
+            "deliveryAddress":true,
+            "titleCode":"mr.",
+            "town":"New York"
+         },
+         "notifications":[
+
+         ]
+      }
+   }
+}

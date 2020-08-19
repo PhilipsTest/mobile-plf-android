@@ -26,7 +26,7 @@
   },
   "IAP": {
     "hostport": "acc.occ.shop.philips.com",
-    "propositionid": "IAP_MOB_DKA",
+    "propositionid": "IAP_MOB_DKA"
   }
 }
 

@@ -3,7 +3,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.orders.ECSOrderDetail;
@@ -26,10 +26,10 @@ public class SubmitOrderFragment extends BaseAPIFragment {
             cvv = etCvv.getText().toString();
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().submitOrder(cvv, new ECSCallback<ECSOrderDetail, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().submitOrder(cvv, new ECSCallback<ECSOrderDetail, Exception>() {
             @Override
             public void onResponse(ECSOrderDetail ecsOrderDetail) {
-                ECSDataHolder.INSTANCE.setEcsOrderDetailOfPlaceOrder(ecsOrderDetail);
+                ECSDemoDataHolder.INSTANCE.setEcsOrderDetailOfPlaceOrder(ecsOrderDetail);
                 gotoResultActivity(getJsonStringFromObject(ecsOrderDetail));
                 getProgressBar().setVisibility(View.GONE);
 
@@ -47,6 +47,6 @@ public class SubmitOrderFragment extends BaseAPIFragment {
 
     @Override
     public void clearData() {
-        ECSDataHolder.INSTANCE.setEcsOrderDetailOfPlaceOrder(null);
+        ECSDemoDataHolder.INSTANCE.setEcsOrderDetailOfPlaceOrder(null);
     }
 }

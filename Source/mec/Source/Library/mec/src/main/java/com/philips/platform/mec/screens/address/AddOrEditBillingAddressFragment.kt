@@ -38,9 +38,9 @@ import com.philips.platform.uid.view.widget.ValidationEditText
 
 
 class AddOrEditBillingAddressFragment : MecBaseFragment() {
-    private val TAG: String = AddOrEditBillingAddressFragment::class.java.simpleName
+    private val TAG: String = "AddOrEditBillingAddressFragment"
     override fun getFragmentTag(): String {
-        return "EditAddressFragment"
+        return TAG
     }
 
 

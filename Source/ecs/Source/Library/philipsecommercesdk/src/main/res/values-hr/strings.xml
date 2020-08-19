@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) Koninklijke Philips N.V., 2020
-   - All rights are reserved. Reproduction or dissemination
-   - in whole or in part is prohibited without the prior written
-   - consent of the copyright holder. -->
+<!--
+  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
+  ~
+  ~  * All rights are reserved. Reproduction or dissemination
+  ~
+  ~  * in whole or in part is prohibited without the prior written
+  ~
+  ~  * consent of the copyright holder.
+  ~
+  ~  */
+  -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Unesite app infra object</string>
@@ -21,19 +28,32 @@
   <string name="ECSOAuthDetailError">Unesite potpune podatke OAuth</string>
   <string name="ECSOAuthNotCalled">Za ovu je radnju potrebna autorizacija korisnika</string>
   <string name="ECSPIL_BAD_REQUEST">Došlo je do tehničke smetnje. Pokušajte ponovno poslije</string>
+  <string name="ECSPIL_BAD_REQUEST_cartId">Još niste kreirali košaricu</string>
   <string name="ECSPIL_INTEGRATION_TIMEOUT">Došlo je do tehničke smetnje. Pokušajte ponovno poslije</string>
   <string name="ECSPIL_INVALID_API_KEY">Invalid API key</string>
   <string name="ECSPIL_INVALID_API_VERSION">Invalid API version</string>
+  <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Došlo je do tehničke smetnje (nevažeći pristupni token). Provedite Hybris Re-Auth</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Adresa e-pošte nije valjana. Provjerite je.</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Proizvod nije ubačen u košaricu</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Postavite lokalitet</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[hr]Please provide valid CTN</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[hr]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Philips trgovina nije dostupna za odabranu državu, dostupna je samo maloprodaja</string>
   <string name="ECSPIL_INVALID_PRODUCT_SEARCH_LIMIT">Product search limit cannot be more than 50</string>
+  <string name="ECSPIL_INVALID_QUANTITY">[hr]Quantity must be greater than zero</string>
   <string name="ECSPIL_MISSING_API_KEY">The required API key header is missing</string>
   <string name="ECSPIL_MISSING_API_VERSION">The required API version header is missing</string>
   <string name="ECSPIL_MISSING_PARAMETER_country">Postavite lokalitet</string>
   <string name="ECSPIL_MISSING_PARAMETER_language">Postavite lokalitet</string>
+  <string name="ECSPIL_MISSING_PARAMETER_productId">Unesite CTN</string>
   <string name="ECSPIL_MISSING_PARAMETER_siteId">Philips trgovina nije dostupna za odabranu državu, dostupna je samo maloprodaja</string>
+  <string name="ECSPIL_NEGATIVE_QUANTITY">Količina ne smije biti manja od nule</string>
   <string name="ECSPIL_NOT_ACCEPTABLE">Došlo je do tehničke smetnje. Pokušajte ponovno poslije</string>
-  <string name="ECSPIL_NOT_FOUND_productId">Nije dostupan traženi resurs</string>
+  <string name="ECSPIL_NOT_ACCEPTABLE_mimeType">Došlo je do tehničke smetnje. Pokušajte ponovno poslije</string>
+  <string name="ECSPIL_NOT_FOUND_cartId">[hr]Please provide a valid Cart Id</string>
+  <string name="ECSPIL_NOT_FOUND_productId">[hr]Please provide valid CTN</string>
+  <string name="ECSPIL_STOCK_EXCEPTION">Proizvod se ne može otpremiti jer ga nema na zalihama</string>
+  <string name="ECSPIL_UNSUPPORTED_MEDIA_TYPE">Došlo je do tehničke smetnje. Pokušajte ponovno poslije</string>
   <string name="ECSPaymentAuthorizationError">Nije uspjela autorizacija plaćanja</string>
   <string name="ECSPropositionIdNotFound">Postavite valjani Proposition ID</string>
   <string name="ECSSiteIdNotFound">Philips trgovina nije dostupna za odabranu državu, dostupna je samo maloprodaja</string>

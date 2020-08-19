@@ -28,7 +28,7 @@ fun<T> JSONObject.getData(classOfT: Class<T>) : T?{
 }
 
 fun String.addQueryParam( key:String, param :String ) : String{
-    var sb  = StringBuilder (this)
+    val sb  = StringBuilder (this)
     sb.append("&")
     sb.append(key)
     sb.append("=")

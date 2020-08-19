@@ -10,6 +10,7 @@
 package com.philips.platform.mec.screens.catalog
 
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Intent
 import android.net.Uri
@@ -33,10 +34,10 @@ import java.net.MalformedURLException
 import java.net.URL
 
 class MecPrivacyFragment : MecBaseFragment() {
-    private val TAG: String = MecPrivacyFragment::class.java.simpleName
+    private val TAG: String = "MecPrivacyFragment"
 
     override fun getFragmentTag(): String {
-        return "MecPrivacyFragment"
+        return TAG
     }
 
     private var mWebView: WebView? = null
@@ -65,15 +66,14 @@ class MecPrivacyFragment : MecBaseFragment() {
 
 
     //TODO take this code to a separate class
-
     internal fun initializeWebView(group: View) {
         mWebView = group.findViewById<View>(R.id.mec_webView) as WebView
-        mWebView!!.settings.javaScriptEnabled = true
-        mWebView!!.settings.domStorageEnabled = true
-        mWebView!!.settings.setAppCacheEnabled(true)
-        mWebView!!.settings.loadsImagesAutomatically = true
-        mWebView!!.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-        mWebView!!.webViewClient = object : WebViewClient() {
+        mWebView?.settings?.javaScriptEnabled = true
+        mWebView?.settings?.domStorageEnabled = true
+        mWebView?.settings?.setAppCacheEnabled(true)
+        mWebView?.settings?.loadsImagesAutomatically = true
+        mWebView?.settings?.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        mWebView?.webViewClient = object : WebViewClient() {
 
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
@@ -84,8 +84,8 @@ class MecPrivacyFragment : MecBaseFragment() {
             override fun onPageCommitVisible(view: WebView?, url: String) {
                 var tagUrl = url
                 tagUrl = getPhilipsFormattedUrl(url)
-                var map = HashMap<String, String>()
-                map.put(exitLinkNameKey, tagUrl)
+                val map = HashMap<String, String>()
+                map[exitLinkNameKey] = tagUrl
                 MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
                 super.onPageCommitVisible(view, url)
             }
@@ -93,18 +93,18 @@ class MecPrivacyFragment : MecBaseFragment() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
                 if (url == null) return false
 
-                try {
+                return try {
                     if (url.startsWith("http:") || url.startsWith("https:")) {
                         view.loadUrl(url)
-                        return true
+                        true
                     } else {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         startActivity(intent)
-                        return true
+                        true
                     }
                 } catch (e: Exception) {
                     // Avoid crash due to not installed app which can handle the specific url scheme
-                    return false
+                    false
                 }
 
             }
@@ -122,7 +122,7 @@ class MecPrivacyFragment : MecBaseFragment() {
             override fun onReceivedError(view: WebView, req: WebResourceRequest, rerr: WebResourceError?) {
                 // Redirect to deprecated method, so you can use it in all SDK versions
                 if (rerr != null && shouldHandleError(rerr.errorCode)) {
-                    if (isVisible()) {
+                    if (isVisible) {
                         onReceivedError(view, rerr.errorCode, rerr.description.toString(), req.url.toString())
                     }
                 }

@@ -39,4 +39,5 @@ public class AppStates {
     public static final String MY_DETAILS_STATE="my_details";
     public static final String MY_OPTIN_STATE="my_optin";
     public static final String MY_ORDERS="my_orders";
+    public static final String TESTCCB="demoCCBState";
 }

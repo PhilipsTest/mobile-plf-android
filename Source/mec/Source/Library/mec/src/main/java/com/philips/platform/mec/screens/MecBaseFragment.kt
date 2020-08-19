@@ -39,7 +39,6 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     protected val SMALL = 0
     protected val MEDIUM = 1
     protected val BIG = 2
-    private var mMECBaseFragmentProgressBar: ProgressBar? = null
 
     enum class AnimationType {
         NONE
@@ -57,13 +56,13 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
             if (null!=activity && !activity!!.isFinishing) {
 
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
-                val simpleName = newFragment.javaClass.simpleName
 
 
 
-                transaction.replace(id, newFragment, simpleName)
+
+                transaction.replace(id, newFragment, newFragmentTag)
                 if (isReplaceWithBackStack) {
-                    transaction.addToBackStack(simpleName)
+                    transaction.addToBackStack(newFragmentTag)
                 }
                 transaction.commitAllowingStateLoss()
             }
@@ -78,10 +77,10 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
         else {
             if (null!=activity && !activity!!.isFinishing) {
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
-                val simpleName = newFragment.javaClass.simpleName
-                transaction.add(id, newFragment, simpleName)
+
+                transaction.add(id, newFragment, newFragmentTag)
                 if (isAddWithBackStack) {
-                    transaction.addToBackStack(simpleName)
+                    transaction.addToBackStack(newFragmentTag)
                 }
                 transaction.commitAllowingStateLoss()
             }
@@ -93,7 +92,7 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
         if (fragment == null) {
             val fragment = fragmentManager!!.findFragmentByTag(MECProductCatalogCategorizedFragment.TAG)
             if (fragment == null) {
-                fragmentManager!!.popBackStack(fragmentTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                fragmentManager!!.popBackStack( MECDataHolder.INSTANCE.mecLaunchingFragmentName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 replaceFragment(MECProductCatalogFragment(),  MECProductCatalogFragment.TAG, true)
             }else{
                 fragmentManager!!.popBackStack(MECProductCatalogCategorizedFragment.TAG, 0)
@@ -136,15 +135,6 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
 
     }
 
-    fun hideProgressBar() {
-        if (mMECBaseFragmentProgressBar != null) {
-            mMECBaseFragmentProgressBar!!.setVisibility(View.GONE)
-            if (activity != null) {
-                activity!!.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            }
-        }
-    }
-
     fun showProgressBar(mecProgressBar: FrameLayout?) {
         mecProgressBar?.visibility = View.VISIBLE
         if (activity != null) {
@@ -177,7 +167,6 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     }
 
     override fun onChanged(mecError: MecError?) {
-        hideProgressBar()
         processError(mecError,true)
     }
 

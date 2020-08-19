@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.philips.platform.ecs.model.products.ECSProduct" />
+            type="com.philips.platform.ecs.microService.model.product.ECSProduct" />
     </data>
 
    <!--Recycler view is taken to show only one element but make it scrollable inside a scrollView and a pager-->

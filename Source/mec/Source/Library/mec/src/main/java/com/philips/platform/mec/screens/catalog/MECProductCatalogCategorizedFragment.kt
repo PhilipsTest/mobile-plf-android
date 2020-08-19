@@ -11,64 +11,34 @@ package com.philips.platform.mec.screens.catalog
 
 import android.view.View
 import com.philips.platform.mec.R
-import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.uid.view.widget.AlertDialogFragment
 
 class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
     override fun getFragmentTag(): String {
-        return "MECProductCatalogCategorizedFragment"
+        return TAG
     }
 
     companion object {
         val TAG:String="MECProductCatalogCategorizedFragment"
     }
 
-
-
-    override fun executeRequest(){
-
-        if(isAllProductsFound()) {
-            binding.progressBar.visibility = View.GONE
-            dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-        }else{
-            isCallOnProgress =true
-            ecsProductViewModel.initCategorized(currentPage, pageSize, categorizedCtns)
-        }
-    }
-
     override fun isPaginationSupported(): Boolean {
         return true
     }
 
-    override fun showNoProduct() {
-
-        isCallOnProgress =false
-
-        currentPage += 1
-        if (currentPage < totalPages) {
-            showCategorizedFetchDialog()
-        }else{
-            super.showNoProduct()
-        }
-    }
-
+    private var batchValue = limit
 
     private fun showCategorizedFetchDialog(){
 
         val builder = AlertDialogFragment.Builder(context)
         builder.setCancelable(false)
 
-        var alertDialogFragment = builder.create()
+        val alertDialogFragment = builder.create()
         builder.setMessage(resources.getString(R.string.mec_threshold_message))
         builder.setPositiveButton(getString(R.string.mec_ok), fun(it: View) {
 
 
-            if(productList.size==0) {
-                showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-            }else{
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            ecsProductViewModel.initCategorized(currentPage, pageSize, categorizedCtns)
+            executeCategorizedRequest()
             alertDialogFragment.dismiss()
         })
 
@@ -83,40 +53,43 @@ class MECProductCatalogCategorizedFragment : MECProductCatalogFragment() {
 
     }
 
+    private fun executeCategorizedRequest() {
+        if (mProductsWithReview.size == 0) {
+            showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
+        } else {
+            binding.progressBar.visibility = View.VISIBLE
+        }
+        executeRequest()
+    }
+
     override fun isCategorizedHybrisPagination(): Boolean {
         return true
     }
 
-    override fun doProgressbarOperation() {
+    override fun handleHybrisCategorized() {
 
-        if(productList.size ==0) return
-
-        if(isCallEnded()){
-            isCallOnProgress = false
-            binding.progressBar.visibility = View.GONE
+        dismissPaginationProgressBar()
+        dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
+        if(offSet == limit*5 && mProductsWithReview.size == 0){
+            showCategorizedFetchDialog()
         }else{
-            isCallOnProgress = true
-            binding.progressBar.visibility = View.VISIBLE
+            if(!isAllProductDownloaded && !isAllCategorizedProductFound()){
+
+                if(mProductsWithReview.size == 0 || mProductsWithReview.size % batchValue !=0) {
+                    executeCategorizedRequest()
+                }else{
+                    batchValue += limit //To fetch searched item in limit batch ex- 20,40,60
+                }
+            }
+
         }
+
+        if(isNoProductFound()) showNoProduct()
     }
 
-    private fun didProductsFondReachPageSize() = (productList.size / (currentPage+1)) == pageSize
-
-    private fun isProductNotFound() = productList.size == 0
-
-    private fun isAllProductsFound() = totalProductsTobeSearched == productList.size
-
-    private fun didReachThreshold() =  0 == (currentPage + 1) % MECConstant.THRESHOLD
-
-    private fun didReachLastPage() = currentPage == totalPages-1
-
-
-    private fun isCallEnded(): Boolean {
-        return  didReachLastPage( ) ||
-                isAllProductsFound() ||
-                didProductsFondReachPageSize()
+    private fun isAllCategorizedProductFound() :Boolean{
+        return categorizedCtns?.size == mProductsWithReview.size
     }
-
 
 }
 

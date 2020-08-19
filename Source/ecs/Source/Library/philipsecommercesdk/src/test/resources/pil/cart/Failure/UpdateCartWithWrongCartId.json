@@ -1,0 +1,13 @@
+{
+    "errors": [
+        {
+            "id": "eb678598-4037-40c5-b7a1-20d9ccffc3e9",
+            "status": "404",
+            "code": "NOT_FOUND",
+            "title": "The specified resource is not found",
+            "source": {
+                "parameter": "[cartId]"
+            }
+        }
+    ]
+}

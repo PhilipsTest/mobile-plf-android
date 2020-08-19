@@ -13,7 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.platform.ecs.model.retailers.ECSRetailer
+import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.databinding.MecRetailersItemBinding
 
@@ -37,7 +37,7 @@ class MECRetailersAdapter (private val mecRetailers: List<ECSRetailer>?, val ite
             binding.mecRetailer = retailer
             binding.itemClickListener = itemClickListener
 
-            if (!retailer.philipsOnlinePrice.matches(".*[0-9].*".toRegex() )) { // if price does not contains any digit
+            if (retailer.philipsOnlinePrice?.matches(".*[0-9].*".toRegex()) != true) { // if price does not contains any digit
                 binding.mecRetailerItemPrice.visibility = View.GONE
             } else {
                 binding.mecRetailerItemPrice.visibility = View.VISIBLE
@@ -47,7 +47,7 @@ class MECRetailersAdapter (private val mecRetailers: List<ECSRetailer>?, val ite
     }
 
     override fun getItemCount(): Int {
-        return mecRetailers?.size!!
+        return mecRetailers?.size ?:0
     }
 
 }

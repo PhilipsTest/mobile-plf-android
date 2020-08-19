@@ -4,7 +4,7 @@ package com.ecs.demotestuapp.fragments;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ecs.demotestuapp.util.ECSDataHolder;
+import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSAddress;
@@ -21,10 +21,10 @@ public class CreateAndFetchAddressFragment extends CreateAddressFragment {
             return;
         }
 
-        ECSDataHolder.INSTANCE.getEcsServices().createAndFetchAddress(createdAddress, new ECSCallback<List<ECSAddress>, Exception>() {
+        ECSDemoDataHolder.INSTANCE.getEcsServices().createAndFetchAddress(createdAddress, new ECSCallback<List<ECSAddress>, Exception>() {
             @Override
             public void onResponse(List<ECSAddress> ecsAddressList) {
-                ECSDataHolder.INSTANCE.setEcsAddressList(ecsAddressList);
+                ECSDemoDataHolder.INSTANCE.setEcsAddressList(ecsAddressList);
                 gotoResultActivity(getJsonStringFromObject(ecsAddressList));
                 getProgressBar().setVisibility(View.GONE);
             }

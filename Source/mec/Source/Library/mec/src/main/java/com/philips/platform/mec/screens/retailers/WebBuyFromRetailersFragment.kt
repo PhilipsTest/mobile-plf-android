@@ -40,10 +40,10 @@ import java.net.URL
 
 
 class WebBuyFromRetailersFragment : MecBaseFragment() {
-    private val TAG: String = WebBuyFromRetailersFragment::class.java.simpleName
+    private val TAG: String = "WebBuyFromRetailersFragment"
 
     override fun getFragmentTag(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return TAG
     }
 
 
@@ -93,7 +93,6 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
 
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
-                dismissProgressBar(mProgressBar)
             }
 
             override fun onPageCommitVisible(view: WebView?, url: String) {
@@ -105,6 +104,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
                 map.put(exitLinkNameKey, tagUrl)
                 MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, map)
                 super.onPageCommitVisible(view, url)
+                dismissProgressBar(mProgressBar)
             }
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
