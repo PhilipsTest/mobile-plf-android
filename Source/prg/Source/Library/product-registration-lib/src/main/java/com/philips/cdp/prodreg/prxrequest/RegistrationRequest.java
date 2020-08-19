@@ -39,7 +39,6 @@ public class RegistrationRequest extends PrxRequest {
 
     private static final String TAG = RegistrationRequest.class.getSimpleName();
 
-    private String ctn = null;
     private String accessToken;
     private String productSerialNumber;
     private String purchaseDate;
@@ -97,9 +96,9 @@ public class RegistrationRequest extends PrxRequest {
 
     public RegistrationRequest(String ctn, String serviceID, PrxConstants.Sector sector, PrxConstants.Catalog catalog, boolean oidcToken) {
         super(ctn, serviceID, sector, catalog);
-        this.ctn = ctn;
         this.serviceID = serviceID;
         isOidcToken = oidcToken;
+
     }
 
     public void setAccessToken(String accessToken) {
@@ -194,9 +193,7 @@ public class RegistrationRequest extends PrxRequest {
         this.country = country;
     }
 
-    public String getCtn() {
-        return ctn;
-    }
+
 
     public String getAccessToken() {
         return accessToken;
@@ -289,7 +286,7 @@ public class RegistrationRequest extends PrxRequest {
         UserProfile userProfile = new UserProfile();
         userProfile.setOptIn(Boolean.parseBoolean(isReceiveMarketingEmail()));
         Attributes attributes = new Attributes();
-        attributes.setProductId(ctn);
+        attributes.setProductId(getCtn());
         attributes.setCatalog(getCatalog().toString());
         attributes.setSector(getSector().toString());
         attributes.setSerialNumber(getSerialNumber());

@@ -6,6 +6,7 @@
 package com.philips.cdp.prodreg.model.summary;
 
 import com.google.gson.Gson;
+import com.philips.cdp.prxclient.datamodels.summary.Data;
 import com.philips.cdp.prxclient.response.ResponseData;
 
 import org.json.JSONObject;

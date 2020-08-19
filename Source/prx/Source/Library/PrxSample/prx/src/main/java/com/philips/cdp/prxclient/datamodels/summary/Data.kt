@@ -1,8 +1,6 @@
 package com.philips.cdp.prxclient.datamodels.summary
 
 import android.os.Parcelable
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 import java.util.*
@@ -22,5 +20,7 @@ data class Data(var locale: String? = null, var ctn: String? = null, var dtn: St
                 var priority: Long = 0, var price: Price? = null, var reviewStatistics: ReviewStatistics? = null,
                 var keyAwards: List<String> = ArrayList(), var wow: String? = null, var subWOW: String? = null,
                 var marketingTextHeader: String? = null, var careSop: String? = null, var filterKeys: List<String> = ArrayList(),
-                var subcategory: String? = null
+                var subcategory: String? = null,
+                var additionalProperties:@RawValue Map<String, Any> = HashMap()
+
 ) : Parcelable

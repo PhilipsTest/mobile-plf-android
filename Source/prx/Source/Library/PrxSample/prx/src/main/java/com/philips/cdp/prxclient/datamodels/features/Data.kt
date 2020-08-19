@@ -16,7 +16,7 @@ class Data : Serializable {
     }
 
     @SerializedName("keyBenefitArea")
-    var keyBenefitArea: List<KeyBenefitAreaItem>? = null
+    var keyBenefitArea: List<KeyBenefitAreaItem?>? = null
 
     @SerializedName("code")
     var code: List<CodeItem>? = null

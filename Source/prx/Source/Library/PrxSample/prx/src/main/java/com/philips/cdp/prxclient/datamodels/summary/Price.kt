@@ -1,9 +1,9 @@
 package com.philips.cdp.prxclient.datamodels.summary
 
 import android.os.Parcelable
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
+import java.util.*
 
 /**
  * Description :
@@ -13,4 +13,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Price (var productPrice: String? = null, var displayPriceType: String? = null ,var displayPrice: String? = null,
-                  var currencyCode: String? = null, var formattedPrice: String? = null, var formattedDisplayPrice: String? = null ):Parcelable
+                  var currencyCode: String? = null, var formattedPrice: String? = null, var formattedDisplayPrice: String? = null,
+                  var additionalProperties:@RawValue Map<String, Any> = HashMap()):Parcelable

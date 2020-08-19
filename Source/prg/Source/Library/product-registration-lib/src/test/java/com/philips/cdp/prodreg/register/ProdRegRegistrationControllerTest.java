@@ -14,7 +14,6 @@ import com.philips.cdp.prodreg.constants.ProdRegError;
 import com.philips.cdp.prodreg.listener.ProdRegListener;
 import com.philips.cdp.prodreg.localcache.ProdRegCache;
 import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponseData;
-import com.philips.cdp.prodreg.model.summary.Data;
 import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 
 import org.junit.Before;
