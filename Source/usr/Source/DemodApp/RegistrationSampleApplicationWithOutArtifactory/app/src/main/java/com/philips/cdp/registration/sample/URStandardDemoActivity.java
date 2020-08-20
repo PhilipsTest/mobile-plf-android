@@ -61,7 +61,7 @@ import com.philips.platform.uid.thememanager.AccentRange;
 import com.philips.platform.uid.thememanager.ColorRange;
 import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -75,7 +75,7 @@ import java.util.GregorianCalendar;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class URStandardDemoActivity extends UIDActivity implements OnClickListener,
+public class URStandardDemoActivity extends UIDLangPackActivity implements OnClickListener,
         UserRegistrationUIEventListener, UserRegistrationListener, RefreshLoginSessionHandler {
 
     private Context mContext;
