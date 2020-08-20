@@ -94,7 +94,7 @@ android {
         versionName version + "(" + commitHash + ")"
         versionCode 1
         manifestPlaceholders = [
-                udiRedirectScheme: 'com.philips.apps.94e28300-565d-4110-8919-42dc4f817393'
+                udiRedirectScheme: 'com.philips.apps.e1d025fd-6dfc-4fc3-9843-f670175cbf6a'
         ]
     }
 
