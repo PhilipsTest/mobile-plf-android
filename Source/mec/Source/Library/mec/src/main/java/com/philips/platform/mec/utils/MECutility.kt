@@ -89,7 +89,7 @@ class MECutility {
         private fun showErrorDialogWithResourceID(context: Context, pFragmentManager: FragmentManager, pButtonText: String, pErrorString: String, pErrorDescriptionResourceId: Int?, pErrorDescriptionString: String) {
             val builder = AlertDialogFragment.Builder(context).setMessage(pErrorDescriptionString.toString())
                     .setPositiveButton(pButtonText) {
-                        val defaultEnglishErrorDescription: String = if (pErrorDescriptionResourceId != null) MECAnalytics.getDefaultString(context, pErrorDescriptionResourceId!!) else pErrorDescriptionString
+                        val defaultEnglishErrorDescription: String = if (pErrorDescriptionResourceId != null) MECAnalytics.getDefaultString(context, pErrorDescriptionResourceId) else pErrorDescriptionString
                         MECAnalytics.trackInAppNotofication(defaultEnglishErrorDescription, "OK") // default english string
                         dismissAlertFragmentDialog(alertDialogFragment, pFragmentManager)
                     }
@@ -103,8 +103,8 @@ class MECutility {
                 alertDialogFragment = builder.setCancelable(false).create()
             }
 
-            if (!alertDialogFragment!!.isVisible && isCallingFragmentVisible(pFragmentManager)) {
-                alertDialogFragment!!.show(pFragmentManager, ALERT_DIALOG_TAG)
+            if (alertDialogFragment?.isVisible == false && isCallingFragmentVisible(pFragmentManager)) {
+                alertDialogFragment?.show(pFragmentManager, ALERT_DIALOG_TAG)
             }
 
         }
@@ -151,8 +151,8 @@ class MECutility {
                 }
             }
             alertDialogFragment = builder.setCancelable(false).create()
-            if (!alertDialogFragment!!.isVisible) {
-                alertDialogFragment!!.show(pFragmentManager, ALERT_DIALOG_TAG)
+            if (alertDialogFragment?.isVisible == false) {
+                alertDialogFragment?.show(pFragmentManager, ALERT_DIALOG_TAG)
             }
         }
 
@@ -168,8 +168,8 @@ class MECutility {
             }
 
             alertDialogFragment = builder.setCancelable(false).create()
-            if (!alertDialogFragment!!.isVisible) {
-                alertDialogFragment!!.show(fragmentManager, ALERT_DIALOG_TAG)
+            if (alertDialogFragment?.isVisible == false) {
+                alertDialogFragment?.show(fragmentManager, ALERT_DIALOG_TAG)
             }
         }
 
@@ -328,7 +328,7 @@ class MECutility {
                 when {
                     mecError.ecsError?.errorcode == 1000 -> taggingError?.serverName = bazaarVoice
                     mecError.ecsError?.errorcode in 5000..5999 -> taggingError?.serverName = hybris
-                    mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError?.serverName = wtb
+                    mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError!!.serverName = wtb
                     else -> taggingError?.serverName = prx
                 }
                 errorString += mecError.mECRequestType?.category + ":"// Error_Category
@@ -343,6 +343,7 @@ class MECutility {
                     //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
                     //java.net.ConnectException: If internet is lost during API call (after API call is made and before response comes)
                     MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
+                    MECDataProvider.context?.let { MECAnalytics.getDefaultString(it, R.string.mec_no_internet) }?.let { MECAnalytics.trackInformationError(it) }
                     taggingError?.errorMsg = acontext.getString(R.string.mec_no_internet)
                     errorMessage =acontext.getString(R.string.mec_no_internet)
                 } else if (mecError.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
@@ -368,7 +369,7 @@ class MECutility {
             }
             return errorMessage
         }
-        
+
 
         fun getImageArrow(mContext: Context): Drawable {
             val width = mContext.resources.getDimension(R.dimen.mec_drop_down_icon_width_size).toInt()
