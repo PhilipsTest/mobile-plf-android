@@ -256,7 +256,7 @@ class AddAddressFragment : MecBaseFragment() {
         bundle.putSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS, eCSAddressBilling)
         bundle.putSerializable(MECConstant.KEY_ECS_SHOPPING_CART, mECSShoppingCart)
         deliveryFragment.arguments = bundle
-        replaceFragment(deliveryFragment, MECDeliveryFragment().getFragmentTag(), true)
+        replaceFragment(deliveryFragment, MECDeliveryFragment().getFragmentTag(), false)
     }
 
     override fun processError(mecError: MecError?, showDialog: Boolean) {
