@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 import com.philips.themesettings.ThemeSettingsActivity;
 
-public class URDemoActivity extends UIDActivity {
+public class URDemoActivity extends UIDLangPackActivity {
 
     private URDemouAppInterface uAppInterface;
 
