@@ -360,7 +360,7 @@ public class MobileVerifyResendCodeFragment extends RegistrationBaseFragment imp
     public void showNumberChangeTechincalError(int errorCode) {
         trackActionStatus(SEND_DATA, TECHNICAL_ERROR, MOBILE_RESEND_SMS_VERFICATION_FAILURE);
         if(errorCode == ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION ){
-            RLog.i(TAG, "errorDescription" + getPhoneString(context.getResources().getString(R.string.USR_DLS_Phonenumber_Label_Text)));
+            RLog.i(TAG, "errorDescription " + getPhoneString(context.getResources().getString(R.string.USR_DLS_Phonenumber_Label_Text)));
             updateErrorNotification(getPhoneString(context.getResources().getString(R.string.USR_DLS_Phonenumber_Label_Text)), errorCode);
         } else {
             updateErrorNotification(new URError(context).getLocalizedError(ErrorType.URX, errorCode), errorCode);
