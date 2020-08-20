@@ -321,44 +321,43 @@ class MECutility {
 
         @JvmStatic
         fun getErrorString(mecError: MecError, acontext: Context): String {
-            var errorString: String = ""
-            var errorMessage: String = ""
+            var errorString = ""
+            var errorMessage = ""
             try {
-                val taggingError: TaggingError? = TaggingError("")
+                val taggingError = TaggingError("")
                 when {
-                    mecError.ecsError?.errorcode == 1000 -> taggingError?.serverName = bazaarVoice
-                    mecError.ecsError?.errorcode in 5000..5999 -> taggingError?.serverName = hybris
-                    mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError!!.serverName = wtb
-                    else -> taggingError?.serverName = prx
+                    mecError.ecsError?.errorcode == 1000 -> taggingError.serverName = bazaarVoice
+                    mecError.ecsError?.errorcode in 5000..5999 -> taggingError.serverName = hybris
+                    mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError.serverName = wtb
+                    else -> taggingError.serverName = prx
                 }
                 errorString += mecError.mECRequestType?.category + ":"// Error_Category
-                taggingError?.errorType = mecError.mECRequestType?.category
+                taggingError.errorType = mecError.mECRequestType?.category
 
                 if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
-                    taggingError?.errorMsg = acontext.getString(R.string.mec_time_out_error)
+                    taggingError.errorMsg = acontext.getString(R.string.mec_time_out_error)
                     errorMessage = acontext.getString(R.string.mec_time_out_error)
                 } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message?.contains("java.net.UnknownHostException") == true || mecError.exception.message?.contains("java.net.ConnectException") == true ||(mecError.exception.message?.contains("I/O error during system call, Software caused connection abort")== true))) {
                     // No Internet: Information Error
                     //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                     //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
                     //java.net.ConnectException: If internet is lost during API call (after API call is made and before response comes)
-                    MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
                     MECDataProvider.context?.let { MECAnalytics.getDefaultString(it, R.string.mec_no_internet) }?.let { MECAnalytics.trackInformationError(it) }
-                    taggingError?.errorMsg = acontext.getString(R.string.mec_no_internet)
+                    taggingError.errorMsg = acontext.getString(R.string.mec_no_internet)
                     errorMessage =acontext.getString(R.string.mec_no_internet)
                 } else if (mecError.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                     //voucher apply fail:  User error
-                    taggingError?.errorMsg = mecError.exception?.message ?: ""
-                    errorString += taggingError?.errorMsg
+                    taggingError.errorMsg = mecError.exception?.message ?: ""
+                    errorString += taggingError.errorMsg
                     MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.USER_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                             taggingError)
                     errorMessage=mecError.exception?.message?:""
                 } else {
                     // Remaining all errors: Technical errors
                     errorMessage=mecError.exception?.message?:""
-                    taggingError?.errorMsg = mecError.exception?.message ?: ""
+                    taggingError.errorMsg = mecError.exception?.message ?: ""
                     errorString += errorMessage
-                    taggingError?.errorCode = mecError.ecsError?.errorcode.toString()
+                    taggingError.errorCode = mecError.ecsError?.errorcode.toString()
                     MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                             taggingError)
                 }
