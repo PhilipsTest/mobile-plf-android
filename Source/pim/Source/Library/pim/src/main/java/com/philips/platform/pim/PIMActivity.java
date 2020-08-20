@@ -19,14 +19,14 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 
 import java.util.HashMap;
 
 import static com.philips.platform.appinfra.logging.LoggingInterface.LogLevel.DEBUG;
 
 
-public class PIMActivity extends UIDActivity implements ActionBarListener, PIMLoginListener {
+public class PIMActivity extends UIDLangPackActivity implements ActionBarListener, PIMLoginListener {
     private static final long serialVersionUID = 7597306052659846772L;
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
     private final String TAG = PIMActivity.class.getSimpleName();

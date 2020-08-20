@@ -42,14 +42,14 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class IAPActivity extends UIDActivity implements ActionBarListener, IAPListener {
+public class IAPActivity extends UIDLangPackActivity implements ActionBarListener, IAPListener {
     private static final long serialVersionUID = -1126266810189652512L;
     private final int DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight;
     private TextView mTitleTextView;
