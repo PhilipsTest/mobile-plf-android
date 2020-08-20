@@ -13,7 +13,7 @@ import com.philips.platform.ecs.microService.util.replaceParam
 import org.json.JSONObject
 
 
-class GetProductsRequest(private val productCategory: String?, private val limit: Int, private val offset: Int, private val productFilter: ProductFilter?, private val ecsCallback: ECSCallback<ECSProducts, ECSError>) : ECSJsonRequest(ecsCallback) {
+class GetProductsRequest  (private val productCategory: String?, private val limit: Int, private val offset: Int, private val productFilter: ProductFilter?, private val ecsCallback: ECSCallback<ECSProducts, ECSError>) : ECSJsonRequest(ecsCallback) {
 
     val limitKey = "limit"
     val offsetKey = "offset"
@@ -45,8 +45,7 @@ class GetProductsRequest(private val productCategory: String?, private val limit
         productFilter?.let {
             productFilter.sortType?.let { urlWithParams = urlWithParams.addQueryParam(sortKey, productFilter.sortType.toString()) }
 
-            var commaSeperatedString = productFilter.stockLevelList?.joinToString { it-> it.toString()
-            }
+            var commaSeperatedString = productFilter.stockLevelList?.joinToString { it-> it.toString() }
             commaSeperatedString = commaSeperatedString?.replace("\\s".toRegex(), "")
             productFilter.stockLevelList?.let { urlWithParams = urlWithParams.addQueryParam(stockLevelKey, commaSeperatedString!!) }
         }
@@ -58,7 +57,7 @@ class GetProductsRequest(private val productCategory: String?, private val limit
     override fun onResponse(response: JSONObject) {
         val productList = response.getData(ECSProducts::class.java)
         val eCSProductManager = ECSProductManager()
-        productList?.let { getProductsSummary(eCSProductManager, it) } ?: kotlin.run {
+        productList?.let { getProductsSummary(eCSProductManager, it) }?:kotlin.run {
             val ecsError = ECSError(ECSErrorType.ECSPIL_NOT_FOUND_productId.getLocalizedErrorString(), ECSErrorType.ECSPIL_NOT_FOUND_productId.errorCode, ECSErrorType.ECSPIL_NOT_FOUND_productId)
             ecsCallback.onFailure(ecsError)
         }
