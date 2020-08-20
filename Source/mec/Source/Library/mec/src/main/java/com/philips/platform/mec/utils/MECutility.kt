@@ -306,11 +306,11 @@ class MECutility {
 
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context) {
-            var errorMessage: String = ""
+            var errorMessage = ""
             if (mecError?.ecsError?.errorType?.equals("No internet connection") == true) {
                 MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(Acontext, R.string.mec_no_internet))
             } else {
-                errorMessage = getErrorString(mecError!!, Acontext)
+                errorMessage = mecError?.let { getErrorString(it, Acontext) } ?:""
             }
             if (showDialog.equals(true)) {
                 aFragmentManager?.let { showErrorDialog(Acontext, it, Acontext.getString(R.string.mec_ok), "Error", errorMessage) }
@@ -326,73 +326,50 @@ class MECutility {
             var errorMessage: String = ""
             try {
                 when {
-                    mecError.ecsError?.errorcode == 1000 -> taggingError!!.serverName = bazaarVoice
-                    mecError.ecsError?.errorcode in 5000..5999 -> taggingError!!.serverName = hybris
+                    mecError.ecsError?.errorcode == 1000 -> taggingError?.serverName = bazaarVoice
+                    mecError.ecsError?.errorcode in 5000..5999 -> taggingError?.serverName = hybris
                     mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError!!.serverName = wtb
-                    else -> taggingError!!.serverName = prx
+                    else -> taggingError?.serverName = prx
                 }
 
                 var errorString: String? = null
 //                errorString = setErrorPrefix(mecError, errorString)
                 errorString += mecError.mECRequestType?.category + ":"// Error_Category
-                taggingError!!.errorType = mecError.mECRequestType?.category
+                taggingError?.errorType = mecError.mECRequestType?.category
 
                 if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
-                    taggingError.errorMsg = acontext.getString(R.string.mec_time_out_error)
-                } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message!!.contains("java.net.UnknownHostException") || (mecError.exception.message!!.contains("I/O error during system call, Software caused connection abort")))) {
+                    taggingError?.errorMsg = acontext.getString(R.string.mec_time_out_error)
+                } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message?.contains("java.net.UnknownHostException") == true || (mecError.exception.message?.contains("I/O error during system call, Software caused connection abort")== true))) {
                     // No Internet: Information Error
                     //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                     //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
                     MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(MECDataProvider.context!!, R.string.mec_no_internet))
-                    taggingError.errorMsg = acontext.getString(R.string.mec_no_internet)
+                    taggingError?.errorMsg = acontext.getString(R.string.mec_no_internet)
                 } else if (mecError.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                     //voucher apply fail:  User error
-                    taggingError.errorMsg = mecError.exception?.message ?: ""
-                    errorString += taggingError.errorMsg
+                    taggingError?.errorMsg = mecError.exception?.message ?: ""
+                    errorString += taggingError?.errorMsg
 //                    MECAnalytics.trackUserError(errorString)
-                    MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.USER_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                    MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.USER_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                             taggingError)
                 } else {
                     // Remaining all errors: Technical errors
-                    taggingError.errorMsg = mecError.exception?.message ?: ""
+                    taggingError?.errorMsg = mecError.exception?.message ?: ""
                     errorString += errorMessage
-                    errorString = errorString + mecError.ecsError?.errorcode + ":"
-                    taggingError.errorCode = mecError.ecsError?.errorcode.toString()
-//                    MECAnalytics.trackTechnicalError(errorString)
-                    MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                    taggingError?.errorCode = mecError.ecsError?.errorcode.toString()
+                    MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                             taggingError)
                 }
 
             } catch (e: Exception) {
-                // MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError + ":" + other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
-                MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                         TaggingError(appError, other, MECAnalyticsConstant.exceptionErrorCode, e.toString()))
             }
-            errorMessage = mecError.exception?.message!!
+            errorMessage = mecError.exception?.message ?:""
             return errorMessage
 
 
         }
-
-//        private fun setErrorPrefix(mecError: MecError, errorString: String): String {
-//            var errorString1 = errorString
-//            errorString1 += when {
-//                mecError.ecsError?.errorcode == 1000 -> {
-//                    "$bazaarVoice:"
-//                }
-//                mecError.ecsError?.errorcode in 5000..5999 -> {
-//                    "$hybris:"
-//                }
-//                mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> {
-//                    "$wtb:"
-//                }
-//                else -> {
-//                    "$prx:"
-//                }
-//            }
-//            return errorString1
-//        }
-
 
         fun getImageArrow(mContext: Context): Drawable {
             val width = mContext.resources.getDimension(R.dimen.mec_drop_down_icon_width_size).toInt()

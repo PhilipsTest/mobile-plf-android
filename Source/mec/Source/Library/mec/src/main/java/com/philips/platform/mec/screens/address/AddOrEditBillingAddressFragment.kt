@@ -61,7 +61,7 @@ class AddOrEditBillingAddressFragment : MecBaseFragment() {
 
         override fun onChanged(regionList: List<ECSRegion>?) {
 
-            mecRegions = MECRegions(regionList!!)
+            mecRegions = regionList?.let { MECRegions(it) }
             binding.mecRegions = mecRegions
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         }
