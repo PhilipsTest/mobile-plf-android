@@ -306,12 +306,8 @@ class MECutility {
 
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context) {
-            var errorMessage = ""
-            if (mecError?.ecsError?.errorType?.equals("No internet connection") == true) {
-                MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(Acontext, R.string.mec_no_internet))
-            } else {
-                errorMessage = mecError?.let { getErrorString(it, Acontext) } ?:""
-            }
+
+            val errorMessage = mecError?.let { getErrorString(it, Acontext) } ?:""
             if (showDialog.equals(true)) {
                 aFragmentManager?.let { showErrorDialog(Acontext, it, Acontext.getString(R.string.mec_ok), "Error", errorMessage) }
             }
