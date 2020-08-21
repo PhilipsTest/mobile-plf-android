@@ -2,9 +2,9 @@ package com.philips.platform.ecs.microService.model.filter
 
 class ProductFilter {
 
-    var sortType: ECSSortType?=null
+    var sortType: ECSSortType? = null
 
-    var stockLevel: ECSStockLevel?=null
+    var stockLevelList: ArrayList<ECSStockLevel>? = null
 
 }
 

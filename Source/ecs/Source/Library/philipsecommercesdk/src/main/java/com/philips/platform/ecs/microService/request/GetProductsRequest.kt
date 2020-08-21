@@ -6,7 +6,6 @@ import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
-import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.util.addQueryParam
 import com.philips.platform.ecs.microService.util.getData
@@ -44,8 +43,12 @@ class GetProductsRequest  (private val productCategory: String?, private val lim
         productCategory?.let { urlWithParams = urlWithParams.addQueryParam(categoryKey, productCategory.trim()) }
         productFilter?.let {
             productFilter.sortType?.let { urlWithParams = urlWithParams.addQueryParam(sortKey, productFilter.sortType.toString()) }
-            productFilter.stockLevel?.let { urlWithParams = urlWithParams.addQueryParam(stockLevelKey, productFilter.stockLevel.toString()) }
-           }
+
+            var commaSeperatedString = productFilter.stockLevelList?.joinToString { it-> it.toString() }
+            commaSeperatedString = commaSeperatedString?.replace("\\s".toRegex(), "")
+            productFilter.stockLevelList?.let { urlWithParams = urlWithParams.addQueryParam(stockLevelKey, commaSeperatedString!!) }
+        }
+
         return urlWithParams
     }
 
