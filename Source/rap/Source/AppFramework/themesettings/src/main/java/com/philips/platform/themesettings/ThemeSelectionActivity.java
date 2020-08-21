@@ -26,9 +26,10 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 
-public class ThemeSelectionActivity extends UIDActivity{
+public class ThemeSelectionActivity extends UIDLangPackActivity {
     private Toolbar toolbar;
     ThemeSettingsFragment fragment;
     protected SharedPreferences defaultSharedPreferences;
