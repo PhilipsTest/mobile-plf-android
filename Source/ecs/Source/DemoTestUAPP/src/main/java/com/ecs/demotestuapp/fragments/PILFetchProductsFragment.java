@@ -98,8 +98,8 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             for (FilterStateItem stockLevel : stockItems) {
                 stockLevelItems.add(stockLevel.getEcsStockLevel());
             }
-            ProductFilter productFilter = new ProductFilter();
-            productFilter.setStockLevelList(stockLevelItems);
+            ProductFilter productFilter = new ProductFilter(null, stockLevelItems);
+//            productFilter.setStockLevelList(stockLevelItems);
 
 
             if (spinnerSortType.getSelectedItem() != null && spinnerSortType.getSelectedItemPosition() != 0) {
