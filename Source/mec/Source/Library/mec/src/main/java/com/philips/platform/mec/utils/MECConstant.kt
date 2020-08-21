@@ -21,35 +21,37 @@ object MECConstant {
 
     val EDIT_BILLING_ADDRESS: String = "EDIT_BILLING_ADDRESS"
     val CREATE_BILLING_ADDRESS: String = "CREATE_BILLING_ADDRESS"
-    val BUNDLE_ADDRESSES: String ="BUNDLE_ADDRESSES"
+    val BUNDLE_ADDRESSES: String = "BUNDLE_ADDRESSES"
     val REQUEST_CODE_ADDRESSES: Int = 1000
     val REQUEST_CODE_BILLING_ADDRESS: Int = 1001
 
     val KEY_ITEM_CLICK_LISTENER: String? = "KEY_ITEM_CLICK_LISTENER"
     val CREATE_ADDRESS: String? = "CREATE_ADDRESS"
-    val KEY_IS_HYBRIS: String? ="KEY_IS_HYBRIS"
+    val KEY_IS_HYBRIS: String? = "KEY_IS_HYBRIS"
     val KEY_ECS_ADDRESSES: String? = "KEY_ECS_ADDRESSES"
     val KEY_MEC_DEFAULT_ADDRESSES_ID: String? = "KEY_MEC_DEFAULT_ADDRESSES_ID"
 
     val KEY_ECS_ADDRESS: String? = "KEY_ECS_ADDRESS"
 
-    val KEY_ECS_SHOPPING_CART : String? = "KEY_ECS_SHOPPING_CART"
+    val KEY_ECS_SHOPPING_CART: String? = "KEY_ECS_SHOPPING_CART"
     val THRESHOLD = 5
-    val FLOW_INPUT: String? ="FLOW_INPUT"
-    val KEY_FLOW_CONFIGURATION: String? ="KEY_FLOW_CONFIGURATION"
+    val FLOW_INPUT: String? = "FLOW_INPUT"
+    val KEY_FLOW_CONFIGURATION: String? = "KEY_FLOW_CONFIGURATION"
     val DEFAULT_THEME = R.style.Theme_DLS_Blue_UltraLight
     val IAP_KEY_ACTIVITY_THEME: String? = "IAP_KEY_ACTIVITY_THEME"
     val COMPONENT_NAME: String = "MEC"
-    const val SELECTED_RETAILER: String ="SELECTED_RETAILER"
+    const val SELECTED_RETAILER: String = "SELECTED_RETAILER"
+    const val SELECTED_FILTERS: String = "SELECTED_FILTERS"
     const val RETAILER_REQUEST_CODE: Int = 5000
     const val PAYMENT_REQUEST_CODE: Int = 5001
     const val FILTER_REQUEST_CODE: Int = 5002
-    const val KEY_BAZAAR_LOCALE ="Locale"
+    const val KEY_BAZAAR_LOCALE = "Locale"
+
     //Keys
-    val MEC_KEY_PRODUCT ="mec_key_product"
-    val MEC_PRODUCT     ="mec_product"
-    val MEC_KEY_RETAILERS ="mec_key_product"
-    val MEC_PRODUCT_CTN ="mec_product_ctn"
+    val MEC_KEY_PRODUCT = "mec_key_product"
+    val MEC_PRODUCT = "mec_product"
+    val MEC_KEY_RETAILERS = "mec_key_product"
+    val MEC_PRODUCT_CTN = "mec_product_ctn"
     val MEC_PRIVACY_URL = "MEC_PRIVACY_URL";
     val MEC_TRACK_ORDER_URL = "MEC_TRACK_ORDER_URL";
     val MEC_SHOPPING_CART = "MEC_SHOPPING_CART";
@@ -60,9 +62,9 @@ object MECConstant {
     val MEC_PAYMENT_METHOD = "MEC_PAYMENT_METHOD";
     val MEC_CLICK_LISTENER = "MEC_CLICK_LISTENER";
     internal val IN_STOCK = "inStock"
-    internal val PIL_IN_STOCK ="IN_STOCK"
+    internal val PIL_IN_STOCK = "IN_STOCK"
     internal val LOW_STOCK = "lowStock"
-    internal val PIL_LOW_STOCK ="LOW_STOCK"
+    internal val PIL_LOW_STOCK = "LOW_STOCK"
 
     //Theme
     val MEC_KEY_ACTIVITY_THEME = "mec_KEY_ACTIVITY_THEME"

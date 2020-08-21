@@ -23,6 +23,7 @@ import com.philips.cdp.prxclient.datamodels.features.FeaturesModel
 import com.philips.cdp.prxclient.datamodels.specification.CsItemItem
 import com.philips.cdp.prxclient.datamodels.specification.SpecificationModel
 import com.philips.platform.ecs.microService.model.asset.Asset
+import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.detail.ImageAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureChildRecyclerAdapter
@@ -41,7 +42,7 @@ class DataBindingUtility {
         @JvmStatic
         fun loadImage(imageView: View?, image_url: String?) {
 
-            if(image_url!=null) {
+            if (image_url != null) {
                 val imageView = imageView as NetworkImageView
                 val imageLoader = com.philips.platform.mec.networkEssentials.NetworkImageLoader.getInstance(imageView.context).imageLoader
                 imageLoader.get(image_url, ImageLoader.getImageListener(imageView, 0, R.drawable.no_icon))
@@ -55,30 +56,30 @@ class DataBindingUtility {
 
             val imageView = imageView as NetworkImageView
 
-            if(image_url != null) {
+            if (image_url != null) {
                 imageView.visibility = View.VISIBLE
                 val imageLoader = com.philips.platform.mec.networkEssentials.NetworkImageLoader.getInstance(imageView.context).imageLoader
                 imageLoader.get(image_url, ImageLoader.getImageListener(imageView, 0, R.drawable.no_icon))
 
                 imageView.setImageUrl(image_url!!, imageLoader)
-            }else{
+            } else {
                 imageView.visibility = View.GONE
             }
         }
 
         @JvmStatic
         @BindingAdapter("assets")
-        fun setAdapter(pager: ViewPager, assets: List<Asset> ?) {
-            if(assets!=null) {
+        fun setAdapter(pager: ViewPager, assets: List<Asset>?) {
+            if (assets != null) {
 
                 // modifying url for specific size image
-                val  width = pager.context?.resources?.displayMetrics?.widthPixels ?: 0
+                val width = pager.context?.resources?.displayMetrics?.widthPixels ?: 0
                 val height = pager.context?.resources?.getDimension(R.dimen.iap_product_detail_image_height)?.toInt()
-                        ?:0
+                        ?: 0
                 val sizeExtension = "?wid=$width&hei=$height&\$pnglarge$&fit=fit,1"
 
-                for (asset in assets){
-                    asset.asset =  asset.asset + sizeExtension
+                for (asset in assets) {
+                    asset.asset = asset.asset + sizeExtension
                 }
 
                 pager.adapter = ImageAdapter(assets)
@@ -110,27 +111,27 @@ class DataBindingUtility {
         }
 
 
-
         //For specification
         @JvmStatic
         @BindingAdapter("items")
         fun setAdapter(recyclerView: RecyclerView, csItemItems: List<CsItemItem>?) {
-            if(csItemItems!=null)
-            recyclerView.adapter = SpecificationChildRecyclerAdapter(csItemItems)
+            if (csItemItems != null)
+                recyclerView.adapter = SpecificationChildRecyclerAdapter(csItemItems)
         }
+
         @JvmStatic
         @BindingAdapter("specification")
         fun setSpecificationAdapter(recyclerView: RecyclerView, specificationModel: SpecificationModel?) {
-            if(specificationModel!=null)
-            recyclerView.adapter = SpecificationParentRecyclerAdapter(specificationModel)
+            if (specificationModel != null)
+                recyclerView.adapter = SpecificationParentRecyclerAdapter(specificationModel)
         }
 
         //For Product Features
 
         @JvmStatic
         @BindingAdapter("featureItems")
-        fun setProductFeatureChildAdapter(recyclerView: RecyclerView,featureItems: List<FeatureItem>?) {
-            if(featureItems!=null){
+        fun setProductFeatureChildAdapter(recyclerView: RecyclerView, featureItems: List<FeatureItem>?) {
+            if (featureItems != null) {
                 recyclerView.adapter = ProductFeatureChildRecyclerAdapter(featureItems)
             }
 
@@ -139,7 +140,7 @@ class DataBindingUtility {
         @JvmStatic
         @BindingAdapter("feature")
         fun setProductFeatureParentAdapter(recyclerView: RecyclerView, featuresModel: FeaturesModel?) {
-            if(featuresModel!=null){
+            if (featuresModel != null) {
                 recyclerView.adapter = ProductFeatureParentRecyclerAdapter(featuresModel)
             }
 
@@ -148,12 +149,12 @@ class DataBindingUtility {
 
         @JvmStatic
         @BindingAdapter("setCsValueItems")
-        fun setCSItem(label: Label,csItemItem: CsItemItem) {
+        fun setCSItem(label: Label, csItemItem: CsItemItem) {
 
             val csValueItems = csItemItem.csValue
-            var unit =""
+            var unit = ""
 
-            if(csItemItem.unitOfMeasure!=null){
+            if (csItemItem.unitOfMeasure != null) {
                 unit = csItemItem.unitOfMeasure.unitOfMeasureSymbol
             }
 
@@ -161,18 +162,37 @@ class DataBindingUtility {
 
             if (!csValueItems.isNullOrEmpty()) {
 
-                if(csValueItems.size == 1){
-                    label.text = csValueItems[0].csValueName +" "+unit
+                if (csValueItems.size == 1) {
+                    label.text = csValueItems[0].csValueName + " " + unit
                     return
                 }
 
                 for (csValueItem in csValueItems) {
                     disclaimerStringBuilder.append("- ").append(csValueItem.csValueName).append(System.getProperty("line.separator"))
                 }
-                label.text = disclaimerStringBuilder.toString()+unit
+                label.text = disclaimerStringBuilder.toString() + unit
             }
         }
 
+        @JvmStatic
+        @BindingAdapter("stockEnabled")
+        fun setStockLevelFiltersEnable(checkBox: com.philips.platform.uid.view.widget.CheckBox, stockLevelList: List<ECSStockLevel>?) {
+            stockLevelList?.let {
+                when {
+                    stockLevelList.contains(ECSStockLevel.InStock) -> {
+                        checkBox.isChecked = true
+                    }
+                    stockLevelList.contains(ECSStockLevel.LowStock) -> {
+                        checkBox.isChecked = true
+                    }
+                    stockLevelList.contains(ECSStockLevel.LowStock) -> {
+                        checkBox.isChecked = true
+                    }
+                }
+            }.run { checkBox.isChecked = false }
+
+
+        }
 
     }
 
