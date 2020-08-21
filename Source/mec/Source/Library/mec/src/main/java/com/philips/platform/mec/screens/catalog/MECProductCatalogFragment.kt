@@ -14,6 +14,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
@@ -196,7 +197,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         binding.mecCatalogParentLayout.visibility = View.GONE
         dismissPaginationProgressBar()
         dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-        binding.mecEmptyFilterResult.visibility = View.VISIBLE    }
+        binding.mecEmptyFilterResult.visibility = View.VISIBLE
+        binding.tvEmptyFilterListMsg.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+    }
 
 
     private fun showPrivacyURL() {

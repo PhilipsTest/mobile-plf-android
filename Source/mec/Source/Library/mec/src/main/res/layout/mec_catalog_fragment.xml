@@ -190,9 +190,10 @@
         <LinearLayout
             android:id="@+id/mec_empty_filter_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_gravity="center"
             android:padding="@dimen/border16_margin_left_right"
             android:visibility="gone">
 
@@ -202,9 +203,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/uidColorWhite"
-                android:drawableStart="@android:drawable/ic_menu_info_details"
                 android:drawablePadding="4dp"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="We couldn't find any products with all the filters you have selected."
                 android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                 android:textSize="16sp" />
@@ -213,9 +213,10 @@
                 android:id="@+id/tv_empty_filter_list_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autoLink="all"
                 android:background="@color/uidColorWhite"
-                android:padding="4dp"
                 android:gravity="center"
+                android:padding="4dp"
                 android:text="Clear filter(s)"
                 android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                 android:textSize="16sp" />
