@@ -22,9 +22,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.cart.Voucher
 import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.R
@@ -57,14 +57,14 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
 
     private lateinit var mecOrderSummaryService: MECOrderSummaryServices
     private lateinit var binding: MecOrderSummaryFragmentBinding
-    private lateinit var ecsShoppingCart: ECSShoppingCart
+    private  lateinit var ecsShoppingCart: ECSShoppingCart
     private lateinit var ecsAddress: ECSAddress
     private lateinit var mecPayment: MECPayment
     private var cartSummaryAdapter: MECCartSummaryAdapter? = null
     private var productsAdapter: MECOrderSummaryProductsAdapter? = null
     private var vouchersAdapter: MECOrderSummaryVouchersAdapter? = null
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
-    private lateinit var voucherList: MutableList<AppliedVoucherEntity>
+    private lateinit var voucherList: MutableList<Voucher>
     private lateinit var paymentViewModel: PaymentViewModel
     private lateinit var mECSOrderDetail : ECSOrderDetail
 
@@ -77,15 +77,13 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         return TAG
     }
 
-    private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
+    private val orderObserver: Observer<ECSOrderDetail> = Observer { eCSOrderDetail ->
         mECSOrderDetail=eCSOrderDetail
-        MECLog.v("orderObserver ", "" + eCSOrderDetail.code)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
         paymentViewModel.makePayment(eCSOrderDetail, mecPayment.ecsPayment.billingAddress)
     }
 
     private val makePaymentObserver: Observer<ECSPaymentProvider> = Observer<ECSPaymentProvider> { eCSPaymentProvider ->
-        MECLog.v("mkPaymentObs ", "" + eCSPaymentProvider.worldpayUrl)
         val mECWebPaymentFragment = MECWebPaymentFragment()
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mECSOrderDetail)
@@ -107,16 +105,16 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         binding.fragment = this
         binding.shoppingCart
         ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as ECSAddress
-        ecsShoppingCart = arguments?.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as ECSShoppingCart
+        ecsShoppingCart = arguments?.getParcelable<ECSShoppingCart>(MECConstant.KEY_ECS_SHOPPING_CART) as ECSShoppingCart
         mecPayment = arguments?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as MECPayment
         binding.ecsAddressShipping = ecsAddress
         binding.shoppingCart = ecsShoppingCart
         binding.mecPayment = mecPayment
         cartSummaryList = mutableListOf()
         voucherList = mutableListOf()
-        if (ecsShoppingCart.appliedVouchers.size > 0) {
-            ecsShoppingCart.appliedVouchers?.let { voucherList.addAll(it) }
-        }
+
+        val appliedVouchers = ecsShoppingCart?.data?.attributes?.appliedVouchers
+        appliedVouchers?.let { voucherList.addAll(it) }
         cartSummaryList.clear()
         cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsShoppingCart))
         productsAdapter = MECOrderSummaryProductsAdapter(ecsShoppingCart)
@@ -183,7 +181,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     fun showCVV() {
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.MEC_PAYMENT_METHOD, mecPayment.ecsPayment)
-        bundle.putSerializable(MECConstant.MEC_SHOPPING_CART, ecsShoppingCart)
+        bundle.putParcelable(MECConstant.MEC_SHOPPING_CART, ecsShoppingCart)
         bundle.putInt(MEC_FRAGMENT_CONTAINER_ID, id)
         val mecCvvBottomSheetFragment = MECCVVFragment()
 

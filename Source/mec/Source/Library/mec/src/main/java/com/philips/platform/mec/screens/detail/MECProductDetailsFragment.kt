@@ -27,10 +27,10 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.Statistics
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.productDetailsPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -335,11 +335,11 @@ open class MECProductDetailsFragment : MecBaseFragment() {
             if (isUserLoggedIn()) {
                 val addToProductCallback = object : ECSCallback<ECSShoppingCart, Exception> {
 
-                    override fun onResponse(eCSShoppingCart:ECSShoppingCart?) {
+                    override fun onResponse(eCSShoppingCart:ECSShoppingCart) {
                         tagAddToCart(binding.product!!)
                         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
                         val bundle = Bundle()
-                        bundle.putSerializable(MECConstant.MEC_SHOPPING_CART, eCSShoppingCart)
+                        bundle.putParcelable(MECConstant.MEC_SHOPPING_CART, eCSShoppingCart)
                         val fragment = MECShoppingCartFragment()
                         fragment.arguments = bundle
                         replaceFragment(fragment, fragment.getFragmentTag(), true)

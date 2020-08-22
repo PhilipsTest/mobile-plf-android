@@ -1,7 +1,7 @@
 package com.philips.platform.mec.screens.orderSummary
 
 import android.content.Context
-import com.philips.platform.ecs.model.cart.*
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import org.junit.Before
@@ -23,7 +23,7 @@ class MECOrderSummaryServicesTest {
     lateinit var mockContext: Context
 
     @Mock
-    lateinit var mockEcsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart
+    lateinit var mockEcsShoppingCart:ECSShoppingCart
 
     @Mock
     lateinit var mockCartSummaryList: MutableList<MECCartSummary>

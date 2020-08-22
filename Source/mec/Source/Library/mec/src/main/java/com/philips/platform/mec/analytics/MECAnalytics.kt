@@ -16,6 +16,7 @@ import com.philips.platform.appinfra.BuildConfig
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.appinfra.tagging.ErrorCategory
 import com.philips.platform.appinfra.tagging.TaggingError
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.model.cart.BasePriceEntity
 import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
@@ -234,20 +235,21 @@ class MECAnalytics {
        * This method is to tag passed Action(s) with order products details in format "[Category];[Product1];[Quantity];[Total Price]"
        * */
         @JvmStatic
-        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<ECSEntries>) {
-            val productsMap = getOrderProductInfoMap(actionMap, entryList)
+        fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, itemList: List<ECSItem>) {
+            val productsMap = getOrderProductInfoMap(actionMap, itemList)
             if (productsMap.size > 0) { //
                 trackMultipleActions(sendData, productsMap)
             }
         }
 
-        internal fun getOrderProductInfoMap(actionMap: Map<String, String>, entryList: List<ECSEntries>): HashMap<String, String> {
+        internal fun getOrderProductInfoMap(actionMap: Map<String, String>, itemList: List<ECSItem>): HashMap<String, String> {
             val productsMap = HashMap<String, String>()
-            if (entryList != null && entryList.size > 0) { //Entries
-                val mutableEntryIterator = entryList.iterator()
+            if (itemList.isNotEmpty()) { //Entries
+                val mutableEntryIterator = itemList.iterator()
                 var productListString: String = ""
-                for (entry in mutableEntryIterator) {
-                    productListString += "," + getProductInfoWithChangedQuantity(entry.product, entry.basePrice, entry.quantity)
+                for (item in mutableEntryIterator) {
+                   //TODO
+                   // productListString += "," + getProductInfoWithChangedQuantity(item, entry.basePrice, entry.quantity)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 MECLog.v("MEC_LOG", "Order prodList : " + productListString)
@@ -364,7 +366,8 @@ class MECAnalytics {
         fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew: String) {
             var orderMap = getPurchaseOrderMap(mECSOrderDetail, paymentTypeOldOrNew)
             if (orderMap.size >= 4) {
-                tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
+                //TODO
+                // tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
             }
         }
 

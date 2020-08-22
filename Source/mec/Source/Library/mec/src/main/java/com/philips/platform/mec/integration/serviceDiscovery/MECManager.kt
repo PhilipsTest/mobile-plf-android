@@ -9,10 +9,10 @@
  */
 package com.philips.platform.mec.integration.serviceDiscovery
 
-import android.view.View
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.utils.MECDataHolder
@@ -89,16 +89,13 @@ class MECManager {
     }
 
     private fun doCartCall(mECCartUpdateListener: MECCartUpdateListener) {
-        MECDataHolder.INSTANCE.eCSServices.fetchShoppingCart(object : ECSCallback<com.philips.platform.ecs.model.cart.ECSShoppingCart, Exception> {
-            override fun onResponse(carts: com.philips.platform.ecs.model.cart.ECSShoppingCart?) {
-                if (carts != null) {
-                    val quantity = MECutility.getQuantity(carts)
+        MECDataHolder.INSTANCE.eCSServices.microService.fetchShoppingCart(object : com.philips.platform.ecs.microService.callBack.ECSCallback<ECSShoppingCart, com.philips.platform.ecs.microService.error.ECSError> {
+            override fun onResponse(result: ECSShoppingCart) {
+                    val quantity = MECutility.getQuantity(result)
                     mECCartUpdateListener.onUpdateCartCount(quantity)
-
-                }
             }
 
-            override fun onFailure(error: Exception, ecsError: ECSError) {
+            override fun onFailure(ecsError: com.philips.platform.ecs.microService.error.ECSError) {
                 if (MECutility.isAuthError(ecsError)) doHybrisAuthCall(mECCartUpdateListener)
             }
         })

@@ -14,7 +14,6 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
-import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.auth.HybrisAuth

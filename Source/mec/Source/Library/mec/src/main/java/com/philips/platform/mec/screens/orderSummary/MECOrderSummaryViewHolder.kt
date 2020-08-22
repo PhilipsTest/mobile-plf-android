@@ -11,14 +11,15 @@ package com.philips.platform.mec.screens.orderSummary
 
 
 import androidx.recyclerview.widget.RecyclerView
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.mec.databinding.MecOrderSummaryCartItemsBinding
 
 
 class MECOrderSummaryViewHolder(val binding: MecOrderSummaryCartItemsBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(orderEntries: ECSEntries) {
-        binding.ecsEntries = orderEntries
+    fun bind(ecsItem: ECSItem) {
+        binding.ecsItem = ecsItem
     }
 
 }

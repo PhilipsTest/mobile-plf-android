@@ -9,34 +9,35 @@
  */
 package com.philips.platform.mec.screens.detail
 
-import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel) : ECSCallback<ECSShoppingCart, Exception> {
+class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductDetailViewModel) : ECSCallback<ECSShoppingCart, ECSError> {
 
     lateinit var mECRequestType: MECRequestType
 
-    override fun onResponse(result: ECSShoppingCart?) {
+    override fun onResponse(result: ECSShoppingCart) {
         ecsProductDetailViewModel.addToProductCallBack.onResponse(result)
     }
 
-    override fun onFailure(error: Exception?, ecsError: ECSError?) {
+    override fun onFailure(ecsError :ECSError) {
 
         when {
             MECutility.isAuthError(ecsError) -> {
                 ecsProductDetailViewModel.retryAPI(mECRequestType)
             }
-            ecsError?.errorcode == ECSErrorEnum.ECSCartError.errorCode -> {
+            ecsError.errorCode == ECSErrorEnum.ECSCartError.errorCode -> {
                 ecsProductDetailViewModel.createShoppingCart()
             }
             else -> {
 
-                val mecError = MecError(error, ecsError, mECRequestType)
+                val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
+                val mecError = MecError(Exception(ecsError.errorMessage), occECSError, mECRequestType)
                 ecsProductDetailViewModel.mecError.value = mecError
             }
         }

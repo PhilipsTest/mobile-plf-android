@@ -25,7 +25,6 @@ import com.philips.platform.appinfra.tagging.TaggingError
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
@@ -262,20 +261,6 @@ class MECutility {
                 "NO" -> "out of stock"
                 else -> ""
             }
-        }
-
-        fun getQuantity(carts: ECSShoppingCart): Int {
-            val totalItems = carts.totalItems
-            var quantity = 0
-            if (carts.entries != null) {
-                val entries = carts.entries
-                if (totalItems != 0 && null != entries) {
-                    for (i in entries.indices) {
-                        quantity += entries[i].quantity
-                    }
-                }
-            }
-            return quantity
         }
 
         fun getQuantity(cart: com.philips.platform.ecs.microService.model.cart.ECSShoppingCart): Int {

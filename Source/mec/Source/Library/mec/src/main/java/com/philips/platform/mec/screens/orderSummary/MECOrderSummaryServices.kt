@@ -1,48 +1,43 @@
 package com.philips.platform.mec.screens.orderSummary
 
 import android.content.Context
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 
 class MECOrderSummaryServices {
+
     fun addAppliedOrderPromotionsToCartSummaryList(ecsShoppingCart: ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
-        var name: String
-        var price: String
-        if (ecsShoppingCart.appliedOrderPromotions.size > 0) {
-            for (i in 0 until ecsShoppingCart.appliedOrderPromotions.size) {
-                name = if (ecsShoppingCart.appliedOrderPromotions[i].promotion.name == null) {
-                    " "
-                } else {
-                    ecsShoppingCart.appliedOrderPromotions[i].promotion.name
-                }
-                price = "-" + ecsShoppingCart.appliedOrderPromotions.get(i).promotion.promotionDiscount.formattedValue
+
+        val appliedPromotions = ecsShoppingCart.data?.attributes?.promotions?.appliedPromotions
+
+        appliedPromotions?.let {
+
+            for(promotion in appliedPromotions){
+                val name = promotion.code ?:""
+                val price = "TO DO"
                 cartSummaryList.add(MECCartSummary(name, price))
             }
         }
     }
 
     fun addAppliedVoucherToCartSummaryList(ecsShoppingCart: ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
-        var name: String
-        var price: String
-        for (i in 0 until ecsShoppingCart.appliedVouchers.size) {
-            name = if (ecsShoppingCart.appliedVouchers[i].name == null) {
-                " "
-            } else {
-                ecsShoppingCart.appliedVouchers[i].name
+
+        val appliedVouchers = ecsShoppingCart.data?.attributes?.appliedVouchers
+
+        appliedVouchers?.let {
+
+            for(voucher in appliedVouchers){
+                val name = voucher.name ?:""
+                val price = voucher.value?.formattedValue ?:""
+                cartSummaryList.add(MECCartSummary(name, price))
             }
-            price = "-" + ecsShoppingCart.appliedVouchers?.get(i)?.appliedValue?.formattedValue
-            cartSummaryList.add(MECCartSummary(name, price))
         }
     }
 
     fun addDeliveryCostToCartSummaryList(context: Context, ecsShoppingCart: ECSShoppingCart, cartSummaryList: MutableList<MECCartSummary>) {
-        val name: String
-        val price: String
-        if (ecsShoppingCart.deliveryCost != null) {
-            name = context.getString(R.string.mec_shipping_cost)
-            price = ecsShoppingCart.deliveryCost.formattedValue
-            cartSummaryList.add(MECCartSummary(name, price))
-        }
+        val name: String = context.getString(R.string.mec_shipping_cost)
+        val price:String = ecsShoppingCart.data?.attributes?.pricing?.delivery?.formattedValue ?:""
+        cartSummaryList.add(MECCartSummary(name, price))
     }
 }

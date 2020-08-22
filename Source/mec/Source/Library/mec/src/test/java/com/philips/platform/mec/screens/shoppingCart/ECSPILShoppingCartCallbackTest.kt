@@ -16,8 +16,8 @@ import androidx.lifecycle.MutableLiveData
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.cart.ECSEntries
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError

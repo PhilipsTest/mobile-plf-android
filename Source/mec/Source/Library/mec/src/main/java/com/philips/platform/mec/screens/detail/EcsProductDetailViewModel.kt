@@ -19,11 +19,10 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.microService.model.asset.Asset
 import com.philips.platform.ecs.microService.model.asset.Assets
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
-
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.detail.MECProductDetailsFragment.Companion.tagOutOfStockActions

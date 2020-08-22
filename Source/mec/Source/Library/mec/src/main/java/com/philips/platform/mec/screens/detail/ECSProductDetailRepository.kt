@@ -11,14 +11,13 @@ package com.philips.platform.mec.screens.detail
 
 import com.bazaarvoice.bvandroidsdk.*
 import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 
 
 import com.philips.platform.ecs.microService.model.product.ECSProduct
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
-
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
@@ -59,14 +58,11 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
 
     fun addTocart(ecsProduct: ECSProduct){
         mECAddToProductCallback.mECRequestType= MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART
-        // todo remove this occ product when integrated with hybris flow
-        val ecsProductOCC: com.philips.platform.ecs.model.products.ECSProduct = com.philips.platform.ecs.model.products.ECSProduct()
-        ecsProductOCC.code= ecsProduct.ctn
-        ecsServices.addProductToShoppingCart(ecsProductOCC,mECAddToProductCallback)
+        ecsServices.microService.addProductToShoppingCart(ctn = ecsProduct.ctn,ecsCallback = mECAddToProductCallback)
     }
 
-    fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){
-       ecsServices.createShoppingCart(createShoppingCartCallback)
+    fun createCart(ctn: String,createShoppingCartCallback: ECSCallback<ECSShoppingCart, ECSError>){
+       ecsServices.microService.createShoppingCart(ctn = ctn,ecsCallback = createShoppingCartCallback)
     }
 
 }

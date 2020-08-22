@@ -20,8 +20,8 @@ import android.widget.FrameLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.shippingAddressSelectionPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -46,7 +46,6 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
     private lateinit var ecsShoppingCartViewModel: EcsShoppingCartViewModel
     private lateinit var addressViewModel: AddressViewModel
     private lateinit var binding: MecAddressManageBinding
-
     private lateinit var mecAddresses: MECAddresses
 
     private lateinit var addressBottomSheetRecyclerAdapter: AddressBottomSheetRecyclerAdapter
@@ -63,14 +62,13 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
         val intent = Intent()
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.KEY_ECS_ADDRESSES, addressList as Serializable)
-        bundle.putSerializable(MECConstant.KEY_ECS_SHOPPING_CART, mECSShoppingCart)
+        bundle.putParcelable(MECConstant.KEY_ECS_SHOPPING_CART, mECSShoppingCart)
         intent.putExtra(MECConstant.BUNDLE_ADDRESSES, bundle)
         targetFragment?.onActivityResult(MECConstant.REQUEST_CODE_ADDRESSES, Activity.RESULT_OK, intent)
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         dismiss()
     })
 
-    //TODO call List of Address API on delete Address
     private val setDeliveryAddressObserver: Observer<Boolean> = Observer { isAddressSet ->
 
         if (isAddressSet) {
@@ -81,7 +79,6 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
 
     }
 
-    //TODO call List of Address API on delete Address
     private val deleteAddressObserver: Observer<Boolean> = Observer { isAddressDelete ->
 
         if (isAddressDelete) {
@@ -178,17 +175,14 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
 
     fun showProgressBar(mecProgressBar: FrameLayout?) {
         mecProgressBar?.visibility = View.VISIBLE
-        if (activity != null) {
-            activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        }
+
     }
 
     fun dismissProgressBar(mecProgressBar: FrameLayout?) {
         mecProgressBar?.visibility = View.GONE
-        if (activity != null) {
-            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        }
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     override fun onPositiveBtnClick() {

@@ -5,8 +5,8 @@ import android.content.Context
 import com.bazaarvoice.bvandroidsdk.*
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.microService.ECSServices
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.product.ECSProduct
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.utils.MECDataHolder
 import org.junit.Before

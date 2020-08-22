@@ -22,7 +22,7 @@ class MECDeliveryModesAdapter(private val deliveryModes: MutableList<com.philips
     private var mSelectedItem = -1 // default value no selection..
 
     private lateinit var deliveryMode: com.philips.platform.ecs.model.address.ECSDeliveryMode
-    private var mECSShoppingCartDeliveryModeEntity: DeliveryModeEntity? = null
+    private var mECSShoppingCartDeliveryModeID: String? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MECDeliveryModeHolder(MecDeliveryModeItemBinding.inflate(LayoutInflater.from(parent.context)))
@@ -36,7 +36,7 @@ class MECDeliveryModesAdapter(private val deliveryModes: MutableList<com.philips
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         deliveryMode = deliveryModes.get(position)
-        if (null != mECSShoppingCartDeliveryModeEntity && deliveryMode.code.equals(mECSShoppingCartDeliveryModeEntity?.code, true)) {
+        if (null != mECSShoppingCartDeliveryModeID && deliveryMode.code.equals(mECSShoppingCartDeliveryModeID, true)) {
             // if this fetched delivery mode is same as cart delivery Mode then select radio button
             mSelectedItem = position
         }
@@ -45,8 +45,8 @@ class MECDeliveryModesAdapter(private val deliveryModes: MutableList<com.philips
         mECDeliveryModeHolder.itemView.mec_delivery_mode_radio_button.setChecked(position == mSelectedItem);
     }
 
-    fun setSelectedDeliveryModeAsCart(aDeliveryModeEntity: DeliveryModeEntity?) {
-        mECSShoppingCartDeliveryModeEntity = aDeliveryModeEntity
+    fun setSelectedDeliveryModeAsCart(deliveryModeID:String) {
+        mECSShoppingCartDeliveryModeID = deliveryModeID
     }
 
 
@@ -63,10 +63,10 @@ class MECDeliveryModesAdapter(private val deliveryModes: MutableList<com.philips
         }
 
         private fun setDeliveryMode() {
-            if (mSelectedItem != getAdapterPosition()) {
-                mECSShoppingCartDeliveryModeEntity = null// reset previous set delivery mode
-                mSelectedItem = getAdapterPosition()
-                itemClickListener.onItemClick(deliveryModes.get(getAdapterPosition()) as Object)
+            if (mSelectedItem != adapterPosition) {
+                mECSShoppingCartDeliveryModeID = null// reset previous set delivery mode
+                mSelectedItem = adapterPosition
+                itemClickListener.onItemClick(deliveryModes[adapterPosition] as Object)
                 notifyDataSetChanged()
             }
         }
