@@ -16,12 +16,16 @@ import com.philips.cdp.registration.configuration.RegistrationConfiguration;
 import com.philips.cdp.registration.configuration.RegistrationLaunchMode;
 import com.philips.cdp.registration.listener.UserRegistrationUIEventListener;
 import com.philips.cdp.registration.settings.RegistrationFunction;
+import com.philips.cdp.registration.ui.utils.RegistrationContentConfiguration;
 import com.philips.cdp.registration.ui.utils.URInterface;
 import com.philips.cdp.registration.ui.utils.URLaunchInput;
+import com.philips.platform.pif.chi.datamodel.ConsentDefinition;
 import com.philips.platform.prdemoapp.activity.MainActivity;
 import com.philips.platform.prdemoapp.theme.fragments.BaseFragment;
 import com.philips.platform.prdemoapplibrary.R;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
+
+import java.util.ArrayList;
 
 /**
  * (C) Koninklijke Philips N.V., 2015.
@@ -117,6 +121,15 @@ public class LaunchFragment extends BaseFragment implements View.OnClickListener
         ActivityOrientation.SCREEN_ORIENTATION_SENSOR, ((MainActivity) getActivity()).getThemeConfig(),
                 ((MainActivity) getActivity()).getThemeResourceId(), null);
 
+        RegistrationContentConfiguration contentConfiguration = new RegistrationContentConfiguration();
+        contentConfiguration.setPersonalConsentContentErrorResId(R.string.personalConsentAcceptanceText_Error);
+        final ArrayList<String> types = new ArrayList<>();
+        types.add("USR_PERSONAL_CONSENT");
+        ConsentDefinition consentDefination = new ConsentDefinition(R.string.personalConsentText, R.string.personalConsentAcceptanceText,
+                types, 1);
+
+        contentConfiguration.setPersonalConsentDefinition(consentDefination);
+        urLaunchInput.setRegistrationContentConfiguration(contentConfiguration);
 
         urInterface = new URInterface();
         urInterface.launch(activityLauncher, urLaunchInput);

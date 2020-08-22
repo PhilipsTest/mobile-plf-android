@@ -52,6 +52,7 @@ import com.philips.platform.pif.DataInterface.USR.UserDataInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
 import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListener;
+import com.philips.platform.pif.chi.datamodel.ConsentDefinition;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.uappinput.UappDependencies;
 import com.philips.platform.uappframework.uappinput.UappSettings;
@@ -585,6 +586,14 @@ public class DemoAppActivity extends AppCompatActivity implements View.OnClickLi
         urLaunchInput.setUserRegistrationUIEventListener(this);
         urLaunchInput.enableAddtoBackStack(true);
         RegistrationContentConfiguration contentConfiguration = new RegistrationContentConfiguration();
+
+        final ArrayList<String> types = new ArrayList<>();
+        types.add("USR_PERSONAL_CONSENT");
+        ConsentDefinition consentDefination = new ConsentDefinition(R.string.personalConsentText, R.string.personalConsentAcceptanceText,
+                types, 1);
+
+        contentConfiguration.setPersonalConsentDefinition(consentDefination);
+
         contentConfiguration.enableLastName(true);
         contentConfiguration.enableContinueWithouAccount(true);
         RegistrationConfiguration.getInstance().setPrioritisedFunction(RegistrationFunction.Registration);

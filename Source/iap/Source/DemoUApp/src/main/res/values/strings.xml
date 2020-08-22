@@ -34,4 +34,34 @@
     <string name="warning_text">This color is not selectable with current theme combination. Please re-select alternatives above to use this color.</string>
     <string name="set_theme_settings">Set</string>
     <string name="log_out">Log out</string>
+
+    <string name="personalConsentAcceptanceText">Information on Collection and Use of Personal Information
+        [Purpose of collecting and using personal information]end. Performance of contracts regarding the provision of services;
+        -Content provision, specific custom service provision, identity verification
+        I. Membership Management
+        -Identity verification using the membership system and limited identity verification system
+        -Prevention of illegal use by unauthorized members and prevention of unauthorized use
+        -Confirmation of subscription intention, restriction of subscription
+        [Items collected for personal information]
+        -Required items: name, date of birth, gender, email address, password
+        -Optional items: address, phone number
+        [Retention and Use Period of Personal Information]
+        In principle, personal information of the information subject is destroyed without delay when the purpose of collecting and using personal information is achieved. However, the following information will be retained for the period specified for the reasons below.
+        end. Reasons for information retention by company internal policy
+        -Fraudulent records
+        Reason for retention: Prevention of fraudulent use
+        Retention period: 5 years
+        I. Reasons for information retention pursuant to related laws
+        -If it is necessary to preserve according to the provisions of related laws such as the Act on the Consumer Protection in Electronic Commerce, etc., the member information will be kept for a certain period of time.
+        -Records on contract or withdrawal of subscription
+        Reason for retention: Act on Consumer Protection in Electronic Commerce, etc.
+        Retention period: 5 years
+        Records of consumer complaints or disputes
+        Reason for retention: Act on Consumer Protection in Electronic Commerce, etc.
+        Retention period: 3 years
+[Right of refusing consent to collect personal information]
+You may not agree to the collection and use of such personal information. Online consultations are still available if you decline to agree, but your Philips membership service will be limited (but you will not be able to sign up if you do not enter the required information, which is the minimum required for membership).For more details about the collection and use of personal information of the company, please click the URL below.
+       <a href="http://www.philips.com">http://www.philips.co.kr/privacypolicy_online</a>  </string>
+    <string name="personalConsentAcceptanceText_Error">Please accept the Personal Consent</string>
+    <string name="personalConsentText">I accept the Personal Consent</string>
 </resources>
