@@ -30,13 +30,13 @@ import com.philips.cdp.digitalcare.util.DigitalCareConstants;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.UiLauncher;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 
 //import com.philips.cdp.productselection.launchertype.ActivityLauncher;
 //import com.philips.cdp.productselection.launchertype.UiLauncher;
 
 
-public abstract class DigitalCareBaseActivity extends UIDActivity implements ActivityTitleListener{
+public abstract class DigitalCareBaseActivity extends UIDLangPackActivity implements ActivityTitleListener{
     private static String TAG = DigitalCareBaseActivity.class.getSimpleName();
 
     protected FragmentManager fragmentManager = null;

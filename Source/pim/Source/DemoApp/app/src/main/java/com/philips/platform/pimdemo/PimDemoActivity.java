@@ -16,7 +16,7 @@ import android.widget.Switch;
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 import com.philips.platform.uid.view.widget.Button;
 import com.pim.demouapp.PIMDemoUAppDependencies;
 import com.pim.demouapp.PIMDemoUAppInterface;
@@ -30,7 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PimDemoActivity extends UIDActivity {
+public class PimDemoActivity extends UIDLangPackActivity {
 
     private Spinner selectLibrary, spinnerCountrySelection;
     private CheckBox enableChuck;
