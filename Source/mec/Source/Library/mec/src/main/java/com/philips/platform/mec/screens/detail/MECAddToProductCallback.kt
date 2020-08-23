@@ -22,7 +22,7 @@ class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductD
     lateinit var mECRequestType: MECRequestType
 
     override fun onResponse(result: ECSShoppingCart) {
-        ecsProductDetailViewModel.addToProductCallBack.onResponse(result)
+        ecsProductDetailViewModel.ecsShoppingCart.value = result
     }
 
     override fun onFailure(ecsError :ECSError) {

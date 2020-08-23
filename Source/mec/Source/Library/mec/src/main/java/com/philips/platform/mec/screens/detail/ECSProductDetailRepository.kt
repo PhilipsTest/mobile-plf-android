@@ -56,13 +56,14 @@ class ECSProductDetailRepository(private val ecsProductDetailViewModel: EcsProdu
         prepareCall.loadAsync(ratingCb)
     }
 
-    fun addTocart(ecsProduct: ECSProduct){
+    fun addTocart(ctn: String){
         mECAddToProductCallback.mECRequestType= MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART
-        ecsServices.microService.addProductToShoppingCart(ctn = ecsProduct.ctn,ecsCallback = mECAddToProductCallback)
+        ecsServices.microService.addProductToShoppingCart(ctn = ctn,ecsCallback = mECAddToProductCallback)
     }
 
-    fun createCart(ctn: String,createShoppingCartCallback: ECSCallback<ECSShoppingCart, ECSError>){
-       ecsServices.microService.createShoppingCart(ctn = ctn,ecsCallback = createShoppingCartCallback)
+    fun createCart(ctn: String){
+        mECAddToProductCallback.mECRequestType = MECRequestType.MEC_CREATE_SHOPPING_CART
+       ecsServices.microService.createShoppingCart(ctn = ctn,ecsCallback = mECAddToProductCallback)
     }
 
 }

@@ -102,7 +102,7 @@ class MECManager {
     }
 
     private fun doHybrisAuthCall(mECCartUpdateListener: MECCartUpdateListener) {
-        var authCallBack = object : ECSCallback<ECSOAuthData, Exception> {
+        val authCallBack = object : ECSCallback<ECSOAuthData, Exception> {
 
             override fun onResponse(result: ECSOAuthData?) {
                 getShoppingCartData(mECCartUpdateListener)
