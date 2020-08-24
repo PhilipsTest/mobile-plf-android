@@ -90,7 +90,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 productList.add(productWithReview.ecsProduct)
             }
             adapter = MECProductCatalogAdapter(mProductsWithReview, this)
-            binding.mecFilter.setText("Filter")
+            binding.mecFilter.setText(R.string.dls_filtersliders)
             binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
             binding.productCatalogRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
@@ -520,7 +520,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 mProductFilter = data.getParcelableExtra(MECConstant.SELECTED_FILTERS) as ProductFilter
                 offSet = 0
                 showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-                binding.mecFilter.setText("filter")
+                binding.mecFilter.setText(R.string.dls_filterslidersoutline)
                 binding.mecFilter.setBackgroundColor(highLightedBackgroundColor)
                 executeRequest()
             }

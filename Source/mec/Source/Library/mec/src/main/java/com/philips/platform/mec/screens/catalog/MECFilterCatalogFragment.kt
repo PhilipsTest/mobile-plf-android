@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
@@ -31,9 +28,9 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
 
         binding.mecApplyButton.setOnClickListener {
 
-            if(binding.mecFilterCheckbox1.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.InStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.InStock)
-            if(binding.mecFilterCheckbox2.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.LowStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.LowStock)
-            if(binding.mecFilterCheckbox3.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.OutOfStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.OutOfStock)
+            if (binding.mecFilterCheckbox1.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.InStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.InStock)
+            if (binding.mecFilterCheckbox2.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.LowStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.LowStock)
+            if (binding.mecFilterCheckbox3.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.OutOfStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.OutOfStock)
 
             val bundle = Bundle()
             bundle.putParcelable(MECConstant.SELECTED_FILTERS, mProductFilter)
@@ -41,14 +38,13 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
             this.dismiss()
         }
+        binding.mecApplyButton.setOnClickListener {
+            binding.mecFilterCheckbox1.isChecked = false
+            binding.mecFilterCheckbox2.isChecked = false
+            binding.mecFilterCheckbox3.isChecked = false
+            this.dismiss()
+        }
         return binding.root
-    }
-
-    fun onClickOfClear() {
-        binding.mecFilterCheckbox1.isChecked = false
-        binding.mecFilterCheckbox2.isChecked = false
-        binding.mecFilterCheckbox3.isChecked = false
-        this.dismiss()
     }
 }
 
