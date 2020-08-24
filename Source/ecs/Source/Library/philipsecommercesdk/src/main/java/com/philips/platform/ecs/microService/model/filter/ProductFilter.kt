@@ -2,11 +2,9 @@ package com.philips.platform.ecs.microService.model.filter
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
 
 @Parcelize
-class ProductFilter(var sortType: ECSSortType?, var stockLevelList: List<ECSStockLevel>) : Parcelable, Serializable
-
+class ProductFilter(var sortType: ECSSortType?, var stockLevelList: List<ECSStockLevel>) : Parcelable
 
 enum class ECSStockLevel(var value: String) {
     InStock("IN_STOCK"),
