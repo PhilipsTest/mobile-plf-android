@@ -73,7 +73,7 @@
                     android:id="@+id/mec_filter_checkbox1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@={viewModel.isCheckedCheckBox1}"
+                    android:checked="@={viewModel.checkBox1}"
                     android:onClick="@{() -> viewModel.onCheckedChanged(@id/mec_filter_checkbox1)}"
                     android:text='In Stock'
                    />
@@ -83,7 +83,7 @@
                     android:id="@+id/mec_filter_checkbox2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isCheckedCheckBox2}"
+                    android:checked="@={viewModel.checkBox2}"
                     android:onClick="@{() -> viewModel.onCheckedChanged(@id/mec_filter_checkbox2)}"
                     android:text="Low  Stock"
                      />
@@ -93,7 +93,7 @@
                     android:id="@+id/mec_filter_checkbox3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isCheckedCheckBox3}"
+                    android:checked="@={viewModel.checkBox3}"
                     android:onClick="@{() -> viewModel.onCheckedChanged(@id/mec_filter_checkbox3)}"
                     android:text="Out of Stock"
                      />

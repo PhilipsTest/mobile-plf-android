@@ -1,6 +1,7 @@
 package com.philips.platform.mec.screens.catalog
 
 import androidx.annotation.IdRes
+import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +9,13 @@ import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.mec.R
 
 
-class MECStockLevelStateViewModel() : ViewModel() {
+class MECStockLevelStateViewModel    : ViewModel() {
+    val checkBox1: ObservableBoolean? = ObservableBoolean()
+    val checkBox2: ObservableBoolean? = ObservableBoolean()
+    val checkBox3: ObservableBoolean? = ObservableBoolean()
     val validated = MutableLiveData<ArrayList<ECSStockLevel>>()
 
-    private var stockList: ArrayList<ECSStockLevel> = ArrayList()
+    var mStockList: ArrayList<ECSStockLevel> = ArrayList()
 //    var checkBox1 = ObservableBoolean()
 //    var checkBox2 = ObservableBoolean()
 //    var checkBox3 = ObservableBoolean()
@@ -42,42 +46,52 @@ class MECStockLevelStateViewModel() : ViewModel() {
 
         if (resId == R.id.mec_filter_checkbox1)
             if (isCheckedCheckBox1.value!!)
-                stockList.add(ECSStockLevel.InStock)
+                mStockList.add(ECSStockLevel.InStock)
             else
-                stockList.remove(ECSStockLevel.InStock)
+                mStockList.remove(ECSStockLevel.InStock)
         else if (resId == R.id.mec_filter_checkbox2)
             if (isCheckedCheckBox2.value!!)
-                stockList.add(ECSStockLevel.LowStock)
+                mStockList.add(ECSStockLevel.LowStock)
             else
-                stockList.remove(ECSStockLevel.LowStock)
+                mStockList.remove(ECSStockLevel.LowStock)
         else if (resId == R.id.mec_filter_checkbox3)
             if (isCheckedCheckBox3.value!!)
-                stockList.add(ECSStockLevel.OutOfStock)
+                mStockList.add(ECSStockLevel.OutOfStock)
             else
-                stockList.remove(ECSStockLevel.OutOfStock)
+                mStockList.remove(ECSStockLevel.OutOfStock)
 
-//
-//        checkBox1.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-//            override fun onPropertyChanged(observable: Observable?, i: Int) {
-//                if (checkBox1.get()) {
-//                    checkBox1.set(stockList.contains(ECSStockLevel.InStock))
-//                }
-//            }
-//        })
-//        checkBox1.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-//            override fun onPropertyChanged(observable: Observable?, i: Int) {
-//                if (checkBox2.get()) {
-//                    checkBox2.set(stockList.contains(ECSStockLevel.LowStock))
-//                }
-//            }
-//        })
-//        checkBox3.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-//            override fun onPropertyChanged(observable: Observable?, i: Int) {
-//                if (checkBox3.get()) {
-//                    checkBox3.set(stockList.contains(ECSStockLevel.OutOfStock))
-//                }
-//            }
-//        })
+
+        checkBox1?.set(isCheckedCheckBox1.value!!)
+        checkBox2?.set(isCheckedCheckBox2.value!!)
+        checkBox3?.set(isCheckedCheckBox3.value!!)
+
+        checkBox1?.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(observable: Observable?, i: Int) {
+                if (checkBox1.get()) {
+                    checkBox1.set(mStockList.contains(ECSStockLevel.InStock))
+
+                }
+            }
+        })
+        checkBox2?.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(observable: Observable?, i: Int) {
+                if (checkBox2.get()) {
+                    checkBox2.set(mStockList.contains(ECSStockLevel.LowStock))
+                }
+            }
+        })
+        checkBox3?.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(observable: Observable?, i: Int) {
+                if (checkBox3.get()) {
+                    checkBox3.set(mStockList.contains(ECSStockLevel.OutOfStock))
+                }
+            }
+        })
+        checkBox1?.set(mStockList.contains(ECSStockLevel.InStock))
+        checkBox2?.set(mStockList.contains(ECSStockLevel.LowStock))
+        checkBox3?.set(mStockList.contains(ECSStockLevel.OutOfStock))
+
+
     }
 
     fun onClickValidateButton() {
@@ -86,7 +100,7 @@ class MECStockLevelStateViewModel() : ViewModel() {
 //            checkBox2Color.value = ECSStockLevel.OutOfStock
 //            return
 //        }
-        validated.value = stockList
+        validated.value = mStockList
     }
 
 
