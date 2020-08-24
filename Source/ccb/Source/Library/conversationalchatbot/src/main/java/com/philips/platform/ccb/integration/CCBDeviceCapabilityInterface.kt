@@ -7,13 +7,8 @@
  *
  */
 
-package com.philips.platform.ccb.directline
+package com.philips.platform.ccb.integration
 
-import java.lang.Error
-
-interface CCBAuthHandler {
-
-    fun onAuthSucccess()
-
-    fun onAuthFailureWithError(error:Error)
+interface CCBDeviceCapabilityInterface {
+    fun isDeviceConnected(deviceID: String): Boolean
 }

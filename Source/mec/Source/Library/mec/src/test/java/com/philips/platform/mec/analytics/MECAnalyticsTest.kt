@@ -1,6 +1,8 @@
 package com.philips.platform.mec.analytics
 
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
+import com.philips.platform.appinfra.tagging.ErrorCategory
+import com.philips.platform.appinfra.tagging.TaggingError
 import com.philips.platform.ecs.model.address.ECSDeliveryMode
 import com.philips.platform.ecs.model.cart.BasePriceEntity
 import com.philips.platform.ecs.model.cart.ECSEntries
@@ -12,15 +14,12 @@ import com.philips.platform.ecs.model.products.PriceEntity
 import com.philips.platform.ecs.model.voucher.AppliedValue
 import com.philips.platform.ecs.model.voucher.ECSVoucher
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.deliveryMethod
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.informationalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.mecProducts
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.paymentType
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.productListLayout
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.promotion
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.specialEvents
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.technicalError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.transationID
-import com.philips.platform.mec.analytics.MECAnalyticsConstant.userError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCode
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.voucherCodeStatus
 import com.philips.platform.mec.utils.MECDataHolder
@@ -85,41 +84,41 @@ class MECAnalyticsTest {
 
     @Test
     fun trackTechnicalError() {
-        val techError= "Technical Error";
-        val map = mECAnalytics.getTechnicalErrorMap(techError)
-        assert(map.size>0)
-        assert(map.containsKey(technicalError))
-        map.get(technicalError)?.contains(techError)?.let { assert(it) }
+        val techError = "Technical Error";
+//        val map = mECAnalytics.trackTechnicalError(techError)
+//        assert(map.size>0)
+//        assert(map.containsKey(technicalError))
+//        map.get(technicalError)?.contains(techError)?.let { assert(it) }
 
         mECAnalytics.trackTechnicalError(techError)
-        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
-        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java), anyMap())
+//        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
+//        Mockito.verify(mAppTaggingInterfaceMock).trackErrorAction(ErrorCategory.TECHNICAL_ERROR, any(), TaggingError(any(String::class.java)))
     }
 
     @Test
     fun trackUserError() {
-        val userErrorString= "User Error";
-        val map = mECAnalytics.getUserErrorMap(userErrorString)
-        assert(map.size>0)
-        assert(map.containsKey(userError))
-        map.get(userError)?.contains(userErrorString)?.let { assert(it) }
+        val userErrorString = "User Error";
+//        val map = mECAnalytics.trackUserError(userErrorString)
+//        assert(map.size > 0)
+//        assert(map.containsKey(userError))
+//        map.get(userError)?.contains(userErrorString)?.let { assert(it) }
 
         mECAnalytics.trackUserError(userErrorString)
-        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
-        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java), anyMap())
+//        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
+//        Mockito.verify(mAppTaggingInterfaceMock).trackErrorAction(ErrorCategory.USER_ERROR, any(), TaggingError(any(String::class.java)))
     }
 
     @Test
     fun trackInformationError() {
-        val infoError= "Information Error";
-        val map = mECAnalytics.getInformationErrorMap(infoError)
-        assert(map.size>0)
-        assert(map.containsKey(informationalError))
-        map.get(informationalError)?.contains(infoError)?.let { assert(it) }
+        val infoError = "Information Error";
+//        val map = mECAnalytics.trackInformationError(infoError)
+//        assert(map.size>0)
+//        assert(map.containsKey(informationalError))
+//        map.get(informationalError)?.contains(infoError)?.let { assert(it) }
 
         mECAnalytics.trackInformationError(infoError)
-        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
-        Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java), anyMap())
+//        Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackErrorAction(any(String::class.java), anyMap())
+//        Mockito.verify(mAppTaggingInterfaceMock).trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, any(), TaggingError(any(String::class.java)))
     }
 
     @Test
@@ -136,10 +135,10 @@ class MECAnalyticsTest {
         productlist.add(mECSProduct2)
 
         val map = mECAnalytics.getProductListMap(productlist)
-        assert(map.size==1)
+        assert(map.size == 1)
         assert(map.containsKey(mecProducts))
-        map.get(mecProducts)?.contains(mECSProduct1.code)?.let { assert (it) }
-        map.get(mecProducts)?.contains(mECSProduct2.code)?.let { assert (it) }
+        map.get(mecProducts)?.contains(mECSProduct1.code)?.let { assert(it) }
+        map.get(mecProducts)?.contains(mECSProduct2.code)?.let { assert(it) }
 
         mECAnalytics.tagProductList(productlist)
         Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
@@ -147,7 +146,7 @@ class MECAnalyticsTest {
     }
 
     @Test
-    fun `tag Product Empty List`(){
+    fun `tag Product Empty List`() {
         var productlist: MutableList<ECSProduct> = mutableListOf()
         val map = mECAnalytics.getProductListMap(productlist)
         assert(map.isEmpty())
@@ -166,8 +165,8 @@ class MECAnalyticsTest {
         productlist.add(mECSProduct1)
         productlist.add(mECSProduct2)
 
-        val map= mECAnalytics.getProductListAndGridMap(productlist,"Grid")
-        assert(map.size>1)
+        val map = mECAnalytics.getProductListAndGridMap(productlist, "Grid")
+        assert(map.size > 1)
         assert(map.containsKey(mecProducts))
         assert(map.containsKey(productListLayout))
         map.get(mecProducts)?.contains(mECSProduct1.ctn)?.let { assert (it) }
@@ -187,7 +186,7 @@ class MECAnalyticsTest {
         assert(!map.containsKey(productListLayout))
 
         mECAnalytics.tagProductList(productlist, "Grid")
-        Mockito.verify(mAppTaggingInterfaceMock,  Mockito.never()).trackActionWithInfo(any(String::class.java), anyMap())
+        Mockito.verify(mAppTaggingInterfaceMock, Mockito.never()).trackActionWithInfo(any(String::class.java), anyMap())
     }
 
     @Test
@@ -211,10 +210,10 @@ class MECAnalyticsTest {
         var entries = ArrayList<ECSEntries>()
         entries.add(eCSentry)
 
-        val mapObtained= mECAnalytics.getOrderProductInfoMap(map,entries)
-        assert(mapObtained.size>1)
+        val mapObtained = mECAnalytics.getOrderProductInfoMap(map, entries)
+        assert(mapObtained.size > 1)
         assert(mapObtained.containsKey(mecProducts))
-        map.get(mecProducts)?.contains(mECSProduct.code)?.let { assert (it) }
+        map.get(mecProducts)?.contains(mECSProduct.code)?.let { assert(it) }
 
         mECAnalytics.tagActionsWithOrderProductsInfo(map, entries)
         Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
@@ -222,15 +221,15 @@ class MECAnalyticsTest {
     }
 
     @Test
-    fun `tag Actions With Order empty Products Info`(){
+    fun `tag Actions With Order empty Products Info`() {
         val map = HashMap<String, String>()
-       // map.put("key1", "value1")
+        // map.put("key1", "value1")
 
 
         var entries = ArrayList<ECSEntries>()
 
 
-        val mapObtained= mECAnalytics.getOrderProductInfoMap(map,entries)
+        val mapObtained = mECAnalytics.getOrderProductInfoMap(map, entries)
         assert(mapObtained.isEmpty())
         assert(!mapObtained.containsKey(mecProducts))
 
@@ -287,8 +286,8 @@ class MECAnalyticsTest {
         entries.add(eCSentry)
         mECSOrderDetail.entries = entries
 
-        val map= mECAnalytics.getPurchaseOrderMap(mECSOrderDetail, "new")
-        assert(map.size>=4)
+        val map = mECAnalytics.getPurchaseOrderMap(mECSOrderDetail, "new")
+        assert(map.size >= 4)
         assert(map.containsKey(specialEvents))
         assert(map.containsKey(paymentType))
         assert(map.containsKey(transationID))
@@ -309,8 +308,8 @@ class MECAnalyticsTest {
         var mECSOrderDetail: ECSOrderDetail = ECSOrderDetail()
 
 
-        val map= mECAnalytics.getPurchaseOrderMap(mECSOrderDetail, "new")
-        assert(map.size==2)
+        val map = mECAnalytics.getPurchaseOrderMap(mECSOrderDetail, "new")
+        assert(map.size == 2)
         assert(map.containsKey(specialEvents))
         assert(map.containsKey(paymentType))
         assert(!map.containsKey(transationID))

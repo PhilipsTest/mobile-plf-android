@@ -11,6 +11,8 @@ package com.philips.platform.mec.auth
 
 import com.google.gson.Gson
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface
+import com.philips.platform.appinfra.tagging.ErrorCategory
+import com.philips.platform.appinfra.tagging.TaggingError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
@@ -84,7 +86,9 @@ class HybrisAuth {
                 return userDetailsMap.get(UserDetailConstants.ACCESS_TOKEN)!!.toString()
             } catch (e: Exception) {
                 MECLog.d(TAG, "Exception Occurred : " + e.message)
-                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+//                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+                MECAnalytics.mAppTaggingInterface!!.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                        TaggingError(appError, MECAnalyticServer.other, MECAnalyticsConstant.exceptionErrorCode, e.toString()))
             }
             return null
         }
@@ -102,7 +106,8 @@ class HybrisAuth {
                     MECDataHolder.INSTANCE.refreshToken = result?.refreshToken!!
                     MECDataHolder.INSTANCE.appinfra.secureStorage.storeValueForKey(KEY_MEC_AUTH_DATA,jsonString,sse)
                     if(sse.errorMessage != null && sse.errorCode!=null) {
-                        MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError+ ":" + MECAnalyticServer.other + sse.errorMessage + ":" + sse.errorCode)
+                       // MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + appError+ ":" + MECAnalyticServer.other + sse.errorMessage + ":" + sse.errorCode)
+
                     }
                     fragmentCallback.onResponse(result)
                 }

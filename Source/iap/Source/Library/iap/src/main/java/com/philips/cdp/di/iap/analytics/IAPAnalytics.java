@@ -10,6 +10,8 @@ import com.philips.cdp.di.iap.integration.IAPDependencies;
 import com.philips.cdp.di.iap.utils.IAPLog;
 import com.philips.platform.appinfra.BuildConfig;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 
 import java.util.Currency;
 import java.util.HashMap;
@@ -21,11 +23,11 @@ import static com.philips.cdp.di.iap.analytics.IAPAnalyticsConstant.IAP_CURRENCY
 
 public class IAPAnalytics {
     public static AppTaggingInterface sAppTaggingInterface;
-    public static String mCountryCode="";
-    public static String mCurrencyCode="";
-    public static String mCategory="";
+    public static String mCountryCode = "";
+    public static String mCurrencyCode = "";
+    public static String mCategory = "";
 
-    private IAPAnalytics(){
+    private IAPAnalytics() {
 
     }
 
@@ -33,7 +35,7 @@ public class IAPAnalytics {
         sAppTaggingInterface =
                 dependencies.getAppInfra().getTagging().
                         createInstanceForComponent(IAPAnalyticsConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME);
-        mCountryCode=dependencies.getAppInfra().getServiceDiscovery().getHomeCountry();
+        mCountryCode = dependencies.getAppInfra().getServiceDiscovery().getHomeCountry();
 
     }
 
@@ -51,6 +53,27 @@ public class IAPAnalytics {
             sAppTaggingInterface.
                     trackActionWithInfo(state, key, valueObject);
     }
+
+    public static void trackTechnicalErrorWithPrefix(Object value) {
+//        String valueObject = "IAP:".concat((String) value);
+        IAPLog.d(IAPLog.LOG, "trackAction" + (String) value);
+        if (sAppTaggingInterface != null)
+//            sAppTaggingInterface.
+//                    trackActionWithInfo(state, key, valueObject);
+            sAppTaggingInterface.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError((String) value));
+
+    }
+
+    public static void trackInformationalErrorWithPrefix(Object value) {
+//        String valueObject = "IAP:".concat((String) value);
+        IAPLog.d(IAPLog.LOG, "trackAction" + (String) value);
+        if (sAppTaggingInterface != null)
+//            sAppTaggingInterface.
+//                    trackActionWithInfo(state, key, valueObject);
+            sAppTaggingInterface.trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError((String) value));
+
+    }
+
 
     public static void trackMultipleActions(String state, Map<String, String> map) {
         if (sAppTaggingInterface != null)
@@ -72,20 +95,20 @@ public class IAPAnalytics {
         sAppTaggingInterface = null;
     }
 
-    public static Map<String,String> addCountryAndCurrency(Map<String,String> map) {
-        map.put(IAP_COUNTRY,mCountryCode);
-        map.put(IAP_CURRENCY,mCurrencyCode);
+    public static Map<String, String> addCountryAndCurrency(Map<String, String> map) {
+        map.put(IAP_COUNTRY, mCountryCode);
+        map.put(IAP_CURRENCY, mCurrencyCode);
         return map;
 
     }
 
-    public static void setCurrencyString(String localeString){
+    public static void setCurrencyString(String localeString) {
         try {
             String[] localeArray = localeString.split("_");
             Locale locale = new Locale(localeArray[0], localeArray[1]);
             Currency currency = Currency.getInstance(locale);
             mCurrencyCode = currency.getCurrencyCode();
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
 

@@ -32,7 +32,7 @@ import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uappframework.listener.ActionBarListener;
 import com.philips.platform.uappframework.listener.BackEventListener;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 import com.philips.platform.uid.view.widget.ActionBarTextView;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 import static com.philips.cdp.prodreg.constants.ProdRegConstants.PROD_REG_FIRST_REG_BTN_TEXT;
 
-public class ProdRegBaseActivity extends UIDActivity {
+public class ProdRegBaseActivity extends UIDLangPackActivity {
     private static final String TAG = ProdRegBaseActivity.class.getSimpleName();
     private final int DEFAULT_THEME = R.style.Theme_DLS_GroupBlue_UltraLight;
     private Handler mSiteCatListHandler = new Handler();

@@ -7,13 +7,10 @@
  *
  */
 
-package com.philips.platform.ccb.directline
+package com.philips.platform.ccb.errors
 
-import java.lang.Error
-
-interface CCBAuthHandler {
-
-    fun onAuthSucccess()
-
-    fun onAuthFailureWithError(error:Error)
+class CCBErrorCdes {
+    companion object {
+        const val NETWORK_ERROR = -101
+    }
 }

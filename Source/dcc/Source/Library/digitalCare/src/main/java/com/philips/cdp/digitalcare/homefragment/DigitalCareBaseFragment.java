@@ -53,6 +53,8 @@ import com.philips.cdp.digitalcare.util.DigiCareLogger;
 import com.philips.cdp.digitalcare.util.DigitalCareConstants;
 import com.philips.cdp.digitalcare.util.NetworkReceiver;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uappframework.listener.ActionBarListener;
 import com.philips.platform.uappframework.listener.BackEventListener;
@@ -98,7 +100,7 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
 
-                if (request.getUrl() != null && ( request.getUrl().toString().startsWith("https://m.me")
+                if (request.getUrl() != null && (request.getUrl().toString().startsWith("https://m.me")
                         || request.getUrl().toString().contains("com.facebook.katana")
                         || url.contains("com.facebook.lite"))) {
                     try {
@@ -124,9 +126,9 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
             @SuppressWarnings("deprecation")
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url != null && ( url.startsWith("https://m.me") || url.contains("com.facebook.katana")
+                if (url != null && (url.startsWith("https://m.me") || url.contains("com.facebook.katana")
                         || url.contains("com.facebook.lite"))) {
-                try {
+                    try {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         view.getContext().startActivity(intent);
                         return true;
@@ -168,7 +170,7 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
-            
+
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -209,8 +211,8 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(activityTitleListener instanceof ActivityTitleListener){
-            activityTitleListener=(ActivityTitleListener) context;
+        if (activityTitleListener instanceof ActivityTitleListener) {
+            activityTitleListener = (ActivityTitleListener) context;
         }
     }
 
@@ -238,7 +240,7 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
         mLeftRightMarginLand = (int) getActivity().getResources()
                 .getDimension(R.dimen.activity_margin_land);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (getActivity().isInMultiWindowMode()){
+            if (getActivity().isInMultiWindowMode()) {
                 mLeftRightMarginLand = (int) getActivity().getResources()
                         .getDimension(R.dimen.activity_margin_port);
             }
@@ -306,16 +308,16 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
                                 R.string.no_internet),
                         getActivity().getResources().getString(
                                 android.R.string.yes));
-                DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo
-                        (AnalyticsConstants.ACTION_SET_ERROR,
-                                AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
-                                AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON);
-
+//                String val = "DCC:".concat(AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON);
+//                DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo
+//                        (AnalyticsConstants.ACTION_SET_ERROR,
+//                                AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
+//                                val);
+                DigitalCareConfigManager.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError(AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON));
             }
         });
         return false;
     }
-
 
 
     protected void showAlert(final String message) {
@@ -329,11 +331,14 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
                         message,
                         getActivity().getResources().getString(
                                 android.R.string.ok));
-                DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo
-                        (AnalyticsConstants.ACTION_SET_ERROR,
-                                AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
-                                AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON);
+//                String val = "DCC:".concat(AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON);
 
+//                DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo
+//                        (AnalyticsConstants.ACTION_SET_ERROR,
+//                                AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR,
+//                                val);
+
+                DigitalCareConfigManager.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError(AnalyticsConstants.ACTION_VALUE_TECHNICAL_ERROR_NETWORK_CONNECITON));
             }
         });
     }
@@ -351,7 +356,7 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
     protected String getAppName() {
         String appName = "";
 
-        if(isAdded()) {
+        if (isAdded()) {
             appName = getActivity().getResources().getString(R.string.app_name);
 
             try {
@@ -421,8 +426,8 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
     }
 
     public void showFragment(/*FragmentActivity context, int parentContainer,*/
-                             Fragment fragment, FragmentLauncher fragmentLauncher,/*ActionbarUpdateListener actionbarUpdateListener,*/
-                             int startAnimation, int endAnimation) {
+            Fragment fragment, FragmentLauncher fragmentLauncher,/*ActionbarUpdateListener actionbarUpdateListener,*/
+            int startAnimation, int endAnimation) {
         mFragmentLauncher = fragmentLauncher;
         mContainerId = fragmentLauncher.getParentContainerResourceID();
         FragmentActivity mActivityContext = fragmentLauncher.getFragmentActivity();
@@ -486,7 +491,7 @@ public abstract class DigitalCareBaseFragment extends Fragment implements
      */
     private void setActionbarTitle() {
 
-        if(getActionbarTitle() == null || !isAdded()) {
+        if (getActionbarTitle() == null || !isAdded()) {
             return;
         }
 

@@ -648,7 +648,7 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
 
         if (isEmailAvailable && isMobileNoAvailable && !mUser.isEmailVerified()) {
             UserRegistrationFailureInfo userRegistrationFailureInfo = new UserRegistrationFailureInfo(mContext);
-            userRegistrationFailureInfo.setErrorCode(AppTagingConstants.EMAIL_NOT_VERIFIED_CODE);
+            userRegistrationFailureInfo.setErrorCode(ErrorCodes.EMAIL_NOT_VERIFIED_CODE);
             AppTaggingErrors.trackActionLoginError(userRegistrationFailureInfo, AppTagingConstants.JANRAIN);
             launchAccountActivationFragment();
             return;

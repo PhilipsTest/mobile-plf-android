@@ -8,12 +8,13 @@ package com.philips.cdp.di.iap.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -93,16 +94,14 @@ public class ProductCatalogAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         String imageURL = productCatalogData.getImageURL();
         if (imageURL == null) {
-            IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                    IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + productCatalogData.getCtnNumber() + "_" + IAPAnalyticsConstant.NO_THUMB_NAIL_IMAGE);
+            IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.PRX + productCatalogData.getCtnNumber() + "_" + IAPAnalyticsConstant.NO_THUMB_NAIL_IMAGE);
         }
         String discountedPrice = productCatalogData.getDiscountedPrice();
         String formattedPrice = productCatalogData.getFormattedPrice();
 
         productHolder.mProductName.setText(productCatalogData.getProductTitle());
         if (imageURL == null) {
-            IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                    IAPAnalyticsConstant.ERROR, IAPAnalyticsConstant.PRX + productCatalogData.getCtnNumber() + "_" + IAPAnalyticsConstant.PRODUCT_TITLE_MISSING);
+            IAPAnalytics.trackTechnicalErrorWithPrefix(IAPAnalyticsConstant.PRX + productCatalogData.getCtnNumber() + "_" + IAPAnalyticsConstant.PRODUCT_TITLE_MISSING);
         }
         productHolder.mProductImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.no_icon));
         productHolder.mPrice.setText(formattedPrice);
@@ -110,16 +109,16 @@ public class ProductCatalogAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         IAPStockAvailabilityHelper iapStockAvailabilityHelper = new IAPStockAvailabilityHelper();
         final boolean stockAvailable = iapStockAvailabilityHelper.isStockAvailable(productCatalogData.getStockLevelStatus(), productCatalogData.getStockLevel());
 
-        if(stockAvailable){
+        if (stockAvailable) {
             productHolder.mProductOutOfStock.setVisibility(View.GONE);
-        }else {
-           // productHolder.mProductOutOfStock.setText(mContext.getString(R.string.iap_out_of_stock));
+        } else {
+            // productHolder.mProductOutOfStock.setText(mContext.getString(R.string.iap_out_of_stock));
             productHolder.mProductOutOfStock.setTextColor(ContextCompat.getColor(mContext, R.color.uid_signal_red_level_60));
         }
 
         if (discountedPrice == null || discountedPrice.equalsIgnoreCase("")) {
             productHolder.mDiscountedPrice.setVisibility(View.GONE);
-           // productHolder.mPrice.setTextColor(Utility.getThemeColor(mContext));
+            // productHolder.mPrice.setTextColor(Utility.getThemeColor(mContext));
         } else if (formattedPrice != null && discountedPrice.equalsIgnoreCase(formattedPrice)) {
             productHolder.mPrice.setVisibility(View.GONE);
             productHolder.mDiscountedPrice.setVisibility(View.VISIBLE);
@@ -133,7 +132,7 @@ public class ProductCatalogAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         getNetworkImage(productHolder, imageURL);
 
         // For arabic, Hebrew and Perssian the back arrow change from left to right
-        if((Locale.getDefault().getLanguage().contentEquals("ar")) || (Locale.getDefault().getLanguage().contentEquals("fa")) || (Locale.getDefault().getLanguage().contentEquals("he"))) {
+        if ((Locale.getDefault().getLanguage().contentEquals("ar")) || (Locale.getDefault().getLanguage().contentEquals("fa")) || (Locale.getDefault().getLanguage().contentEquals("he"))) {
             productHolder.mArrow.setRotation(180);
         }
 
@@ -157,7 +156,7 @@ public class ProductCatalogAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private void getNetworkImage(final ProductCatalogViewHolder productCartProductHolder,
                                  final String imageURL) {
-        if(imageURL == null ){
+        if (imageURL == null) {
             productCartProductHolder.mProductImage.setDefaultImageResId(R.drawable.no_icon);
             return;
         }
@@ -170,14 +169,14 @@ public class ProductCatalogAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemCount() {
-        if(mProductCatalogList.size()==0){
+        if (mProductCatalogList.size() == 0) {
 
-            if(isSearchFocused()){
+            if (isSearchFocused()) {
                 return 1;
-            }else{
+            } else {
                 return mProductCatalogList.size();
             }
-        }else{
+        } else {
             return mProductCatalogList.size();
         }
     }

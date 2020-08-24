@@ -169,6 +169,12 @@ class ManageAddressFragment : BottomSheetDialogFragment(), AlertListener {
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
     }
 
+    //TODO : Bug : 855591 : Code is added to address this bug and need to look for proper solution
+    override fun onPause() {
+        dismiss()
+        super.onPause()
+    }
+
 
     fun showProgressBar(mecProgressBar: FrameLayout?) {
         mecProgressBar?.visibility = View.VISIBLE

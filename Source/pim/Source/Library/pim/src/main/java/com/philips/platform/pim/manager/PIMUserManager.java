@@ -12,6 +12,8 @@ import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface.OnGetServiceUrlMapListener;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 import com.philips.platform.pif.DataInterface.USR.UserDetailConstants;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
 import com.philips.platform.pif.DataInterface.USR.enums.UserLoggedInState;
@@ -33,7 +35,6 @@ import com.philips.platform.pim.utilities.PIMInitState;
 import com.philips.platform.pim.utilities.PIMTaggingConstants;
 
 import net.openid.appauth.AuthState;
-import net.openid.appauth.AuthorizationRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,6 +59,7 @@ public class PIMUserManager {
     private PIMRestClient pimRestClient;
     private PIMAuthManager pimAuthManager;
     private String uuid;
+    private int refreshCount=0;
 
     private static final String PIM_LOGIN_FLOW = "LOGIN_FLOW";
 
@@ -96,7 +98,7 @@ public class PIMUserManager {
 
             userProfileRequestListener.onUserProfileDownloadSuccess();
         }, error -> {
-            if(getTokenExpireError(error) != null)
+            if (getTokenExpireError(error) != null)
                 userProfileRequestListener.onUserProfileDownloadFailed(getTokenExpireError(error));
             else
                 userProfileRequestListener.onUserProfileDownloadFailed(new Error(PIMErrorEnums.NETWORK_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.NETWORK_ERROR.errorCode)));
@@ -136,10 +138,26 @@ public class PIMUserManager {
 
             @Override
             public void onTokenRequestFailed(Error error) {
-                tagTechnicalError(PIMTaggingConstants.REFRESH_SESSION);
-                refreshSessionListener.refreshSessionFailed(error);
+                if(shouldRetryTheRefresh(error) && refreshCount <= 2){
+                    refreshSession(refreshSessionListener);
+                } else {
+                    tagTechnicalError(PIMTaggingConstants.REFRESH_SESSION);
+                    refreshSessionListener.refreshSessionFailed(error);
+                }
             }
         });
+    }
+
+    private Boolean shouldRetryTheRefresh(Error error){
+        Boolean shouldRetry;
+       if((refreshCount < 2) && (error.getErrCode()== PIMErrorCodes.UDI_SERVER_ERROR || error.getErrCode()== PIMErrorCodes.SERVER_ERROR || error.getErrCode()== PIMErrorCodes.NETWORK_ERROR || error.getErrCode()== PIMErrorCodes.AUTH_REQUEST_SERVER_ERROR)){
+           refreshCount +=1;
+           shouldRetry = true;
+       } else {
+           refreshCount = 0;
+           shouldRetry = false;
+       }
+       return shouldRetry;
     }
 
     public void logoutSession(LogoutSessionListener logoutSessionListener) {
@@ -321,7 +339,7 @@ public class PIMUserManager {
         }, null);
     }
 
-    private void requestUpdateOptinAndDownloadUserprofile(UpdateUserDetailsHandler updateUserDetailsHandler, Map<String, String>  requestData) {
+    private void requestUpdateOptinAndDownloadUserprofile(UpdateUserDetailsHandler updateUserDetailsHandler, Map<String, String> requestData) {
         MarketInOptedInRequest marketInOptedInRequest = new MarketInOptedInRequest(requestData);
         PIMRestClient pimRestClient = new PIMRestClient(PIMSettingManager.getInstance().getRestClient());
         pimRestClient.invokeRequest(marketInOptedInRequest, new Response.Listener<String>() {
@@ -332,7 +350,7 @@ public class PIMUserManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(getTokenExpireError(error) != null)
+                if (getTokenExpireError(error) != null)
                     updateUserDetailsHandler.onUpdateFailedWithError(getTokenExpireError(error));
                 else
                     updateUserDetailsHandler.onUpdateFailedWithError(new Error(PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MARKETING_OPTIN_ERROR.errorCode)));
@@ -373,12 +391,13 @@ public class PIMUserManager {
     }
 
     private void tagTechnicalError(String tagValue) {
-        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo(PIMTaggingConstants.SET_ERROR, PIMTaggingConstants.TECHNICAL_ERROR, tagValue);
+//        PIMSettingManager.getInstance().getTaggingInterface().trackActionWithInfo(PIMTaggingConstants.SET_ERROR, PIMTaggingConstants.TECHNICAL_ERROR, "UDI:".concat(tagValue));
+        PIMSettingManager.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError(tagValue));
     }
 
-    private Error getTokenExpireError(VolleyError error){
-        if(error != null && error.networkResponse != null && (error.networkResponse.statusCode == 403 || error.networkResponse.statusCode == 401))
-            return new Error(PIMErrorCodes.ACCESS_TOKEN_EXPIRED,"PIM_Error_Msg");
+    private Error getTokenExpireError(VolleyError error) {
+        if (error != null && error.networkResponse != null && (error.networkResponse.statusCode == 403 || error.networkResponse.statusCode == 401))
+            return new Error(PIMErrorCodes.ACCESS_TOKEN_EXPIRED, "PIM_Error_Msg");
         else
             return null;
     }

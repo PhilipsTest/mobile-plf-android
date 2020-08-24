@@ -26,13 +26,13 @@ import com.philips.platform.pif.DataInterface.MEC.listeners.MECFetchCartListener
 import com.philips.platform.uappframework.listener.ActionBarListener
 import com.philips.platform.uappframework.listener.BackEventListener
 import com.philips.platform.uid.thememanager.*
-import com.philips.platform.uid.utils.UIDActivity
+import com.philips.platform.uid.utils.UIDLangPackActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.mec_action_bar.*
 import java.util.*
 
 
-class MECLauncherActivity : UIDActivity(), View.OnClickListener, ActionBarListener, MECFetchCartListener, MECCartUpdateListener {
+class MECLauncherActivity : UIDLangPackActivity(), View.OnClickListener, ActionBarListener, MECFetchCartListener, MECCartUpdateListener {
 
 
     /**

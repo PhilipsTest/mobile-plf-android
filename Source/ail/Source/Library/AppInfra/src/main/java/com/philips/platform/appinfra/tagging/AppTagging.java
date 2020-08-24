@@ -139,6 +139,16 @@ public class AppTagging implements AppTaggingInterface {
     }
 
     @Override
+    public void trackErrorAction(ErrorCategory errorCategory, TaggingError taggingErrorInstance) {
+        getAppTaggingHandler().trackErrorActionWithCategory(errorCategory, null, taggingErrorInstance, false);
+    }
+
+    @Override
+    public void trackErrorAction(ErrorCategory errorCategory, Map trackMap, TaggingError taggingErrorInstance) {
+        getAppTaggingHandler().trackErrorActionWithCategory(errorCategory, trackMap, taggingErrorInstance, false);
+    }
+
+    @Override
     public void collectLifecycleInfo(Activity context, Map<String, Object> paramDict) {
         Config.collectLifecycleData(context, paramDict);
     }

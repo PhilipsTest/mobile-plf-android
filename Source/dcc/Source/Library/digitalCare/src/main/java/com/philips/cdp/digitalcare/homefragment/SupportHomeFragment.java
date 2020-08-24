@@ -56,6 +56,8 @@ import com.philips.cdp.prxclient.datamodels.support.SupportModel;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.model.ServiceDiscoveryService;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
+import com.philips.platform.appinfra.tagging.ErrorCategory;
+import com.philips.platform.appinfra.tagging.TaggingError;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
 import com.philips.platform.uappframework.launcher.FragmentLauncher;
 import com.philips.platform.uid.view.widget.Label;
@@ -151,12 +153,11 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
 
         initializeCountry();
 
-        if(DigitalCareConfigManager.getInstance().getConsumerProductInfo() == null){
+        if (DigitalCareConfigManager.getInstance().getConsumerProductInfo() == null) {
             ConsumerProductInfo mProductInfo = new ConsumerProductInfo();
             DigitalCareConfigManager.getInstance().setConsumerProductInfo(mProductInfo);
         }
         updateConsumerProductInfo();
-
 
 
         if (mIsFirstScreenLaunch || DigitalCareConfigManager.getInstance().
@@ -220,7 +221,6 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
 
 
         Configuration config = getResources().getConfiguration();
@@ -335,7 +335,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
                     launchProductSelectionComponent();
                 } else
                     showFragment(new ProductDetailsFragment());
-        }  else if (tag.equals(getStringKey(R.string.FAQ_KEY))) {
+        } else if (tag.equals(getStringKey(R.string.FAQ_KEY))) {
             DigiCareLogger.i(TAG, "Clicked on ReadFaq button");
             if (isConnectionAvailable())
                 if (isProductSelected() && isSupportScreenLaunched) {
@@ -458,7 +458,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
 
         ActivityLauncher uiLauncher = (ActivityLauncher) DigitalCareConfigManager.getInstance().
                 getUiLauncher();
-        uiLauncher = new ActivityLauncher(getActivity(),uiLauncher.getScreenOrientation(), uiLauncher.getDlsThemeConfiguration(), uiLauncher.getUiKitTheme(), null);
+        uiLauncher = new ActivityLauncher(getActivity(), uiLauncher.getScreenOrientation(), uiLauncher.getDlsThemeConfiguration(), uiLauncher.getUiKitTheme(), null);
         uiLauncher.setCustomAnimation(DigitalCareConfigManager.getInstance().getUiLauncher().
                         getEnterAnimation(),
                 DigitalCareConfigManager.getInstance().getUiLauncher().getExitAnimation());
@@ -673,7 +673,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
 
     @Override
     public void onResponseReceived(SummaryModel productSummaryModel) {
-        if(getContext() == null) {
+        if (getContext() == null) {
             return;
         }
         if (productSummaryModel == null) {
@@ -834,7 +834,11 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
             @Override
             public void onError(ERRORVALUES errorvalues, String s) {
                 DigiCareLogger.v(TAG, "Error Response from Service Discovery :" + s);
-                DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo(AnalyticsConstants.ACTION_SET_ERROR, AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR, s);
+//                DigitalCareConfigManager.getInstance().getTaggingInterface().trackActionWithInfo(AnalyticsConstants.ACTION_SET_ERROR, AnalyticsConstants.ACTION_KEY_TECHNICAL_ERROR, "DCC:".concat(s));
+                if (errorvalues.name().equals(ERRORVALUES.NO_NETWORK.name()))
+                    DigitalCareConfigManager.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.INFORMATIONAL_ERROR, new TaggingError(s));
+                else
+                    DigitalCareConfigManager.getInstance().getTaggingInterface().trackErrorAction(ErrorCategory.TECHNICAL_ERROR, new TaggingError(s));
             }
         }, hm);
     }
@@ -846,7 +850,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
             @Override
             public void onSuccess(String s, SOURCE source) {
                 String ccSavedCountry = prefs.getString(DCC_SAVED_COUNTRY, "");
-                if(!TextUtils.isEmpty(ccSavedCountry)) {
+                if (!TextUtils.isEmpty(ccSavedCountry)) {
                     if (!(s.equalsIgnoreCase(ccSavedCountry))) {
                         resetProductSelectionOnCountryChange();
                     }
@@ -862,7 +866,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
         });
     }
 
-    private void resetProductSelectionOnCountryChange(){
+    private void resetProductSelectionOnCountryChange() {
 
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(USER_SELECTED_PRODUCT_CTN, "");

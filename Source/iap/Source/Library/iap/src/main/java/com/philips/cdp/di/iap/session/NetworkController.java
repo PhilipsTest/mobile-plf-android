@@ -24,9 +24,6 @@ import com.philips.cdp.di.iap.utils.IAPLog;
 
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 public class NetworkController {
     protected Context context;
     protected HurlStack mIapHurlStack;
@@ -46,7 +43,7 @@ public class NetworkController {
     }
 
     public void initStore(Context context, IAPSettings iapSettings, IAPDependencies iapDependencies) {
-        mStoreListener = mNetworkEssentials.getStore(context, iapSettings,iapDependencies);
+        mStoreListener = mNetworkEssentials.getStore(context, iapSettings, iapDependencies);
     }
 
     public void hybrisVolleyCreateConnection(Context context) {
@@ -85,7 +82,7 @@ public class NetworkController {
         }
 
         if (mStoreListener.isNewUser()) {
-            mStoreListener.createNewUser(context,mIapDependencies);
+            mStoreListener.createNewUser(context, mIapDependencies);
             mOAuthListener.resetAccessToken();
         }
 
@@ -99,8 +96,7 @@ public class NetworkController {
                             requestListener.getClass().getSimpleName() + " " + model.getUrl().substring(0, 20));
                 }
                 if (error != null && error.getMessage() != null) {
-                    IAPAnalytics.trackAction(IAPAnalyticsConstant.SEND_DATA,
-                            IAPAnalyticsConstant.ERROR, error.getMessage());
+                    IAPAnalytics.trackTechnicalErrorWithPrefix( error.getMessage());
                 }
                 if (requestListener != null) {
                     new IAPNetworkError(error, requestCode, requestListener);
@@ -154,7 +150,7 @@ public class NetworkController {
 
     public void setNetworkEssentials(NetworkEssentials networkEssentials) {
         this.mNetworkEssentials = networkEssentials;
-        initStore(context, mIapSettings,mIapDependencies);
+        initStore(context, mIapSettings, mIapDependencies);
         mOAuthListener = mNetworkEssentials.getOAuthHandler();
 
         initHurlStack(context);
@@ -165,13 +161,14 @@ public class NetworkController {
         this.mIapSettings = iapSettings;
     }
 
-    public void setmIapDependencies(IAPDependencies iapDependencies){
+    public void setmIapDependencies(IAPDependencies iapDependencies) {
         this.mIapDependencies = iapDependencies;
     }
 
     boolean isMocked() {
         IAPMockInterface iapMockInterface = mIapSettings.getIapMockInterface();
-        if(iapMockInterface == null) return false; //This means , from proposition or demo APP thr mocking is not set or implemented .
+        if (iapMockInterface == null)
+            return false; //This means , from proposition or demo APP thr mocking is not set or implemented .
         return iapMockInterface.isMockEnabled();
     }
 
