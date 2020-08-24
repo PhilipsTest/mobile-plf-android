@@ -10,9 +10,6 @@
             name="productFilter"
             type="com.philips.platform.ecs.microService.model.filter.ProductFilter" />
 
-        <variable
-            name="viewModel"
-            type="com.philips.platform.mec.screens.catalog.MECStockLevelStateViewModel" />
 
         <variable
             name="fragment"
@@ -73,8 +70,7 @@
                     android:id="@+id/mec_filter_checkbox1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@={viewModel.checkBox1}"
-                    android:onClick="@{() -> viewModel.onCheckedChanged(@id/mec_filter_checkbox1)}"
+                    android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.InStock)}"
                     android:text='In Stock'
                    />
 
@@ -83,8 +79,7 @@
                     android:id="@+id/mec_filter_checkbox2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@={viewModel.checkBox2}"
-                    android:onClick="@{() -> viewModel.onCheckedChanged(@id/mec_filter_checkbox2)}"
+                    android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.LowStock)}"
                     android:text="Low  Stock"
                      />
 
@@ -93,8 +88,7 @@
                     android:id="@+id/mec_filter_checkbox3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@={viewModel.checkBox3}"
-                    android:onClick="@{() -> viewModel.onCheckedChanged(@id/mec_filter_checkbox3)}"
+                    android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.OutOfStock)}"
                     android:text="Out of Stock"
                      />
 
@@ -140,7 +134,6 @@
                     android:layout_margin="@dimen/border16_margin_left_right"
                     android:layout_marginStart="1dp"
                     android:layout_weight="1"
-                    android:onClick="@{() -> viewModel.onClickValidateButton()}"
                     android:text="Apply"
                     android:textAlignment="center"
                     android:textSize="16sp"

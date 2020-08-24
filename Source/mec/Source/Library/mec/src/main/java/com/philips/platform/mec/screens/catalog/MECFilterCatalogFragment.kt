@@ -16,27 +16,31 @@ import com.philips.platform.mec.databinding.MecFilterFragmentBinding
 import com.philips.platform.mec.utils.MECConstant
 
 class MECFilterCatalogFragment : BottomSheetDialogFragment() {
+
     companion object {
         const val TAG: String = "MECFilterCatalogFragment"
     }
 
-    private var productFilters: ProductFilter? = null
+    private var mProductFilter: ProductFilter? = null
     private lateinit var binding: MecFilterFragmentBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = MecFilterFragmentBinding.inflate(inflater, container, false)
-        binding.fragment = this
-        binding.viewModel = ViewModelProvider(this).get(MECStockLevelStateViewModel::class.java)
-        binding.viewModel?.validated?.observe(this, Observer {
-            Toast.makeText(context, "Validated!$it", Toast.LENGTH_SHORT).show()
-            productFilters = ProductFilter(null, it)
+        mProductFilter = arguments?.getParcelable(MECConstant.SELECTED_FILTERS)
+        binding.productFilter = mProductFilter
+
+        binding.mecApplyButton.setOnClickListener {
+
+            if(binding.mecFilterCheckbox1.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.InStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.InStock)
+            if(binding.mecFilterCheckbox2.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.LowStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.LowStock)
+            if(binding.mecFilterCheckbox3.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.OutOfStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.OutOfStock)
+
             val bundle = Bundle()
-            bundle.putParcelable(MECConstant.SELECTED_FILTERS, productFilters)
+            bundle.putParcelable(MECConstant.SELECTED_FILTERS, mProductFilter)
             val intent = Intent().putExtras(bundle)
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
-
             this.dismiss()
-        })
+        }
         return binding.root
     }
 
