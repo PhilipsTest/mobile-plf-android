@@ -74,21 +74,21 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             category = etCategory.getText().toString().trim();
         }
 
-        ProductFilter productFilter = new ProductFilter(null, null);
 
         ArrayList<ECSStockLevel> stockLevelItems = new ArrayList<>();
 
         if(cbInStock.isChecked()) stockLevelItems.add(ECSStockLevel.InStock);
         if(cbLowStock.isChecked()) stockLevelItems.add(ECSStockLevel.LowStock);
         if(cbOutOFStock.isChecked()) stockLevelItems.add(ECSStockLevel.OutOfStock);
-        productFilter.setStockLevelList(stockLevelItems);
 
+
+        ECSSortType eCSSortType = null;
         if (spinnerSortType.getSelectedItem() != null && spinnerSortType.getSelectedItemPosition() != 0) {
-            ECSSortType eCSSortType = ECSSortType.valueOf(spinnerSortType.getSelectedItem().toString());
-            productFilter.setSortType(eCSSortType);
-
+             eCSSortType = ECSSortType.valueOf(spinnerSortType.getSelectedItem().toString());
         }
-
+        ProductFilter productFilter = new ProductFilter(eCSSortType, stockLevelItems);
+        productFilter.setSortType(eCSSortType);
+        productFilter.setStockLevelList(stockLevelItems);
         ECSServices microECSServices = new ECSServices(mAppInfraInterface);
 
         try {

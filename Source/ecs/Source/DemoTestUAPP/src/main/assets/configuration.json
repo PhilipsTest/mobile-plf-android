@@ -56,7 +56,6 @@
               "text" : "Low Stock",
               "hint" : "Out of Stock"
             }
-
           ]
         },
         {
@@ -73,7 +72,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchProductDetailsForProduct",
@@ -89,7 +89,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchProductSummariesForCTNs",
@@ -105,7 +106,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -120,7 +122,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "addProductToShoppingCart",
@@ -141,7 +144,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "createShoppingCart",
@@ -162,7 +166,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "updateShoppingCart",
@@ -185,7 +190,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -212,7 +218,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -233,7 +240,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchAppliedVouchers",
@@ -243,7 +251,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "removeVoucher",
@@ -259,7 +268,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -274,7 +284,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "setDeliveryMode",
@@ -290,7 +301,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -310,7 +322,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -325,7 +338,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "createAddressWithSingleAddressReturn",
@@ -402,7 +416,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "createAddressWithAddressListReturn",
@@ -479,7 +494,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "UpdateAddressWithSuccessReturn",
@@ -561,7 +577,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "UpdateAddressWithAddressListReturn",
@@ -643,7 +660,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "setDeliveryAddressWithSuccessReturn",
@@ -659,7 +677,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "setDeliveryAddressWithAddressListReturn",
@@ -675,7 +694,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "deleteAddressWithSuccessReturn",
@@ -691,7 +711,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "deleteAddressWithAddressListReturn",
@@ -707,7 +728,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -728,7 +750,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -743,7 +766,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "SetPaymentDetails",
@@ -759,7 +783,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "makePaymentForOrder",
@@ -781,7 +806,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "Submit Order",
@@ -797,7 +823,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -825,7 +852,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchOrderDetail for oderDetail ID",
@@ -841,7 +869,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchOrderDetail for OrderDetail",
@@ -857,7 +886,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchOrderDetail for Orders",
@@ -873,7 +903,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -888,7 +919,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     }
@@ -905,7 +937,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -936,7 +969,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "hybrisRefreshOAuth",
@@ -962,7 +996,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "refreshJanrain",
@@ -988,7 +1023,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1015,7 +1051,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchProductForCTN",
@@ -1031,7 +1068,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchProductDetailsForProduct",
@@ -1047,7 +1085,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchProductSummariesForCTNs",
@@ -1063,7 +1102,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1078,7 +1118,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "addProductToShoppingCart",
@@ -1094,7 +1135,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "createShoppingCart",
@@ -1104,7 +1146,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "updateShoppingCart",
@@ -1126,7 +1169,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1147,7 +1191,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchAppliedVouchers",
@@ -1157,7 +1202,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "removeVoucher",
@@ -1173,7 +1219,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1188,7 +1235,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "setDeliveryMode",
@@ -1204,7 +1252,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1224,7 +1273,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1239,7 +1289,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "createAddressWithSingleAddressReturn",
@@ -1316,7 +1367,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "createAddressWithAddressListReturn",
@@ -1393,7 +1445,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "UpdateAddressWithSuccessReturn",
@@ -1475,7 +1528,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "UpdateAddressWithAddressListReturn",
@@ -1557,7 +1611,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "setDeliveryAddressWithSuccessReturn",
@@ -1573,7 +1628,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "setDeliveryAddressWithAddressListReturn",
@@ -1589,7 +1645,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "deleteAddressWithSuccessReturn",
@@ -1605,7 +1662,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "deleteAddressWithAddressListReturn",
@@ -1621,7 +1679,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1642,7 +1701,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1657,7 +1717,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "SetPaymentDetails",
@@ -1673,7 +1734,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "makePaymentForOrder",
@@ -1695,7 +1757,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "Submit Order",
@@ -1711,7 +1774,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1739,7 +1803,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchOrderDetail for oderDetail ID",
@@ -1755,7 +1820,8 @@
             }
           ],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchOrderDetail for OrderDetail",
@@ -1771,7 +1837,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         },
         {
           "name": "fetchOrderDetail for Orders",
@@ -1787,7 +1854,8 @@
               "hint": "hint"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     },
@@ -1802,7 +1870,8 @@
           "button": 0,
           "editTexts": [],
           "spinners": [],
-          "switches": []
+          "switches": [],
+          "checkBoxes": []
         }
       ]
     }
