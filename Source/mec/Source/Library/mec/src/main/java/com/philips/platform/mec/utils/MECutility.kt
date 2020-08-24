@@ -24,6 +24,7 @@ import com.philips.platform.appinfra.tagging.ErrorCategory
 import com.philips.platform.appinfra.tagging.TaggingError
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
+import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.PaymentInfo
@@ -317,17 +318,15 @@ class MECutility {
 
         @JvmStatic
         fun getErrorString(mecError: MecError, acontext: Context): String {
-            var errorString = ""
             var errorMessage = ""
 
                 val taggingError = TaggingError("")
                 when {
                     mecError.ecsError?.errorcode == 1000 -> taggingError.serverName = bazaarVoice
-                    mecError.ecsError?.errorcode in 5000..5999 -> taggingError.serverName = hybris
+                    mecError.ecsError?.errorcode ?:0  in 5000..5999 -> taggingError.serverName = hybris
                     mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError.serverName = wtb
                     else -> taggingError.serverName = prx
                 }
-                errorString += mecError.mECRequestType?.category + ":"// Error_Category
                 taggingError.errorType = mecError.mECRequestType?.category
 
                 if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
@@ -340,13 +339,11 @@ class MECutility {
                     //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
                     //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
                     //java.net.ConnectException: If internet is lost during API call (after API call is made and before response comes)
-                    MECDataProvider.context?.let { MECAnalytics.getDefaultString(it, R.string.mec_no_internet) }?.let { MECAnalytics.trackInformationError(it) }
-                    taggingError.errorMsg = acontext.getString(R.string.mec_no_internet)
+                    MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(acontext, R.string.mec_no_internet)  )
                     errorMessage =acontext.getString(R.string.mec_no_internet)
-                } else if (mecError.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                } else if (mecError.ecsError?.errorcode ?:0 == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                     //voucher apply fail:  User error
-                    taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,ECSErrorEnum.ECSUnsupportedVoucherError.resourceID)
-                    errorString += taggingError.errorMsg
+                    taggingError.errorMsg = MECAnalytics.getDefaultString(acontext, com.philips.platform.ecs.R.string.ECSUnsupportedVoucherError)
                     MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.USER_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                             taggingError)
                     errorMessage=mecError.exception?.message?:""
@@ -354,13 +351,29 @@ class MECutility {
                     // Remaining all errors: Technical errors
                     val errorType = mecError.ecsError?.errorType
                     errorType?.let {
-                        val ecsErrorEnum = ECSErrorEnum.valueOf(it)
-                        val resourceID = ecsErrorEnum.resourceID
-                        taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,resourceID)
+
+                        try {
+                            val ecsErrorEnum = ECSErrorEnum.valueOf(it)
+                            val resourceID = ecsErrorEnum.resourceID
+                            taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,resourceID)
+                        }catch (exception : Exception){
+
+                        }
+
+                        try {
+                            val ecsErrorEnum = ECSErrorType.valueOf(it)
+                            val resourceID = ecsErrorEnum.resourceID
+                            taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,resourceID)
+                        }catch (exception : Exception){
+
+                        }
+
                     }
                     errorMessage=mecError.exception?.message?:""
-                    errorString += errorMessage
-                    taggingError.errorCode = mecError.ecsError?.errorcode.toString()
+
+                    if(taggingError.errorMsg == "")taggingError.errorMsg= errorMessage
+                    taggingError.errorCode = (mecError.ecsError?.errorcode ?:0).toString()
+
                     MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                             taggingError)
                 }
