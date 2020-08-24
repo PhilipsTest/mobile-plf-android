@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/border16_margin_left_right"
                         android:paddingRight="@dimen/border16_margin_left_right"
-                        android:text='@{shoppingCart.totalItems + @string/mec_empty_space + @string/mec_product_title ?? ""}' />
+                        android:text='@{shoppingCart.data.attributes.deliveryUnits + @string/mec_empty_space + @string/mec_product_title ?? ""}' />
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -141,7 +141,7 @@
                         android:paddingLeft="@dimen/border16_margin_left_right"
                         android:paddingRight="@dimen/border16_margin_left_right"
                         android:text="@string/mec_accepted_codes"
-                        android:visibility="@{shoppingCart.appliedVouchers.size() > 0 ? View.VISIBLE : View.GONE, default = gone}" />
+                        android:visibility="@{shoppingCart.data.attributes.appliedVouchers.size() > 0 ? View.VISIBLE : View.GONE, default = gone}" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/mec_accepted_code_recycler_view"
