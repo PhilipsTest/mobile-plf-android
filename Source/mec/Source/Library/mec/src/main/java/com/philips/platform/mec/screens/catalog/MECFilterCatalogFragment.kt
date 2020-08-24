@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
@@ -23,54 +26,27 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
                               savedInstanceState: Bundle?): View? {
         binding = MecFilterFragmentBinding.inflate(inflater, container, false)
         binding.fragment = this
+        binding.viewModel = ViewModelProvider(this).get(MECStockLevelStateViewModel::class.java)
+        binding.viewModel?.validated?.observe(this, Observer {
+            Toast.makeText(context, "Validated!$it", Toast.LENGTH_SHORT).show()
+            productFilters = ProductFilter(null, it)
+            val bundle = Bundle()
+            bundle.putParcelable(MECConstant.SELECTED_FILTERS, productFilters)
+            val intent = Intent().putExtras(bundle)
+            targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
 
+            this.dismiss()
+        })
         return binding.root
-    }
-
-    private fun updateSelectedFilters() {
-        val stockList: ArrayList<ECSStockLevel> = ArrayList()
-        when {
-            binding.mecFilterCheckbox1.isChecked -> stockList.add(ECSStockLevel.InStock)
-            binding.mecFilterCheckbox2.isChecked -> stockList.add(ECSStockLevel.LowStock)
-            binding.mecFilterCheckbox3.isChecked -> stockList.add(ECSStockLevel.OutOfStock)
-            binding.mecFilterCheckbox1.isChecked && binding.mecFilterCheckbox2.isChecked -> {
-                stockList.add(ECSStockLevel.InStock)
-                stockList.add(ECSStockLevel.LowStock)
-            }
-            binding.mecFilterCheckbox1.isChecked && binding.mecFilterCheckbox3.isChecked -> {
-                stockList.add(ECSStockLevel.InStock)
-                stockList.add(ECSStockLevel.OutOfStock)
-            }
-            binding.mecFilterCheckbox2.isChecked && binding.mecFilterCheckbox3.isChecked -> {
-                stockList.add(ECSStockLevel.LowStock)
-                stockList.add(ECSStockLevel.OutOfStock)
-            }
-            binding.mecFilterCheckbox1.isChecked && binding.mecFilterCheckbox2.isChecked && binding.mecFilterCheckbox3.isChecked -> {
-                stockList.add(ECSStockLevel.InStock)
-                stockList.add(ECSStockLevel.LowStock)
-                stockList.add(ECSStockLevel.OutOfStock)
-            }
-        }
-
-        productFilters = ProductFilter(null,stockList)
     }
 
     fun onClickOfClear() {
         binding.mecFilterCheckbox1.isChecked = false
         binding.mecFilterCheckbox2.isChecked = false
         binding.mecFilterCheckbox3.isChecked = false
-    }
-
-    fun onClickOfApply() {
-        updateSelectedFilters()
-
-        val bundle = Bundle()
-        bundle.putSerializable(MECConstant.SELECTED_FILTERS, productFilters)
-        val intent = Intent().putExtras(bundle)
-        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
-
         this.dismiss()
     }
 }
+
 
 
