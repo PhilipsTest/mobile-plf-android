@@ -35,7 +35,6 @@ import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalyticServer.prx
 import com.philips.platform.mec.analytics.MECAnalyticServer.wtb
 import com.philips.platform.mec.analytics.MECAnalytics
-import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotification
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotificationresponse
@@ -43,9 +42,7 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.sendData
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
-import com.philips.platform.mec.integration.MECDataProvider
 import com.philips.platform.mec.screens.payment.MECPayment
-import com.philips.platform.mec.utils.MECConstant.COMPONENT_NAME
 import com.philips.platform.mec.utils.MECConstant.IN_STOCK
 import com.philips.platform.mec.utils.MECConstant.LOW_STOCK
 import com.philips.platform.mec.utils.MECConstant.PIL_IN_STOCK
@@ -308,7 +305,7 @@ class MECutility {
         @JvmStatic
         fun tagAndShowError(mecError: MecError?, showDialog: Boolean, aFragmentManager: FragmentManager?, Acontext: Context) {
 
-            val errorMessage = mecError?.let { getErrorString(it, Acontext) } ?:""
+            val errorMessage = mecError?.let { getErrorString(it, Acontext) } ?: ""
             if (showDialog.equals(true)) {
                 aFragmentManager?.let { showErrorDialog(Acontext, it, Acontext.getString(R.string.mec_ok), "Error", errorMessage) }
             }
@@ -320,63 +317,63 @@ class MECutility {
         fun getErrorString(mecError: MecError, acontext: Context): String {
             var errorMessage = ""
 
-                val taggingError = TaggingError("")
-                when {
-                    mecError.ecsError?.errorcode == 1000 -> taggingError.serverName = bazaarVoice
-                    mecError.ecsError?.errorcode ?:0  in 5000..5999 -> taggingError.serverName = hybris
-                    mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError.serverName = wtb
-                    else -> taggingError.serverName = prx
-                }
-                taggingError.errorType = mecError.mECRequestType?.category
+            val taggingError = TaggingError("")
+            when {
+                mecError.ecsError?.errorcode == 1000 -> taggingError.serverName = bazaarVoice
+                mecError.ecsError?.errorcode ?: 0 in 5000..5999 -> taggingError.serverName = hybris
+                mecError.mECRequestType == MECRequestType.MEC_FETCH_RETAILER_FOR_CTN -> taggingError.serverName = wtb
+                else -> taggingError.serverName = prx
+            }
+            taggingError.errorType = mecError.mECRequestType?.category
 
-                if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
-                    taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,R.string.mec_time_out_error)
-                    errorMessage = acontext.getString(R.string.mec_time_out_error)
-                    MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
-                            taggingError)
-                } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message?.contains("java.net.UnknownHostException") == true || mecError.exception.message?.contains("java.net.ConnectException") == true ||(mecError.exception.message?.contains("I/O error during system call, Software caused connection abort")== true))) {
-                    // No Internet: Information Error
-                    //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
-                    //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
-                    //java.net.ConnectException: If internet is lost during API call (after API call is made and before response comes)
-                    MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(acontext, R.string.mec_no_internet)  )
-                    errorMessage =acontext.getString(R.string.mec_no_internet)
-                } else if (mecError.ecsError?.errorcode ?:0 == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
-                    //voucher apply fail:  User error
-                    taggingError.errorMsg = MECAnalytics.getDefaultString(acontext, com.philips.platform.ecs.R.string.ECSUnsupportedVoucherError)
-                    MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.USER_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
-                            taggingError)
-                    errorMessage=mecError.exception?.message?:""
-                } else {
-                    // Remaining all errors: Technical errors
-                    val errorType = mecError.ecsError?.errorType
-                    errorType?.let {
+            if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
+                taggingError.errorMsg = MECAnalytics.getDefaultString(acontext, R.string.mec_time_out_error)
+                errorMessage = acontext.getString(R.string.mec_time_out_error)
+                MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                        taggingError)
+            } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message?.contains("java.net.UnknownHostException") == true || mecError.exception.message?.contains("java.net.ConnectException") == true || (mecError.exception.message?.contains("I/O error during system call, Software caused connection abort") == true))) {
+                // No Internet: Information Error
+                //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
+                //javax.net.ssl.SSLException: Read error: ssl=0x7d59fa3b48: I/O error during system call, Software caused connection abort
+                //java.net.ConnectException: If internet is lost during API call (after API call is made and before response comes)
+                MECAnalytics.trackInformationError(MECAnalytics.getDefaultString(acontext, R.string.mec_no_internet))
+                errorMessage = acontext.getString(R.string.mec_no_internet)
+            } else if (mecError.ecsError?.errorcode ?: 0 == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
+                //voucher apply fail:  User error
+                taggingError.errorMsg = MECAnalytics.getDefaultString(acontext, com.philips.platform.ecs.R.string.ECSUnsupportedVoucherError)
+                MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.USER_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                        taggingError)
+                errorMessage = mecError.exception?.message ?: ""
+            } else {
+                // Remaining all errors: Technical errors
+                val errorType = mecError.ecsError?.errorType
+                errorType?.let {
 
-                        try {
-                            val ecsErrorEnum = ECSErrorEnum.valueOf(it)
-                            val resourceID = ecsErrorEnum.resourceID
-                            taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,resourceID)
-                        }catch (exception : Exception){
-
-                        }
-
-                        try {
-                            val ecsErrorEnum = ECSErrorType.valueOf(it)
-                            val resourceID = ecsErrorEnum.resourceID
-                            taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,resourceID)
-                        }catch (exception : Exception){
-
-                        }
+                    try {
+                        val ecsErrorEnum = ECSErrorEnum.valueOf(it)
+                        val resourceID = ecsErrorEnum.resourceID
+                        taggingError.errorMsg = MECAnalytics.getDefaultString(acontext, resourceID)
+                    } catch (exception: Exception) {
 
                     }
-                    errorMessage=mecError.exception?.message?:""
 
-                    if(taggingError.errorMsg == "")taggingError.errorMsg= errorMessage
-                    taggingError.errorCode = (mecError.ecsError?.errorcode ?:0).toString()
+                    try {
+                        val ecsErrorEnum = ECSErrorType.valueOf(it)
+                        val resourceID = ecsErrorEnum.resourceID
+                        taggingError.errorMsg = MECAnalytics.getDefaultString(acontext, resourceID)
+                    } catch (exception: Exception) {
 
-                    MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
-                            taggingError)
+                    }
+
                 }
+                errorMessage = mecError.exception?.message ?: ""
+
+                if (taggingError.errorMsg == "") taggingError.errorMsg = errorMessage
+                taggingError.errorCode = (mecError.ecsError?.errorcode ?: 0).toString()
+
+                MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                        taggingError)
+            }
 
             return errorMessage
         }
@@ -418,7 +415,7 @@ class MECutility {
 
                 val storedAuthJsonString = MECDataHolder.INSTANCE.appinfra.secureStorage.fetchValueForKey(HybrisAuth.KEY_MEC_AUTH_DATA, sse)
 
-                MECAnalytics.trackTechnicalError(COMPONENT_NAME + ":" + appError + ":" + other + sse.errorMessage + ":" + sse.errorCode)
+                MECAnalytics.trackTechnicalError(appError + ":" + other + sse.errorMessage + ":" + sse.errorCode)
 
                 //TODO to have a defined type map instead generic
                 val map: Map<*, *> = Gson().fromJson(storedAuthJsonString, MutableMap::class.java)
