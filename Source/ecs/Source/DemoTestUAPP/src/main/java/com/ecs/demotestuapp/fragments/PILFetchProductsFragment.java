@@ -1,11 +1,10 @@
 package com.ecs.demotestuapp.fragments;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.ecs.demotestuapp.R;
-import com.ecs.demotestuapp.adapter.FilterAdapter;
 import com.ecs.demotestuapp.model.FilterStateItem;
 import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.ecs.demotestuapp.util.PILDataHolder;
@@ -27,6 +26,8 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
 
 
     EditText offsetET, limitET, etCategory;
+    CheckBox cbInStock, cbLowStock, cbOutOFStock;
+
     int offset = 0, limit = 20;
     String category;
     Spinner spinnerSortType, spinnerStockLevel;
@@ -45,27 +46,16 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         etCategory = getLinearLayout().findViewWithTag("et_three");
         etCategory.setText("");
 
+        cbInStock = getLinearLayout().findViewWithTag("checkBox_one");
+        cbLowStock = getLinearLayout().findViewWithTag("checkBox_two");
+        cbOutOFStock = getLinearLayout().findViewWithTag("checkBox_three");
+
 
         spinnerSortType  = getLinearLayout().findViewWithTag("spinner_sort_type");
 
         List<String> sortList = Arrays.asList(sortOptions);
         fillSpinner(spinnerSortType,sortList);
 
-        spinnerStockLevel = getLinearLayout().findViewWithTag("spinner_stock_level");
-//        List<String> stockLevelList = Arrays.asList(stockLevelOptions);
-//        fillSpinner(spinnerStockLevel, stockLevelList);
-
-        stockLevelList = new ArrayList<>();
-
-        for (String stockLevelOptions : stockLevelOptions) {
-            FilterStateItem stateVO = new FilterStateItem();
-            stateVO.setTitle(stockLevelOptions);
-            stateVO.setSelected(false);
-            stockLevelList.add(stateVO);
-        }
-        FilterAdapter myAdapter1 = new FilterAdapter(getContext(), R.layout.filter_spinner_item,
-                stockLevelList);
-        spinnerStockLevel.setAdapter(myAdapter1);
     }
 
 
@@ -84,28 +74,24 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
             category = etCategory.getText().toString().trim();
         }
 
+        ProductFilter productFilter = new ProductFilter(null, null);
+
+        ArrayList<ECSStockLevel> stockLevelItems = new ArrayList<>();
+
+        if(cbInStock.isChecked()) stockLevelItems.add(ECSStockLevel.InStock);
+        if(cbLowStock.isChecked()) stockLevelItems.add(ECSStockLevel.LowStock);
+        if(cbOutOFStock.isChecked()) stockLevelItems.add(ECSStockLevel.OutOfStock);
+        productFilter.setStockLevelList(stockLevelItems);
+
+        if (spinnerSortType.getSelectedItem() != null && spinnerSortType.getSelectedItemPosition() != 0) {
+            ECSSortType eCSSortType = ECSSortType.valueOf(spinnerSortType.getSelectedItem().toString());
+            productFilter.setSortType(eCSSortType);
+
+        }
 
         ECSServices microECSServices = new ECSServices(mAppInfraInterface);
+
         try {
-            ArrayList<ECSStockLevel> stockLevelItems = new ArrayList<>();
-            ArrayList<FilterStateItem> stockItems = new ArrayList<>();
-            for (FilterStateItem items : stockLevelList) {
-                if (items.isSelected()) {
-                    stockItems.add(items);
-                }
-            }
-
-            for (FilterStateItem stockLevel : stockItems) {
-                stockLevelItems.add(stockLevel.getEcsStockLevel());
-            }
-            ProductFilter productFilter = new ProductFilter(null, stockLevelItems);
-//            productFilter.setStockLevelList(stockLevelItems);
-
-
-            if (spinnerSortType.getSelectedItem() != null && spinnerSortType.getSelectedItemPosition() != 0) {
-                ECSSortType eCSSortType = ECSSortType.valueOf(spinnerSortType.getSelectedItem().toString());
-                productFilter.setSortType(eCSSortType);
-            }
 
             ECSCallback ecsCallback = new ECSCallback<ECSProducts, ECSError>() {
                 @Override

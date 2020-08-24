@@ -39,7 +39,25 @@
               "hint": "Stock level"
             }
           ],
-          "switches": []
+          "switches": [],
+          "checkBoxes": [
+            {
+              "tag" : "checkBox_one",
+              "text" : "In Stock",
+              "hint" : "In Stock"
+            },
+            {
+              "tag" : "checkBox_two",
+              "text" : "Low Stock",
+              "hint" : "Low Stock"
+            },
+            {
+              "tag" : "checkBox_three",
+              "text" : "Low Stock",
+              "hint" : "Out of Stock"
+            }
+
+          ]
         },
         {
           "name": "fetchProductForCTN",

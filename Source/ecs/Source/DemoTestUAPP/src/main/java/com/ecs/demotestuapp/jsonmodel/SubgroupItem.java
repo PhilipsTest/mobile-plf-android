@@ -1,8 +1,9 @@
 package com.ecs.demotestuapp.jsonmodel;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
 
 public class SubgroupItem implements Serializable {
 
@@ -17,6 +18,9 @@ public class SubgroupItem implements Serializable {
 
 	@SerializedName("switches")
 	private List<Property> switches;
+
+	@SerializedName("checkBoxes")
+	private List<Property> checkBoxes;
 
 	@SerializedName("editTexts")
 	private List<Property> editTexts;
@@ -92,5 +96,9 @@ public class SubgroupItem implements Serializable {
 
 	public int getSpinner(){
 		return spinner;
+	}
+
+	public List<Property> getCheckBoxes() {
+		return checkBoxes;
 	}
 }
