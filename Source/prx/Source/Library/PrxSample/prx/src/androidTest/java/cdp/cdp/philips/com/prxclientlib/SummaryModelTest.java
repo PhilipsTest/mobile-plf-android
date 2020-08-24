@@ -34,7 +34,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * Description :
  * Project : PRX Common Component.
- * Created by naveen@philips.com on 09-Nov-15.
  */
 public class SummaryModelTest {
 
@@ -101,7 +100,7 @@ public class SummaryModelTest {
         Data data = new Data(null, null, null, null, null, null, null, mSummaryModel.getData().getBrand(),
                 null, null, null, null, null, mSummaryModel.getData().getFilterKeys(),
                 null, null, null, null, null, true, mSummaryModel.getData().getPriority(), mSummaryModel.getData().getPrice(), mSummaryModel.getData().getReviewStatistics(),
-                mSummaryModel.getData().getVersions(), null, null, null, null, mSummaryModel.getData().getFilterKeys(), null);
+                mSummaryModel.getData().getVersions(), null, null, null, null, mSummaryModel.getData().getFilterKeys(), null,null);
 
         mSummaryModel.setData(data);
         assertNotNull(mSummaryModel.getData().getVersions());
@@ -287,7 +286,7 @@ public class SummaryModelTest {
     @Test
     public void testProductPrice() {
         mPrice = new Price(PRXComponentConstant.CURRENCYCODE, PRXComponentConstant.DISPLAYPRICE, PRXComponentConstant.DISPLAYPRICETYPE, PRXComponentConstant.FORMATTEDDISPLAYPRICE
-                , PRXComponentConstant.FORMATTED_PRICE, PRXComponentConstant.PRODUCT_PRICE);
+                , PRXComponentConstant.FORMATTED_PRICE, PRXComponentConstant.PRODUCT_PRICE,  null);
         assertNotNull(mPrice.getProductPrice());
     }
 

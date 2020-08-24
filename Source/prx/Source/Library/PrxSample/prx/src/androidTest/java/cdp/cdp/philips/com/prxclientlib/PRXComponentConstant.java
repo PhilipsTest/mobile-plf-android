@@ -3,7 +3,6 @@ package cdp.cdp.philips.com.prxclientlib;
 /**
  * Description : .
  * Project : PRX Common Component.
- * Created by naveen@philips.com on 20-Nov-15.
  */
 public class PRXComponentConstant {
 

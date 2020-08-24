@@ -3,7 +3,6 @@
  *              after successfully posting the messages to there respective
  *              Philips Wall.
  *
- * @author naveen@philips.com
  *
  * @since Mar 13, 2015
  *

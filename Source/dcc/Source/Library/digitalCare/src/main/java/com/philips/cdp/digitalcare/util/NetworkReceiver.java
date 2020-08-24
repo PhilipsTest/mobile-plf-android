@@ -1,7 +1,6 @@
 /**
  * Network status Receiver class. it responsible for getting the status of the connectivity across the device.
  *
- * @author naveen@philips.com
  *
  *  Copyright (c) 2016 Philips. All rights reserved.
  */

@@ -37,7 +37,7 @@ class NetworkWrapper(private val mPrxDependencies: PRXDependencies?) {
         } else {
             val responseListener = getVolleyResponseListener(prxRequest, listener)
             val errorListener = getVolleyErrorListener(listener)
-            if (mPrxDependencies != null && mPrxDependencies.appInfra != null) {
+            if (mPrxDependencies?.appInfra != null) {
                 prxRequest.getRequestUrlFromAppInfra(mPrxDependencies.appInfra, object : PrxRequest.OnUrlReceived {
                     override fun onSuccess(url: String?) {
                         if (url != null) {
@@ -87,9 +87,11 @@ class NetworkWrapper(private val mPrxDependencies: PRXDependencies?) {
         if (request != null) {
             if (mPrxDependencies?.appInfra?.restClient != null) {
                 try {
-                    mPrxLogging!!.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_NETWORK_WRAPPER, " Request url - " + request.url
-                            + " request headers - " + request.headers + " request type - " + request.method)
-                } catch (authFailureError: AuthFailureError) {
+                    mPrxLogging?.let {
+                        it.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_NETWORK_WRAPPER, " Request url - " + request.url
+                                + " request headers - " + request.headers + " request type - " + request.method)
+                    }
+               } catch (authFailureError: AuthFailureError) {
                     authFailureError.printStackTrace()
                 }
                 mPrxDependencies.appInfra!!.restClient.requestQueue.add(request)

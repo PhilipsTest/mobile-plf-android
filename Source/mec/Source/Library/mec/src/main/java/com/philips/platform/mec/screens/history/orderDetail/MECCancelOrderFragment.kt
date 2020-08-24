@@ -42,7 +42,7 @@ class MECCancelOrderFragment : MecBaseFragment() {
         }
 
         binding.contactPhone = contactPhone
-        binding.mecCancelOrderCallBtn.setOnClickListener { callPhone(binding.contactPhone!!.phoneNumber!!) }
+        binding.mecCancelOrderCallBtn.setOnClickListener { callPhone(binding.contactPhone?.phoneNumber!!) }
         
         val yourRefText : String= String.format(getString(R.string.mec_cancel_order_dls_for_your_ref_sg),"")
         val boldSpanned: Spanned

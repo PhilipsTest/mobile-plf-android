@@ -9,26 +9,7 @@ import org.json.JSONObject
 /**
  * Support Model.
  */
-class SupportModel : ResponseData() {
-    /**
-     * @return The success
-     */
-    /**
-     * @param success The success
-     */
-    @SerializedName("success")
-    @Expose
-    var isSuccess = false
-
-    /**
-     * @return The data
-     */
-    /**
-     * @param data The data
-     */
-    @SerializedName("data")
-    @Expose
-    var data: Data? = null
+class SupportModel(var isSuccess: Boolean = false, var data: Data? = null) : ResponseData() {
 
     override fun parseJsonResponseData(response: JSONObject?): ResponseData? {
         return if (response != null) {

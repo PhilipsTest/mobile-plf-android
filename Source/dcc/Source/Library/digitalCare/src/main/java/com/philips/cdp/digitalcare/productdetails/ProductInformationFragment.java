@@ -1,7 +1,6 @@
 /**
  * Product Specific Philips Page.
  *
- * @author : naveen@philips.com
  * @since : 9 Nov 2015
  *
  * Copyright (c) 2016 Philips. All rights reserved.

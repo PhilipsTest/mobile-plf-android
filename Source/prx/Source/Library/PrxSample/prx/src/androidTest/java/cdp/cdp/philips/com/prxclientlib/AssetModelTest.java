@@ -52,7 +52,8 @@ public class AssetModelTest {
 
     @Before
     public void setUp() throws Exception {
-        mAssetObject = new Asset();
+        mAssetObject = new Asset("code", "description","extension","extent",
+                 "lastModified","locale", "number", "type","asset");
 
         loadResources();
     }

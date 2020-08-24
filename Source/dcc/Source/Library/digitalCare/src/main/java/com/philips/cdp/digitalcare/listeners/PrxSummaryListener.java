@@ -2,7 +2,6 @@
  * Description : Summary Callback listener for the Summary PRX Data.
  * Project : PRX Common Component.
  *
- * @author naveen@philips.com on 03-Dec-15.
  * <p/>
  * Copyright (c) 2016 Philips. All rights reserved.
  */

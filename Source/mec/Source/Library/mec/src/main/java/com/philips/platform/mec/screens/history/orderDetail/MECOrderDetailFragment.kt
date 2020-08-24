@@ -72,7 +72,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         cartSummaryList.clear()
         priceAdapter = ecsOrders?.orderDetail?.let { addCartSummaryList(it) }?.let { MECCartSummaryAdapter(it) }
         productsAdapter = ecsOrders?.orderDetail?.let { MECOrderDetailProductsAdapter(it, this) }
-        vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail!!.appliedVouchers)
+        vouchersAdapter = MECOrderDetailVouchersAdapter(ecsOrders?.orderDetail?.appliedVouchers!!)
 
         binding.mecOrderHistoryDetailAcceptedCodesRecyclerView.adapter = vouchersAdapter
         binding.mecOrderHistoryDetailProductRecyclerView.adapter = productsAdapter
@@ -89,8 +89,8 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         binding = MecOrderHistoryDetailBinding.inflate(inflater, container, false)
         binding.mecOrderHistoryService = mECOrderHistoryService
         mecOrderDetailViewModel = ViewModelProvider(this).get(MECOrderDetailViewModel::class.java)
-        mecOrderDetailViewModel.contactPhone.observe(this, contactsObserver)
-        mecOrderDetailViewModel.mecError.observe(this, this)
+        mecOrderDetailViewModel.contactPhone.observe(viewLifecycleOwner, contactsObserver)
+        mecOrderDetailViewModel.mecError.observe(viewLifecycleOwner, this)
         ecsOrders = arguments?.getSerializable(MECConstant.MEC_ORDERS) as ECSOrders?
         binding.ecsOrders = ecsOrders
         binding.cardInfo = ecsOrders?.orderDetail?.paymentInfo?.let { MECutility().constructCardDetails(it) }

@@ -48,8 +48,8 @@ dependencies {
     implementation deps.joda_time
     testImplementation deps.junit
     testImplementation deps.robolectric
-    implementation "androidx.core:core-ktx:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation deps.kotlin_core_ktx
+    implementation deps.kotlin_stdlib_jdk7
 }
 
 tasks.withType(Test) {

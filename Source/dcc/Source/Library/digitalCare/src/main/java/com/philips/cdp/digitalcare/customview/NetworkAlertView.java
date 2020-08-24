@@ -1,5 +1,4 @@
 /*
- * @author naveen@philips.com
  * <p>
  * Copyright (c) 2016 Philips. All rights reserved.
  * @description Network Notification view used during Connection not available

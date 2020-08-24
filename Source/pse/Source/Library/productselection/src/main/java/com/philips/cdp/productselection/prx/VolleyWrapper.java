@@ -12,7 +12,6 @@ import com.android.volley.toolbox.Volley;
 /**
  * VolleyWrapper class holds the queue logic & canceling the request methods & LRU caching features
  *
- * @author naveen@philips.com
  * @Date 04/02/2016
  */
 public class VolleyWrapper {

@@ -1,7 +1,6 @@
 /**
  * RateThisAppFragment class is used to rate the app and review the product.
  *
- * @author: naveen@philips.com
  * @since: Jan 11, 2015
  * <p>
  * Copyright (c) 2016 Philips. All rights reserved.

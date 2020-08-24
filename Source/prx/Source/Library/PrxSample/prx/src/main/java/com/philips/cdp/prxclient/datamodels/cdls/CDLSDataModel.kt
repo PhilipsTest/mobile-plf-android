@@ -33,7 +33,6 @@ class CDLSDataModel : ResponseData(), Serializable {
         } else null
     }
 
-    companion object {
-        private const val serialVersionUID = 196535050662856749L
-    }
+    private val serialVersionUID = 196535050662856749L
+
 }

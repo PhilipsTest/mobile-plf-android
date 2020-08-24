@@ -270,6 +270,7 @@ public class RegistrationRequest extends PrxRequest {
     @Override
     public String getBody() {
 
+
         return getBodyItems();
     }
 

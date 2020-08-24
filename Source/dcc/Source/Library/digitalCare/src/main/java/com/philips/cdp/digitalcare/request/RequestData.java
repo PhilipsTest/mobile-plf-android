@@ -1,7 +1,6 @@
 /*
  * RequestData will help to perform network operations in UI.
  *
- * @author : naveen@philips.com
  * @since : 16 Jan 2015
  * Copyright (c) 2016 Philips. All rights reserved.
  */

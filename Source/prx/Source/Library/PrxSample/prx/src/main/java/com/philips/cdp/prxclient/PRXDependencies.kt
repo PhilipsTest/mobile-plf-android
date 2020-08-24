@@ -15,13 +15,7 @@ class PRXDependencies
  * @param appInfra App Infra Interface
  * @param parentTLA Parent Three Letter Acronym
  * @since 1.0.0
- */(
-        /**
-         * Get the context.
-         * @return Returns the context
-         * @since 1.0.0
-         */
-        val context: Context, private val mAppInfraInterface: AppInfraInterface, private val mParentTLA: String) {
+ */(val context: Context, private val mAppInfraInterface: AppInfraInterface, private val mParentTLA: String) {
     var mAppInfraLogging: LoggingInterface? = null
 
     /**
@@ -29,15 +23,13 @@ class PRXDependencies
      * @return Returns the App Infra interface
      * @since 1.0.0
      */
-    val appInfra: AppInfraInterface?
-        get() = mAppInfraInterface
+    val appInfra: AppInfraInterface? = mAppInfraInterface
 
     /**
      * Getter for parent TLA.
      * @return Returns the parent TLA
      * @since  2.2.0
      */
-    val parentTLA: String?
-        get() = mParentTLA
+    val parentTLA: String?= mParentTLA
 
 }

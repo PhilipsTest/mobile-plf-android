@@ -1,7 +1,6 @@
 /**
  * This class responsible for showing the GPS Alert status in the dialog
  *
- * @author naveen@philips.com
  * @created 11/Nov/2015
  *
  * Copyright (c) 2016 Philips. All rights reserved.

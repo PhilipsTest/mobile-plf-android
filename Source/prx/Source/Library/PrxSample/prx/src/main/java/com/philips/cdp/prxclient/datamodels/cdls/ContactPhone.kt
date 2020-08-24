@@ -13,12 +13,8 @@ package com.philips.cdp.prxclient.datamodels.cdls
 
 import java.io.Serializable
 
-class ContactPhone : Serializable {
-    var phoneNumber: String? = null
-    var openingHoursWeekdays: String? = null
+class ContactPhone(
+    var phoneNumber: String? = null,
+    var openingHoursWeekdays: String? = null,
     var openingHoursSaturday: String? = null
-
-    companion object {
-        private const val serialVersionUID = 5945251665275467891L
-    }
-}
+) : Serializable

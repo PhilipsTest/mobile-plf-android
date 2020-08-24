@@ -79,8 +79,8 @@ dependencies {
 
     androidTestImplementation deps.androidx.runner
     androidTestImplementation deps.mockito_android
-    implementation "androidx.core:core-ktx:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation deps.kotlin_core_ktx
+    implementation deps.kotlin_stdlib_jdk7
 }
 
 tasks.withType(Test) {

@@ -63,7 +63,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
                               "&hei=" + 220 + "&\$pnglarge$" + "&fit=fit,1"
                 }
 
-                featureItem!!.singleFeatureImage=(singleAssetImageFromFeatureCode!!)
+                featureItem.singleFeatureImage=(singleAssetImageFromFeatureCode)
             }
         }
     }

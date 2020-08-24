@@ -30,17 +30,15 @@ class RequestManager {
      */
     fun init(prxDependencies: PRXDependencies?) {
         mPrxDependencies = prxDependencies
-        if (mPrxDependencies == null) {
-            return
-        }
-
-        val appInfra = mPrxDependencies?.appInfra ?: return
-        if (mPrxDependencies!!.parentTLA != null) {
-            mPrxDependencies!!.mAppInfraLogging = appInfra.logging.createInstanceForComponent(String.format("%s/prx", mPrxDependencies?.parentTLA), libVersion)
-            mPrxDependencies!!.mAppInfraLogging!!.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, String.format("PRX is initialized with  %s", mPrxDependencies?.parentTLA))
-        } else {
-            mPrxDependencies!!.mAppInfraLogging = appInfra.logging.createInstanceForComponent("/prx", libVersion)
-            mPrxDependencies?.mAppInfraLogging!!.log(LoggingInterface.LogLevel.INFO, PrxConstants.PRX_REQUEST_MANAGER, "PRX is initialized ")
+        mPrxDependencies?.let {
+             val appInfra = it.appInfra ?: return
+            if (it.parentTLA != null) {
+                it.mAppInfraLogging = appInfra.logging.createInstanceForComponent(String.format("%s/prx", it.parentTLA), libVersion)
+                it.mAppInfraLogging!!.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, String.format("PRX is initialized with  %s", mPrxDependencies?.parentTLA))
+            } else {
+                it.mAppInfraLogging = appInfra.logging.createInstanceForComponent("/prx", libVersion)
+                it.mAppInfraLogging!!.log(LoggingInterface.LogLevel.INFO, PrxConstants.PRX_REQUEST_MANAGER, "PRX is initialized ")
+            }
         }
     }
 
@@ -69,7 +67,7 @@ class RequestManager {
             } catch (e: Exception) {
                 Log.d(ContentValues.TAG, "Error in Version name ")
             }
-            require(!mAppVersion!!.isEmpty()) { "Prx Appversion cannot be null" }
+            require(!mAppVersion.isNullOrBlank()) { "Prx Appversion cannot be null" }
             val pattern = Regex( "[0-9]+\\.[0-9]+\\.[0-9]+([_(-].*)?" )
             require(mAppVersion.matches(pattern)) {
                 "AppVersion should in this format " +

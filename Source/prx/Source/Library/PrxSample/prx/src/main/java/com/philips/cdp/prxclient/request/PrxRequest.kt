@@ -69,7 +69,7 @@ abstract class PrxRequest {
         private set
     private val mServiceId: String
 
-    open var ctns: List<String?>? = null
+     open var ctns: List<String?>? = null
 
     /**
      * PRX request constructor.
@@ -173,26 +173,22 @@ abstract class PrxRequest {
      * @return request type for ex . GET/POST/PUT.
      * @since 1.0.0
      */
-    open val requestType: Int
-        get() = RequestType.GET.value
+    open val requestType: Int = RequestType.GET.value
 
     /**
      * Get the headers.
      * @return headers
      * @since 1.0.0
      */
-    open val headers: Map<String?, String?>?
-        get() = null
+    open val headers: Map<String?, String?>? = null
 
     /**
      * Get the parameters.
      * @return params
      * @since 1.0.0
      */
-    open val params: Map<String?, String?>?
-        get() = null
+    open val params: Map<String?, String?>?= null
 
-    open val body: String?
-        get() = null
+     open val body: String? = null
 
 }

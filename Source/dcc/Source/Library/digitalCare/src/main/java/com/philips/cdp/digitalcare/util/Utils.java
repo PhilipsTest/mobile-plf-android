@@ -2,7 +2,6 @@
  * Utils class contains common utility methods required across framework under
  * different scenario's.
  *
- * @author naveen@philips.com
  *
  * @since Feb 10, 2015
  *

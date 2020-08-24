@@ -17,7 +17,6 @@ import java.util.*
  */
 class ProductSummaryListRequest(override var ctns: List<String?>?, sector: PrxConstants.Sector?,
                                 catalog: PrxConstants.Catalog?, requestTag: String?) : PrxRequest(ctns, PRXSummaryDataServiceID, sector, catalog) {
-    private var mRequestTag: String? = null
     override fun getResponseData(jsonObject: JSONObject?): ResponseData? {
         return PRXSummaryListResponse().parseJsonResponseData(jsonObject)
     }
@@ -35,17 +34,20 @@ class ProductSummaryListRequest(override var ctns: List<String?>?, sector: PrxCo
         replaceUrl["catalog"] = catalog.toString()
         val serviceIDList = ArrayList<String>()
         serviceIDList.add(PRXSummaryDataServiceID)
-        appInfra!!.serviceDiscovery.getServicesWithCountryPreference(serviceIDList, object : OnGetServiceUrlMapListener {
-            override fun onSuccess(urlMap: Map<String, ServiceDiscoveryService>) {
-                appInfra.logging.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, "prx SUCCESS Url " + urlMap[PRXSummaryDataServiceID]!!.configUrls)
-                listener.onSuccess(urlMap[PRXSummaryDataServiceID]!!.configUrls)
-            }
 
-            override fun onError(error: ERRORVALUES, message: String) {
-                appInfra.logging.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, "prx ERRORVALUES $message")
-                listener.onError(error, message)
-            }
-        }, replaceUrl)
+        appInfra?.let {
+            it.serviceDiscovery.getServicesWithCountryPreference(serviceIDList, object : OnGetServiceUrlMapListener {
+                override fun onSuccess(urlMap: Map<String, ServiceDiscoveryService>) {
+                    it.logging.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, "prx SUCCESS Url " + urlMap[PRXSummaryDataServiceID]!!.configUrls)
+                    listener.onSuccess(urlMap[PRXSummaryDataServiceID]!!.configUrls)
+                }
+
+                override fun onError(error: ERRORVALUES, message: String) {
+                    it.logging.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_REQUEST_MANAGER, "prx ERRORVALUES $message")
+                    listener.onError(error, message)
+                }
+            }, replaceUrl)
+        }
     }
 
     private fun getString(ctns: List<String?>?): String {
@@ -56,16 +58,5 @@ class ProductSummaryListRequest(override var ctns: List<String?>?, sector: PrxCo
         private const val PRXSummaryDataServiceID = "prxclient.summarylist"
     }
 
-    /**
-     * Instantiates a new Product summary request.
-     *
-     * @param ctns       product ctns
-     * @param sector     sector
-     * @param catalog    catalog
-     * @param requestTag request tag
-     * @since 1.0.0
-     */
-    init {
-        mRequestTag = requestTag
-    }
+
 }

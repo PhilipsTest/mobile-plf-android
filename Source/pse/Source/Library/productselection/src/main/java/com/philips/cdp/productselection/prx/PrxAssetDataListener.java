@@ -7,7 +7,6 @@ import com.philips.cdp.prxclient.datamodels.assets.AssetModel;
  * This callback class  is used to manage to multiple data requests in the many data requests scenario.
  * <p/>
  * <p/>
- * Created by naveen@philips.com on 01-Feb-16.
  */
 public interface PrxAssetDataListener {
 

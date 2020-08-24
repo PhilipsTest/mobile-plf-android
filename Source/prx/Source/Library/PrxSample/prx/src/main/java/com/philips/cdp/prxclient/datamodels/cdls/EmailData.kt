@@ -11,7 +11,10 @@
  */
 package com.philips.cdp.prxclient.datamodels.cdls
 
-class EmailData {
-    var label: String? = null
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+class EmailData( var label: String? = null,
     var contentPath: String? = null
-}
+):Parcelable
