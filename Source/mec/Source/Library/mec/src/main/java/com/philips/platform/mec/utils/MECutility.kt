@@ -319,7 +319,7 @@ class MECutility {
         fun getErrorString(mecError: MecError, acontext: Context): String {
             var errorString = ""
             var errorMessage = ""
-            try {
+
                 val taggingError = TaggingError("")
                 when {
                     mecError.ecsError?.errorcode == 1000 -> taggingError.serverName = bazaarVoice
@@ -365,10 +365,6 @@ class MECutility {
                             taggingError)
                 }
 
-            } catch (e: Exception) {
-                MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
-                        TaggingError(appError, other, MECAnalyticsConstant.exceptionErrorCode, e.toString()))
-            }
             return errorMessage
         }
 
