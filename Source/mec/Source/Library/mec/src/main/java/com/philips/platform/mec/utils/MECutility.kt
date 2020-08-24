@@ -331,8 +331,10 @@ class MECutility {
                 taggingError.errorType = mecError.mECRequestType?.category
 
                 if (null == mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true)) {
-                    taggingError.errorMsg = acontext.getString(R.string.mec_time_out_error)
+                    taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,R.string.mec_time_out_error)
                     errorMessage = acontext.getString(R.string.mec_time_out_error)
+                    MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
+                            taggingError)
                 } else if (null != mecError.exception?.message && mecError.ecsError?.errorType.equals("ECS_volley_error", true) && (mecError.exception.message?.contains("java.net.UnknownHostException") == true || mecError.exception.message?.contains("java.net.ConnectException") == true ||(mecError.exception.message?.contains("I/O error during system call, Software caused connection abort")== true))) {
                     // No Internet: Information Error
                     //java.net.UnknownHostException: Unable to resolve host "acc.us.pil.shop.philips.com": No address associated with hostname
@@ -343,15 +345,20 @@ class MECutility {
                     errorMessage =acontext.getString(R.string.mec_no_internet)
                 } else if (mecError.ecsError?.errorcode == ECSErrorEnum.ECSUnsupportedVoucherError.errorCode) {
                     //voucher apply fail:  User error
-                    taggingError.errorMsg = mecError.exception?.message ?: ""
+                    taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,ECSErrorEnum.ECSUnsupportedVoucherError.resourceID)
                     errorString += taggingError.errorMsg
                     MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.USER_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
                             taggingError)
                     errorMessage=mecError.exception?.message?:""
                 } else {
                     // Remaining all errors: Technical errors
+                    val errorType = mecError.ecsError?.errorType
+                    errorType?.let {
+                        val ecsErrorEnum = ECSErrorEnum.valueOf(it)
+                        val resourceID = ecsErrorEnum.resourceID
+                        taggingError.errorMsg = MECAnalytics.getDefaultString(acontext,resourceID)
+                    }
                     errorMessage=mecError.exception?.message?:""
-                    taggingError.errorMsg = mecError.exception?.message ?: ""
                     errorString += errorMessage
                     taggingError.errorCode = mecError.ecsError?.errorcode.toString()
                     MECAnalytics.mAppTaggingInterface?.trackErrorAction(ErrorCategory.TECHNICAL_ERROR, MECAnalytics.addCountryAndCurrency(mapOf()),
