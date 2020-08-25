@@ -1,5 +1,6 @@
 package com.philips.cdp.productselection.fragments.detailedscreen;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -26,6 +27,8 @@ public final class NavigationFragment extends Fragment {
     private static final String TAG = NavigationFragment.class.getSimpleName();
     private static final String KEY_CONTENT = "NavigationFragment:Content";
     private String message = "???";
+    Context thiscontext;
+
 
     public static NavigationFragment newInstance(String message) {
         NavigationFragment fragment = new NavigationFragment();
@@ -83,11 +86,16 @@ public final class NavigationFragment extends Fragment {
                 });
 
         VolleyWrapper.getInstance(getActivity()).addToRequestQueue(request);
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        thiscontext = context;
     }
 
     public Bitmap getBlankThumbnail(int width) {
-        Bitmap imageBitmap = drawableToBitmap(width,getContext().getDrawable(R.drawable.no_icon));
+        Bitmap imageBitmap = drawableToBitmap(width, thiscontext.getDrawable(R.drawable.no_icon));
         return imageBitmap;
     }
 
