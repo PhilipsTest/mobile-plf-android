@@ -43,7 +43,7 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
             binding.mecFilterCheckbox1.isChecked = false
             binding.mecFilterCheckbox2.isChecked = false
             binding.mecFilterCheckbox3.isChecked = false
-            mProductFilter?.stockLevelList = mutableListOf()
+//            mProductFilter?.stockLevelList = mutableListOf()
             //            this.dismiss()
         }
         return binding.root

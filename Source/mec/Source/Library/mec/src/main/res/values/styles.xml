@@ -466,7 +466,6 @@
     <style name="mec_dls_filter" >
         <item name="android:textColor">?attr/uidToggleButtonInputQuietNormalOnIconColor</item>
         <item name="fontPath">fonts/mec_iconfont.ttf</item>
-        <item name="android:text">@string/dls_filtersliders</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">40dp</item>

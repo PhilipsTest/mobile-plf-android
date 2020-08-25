@@ -89,10 +89,12 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 productList.add(productWithReview.ecsProduct)
             }
             adapter = MECProductCatalogAdapter(mProductsWithReview, this)
-            binding.mecFilter.setText(R.string.dls_filtersliders)
+//            binding.mecFilter.setText(R.string.dls_filtersliders)
             binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
             binding.productCatalogRecyclerView.adapter = adapter
             adapter.notifyDataSetChanged()
+            adapter.emptyView = binding.mecEmptyResult
+            adapter.emptyView = binding.mecEmptyFilterResult
 
         }
         binding.mecCatalogParentLayout.visibility = View.VISIBLE
@@ -100,6 +102,11 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         dismissPaginationProgressBar()
         dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         isCallOnProgress = false
+
+        if (mProductFilter?.stockLevelList?.isEmpty()!!)
+            binding.mecFilter.setText(R.string.dls_filterslidersoutline)
+        else
+            binding.mecFilter.setText(R.string.dls_filtersliders)
 
         //For categorized
         if (isCategorizedHybrisPagination()) {
@@ -284,6 +291,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             val mClearIconView = binding.mecSearchBox.getClearIconView()
             val searchText = binding.mecSearchBox.searchTextView
+
+            binding.mecSearchBox.searchTextView.setOnFocusChangeListener { view, b -> binding.mecFilter.isEnabled = !b }
             binding.mecSearchBox.searchTextView.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                 }
@@ -351,6 +360,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             }
 
             adapter.emptyView = binding.mecEmptyResult
+            adapter.emptyView = binding.mecEmptyFilterResult
 
             mRootView = binding.root
 
@@ -402,6 +412,10 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_product_title, true)
         setCartIconVisibility(true)
+        if (mProductFilter?.stockLevelList?.isEmpty()!!)
+            binding.mecFilter.setText(R.string.dls_filterslidersoutline)
+        else
+            binding.mecFilter.setText(R.string.dls_filtersliders)
     }
 
     override fun onStart() {
@@ -537,7 +551,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 mProductFilter = data.getParcelableExtra(MECConstant.SELECTED_FILTERS) as ProductFilter
                 offSet = 0
                 showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-                binding.mecFilter.setText(R.string.dls_filterslidersoutline)
+//                binding.mecFilter.setText(R.string.dls_filtersliders)
                 binding.mecFilter.setBackgroundColor(highLightedBackgroundColor)
                 executeRequest()
             }
