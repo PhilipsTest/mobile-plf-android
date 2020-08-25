@@ -78,7 +78,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     var mRootView: View? = null
     var mProductFilter: ProductFilter? = null
-    var catalogView: Int = 0
+    var catalogView: MECProductCatalogBaseAbstractAdapter.CatalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
 
     private val mProductReviewObserver: Observer<MutableList<MECProductReview>> = Observer<MutableList<MECProductReview>> { mecProductReviews ->
 
@@ -92,7 +92,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             }
             adapter = MECProductCatalogAdapter(mProductsWithReview, this)
             binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
-            if (catalogView == 0)
+            if (catalogView == MECProductCatalogBaseAbstractAdapter.CatalogView.GRID)
                 adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID
             else
                 adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
@@ -265,7 +265,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
                     MECAnalytics.tagProductList(getProductsFromProductsWithReview(), gridView)
-                    catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID.ordinal
+                    catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID
                 }
             }
 
@@ -278,7 +278,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
                     MECAnalytics.tagProductList(getProductsFromProductsWithReview(), listView)
-                    catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST.ordinal
+                    catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
                 }
             }
 
