@@ -518,8 +518,10 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         return isAllProductDownloaded && mProductsWithReview.size == 0
     }
 
+    val bottomSheetFragment = MECFilterCatalogFragment()
+
     private fun filterCatalog() {
-        val bottomSheetFragment = MECFilterCatalogFragment()
+        if (bottomSheetFragment.isVisible) return
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.SELECTED_FILTERS, mProductFilter)
         bottomSheetFragment.arguments = bundle
