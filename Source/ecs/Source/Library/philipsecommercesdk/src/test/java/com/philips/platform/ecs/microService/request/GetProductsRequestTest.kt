@@ -47,7 +47,7 @@ class GetProductsRequestTest {
     @Before
     fun setUp() {
         ECSDataHolder.locale = "en_US"
-        mProductFilter = ProductFilter()
+        mProductFilter = ProductFilter(null, mutableListOf())
         errorHandler = ErrorHandler()
 
 

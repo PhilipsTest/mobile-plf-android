@@ -94,7 +94,7 @@ class MicroECSServicesTest {
     @Test
     fun `fetchProducts api should call corresponding manager method`() {
 
-        var productFilter = ProductFilter()
+        var productFilter = ProductFilter(null, mutableListOf())
         productFilter.sortType = ECSSortType.priceAscending
         var stockLevelList: ArrayList<ECSStockLevel> = ArrayList()
         stockLevelList.add(ECSStockLevel.InStock)
