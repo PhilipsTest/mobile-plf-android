@@ -207,6 +207,7 @@ ext.deps = [
         rxjava2                       : 'io.reactivex.rxjava2:rxandroid:2.1.1',
         okhttp3                       : 'com.squareup.okhttp3:okhttp:3.10.0',
         chuck_debug                   : 'com.readystatesoftware.chuck:library:1.1.0',
-        chuck_release                 : 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+        chuck_release                 : 'com.readystatesoftware.chuck:library-no-op:1.1.0',
+        localbroadcastmanager         : 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 
 ]
