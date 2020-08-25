@@ -78,25 +78,29 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     var mRootView: View? = null
     var mProductFilter: ProductFilter? = null
+    var catalogView: Int = 0
+
     private val mProductReviewObserver: Observer<MutableList<MECProductReview>> = Observer<MutableList<MECProductReview>> { mecProductReviews ->
 
         mecProductReviews?.let { mProductsWithReview.addAll(it) }
 
-        if (mProductFilter != null && MECDataHolder.INSTANCE.hybrisEnabled) {
+        if (!mProductFilter?.stockLevelList?.isEmpty()!! && MECDataHolder.INSTANCE.hybrisEnabled) {
             mProductsWithReview = mecProductReviews
             val productList = mutableListOf<ECSProduct>()
             for (productWithReview in mProductsWithReview) {
                 productList.add(productWithReview.ecsProduct)
             }
             adapter = MECProductCatalogAdapter(mProductsWithReview, this)
-//            binding.mecFilter.setText(R.string.dls_filtersliders)
             binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
+            if (catalogView == 0)
+                adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID
+            else
+                adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
             binding.productCatalogRecyclerView.adapter = adapter
-            adapter.notifyDataSetChanged()
             adapter.emptyView = binding.mecEmptyResult
             adapter.emptyView = binding.mecEmptyFilterResult
-
         }
+        adapter.notifyDataSetChanged()
         binding.mecCatalogParentLayout.visibility = View.VISIBLE
         showPrivacyURL()
         dismissPaginationProgressBar()
@@ -261,6 +265,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
                     MECAnalytics.tagProductList(getProductsFromProductsWithReview(), gridView)
+                    catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID.ordinal
                 }
             }
 
@@ -273,6 +278,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
                     MECAnalytics.tagProductList(getProductsFromProductsWithReview(), listView)
+                    catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST.ordinal
                 }
             }
 
@@ -280,8 +286,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             if (MECDataHolder.INSTANCE.hybrisEnabled) {
                 binding.mecFilter.setOnClickListener {
                     if (null == binding.mecFilter.background || getBackgroundColorOfFontIcon(binding.mecFilter) == 0) {//if Filter is currently not selected
-                        binding.mecFilter.setBackgroundColor(highLightedBackgroundColor)
-                        binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecFilter.context, R.color.uidTransparent))
+//                        binding.mecFilter.setBackgroundColor(highLightedBackgroundColor)
+//                        binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecFilter.context, R.color.uidTransparent))
                         filterCatalog()
                     }
                 }
@@ -463,7 +469,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 offSet = 0
                 showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
                 binding.mecFilter.setText(R.string.dls_filtersliders)
-                binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
+//                binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
                 mProductFilter?.stockLevelList = mutableListOf()
                 executeRequest()
             }
@@ -550,9 +556,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             if (data?.extras?.containsKey(MECConstant.SELECTED_FILTERS)!!) {
                 mProductFilter = data.getParcelableExtra(MECConstant.SELECTED_FILTERS) as ProductFilter
                 offSet = 0
+                binding.mecCatalogParentLayout.visibility = View.GONE
                 showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-//                binding.mecFilter.setText(R.string.dls_filtersliders)
-                binding.mecFilter.setBackgroundColor(highLightedBackgroundColor)
+//                binding.mecFilter.setBackgroundColor(highLightedBackgroundColor)
                 executeRequest()
             }
         }
