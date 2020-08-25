@@ -176,6 +176,11 @@
     <string name="mec_empty_space" translatable="false">&#160;</string>
     <string name="mec_colon" translatable="false">&#58;</string>
     <string name="mec_bazaarVoice_link" translatable="false">http://www.bazaarvoice.com/trustmark</string>
+    <string name="mec_filter">Filter</string>
+    <string name="mec_low_stock">Low Stock</string>
+    <string name="mec_clear">Clear</string>
+    <string name="mec_filter_product_not_available">We couldn\'t find any products with all the filters you have selected.</string>
+    <string name="mec_clear_filter_s">Clear filter(s)</string>
 
     <!--unused Strings -->
 

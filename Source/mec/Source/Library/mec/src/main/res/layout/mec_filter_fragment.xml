@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.philips.platform.ecs.microService.model.filter.ECSStockLevel" />
+
         <variable
             name="productFilter"
             type="com.philips.platform.ecs.microService.model.filter.ProductFilter" />
-        <variable
-            name="fragment"
-            type="com.philips.platform.mec.screens.catalog.MECFilterCatalogFragment" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -45,7 +44,7 @@
                     android:paddingStart="16dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="Filter"
+                    android:text="@string/mec_filter"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                     android:textSize="14sp"
                     tools:ignore="RtlSymmetry" />
@@ -66,8 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.InStock)}"
-                    android:text='In Stock'
-                   />
+                    android:text='@string/mec_in_stock' />
 
 
                 <com.philips.platform.uid.view.widget.CheckBox
@@ -75,8 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.LowStock)}"
-                    android:text="Low  Stock"
-                     />
+                    android:text="@string/mec_low_stock" />
 
 
                 <com.philips.platform.uid.view.widget.CheckBox
@@ -84,8 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.OutOfStock)}"
-                    android:text="Out of Stock"
-                     />
+                    android:text="@string/mec_out_of_stock" />
 
 
             </LinearLayout>
@@ -114,8 +110,7 @@
                     android:layout_margin="@dimen/border16_margin_left_right"
                     android:layout_marginEnd="1dp"
                     android:layout_weight="1"
-                    android:onClick="@{() -> fragment.onClickOfClear()}"
-                    android:text="Clear"
+                    android:text="@string/mec_clear"
                     android:textSize="16sp"
                     android:visibility="visible"
                     app:uidComponentType="Secondary" />
@@ -129,7 +124,7 @@
                     android:layout_margin="@dimen/border16_margin_left_right"
                     android:layout_marginStart="1dp"
                     android:layout_weight="1"
-                    android:text="Apply"
+                    android:text="@string/mec_apply"
                     android:textAlignment="center"
                     android:textSize="16sp"
                     android:visibility="visible"

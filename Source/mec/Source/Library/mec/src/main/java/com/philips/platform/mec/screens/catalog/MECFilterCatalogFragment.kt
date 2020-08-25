@@ -38,14 +38,14 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
             targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
             this.dismiss()
         }
-        return binding.root
-    }
 
-    fun onClickOfClear() {
-        binding.mecFilterCheckbox1.isChecked = false
-        binding.mecFilterCheckbox2.isChecked = false
-        binding.mecFilterCheckbox3.isChecked = false
-        this.dismiss()
+        binding.mecButtonSecondary.setOnClickListener {
+            binding.mecFilterCheckbox1.isChecked = false
+            binding.mecFilterCheckbox2.isChecked = false
+            binding.mecFilterCheckbox3.isChecked = false
+            this.dismiss()
+        }
+        return binding.root
     }
 }
 

@@ -78,7 +78,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     var mRootView: View? = null
     var mProductFilter: ProductFilter? = null
-
     private val mProductReviewObserver: Observer<MutableList<MECProductReview>> = Observer<MutableList<MECProductReview>> { mecProductReviews ->
 
         mecProductReviews?.let { mProductsWithReview.addAll(it) }
@@ -92,12 +91,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             adapter = MECProductCatalogAdapter(mProductsWithReview, this)
             binding.mecFilter.setText(R.string.dls_filtersliders)
             binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
-            binding.productCatalogRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.LIST
             binding.productCatalogRecyclerView.adapter = adapter
-            adapter.emptyView = binding.mecEmptyResult
-            adapter.emptyView = binding.mecEmptyFilterResult
-
             adapter.notifyDataSetChanged()
 
         }
@@ -346,9 +340,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 }
             })
 
-
             privacyTextView(binding.mecPrivacy)
-
+            clearFiltersTextView(binding.tvEmptyFilterListMsg)
             adapter = MECProductCatalogAdapter(mProductsWithReview, this)
             binding.productCatalogRecyclerView.adapter = adapter
 
@@ -359,16 +352,13 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             adapter.emptyView = binding.mecEmptyResult
 
-            adapter.emptyView = binding.mecEmptyFilterResult
-
-
             mRootView = binding.root
 
             categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
             totalProductsTobeSearched = categorizedCtns?.size ?: 0
 
             val stockLevelList: MutableList<ECSStockLevel> = mutableListOf()
-            mProductFilter = ProductFilter(null,stockLevelList)
+            mProductFilter = ProductFilter(null, stockLevelList)
 
             executeRequest()
             fetchShoppingCartData()
@@ -449,6 +439,31 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         view.setText(spanTxt, TextView.BufferType.SPANNABLE)
     }
 
+    private fun clearFiltersTextView(view: TextView) {
+        val spanTxt = SpannableStringBuilder(
+                getString(R.string.mec_clear_filter_s))
+        spanTxt.setSpan(object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                binding.mecEmptyResult.visibility = View.GONE
+                binding.mecCatalogParentLayout.visibility = View.VISIBLE
+                offSet = 0
+                showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
+                binding.mecFilter.setText(R.string.dls_filtersliders)
+                binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
+                mProductFilter?.stockLevelList = mutableListOf()
+                executeRequest()
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = true
+                ds.color = R.attr.uidHyperlinkDefaultPressedTextColor
+            }
+        }, spanTxt.length - getString(R.string.mec_clear_filter_s).length, spanTxt.length, 0)
+        view.setHighlightColor(Color.TRANSPARENT)
+        view.movementMethod = LinkMovementMethod.getInstance()
+        view.setText(spanTxt, TextView.BufferType.SPANNABLE)
+    }
+
     private fun showPrivacyFragment() {
         val bundle = Bundle()
         bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getPrivacyUrl())
@@ -506,7 +521,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     private fun filterCatalog() {
         val bottomSheetFragment = MECFilterCatalogFragment()
         val bundle = Bundle()
-        bundle.putParcelable(MECConstant.SELECTED_FILTERS,mProductFilter)
+        bundle.putParcelable(MECConstant.SELECTED_FILTERS, mProductFilter)
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.setTargetFragment(this, MECConstant.FILTER_REQUEST_CODE)
         fragmentManager?.let { bottomSheetFragment.show(it, bottomSheetFragment.tag) }
