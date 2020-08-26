@@ -136,7 +136,7 @@ class ECSProductManagerTest {
             }
         }
 
-        var mProductFilter : ProductFilter = ProductFilter(null, mutableListOf())
+        var mProductFilter : ProductFilter = ProductFilter(null, hashSetOf())
         try {
             mECSProductManager.getProducts("category", 51, 2, mProductFilter, ecsCallbackGetProducts)
         }catch(e: ECSException){
@@ -189,7 +189,7 @@ class ECSProductManagerTest {
             }
         }
 
-        var mProductFilter : ProductFilter = ProductFilter(null, mutableListOf())
+        var mProductFilter : ProductFilter = ProductFilter(null, hashSetOf())
         try {
             mECSProductManager.getProducts("category", 51, 2, mProductFilter, ecsCallbackGetProducts)
         }catch(e: ECSException){
