@@ -77,7 +77,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         }
 
 
-        Set<ECSStockLevel> stockLevelItems = new HashSet<>();
+        HashSet<ECSStockLevel> stockLevelItems = new HashSet<>();
 
         if(cbInStock.isChecked()) stockLevelItems.add(ECSStockLevel.InStock);
         if(cbLowStock.isChecked()) stockLevelItems.add(ECSStockLevel.LowStock);

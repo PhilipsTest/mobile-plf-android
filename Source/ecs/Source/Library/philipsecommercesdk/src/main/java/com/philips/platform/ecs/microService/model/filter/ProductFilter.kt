@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ProductFilter(var sortType: ECSSortType?, var stockLevelSet: Set<ECSStockLevel>) : Parcelable
+data class ProductFilter(var sortType: ECSSortType?, var stockLevelSet: HashSet<ECSStockLevel>) : Parcelable
 
 enum class ECSStockLevel(var value: String) {
      InStock("IN_STOCK"),
