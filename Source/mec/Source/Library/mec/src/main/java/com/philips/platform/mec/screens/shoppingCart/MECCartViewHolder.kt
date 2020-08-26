@@ -25,7 +25,7 @@ class MECCartViewHolder(val binding: MecShoppingCartItemsBinding, var mecShoppin
         binding.cart = cartSummary
         val mImageLoader: ImageLoader = NetworkImageLoader.getInstance(mecShoppingCartFragment.context)
                 .imageLoader
-        binding.image.setImageUrl(cartSummary.ecsItem.product.summary.imageURL,mImageLoader)
+        binding.image.setImageUrl(cartSummary.ecsItem.image,mImageLoader)
         bindCountView(binding.mecQuantityVal, cartSummary)
         if(animation == true) {
             rightAnimation()
@@ -60,14 +60,14 @@ class MECCartViewHolder(val binding: MecShoppingCartItemsBinding, var mecShoppin
     }
 
     private fun bindCountView(view: View, cartSummary: MECCartProductReview) {
-        if (cartSummary.ecsItem.product.stock.stockLevel > 1) {
+        if (cartSummary.ecsItem.availability?.quantity ?:0 > 1) {
             view.setOnClickListener { v ->
-                val stockLevel = cartSummary.ecsItem.product.stock.stockLevel
+                val stockLevel = cartSummary.ecsItem.availability?.quantity ?:0
                 /*if (stockLevel > 50) {
                 stockLevel = 50
             }*/
 
-                val countPopUp = MecCountDropDown(v, v.context, stockLevel, cartSummary.ecsItem.quantity
+                val countPopUp = MecCountDropDown(v, v.context, stockLevel, cartSummary.ecsItem.quantity ?:0
                         , object : MecCountDropDown.CountUpdateListener {
                     override fun countUpdate(oldCount: Int, newCount: Int) {
                         if (newCount != oldCount) {
@@ -81,13 +81,13 @@ class MECCartViewHolder(val binding: MecShoppingCartItemsBinding, var mecShoppin
                 countPopUp.show()
             }
 
-            if(cartSummary.ecsItem.quantity > cartSummary.ecsItem.product.stock.stockLevel) {
+            if(cartSummary.ecsItem.quantity ?:0 > cartSummary.ecsItem.availability?.quantity ?:0) {
                 mecShoppingCartFragment.disableButton()
             } else{
                 mecShoppingCartFragment.enableButton()
             }
 
-        }else if (!MECutility.isStockAvailable(cartSummary.ecsItem.product.stock!!.stockLevelStatus, cartSummary.ecsItem.product.stock!!.stockLevel)){
+        }else if (!MECutility.isStockAvailable(cartSummary.ecsItem.availability?.status, cartSummary.ecsItem.availability?.quantity ?:0)){
             mecShoppingCartFragment.disableButton()
         } else{
             mecShoppingCartFragment.enableButton()

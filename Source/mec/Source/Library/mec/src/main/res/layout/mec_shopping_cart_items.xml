@@ -126,8 +126,8 @@
                     android:paddingTop="25dp"
                     style="@style/mecCentralesansMediumFont"
                     android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
-                    app:setPrice="@{ cart.ecsItem.product}"
-                    app:totalPriceEntity="@{cart.ecsItem.basePrice}"
+                    app:setEcsItem="@{ cart.ecsItem}"
+                    app:totalPrice="@{cart.ecsItem.totalPrice}"
                     android:textSize="16sp" />
 
                 <!--<com.philips.platform.uid.view.widget.Label
@@ -156,7 +156,7 @@
                         style="@style/mecCentralesansBookFont"
                         android:textSize="@dimen/mec_8_sp"
                         android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
-                        app:setStock="@{ cart.ecsItem.product}"
+                        app:ecsItem="@{ cart.ecsItem}"
                         app:setQuantity="@{cart.ecsItem.quantity}"
                         android:visibility="gone"/>
 
@@ -178,8 +178,8 @@
             android:layout_marginBottom="10dp"
             android:textColor="?attr/uidTokenDefaultNormalCircleTextColor"
             android:textSize="12sp"
-            app:setDiscountPrice="@{ cart.ecsItem.product}"
-            app:totalPriceEntity="@{cart.ecsItem.basePrice}"
+            app:setEcsItem="@{ cart.ecsItem}"
+            app:discountPrice="@{cart.ecsItem.price}"
             android:layout_above="@+id/price_button_view" />
 
         <View

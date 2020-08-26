@@ -22,6 +22,7 @@ import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.common.Price
 import com.philips.platform.ecs.model.cart.BasePriceEntity
 import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.products.ECSProduct
@@ -182,6 +183,44 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
         }
 
         @JvmStatic
+        @BindingAdapter("setEcsItem", "totalPrice")
+        fun setItemPrice(priceLabel: Label, ecsItem: ECSItem?, basePriceEntity: Price?) {
+
+            //TODO
+            /*val textSize16 = priceLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_discount_price_label_size)
+            val textSize12 = priceLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_price_label_size);
+
+            if (product != null && basePriceEntity?.formattedValue != null && basePriceEntity?.formattedValue!!.length > 0 && (product.price.value - basePriceEntity.value) > 0) {
+                val price = SpannableString(product.price.formattedValue);
+                price.setSpan(AbsoluteSizeSpan(textSize12), 0, product.price.formattedValue.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                price.setSpan(StrikethroughSpan(), 0, product.price.formattedValue.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0, product.price.formattedValue.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                val discountPrice = SpannableString(basePriceEntity.formattedValue)
+                discountPrice.setSpan(AbsoluteSizeSpan(textSize16), 0, basePriceEntity.formattedValue.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                val CharSequence = TextUtils.concat(price, "  ", discountPrice)
+                priceLabel.text = CharSequence;
+            } else {
+                if (product!!.price != null)
+                    priceLabel.text = product.price.formattedValue
+            }*/
+        }
+
+        @JvmStatic
+        @BindingAdapter("setEcsItem", "discountPrice")
+        fun setItemDiscountPrice(discountPriceLabel: Label,ecsItem: ECSItem?, discounted: Price?) {
+           /* val discount = (product!!.price!!.value - basePriceEntity!!.value) / product.price!!.value * 100
+
+            val discountRounded: String = String.format("%.2f", discount).toString()
+            discountPriceLabel.text = "-" + discountRounded + "%"
+            if (discountRounded.equals("0.00")) {
+                discountPriceLabel.visibility = View.GONE
+            } else {
+                discountPriceLabel.visibility = View.VISIBLE
+            }*/
+        }
+
+        @JvmStatic
         @BindingAdapter("setDiscountPrice", "totalPriceEntity")
         fun setDiscountPrice(discountPriceLabel: Label, product: ECSProduct?, basePriceEntity: BasePriceEntity?) {
             val discount = (product!!.price!!.value - basePriceEntity!!.value) / product.price!!.value * 100
@@ -197,10 +236,12 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
 
         @SuppressLint("SetTextI18n")
         @JvmStatic
-        @BindingAdapter("setStock","setQuantity")
-        fun setStock(stockLabel : Label, product: ECSProduct?, quantity: Int) {
-            if (null != product && null != product.stock) {
-                if ((!MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) || (product.stock.stockLevel==0)) {
+        @BindingAdapter("ecsItem","setQuantity")
+        fun setStock(stockLabel : Label, ecsItem: ECSItem?, quantity: Int) {
+
+            //TODO
+            /*if (null != ecsItem && null != ecsItem.availability) {
+                if ((!MECutility.isStockAvailable(ecsItem.availability?.status, product.stock!!.stockLevel)) || (product.stock.stockLevel==0)) {
                     setSpannedText(stockLabel)
                 }
                 if(product.stock.stockLevel<=5 && product.stock.stockLevel!=0){
@@ -210,7 +251,7 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
                     stockLabel.text = stockLabel.context.getString(R.string.mec_only) + " " + product.stock.stockLevel + " " + stockLabel.context.getString(R.string.mec_stock_available);
                 }
                 stockLabel.visibility = View.VISIBLE
-            }
+            }*/
         }
 
         private fun setSpannedText(stockLabel : Label ) {

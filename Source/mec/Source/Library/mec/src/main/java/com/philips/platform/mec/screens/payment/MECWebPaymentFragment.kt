@@ -114,16 +114,19 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
         var match = true
         if (url.startsWith(PAYMENT_SUCCESS_CALLBACK_URL)) {
             actionMapPaymentSuccess.put(specialEvents, newBillingAddressAdded)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess, mECSOrderDetail.entries)
+            //TODO
+            // MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess, mECSOrderDetail.entries)
             launchConfirmationScreen(createSuccessBundle(true))
         } else if (url.startsWith(PAYMENT_PENDING_CALLBACK_URL)) {
             actionMapPaymentSuccess.put(specialEvents, newBillingAddressAdded)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess, mECSOrderDetail.entries)
+            //TODO
+            // MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentSuccess, mECSOrderDetail.entries)
             val bundle = Bundle()
             launchConfirmationScreen(createSuccessBundle(false))
         } else if (url.startsWith(PAYMENT_FAILURE_CALLBACK_URL)) {
             actionMapPaymentFailure.put(specialEvents, paymentFailure)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure, mECSOrderDetail.entries)
+            //TODO
+           //  MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure, mECSOrderDetail.entries)
             mIsPaymentFailed = true
             MECutility.showActionDialog(mContext!!, R.string.mec_ok, null, R.string.mec_payment, R.string.mec_payment_failed_message, fragmentManager!!, object : AlertListener {
                 override fun onPositiveBtnClick() {
@@ -132,7 +135,8 @@ class MECWebPaymentFragment : MECWebFragment(), AlertListener {
             })
         } else if (url.startsWith(PAYMENT_CANCEL_CALLBACK_URL)) {
             actionMapPaymentFailure.put(specialEvents, cancelPayment)
-            MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure, mECSOrderDetail.entries)
+            //TODO
+           //  MECAnalytics.tagActionsWithOrderProductsInfo(actionMapPaymentFailure, mECSOrderDetail.entries)
             moveToCaller(mIsPaymentFailed, TAG)
         } else {
             match = false
