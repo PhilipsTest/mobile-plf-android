@@ -4,14 +4,14 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class ProductFilter(var sortType: ECSSortType?, var stockLevelList: MutableList<ECSStockLevel>) : Parcelable
+data class ProductFilter(var sortType: ECSSortType?, var stockLevelSet: HashSet<ECSStockLevel>) : Parcelable
 
 enum class ECSStockLevel(var value: String) {
-    InStock("IN_STOCK"),
+     InStock("IN_STOCK"),
 
-    OutOfStock("OUT_OF_STOCK"),
+     OutOfStock("OUT_OF_STOCK"),
 
-    LowStock("LOW_STOCK");
+     LowStock("LOW_STOCK");
 
     override fun toString(): String {
         return value
@@ -21,15 +21,15 @@ enum class ECSStockLevel(var value: String) {
 
 enum class ECSSortType(var value: String) {
 
-    topRated("topRated"),
+     topRated("topRated"),
 
-    priceAscending("price"),
+     priceAscending("price"),
 
-    priceDescending("-price"),
+     priceDescending("-price"),
 
-    discountPercentageAscending("discountPercentage"),
+     discountPercentageAscending("discountPercentage"),
 
-    discountPercentageDescending("-discountPercentage");
+     discountPercentageDescending("-discountPercentage");
 
 
     override fun toString(): String {

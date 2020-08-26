@@ -19,7 +19,9 @@ import com.philips.platform.ecs.microService.model.product.ECSProducts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PILFetchProductsFragment extends BaseAPIFragment {
 
@@ -75,7 +77,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         }
 
 
-        ArrayList<ECSStockLevel> stockLevelItems = new ArrayList<>();
+        HashSet<ECSStockLevel> stockLevelItems = new HashSet<>();
 
         if(cbInStock.isChecked()) stockLevelItems.add(ECSStockLevel.InStock);
         if(cbLowStock.isChecked()) stockLevelItems.add(ECSStockLevel.LowStock);
@@ -88,7 +90,7 @@ public class PILFetchProductsFragment extends BaseAPIFragment {
         }
         ProductFilter productFilter = new ProductFilter(eCSSortType, stockLevelItems);
         productFilter.setSortType(eCSSortType);
-        productFilter.setStockLevelList(stockLevelItems);
+        productFilter.setStockLevelSet(stockLevelItems);
         ECSServices microECSServices = new ECSServices(mAppInfraInterface);
 
         try {
