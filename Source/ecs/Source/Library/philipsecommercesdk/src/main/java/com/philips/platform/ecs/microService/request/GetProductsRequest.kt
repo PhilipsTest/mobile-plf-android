@@ -45,9 +45,9 @@ class GetProductsRequest  (private val productCategory: String?, private val lim
         productFilter?.let {
             productFilter.sortType?.let { urlWithParams = urlWithParams.addQueryParam(sortKey, productFilter.sortType.toString()) }
 
-            var commaSeperatedString = productFilter.stockLevelList.joinToString { it.toString() }
+            var commaSeperatedString = productFilter.stockLevelSet.joinToString { it.toString() }
             commaSeperatedString = commaSeperatedString.replace("\\s".toRegex(), "")
-            productFilter.stockLevelList?.let { urlWithParams = urlWithParams.addQueryParam(stockLevelKey, commaSeperatedString) }
+            productFilter.stockLevelSet.let { urlWithParams = urlWithParams.addQueryParam(stockLevelKey, commaSeperatedString) }
         }
 
         return urlWithParams
