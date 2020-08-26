@@ -84,7 +84,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
         mecProductReviews?.let { mProductsWithReview.addAll(it) }
 
-        if (!mProductFilter?.stockLevelList?.isEmpty()!! && MECDataHolder.INSTANCE.hybrisEnabled) {
+        if (!mProductFilter?.stockLevelSet?.isEmpty()!! && MECDataHolder.INSTANCE.hybrisEnabled) {
             mProductsWithReview = mecProductReviews
             val productList = mutableListOf<ECSProduct>()
             for (productWithReview in mProductsWithReview) {
@@ -107,7 +107,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         isCallOnProgress = false
 
-        if (mProductFilter?.stockLevelList?.isEmpty()!!)
+        if (mProductFilter?.stockLevelSet?.isEmpty()!!)
             binding.mecFilter.setText(R.string.dls_filterslidersoutline)
         else
             binding.mecFilter.setText(R.string.dls_filtersliders)
@@ -373,8 +373,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
             totalProductsTobeSearched = categorizedCtns?.size ?: 0
 
-            val stockLevelList: MutableList<ECSStockLevel> = mutableListOf()
-            mProductFilter = ProductFilter(null, stockLevelList)
+            val stockLevelSet: MutableSet<ECSStockLevel> = mutableSetOf()
+            mProductFilter = ProductFilter(null, stockLevelSet as HashSet<ECSStockLevel>)
 
             executeRequest()
             fetchShoppingCartData()
@@ -418,7 +418,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_product_title, true)
         setCartIconVisibility(true)
-        if (mProductFilter?.stockLevelList?.isEmpty()!!)
+        if (mProductFilter?.stockLevelSet?.isEmpty()!!)
             binding.mecFilter.setText(R.string.dls_filterslidersoutline)
         else
             binding.mecFilter.setText(R.string.dls_filtersliders)
@@ -470,7 +470,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
                 binding.mecFilter.setText(R.string.dls_filtersliders)
 //                binding.mecFilter.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
-                mProductFilter?.stockLevelList = mutableListOf()
+                mProductFilter?.stockLevelSet = hashSetOf()
                 executeRequest()
             }
 

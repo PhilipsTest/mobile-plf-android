@@ -28,9 +28,9 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
 
         binding.mecApplyButton.setOnClickListener {
 
-            if (binding.mecFilterCheckbox1.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.InStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.InStock)
-            if (binding.mecFilterCheckbox2.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.LowStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.LowStock)
-            if (binding.mecFilterCheckbox3.isChecked) mProductFilter?.stockLevelList?.add(ECSStockLevel.OutOfStock) else mProductFilter?.stockLevelList?.remove(ECSStockLevel.OutOfStock)
+            if (binding.mecFilterCheckbox1.isChecked) mProductFilter?.stockLevelSet?.add(ECSStockLevel.InStock) else mProductFilter?.stockLevelSet?.remove(ECSStockLevel.InStock)
+            if (binding.mecFilterCheckbox2.isChecked) mProductFilter?.stockLevelSet?.add(ECSStockLevel.LowStock) else mProductFilter?.stockLevelSet?.remove(ECSStockLevel.LowStock)
+            if (binding.mecFilterCheckbox3.isChecked) mProductFilter?.stockLevelSet?.add(ECSStockLevel.OutOfStock) else mProductFilter?.stockLevelSet?.remove(ECSStockLevel.OutOfStock)
 
             val bundle = Bundle()
             bundle.putParcelable(MECConstant.SELECTED_FILTERS, mProductFilter)
@@ -43,8 +43,6 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
             binding.mecFilterCheckbox1.isChecked = false
             binding.mecFilterCheckbox2.isChecked = false
             binding.mecFilterCheckbox3.isChecked = false
-//            mProductFilter?.stockLevelList = mutableListOf()
-            //            this.dismiss()
         }
         return binding.root
     }

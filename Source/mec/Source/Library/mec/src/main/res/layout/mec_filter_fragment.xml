@@ -64,7 +64,7 @@
                     android:id="@+id/mec_filter_checkbox1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.InStock)}"
+                    android:checked="@{productFilter.stockLevelSet.contains(ECSStockLevel.InStock)}"
                     android:text='@string/mec_in_stock' />
 
 
@@ -72,7 +72,7 @@
                     android:id="@+id/mec_filter_checkbox2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.LowStock)}"
+                    android:checked="@{productFilter.stockLevelSet.contains(ECSStockLevel.LowStock)}"
                     android:text="@string/mec_low_stock" />
 
 
@@ -80,7 +80,7 @@
                     android:id="@+id/mec_filter_checkbox3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="@{productFilter.stockLevelList.contains(ECSStockLevel.OutOfStock)}"
+                    android:checked="@{productFilter.stockLevelSet.contains(ECSStockLevel.OutOfStock)}"
                     android:text="@string/mec_out_of_stock" />
 
 
