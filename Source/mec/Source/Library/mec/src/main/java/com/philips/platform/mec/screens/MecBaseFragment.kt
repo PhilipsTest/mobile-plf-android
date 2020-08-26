@@ -26,7 +26,6 @@ import com.philips.platform.mec.screens.catalog.MECProductCatalogFragment
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uappframework.listener.BackEventListener
-import com.philips.platform.uid.view.widget.ProgressBar
 import com.philips.platform.uid.view.widget.ProgressBarWithLabel
 
 
@@ -46,6 +45,12 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
 
     override fun handleBackEvent(): Boolean {
         return false
+    }
+
+    fun popSelfAndReplaceFragment(newFragment: MecBaseFragment,
+                                  newFragmentTag: String, isReplaceWithBackStack: Boolean){
+        fragmentManager?.popBackStack()
+        replaceFragment(newFragment,newFragmentTag,isReplaceWithBackStack)
     }
 
     fun replaceFragment(newFragment: MecBaseFragment,
