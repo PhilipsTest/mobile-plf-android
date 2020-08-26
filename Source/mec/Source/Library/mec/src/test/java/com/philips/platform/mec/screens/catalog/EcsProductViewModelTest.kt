@@ -44,8 +44,8 @@ class EcsProductViewModelTest {
 
     @Test(expected = NullPointerException::class)
     fun `fetch products should call repository pil getProduct api`() {
-        val stockList: MutableList<ECSStockLevel> = mutableListOf()
-        val productFilter: ProductFilter? = ProductFilter(null, stockList)
+        val stockSet: HashSet<ECSStockLevel> = hashSetOf()
+        val productFilter: ProductFilter? = ProductFilter(null, stockSet)
         ecsProductViewModel.fetchProducts(0, 20, productFilter)
         Mockito.verify(eCSCatalogRepository).getProducts(0, 20, productFilter, ecsProductsCallbackMock, microServiceMock)
     }

@@ -47,8 +47,8 @@ class ECSCatalogRepositoryTest {
 
     @Test(expected = NullPointerException::class)
     fun `get Product should call microService fetch product api`() {
-        val stockList: MutableList<ECSStockLevel> = mutableListOf()
-        val productFilter: ProductFilter? = ProductFilter(null, stockList)
+        val stockSet: MutableSet<ECSStockLevel> = hashSetOf()
+        val productFilter: ProductFilter? = ProductFilter(null, stockSet as HashSet<ECSStockLevel>)
         ecsCatalogRepository.getProducts(0, 20, productFilter, ecsProductsCallBackMock, microsServiceMock)
         Mockito.verify(microsServiceMock).fetchProducts(productCategory = "US_PUB", offset = 0, limit = 20, ecsCallback = ecsProductsCallBackMock)
     }
