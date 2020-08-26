@@ -47,7 +47,7 @@ class GetProductsRequestTest {
     @Before
     fun setUp() {
         ECSDataHolder.locale = "en_US"
-        mProductFilter = ProductFilter(null, mutableListOf())
+        mProductFilter = ProductFilter(null, mutableSetOf())
         errorHandler = ErrorHandler()
 
 
@@ -59,9 +59,9 @@ class GetProductsRequestTest {
 
     @Test
     fun getURL() {// this method will internally test method addParams()
-        var stockLevelList: ArrayList<ECSStockLevel> = ArrayList()
-        stockLevelList.add(ECSStockLevel.OutOfStock)
-        mProductFilter!!.stockLevelList = stockLevelList
+        var stockLevelSet: HashSet<ECSStockLevel> = HashSet()
+        stockLevelSet.add(ECSStockLevel.OutOfStock)
+        mProductFilter!!.stockLevelSet = stockLevelSet
         mProductFilter!!.sortType = ECSSortType.priceAscending
 
 
@@ -78,9 +78,9 @@ class GetProductsRequestTest {
 
     @Test
     fun getURLwithNegativeLimitAndOffset() {// this method will internally test method addParams()
-        var stockLevelList: ArrayList<ECSStockLevel> = ArrayList()
-        stockLevelList.add(ECSStockLevel.OutOfStock)
-        mProductFilter!!.stockLevelList = stockLevelList
+        var stockLevelSet: HashSet<ECSStockLevel> = HashSet()
+        stockLevelSet.add(ECSStockLevel.OutOfStock)
+        mProductFilter!!.stockLevelSet = stockLevelSet
         mProductFilter!!.sortType = ECSSortType.priceAscending
 
 
