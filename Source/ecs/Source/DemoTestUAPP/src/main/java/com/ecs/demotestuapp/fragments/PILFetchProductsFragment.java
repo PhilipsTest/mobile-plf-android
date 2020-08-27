@@ -5,7 +5,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.ecs.demotestuapp.model.FilterStateItem;
 import com.ecs.demotestuapp.util.ECSDemoDataHolder;
 import com.ecs.demotestuapp.util.PILDataHolder;
 import com.philips.platform.ecs.microService.ECSServices;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class PILFetchProductsFragment extends BaseAPIFragment {
 
