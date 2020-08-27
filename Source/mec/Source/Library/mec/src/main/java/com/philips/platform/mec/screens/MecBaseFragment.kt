@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECLauncherActivity
 import com.philips.platform.mec.common.MecError
+import com.philips.platform.mec.integration.serviceDiscovery.MECManager
 import com.philips.platform.mec.screens.catalog.MECProductCatalogCategorizedFragment
 import com.philips.platform.mec.screens.catalog.MECProductCatalogFragment
 import com.philips.platform.mec.utils.MECDataHolder
@@ -28,6 +29,8 @@ import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uappframework.listener.BackEventListener
 import com.philips.platform.uid.view.widget.ProgressBar
 import com.philips.platform.uid.view.widget.ProgressBarWithLabel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecError> {
@@ -130,9 +133,16 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
         }
     }
 
+    internal fun fetchCartQuantity() {
+        if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
+            GlobalScope.launch {
+                MECDataHolder.INSTANCE.mecCartUpdateListener?.let {  MECManager().getShoppingCartData(it) }
+            }
+        }
+    }
+
     protected fun isUserLoggedIn(): Boolean {
         return MECDataHolder.INSTANCE.isUserLoggedIn()
-
     }
 
     fun showProgressBar(mecProgressBar: FrameLayout?) {

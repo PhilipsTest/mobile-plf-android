@@ -25,8 +25,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.Statistics
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
@@ -45,7 +43,6 @@ import com.philips.platform.mec.analytics.MECAnalyticsConstant.stockStatus
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecProductDetailsBinding
-import com.philips.platform.mec.integration.serviceDiscovery.MECManager
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.screens.retailers.ECSRetailerViewModel
 import com.philips.platform.mec.screens.retailers.MECRetailersFragment
@@ -56,8 +53,6 @@ import com.philips.platform.mec.utils.MECConstant.MEC_PRODUCT
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 import kotlinx.android.synthetic.main.mec_product_details.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 /**
@@ -69,13 +64,11 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         return "MECProductDetailsFragment"
     }
 
-
     var mRootView: View? = null
-
     lateinit var param: String
 
     lateinit var binding: MecProductDetailsBinding
-    lateinit var product: ECSProduct
+    private var product: ECSProduct? = null
     private lateinit var retailersList: ECSRetailerList
     private lateinit var ecsRetailerViewModel: ECSRetailerViewModel
 
@@ -111,14 +104,14 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     private val productObserver: Observer<ECSProduct> = Observer<ECSProduct> { ecsProduct ->
 
         //TO show No Image for no asset found for a product
-        if (ecsProduct.assets == null || ecsProduct.assets?.getValidPRXImageAssets() == null || ecsProduct.assets!!.getValidPRXImageAssets().isEmpty()) {
-            ecsProductDetailViewModel.addNoAsset(product)
+        if (ecsProduct.assets?.getValidPRXImageAssets()?.isEmpty() == true) {
+            ecsProductDetailViewModel.addNoAsset(ecsProduct)
         }
-
         binding.product = ecsProduct
+
         setUpTab(ecsProduct)
         showPriceDetail()
-        addToCartVisibility(ecsProduct!!)
+        addToCartVisibility(ecsProduct)
         if (!MECDataHolder.INSTANCE.hybrisEnabled && !MECDataHolder.INSTANCE.retailerEnabled) {
             binding.mecProductDetailStockStatus.text = binding.mecProductDetailStockStatus.context.getString(R.string.mec_out_of_stock)
             binding.mecProductDetailStockStatus.setTextColor(binding.mecProductDetailStockStatus.context.getColor(R.color.uid_signal_red_level_30))
@@ -130,13 +123,13 @@ open class MECProductDetailsFragment : MecBaseFragment() {
             binding.mecFindRetailerButtonSecondary.visibility = View.GONE
             if (MECDataHolder.INSTANCE.hybrisEnabled) {
                 if (null != product.attributes?.availability) {
-                    if (MECutility.isStockAvailable(product.attributes?.availability!!.status, product.attributes?.availability?.quantity ?:0)) {
+                    if (MECutility.isStockAvailable(product?.attributes?.availability!!.status, product?.attributes?.availability?.quantity ?:0)) {
                         binding.mecProductDetailStockStatus.text = binding.mecProductDetailStockStatus.context.getString(R.string.mec_in_stock)
                         binding.mecProductDetailStockStatus.setTextColor(binding.mecProductDetailStockStatus.context.getColor(R.color.uid_signal_green_level_30))
                     } else {
                         binding.mecProductDetailStockStatus.text = binding.mecProductDetailStockStatus.context.getString(R.string.mec_out_of_stock)
                         binding.mecProductDetailStockStatus.setTextColor(binding.mecProductDetailStockStatus.context.getColor(R.color.uid_signal_red_level_30))
-                        tagOutOfStockActions(product)
+                        product?.let { tagOutOfStockActions(it) }
                     }
                 }
             }
@@ -163,35 +156,19 @@ open class MECProductDetailsFragment : MecBaseFragment() {
             ecsProductDetailViewModel = ViewModelProvider(this).get(EcsProductDetailViewModel::class.java)
 
             ecsRetailerViewModel = ViewModelProvider(this).get(ECSRetailerViewModel::class.java)
-
             ecsRetailerViewModel.ecsRetailerList.observe(this, eCSRetailerListObserver)
-
-
             ecsProductDetailViewModel.ecsProduct.observe(this, productObserver)
             ecsProductDetailViewModel.ecsShoppingCart.observe(this, cartObserver)
-
-
             ecsProductDetailViewModel.bulkRatingResponse.observe(this, ratingObserver)
             ecsProductDetailViewModel.mecError.observe(this, this)
 
-
-
             binding.indicator.viewPager = binding.pager
-            val bundle = arguments
-            product = bundle?.getParcelable(MECConstant.MEC_KEY_PRODUCT)!!
-
-
+            product = arguments?.getParcelable(MECConstant.MEC_KEY_PRODUCT)
             mRootView=binding.root
-            showData()
-            ////////////// start of update cart and login if required
-            if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
-                GlobalScope.launch {
-                    val mecManager: MECManager = MECManager()
-                    MECDataHolder.INSTANCE.mecCartUpdateListener?.let { mecManager.getShoppingCartData(it) }
-                }
-            }
-            ////////////// end of update cart and login if required
-
+            setRetailerButtonProperty()
+            executeRequest()
+            getRatings()
+            fetchCartQuantity()
         }
         return mRootView
     }
@@ -203,17 +180,14 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         binding.tabsMain.setupWithViewPager(binding.viewpagerMain)
     }
 
-
-    private fun showData() {
+    private fun setRetailerButtonProperty() {
         if (MECDataHolder.INSTANCE.hybrisEnabled) {
             binding.mecFindRetailerButtonPrimary.visibility = View.GONE
             binding.mecFindRetailerButtonSecondary.visibility = View.VISIBLE
-        } else if (!MECDataHolder.INSTANCE.hybrisEnabled) {
+        } else{
             binding.mecFindRetailerButtonPrimary.visibility = View.VISIBLE
             binding.mecFindRetailerButtonSecondary.visibility = View.GONE
         }
-        executeRequest()
-        getRatings()
     }
 
 
@@ -226,14 +200,14 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     override fun onStart() {
         super.onStart()
         MECAnalytics.trackPage(productDetailsPage)
-        tagActions(product)
+        product?.let { tagActions(it) }
     }
 
 
-    fun addToCartVisibility(product: ECSProduct) {
-        if (MECDataHolder.INSTANCE.hybrisEnabled.equals(false)) {
+    private fun addToCartVisibility(product: ECSProduct) {
+        if (!MECDataHolder.INSTANCE.hybrisEnabled) {
             binding.mecAddToCartButton.visibility = View.GONE
-        } else if ((MECDataHolder.INSTANCE.hybrisEnabled.equals(true)) && product.attributes?.availability != null && !(MECutility.isStockAvailable(product.attributes?.availability?.status, product.attributes?.availability?.quantity ?:0))) {
+        } else if (MECDataHolder.INSTANCE.hybrisEnabled &&  !(MECutility.isStockAvailable(product.attributes?.availability?.status, product.attributes?.availability?.quantity ?:0))) {
             binding.mecAddToCartButton.visibility = View.VISIBLE
             binding.mecAddToCartButton.isEnabled = false
         } else {
@@ -245,7 +219,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     open fun executeRequest() {
         binding.rlParentContent.visibility = View.INVISIBLE
         showProgressBar(binding.mecProgress.mecProgressBarContainer)
-        ecsProductDetailViewModel.getProductDetail(product)
+        product?.let { ecsProductDetailViewModel.getProductDetail(it) }
     }
 
 
@@ -273,13 +247,13 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
         val textSize16 = getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_discount_price_label_size);
         val textSize12 = getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_price_label_size);
-        if (product.attributes?.discountPrice?.formattedValue?.length ?:0> 0 && (product.attributes?.price?.value ?:0.0 - (product.attributes?.discountPrice?.value ?: 0.0)) > 0) {
+        if (product?.attributes?.discountPrice?.formattedValue?.length ?:0> 0 && (product?.attributes?.price?.value ?:0.0 - (product?.attributes?.discountPrice?.value ?: 0.0)) > 0) {
             mecPriceDetailId.visibility = View.VISIBLE
             mec_priceDetailIcon.visibility = View.VISIBLE
             mec_priceDiscount.visibility = View.VISIBLE
             mec_priceDiscountIcon.visibility = View.VISIBLE
-            val price = SpannableString(product.attributes?.price?.formattedValue);
-            price.setSpan(AbsoluteSizeSpan(textSize12), 0, product!!.attributes?.price?.formattedValue!!.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            val price = SpannableString(product?.attributes?.price?.formattedValue)
+            price.setSpan(AbsoluteSizeSpan(textSize12), 0, product?.attributes?.price?.formattedValue!!.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
             price.setSpan(StrikethroughSpan(), 0, product!!.attributes?.price?.formattedValue!!.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0, product!!.attributes?.price?.formattedValue!!.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
