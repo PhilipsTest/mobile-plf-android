@@ -59,7 +59,7 @@ public class IAPActivity extends UIDActivity implements ActionBarListener, IAPLi
     private ProgressDialog mProgressDialog = null;
 
     public IAPActivity(){
-        setLanguagePackNeeded(false);
+        //setLanguagePackNeeded(false);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class ThemeSelectionActivity extends UIDActivity{
     protected SharedPreferences defaultSharedPreferences;
 
     public ThemeSelectionActivity (){
-        setLanguagePackNeeded(false);
+       // setLanguagePackNeeded(false);
     }
 
     @Override

@@ -60,7 +60,7 @@ public class ECSActivity extends UIDActivity implements ActionBarListener, ECSLi
     private ProgressDialog mProgressDialog = null;
 
     public ECSActivity(){
-        setLanguagePackNeeded(false);
+        //setLanguagePackNeeded(false);
     }
 
     @Override
