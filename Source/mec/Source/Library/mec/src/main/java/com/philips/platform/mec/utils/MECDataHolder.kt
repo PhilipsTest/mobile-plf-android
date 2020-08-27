@@ -41,7 +41,7 @@ enum class MECDataHolder {
     INSTANCE;
 
     lateinit var appinfra: AppInfraInterface
-    lateinit var actionbarUpdateListener: ActionBarListener
+    var actionbarUpdateListener: ActionBarListener? = null
     var mecCartUpdateListener: MECCartUpdateListener? = null
     var mecBannerEnabler: MECBannerConfigurator? = null
     var mecOrderFlowCompletion: MECOrderFlowCompletion? = null

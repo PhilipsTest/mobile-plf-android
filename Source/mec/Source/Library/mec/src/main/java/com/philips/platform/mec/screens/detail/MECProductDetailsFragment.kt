@@ -75,8 +75,8 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     lateinit var ecsProductDetailViewModel: EcsProductDetailViewModel
 
     private val eCSRetailerListObserver: Observer<ECSRetailerList> = object : Observer<ECSRetailerList> {
-        override fun onChanged(retailers: ECSRetailerList?) {
-            retailersList = retailers!!
+        override fun onChanged(retailers: ECSRetailerList) {
+            retailersList = retailers
             ecsProductDetailViewModel.removeBlacklistedRetailers(retailersList)
             if (retailers.wrbresults?.OnlineStoresForProduct != null) {
                 if (retailersList.wrbresults?.OnlineStoresForProduct?.Stores?.Store?.size ?:0 > 0) {
@@ -122,15 +122,19 @@ open class MECProductDetailsFragment : MecBaseFragment() {
             binding.mecFindRetailerButtonPrimary.visibility = View.GONE
             binding.mecFindRetailerButtonSecondary.visibility = View.GONE
             if (MECDataHolder.INSTANCE.hybrisEnabled) {
-                if (null != product.attributes?.availability) {
-                    if (MECutility.isStockAvailable(product?.attributes?.availability!!.status, product?.attributes?.availability?.quantity ?:0)) {
+
+                val availability = product?.attributes?.availability
+                availability?.let {
+
+                    if(MECutility.isStockAvailable(it.status,it.quantity ?:0)){
                         binding.mecProductDetailStockStatus.text = binding.mecProductDetailStockStatus.context.getString(R.string.mec_in_stock)
                         binding.mecProductDetailStockStatus.setTextColor(binding.mecProductDetailStockStatus.context.getColor(R.color.uid_signal_green_level_30))
-                    } else {
+                    }else{
                         binding.mecProductDetailStockStatus.text = binding.mecProductDetailStockStatus.context.getString(R.string.mec_out_of_stock)
                         binding.mecProductDetailStockStatus.setTextColor(binding.mecProductDetailStockStatus.context.getColor(R.color.uid_signal_red_level_30))
                         product?.let { tagOutOfStockActions(it) }
                     }
+
                 }
             }
         }
@@ -224,11 +228,11 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
 
     private fun getRetailerDetails() {
-        ecsRetailerViewModel.getRetailers(product.ctn)
+        product?.ctn?.let { ecsRetailerViewModel.getRetailers(it) }
     }
 
     private fun getRatings() {
-        ecsProductDetailViewModel.getRatings(product.ctn.replace("/","_"))
+        product?.ctn?.let {  ecsProductDetailViewModel.getRatings(it.replace("/","_")) }
     }
 
 
@@ -245,33 +249,33 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
     fun showPriceDetail() {
 
-        val textSize16 = getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_discount_price_label_size);
-        val textSize12 = getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_price_label_size);
+        val textSize16 = resources.getDimensionPixelSize(R.dimen.mec_product_detail_discount_price_label_size);
+        val textSize12 = resources.getDimensionPixelSize(R.dimen.mec_product_detail_price_label_size);
         if (product?.attributes?.discountPrice?.formattedValue?.length ?:0> 0 && (product?.attributes?.price?.value ?:0.0 - (product?.attributes?.discountPrice?.value ?: 0.0)) > 0) {
             mecPriceDetailId.visibility = View.VISIBLE
             mec_priceDetailIcon.visibility = View.VISIBLE
             mec_priceDiscount.visibility = View.VISIBLE
             mec_priceDiscountIcon.visibility = View.VISIBLE
             val price = SpannableString(product?.attributes?.price?.formattedValue)
-            price.setSpan(AbsoluteSizeSpan(textSize12), 0, product?.attributes?.price?.formattedValue!!.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-            price.setSpan(StrikethroughSpan(), 0, product!!.attributes?.price?.formattedValue!!.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0, product!!.attributes?.price?.formattedValue!!.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            price.setSpan(AbsoluteSizeSpan(textSize12), 0, product?.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            price.setSpan(StrikethroughSpan(), 0, product?.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0, product?.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-            val discountPrice = SpannableString(product!!.attributes?.discountPrice?.formattedValue);
-            discountPrice.setSpan(AbsoluteSizeSpan(textSize16), 0, product!!.attributes?.discountPrice?.formattedValue!!.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            val discountPrice = SpannableString(product?.attributes?.discountPrice?.formattedValue ?:"")
+            discountPrice.setSpan(AbsoluteSizeSpan(textSize16), 0, product?.attributes?.discountPrice?.formattedValue?.length ?:0, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
             val CharSequence = TextUtils.concat(price, "  ", discountPrice);
             mecPriceDetailId.text = CharSequence;
-            val discount = (product?.attributes?.price?.value!! - product?.attributes?.discountPrice?.value!! )/ product?.attributes?.price?.value!! * 100
+            val discount = (product?.attributes?.price?.value ?:0.0 - (product?.attributes?.discountPrice?.value ?:0.0) )/ (product?.attributes?.price?.value ?:0.0) * 100
 
-            val discountRounded: String = String.format("%.2f", discount).toString()
+            val discountRounded: String = String.format("%.2f", discount)
             mec_priceDiscount.text = "-" + discountRounded + "%"
-        } else if (product!!.attributes?.price != null && product!!.attributes?.price?.formattedValue != null && product!!.attributes?.price?.formattedValue!!.length > 0) {
+        } else if (product?.attributes?.price?.formattedValue?.length ?:0 > 0) {
             mecPriceDetailId.visibility = View.VISIBLE
             mec_priceDetailIcon.visibility = View.VISIBLE
 
             mec_priceDiscount.visibility = View.GONE
             mec_priceDiscountIcon.visibility = View.GONE
-            mecPriceDetailId.text = product!!.attributes?.price?.formattedValue;
+            mecPriceDetailId.text = product?.attributes?.price?.formattedValue ?:""
 
         } else {
             mecPriceDetailId.visibility = View.GONE
@@ -281,8 +285,6 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         }
 
     }
-
-
 
     fun onBuyFromRetailerClick() {
         buyFromRetailers()
@@ -295,13 +297,13 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                 showProgressBar(binding.mecProgress.mecProgressBarContainer)
                 ecsProductDetailViewModel.addProductToShoppingcart(it.ctn)
             }else{
-                fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), R.string.mec_cart_login_error_message) } }
+                activity?.supportFragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it,getString(R.string.mec_ok), getString(R.string.mec_product_detail_title), R.string.mec_cart_login_error_message) } }
             }
         }
     }
 
     private fun gotoShoppingCartScreen(eCSShoppingCart: ECSShoppingCart) {
-        tagAddToCart(binding.product!!)
+        tagAddToCart(binding.product)
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_SHOPPING_CART, eCSShoppingCart)
@@ -317,7 +319,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         bundle.putParcelable(MEC_PRODUCT, binding.product)
         bottomSheetFragment.arguments = bundle
         bottomSheetFragment.setTargetFragment(this, MECConstant.RETAILER_REQUEST_CODE)
-        fragmentManager?.let { bottomSheetFragment.show(it, bottomSheetFragment.tag) }
+        activity?.supportFragmentManager?.let { bottomSheetFragment.show(it, bottomSheetFragment.tag) }
 
     }
 
@@ -327,7 +329,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
         if (requestCode == MECConstant.RETAILER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
-            if (data?.extras?.containsKey(MECConstant.SELECTED_RETAILER)!!) {
+            if (data?.extras?.containsKey(MECConstant.SELECTED_RETAILER) == true) {
                 val ecsRetailer: ECSRetailer = data.getParcelableExtra(MECConstant.SELECTED_RETAILER) as ECSRetailer
                 param = ecsRetailer.xactparam ?:""
                 val bundle = Bundle()
@@ -335,7 +337,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                 bundle.putString(MECConstant.MEC_STORE_NAME, ecsRetailer.name)
                 bundle.putBoolean(MECConstant.MEC_IS_PHILIPS_SHOP, ecsProductDetailViewModel.isPhilipsShop(ecsRetailer))
 
-                tagActionsforRetailer(ecsRetailer?.name ?:"", MECutility.stockStatus(ecsRetailer.availability ?:"NO"))
+                tagActionsforRetailer(ecsRetailer.name ?:"", MECutility.stockStatus(ecsRetailer.availability ?:"NO"))
                 val fragment = WebBuyFromRetailersFragment()
                 fragment.arguments = bundle
                 replaceFragment(fragment, fragment.getFragmentTag(), true)
@@ -370,7 +372,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         val map = HashMap<String, String>()
         map.put(retailerName, name)
         map.put(stockStatus, status)
-        map.put(mecProducts, MECAnalytics.getProductInfo(product))
+        product?.let { MECAnalytics.getProductInfo(it) }?.let { map.put(mecProducts, it) }
         MECAnalytics.trackMultipleActions(sendData, map)
     }
 
@@ -386,7 +388,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
         @JvmStatic
         fun tagOutOfStockActions(product: ECSProduct) {
-            var map = HashMap<String, String>()
+            val map = HashMap<String, String>()
             map.put(specialEvents, outOfStock)
             map.put(mecProducts, MECAnalytics.getProductInfo(product))
             MECAnalytics.trackMultipleActions(sendData, map)

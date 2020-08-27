@@ -234,7 +234,6 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        setCartIconVisibility(false)
         mAtomicBoolean.set(true)
         if (null == mRootView) {
 
@@ -250,21 +249,15 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
             addressViewModel.mecError.observe(this, this)
 
             productReviewList = mutableListOf()
-
             voucherList = mutableListOf()
-
             cartSummaryList = mutableListOf()
 
             productsAdapter = MECProductsAdapter(productReviewList, this)
-
             cartSummaryAdapter = MECCartSummaryAdapter(cartSummaryList)
             vouchersAdapter = MECVouchersAdapter(voucherList, this)
 
             binding.mecCartSummaryRecyclerView.adapter = productsAdapter
-
-
             binding.mecAcceptedCodeRecyclerView.adapter = vouchersAdapter
-
             binding.mecPriceSummaryRecyclerView.adapter = cartSummaryAdapter
 
             val swipeController = MECSwipeController(binding.mecCartSummaryRecyclerView.context, object : SwipeControllerActions() {
@@ -303,9 +296,9 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     fun showDialog() {
         if (removeVoucher) {
-            fragmentManager?.let { MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_voucher_confirmation_title, it, this) }
+            activity?.supportFragmentManager?.let { MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_voucher_confirmation_title, it, this) }
         } else {
-            fragmentManager?.let { MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_product_confirmation_title, it, this) }
+            activity?.supportFragmentManager?.let { MECutility.showActionDialog(binding.mecVoucherEditText.context, R.string.mec_delete, R.string.mec_cancel, R.string.mec_shopping_cart_title, R.string.mec_delete_product_confirmation_title, it, this) }
         }
     }
 
@@ -326,13 +319,9 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        setCartIconVisibility(false)
-    }
-
     override fun onResume() {
         super.onResume()
+        setCartIconVisibility(false)
         setTitleAndBackButtonVisibility(R.string.mec_shopping_cart_title, true)
     }
 
@@ -370,7 +359,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         //TODO tagging
         //MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, binding.shoppingCart?.entries)
         if (MECDataHolder.INSTANCE.maxCartCount != 0 && shoppingCart.data?.attributes?.deliveryUnits  ?:0 > MECDataHolder.INSTANCE.maxCartCount) {
-            fragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it, getString(R.string.mec_ok), getString(R.string.mec_shopping_cart_title), String.format(getString(R.string.mec_cart_count_exceed_message), MECDataHolder.INSTANCE.maxCartCount)) } }
+            activity?.supportFragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it, getString(R.string.mec_ok), getString(R.string.mec_shopping_cart_title), String.format(getString(R.string.mec_cart_count_exceed_message), MECDataHolder.INSTANCE.maxCartCount)) } }
         } else {
             showProgressBar(binding.mecProgress.mecProgressBarContainer)
             addressViewModel.fetchAddresses()
@@ -378,7 +367,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     }
 
     fun gotoProductCatalog() {
-        var actionMap = HashMap<String, String>()
+        val actionMap = HashMap<String, String>()
         actionMap.put(specialEvents, continueShoppingSelected)
         //TODO tagging
         //MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, binding.shoppingCart?.entries)

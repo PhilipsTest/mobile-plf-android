@@ -43,10 +43,6 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     protected val MEDIUM = 1
     protected val BIG = 2
 
-    enum class AnimationType {
-        NONE
-    }
-
     override fun handleBackEvent(): Boolean {
         return false
     }
@@ -56,18 +52,14 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
         if (MECDataHolder.INSTANCE.actionbarUpdateListener == null || MECDataHolder.INSTANCE.mecCartUpdateListener == null)
             RuntimeException("ActionBarListner and MECListner cant be null")
         else {
-            if (null!=activity && !activity!!.isFinishing) {
+            if (activity?.isFinishing == false) {
 
-                val transaction = activity!!.supportFragmentManager.beginTransaction()
-
-
-
-
-                transaction.replace(id, newFragment, newFragmentTag)
+                val transaction = activity?.supportFragmentManager?.beginTransaction()
+                transaction?.replace(id, newFragment, newFragmentTag)
                 if (isReplaceWithBackStack) {
-                    transaction.addToBackStack(newFragmentTag)
+                    transaction?.addToBackStack(newFragmentTag)
                 }
-                transaction.commitAllowingStateLoss()
+                transaction?.commitAllowingStateLoss()
             }
         }
     }
@@ -78,59 +70,52 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
         if (MECDataHolder.INSTANCE.actionbarUpdateListener == null || MECDataHolder.INSTANCE.mecCartUpdateListener == null)
             RuntimeException("ActionBarListner and MECListner cant be null")
         else {
-            if (null!=activity && !activity!!.isFinishing) {
-                val transaction = activity!!.supportFragmentManager.beginTransaction()
-
-                transaction.add(id, newFragment, newFragmentTag)
+            if (activity?.isFinishing == false) {
+                val transaction = activity?.supportFragmentManager?.beginTransaction()
+                transaction?.add(id, newFragment, newFragmentTag)
                 if (isAddWithBackStack) {
-                    transaction.addToBackStack(newFragmentTag)
+                    transaction?.addToBackStack(newFragmentTag)
                 }
-                transaction.commitAllowingStateLoss()
+                transaction?.commitAllowingStateLoss()
             }
         }
     }
 
     fun showProductCatalogFragment(fragmentTag: String) {
-        val fragment = fragmentManager!!.findFragmentByTag(MECProductCatalogFragment.TAG)
+        val fragment = activity?.supportFragmentManager?.findFragmentByTag(MECProductCatalogFragment.TAG)
         if (fragment == null) {
-            val fragment = fragmentManager!!.findFragmentByTag(MECProductCatalogCategorizedFragment.TAG)
+            val fragment = activity?.supportFragmentManager?.findFragmentByTag(MECProductCatalogCategorizedFragment.TAG)
             if (fragment == null) {
-                fragmentManager!!.popBackStack( MECDataHolder.INSTANCE.mecLaunchingFragmentName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                activity?.supportFragmentManager?.popBackStack( MECDataHolder.INSTANCE.mecLaunchingFragmentName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 replaceFragment(MECProductCatalogFragment(),  MECProductCatalogFragment.TAG, true)
             }else{
-                fragmentManager!!.popBackStack(MECProductCatalogCategorizedFragment.TAG, 0)
+                activity?.supportFragmentManager?.popBackStack(MECProductCatalogCategorizedFragment.TAG, 0)
             }
         } else {
-            fragmentManager!!.popBackStack(MECProductCatalogFragment.TAG, 0)
+            activity?.supportFragmentManager?.popBackStack(MECProductCatalogFragment.TAG, 0)
         }
     }
 
 
     protected fun setTitleAndBackButtonVisibility(resourceId: Int, isVisible: Boolean) {
-        if (MECDataHolder.INSTANCE.actionbarUpdateListener != null)
-            MECDataHolder.INSTANCE.actionbarUpdateListener!!.updateActionBar(resourceId, isVisible)
+            MECDataHolder.INSTANCE.actionbarUpdateListener?.updateActionBar(resourceId, isVisible)
     }
 
 
     protected fun setTitleAndBackButtonVisibility(title: String, isVisible: Boolean) {
-        if (MECDataHolder.INSTANCE.actionbarUpdateListener != null)
-            MECDataHolder.INSTANCE.actionbarUpdateListener!!.updateActionBar(title, isVisible)
+            MECDataHolder.INSTANCE.actionbarUpdateListener?.updateActionBar(title, isVisible)
     }
 
     fun updateCount(count: Int) {
-        if (MECDataHolder.INSTANCE.mecCartUpdateListener  != null) {
-            MECDataHolder.INSTANCE.mecCartUpdateListener!!.onUpdateCartCount(count)
-        }
+            MECDataHolder.INSTANCE.mecCartUpdateListener?.onUpdateCartCount(count)
     }
 
     fun setCartIconVisibility(shouldShow: Boolean) {
-        if (MECDataHolder.INSTANCE.mecCartUpdateListener != null) {
             if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
                 MECDataHolder.INSTANCE.mecCartUpdateListener?.shouldShowCart(shouldShow)
             } else {
                 MECDataHolder.INSTANCE.mecCartUpdateListener?.shouldShowCart(false)
             }
-        }
     }
 
     internal fun fetchCartQuantity() {
@@ -147,33 +132,27 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
 
     fun showProgressBar(mecProgressBar: FrameLayout?) {
         mecProgressBar?.visibility = View.VISIBLE
-        if (activity != null) {
-            activity?.getWindow()?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        }
+
     }
 
     fun showProgressBarWithText(mecProgressBar: FrameLayout?, text: String){
         mecProgressBar?.visibility = View.VISIBLE
-        val mecProgressBarText = mecProgressBar?.findViewById(R.id.mec_progress_bar_text) as ProgressBarWithLabel
+        val mecProgressBarText = mecProgressBar?.findViewById(R.id.mec_progress_bar_text) as ProgressBarWithLabel?
         mecProgressBarText?.setText(text)
-        if (activity != null) {
-            activity?.getWindow()?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        }
+        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
     }
 
     fun dismissProgressBar(mecProgressBar: FrameLayout?){
         mecProgressBar?.visibility = View.GONE
-        if (activity != null) {
-            activity?.getWindow()?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        }
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
     }
 
     private fun finishActivity() {
-        if (activity != null && activity is MECLauncherActivity && !activity!!.isFinishing) {
-            activity!!.finish()
-        }
+        if (activity is MECLauncherActivity && activity?.isFinishing == false) activity?.finish()
     }
 
     override fun onChanged(mecError: MecError?) {
@@ -181,7 +160,7 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     }
 
     open fun processError(mecError: MecError?, showDialog: Boolean) {
-        context?.let { MECutility.tagAndShowError(mecError,showDialog,fragmentManager, it) }
+        context?.let { MECutility.tagAndShowError(mecError,showDialog,activity?.supportFragmentManager, it) }
     }
 
     abstract fun getFragmentTag():String
@@ -216,13 +195,13 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     private fun removeMECFragments() {
 
             if(activity!=null) {
-                val fragManager = activity!!.supportFragmentManager
-                var count = fragManager.backStackEntryCount
+                val fragManager = activity?.supportFragmentManager
+                var count = fragManager?.backStackEntryCount ?:0
                 while (count >= 0) {
-                    val fragmentList = fragManager.fragments
-                    if (fragmentList != null && fragmentList.size > 0) {
+                    val fragmentList = fragManager?.fragments
+                    if (fragmentList?.size ?:0 > 0) {
 
-                        val fragment = fragmentList[0]
+                        val fragment = fragmentList?.get(0)
                         if(fragment is MecBaseFragment) {
                             fragManager.popBackStack()
                         }
