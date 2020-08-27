@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -83,7 +84,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     private val mProductReviewObserver: Observer<MutableList<MECProductReview>> = Observer { mecProductReviews ->
 
         mecProductReviews?.let { mProductsWithReview.addAll(it) }
-        if (!mProductFilter?.stockLevelSet?.isEmpty()!! && MECDataHolder.INSTANCE.hybrisEnabled) {
+        if ((!mProductFilter?.stockLevelSet?.isEmpty()!! || mProductFilter?.sortType == null) && MECDataHolder.INSTANCE.hybrisEnabled) {
             mProductsWithReview = mutableListOf()
         }
         adapter = MECProductCatalogAdapter(mecProductReviews, this)
@@ -103,7 +104,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         isCallOnProgress = false
 
-        if (mProductFilter?.stockLevelSet?.isEmpty()!!)
+        if (mProductFilter?.stockLevelSet?.isEmpty()!! || mProductFilter?.sortType == null)
             binding.mecFilter.setText(R.string.dls_filterslidersoutline)
         else
             binding.mecFilter.setText(R.string.dls_filtersliders)
@@ -366,8 +367,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
             totalProductsTobeSearched = categorizedCtns?.size ?: 0
 
-            val stockLevelSet: MutableSet<ECSStockLevel> = mutableSetOf()
-            mProductFilter = ProductFilter(null, stockLevelSet as HashSet<ECSStockLevel>)
+            val stockLevelSet: HashSet<ECSStockLevel> = hashSetOf()
+            val sortType: ECSSortType? = null
+            mProductFilter = ProductFilter(sortType = sortType, stockLevelSet = stockLevelSet)
 
             executeRequest()
             fetchShoppingCartData()
@@ -411,7 +413,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_product_title, true)
         setCartIconVisibility(true)
-        if (mProductFilter?.stockLevelSet?.isEmpty()!!)
+        if (mProductFilter?.stockLevelSet?.isEmpty()!! || mProductFilter?.sortType == null)
             binding.mecFilter.setText(R.string.dls_filterslidersoutline)
         else
             binding.mecFilter.setText(R.string.dls_filtersliders)
@@ -464,6 +466,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 binding.mecCatalogParentLayout.visibility = View.GONE
                 binding.mecFilter.setText(R.string.dls_filtersliders)
                 mProductFilter?.stockLevelSet = hashSetOf()
+                mProductFilter?.sortType = null
                 executeRequest()
             }
 

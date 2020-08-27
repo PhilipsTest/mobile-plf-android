@@ -1,10 +1,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="com.philips.platform.ecs.microService.model.filter.ECSStockLevel" />
+
+        <import type="com.philips.platform.ecs.microService.model.filter.ECSSortType" />
 
         <variable
             name="productFilter"
@@ -19,12 +20,12 @@
         <RelativeLayout
             android:id="@+id/design_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="260dp"
+            android:layout_height="420dp"
             android:layout_gravity="bottom"
             android:gravity="bottom"
             android:scrollbars="vertical"
             android:visibility="visible"
-            app:behavior_peekHeight="260dp"
+            app:behavior_peekHeight="420dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
@@ -41,21 +42,83 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:paddingStart="16dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:padding="@dimen/border16_margin_left_right"
                     android:text="@string/mec_filter"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
-                    android:textSize="14sp"
-                    tools:ignore="RtlSymmetry" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_Sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lLayout"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/border16_margin_left_right">
+
+                <RadioGroup
+                    android:id="@+id/mec_radiogroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.philips.platform.uid.view.widget.RadioButton
+                        android:id="@+id/mec_filter_radio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:checked="@{productFilter.sortType.equals(ECSSortType.topRated)}"
+                        android:text="@string/mec_top_rated" />
+
+
+                    <com.philips.platform.uid.view.widget.RadioButton
+                        android:id="@+id/mec_filter_radio2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:checked="@{productFilter.sortType.equals(ECSSortType.priceAscending)}"
+                        android:text="@string/mec_price_ascending" />
+
+
+                    <com.philips.platform.uid.view.widget.RadioButton
+                        android:id="@+id/mec_filter_radio3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:checked="@{productFilter.sortType.equals(ECSSortType.priceDescending)}"
+                        android:text="@string/mec_price_descending" />
+
+                    <com.philips.platform.uid.view.widget.RadioButton
+                        android:id="@+id/mec_filter_radio4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:checked="@{productFilter.sortType.equals(ECSSortType.discountPercentageAscending)}"
+                        android:text="@string/mec_discount_price_ascending" />
+
+                    <com.philips.platform.uid.view.widget.RadioButton
+                        android:id="@+id/mec_filter_radio5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:checked="@{productFilter.sortType.equals(ECSSortType.discountPercentageDescending)}"
+                        android:text="@string/mec_discount_price_descending" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/mec_divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/ll_Sort"
+                android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
 
             <LinearLayout
                 android:id="@+id/ll_Stock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lLayout"
+                android:layout_below="@+id/mec_divider1"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/border16_margin_left_right">
 
@@ -64,6 +127,7 @@
                     android:id="@+id/mec_filter_checkbox1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
                     android:checked="@{productFilter.stockLevelSet.contains(ECSStockLevel.InStock)}"
                     android:text='@string/mec_in_stock' />
 
@@ -72,6 +136,7 @@
                     android:id="@+id/mec_filter_checkbox2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
                     android:checked="@{productFilter.stockLevelSet.contains(ECSStockLevel.LowStock)}"
                     android:text="@string/mec_low_stock" />
 
@@ -80,6 +145,7 @@
                     android:id="@+id/mec_filter_checkbox3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
                     android:checked="@{productFilter.stockLevelSet.contains(ECSStockLevel.OutOfStock)}"
                     android:text="@string/mec_out_of_stock" />
 
@@ -97,17 +163,22 @@
                 android:id="@+id/ll_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/mec_divider"
-                android:orientation="horizontal">
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
 
                 <com.philips.platform.uid.view.widget.Button
                     android:id="@+id/mec_button_secondary"
+                    style="@style/MecRetailersButton"
                     fontPath="fonts/iconfont.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/border16_margin_left_right"
                     android:layout_marginEnd="1dp"
                     android:layout_weight="1"
                     android:text="@string/mec_clear"
@@ -121,7 +192,6 @@
                     fontPath="fonts/mec_iconfont.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/border16_margin_left_right"
                     android:layout_marginStart="1dp"
                     android:layout_weight="1"
                     android:text="@string/mec_apply"

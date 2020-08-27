@@ -181,6 +181,11 @@
     <string name="mec_clear">Clear</string>
     <string name="mec_filter_product_not_available">We couldn\'t find any products with all the filters you have selected.</string>
     <string name="mec_clear_filter_s">Clear filter(s)</string>
+    <string name="mec_top_rated">Top Rated</string>
+    <string name="mec_price_ascending">Price Ascending</string>
+    <string name="mec_price_descending">Price Descending</string>
+    <string name="mec_discount_price_ascending">Discount Price Ascending</string>
+    <string name="mec_discount_price_descending">Discount Price Descending</string>
 
     <!--unused Strings -->
 

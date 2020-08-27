@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.mec.databinding.MecFilterFragmentBinding
 import com.philips.platform.mec.utils.MECConstant
+
 
 class MECFilterCatalogFragment : BottomSheetDialogFragment() {
 
@@ -32,6 +34,12 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
             if (binding.mecFilterCheckbox2.isChecked) mProductFilter?.stockLevelSet?.add(ECSStockLevel.LowStock) else mProductFilter?.stockLevelSet?.remove(ECSStockLevel.LowStock)
             if (binding.mecFilterCheckbox3.isChecked) mProductFilter?.stockLevelSet?.add(ECSStockLevel.OutOfStock) else mProductFilter?.stockLevelSet?.remove(ECSStockLevel.OutOfStock)
 
+            if (binding.mecFilterRadio1.isChecked) mProductFilter?.sortType = ECSSortType.topRated
+            if (binding.mecFilterRadio2.isChecked) mProductFilter?.sortType = ECSSortType.priceAscending
+            if (binding.mecFilterRadio3.isChecked) mProductFilter?.sortType = ECSSortType.priceDescending
+            if (binding.mecFilterRadio4.isChecked) mProductFilter?.sortType = ECSSortType.discountPercentageAscending
+            if (binding.mecFilterRadio5.isChecked) mProductFilter?.sortType = ECSSortType.discountPercentageDescending
+
             val bundle = Bundle()
             bundle.putParcelable(MECConstant.SELECTED_FILTERS, mProductFilter)
             val intent = Intent().putExtras(bundle)
@@ -43,6 +51,11 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
             binding.mecFilterCheckbox1.isChecked = false
             binding.mecFilterCheckbox2.isChecked = false
             binding.mecFilterCheckbox3.isChecked = false
+            binding.mecFilterRadio1.isChecked = false
+            binding.mecFilterRadio2.isChecked = false
+            binding.mecFilterRadio3.isChecked = false
+            binding.mecFilterRadio4.isChecked = false
+            binding.mecFilterRadio5.isChecked = false
         }
         return binding.root
     }
