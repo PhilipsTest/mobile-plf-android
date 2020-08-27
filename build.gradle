@@ -176,7 +176,7 @@ subprojects {
     if (!it.projectDir.exists()) {
 //        throw new GradleException("Project not found ${it}")
     }
-    ext.useprojectdependencies = false
+    ext.useprojectdependencies = true
     /*
     * to be set false for consecutive identical build without any other code change
     * this used be used during development test and RC creation in release build.
