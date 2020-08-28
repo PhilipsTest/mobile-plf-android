@@ -13,11 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RatingBar
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.android.volley.toolbox.ImageLoader
@@ -27,15 +23,12 @@ import com.philips.cdp.prxclient.datamodels.features.FeaturesModel
 import com.philips.cdp.prxclient.datamodels.specification.CsItemItem
 import com.philips.cdp.prxclient.datamodels.specification.SpecificationModel
 import com.philips.platform.ecs.microService.model.asset.Asset
-import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.mec.R
-import com.philips.platform.mec.integration.MECDataProvider.context
 import com.philips.platform.mec.screens.detail.ImageAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureChildRecyclerAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureParentRecyclerAdapter
 import com.philips.platform.mec.screens.specification.SpecificationChildRecyclerAdapter
 import com.philips.platform.mec.screens.specification.SpecificationParentRecyclerAdapter
-import com.philips.platform.uid.view.widget.CheckBox
 import com.philips.platform.uid.view.widget.Label
 
 
@@ -117,27 +110,27 @@ class DataBindingUtility {
         }
 
 
+
         //For specification
         @JvmStatic
         @BindingAdapter("items")
         fun setAdapter(recyclerView: RecyclerView, csItemItems: List<CsItemItem>?) {
-            if (csItemItems != null)
-                recyclerView.adapter = SpecificationChildRecyclerAdapter(csItemItems)
+            if(csItemItems!=null)
+            recyclerView.adapter = SpecificationChildRecyclerAdapter(csItemItems)
         }
-
         @JvmStatic
         @BindingAdapter("specification")
         fun setSpecificationAdapter(recyclerView: RecyclerView, specificationModel: SpecificationModel?) {
-            if (specificationModel != null)
-                recyclerView.adapter = SpecificationParentRecyclerAdapter(specificationModel)
+            if(specificationModel!=null)
+            recyclerView.adapter = SpecificationParentRecyclerAdapter(specificationModel)
         }
 
         //For Product Features
 
         @JvmStatic
         @BindingAdapter("featureItems")
-        fun setProductFeatureChildAdapter(recyclerView: RecyclerView, featureItems: List<FeatureItem>?) {
-            if (featureItems != null) {
+        fun setProductFeatureChildAdapter(recyclerView: RecyclerView,featureItems: List<FeatureItem>?) {
+            if(featureItems!=null){
                 recyclerView.adapter = ProductFeatureChildRecyclerAdapter(featureItems)
             }
 
@@ -146,7 +139,7 @@ class DataBindingUtility {
         @JvmStatic
         @BindingAdapter("feature")
         fun setProductFeatureParentAdapter(recyclerView: RecyclerView, featuresModel: FeaturesModel?) {
-            if (featuresModel != null) {
+            if(featuresModel!=null){
                 recyclerView.adapter = ProductFeatureParentRecyclerAdapter(featuresModel)
             }
 
@@ -155,12 +148,12 @@ class DataBindingUtility {
 
         @JvmStatic
         @BindingAdapter("setCsValueItems")
-        fun setCSItem(label: Label, csItemItem: CsItemItem) {
+        fun setCSItem(label: Label,csItemItem: CsItemItem) {
 
             val csValueItems = csItemItem.csValue
-            var unit = ""
+            var unit =""
 
-            if (csItemItem.unitOfMeasure != null) {
+            if(csItemItem.unitOfMeasure!=null){
                 unit = csItemItem.unitOfMeasure.unitOfMeasureSymbol
             }
 
@@ -168,48 +161,19 @@ class DataBindingUtility {
 
             if (!csValueItems.isNullOrEmpty()) {
 
-                if (csValueItems.size == 1) {
-                    label.text = csValueItems[0].csValueName + " " + unit
+                if(csValueItems.size == 1){
+                    label.text = csValueItems[0].csValueName +" "+unit
                     return
                 }
 
                 for (csValueItem in csValueItems) {
                     disclaimerStringBuilder.append("- ").append(csValueItem.csValueName).append(System.getProperty("line.separator"))
                 }
-                label.text = disclaimerStringBuilder.toString() + unit
+                label.text = disclaimerStringBuilder.toString()+unit
             }
         }
 
-        @JvmStatic
-        @BindingAdapter("stockEnabled")
-        fun setStockLevelFiltersEnable(checkBox: com.philips.platform.uid.view.widget.CheckBox, stockLevelList: List<ECSStockLevel>?) {
-            stockLevelList?.let {
-                when {
-                    stockLevelList.contains(ECSStockLevel.InStock) -> {
-                        checkBox.isChecked = true
-                    }
-                    stockLevelList.contains(ECSStockLevel.LowStock) -> {
-                        checkBox.isChecked = true
-                    }
-                    stockLevelList.contains(ECSStockLevel.LowStock) -> {
-                        checkBox.isChecked = true
-                    }
-                }
-            }.run { checkBox.isChecked = false }
-
-
-        }
 
     }
-
-    @BindingAdapter("setCheckValue")
-    fun setCheckValue(checkBox: CheckBox, tags: ObservableField<Boolean?>) {
-        tags.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                checkBox.isChecked = tags.get()!!
-            }
-        })
-    }
-
 
 }
