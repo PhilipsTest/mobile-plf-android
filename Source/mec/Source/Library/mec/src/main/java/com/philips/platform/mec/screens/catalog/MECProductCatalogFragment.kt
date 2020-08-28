@@ -41,6 +41,7 @@ import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.productCataloguePage
+import com.philips.platform.mec.analytics.MECAnalyticPageNames.productFilter
 import com.philips.platform.mec.analytics.MECAnalytics
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.gridView
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.listView
@@ -126,7 +127,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         bundle.putParcelable(MECConstant.MEC_KEY_PRODUCT, ecsProduct.ecsProduct)
 
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view?.getWindowToken(), 0)
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
         val fragment = MECProductDetailsFragment()
         fragment.arguments = bundle
         replaceFragment(fragment, fragment.getFragmentTag(), true)
@@ -256,7 +257,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                     binding.mecGrid.setBackgroundColor(highLightedBackgroundColor)
                     binding.mecList.setBackgroundColor(ContextCompat.getColor(binding.mecList.context, R.color.uidTransparent))
                     binding.productCatalogRecyclerView.layoutManager = GridLayoutManager(activity, 2)
-                    binding.productCatalogRecyclerView.setItemAnimator(DefaultItemAnimator())
+                    binding.productCatalogRecyclerView.itemAnimator = DefaultItemAnimator()
                     adapter.catalogView = MECProductCatalogBaseAbstractAdapter.CatalogView.GRID
                     binding.productCatalogRecyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
@@ -283,13 +284,13 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 binding.mecFilter.setOnClickListener {
                     if (null == binding.mecFilter.background || getBackgroundColorOfFontIcon(binding.mecFilter) == 0) {//if Filter is currently not selected
                         filterCatalog()
+                        MECAnalytics.trackPage(productFilter)
                     }
                 }
             } else {
                 binding.mecFilter.visibility = View.GONE
             }
-
-            val mClearIconView = binding.mecSearchBox.getClearIconView()
+            val mClearIconView = binding.mecSearchBox.clearIconView
             val searchText = binding.mecSearchBox.searchTextView
 
             binding.mecSearchBox.searchTextView.setOnFocusChangeListener { view, b -> binding.mecFilter.isEnabled = !b }
@@ -402,8 +403,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     }
 
     private fun getBackgroundColorOfFontIcon(label: Label): Int {
-        val cd: ColorDrawable = label.background as ColorDrawable;
-        val colorCode: Int = cd.color;
+        val cd: ColorDrawable = label.background as ColorDrawable
+        val colorCode: Int = cd.color
         return colorCode
     }
 
@@ -447,7 +448,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         }, spanTxt.length - getString(R.string.mec_privacy).length, spanTxt.length, 0)
         spanTxt.append(" ")
         spanTxt.append(getString(R.string.mec_more_info))
-        view.setHighlightColor(Color.TRANSPARENT)
+        view.highlightColor = Color.TRANSPARENT
         view.movementMethod = LinkMovementMethod.getInstance()
         view.setText(spanTxt, TextView.BufferType.SPANNABLE)
     }
@@ -472,7 +473,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 ds.color = R.attr.uidHyperlinkDefaultPressedTextColor
             }
         }, spanTxt.length - getString(R.string.mec_clear_filter).length, spanTxt.length, 0)
-        view.setHighlightColor(Color.TRANSPARENT)
+        view.highlightColor = Color.TRANSPARENT
         view.movementMethod = LinkMovementMethod.getInstance()
         view.setText(spanTxt, TextView.BufferType.SPANNABLE)
     }
@@ -531,9 +532,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         return isAllProductDownloaded && mProductsWithReview.size == 0
     }
 
-    val bottomSheetFragment = MECFilterCatalogFragment()
-
     private fun filterCatalog() {
+        val bottomSheetFragment = MECFilterCatalogFragment()
         if (bottomSheetFragment.isVisible) return
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.SELECTED_FILTERS, mProductFilter)
