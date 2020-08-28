@@ -454,7 +454,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     private fun clearFiltersTextView(view: TextView) {
         val spanTxt = SpannableStringBuilder(
-                getString(R.string.mec_clear_filter_s))
+                getString(R.string.mec_clear_filter))
         spanTxt.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
                 offSet = 0
@@ -471,7 +471,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 ds.isUnderlineText = true
                 ds.color = R.attr.uidHyperlinkDefaultPressedTextColor
             }
-        }, spanTxt.length - getString(R.string.mec_clear_filter_s).length, spanTxt.length, 0)
+        }, spanTxt.length - getString(R.string.mec_clear_filter).length, spanTxt.length, 0)
         view.setHighlightColor(Color.TRANSPARENT)
         view.movementMethod = LinkMovementMethod.getInstance()
         view.setText(spanTxt, TextView.BufferType.SPANNABLE)
