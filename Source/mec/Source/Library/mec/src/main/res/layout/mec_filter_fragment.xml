@@ -44,7 +44,7 @@
                     android:paddingStart="16dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/mec_filter"
+                    android:text="@string/mec_filter_title"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                     android:textSize="14sp"
                     tools:ignore="RtlSymmetry" />

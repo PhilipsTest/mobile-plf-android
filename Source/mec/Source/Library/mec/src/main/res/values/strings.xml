@@ -179,7 +179,7 @@
     <string name="mec_filter_title">Filters</string>
     <string name="mec_low_stock">Low Stock</string>
     <string name="mec_clear">Clear</string>
-    <string name="mec_empty_filter_message">We couldn't find any products with all the filters you’ve selected.</string>
+    <string name="mec_empty_filter_message">We couldn\'t find any products with all the filters you’ve selected.</string>
     <string name="mec_clear_filter">Clear filter(s)</string>
 
     <!--unused Strings -->

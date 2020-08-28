@@ -205,7 +205,7 @@
                 android:background="@color/uidColorWhite"
                 android:drawablePadding="4dp"
                 android:gravity="center"
-                android:text="@string/mec_filter_product_not_available"
+                android:text="@string/mec_empty_filter_message"
                 android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                 android:textSize="16sp" />
 
