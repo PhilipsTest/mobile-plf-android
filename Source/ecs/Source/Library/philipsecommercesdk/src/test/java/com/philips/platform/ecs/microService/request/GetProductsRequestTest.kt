@@ -75,7 +75,8 @@ class GetProductsRequestTest {
 
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.priceAscending.toString()))
-        assertEquals(filters, modifiedURL)    }
+        assertEquals(filters, modifiedURL)
+    }
 
     @Test
     fun `getURL with all stock  level filters`() {// this method will internally test method addParams()
@@ -100,6 +101,7 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(ECSSortType.priceAscending.toString()))
         assertEquals(filters, modifiedURL)
     }
+
     @Test
     fun `getURL with all stock  level filters wit topRated`() {// this method will internally test method addParams()
         var stockLevelSet: HashSet<ECSStockLevel> = HashSet()
@@ -118,8 +120,10 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(limit.toString()))
         assert(modifiedURL.contains(defaultOffset.toString()))
 
+        assert(modifiedURL.contains(ECSStockLevel.InStock.toString()))
+        assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
-        assert(modifiedURL.contains(ECSSortType.topRated.toString()))
+        assert (modifiedURL.contains(ECSSortType.topRated.toString()))
         assertEquals(filters, modifiedURL)
     }
 
@@ -141,6 +145,8 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(limit.toString()))
         assert(modifiedURL.contains(defaultOffset.toString()))
 
+        assert(modifiedURL.contains(ECSStockLevel.InStock.toString()))
+        assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.priceDescending.toString()))
         assertEquals(filters, modifiedURL)
@@ -164,6 +170,8 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(limit.toString()))
         assert(modifiedURL.contains(defaultOffset.toString()))
 
+        assert(modifiedURL.contains(ECSStockLevel.InStock.toString()))
+        assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.discountPercentageAscending.toString()))
         assertEquals(filters, modifiedURL)
@@ -187,6 +195,8 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(limit.toString()))
         assert(modifiedURL.contains(defaultOffset.toString()))
 
+        assert(modifiedURL.contains(ECSStockLevel.InStock.toString()))
+        assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.discountPercentageDescending.toString()))
         assertEquals(filters, modifiedURL)
