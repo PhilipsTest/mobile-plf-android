@@ -374,7 +374,7 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
     public void localeServiceDiscoveryFailed() {
         RLog.d(TAG, "localeServiceDiscoveryFailed : is called");
         hideProgressDialog();
-        updateErrorNotification(new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR));
+        updateErrorNotification(new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
     }
 
     @Override

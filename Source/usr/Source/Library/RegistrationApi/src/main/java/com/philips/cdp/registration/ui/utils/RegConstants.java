@@ -30,6 +30,8 @@ public class RegConstants {
 
     public static final String JANRAIN_INIT_FAILURE = "JANRAIN_FAILURE";
 
+    public static final String SD_FAILURE = "SD_FAILURE";
+
     public static final String REGISTER_GIVEN_NAME = "givenName";
 
     public static final String REGISTER_DISPLAY_NAME = "displayName";
