@@ -1,96 +1,108 @@
 package com.ecs.demotestuapp.jsonmodel;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
 
 public class SubgroupItem implements Serializable {
 
-	@SerializedName("button")
-	private int button;
+    @SerializedName("button")
+    private int button;
 
-	@SerializedName("spinners")
-	private List<Property> spinners;
+    @SerializedName("spinners")
+    private List<Property> spinners;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("name")
+    private String name;
 
-	@SerializedName("switches")
-	private List<Property> switches;
+    @SerializedName("switches")
+    private List<Property> switches;
 
-	@SerializedName("editTexts")
-	private List<Property> editTexts;
+    @SerializedName("checkBoxes")
+    private List<Property> checkBoxes;
 
-	@SerializedName("editText")
-	private int editText;
+    @SerializedName("editTexts")
+    private List<Property> editTexts;
 
-	@SerializedName("apiNumber")
-	private int apiNumber;
+    @SerializedName("editText")
+    private int editText;
 
-	@SerializedName("spinner")
-	private int spinner;
+    @SerializedName("apiNumber")
+    private int apiNumber;
 
-	public void setButton(int button){
-		this.button = button;
-	}
+    @SerializedName("spinner")
+    private int spinner;
 
-	public int getButton(){
-		return button;
-	}
+    public void setButton(int button) {
+        this.button = button;
+    }
 
-	public void setSpinners(List<Property> spinners){
-		this.spinners = spinners;
-	}
+    public int getButton() {
+        return button;
+    }
 
-	public List<Property> getSpinners(){
-		return spinners;
-	}
+    public void setSpinners(List<Property> spinners) {
+        this.spinners = spinners;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public List<Property> getSpinners() {
+        return spinners;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setSwitches(List<Property> switches){
-		this.switches = switches;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<Property> getSwitches(){
-		return switches;
-	}
+    public void setSwitches(List<Property> switches) {
+        this.switches = switches;
+    }
 
-	public void setEditTexts(List<Property> editTexts){
-		this.editTexts = editTexts;
-	}
+    public List<Property> getSwitches() {
+        return switches;
+    }
 
-	public List<Property> getEditTexts(){
-		return editTexts;
-	}
+    public void setEditTexts(List<Property> editTexts) {
+        this.editTexts = editTexts;
+    }
 
-	public void setEditText(int editText){
-		this.editText = editText;
-	}
+    public List<Property> getEditTexts() {
+        return editTexts;
+    }
 
-	public int getEditText(){
-		return editText;
-	}
+    public void setEditText(int editText) {
+        this.editText = editText;
+    }
 
-	public void setApiNumber(int apiNumber){
-		this.apiNumber = apiNumber;
-	}
+    public int getEditText() {
+        return editText;
+    }
 
-	public int getApiNumber(){
-		return apiNumber;
-	}
+    public void setApiNumber(int apiNumber) {
+        this.apiNumber = apiNumber;
+    }
 
-	public void setSpinner(int spinner){
-		this.spinner = spinner;
-	}
+    public int getApiNumber() {
+        return apiNumber;
+    }
 
-	public int getSpinner(){
-		return spinner;
-	}
+    public void setSpinner(int spinner) {
+        this.spinner = spinner;
+    }
+
+    public int getSpinner() {
+        return spinner;
+    }
+
+    public void setCheckBoxes(List<Property> checkBoxes) {
+        this.checkBoxes = checkBoxes;
+    }
+
+    public List<Property> getCheckBoxes() {
+        return checkBoxes;
+    }
 }

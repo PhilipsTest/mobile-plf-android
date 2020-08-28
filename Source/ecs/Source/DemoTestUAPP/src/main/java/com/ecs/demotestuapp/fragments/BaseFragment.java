@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -66,6 +67,7 @@ public abstract class BaseFragment extends Fragment {
         List<Property> editTexts = subgroupItem.getEditTexts();
         List<Property> spinners = subgroupItem.getSpinners();
         List<Property> switches = subgroupItem.getSwitches();
+        List<Property> checkBoxes = subgroupItem.getCheckBoxes();
 
 
         for (Property property:editTexts){
@@ -91,6 +93,15 @@ public abstract class BaseFragment extends Fragment {
             spinner.setTag(property.tag);
             spinner.setLayoutParams(new ViewGroup.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             linearLayout.addView(spinner);
+        }
+
+        for (Property property:checkBoxes){
+
+            CheckBox checkBox = new CheckBox(getActivity());
+            checkBox.setTag(property.tag);
+            checkBox.setText(property.text);
+            checkBox.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            linearLayout.addView(checkBox);
         }
 
 
