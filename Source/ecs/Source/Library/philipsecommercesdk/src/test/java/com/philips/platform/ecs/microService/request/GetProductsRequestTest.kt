@@ -75,7 +75,7 @@ class GetProductsRequestTest {
 
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.priceAscending.toString()))
-        assertEquals(filters, modifiedURL)
+        assertEquals(modifiedURL, filters)
     }
 
     @Test
@@ -87,7 +87,7 @@ class GetProductsRequestTest {
         mProductFilter!!.stockLevelSet = stockLevelSet
         mProductFilter!!.sortType = ECSSortType.priceAscending
 
-        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=LOW_STOCK,OUT_OF_STOCK,IN_STOCK"
+        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=IN_STOCK,LOW_STOCK,OUT_OF_STOCK"
 
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, eCSCallback)
         mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
@@ -99,7 +99,6 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.priceAscending.toString()))
-        assertEquals(filters, modifiedURL)
     }
 
     @Test
@@ -111,7 +110,7 @@ class GetProductsRequestTest {
         mProductFilter!!.stockLevelSet = stockLevelSet
         mProductFilter!!.sortType = ECSSortType.topRated
 
-        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=topRated&stockLevel=LOW_STOCK,OUT_OF_STOCK,IN_STOCK"
+        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=IN_STOCK,OUT_OF_STOCK,LOW_STOCK"
 
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, eCSCallback)
         mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
@@ -123,8 +122,7 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(ECSStockLevel.InStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
-        assert (modifiedURL.contains(ECSSortType.topRated.toString()))
-        assertEquals(filters, modifiedURL)
+        assert(modifiedURL.contains(ECSSortType.topRated.toString()))
     }
 
     @Test
@@ -136,7 +134,7 @@ class GetProductsRequestTest {
         mProductFilter!!.stockLevelSet = stockLevelSet
         mProductFilter!!.sortType = ECSSortType.priceDescending
 
-        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=-price&stockLevel=LOW_STOCK,OUT_OF_STOCK,IN_STOCK"
+        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=IN_STOCK,OUT_OF_STOCK,LOW_STOCK"
 
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, eCSCallback)
         mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
@@ -149,7 +147,6 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.priceDescending.toString()))
-        assertEquals(filters, modifiedURL)
     }
 
     @Test
@@ -161,7 +158,7 @@ class GetProductsRequestTest {
         mProductFilter!!.stockLevelSet = stockLevelSet
         mProductFilter!!.sortType = ECSSortType.discountPercentageAscending
 
-        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=discountPercentage&stockLevel=LOW_STOCK,OUT_OF_STOCK,IN_STOCK"
+        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=IN_STOCK,LOW_STOCK,OUT_OF_STOCK"
 
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, eCSCallback)
         mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
@@ -174,7 +171,6 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.discountPercentageAscending.toString()))
-        assertEquals(filters, modifiedURL)
     }
 
     @Test
@@ -186,7 +182,7 @@ class GetProductsRequestTest {
         mProductFilter!!.stockLevelSet = stockLevelSet
         mProductFilter!!.sortType = ECSSortType.discountPercentageDescending
 
-        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=-discountPercentage&stockLevel=LOW_STOCK,OUT_OF_STOCK,IN_STOCK"
+        val filters = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=en&country=US&limit=20&offset=0&category=FOOD_PREPARATION_CA2&sort=price&stockLevel=IN_STOCK,LOW_STOCK,OUT_OF_STOCK"
 
         mGetProductsRequest = GetProductsRequest(category, limit, defaultOffset, mProductFilter, eCSCallback)
         mGetProductsRequest?.url = "https://acc.eu-west-1.api.philips.com/commerce-service/product/search?siteId=%siteId%&language=%language%&country=%country%"
@@ -199,7 +195,6 @@ class GetProductsRequestTest {
         assert(modifiedURL.contains(ECSStockLevel.LowStock.toString()))
         assert(modifiedURL.contains(ECSStockLevel.OutOfStock.toString()))
         assert(modifiedURL.contains(ECSSortType.discountPercentageDescending.toString()))
-        assertEquals(filters, modifiedURL)
     }
 
     @Test
