@@ -208,7 +208,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
                 } else {
                     RLog.d(TAG, " onError  : userreg.janrain.api");
-                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
 
@@ -222,7 +222,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
                 } else {
                     RLog.d(TAG, " onError  : userreg.landing.emailverif :");
-                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
 
@@ -238,7 +238,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                             + jumpConfig.captureRecoverUri);
                 } else {
                     RLog.d(TAG, " onError  : userreg.landing.resetpass : ");
-                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
 
@@ -249,7 +249,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     jumpConfig.downloadFlowUrl = serviceDiscoveyService.getConfigUrls();
                 } else {
                     RLog.d(TAG, " onError  : userreg.janrain.cdn : ");
-                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
 
@@ -310,7 +310,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                 AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
                         AppTagingConstants.FAILURE_SERVICEDISCOVERY + s);
 
-                ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
             }
         },null);
 
