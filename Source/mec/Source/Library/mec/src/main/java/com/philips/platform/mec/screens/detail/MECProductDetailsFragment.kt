@@ -68,7 +68,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     lateinit var param: String
 
     lateinit var binding: MecProductDetailsBinding
-    private var product: ECSProduct? = null
+    internal var product: ECSProduct? = null
     private lateinit var retailersList: ECSRetailerList
     private lateinit var ecsRetailerViewModel: ECSRetailerViewModel
 
@@ -303,7 +303,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
     }
 
     private fun gotoShoppingCartScreen(eCSShoppingCart: ECSShoppingCart) {
-        tagAddToCart(binding.product)
+        product?.let { tagAddToCart(it) }
         dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_SHOPPING_CART, eCSShoppingCart)

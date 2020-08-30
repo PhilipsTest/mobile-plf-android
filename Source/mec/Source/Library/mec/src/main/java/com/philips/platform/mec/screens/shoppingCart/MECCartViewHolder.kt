@@ -82,15 +82,15 @@ class MECCartViewHolder(val binding: MecShoppingCartItemsBinding, var mecShoppin
             }
 
             if(cartSummary.ecsItem.quantity ?:0 > cartSummary.ecsItem.availability?.quantity ?:0) {
-                mecShoppingCartFragment.disableButton()
+                mecShoppingCartFragment.disableCheckOutButton()
             } else{
-                mecShoppingCartFragment.enableButton()
+                mecShoppingCartFragment.enableCheckoutButton()
             }
 
         }else if (!MECutility.isStockAvailable(cartSummary.ecsItem.availability?.status, cartSummary.ecsItem.availability?.quantity ?:0)){
-            mecShoppingCartFragment.disableButton()
+            mecShoppingCartFragment.disableCheckOutButton()
         } else{
-            mecShoppingCartFragment.enableButton()
+            mecShoppingCartFragment.enableCheckoutButton()
         }
     }
 }

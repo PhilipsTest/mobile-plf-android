@@ -15,8 +15,6 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECLauncherActivity
@@ -27,7 +25,6 @@ import com.philips.platform.mec.screens.catalog.MECProductCatalogFragment
 import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uappframework.listener.BackEventListener
-import com.philips.platform.uid.view.widget.ProgressBar
 import com.philips.platform.uid.view.widget.ProgressBarWithLabel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -66,7 +63,7 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
 
 
     fun addFragment(newFragment: MecBaseFragment,
-                        newFragmentTag: String, isAddWithBackStack: Boolean) {
+                    newFragmentTag: String, isAddWithBackStack: Boolean) {
         if (MECDataHolder.INSTANCE.actionbarUpdateListener == null || MECDataHolder.INSTANCE.mecCartUpdateListener == null)
             RuntimeException("ActionBarListner and MECListner cant be null")
         else {
@@ -84,11 +81,11 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     fun showProductCatalogFragment(fragmentTag: String) {
         val fragment = activity?.supportFragmentManager?.findFragmentByTag(MECProductCatalogFragment.TAG)
         if (fragment == null) {
-            val fragment = activity?.supportFragmentManager?.findFragmentByTag(MECProductCatalogCategorizedFragment.TAG)
-            if (fragment == null) {
-                activity?.supportFragmentManager?.popBackStack( MECDataHolder.INSTANCE.mecLaunchingFragmentName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                replaceFragment(MECProductCatalogFragment(),  MECProductCatalogFragment.TAG, true)
-            }else{
+            val catalogCategorizedFragment = activity?.supportFragmentManager?.findFragmentByTag(MECProductCatalogCategorizedFragment.TAG)
+            if (catalogCategorizedFragment == null) {
+                activity?.supportFragmentManager?.popBackStack(MECDataHolder.INSTANCE.mecLaunchingFragmentName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                replaceFragment(MECProductCatalogFragment(), MECProductCatalogFragment.TAG, true)
+            } else {
                 activity?.supportFragmentManager?.popBackStack(MECProductCatalogCategorizedFragment.TAG, 0)
             }
         } else {
@@ -98,30 +95,30 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
 
 
     protected fun setTitleAndBackButtonVisibility(resourceId: Int, isVisible: Boolean) {
-            MECDataHolder.INSTANCE.actionbarUpdateListener?.updateActionBar(resourceId, isVisible)
+        MECDataHolder.INSTANCE.actionbarUpdateListener?.updateActionBar(resourceId, isVisible)
     }
 
 
     protected fun setTitleAndBackButtonVisibility(title: String, isVisible: Boolean) {
-            MECDataHolder.INSTANCE.actionbarUpdateListener?.updateActionBar(title, isVisible)
+        MECDataHolder.INSTANCE.actionbarUpdateListener?.updateActionBar(title, isVisible)
     }
 
     fun updateCount(count: Int) {
-            MECDataHolder.INSTANCE.mecCartUpdateListener?.onUpdateCartCount(count)
+        MECDataHolder.INSTANCE.mecCartUpdateListener?.onUpdateCartCount(count)
     }
 
     fun setCartIconVisibility(shouldShow: Boolean) {
-            if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
-                MECDataHolder.INSTANCE.mecCartUpdateListener?.shouldShowCart(shouldShow)
-            } else {
-                MECDataHolder.INSTANCE.mecCartUpdateListener?.shouldShowCart(false)
-            }
+        if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
+            MECDataHolder.INSTANCE.mecCartUpdateListener?.shouldShowCart(shouldShow)
+        } else {
+            MECDataHolder.INSTANCE.mecCartUpdateListener?.shouldShowCart(false)
+        }
     }
 
     internal fun fetchCartQuantity() {
         if (isUserLoggedIn() && MECDataHolder.INSTANCE.hybrisEnabled) {
             GlobalScope.launch {
-                MECDataHolder.INSTANCE.mecCartUpdateListener?.let {  MECManager().getShoppingCartData(it) }
+                MECDataHolder.INSTANCE.mecCartUpdateListener?.let { MECManager().getShoppingCartData(it) }
             }
         }
     }
@@ -133,11 +130,11 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     fun showProgressBar(mecProgressBar: FrameLayout?) {
         mecProgressBar?.visibility = View.VISIBLE
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
     }
 
-    fun showProgressBarWithText(mecProgressBar: FrameLayout?, text: String){
+    fun showProgressBarWithText(mecProgressBar: FrameLayout?, text: String) {
         mecProgressBar?.visibility = View.VISIBLE
         val mecProgressBarText = mecProgressBar?.findViewById(R.id.mec_progress_bar_text) as ProgressBarWithLabel?
         mecProgressBarText?.setText(text)
@@ -145,7 +142,7 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
 
     }
 
-    fun dismissProgressBar(mecProgressBar: FrameLayout?){
+    fun dismissProgressBar(mecProgressBar: FrameLayout?) {
         mecProgressBar?.visibility = View.GONE
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
@@ -156,19 +153,14 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
     }
 
     override fun onChanged(mecError: MecError?) {
-        processError(mecError,true)
+        processError(mecError, true)
     }
 
     open fun processError(mecError: MecError?, showDialog: Boolean) {
-        context?.let { MECutility.tagAndShowError(mecError,showDialog,activity?.supportFragmentManager, it) }
+        context?.let { MECutility.tagAndShowError(mecError, showDialog, activity?.supportFragmentManager, it) }
     }
 
-    abstract fun getFragmentTag():String
-
-    fun <T> LiveData<T>.reObserve(owner: LifecycleOwner, observer: Observer<T>) {
-        removeObserver(observer)
-        observe(owner, observer)
-    }
+    abstract fun getFragmentTag(): String
 
 
     fun moveToCaller(isSuccess: Boolean, fragmentTag: String) {
@@ -182,33 +174,29 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
 
         val shouldMoveToProductList = mecOrderFlowCompletion?.shouldMoveToProductList() ?: true
 
-        if(shouldMoveToProductList){
+        if (shouldMoveToProductList) {
             showProductCatalogFragment(fragmentTag)
-        }else{
+        } else {
             exitMEC()
         }
 
     }
 
-
-
     private fun removeMECFragments() {
 
-            if(activity!=null) {
-                val fragManager = activity?.supportFragmentManager
-                var count = fragManager?.backStackEntryCount ?:0
-                while (count >= 0) {
-                    val fragmentList = fragManager?.fragments
-                    if (fragmentList?.size ?:0 > 0) {
+        val fragManager = activity?.supportFragmentManager
+        var count = fragManager?.backStackEntryCount ?: 0
+        while (count >= 0) {
+            val fragmentList = fragManager?.fragments
+            if (fragmentList?.size ?: 0 > 0) {
 
-                        val fragment = fragmentList?.get(0)
-                        if(fragment is MecBaseFragment) {
-                            fragManager.popBackStack()
-                        }
-                    }
-                    count--
+                val fragment = fragmentList?.get(0)
+                if (fragment is MecBaseFragment) {
+                    fragManager.popBackStack()
                 }
             }
+            count--
+        }
     }
 
     fun exitMEC() {

@@ -50,7 +50,7 @@ import com.philips.platform.mec.utils.MECLog
 /**
  * A simple [Fragment] subclass.
  */
-class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
+class MECOrderSummaryFragment : MecBaseFragment() {
     companion object {
         val TAG = "MECOrderSummaryFragment"
     }
@@ -68,10 +68,6 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
     private lateinit var paymentViewModel: PaymentViewModel
     private lateinit var mECSOrderDetail : ECSOrderDetail
 
-    override fun onItemClick(item: Any) {
-        //todo To change body of created functions use File | Settings | File Templates.
-
-    }
 
     override fun getFragmentTag(): String {
         return TAG
@@ -83,7 +79,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         paymentViewModel.makePayment(eCSOrderDetail, mecPayment.ecsPayment.billingAddress)
     }
 
-    private val makePaymentObserver: Observer<ECSPaymentProvider> = Observer<ECSPaymentProvider> { eCSPaymentProvider ->
+    private val makePaymentObserver: Observer<ECSPaymentProvider> = Observer { eCSPaymentProvider ->
         val mECWebPaymentFragment = MECWebPaymentFragment()
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mECSOrderDetail)
@@ -113,7 +109,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         cartSummaryList = mutableListOf()
         voucherList = mutableListOf()
 
-        val appliedVouchers = ecsShoppingCart?.data?.attributes?.appliedVouchers
+        val appliedVouchers = ecsShoppingCart.data?.attributes?.appliedVouchers
         appliedVouchers?.let { voucherList.addAll(it) }
         cartSummaryList.clear()
         cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsShoppingCart))
@@ -178,7 +174,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         return !mecPayment.ecsPayment.id.equals(MECConstant.NEW_CARD_PAYMENT, true)
     }
 
-    fun showCVV() {
+    private fun showCVV() {
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.MEC_PAYMENT_METHOD, mecPayment.ecsPayment)
         bundle.putParcelable(MECConstant.MEC_SHOPPING_CART, ecsShoppingCart)
@@ -187,12 +183,12 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
 
         mecCvvBottomSheetFragment.arguments = bundle
         mecCvvBottomSheetFragment.setTargetFragment(this, MECConstant.PAYMENT_REQUEST_CODE)
-        fragmentManager?.let { mecCvvBottomSheetFragment.show(it, mecCvvBottomSheetFragment.tag) }
+        activity?.supportFragmentManager?.let { mecCvvBottomSheetFragment.show(it, mecCvvBottomSheetFragment.tag) }
 
     }
 
     fun onClickBackToShoppingCart() {
-        fragmentManager!!.popBackStack(MECShoppingCartFragment.TAG, 0)
+        activity?.supportFragmentManager?.popBackStack(MECShoppingCartFragment.TAG, 0)
     }
 
     private fun privacyTextView(view: TextView) {
