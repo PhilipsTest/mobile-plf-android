@@ -19,8 +19,8 @@ import com.philips.platform.ecs.microService.manager.ECSCartManager
 import com.philips.platform.ecs.microService.manager.ECSConfigManager
 import com.philips.platform.ecs.microService.manager.ECSProductManager
 import com.philips.platform.ecs.microService.manager.ECSRetailerManager
-import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.cart.ECSItem
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.config.ECSConfig
 import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
@@ -94,31 +94,33 @@ class MicroECSServicesTest {
     @Test
     fun `fetchProducts api should call corresponding manager method`() {
 
-        var productFilter= ProductFilter()
-        productFilter.sortType= ECSSortType.priceAscending
-        productFilter.stockLevel=ECSStockLevel.InStock
-        eCSServices.fetchProducts("FOOD_PREPARATION_CA2",5,0,productFilter,ecsProductsCallback)
+        var productFilter = ProductFilter(null, hashSetOf())
+        productFilter.sortType = ECSSortType.priceAscending
+        var stockLevelSet: HashSet<ECSStockLevel> = HashSet()
+        stockLevelSet.add(ECSStockLevel.InStock)
+        productFilter.stockLevelSet = stockLevelSet
+        eCSServices.fetchProducts("FOOD_PREPARATION_CA2", 5, 0, productFilter, ecsProductsCallback)
     }
 
     @Test
     fun `fetchProduct api should call corresponding manager method`() {
-        eCSServices.fetchProduct("123",eCSCallbackProductMock)
-        Mockito.verify(ecsProductManagerMock).getProductFor("123",eCSCallbackProductMock)
+        eCSServices.fetchProduct("123", eCSCallbackProductMock)
+        Mockito.verify(ecsProductManagerMock).getProductFor("123", eCSCallbackProductMock)
     }
 
     @Test
     fun `fetchProductSummaries api should call corresponding manager method`() {
-        eCSServices.fetchProductSummaries(listOf("123"),ecsProductsCallback)
-        Mockito.verify(ecsProductManagerMock).fetchProductSummaries(listOf("123"),ecsProductsCallback)
+        eCSServices.fetchProductSummaries(listOf("123"), ecsProductsCallback)
+        Mockito.verify(ecsProductManagerMock).fetchProductSummaries(listOf("123"), ecsProductsCallback)
 
     }
 
     @Test
     fun `fetchProductDetails api should call corresponding manager method`() {
 
-        var ecsProduct = ECSProduct(null,"123",null)
-        eCSServices.fetchProductDetails(ecsProduct,eCSCallbackNotNullProductMock)
-        Mockito.verify(ecsProductManagerMock).fetchProductDetails(ecsProduct,eCSCallbackNotNullProductMock)
+        var ecsProduct = ECSProduct(null, "123", null)
+        eCSServices.fetchProductDetails(ecsProduct, eCSCallbackNotNullProductMock)
+        Mockito.verify(ecsProductManagerMock).fetchProductDetails(ecsProduct, eCSCallbackNotNullProductMock)
     }
 
     @Test
