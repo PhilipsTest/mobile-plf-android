@@ -166,9 +166,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     private fun setFilterIconStates() {
         if (mECProductCatalogService.isNoFilterApplied(mProductFilter))
-            binding.mecFilter.setText(R.string.dls_filtersliders)
-        else
             binding.mecFilter.setText(R.string.dls_filterslidersoutline)
+        else
+            binding.mecFilter.setText(R.string.dls_filtersliders)
 
     }
 
@@ -419,7 +419,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             override fun onClick(widget: View) {
                 showPrivacyFragment()
                 dismissPaginationProgressBar()
-                // hideProgressBar()
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -439,12 +438,13 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 getString(R.string.mec_clear_filter))
         spanTxt.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
-
                 showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
                 binding.mecEmptyResult.visibility = View.GONE
+                binding.mecEmptyFilterResult.visibility = View.GONE
                 binding.mecCatalogParentLayout.visibility = View.GONE
                 binding.mecFilter.setText(R.string.dls_filtersliders)
-                mProductFilter?.stockLevelSet = hashSetOf()
+                mProductFilter.stockLevelSet?.clear()
+                clearCatalogCache()
                 executeRequest()
             }
 
