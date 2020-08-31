@@ -29,21 +29,31 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
 
     var ccbWebSocketConnection: CCBWebSocketConnection? = null
 
-    private val ccbRestClient by lazy { CCBRestClient() }
+    internal var ccbRestClient = CCBRestClient()
+
+    internal var ccbError = CCBError(CCBErrorCdes.NETWORK_ERROR, "Chatbot Error")
 
     override fun authenticateUser(ccbUser: CCBUser, completionHandler: (Boolean, CCBError?) -> Unit) {
         val ccbAuthenticationRequest = CCBAuthenticationRequest(ccbUser.secretKey)
 
-        ccbRestClient.invokeRequest(ccbAuthenticationRequest, Response.Listener { response: String ->
+        ccbRestClient.invokeRequest(ccbAuthenticationRequest, getSuccessListener(completionHandler), getErrorListener(completionHandler))
+    }
+
+    private fun getSuccessListener(completionHandler: (Boolean, CCBError?) -> Unit): Response.Listener<String> {
+        return Response.Listener { response: String ->
             val tokenObject = JSONObject(response)
             val accessToken = tokenObject.getString("token")
             val conversationId = tokenObject.getString("conversationId")
             CCBManager.token = accessToken
             CCBManager.conversationId = conversationId
             completionHandler.invoke(true, null)
-        }, Response.ErrorListener { error: VolleyError ->
-            completionHandler.invoke(false, CCBError(CCBErrorCdes.NETWORK_ERROR, "Chatbot Error"))
-        })
+        }
+    }
+
+    internal fun getErrorListener(completionHandler: (Boolean, CCBError?) -> Unit): Response.ErrorListener {
+        return Response.ErrorListener { error: VolleyError ->
+            completionHandler.invoke(false, ccbError)
+        }
     }
 
     override fun startConversation(ccbUser: CCBUser, completionHandler: (Boolean, CCBError?) -> Unit) {
@@ -95,4 +105,6 @@ class CCBAzureSessionHandler : CCBSessionHandlerInterface {
             completionHandler.invoke(false, CCBError(CCBErrorCdes.NETWORK_ERROR, "Chatbot Error"))
         })
     }
+
+
 }

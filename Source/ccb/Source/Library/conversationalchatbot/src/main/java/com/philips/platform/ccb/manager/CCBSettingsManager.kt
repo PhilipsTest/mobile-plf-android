@@ -34,4 +34,16 @@ object CCBSettingsManager {
         mRestInterface = mAppInfraInterface.restClient
     }
 
+    fun getAppInfraInterface(): AppInfraInterface? {
+        return mAppInfraInterface
+    }
+
+    fun getLoggingInterface(): LoggingInterface? {
+        return mLoggingInterface
+    }
+
+    fun getTaggingInterface(): AppTaggingInterface? {
+        return mTaggingInterface
+    }
+
 }
