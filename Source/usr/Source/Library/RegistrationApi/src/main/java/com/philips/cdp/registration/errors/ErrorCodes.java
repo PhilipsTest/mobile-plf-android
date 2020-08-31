@@ -10,6 +10,8 @@ public class ErrorCodes {
 
     public static final int NETWORK_ERROR_SERVICE_DISCOVERY = -102;
 
+    public static final int NETWORK_ERROR_JANRAIN = -103;
+
     public static final int NO_NETWORK = -100;
 
     //URX
