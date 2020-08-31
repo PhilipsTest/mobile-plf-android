@@ -356,7 +356,10 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
         var findGivenAddressInAddressList: ECSAddress? = null
         val deliveryAddressID = mECSShoppingCart?.data?.attributes?.deliveryAddress?.id
         deliveryAddressID?.let { ecsAddresses?.let { findGivenAddressInAddressList = MECutility.findGivenAddressInAddressList(deliveryAddressID, it) } }
-        findGivenAddressInAddressList?.let { binding.ecsAddressShipping = findGivenAddressInAddressList }?:run{ profileViewModel.fetchUserProfile() }
+        findGivenAddressInAddressList?.let {
+            binding.ecsAddressShipping = findGivenAddressInAddressList
+            fetchDeliveryModes()
+        }?:run{ profileViewModel.fetchUserProfile() }
 
     }
 
