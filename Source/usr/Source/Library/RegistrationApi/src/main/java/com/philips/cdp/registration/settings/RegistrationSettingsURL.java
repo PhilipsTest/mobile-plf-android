@@ -207,7 +207,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     RLog.d(TAG, " onSuccess  : userreg.captureid :" + clientIDConfiguration.getCaptureId(urlLocal));
 
                 } else {
-                    RLog.d(TAG, " onError  : userreg.janrain.api");
+                    RLog.d(TAG, " onError  : userreg.janrain.api : not found");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
@@ -221,7 +221,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                             + jumpConfig.captureRedirectUri);
 
                 } else {
-                    RLog.d(TAG, " onError  : userreg.landing.emailverif :");
+                    RLog.d(TAG, " onError  : userreg.landing.emailverif : not found");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
@@ -237,7 +237,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     RLog.d(TAG, " onSuccess  : userreg.landing.resetpass :"
                             + jumpConfig.captureRecoverUri);
                 } else {
-                    RLog.d(TAG, " onError  : userreg.landing.resetpass : ");
+                    RLog.d(TAG, " onError  : userreg.landing.resetpass : not found");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
@@ -248,7 +248,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                             serviceDiscoveyService.getConfigUrls());
                     jumpConfig.downloadFlowUrl = serviceDiscoveyService.getConfigUrls();
                 } else {
-                    RLog.d(TAG, " onError  : userreg.janrain.cdn : ");
+                    RLog.d(TAG, " onError  : userreg.janrain.cdn : not found");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
@@ -263,7 +263,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     //Must for mobile create account
                     jumpConfig.captureTraditionalSignInFormName = "userInformationMobileForm";
                 } else {
-                    RLog.d(TAG, " onError  : userreg.smssupported :" +
+                    RLog.d(TAG, " onError  : userreg.smssupported : not found" +
                             "Service Deiscover inis at non China local");
                     setMobileFlow(false);
                     jumpConfig.captureLocale = locale;
@@ -283,7 +283,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     initialize();
                     RLog.d(TAG, " MobileFlow : " + isMobileFlow());
                 } else {
-                    RLog.d(TAG, " onError  : userreg.janrain.engage : ");
+                    RLog.d(TAG, " onError  : userreg.janrain.engage : not found");
                     initialize();
                     return;
                 }
