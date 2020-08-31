@@ -85,6 +85,7 @@
                 android:layout_marginTop="@dimen/reg_dimen_24dp"
                 android:text="@string/USR_DLS_Continue_Without_Account" />
 
+
             <com.philips.cdp.registration.ui.customviews.XRegError
                 android:id="@+id/reg_error_msg"
                 android:layout_width="wrap_content"
@@ -178,5 +179,18 @@
 
         <com.philips.platform.uid.view.widget.ProgressBar style="@style/UIDProgressBarCircularIndeterminateMiddle" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bannerView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:visibility="gone">
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>
