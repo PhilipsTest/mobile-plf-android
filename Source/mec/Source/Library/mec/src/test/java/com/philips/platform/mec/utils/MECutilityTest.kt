@@ -1,5 +1,6 @@
 package com.philips.platform.mec.utils
 
+import android.content.Context
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.model.address.Country
@@ -11,12 +12,14 @@ import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.ecs.model.payment.CardType
 import com.philips.platform.ecs.model.payment.ECSPayment
 import com.philips.platform.ecs.model.products.ECSProduct
+import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.screens.payment.MECPayment
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
@@ -293,5 +296,29 @@ class MECutilityTest {
         assertEquals(null,mECutilityCompanion.findGivenAddressInAddressList("456",addressList))
     }
 
+    @Mock
+    lateinit var contextMock: Context
 
+    @Test
+    fun testGetErrorMessage() {
+        val mecError = MecError(null,null,null)
+        val errorString = mECutilityCompanion.getErrorString(mecError, contextMock)
+        assertEquals("",errorString)
+    }
+
+    @Test
+    fun testGetErrorMessageWithECSError() {
+        val ecsError = ECSError(123,null)
+        val mecError = MecError(null,ecsError,null)
+        val errorString = mECutilityCompanion.getErrorString(mecError, contextMock)
+        assertEquals("",errorString)
+    }
+
+    @Test
+    fun testGetErrorMessageWithECSErrorType() {
+        val ecsError = ECSError(123,"INVALID_ERROR_TYPE")
+        val mecError = MecError(null,ecsError,null)
+        val errorString = mECutilityCompanion.getErrorString(mecError, contextMock)
+        assertEquals("",errorString)
+    }
 }
