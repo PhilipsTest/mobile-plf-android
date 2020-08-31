@@ -52,7 +52,7 @@ class MECManager {
 
         MECDataHolder.INSTANCE.eCSServices.microService.configureECS(object : com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.config.ECSConfig, com.philips.platform.ecs.microService.error.ECSError> {
             override fun onResponse(result: com.philips.platform.ecs.microService.model.config.ECSConfig) {
-                if (result.isHybris && null != result.rootCategory) {
+                if (result.isHybris) {
 
                     getShoppingCartData(object : MECCartUpdateListener {
                         override fun onUpdateCartCount(count: Int) {

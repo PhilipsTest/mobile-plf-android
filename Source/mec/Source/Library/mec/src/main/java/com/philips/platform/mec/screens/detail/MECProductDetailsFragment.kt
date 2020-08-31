@@ -156,6 +156,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
             binding.fragment = this
             binding.mecDataHolder = MECDataHolder.INSTANCE
+            binding.isHybris = MECDataHolder.INSTANCE.hybrisEnabled
 
             ecsProductDetailViewModel = ViewModelProvider(this).get(EcsProductDetailViewModel::class.java)
 
@@ -168,11 +169,13 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
             binding.indicator.viewPager = binding.pager
             product = arguments?.getParcelable(MECConstant.MEC_KEY_PRODUCT)
-            mRootView=binding.root
-            setRetailerButtonProperty()
+
             executeRequest()
             getRatings()
             fetchCartQuantity()
+
+            mRootView=binding.root
+
         }
         return mRootView
     }
@@ -183,17 +186,6 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         binding.viewpagerMain.adapter = fragmentAdapter
         binding.tabsMain.setupWithViewPager(binding.viewpagerMain)
     }
-
-    private fun setRetailerButtonProperty() {
-        if (MECDataHolder.INSTANCE.hybrisEnabled) {
-            binding.mecFindRetailerButtonPrimary.visibility = View.GONE
-            binding.mecFindRetailerButtonSecondary.visibility = View.VISIBLE
-        } else{
-            binding.mecFindRetailerButtonPrimary.visibility = View.VISIBLE
-            binding.mecFindRetailerButtonSecondary.visibility = View.GONE
-        }
-    }
-
 
     override fun onResume() {
         super.onResume()
@@ -238,7 +230,7 @@ open class MECProductDetailsFragment : MecBaseFragment() {
 
     //TODO bind it
     fun updateData(results: List<Statistics>?) {
-        if (results != null && results.isNotEmpty()) {
+        if (results?.isNotEmpty() == true) {
             binding.mecDetailRating.setRating((results.get(0).productStatistics.reviewStatistics.averageOverallRating).toFloat())
             binding.mecRatingLebel.text = DecimalFormat("0.0").format(results.get(0).productStatistics.reviewStatistics.averageOverallRating)
             binding.mecReviewLebel.text = " (" + results.get(0).productStatistics.reviewStatistics.totalReviewCount.toString() + " " + getString(R.string.mec_reviews) + ")"
