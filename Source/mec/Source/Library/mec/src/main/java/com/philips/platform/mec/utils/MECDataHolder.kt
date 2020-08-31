@@ -60,7 +60,7 @@ enum class MECDataHolder {
     var retailerEnabled: Boolean = true
     var voucherEnabled: Boolean = true
     var rootCategory: String? = null
-    var mecLaunchingFragmentName:String? = null
+    var mecLaunchingFragmentName: String? = null
 
 
     lateinit var eCSServices: ECSServices
@@ -112,7 +112,7 @@ enum class MECDataHolder {
                     email = emailValue as String
                 }
             } catch (e: UserDataInterfaceException) {
-                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.COMPONENT_NAME + ":" + MECAnalyticsConstant.appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
+                MECAnalytics.trackTechnicalError(MECAnalyticsConstant.appError + ":" + MECAnalyticServer.other + e.toString() + ":" + MECAnalyticsConstant.exceptionErrorCode)
             }
 
         }

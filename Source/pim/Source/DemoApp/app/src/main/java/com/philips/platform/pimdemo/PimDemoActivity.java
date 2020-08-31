@@ -152,7 +152,7 @@ public class PimDemoActivity extends UIDLangPackActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String countrycode = countryMap.get(countryList.get(position));
                 Log.d(TAG, "spinnerCountrySelection : " + position + " Country Code : " + countrycode);
-                if(homeCountryCode != null && !homeCountryCode.equals(countrycode)) {
+                if(countrycode != null && !countrycode.equals(homeCountryCode)) {
                     appInfraInterface.getServiceDiscovery().setHomeCountry(countrycode);
                     homeCountryCode = countrycode;
                     initPIMDemoUApp(countrycode);

@@ -44,6 +44,12 @@ abstract class MecBaseFragment : Fragment(), BackEventListener, Observer<MecErro
         return false
     }
 
+    fun popSelfAndReplaceFragment(newFragment: MecBaseFragment,
+                                  newFragmentTag: String, isReplaceWithBackStack: Boolean){
+        fragmentManager?.popBackStack()
+        replaceFragment(newFragment,newFragmentTag,isReplaceWithBackStack)
+    }
+
     fun replaceFragment(newFragment: MecBaseFragment,
                         newFragmentTag: String, isReplaceWithBackStack: Boolean) {
         if (MECDataHolder.INSTANCE.actionbarUpdateListener == null || MECDataHolder.INSTANCE.mecCartUpdateListener == null)
