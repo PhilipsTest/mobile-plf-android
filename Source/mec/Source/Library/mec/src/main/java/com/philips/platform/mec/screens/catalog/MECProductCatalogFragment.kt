@@ -104,11 +104,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         dismissProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
         isCallOnProgress = false
 
-        if (mProductFilter?.stockLevelSet?.isEmpty()!!)
-            binding.mecFilter.setText(R.string.dls_filterslidersoutline)
-        else
-            binding.mecFilter.setText(R.string.dls_filtersliders)
-
         //For categorized
         if (isCategorizedHybrisPagination()) {
             handleHybrisCategorized()
@@ -156,6 +151,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         offSet += limit
         var commerceProducts = it.commerceProducts
         if (commerceProducts.size < limit) isAllProductDownloaded = true
+        setFilterIconStates()
 
         if (commerceProducts.isNotEmpty()) {
 
@@ -181,13 +177,18 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     }
 
+    private fun setFilterIconStates() {
+        if (mProductFilter?.stockLevelSet?.isEmpty()!!)
+            binding.mecFilter.setText(R.string.dls_filterslidersoutline)
+        else
+            binding.mecFilter.setText(R.string.dls_filtersliders)
+    }
+
     private fun decideToShowNoProduct() {
         if (isPaginationSupported()) {
             if (mProductFilter != null) {
                 showNoProductOnSelectedFilter()
-                return
-            }
-            if (isNoProductFound()) {
+            } else if (isNoProductFound()) {
                 showNoProduct() // if pagination is supported , check all pages are downloaded and still no products shown on recyclerview
             }
         } else {
@@ -280,16 +281,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             }
 
 
-            if (MECDataHolder.INSTANCE.hybrisEnabled) {
-                binding.mecFilter.setOnClickListener {
-                    if (null == binding.mecFilter.background || getBackgroundColorOfFontIcon(binding.mecFilter) == 0) {//if Filter is currently not selected
-                        filterCatalog()
-                        MECAnalytics.trackPage(productFilter)
-                    }
-                }
-            } else {
-                binding.mecFilter.visibility = View.GONE
-            }
+            productFilterVisibility()
             val mClearIconView = binding.mecSearchBox.clearIconView
             val searchText = binding.mecSearchBox.searchTextView
 
@@ -376,6 +368,19 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         return binding.root
     }
 
+    private fun productFilterVisibility() {
+        if (MECDataHolder.INSTANCE.hybrisEnabled) {
+            binding.mecFilter.setOnClickListener {
+                if (null == binding.mecFilter.background || getBackgroundColorOfFontIcon(binding.mecFilter) == 0) {//if Filter is currently not selected
+                    filterCatalog()
+                    MECAnalytics.trackPage(productFilter)
+                }
+            }
+        } else {
+            binding.mecFilter.visibility = View.GONE
+        }
+    }
+
     private fun getProductsFromProductsWithReview(): MutableList<ECSProduct> {
         val ecsProductList = mutableListOf<ECSProduct>()
 
@@ -412,10 +417,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         super.onResume()
         setTitleAndBackButtonVisibility(R.string.mec_product_title, true)
         setCartIconVisibility(true)
-        if (mProductFilter?.stockLevelSet?.isEmpty()!!)
-            binding.mecFilter.setText(R.string.dls_filterslidersoutline)
-        else
-            binding.mecFilter.setText(R.string.dls_filtersliders)
     }
 
     override fun onStart() {
