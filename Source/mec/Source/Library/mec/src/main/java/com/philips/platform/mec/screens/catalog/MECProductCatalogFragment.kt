@@ -314,7 +314,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             mRootView = binding.root
 
-            categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS) as ArrayList<String>
+            categorizedCtns = arguments?.getStringArrayList(MECConstant.CATEGORISED_PRODUCT_CTNS)
             totalProductsTobeSearched = categorizedCtns?.size ?:0
 
             executeRequest()
