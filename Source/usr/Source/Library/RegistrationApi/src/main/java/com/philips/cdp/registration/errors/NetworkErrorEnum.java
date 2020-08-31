@@ -37,12 +37,10 @@ public enum NetworkErrorEnum {
 
 
     public static String getLocalizedError(Context context, int errorCode) {
-        if (errorCode == ErrorCodes.NETWORK_ERROR) {
+        if (errorCode == ErrorCodes.NETWORK_ERROR || errorCode == ErrorCodes.NETWORK_ERROR_JANRAIN) {
             return context.getString(R.string.USR_Generic_Network_ErrorMsg) + " " + "[" + errorCode + "]";
         } else if (errorCode == ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY) {
             return context.getString(R.string.USR_Generic_Network_Error) + " " + "[" + errorCode + "]";
-        }  else if (errorCode == ErrorCodes.NETWORK_ERROR_JANRAIN) {
-            return context.getString(R.string.USR_Generic_Network_ErrorMsg) + " " + "[" + errorCode + "]";
         }
 
         return context.getString(getStringId(errorCode));
