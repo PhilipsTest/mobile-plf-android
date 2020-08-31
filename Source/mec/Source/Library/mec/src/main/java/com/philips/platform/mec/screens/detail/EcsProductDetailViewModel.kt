@@ -74,7 +74,7 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
             MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART -> APIcall = { addProductToShoppingcart(ecsProductAsParameterCtn) }
             MECRequestType.MEC_CREATE_SHOPPING_CART -> APIcall = { createShoppingCart() }
         }
-        //TODO null check for unit APICall
+
         authAndCallAPIagain(APIcall,authFailCallback)
     }
 
