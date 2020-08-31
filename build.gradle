@@ -3,8 +3,8 @@
  * All rights reserved.
  */
 buildscript {
-    ext.kotlin_version = '1.3.72'
     apply from: projectDir.absolutePath + '/build-support/gradle/versions.gradle'
+    ext.kotlin_version = ext.versions.kotlinversion
 
     repositories {
         maven { url repos.ietsnapshot }

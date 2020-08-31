@@ -34,6 +34,8 @@ ext.versions = [
         mockito                             : '2.8.9', // Mockito and Powermock need to be upgraded in tandem, see: https://github.com/powermock/powermock/wiki/Mockito#supported-versions
         powermock                           : '1.7.4', // Mockito and Powermock need to be upgraded in tandem, see: https://github.com/powermock/powermock/wiki/Mockito#supported-versions
         robolectric                         : '4.3',
+        kotlinversion                       : '1.3.72',
+
 ]
 
 /**
