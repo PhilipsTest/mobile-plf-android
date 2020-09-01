@@ -58,6 +58,19 @@ android {
         consumerProguardFiles 'proguard-rules-ufw.pro'
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+        unitTests {
+            includeAndroidResources = true
+
+        }
+    }
+
     buildTypes {
         release {
             buildOutputDir = "release"

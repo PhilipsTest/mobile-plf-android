@@ -11,6 +11,7 @@ apply from: project.rootDir.absolutePath + '/build-support/gradle/lib.gradle'
 //apply from: project.rootDir.absolutePath + '/build-support/gradle/taskscc.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/versions.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/zipdocs.gradle'
+apply from: project.rootDir.absolutePath + '/build-support/gradle/tasks.gradle'
 
 archivesBaseName = strings.pim.artifactName
 
@@ -43,6 +44,19 @@ android {
         ]
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+        unitTests {
+            includeAndroidResources = true
+
+        }
+    }
+
     buildTypes {
         release {
             consumerProguardFiles 'proguard-rules-pim.pro'
@@ -53,9 +67,9 @@ android {
         }
     }
 
-    testOptions {
+    /*testOptions {
         unitTests.returnDefaultValues = true
-    }
+    }*/
 
     compileOptions {
         sourceCompatibility versions.sourceCompatibility

@@ -11,6 +11,7 @@ apply from: project.rootDir.absolutePath + '/build-support/gradle/lib.gradle'
 //apply from: project.rootDir.absolutePath + '/build-support/gradle/taskscc.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/versions.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/zipdocs.gradle'
+apply from: project.rootDir.absolutePath + '/build-support/gradle/tasks.gradle'
 
 archivesBaseName = strings.sdb.artifactName
 
@@ -37,6 +38,19 @@ android {
         versionCode 1
         versionName version
         multiDexEnabled true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+        unitTests {
+            includeAndroidResources = true
+
+        }
     }
 
     buildTypes {

@@ -8,6 +8,7 @@ apply plugin: 'com.android.library'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/cdpscm.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/projectnames.gradle'
 //apply from: project.rootDir.absolutePath + '/build-support/gradle/taskscc.gradle'
+apply from: project.rootDir.absolutePath + '/build-support/gradle/tasks.gradle'
 
 archivesBaseName = strings.prx.artifactName
 
@@ -43,6 +44,19 @@ android {
         versionName version + "(" + commitHash+ ")"
         consumerProguardFiles 'proguard-rules-prx.pro'
         multiDexEnabled true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+        unitTests {
+            includeAndroidResources = true
+
+        }
     }
 
     buildTypes {
