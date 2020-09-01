@@ -10,6 +10,7 @@
 package com.philips.platform.mec.screens.detail
 
 
+import android.view.View
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
@@ -35,7 +36,8 @@ class MECLandingProductDetailsFragment : MECProductDetailsFragment() {
     }
 
     override fun executeRequest() {
-
+        binding.rlParentContent.visibility = View.INVISIBLE
+        showProgressBar(binding.mecProgress.mecProgressBarContainer)
         fetchProductDetailForCtn(MECDataHolder.INSTANCE.hybrisEnabled)
     }
 
