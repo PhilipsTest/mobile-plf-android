@@ -15,7 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.philips.cdp.productselection.ProductModelSelectionHelper;
 import com.philips.cdp.productselection.R;
 import com.philips.cdp.productselection.utils.ProductSelectionLogger;
-import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDLangPackActivity;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
@@ -29,7 +29,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
  *         naveen@philips.com
  * @since : 20 Jan 2016
  */
-public abstract class ProductSelectionBaseActivity extends UIDActivity {
+public abstract class ProductSelectionBaseActivity extends UIDLangPackActivity {
     private static String TAG = ProductSelectionBaseActivity.class.getSimpleName();
     private FragmentManager fragmentManager = null;
     private ProductModelSelectionHelper mProductModelSelectionHelper = null;
