@@ -41,7 +41,7 @@ class DataBindingUtility {
         @JvmStatic
         fun loadImage(imageView: View?, image_url: String?) {
 
-            if(image_url!=null) {
+            if (image_url != null) {
                 val imageView = imageView as NetworkImageView
                 val imageLoader = com.philips.platform.mec.networkEssentials.NetworkImageLoader.getInstance(imageView.context).imageLoader
                 imageLoader.get(image_url, ImageLoader.getImageListener(imageView, 0, R.drawable.no_icon))
@@ -55,30 +55,30 @@ class DataBindingUtility {
 
             val imageView = imageView as NetworkImageView
 
-            if(image_url != null) {
+            if (image_url != null) {
                 imageView.visibility = View.VISIBLE
                 val imageLoader = com.philips.platform.mec.networkEssentials.NetworkImageLoader.getInstance(imageView.context).imageLoader
                 imageLoader.get(image_url, ImageLoader.getImageListener(imageView, 0, R.drawable.no_icon))
 
                 imageView.setImageUrl(image_url!!, imageLoader)
-            }else{
+            } else {
                 imageView.visibility = View.GONE
             }
         }
 
         @JvmStatic
         @BindingAdapter("assets")
-        fun setAdapter(pager: ViewPager, assets: List<Asset> ?) {
-            if(assets!=null) {
+        fun setAdapter(pager: ViewPager, assets: List<Asset>?) {
+            if (assets != null) {
 
                 // modifying url for specific size image
-                val  width = pager.context?.resources?.displayMetrics?.widthPixels ?: 0
+                val width = pager.context?.resources?.displayMetrics?.widthPixels ?: 0
                 val height = pager.context?.resources?.getDimension(R.dimen.iap_product_detail_image_height)?.toInt()
-                        ?:0
+                        ?: 0
                 val sizeExtension = "?wid=$width&hei=$height&\$pnglarge$&fit=fit,1"
 
-                for (asset in assets){
-                    asset.asset =  asset.asset + sizeExtension
+                for (asset in assets) {
+                    asset.asset = asset.asset + sizeExtension
                 }
 
                 pager.adapter = ImageAdapter(assets)

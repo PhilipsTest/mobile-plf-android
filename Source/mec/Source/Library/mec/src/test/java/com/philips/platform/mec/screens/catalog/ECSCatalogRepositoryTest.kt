@@ -5,6 +5,8 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.LoadCallDisplay
 import com.philips.platform.ecs.microService.ECSServices
+import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
+import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.any
 import com.philips.platform.mec.utils.MECDataHolder
@@ -16,12 +18,11 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
-import java.lang.NullPointerException
 import kotlin.test.assertEquals
 
-@PrepareForTest(ECSProductsCallback::class,ECSServices::class,EcsProductViewModel::class,BVConversationsClient::class,LoadCallDisplay::class)
+@PrepareForTest(ECSProductsCallback::class, ECSServices::class, EcsProductViewModel::class, BVConversationsClient::class, LoadCallDisplay::class)
 @RunWith(PowerMockRunner::class)
-class ECSCatalogRepositoryTest{
+class ECSCatalogRepositoryTest {
 
     @Mock
     private lateinit var microsServiceMock: ECSServices
@@ -35,7 +36,7 @@ class ECSCatalogRepositoryTest{
     private lateinit var ecsProductViewModelMock: EcsProductViewModel
 
     @Mock
-    private lateinit var bvConversationsClientMock : BVConversationsClient
+    private lateinit var bvConversationsClientMock: BVConversationsClient
 
     @Before
     fun setUp() {
@@ -46,21 +47,22 @@ class ECSCatalogRepositoryTest{
 
     @Test(expected = NullPointerException::class)
     fun `get Product should call microService fetch product api`() {
-
-        ecsCatalogRepository.getProducts(0,20,ecsProductsCallBackMock,microsServiceMock)
-        Mockito.verify(microsServiceMock).fetchProducts(productCategory ="US_PUB", offset = 0, limit = 20, ecsCallback = ecsProductsCallBackMock)
+        val stockSet: MutableSet<ECSStockLevel> = hashSetOf()
+        val productFilter: ProductFilter? = ProductFilter(null, stockSet as HashSet<ECSStockLevel>)
+        ecsCatalogRepository.getProducts(0, 20, productFilter, ecsProductsCallBackMock, microsServiceMock)
+        Mockito.verify(microsServiceMock).fetchProducts(productCategory = "US_PUB", offset = 0, limit = 20, ecsCallback = ecsProductsCallBackMock)
     }
 
     @Test(expected = NullPointerException::class)
     fun `fetch product summaries should call pil micro service fetch summaries`() {
         val ctnS: MutableList<String> = mutableListOf()
         ctnS.add("HX005/01")
-        ecsCatalogRepository.fetchProductSummaries(ctnS,ecsProductsCallBackMock,microsServiceMock)
+        ecsCatalogRepository.fetchProductSummaries(ctnS, ecsProductsCallBackMock, microsServiceMock)
         Mockito.verify(microsServiceMock).fetchProductSummaries(ctnS, ecsProductsCallBackMock)
     }
 
     @Mock
-    lateinit var loadDisplayMock : LoadCallDisplay<BulkRatingsRequest, BulkRatingsResponse>
+    lateinit var loadDisplayMock: LoadCallDisplay<BulkRatingsRequest, BulkRatingsResponse>
 
 
     @Test
@@ -71,7 +73,7 @@ class ECSCatalogRepositoryTest{
         MECDataHolder.INSTANCE.locale = "en_US"
         val products: MutableList<ECSProduct> = mutableListOf()
         products.add(ECSProduct(ctn = "HX005/01"))
-        ecsCatalogRepository.fetchProductReview(products,ecsProductViewModelMock)
+        ecsCatalogRepository.fetchProductReview(products, ecsProductViewModelMock)
         Mockito.verify(loadDisplayMock).loadAsync(any(MECBulkRatingConversationsDisplayCallback::class.java))
     }
 
@@ -82,6 +84,6 @@ class ECSCatalogRepositoryTest{
         val products: MutableList<ECSProduct> = mutableListOf()
         products.add(ECSProduct(ctn = "HX005/01"))
         val actualCTNList = ecsCatalogRepository.getCtnList(products)
-        assertEquals(expectedCTNList,actualCTNList)
+        assertEquals(expectedCTNList, actualCTNList)
     }
 }
