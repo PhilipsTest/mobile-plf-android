@@ -75,8 +75,9 @@ class ECSShoppingCartRepository(var ecsShoppingCartViewModel: EcsShoppingCartVie
         ecsServices.removeVoucher(voucherCode,ecsVoucherCallback)
     }
 
-    fun createCart(ctn:String, createShoppingCartCallback: ECSCallback<ECSShoppingCart, ECSError>){
-        ecsServices.microService.createShoppingCart(ctn = ctn,ecsCallback = createShoppingCartCallback)
+    fun createCart(ctn:String){
+        ecsShoppingCartCallback.mECRequestType=MECRequestType.MEC_CREATE_SHOPPING_CART
+        ecsServices.microService.createShoppingCart(ctn = ctn,ecsCallback = ecsShoppingCartCallback)
     }
 
 

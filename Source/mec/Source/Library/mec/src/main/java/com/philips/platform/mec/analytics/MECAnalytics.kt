@@ -68,23 +68,19 @@ class MECAnalytics {
 
         @JvmStatic
         fun trackPage(currentPage: String) {
-            if (mAppTaggingInterface != null) {
                 val map = HashMap<String, String>()
                 if (currentPage != previousPageName) {
                     previousPageName = currentPage
                     MECLog.v(TAG, "trackPage$currentPage");
-                    mAppTaggingInterface!!.trackPageWithInfo(currentPage, addCountryAndCurrency(map))
+                    mAppTaggingInterface?.trackPageWithInfo(currentPage, addCountryAndCurrency(map))
                 }
-            }
         }
 
 
         @JvmStatic
         fun trackMultipleActions(state: String, map: Map<String, String>) {
-            if (mAppTaggingInterface != null) {
                 MECLog.v(TAG, "trackMtlutipleAction ")
-                mAppTaggingInterface!!.trackActionWithInfo(state, addCountryAndCurrency(map))
-            }
+                mAppTaggingInterface?.trackActionWithInfo(state, addCountryAndCurrency(map))
         }
 
 
@@ -230,6 +226,32 @@ class MECAnalytics {
             return map
         }
 
+        /*c
+   * This method is to tag passed Action(s) with order products details in format "[Category];[Product1];[Quantity];[Total Price]"
+   * */
+        @JvmStatic
+        fun tagActionsWithOrderProductsInfoForECSEntries(actionMap: Map<String, String>, entryList: List<ECSEntries>) {
+            val productsMap = getOrderProductInfoMapForECSEntries(actionMap, entryList)
+            if (productsMap.size > 0) { //
+                trackMultipleActions(sendData, productsMap)
+            }
+        }
+
+        internal fun getOrderProductInfoMapForECSEntries(actionMap: Map<String, String>, entryList: List<ECSEntries>): HashMap<String, String> {
+            val productsMap = HashMap<String, String>()
+            if (entryList != null && entryList.size > 0) { //Entries
+                val mutableEntryIterator = entryList.iterator()
+                var productListString: String = ""
+                for (entry in mutableEntryIterator) {
+                    productListString += "," + getProductInfoWithChangedQuantity(entry.product, entry.basePrice, entry.quantity)
+                }
+                productListString = productListString.substring(1, productListString.length - 1)
+                MECLog.v("MEC_LOG", "Order prodList : " + productListString)
+                productsMap.put(mecProducts, productListString);
+            }
+            productsMap.putAll(actionMap)
+            return productsMap
+        }
 
         /*c
        * This method is to tag passed Action(s) with order products details in format "[Category];[Product1];[Quantity];[Total Price]"
@@ -248,8 +270,7 @@ class MECAnalytics {
                 val mutableEntryIterator = itemList.iterator()
                 var productListString: String = ""
                 for (item in mutableEntryIterator) {
-                   //TODO
-                   // productListString += "," + getProductInfoWithChangedQuantity(item, entry.basePrice, entry.quantity)
+                    productListString += "," + getProductInformation(item)
                 }
                 productListString = productListString.substring(1, productListString.length - 1)
                 MECLog.v("MEC_LOG", "Order prodList : " + productListString)
@@ -259,6 +280,16 @@ class MECAnalytics {
             return productsMap
         }
 
+        @JvmStatic
+        fun getProductInformation(ecsItem: ECSItem): String {
+            var productDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
+            productDetail += ";" + ecsItem.ctn
+            productDetail += ";" + ecsItem.quantity //changed Quantity e.g. 2 product added OR 3 product deleted
+            var totalPrice: Double = (ecsItem.discountPrice?.value ?:0.0 * (ecsItem.quantity ?:0)).toDouble()
+            totalPrice = Math.round(totalPrice * 100.0) / 100.0 // round off to 2 decimal
+            productDetail += ";" + totalPrice
+            return productDetail
+        }
 
         /*
        * This method return singlet product details in format "[Category];[Product1]"

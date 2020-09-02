@@ -71,20 +71,8 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
     }
 
     fun createShoppingCart(request: String){
-        ecsShoppingCartRepository.createCart("CTN",createShoppingCartCallback)
+        ecsShoppingCartRepository.createCart("CTN")
     }
-
-    var createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, ECSError> {
-        override fun onResponse(result: ECSShoppingCart) {
-            getShoppingCart()
-        }
-        override fun onFailure(ecsError: ECSError) {
-            val occECSError = com.philips.platform.ecs.error.ECSError(ecsError.errorCode?:-100,ecsError.errorType?.name)
-            val mECError = MecError(Exception(ecsError.errorMessage), occECSError, null)
-            mecError.value = mECError
-        }
-    }
-
 
     fun updateQuantity(cartItem: ECSItem, quantity: Int) {
         updateQuantityCartItem=cartItem
@@ -117,24 +105,22 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
             actionMap[MECAnalyticsConstant.specialEvents] = voucherCodeRevoked
             actionMap[voucherCode] = deleteVoucherString
         }
-        //TODO tagging
-       // ecsShoppingCart.value?.data?.attributes?.items.let { MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it) }
+        ecsShoppingCart.value?.data?.attributes?.items.let { it?.let { it1 -> MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it1) } }
 
     }
 
     fun tagProductAddedOrDeleted(){
-
-        //TODO tag deleted product
-     /*   var actionMap = HashMap<String, String>()
+        val productInformation = updateQuantityCartItem?.let { MECAnalytics.getProductInformation(it) } ?:""
+        val actionMap = HashMap<String, String>()
         if(updateQuantityNumber< updateQuantityCartItem?.quantity!!){ // if product quantity is reduced or deleted(updateQuantityNumber=0)
             actionMap.put(MECAnalyticsConstant.specialEvents, scRemove)
-            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(updateQuantityCartItem?.product!!, updateQuantityCartItem?.basePrice!!, updateQuantityCartItem?.quantity!!-updateQuantityNumber))
+            actionMap.put(MECAnalyticsConstant.mecProducts,productInformation)
             MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
         } else{// if product quantity is added
             actionMap.put(MECAnalyticsConstant.specialEvents, scAdd)
-            actionMap.put(MECAnalyticsConstant.mecProducts, MECAnalytics.getProductInfoWithChangedQuantity(updateQuantityCartItem?.product!!, updateQuantityCartItem?.basePrice!!, updateQuantityNumber-updateQuantityCartItem?.quantity!!))
+            actionMap.put(MECAnalyticsConstant.mecProducts,productInformation)
             MECAnalytics.trackMultipleActions(MECAnalyticsConstant.sendData, actionMap)
-        }*/
+        }
 
     }
 
@@ -182,43 +168,6 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
             }
         }
 
-        @JvmStatic
-        @BindingAdapter("setEcsItem", "totalPrice")
-        fun setItemPrice(priceLabel: Label, ecsItem: ECSItem?, basePriceEntity: Price?) {
-
-            //TODO
-            /*val textSize16 = priceLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_discount_price_label_size)
-            val textSize12 = priceLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_price_label_size);
-
-            if (product != null && basePriceEntity?.formattedValue != null && basePriceEntity?.formattedValue!!.length > 0 && (product.price.value - basePriceEntity.value) > 0) {
-                val price = SpannableString(product.price.formattedValue);
-                price.setSpan(AbsoluteSizeSpan(textSize12), 0, product.price.formattedValue.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-                price.setSpan(StrikethroughSpan(), 0, product.price.formattedValue.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0, product.price.formattedValue.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-                val discountPrice = SpannableString(basePriceEntity.formattedValue)
-                discountPrice.setSpan(AbsoluteSizeSpan(textSize16), 0, basePriceEntity.formattedValue.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
-                val CharSequence = TextUtils.concat(price, "  ", discountPrice)
-                priceLabel.text = CharSequence;
-            } else {
-                if (product!!.price != null)
-                    priceLabel.text = product.price.formattedValue
-            }*/
-        }
-
-        @JvmStatic
-        @BindingAdapter("setEcsItem", "discountPrice")
-        fun setItemDiscountPrice(discountPriceLabel: Label,ecsItem: ECSItem?, discounted: Price?) {
-           /* val discount = (product!!.price!!.value - basePriceEntity!!.value) / product.price!!.value * 100
-
-            val discountRounded: String = String.format("%.2f", discount).toString()
-            discountPriceLabel.text = "-" + discountRounded + "%"
-            if (discountRounded.equals("0.00")) {
-                discountPriceLabel.visibility = View.GONE
-            } else {
-                discountPriceLabel.visibility = View.VISIBLE
-            }*/
-        }
 
         @JvmStatic
         @BindingAdapter("setDiscountPrice", "totalPriceEntity")
@@ -236,12 +185,10 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
 
         @SuppressLint("SetTextI18n")
         @JvmStatic
-        @BindingAdapter("ecsItem","setQuantity")
-        fun setStock(stockLabel : Label, ecsItem: ECSItem?, quantity: Int) {
-
-            //TODO
-            /*if (null != ecsItem && null != ecsItem.availability) {
-                if ((!MECutility.isStockAvailable(ecsItem.availability?.status, product.stock!!.stockLevel)) || (product.stock.stockLevel==0)) {
+        @BindingAdapter("setStock","setQuantity")
+        fun setStock(stockLabel : Label, product: ECSProduct?, quantity: Int) {
+            if (null != product && null != product.stock) {
+                if ((!MECutility.isStockAvailable(product.stock!!.stockLevelStatus, product.stock!!.stockLevel)) || (product.stock.stockLevel==0)) {
                     setSpannedText(stockLabel)
                 }
                 if(product.stock.stockLevel<=5 && product.stock.stockLevel!=0){
@@ -251,7 +198,7 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
                     stockLabel.text = stockLabel.context.getString(R.string.mec_only) + " " + product.stock.stockLevel + " " + stockLabel.context.getString(R.string.mec_stock_available);
                 }
                 stockLabel.visibility = View.VISIBLE
-            }*/
+            }
         }
 
         private fun setSpannedText(stockLabel : Label ) {
@@ -266,6 +213,77 @@ open class EcsShoppingCartViewModel : CommonViewModel() {
             spanTxt.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.uid_signal_red_level_60)), startIndex, endIndex, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
             stockLabel.text = spanTxt
         }
+
+        // ======== for PIL cart operations
+
+        @JvmStatic
+        @BindingAdapter("setEcsItemForPriceLebel")
+        fun setItemPrice(priceLabel: Label, ecsItem: ECSItem?) {
+
+
+            val textSize16 = priceLabel.context.resources.getDimensionPixelSize(R.dimen.mec_product_detail_discount_price_label_size)
+            val textSize12 = priceLabel.context.resources.getDimensionPixelSize(R.dimen.mec_product_detail_price_label_size)
+
+            val itemPriceFormattedValue = ecsItem?.price?.formattedValue ?:""
+            val itemDiscountedPriceFormattedValue = ecsItem?.discountPrice?.formattedValue ?:""
+
+            val itemPriceValue = ecsItem?.price?.value ?:0.00
+            val itemDiscountedPriceValue = ecsItem?.discountPrice?.value ?:0.00
+
+
+            if (itemDiscountedPriceFormattedValue.isNotEmpty() && (itemPriceValue - itemDiscountedPriceValue) > 0) {
+                val price = SpannableString(itemPriceFormattedValue)
+                price.setSpan(AbsoluteSizeSpan(textSize12), 0, itemPriceFormattedValue.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                price.setSpan(StrikethroughSpan(), 0, itemPriceFormattedValue.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0,  itemPriceFormattedValue.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                val discountPrice = SpannableString(itemDiscountedPriceFormattedValue)
+                discountPrice.setSpan(AbsoluteSizeSpan(textSize16), 0,itemDiscountedPriceFormattedValue.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                val CharSequence = TextUtils.concat(price, "  ", discountPrice)
+                priceLabel.text = CharSequence
+            } else {
+                    priceLabel.text = itemPriceFormattedValue
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("setEcsItemForDiscountedPriceLebel")
+        fun setItemDiscountPrice(discountPriceLabel: Label,ecsItem: ECSItem?) {
+
+            val itemPriceValue = ecsItem?.price?.value ?:0.00
+            val itemDiscountedPriceValue = ecsItem?.discountPrice?.value ?:0.00
+            val discount = (itemPriceValue -itemDiscountedPriceValue) / itemPriceValue * 100
+
+            val discountRounded: String = String.format("%.2f", discount)
+            discountPriceLabel.text = "-" + discountRounded + "%"
+            if (discountRounded == "0.00") {
+                discountPriceLabel.visibility = View.GONE
+            } else {
+                discountPriceLabel.visibility = View.VISIBLE
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("setEcsItemForStockLebel")
+        fun setStock(stockLabel : Label, ecsItem: ECSItem?) {
+
+                val itemQuantity = ecsItem?.quantity ?:0
+                val itemAvailableStatus = ecsItem?.availability?.status ?:""
+                val itemAvailableQuantity = ecsItem?.availability?.quantity ?:0
+
+                if ((!MECutility.isStockAvailable(itemAvailableStatus, itemAvailableQuantity))) {
+                    setSpannedText(stockLabel)
+                }
+                if(itemAvailableQuantity<=5 && itemAvailableQuantity!=0){
+                    stockLabel.text = stockLabel.context.getString(R.string.mec_only) + " " + itemAvailableQuantity + " " + stockLabel.context.getString(R.string.mec_stock_available)
+                }
+                if(itemQuantity > itemAvailableQuantity && itemAvailableQuantity!=0) {
+                    stockLabel.text = stockLabel.context.getString(R.string.mec_only) + " " + itemAvailableQuantity + " " + stockLabel.context.getString(R.string.mec_stock_available)
+                }
+                stockLabel.visibility = View.VISIBLE
+
+        }
+
     }
     
 }

@@ -6,19 +6,20 @@
 package com.philips.platform.mec.screens.shoppingCart
 
 import com.philips.platform.ecs.error.ECSErrorEnum
+import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECutility
 
-class ECSShoppingCartCallback(private val ecsShoppingCartViewModel: EcsShoppingCartViewModel) : com.philips.platform.ecs.microService.callBack.ECSCallback<com.philips.platform.ecs.microService.model.cart.ECSShoppingCart, com.philips.platform.ecs.microService.error.ECSError> {
+class ECSShoppingCartCallback(private val ecsShoppingCartViewModel: EcsShoppingCartViewModel) : ECSCallback<ECSShoppingCart, ECSError> {
     var mECRequestType = MECRequestType.MEC_FETCH_SHOPPING_CART
-    override fun onResponse(ecsShoppingCart: ECSShoppingCart) {
+    override fun onResponse(result: ECSShoppingCart) {
         if(mECRequestType==MECRequestType.MEC_UPDATE_SHOPPING_CART){ // if any product quantity of cart is changed
             ecsShoppingCartViewModel.tagProductAddedOrDeleted()
         }
-        ecsShoppingCartViewModel.ecsShoppingCart.value = ecsShoppingCart
+        ecsShoppingCartViewModel.ecsShoppingCart.value = result
     }
 
     override fun onFailure(ecsError: ECSError) {

@@ -73,13 +73,15 @@ class MECOrderSummaryFragment : MecBaseFragment() {
         return TAG
     }
 
-    private val orderObserver: Observer<ECSOrderDetail> = Observer { eCSOrderDetail ->
+    private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
         mECSOrderDetail=eCSOrderDetail
+        MECLog.v("orderObserver ", "" + eCSOrderDetail.code)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
         paymentViewModel.makePayment(eCSOrderDetail, mecPayment.ecsPayment.billingAddress)
     }
 
-    private val makePaymentObserver: Observer<ECSPaymentProvider> = Observer { eCSPaymentProvider ->
+    private val makePaymentObserver: Observer<ECSPaymentProvider> = Observer<ECSPaymentProvider> { eCSPaymentProvider ->
+        MECLog.v("mkPaymentObs ", "" + eCSPaymentProvider.worldpayUrl)
         val mECWebPaymentFragment = MECWebPaymentFragment()
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mECSOrderDetail)

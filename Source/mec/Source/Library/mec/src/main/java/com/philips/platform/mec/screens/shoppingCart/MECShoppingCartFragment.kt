@@ -85,10 +85,11 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         binding.shoppingCart = ecsShoppingCart
         shoppingCart = ecsShoppingCart
 
-        if (ecsShoppingCart.data?.attributes?.items?.size != 0) {
+        val ecsItemList = ecsShoppingCart.data?.attributes?.items
+        if (ecsItemList?.size != 0) {
             binding.mecEmptyResult.visibility = View.GONE
             binding.mecParentLayout.visibility = View.VISIBLE
-            ecsShoppingCartViewModel.fetchProductReview(ecsShoppingCart.data?.attributes?.items as MutableList<ECSItem>)
+            ecsShoppingCartViewModel.fetchProductReview(ecsItemList as MutableList<ECSItem>)
         } else {
             binding.mecEmptyResult.visibility = View.VISIBLE
             binding.mecParentLayout.visibility = View.GONE
@@ -96,14 +97,15 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         }
 
         voucherList.clear()
-        if (ecsShoppingCart.data?.attributes?.appliedVouchers?.size ?: 0 > 0) {
-            ecsShoppingCart.data?.attributes?.appliedVouchers?.let { voucherList.addAll(it) }
+        val appliedVouchers = ecsShoppingCart.data?.attributes?.appliedVouchers
+        if (appliedVouchers?.size ?: 0 > 0) {
+            appliedVouchers?.let { voucherList.addAll(it) }
         }
         vouchersAdapter?.notifyDataSetChanged()
 
         if (MECDataHolder.INSTANCE.voucherEnabled && MECDataHolder.INSTANCE.voucherCode?.isEmpty() == false && !(MECDataHolder.INSTANCE.voucherCode.equals("invalid_code"))) {
-            for (i in 0 until (ecsShoppingCart.data?.attributes?.appliedVouchers?.size ?: 0)) {
-                ecsShoppingCart.data?.attributes?.appliedVouchers?.get(i)?.id?.let { list.add(it) }
+            for (i in 0 until (appliedVouchers?.size ?: 0)) {
+                appliedVouchers?.get(i)?.id?.let { list.add(it) }
                 break
             }
 
@@ -116,7 +118,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
 
         }
 
-        if (ecsShoppingCart.data?.attributes?.appliedVouchers?.size ?: 0 > 0) {
+        if (appliedVouchers?.size ?: 0 > 0) {
             binding.mecAcceptedCode.visibility = View.VISIBLE
             binding.mecAcceptedCodeRecyclerView.visibility = View.VISIBLE
         } else {
@@ -129,7 +131,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         productsAdapter?.notifyDataSetChanged()
 
 
-        val quantity = MECutility.getQuantity(ecsShoppingCart)
+        val quantity = ecsShoppingCart?.data?.attributes?.deliveryUnits ?:0
         updateCount(quantity)
         if (productsAdapter?.itemCount ?: 0 > 0) {
             dismissProgressBar(binding.mecProgress.mecProgressBarContainer)
@@ -138,8 +140,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         if (mAtomicBoolean.compareAndSet(true, false)) { // scView should tag only once upon shopping cart screen visit
             val actionMap = HashMap<String, String>()
             actionMap.put(specialEvents, scView)
-            //TODO
-            //MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, binding.shoppingCart?.entries)
+            MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,ecsItemList)
         }
     }
 
@@ -162,7 +163,8 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         val appliedPromotions = shoppingCart.data?.attributes?.promotions?.appliedPromotions
         appliedPromotions?.forEach { appliedPromotion ->
             val name = appliedPromotion.code ?: ""
-            val price = "Demo"
+            //TODO
+            val price = "TO DO"
             cartSummaryList.add(MECCartSummary(name, price))
         }
 
@@ -346,8 +348,8 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     fun onCheckOutClick() {
         val actionMap = HashMap<String, String>()
         actionMap.put(specialEvents, scCheckout)
-        //TODO tagging
-        //MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, binding.shoppingCart?.entries)
+        val items = shoppingCart.data?.attributes?.items
+        items?.let { MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it) }
         if (MECDataHolder.INSTANCE.maxCartCount != 0 && shoppingCart.data?.attributes?.deliveryUnits ?: 0 > MECDataHolder.INSTANCE.maxCartCount) {
             activity?.supportFragmentManager?.let { context?.let { it1 -> MECutility.showErrorDialog(it1, it, getString(R.string.mec_ok), getString(R.string.mec_shopping_cart_title), String.format(getString(R.string.mec_cart_count_exceed_message), MECDataHolder.INSTANCE.maxCartCount)) } }
         } else {
@@ -359,8 +361,8 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
     fun gotoProductCatalog() {
         val actionMap = HashMap<String, String>()
         actionMap.put(specialEvents, continueShoppingSelected)
-        //TODO tagging
-        //MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, binding.shoppingCart?.entries)
+        val items = shoppingCart.data?.attributes?.items
+        items?.let { MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it) }
         showProductCatalogFragment(TAG)
     }
 

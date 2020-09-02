@@ -63,9 +63,6 @@ class MECCartViewHolder(val binding: MecShoppingCartItemsBinding, var mecShoppin
         if (cartSummary.ecsItem.availability?.quantity ?:0 > 1) {
             view.setOnClickListener { v ->
                 val stockLevel = cartSummary.ecsItem.availability?.quantity ?:0
-                /*if (stockLevel > 50) {
-                stockLevel = 50
-            }*/
 
                 val countPopUp = MecCountDropDown(v, v.context, stockLevel, cartSummary.ecsItem.quantity ?:0
                         , object : MecCountDropDown.CountUpdateListener {

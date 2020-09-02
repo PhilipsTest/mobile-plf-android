@@ -113,14 +113,14 @@ class MECCVVFragment : BottomSheetDialogFragment() {
         if (MECDataHolder.INSTANCE.actionbarUpdateListener == null || MECDataHolder.INSTANCE.mecCartUpdateListener == null)
             RuntimeException("ActionBarListner and MECListner cant be null")
         else {
-            if (null != activity && !activity!!.isFinishing) {
+            if (activity?.isFinishing == false) {
 
-                val transaction = activity!!.supportFragmentManager.beginTransaction()
-                transaction.replace(containerID, newFragment, newFragment.getFragmentTag())
+                val transaction = activity?.supportFragmentManager?.beginTransaction()
+                transaction?.replace(containerID, newFragment, newFragment.getFragmentTag())
                 if (isReplaceWithBackStack) {
-                    transaction.addToBackStack(newFragment.getFragmentTag())
+                    transaction?.addToBackStack(newFragment.getFragmentTag())
                 }
-                transaction.commitAllowingStateLoss()
+                transaction?.commitAllowingStateLoss()
             }
         }
     }
