@@ -9,6 +9,7 @@
  */
 package com.philips.platform.mec.screens.detail
 
+import android.view.View
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.model.products.ECSProduct
@@ -30,7 +31,8 @@ import java.util.*
     }
 
   override fun executeRequest() {
-
+    binding.rlParentContent.visibility = View.INVISIBLE
+    showProgressBar(binding.mecProgress.mecProgressBarContainer)
     fetchProductDetailForCtn(MECDataHolder.INSTANCE.hybrisEnabled)
   }
 
