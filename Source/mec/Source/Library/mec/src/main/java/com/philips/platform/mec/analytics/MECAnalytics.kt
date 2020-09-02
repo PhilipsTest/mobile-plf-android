@@ -397,8 +397,7 @@ class MECAnalytics {
         fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew: String) {
             var orderMap = getPurchaseOrderMap(mECSOrderDetail, paymentTypeOldOrNew)
             if (orderMap.size >= 4) {
-                //TODO
-                // tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
+                tagActionsWithOrderProductsInfoForECSEntries(orderMap, mECSOrderDetail.entries)
             }
         }
 

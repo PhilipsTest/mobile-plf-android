@@ -51,6 +51,7 @@
                 android:text='@{voucher.id ?? "" }'
                 android:textSize="@dimen/iap_text_size_16sp" />
 
+            <!-- TODO align with iOS  -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

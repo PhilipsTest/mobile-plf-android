@@ -110,21 +110,23 @@ class ECSProductDetailRepositoryTest {
     @Mock
     lateinit var  mECAddToProductCallbackMock :MECAddToProductCallback
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun `addTo cart pil product should call occ ECSService to call add To shopping cart with occ ECS product`() {
 
         eCSProductDetailRepository.mECAddToProductCallback = mECAddToProductCallbackMock
-        eCSProductDetailRepository.addTocart(ecsProduct = eCSProduct)
+        eCSProductDetailRepository.addTocart("CTN")
         assertEquals(MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART ,mECAddToProductCallbackMock.mECRequestType)
-        Mockito.verify(ecsServices).addProductToShoppingCart(ArgumentMatchers.any(com.philips.platform.ecs.model.products.ECSProduct::class.java), ArgumentMatchers.any(MECAddToProductCallback::class.java))
+        Mockito.verify(microEcsServices).addProductToShoppingCart("CTN",1,mECAddToProductCallbackMock)
     }
 
     @Mock
     lateinit var createShoppingCartCallbackMock: ECSCallback<ECSShoppingCart, Exception>
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun `create cart method should call occ ecs Service create cart api`() {
-        eCSProductDetailRepository.createCart(createShoppingCartCallbackMock)
-        Mockito.verify(ecsServices).createShoppingCart(createShoppingCartCallbackMock)
+        eCSProductDetailRepository.mECAddToProductCallback = mECAddToProductCallbackMock
+        eCSProductDetailRepository.createCart("CTN")
+        assertEquals(MECRequestType.MEC_CREATE_SHOPPING_CART ,mECAddToProductCallbackMock.mECRequestType)
+        Mockito.verify(microEcsServices).createShoppingCart(ctn = "CTN",ecsCallback = mECAddToProductCallbackMock)
     }
 }

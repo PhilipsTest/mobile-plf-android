@@ -181,7 +181,7 @@ class AddAddressFragment : MecBaseFragment() {
                 } else {
 
                     // update region properly ..as two way data binding for region is not possible : Shipping
-                    val ecsAddressShipping = binding.ecsAddressShipping
+                    val ecsAddressShipping = binding.ecsAddressShipping!! //this can never be null
                     ecsAddressShipping?.phone2 = ecsAddressShipping?.phone1
                     addressViewModel.setRegion(binding.llShipping, binding.mecRegions, ecsAddressShipping)
 
@@ -189,7 +189,7 @@ class AddAddressFragment : MecBaseFragment() {
                     if (binding.billingCheckBox.isChecked) { // assign shipping address to billing address if checkbox is checked
                         eCSAddressBilling = ecsAddressShipping
                     } else {
-                        eCSAddressBilling = binding.ecsAddressBilling
+                        eCSAddressBilling = binding.ecsAddressBilling!! //this can never be null
                         eCSAddressBilling.phone2 = eCSAddressBilling.phone1
                         // update region properly ..as two way data binding for region is not possible : Billing
                         addressViewModel.setRegion(binding.llBilling, binding.mecRegions, eCSAddressBilling)

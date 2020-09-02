@@ -71,6 +71,7 @@
                         android:textColor="?attr/uidTextBoxQuietNormalTextColor"
                         android:textSize="@dimen/iap_text_size_16sp" />
 
+                    <!--TODO == ecsEntries.totalPrice.formattedValue -->
                     <com.philips.platform.uid.view.widget.Label
                         android:id="@+id/mec_price_lebel"
                         style="@style/mecCentralesansMediumFont"

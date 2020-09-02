@@ -62,7 +62,7 @@
                         android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                         android:textSize="@dimen/iap_text_size_12" />
 
-                    <!--TODO-->
+
                     <com.philips.platform.uid.view.widget.Label
                         android:id="@+id/mec_discount"
                         android:layout_width="0dp"
