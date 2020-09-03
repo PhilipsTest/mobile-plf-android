@@ -49,7 +49,7 @@ public class NotificationBarView {
         if (popupWindow.isShowing()) {
             updateErrorDetails(msg,title);
         } else {
-            if (popupWindow != null) {
+            if (popupWindow != null && baseLayoutViewLocation != null) {
                 popupWindow.showAtLocation(baseLayoutViewLocation, Gravity.NO_GRAVITY, 0, UIDUtils.getActionBarHeight(mActivity) + UIDUtils.getStatusBarHeight(mActivity));
             }
         }
