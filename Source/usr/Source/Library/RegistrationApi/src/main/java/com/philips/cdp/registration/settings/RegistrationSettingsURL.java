@@ -8,6 +8,9 @@ import com.philips.cdp.registration.configuration.ClientIDConfiguration;
 import com.philips.cdp.registration.configuration.Configuration;
 import com.philips.cdp.registration.configuration.HSDPConfiguration;
 import com.philips.cdp.registration.configuration.RegistrationConfiguration;
+import com.philips.cdp.registration.errors.ErrorCodes;
+import com.philips.cdp.registration.errors.ErrorType;
+import com.philips.cdp.registration.errors.URError;
 import com.philips.cdp.registration.events.EventHelper;
 import com.philips.cdp.registration.ui.utils.RLog;
 import com.philips.cdp.registration.ui.utils.RegConstants;
@@ -208,8 +211,10 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
                 } else {
                     RLog.d(TAG, " onError  : userreg.janrain.api : not found");
+                    AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                            new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
-                    return;
+                       return;
                 }
 
                 serviceDiscoveyService = resultMap.get("userreg.landing.emailverif");
@@ -222,6 +227,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
 
                 } else {
                     RLog.d(TAG, " onError  : userreg.landing.emailverif : not found");
+                    AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                            new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
@@ -238,6 +245,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                             + jumpConfig.captureRecoverUri);
                 } else {
                     RLog.d(TAG, " onError  : userreg.landing.resetpass : not found");
+                    AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                            new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
@@ -250,6 +259,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                 } else {
                     RLog.d(TAG, " onError  : userreg.janrain.cdn : not found");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
+                    AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                            new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
                     return;
                 }
 
@@ -309,7 +320,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                 RLog.d(TAG, " onError  : RegistrationConfigurationFailed:ServiceDiscovery " + s);
                 AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
                         AppTagingConstants.FAILURE_SERVICEDISCOVERY + s);
-
+                AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                        new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
                 ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
             }
         },null);
