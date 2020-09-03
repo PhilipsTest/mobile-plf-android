@@ -32,7 +32,7 @@ public class MobileVerifyResendCodePresenter implements NetworkStateListener {
     private static final int RESEND_OTP_REQUEST_CODE = 101;
     private static final int CHANGE_NUMBER_REQUEST_CODE = 102;
     private static final String ERROR_CODE = "errorCode";
-
+    private static final String CODE = "code";
     private static final String STAT = "stat";
 
     @Inject
@@ -116,7 +116,7 @@ public class MobileVerifyResendCodePresenter implements NetworkStateListener {
                 mobileVerifyCodeContract.refreshUser();
             } else {
                 mobileVerifyCodeContract.hideProgressSpinner();
-                final String errorCode = jsonObject.getString(ERROR_CODE);
+                final String errorCode = jsonObject.getString(CODE);
                 mobileVerifyCodeContract.showNumberChangeTechincalError(Integer.parseInt(errorCode));
             }
         } catch (Exception e) {

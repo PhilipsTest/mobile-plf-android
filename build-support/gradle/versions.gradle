@@ -12,7 +12,7 @@ def static epochTime() {
 }
 
 
-ext.baseplatformversion = "2004.0" //platform initial version
+ext.baseplatformversion = "2005.0" //platform initial version
 ext.platformversion = baseplatformversion + "." + epochTime() // platform initial version appended with current timestamp.
 ext.platformversionsuffix = baseplatformversion + ".+"
 

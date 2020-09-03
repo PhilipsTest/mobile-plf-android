@@ -12,6 +12,7 @@
 
 package com.philips.platform.mec.screens.catalog
 
+import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import java.util.ArrayList
 
@@ -27,6 +28,10 @@ class MECProductCatalogService {
             }
         }
         return categorizedProducts
+    }
+
+    fun isNoFilterApplied(filter: ProductFilter) : Boolean{
+        return filter.sortType == null && filter.stockLevelSet?.isEmpty() == true
     }
 
 }
