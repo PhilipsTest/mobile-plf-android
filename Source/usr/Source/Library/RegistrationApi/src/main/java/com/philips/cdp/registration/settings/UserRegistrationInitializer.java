@@ -176,7 +176,7 @@ public class UserRegistrationInitializer {
                         }, CALL_AFTER_DELAY);
 
                     }
-                    ThreadUtils.postInMainThread(context, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_SUCCESS));
+                    ThreadUtils.postInMainThread(context, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
                 }
             }
         }
