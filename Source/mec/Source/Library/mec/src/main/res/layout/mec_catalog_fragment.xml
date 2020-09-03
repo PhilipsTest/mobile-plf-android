@@ -29,16 +29,15 @@
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_list"
-                    style="@style/mec_dls_list"
-
-                    />
+                    style="@style/mec_dls_list" />
 
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_grid"
-                    style="@style/mec_dls_grid"
+                    style="@style/mec_dls_grid" />
 
-                    />
-
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_filter"
+                    style="@style/mec_dls_filter" />
 
                 <com.philips.platform.uid.view.widget.SearchBox
                     android:id="@+id/mec_search_box"
@@ -187,6 +186,42 @@
             android:text="@string/mec_no_product_available"
             android:textSize="@dimen/iap_product_ctn_12"
             android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/mec_empty_filter_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="@dimen/border16_margin_left_right"
+            android:visibility="gone">
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_empty_filter_list_found"
+                style="@style/iapCentralesansBoldFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/uidColorWhite"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:text="@string/mec_empty_filter_message"
+                android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
+                android:textSize="16sp" />
+
+            <com.philips.platform.uid.view.widget.Label
+                android:id="@+id/tv_empty_filter_list_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:background="@color/uidColorWhite"
+                android:gravity="center"
+                android:linksClickable="true"
+                android:padding="4dp"
+                android:textColor="?attr/uidLabelRegularNormalTextColor"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
         <include
             android:id="@+id/mec_catalog_progress"

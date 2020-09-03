@@ -5,4 +5,6 @@
     <string name="dls_downarrow" translatable="false">\uF003</string>
     <string name="dls_currency" translatable="false">\uF004</string>
     <string name="dls_delete" translatable="false">\uF005</string>
+    <string name="dls_filtersliders" translatable="false">\uF006</string>
+    <string name="dls_filterslidersoutline" translatable="false">\uF007</string>
 </resources>

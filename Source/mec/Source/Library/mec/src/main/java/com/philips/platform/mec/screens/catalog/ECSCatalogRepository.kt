@@ -15,31 +15,32 @@ import com.bazaarvoice.bvandroidsdk.EqualityOperator
 import com.philips.platform.ecs.microService.ECSServices
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.error.ECSException
+import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECDataHolder
 
 class ECSCatalogRepository {
 
-    fun getProducts(offset: Int, limit: Int, ecsCallback: ECSProductsCallback, microService: ECSServices) {
+    fun getProducts(offset: Int, limit: Int, productFilter: ProductFilter?, ecsCallback: ECSProductsCallback, microService: ECSServices) {
         try {
-            microService.fetchProducts(productCategory = MECDataHolder.INSTANCE.rootCategory, offset = offset, limit = limit, ecsCallback = ecsCallback)
-        }catch (e : ECSException){
-            val ecsError = ECSError(e.message ?:"",e.errorCode,null)
+            microService.fetchProducts(productCategory = MECDataHolder.INSTANCE.rootCategory, offset = offset, limit = limit, productFilter = productFilter, ecsCallback = ecsCallback)
+        } catch (e: ECSException) {
+            val ecsError = ECSError(e.message ?: "", e.errorCode, null)
             ecsCallback.onFailure(ecsError)
         }
     }
 
     fun fetchProductSummaries(ctnS: MutableList<String>, ecsCallback: ECSProductsCallback, microService: ECSServices) {
-        try{
-        microService.fetchProductSummaries(ctnS, ecsCallback)
-        }catch (e : ECSException){
-            val ecsError = ECSError(e.message ?:"",e.errorCode,null)
+        try {
+            microService.fetchProductSummaries(ctnS, ecsCallback)
+        } catch (e: ECSException) {
+            val ecsError = ECSError(e.message ?: "", e.errorCode, null)
             ecsCallback.onFailure(ecsError)
         }
     }
 
-    fun fetchProductReview(ecsProducts: List<ECSProduct>, ecsProductViewModel: EcsProductViewModel){
+    fun fetchProductReview(ecsProducts: List<ECSProduct>, ecsProductViewModel: EcsProductViewModel) {
 
         val mecConversationsDisplayCallback = MECBulkRatingConversationsDisplayCallback(ecsProducts, ecsProductViewModel)
         val ctnList: MutableList<String> = getCtnList(ecsProducts)

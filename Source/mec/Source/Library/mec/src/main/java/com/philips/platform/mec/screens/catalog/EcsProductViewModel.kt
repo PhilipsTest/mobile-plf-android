@@ -18,6 +18,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
+import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.mec.R
@@ -42,12 +43,12 @@ class EcsProductViewModel : CommonViewModel() {
     var ecsProductsCallback = ECSProductsCallback(this)
 
 
-    fun fetchProducts(offSet: Int, limit: Int) {
-        ecsCatalogRepository.getProducts(offSet,limit,ecsProductsCallback,ecsMicroService)
+    fun fetchProducts(offSet: Int, limit: Int, productFilter: ProductFilter?) {
+        ecsCatalogRepository.getProducts(offSet, limit, productFilter, ecsProductsCallback, ecsMicroService)
     }
 
     fun fetchProductSummaries(ctns: MutableList<String>) {
-        ecsCatalogRepository.fetchProductSummaries(ctns,ecsProductsCallback ,ecsMicroService)
+        ecsCatalogRepository.fetchProductSummaries(ctns, ecsProductsCallback, ecsMicroService)
     }
 
     fun fetchProductReview(products: List<ECSProduct>) {
@@ -63,14 +64,19 @@ class EcsProductViewModel : CommonViewModel() {
         fun setPriceInfo(priceLabel: Label, product: ECSProduct) {
             val textSize16 = priceLabel.context.getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_discount_price_label_size);
             val textSize12 = priceLabel.context.getResources().getDimensionPixelSize(com.philips.platform.mec.R.dimen.mec_product_detail_price_label_size);
-            if (product.attributes?.discountPrice?.formattedValue?.length ?:0 > 0 && (product.attributes?.price?.value ?:0.0 - (product.attributes?.discountPrice?.value ?:0.0)) > 0) {
+            if (product.attributes?.discountPrice?.formattedValue?.length ?: 0 > 0 && (product.attributes?.price?.value
+                            ?: 0.0 - (product.attributes?.discountPrice?.value ?: 0.0)) > 0) {
                 val price = SpannableString(product.attributes?.price?.formattedValue);
-                price.setSpan(AbsoluteSizeSpan(textSize12), 0, product.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-                price.setSpan(StrikethroughSpan(), 0, product.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0, product.attributes?.price?.formattedValue?.length ?:0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                price.setSpan(AbsoluteSizeSpan(textSize12), 0, product.attributes?.price?.formattedValue?.length
+                        ?: 0, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                price.setSpan(StrikethroughSpan(), 0, product.attributes?.price?.formattedValue?.length
+                        ?: 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                price.setSpan(ForegroundColorSpan(R.attr.uidContentItemTertiaryNormalTextColor), 0, product.attributes?.price?.formattedValue?.length
+                        ?: 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
                 val discountPrice = SpannableString(product.attributes?.discountPrice?.formattedValue);
-                discountPrice.setSpan(AbsoluteSizeSpan(textSize16), 0, product.attributes?.discountPrice?.formattedValue?.length ?:0, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                discountPrice.setSpan(AbsoluteSizeSpan(textSize16), 0, product.attributes?.discountPrice?.formattedValue?.length
+                        ?: 0, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
                 val CharSequence = TextUtils.concat(price, "  ", discountPrice);
                 priceLabel.text = CharSequence
             } else {

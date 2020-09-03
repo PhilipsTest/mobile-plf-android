@@ -150,7 +150,8 @@ public class MobileVerifyResendCodeFragment extends RegistrationBaseFragment imp
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!user.getMobile().equals(s.toString())) {
+
+                if (user != null && !user.getMobile().equals(s.toString())) {
                     resendSMSButton.setText(getActivity().getResources().getString(
                             R.string.USR_Update_MobileNumber_Button_Text));
                     resendSMSButton.setProgressText(getActivity().getResources().getString(

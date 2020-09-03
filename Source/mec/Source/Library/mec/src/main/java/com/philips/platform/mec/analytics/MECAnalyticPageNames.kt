@@ -11,6 +11,7 @@ package com.philips.platform.mec.analytics
 
 object MECAnalyticPageNames {
     val productCataloguePage                = "iap_product_list"
+    val productFilter                       = "iap_product_filter"
     val productDetailsPage                  = "iap_product_details"
     val retailerListPage                    = "iap_view_retailers"
     val shoppingCartPage                    = "iap_shopping_cart"

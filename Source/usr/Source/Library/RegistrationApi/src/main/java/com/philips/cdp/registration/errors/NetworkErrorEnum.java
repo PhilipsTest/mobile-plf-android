@@ -9,7 +9,8 @@ import com.philips.cdp.registration.R;
  */
 
 public enum NetworkErrorEnum {
-
+    NETWORK_ERROR_JANRAIN(ErrorCodes.NETWORK_ERROR_JANRAIN, R.string.USR_JanRain_Server_ConnectionLost_ErrorMsg),
+    NETWORK_ERROR_SD(ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY, R.string.USR_JanRain_Server_ConnectionLost_ErrorMsg),
     NETWORK_ERROR(ErrorCodes.NETWORK_ERROR, R.string.USR_Generic_Network_ErrorMsg),
     NO_NETWORK(ErrorCodes.NO_NETWORK, R.string.USR_Network_ErrorMsg);
 
@@ -25,6 +26,10 @@ public enum NetworkErrorEnum {
 
         if (errorCode == ErrorCodes.NO_NETWORK) {
             return NetworkErrorEnum.NO_NETWORK.stringId;
+        } else if (errorCode == ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY) {
+            return NetworkErrorEnum.NETWORK_ERROR_SD.stringId;
+        }  else if (errorCode == ErrorCodes.NETWORK_ERROR_JANRAIN) {
+            return NetworkErrorEnum.NETWORK_ERROR_JANRAIN.stringId;
         } else {
             return NetworkErrorEnum.NETWORK_ERROR.stringId;
         }
@@ -32,9 +37,12 @@ public enum NetworkErrorEnum {
 
 
     public static String getLocalizedError(Context context, int errorCode) {
-        if (errorCode == ErrorCodes.NETWORK_ERROR) {
+        if (errorCode == ErrorCodes.NETWORK_ERROR ) {
             return context.getString(R.string.USR_Generic_Network_ErrorMsg) + " " + "[" + errorCode + "]";
+        } else if (errorCode == ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY || errorCode == ErrorCodes.NETWORK_ERROR_JANRAIN) {
+            return String.format(context.getString(R.string.USR_JanRain_Server_ConnectionLost_ErrorMsg), errorCode);
         }
+
         return context.getString(getStringId(errorCode));
     }
 }
