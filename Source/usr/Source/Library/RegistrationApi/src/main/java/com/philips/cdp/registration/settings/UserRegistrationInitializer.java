@@ -256,8 +256,8 @@ public class UserRegistrationInitializer {
 
                     @Override
                     public void onError(Throwable e) {
-                        RLog.e(TAG, "getLocaleServiceDiscovery : onError: So notify JANRAIN_INIT_FAILURE " + e.getMessage());
-                        ThreadUtils.postInMainThread(context, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                        RLog.e(TAG, "getLocaleServiceDiscoveryByCountry : onError: So notify SD_FAILURE " + e.getMessage());
+                        ThreadUtils.postInMainThread(context, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     }
                 });
     }
