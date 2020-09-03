@@ -207,8 +207,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     RLog.d(TAG, " onSuccess  : userreg.captureid :" + clientIDConfiguration.getCaptureId(urlLocal));
 
                 } else {
-                    RLog.d(TAG, " onError  : userreg.janrain.api");
-                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                    RLog.d(TAG, " onError  : userreg.janrain.api : not found");
+                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
 
@@ -221,8 +221,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                             + jumpConfig.captureRedirectUri);
 
                 } else {
-                    RLog.d(TAG, " onError  : userreg.landing.emailverif :");
-                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                    RLog.d(TAG, " onError  : userreg.landing.emailverif : not found");
+                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
 
@@ -237,8 +237,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     RLog.d(TAG, " onSuccess  : userreg.landing.resetpass :"
                             + jumpConfig.captureRecoverUri);
                 } else {
-                    RLog.d(TAG, " onError  : userreg.landing.resetpass : ");
-                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                    RLog.d(TAG, " onError  : userreg.landing.resetpass : not found");
+                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
 
@@ -248,8 +248,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                             serviceDiscoveyService.getConfigUrls());
                     jumpConfig.downloadFlowUrl = serviceDiscoveyService.getConfigUrls();
                 } else {
-                    RLog.d(TAG, " onError  : userreg.janrain.cdn : ");
-                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                    RLog.d(TAG, " onError  : userreg.janrain.cdn : not found");
+                    ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
                     return;
                 }
 
@@ -263,7 +263,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     //Must for mobile create account
                     jumpConfig.captureTraditionalSignInFormName = "userInformationMobileForm";
                 } else {
-                    RLog.d(TAG, " onError  : userreg.smssupported :" +
+                    RLog.d(TAG, " onError  : userreg.smssupported : not found" +
                             "Service Deiscover inis at non China local");
                     setMobileFlow(false);
                     jumpConfig.captureLocale = locale;
@@ -283,7 +283,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                     initialize();
                     RLog.d(TAG, " MobileFlow : " + isMobileFlow());
                 } else {
-                    RLog.d(TAG, " onError  : userreg.janrain.engage : ");
+                    RLog.d(TAG, " onError  : userreg.janrain.engage : not found");
                     initialize();
                     return;
                 }
@@ -310,7 +310,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                 AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.SPECIAL_EVENTS,
                         AppTagingConstants.FAILURE_SERVICEDISCOVERY + s);
 
-                ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.JANRAIN_INIT_FAILURE));
+                ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
             }
         },null);
 
