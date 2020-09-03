@@ -60,7 +60,7 @@ class ECSPILShoppingCartCallbackTest {
     lateinit var errorMock: Exception
 
     @Mock
-    lateinit var ecsErrorMock: ECSError
+    lateinit var ecsErrorMock: com.philips.platform.ecs.microService.error.ECSError
 
     @Mock
     lateinit var  mecErrorMock : MutableLiveData<MecError>
@@ -78,6 +78,9 @@ class ECSPILShoppingCartCallbackTest {
     lateinit var ecsServicesMock: ECSServices
 
     @Mock
+    lateinit var ecsMicroServicesMock: ECSServices
+
+    @Mock
     lateinit var refreshSessionListener : RefreshSessionListener
 
     @Mock
@@ -90,7 +93,6 @@ class ECSPILShoppingCartCallbackTest {
 
         ecsShoppingCartViewModelMock.ecsShoppingCart = ecsShoppingCartLiveDataMock
         ecsShoppingCartViewModelMock.mecError = mecErrorMock
-        ecsShoppingCartViewModelMock.createShoppingCartCallback = createCartCallback
 
         shoppingCartRepositoryMock.ecsServices = ecsServicesMock
         shoppingCartRepositoryMock.ecsShoppingCartViewModel = ecsShoppingCartViewModelMock
@@ -126,14 +128,14 @@ class ECSPILShoppingCartCallbackTest {
     @Test
     fun onFailure() {
         //TODO check if the value is set properly or not
-        ecsShoppingCartCallback.onFailure(errorMock,ecsErrorMock)
+        ecsShoppingCartCallback.onFailure(ecsErrorMock)
         assertNotNull(ecsShoppingCartViewModelMock.mecError)
     }
 
     @Test
     fun shouldCreateCartIfFetchShoppingCartFailsWithErrorCode() {
-        Mockito.`when`(ecsErrorMock.errorcode) .thenReturn(5004)
-        ecsShoppingCartCallback.onFailure(errorMock,ecsErrorMock)
+        Mockito.`when`(ecsErrorMock.errorCode) .thenReturn(5004)
+        ecsShoppingCartCallback.onFailure(ecsErrorMock)
         Mockito.verify(ecsServicesMock).createShoppingCart(createCartCallback)
     }
 

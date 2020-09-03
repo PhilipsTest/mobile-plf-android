@@ -210,12 +210,12 @@ class MECAnalyticsTest {
         var entries = ArrayList<ECSEntries>()
         entries.add(eCSentry)
 
-        val mapObtained = mECAnalytics.getOrderProductInfoMap(map, entries)
+        val mapObtained = mECAnalytics.getOrderProductInfoMapForECSEntries(map, entries)
         assert(mapObtained.size > 1)
         assert(mapObtained.containsKey(mecProducts))
         map.get(mecProducts)?.contains(mECSProduct.code)?.let { assert(it) }
 
-        mECAnalytics.tagActionsWithOrderProductsInfo(map, entries)
+        mECAnalytics.tagActionsWithOrderProductsInfoForECSEntries(map, entries)
         Mockito.verify(mAppTaggingInterfaceMock, atLeastOnce()).trackActionWithInfo(any(String::class.java), anyMap())
         Mockito.verify(mAppTaggingInterfaceMock).trackActionWithInfo(any(String::class.java), anyMap())
     }
@@ -226,15 +226,15 @@ class MECAnalyticsTest {
         // map.put("key1", "value1")
 
 
-        var entries = ArrayList<ECSEntries>()
+        var entries = listOf<ECSEntries>()
 
 
-        val mapObtained = mECAnalytics.getOrderProductInfoMap(map, entries)
+        val mapObtained = mECAnalytics.getOrderProductInfoMapForECSEntries(map, entries)
         assert(mapObtained.isEmpty())
         assert(!mapObtained.containsKey(mecProducts))
 
 
-        mECAnalytics.tagActionsWithOrderProductsInfo(map, entries)
+        mECAnalytics.getOrderProductInfoMapForECSEntries(map, entries)
         Mockito.verify(mAppTaggingInterfaceMock, never()).trackActionWithInfo(any(String::class.java), anyMap())
 
     }
