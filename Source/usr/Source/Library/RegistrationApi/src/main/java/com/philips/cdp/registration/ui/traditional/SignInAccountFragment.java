@@ -821,6 +821,9 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
                 hideForgotPasswordSpinner();
                 RLog.e(TAG, " onError serviceDiscovery : userreg.urx.verificationsmscode : " + error);
                 verificationSmsCodeURL = null;
+                AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                        new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
+
                 mEtEmailInputValidation.setErrorMessage(new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
             }
         }, null);

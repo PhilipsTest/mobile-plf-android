@@ -73,7 +73,7 @@ public class RequestManager {
         final ServiceDiscovery result = new ServiceDiscovery(mAppInfra);
         try {
             //ToDO: Changed timeout to 30 sec, need to monitor analytics after one week
-            final JSONObject response = future.get(30, TimeUnit.SECONDS);
+            final JSONObject response = future.get(60, TimeUnit.SECONDS);
             cacheServiceDiscovery(response, url, urlType);
             return parseResponse(response);
         } catch (InterruptedException | TimeoutException e) {
