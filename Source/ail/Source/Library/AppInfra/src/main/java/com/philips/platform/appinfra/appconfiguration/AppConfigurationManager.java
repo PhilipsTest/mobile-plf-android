@@ -225,8 +225,8 @@ public class AppConfigurationManager implements AppConfigurationInterface {
                 dynamicConfigJsonCache = new JSONObject();
             }
             logAppConfiguration(LoggingInterface.LogLevel.INFO, AppInfraLogEventID.AI_APP_CONFIGUARTION, "set Property For Key");
-            key = key.toUpperCase(Locale.US);
-            group = group.toUpperCase(Locale.US);
+            key = key.toUpperCase();
+            group = group.toUpperCase();
             try {
                 final boolean isCocoPresent = dynamicConfigJsonCache.has(group);
                 JSONObject cocoJSONobject;
@@ -546,7 +546,7 @@ public class AppConfigurationManager implements AppConfigurationInterface {
                                 final Object dynamicValue = objectGroup.opt(key);
                                 if (!value.equals(dynamicValue)) { // check if values are NOT equal
                                     final AppConfigurationError configErrorForNewKey = new AppConfigurationError();
-                                    setPropertyForKey(key.toUpperCase(Locale.US), keyGroup, dynamicValue, configErrorForNewKey); // add only changed value to dynamic migrated json
+                                    setPropertyForKey(key.toUpperCase(), keyGroup, dynamicValue, configErrorForNewKey); // add only changed value to dynamic migrated json
                                 }
                             }
                         }
