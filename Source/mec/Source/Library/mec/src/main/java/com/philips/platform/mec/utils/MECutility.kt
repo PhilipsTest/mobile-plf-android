@@ -42,8 +42,6 @@ import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.screens.payment.MECPayment
-import com.philips.platform.mec.utils.MECConstant.IN_STOCK
-import com.philips.platform.mec.utils.MECConstant.LOW_STOCK
 import com.philips.platform.mec.utils.MECConstant.PIL_IN_STOCK
 import com.philips.platform.mec.utils.MECConstant.PIL_LOW_STOCK
 import com.philips.platform.uid.thememanager.UIDHelper
@@ -250,7 +248,7 @@ class MECutility {
                 return false
             }
 
-            return ((stockLevelStatus.equals(IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(PIL_IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(LOW_STOCK, ignoreCase = true) || stockLevelStatus.equals(PIL_LOW_STOCK, ignoreCase = true)) && stockLevel > 0)
+            return ((stockLevelStatus.equals(PIL_IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(PIL_LOW_STOCK, ignoreCase = true)) && stockLevel > 0)
         }
 
         fun stockStatus(availability: String): String {
