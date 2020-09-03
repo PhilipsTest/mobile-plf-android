@@ -172,6 +172,9 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
         initUI(view);
         handleOrientation(view);
         homePresenter.registerWeChatApp();
+
+
+
         return view;
     }
 
@@ -374,6 +377,8 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
     public void localeServiceDiscoveryFailed() {
         RLog.d(TAG, "localeServiceDiscoveryFailed : is called");
         hideProgressDialog();
+        AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
         updateErrorNotification(new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
     }
 
@@ -946,6 +951,8 @@ public class HomeFragment extends RegistrationBaseFragment implements NetworkSta
 
     @Override
     public void initFailed() {
+        AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_JANRAIN));
         updateErrorNotification(new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_JANRAIN));
         hideProgressDialog();
     }
