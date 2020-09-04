@@ -12,6 +12,7 @@ package com.philips.platform.ccb.fragment
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.target.Target
 import com.google.gson.Gson
+import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.ccb.R.layout
 import com.philips.platform.ccb.constant.CCBUrlBuilder
 import com.philips.platform.ccb.directline.CCBAzureConversationHandler
@@ -29,6 +31,7 @@ import com.philips.platform.ccb.directline.CCBWebSocketConnection
 import com.philips.platform.ccb.integration.CCBDeviceUtility
 import com.philips.platform.ccb.listeners.BotResponseListener
 import com.philips.platform.ccb.manager.CCBManager
+import com.philips.platform.ccb.manager.CCBSettingsManager
 import com.philips.platform.ccb.model.CCBActions
 import com.philips.platform.ccb.model.CCBActivities
 import com.philips.platform.ccb.model.CCBMessage
@@ -54,7 +57,11 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private val ccbWebSocketConnection: CCBWebSocketConnection = CCBWebSocketConnection()
     private lateinit var watingResponseView: View
     private lateinit var jumpingBeans: JumpingBeans
+    private var mLoggingInterface: LoggingInterface? = null
     private var ccbDeviceUtility: CCBDeviceUtility? = null
+    private var postInProgress : Boolean = false
+    private var onOpen : Boolean = true
+    private var response :String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -68,6 +75,8 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         ccbAzureSessionHandler = CCBAzureSessionHandler()
 
         ccbWebSocketConnection.setBotResponseListener(this)
+
+        mLoggingInterface = CCBSettingsManager.mLoggingInterface
 
         initViewListener()
 
@@ -84,6 +93,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
         rootView.fbrestartbutton.setOnClickListener {
             rootView.ccb_actionbutton_view.removeAllViews()
+            onOpen = true
             closeConversation()
             connectChatBot()
         }
@@ -107,7 +117,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     }
 
     private fun connectChatBot() {
-        val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "EMS", "")
+        val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "ems", "")
         CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success, ccbError ->
             if (success) {
                 startConverssation()
@@ -140,13 +150,20 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     }
 
     private fun postMessage(message: String?) {
-        message?.let { displayUserResponse(it) }
-        waitForBotResponse()
-        ccbAzureConversationHandler.postMessage(message) { conversation, _ ->
-            if (conversation != null) {
-                CCBLog.d(TAG, "postMessage success : $message")
-            } else {
-                CCBLog.d(TAG, "postMessage failed : $message")
+        onOpen = false
+        if(postInProgress.equals(false)) {
+            message?.let { displayUserResponse(it) }
+            waitForBotResponse()
+            CCBLog.d(TAG, "before postMessage : $message")
+            postInProgress = true
+            ccbAzureConversationHandler.postMessage(message) { conversation, _ ->
+                if (conversation != null) {
+                    postInProgress = false
+                    displayMessage(response)
+                    CCBLog.d(TAG, "postMessage success : $message")
+                } else {
+                    CCBLog.d(TAG, "postMessage failed : $message")
+                }
             }
         }
     }
@@ -156,6 +173,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         waitForBotResponse()
         ccbAzureSessionHandler.updateConversation { success, ccbError ->
             if (success) {
+                onOpen = true
                 CCBLog.d(TAG, "updateConversation success")
             }
             if (ccbError != null) {
@@ -168,6 +186,36 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     }
 
     override fun onMessageReceived(jsonResponse: String) {
+        if(onOpen.equals(true)) {
+            showMessage(jsonResponse)
+        } else if(postInProgress.equals(true) && onOpen.equals(false)) {
+            response = jsonResponse
+        } else {
+            showMessage(jsonResponse)
+        }
+    }
+
+    private fun showMessage(jsonResponse: String) {
+        try {
+            val botResponseData = Gson().fromJson(jsonResponse, CCBMessage::class.java)
+            CCBLog.d(TAG, "CCBConversational :->$botResponseData.toString()")
+
+            val activity: CCBActivities = botResponseData?.activities?.get(0) ?: return
+
+            if (botResponseData.watermark == null && activity.type.equals("message")) {
+                CCBLog.d(TAG, "watermark null")
+            } else if (activity.text != null) {
+                CCBLog.d(TAG, "watermark not null")
+                removeWaitingView {
+                    handleBotResponse(activity)
+                }
+            }
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+        }
+    }
+
+    private fun displayMessage(jsonResponse: String) {
         try {
             val botResponseData = Gson().fromJson(jsonResponse, CCBMessage::class.java)
             CCBLog.d(TAG, "CCBConversational :->$botResponseData.toString()")
@@ -259,7 +307,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
             rootView.ccb_actionbutton_view.removeAllViews()
             for (button: CCBActions in buttons) {
                 if (isDataExchangeCommand(button.title)) {
-                    ccbDeviceUtility?.performCommand(button.title){
+                    ccbDeviceUtility?.performCommand(button.title) {
                         postMessage(it)
                     }
                 } else {
@@ -268,6 +316,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                     button_view.setText(button.title)
                     button_view.setOnClickListener {
                         rootView.ccb_actionbutton_view.removeAllViews()
+                        CCBLog.d(TAG, "ButtonClick : ${button_view.text}")
                         postMessage(button.title)
                     }
                     rootView.ccb_actionbutton_view.addView(view)
