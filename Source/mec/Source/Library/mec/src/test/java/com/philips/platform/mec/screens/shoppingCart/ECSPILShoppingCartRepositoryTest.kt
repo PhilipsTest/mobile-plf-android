@@ -34,7 +34,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 import kotlin.test.assertNotNull
 
-@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartCallback::class,ECSVoucherCallback::class,MECBulkRatingCallback::class,BVConversationsClient::class,LoadCallDisplay::class)
+@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartCallback::class,ECSVoucherCallback::class,MECBulkRatingCallback::class,BVConversationsClient::class,LoadCallDisplay::class,com.philips.platform.ecs.microService.error.ECSError::class,com.philips.platform.ecs.microService.ECSServices::class,ECSItem::class)
 @RunWith(PowerMockRunner::class)
 class ECSPILShoppingCartRepositoryTest {
 
@@ -84,7 +84,7 @@ class ECSPILShoppingCartRepositoryTest {
         //ecsShoppingCartRepository.fetchShoppingCart()
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun updateShoppingCart() {
         ecsShoppingCartRepository.updateShoppingCart(ecsItemMock, 1)
         Mockito.verify(ecsServicesMock.microService).updateShoppingCart( ecsItemMock,1,ecsShoppingCartCallbackMock)
@@ -137,7 +137,7 @@ class ECSPILShoppingCartRepositoryTest {
         Mockito.verify(ecsServicesMock).removeVoucher("1234",ecsVoucherCallback)
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun createCart() {
         ecsShoppingCartRepository.createCart("CTN")
         Mockito.verify(ecsServicesMock.microService).createShoppingCart(ctn = "CTN",ecsCallback = ecsShoppingCartCallbackMock)

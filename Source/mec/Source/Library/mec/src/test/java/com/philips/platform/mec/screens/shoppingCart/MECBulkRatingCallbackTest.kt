@@ -7,10 +7,6 @@ import com.bazaarvoice.bvandroidsdk.Error
 import com.bazaarvoice.bvandroidsdk.Statistics
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.microService.model.cart.ECSItem
-import com.philips.platform.ecs.model.cart.BasePriceEntity
-import com.philips.platform.ecs.model.cart.ECSEntries
-import com.philips.platform.ecs.model.products.ECSProduct
-import com.philips.platform.ecs.model.products.PriceEntity
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 import junit.framework.Assert.assertEquals
@@ -19,8 +15,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
+@PrepareForTest(com.philips.platform.ecs.microService.ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class MECBulkRatingCallbackTest {
 

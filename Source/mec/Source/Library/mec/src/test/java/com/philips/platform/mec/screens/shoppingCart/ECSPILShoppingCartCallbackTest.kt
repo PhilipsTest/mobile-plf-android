@@ -38,7 +38,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 
-@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartRepository::class, HybrisAuth::class,ECSEntries::class)
+@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartRepository::class, HybrisAuth::class,ECSEntries::class,ECSShoppingCart::class,com.philips.platform.ecs.microService.ECSServices::class,com.philips.platform.ecs.microService.error.ECSError::class)
 @RunWith(PowerMockRunner::class)
 class ECSPILShoppingCartCallbackTest {
 
@@ -78,7 +78,7 @@ class ECSPILShoppingCartCallbackTest {
     lateinit var ecsServicesMock: ECSServices
 
     @Mock
-    lateinit var ecsMicroServicesMock: ECSServices
+    lateinit var ecsMicroServicesMock: com.philips.platform.ecs.microService.ECSServices
 
     @Mock
     lateinit var refreshSessionListener : RefreshSessionListener
@@ -96,6 +96,7 @@ class ECSPILShoppingCartCallbackTest {
 
         shoppingCartRepositoryMock.ecsServices = ecsServicesMock
         shoppingCartRepositoryMock.ecsShoppingCartViewModel = ecsShoppingCartViewModelMock
+        Mockito.`when`(ecsServicesMock.microService).thenReturn(ecsMicroServicesMock)
         MECDataHolder.INSTANCE.eCSServices = ecsServicesMock
 
         ecsShoppingCartViewModelMock.ecsShoppingCartRepository = shoppingCartRepositoryMock

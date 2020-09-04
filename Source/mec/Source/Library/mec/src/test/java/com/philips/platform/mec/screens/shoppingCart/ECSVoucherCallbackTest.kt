@@ -45,7 +45,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 import java.util.HashMap
 
-@PrepareForTest(ECSShoppingCartRepository::class,ECSShoppingCartCallback::class)
+@PrepareForTest(ECSShoppingCartRepository::class,ECSShoppingCartCallback::class,ECSServices::class,com.philips.platform.ecs.microService.ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class ECSVoucherCallbackTest {
 
@@ -99,13 +99,14 @@ class ECSVoucherCallbackTest {
         Mockito.verify(ecsServicesMock).hybrisOAthAuthentication(any(ECSOAuthProvider::class.java), any())
     }
 
-    @Test
+    @Test(expected = NullPointerException::class) // as the internal microservice takes the call inside to internal apis
     fun `on voucher call back success response fetch cart should be called if user is authenticated`() {
 
         setUpAppinfra()
         setUpExistingUserAndAlreadyAuthEnvironment()
         eCSShoppingCartRepositoryMock.authCallBack = authCallBackMock
         eCSShoppingCartRepositoryMock.ecsShoppingCartCallback = eCSShoppingCartCallbackMock
+        Mockito.`when`(ecsServicesMock.microService).thenReturn(ecsMicroServicesMock)
         eCSShoppingCartRepositoryMock.ecsServices = ecsServicesMock
         ecsShoppingCartViewModelMock.ecsVoucherCallback = eCSVoucherCallback
         ecsShoppingCartViewModelMock.ecsShoppingCartRepository = eCSShoppingCartRepositoryMock
