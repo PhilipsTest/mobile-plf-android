@@ -134,9 +134,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private fun startConverssation() {
         val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "", "")
         CCBManager.getCCBSessionHandlerInterface().startConversation(ccbUser) { ccbConversation, ccbError ->
-            if (ccbConversation != null) {
-                openWebSocket()
-            }
+            openWebSocket()
             if (ccbError != null) {
                 rootView.ccb_progressBar.visibility = View.GONE
                 showToastOnError()
@@ -186,9 +184,9 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     }
 
     override fun onMessageReceived(jsonResponse: String) {
-        if(onOpen.equals(true)) {
+        if(onOpen) {
             showMessage(jsonResponse)
-        } else if(postInProgress.equals(true) && onOpen.equals(false)) {
+        } else if(postInProgress && !onOpen) {
             response = jsonResponse
         } else {
             showMessage(jsonResponse)
@@ -296,7 +294,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
     private fun removeWaitingView(compltionHalder: () -> Unit) {
         activity?.runOnUiThread {
-            jumpingBeans?.stopJumping()
+            jumpingBeans.stopJumping()
             rootView.ccb_recentchat_view.removeView(watingResponseView)
             compltionHalder.invoke()
         }
