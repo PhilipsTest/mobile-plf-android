@@ -28,9 +28,7 @@ class ECSShoppingCartCallback(private val ecsShoppingCartViewModel: EcsShoppingC
 
         if (MECutility.isAuthError(ecsError)) {
             ecsShoppingCartViewModel.retryAPI(mECRequestType)
-        } else if (ecsError.errorCode == ECSErrorEnum.ECSCartError.errorCode) {
-            ecsShoppingCartViewModel.createShoppingCart("")
-        } else {
+        }  else {
             ecsShoppingCartViewModel.mecError.value = mecError
         }
 

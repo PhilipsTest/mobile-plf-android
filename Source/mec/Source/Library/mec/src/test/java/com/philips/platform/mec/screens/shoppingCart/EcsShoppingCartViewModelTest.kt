@@ -17,6 +17,7 @@ import android.view.View
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.model.cart.BasePriceEntity
 import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.products.ECSProduct
@@ -62,6 +63,9 @@ class EcsShoppingCartViewModelTest {
     lateinit var ecsServicesMock: ECSServices
 
     @Mock
+    lateinit var ecsMicroServicesMock : com.philips.platform.ecs.microService.ECSServices
+
+    @Mock
     lateinit var ecsShoppingCartCallbackMock: ECSShoppingCartCallback
 
 
@@ -71,6 +75,7 @@ class EcsShoppingCartViewModelTest {
         MockitoAnnotations.initMocks(this)
         MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
         MECDataHolder.INSTANCE.appinfra = appInfraMock
+        Mockito.`when`(ecsServicesMock.microService).thenReturn(ecsMicroServicesMock)
         MECDataHolder.INSTANCE.eCSServices = ecsServicesMock
         ecsShoppingCartRepositoryMock.ecsServices = ecsServicesMock
         ecsShoppingCartRepositoryMock.ecsShoppingCartCallback = ecsShoppingCartCallbackMock
@@ -106,24 +111,12 @@ class EcsShoppingCartViewModelTest {
     fun TestUpdateQuantity() {
 
 
-        var eCSentry = ECSEntries()
-        var mECSProduct = ECSProduct()
-        mECSProduct.code = "ConsignmentCode123ABC"
-        var priceEntity = PriceEntity()
-        priceEntity.value = 12.9
-        mECSProduct.price = priceEntity
-
-        eCSentry.product = mECSProduct
-        eCSentry.quantity = 2
-
-        var basePriceEntity = BasePriceEntity()
-        basePriceEntity.value = 10.7
-        eCSentry.basePrice = basePriceEntity
+        val ecsItem1= ECSItem(null,null,"1234",null,null,null,null,null,null)
 
 
-        ecsShoppingCartViewModel.updateQuantity(eCSentry, 3)
-        Mockito.verify(ecsServicesMock, Mockito.atLeastOnce())
-                .updateShoppingCart(ArgumentMatchers.anyInt(), ArgumentMatchers.anyObject(), ArgumentMatchers.any())
+        ecsShoppingCartViewModel.updateQuantity(ecsItem1, 3)
+        Mockito.verify(ecsServicesMock.microService, Mockito.atLeastOnce())
+                .updateShoppingCart(any(ECSItem::class.java), ArgumentMatchers.anyObject(), ArgumentMatchers.any())
 
     }
 

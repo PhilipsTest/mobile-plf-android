@@ -20,7 +20,7 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.integration.ECSOAuthProvider
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.ecs.model.voucher.ECSVoucher
 import com.philips.platform.ecs.util.ECSConfiguration
@@ -79,6 +79,9 @@ class ECSVoucherCallbackTest {
     lateinit var ecsServicesMock: ECSServices
 
     @Mock
+    lateinit var ecsMicroServicesMock : com.philips.platform.ecs.microService.ECSServices
+
+    @Mock
     lateinit var authCallBackMock : ECSCallback<ECSOAuthData, Exception>
 
     @Test
@@ -87,6 +90,7 @@ class ECSVoucherCallbackTest {
         setUpAppinfra()
         eCSShoppingCartRepositoryMock.authCallBack = authCallBackMock
         eCSShoppingCartRepositoryMock.ecsShoppingCartCallback = eCSShoppingCartCallbackMock
+        Mockito.`when`(ecsServicesMock.microService).thenReturn(ecsMicroServicesMock)
         eCSShoppingCartRepositoryMock.ecsServices = ecsServicesMock
         ecsShoppingCartViewModelMock.ecsVoucherCallback = eCSVoucherCallback
         ecsShoppingCartViewModelMock.ecsShoppingCartRepository = eCSShoppingCartRepositoryMock
@@ -107,7 +111,7 @@ class ECSVoucherCallbackTest {
         ecsShoppingCartViewModelMock.ecsShoppingCartRepository = eCSShoppingCartRepositoryMock
         eCSVoucherCallback.onResponse(ecsVoucherListMock)
 
-        Mockito.verify(ecsServicesMock).fetchShoppingCart(eCSShoppingCartCallbackMock)
+        Mockito.verify(ecsServicesMock.microService).fetchShoppingCart(eCSShoppingCartCallbackMock)
     }
 
     @Mock

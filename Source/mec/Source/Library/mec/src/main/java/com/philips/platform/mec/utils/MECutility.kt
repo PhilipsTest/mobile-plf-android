@@ -259,18 +259,6 @@ class MECutility {
             }
         }
 
-        fun getQuantity(cart: com.philips.platform.ecs.microService.model.cart.ECSShoppingCart): Int {
-
-            var quantity = 0
-
-            cart.data?.attributes?.items?.let {
-                for (item in it){
-                    quantity += (item.quantity ?: 0)
-                }
-            }
-            return quantity
-        }
-
         fun isAuthError(ecsError: ECSError?): Boolean {
             var authError: Boolean = false
             with(ecsError?.errorcode) {

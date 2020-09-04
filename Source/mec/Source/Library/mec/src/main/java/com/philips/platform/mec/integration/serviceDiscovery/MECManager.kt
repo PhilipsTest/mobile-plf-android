@@ -91,8 +91,7 @@ class MECManager {
     private fun doCartCall(mECCartUpdateListener: MECCartUpdateListener) {
         MECDataHolder.INSTANCE.eCSServices.microService.fetchShoppingCart(object : com.philips.platform.ecs.microService.callBack.ECSCallback<ECSShoppingCart, com.philips.platform.ecs.microService.error.ECSError> {
             override fun onResponse(result: ECSShoppingCart) {
-                    val quantity = MECutility.getQuantity(result)
-                    mECCartUpdateListener.onUpdateCartCount(quantity)
+                    mECCartUpdateListener.onUpdateCartCount(result.data?.attributes?.deliveryUnits ?:0)
             }
 
             override fun onFailure(ecsError: com.philips.platform.ecs.microService.error.ECSError) {

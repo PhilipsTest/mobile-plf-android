@@ -132,12 +132,6 @@ class ECSPILShoppingCartCallbackTest {
         assertNotNull(ecsShoppingCartViewModelMock.mecError)
     }
 
-    @Test
-    fun shouldCreateCartIfFetchShoppingCartFailsWithErrorCode() {
-        Mockito.`when`(ecsErrorMock.errorCode) .thenReturn(5004)
-        ecsShoppingCartCallback.onFailure(ecsErrorMock)
-        Mockito.verify(ecsServicesMock).createShoppingCart(createCartCallback)
-    }
 
     //TODO
 

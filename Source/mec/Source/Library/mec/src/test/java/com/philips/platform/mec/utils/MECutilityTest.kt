@@ -265,27 +265,6 @@ class MECutilityTest {
     }
 
     @Test
-    fun `Test getQuantity()`(){
-
-        var ecsShoppingCart= ECSShoppingCart()
-        var eCSentry = ECSEntries()
-        var mECSProduct1 = ECSProduct()
-        mECSProduct1.code = "ConsignmentCode123ABC"
-        eCSentry.product = mECSProduct1
-        eCSentry.quantity = 2
-        var entries = ArrayList<ECSEntries>()
-        entries.add(eCSentry)
-        ecsShoppingCart.entries=entries
-
-        ecsShoppingCart.totalItems=2
-        assertEquals(2,mECutilityCompanion.getQuantity(ecsShoppingCart))
-
-        ecsShoppingCart.totalItems=3
-        assertEquals(2,mECutilityCompanion.getQuantity(ecsShoppingCart))
-    }
-
-
-    @Test
     fun `Test findGivenAddressInAddressList()`(){
         var addressList=ArrayList<ECSAddress>()
         var address1=ECSAddress()
