@@ -192,7 +192,6 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
             mECDeliveryModesAdapter = MECDeliveryModesAdapter(mECSDeliveryModeList, this)
             binding.mecDeliveryModeRecyclerView.adapter = mECDeliveryModesAdapter
 
-            ecsAddresses = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESSES) as List<ECSAddress>
             mECSShoppingCart = arguments?.getParcelable(MECConstant.KEY_ECS_SHOPPING_CART)
 
 
@@ -215,7 +214,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
     private fun getPaymentInfo() {
         //Create a empty payment list
-        ecsBillingAddress = arguments?.getSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS) as ECSAddress
+        ecsBillingAddress = arguments?.getSerializable(MECConstant.KEY_ECS_BILLING_ADDRESS) as ECSAddress?
         ecsBillingAddress?.let {// New user if user has created new billing address
             ecsPayment = com.philips.platform.ecs.model.payment.ECSPayment()
             ecsPayment.id = MECConstant.NEW_CARD_PAYMENT
