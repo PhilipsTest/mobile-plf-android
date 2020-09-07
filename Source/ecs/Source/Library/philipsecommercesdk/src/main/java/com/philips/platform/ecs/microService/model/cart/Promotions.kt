@@ -9,5 +9,5 @@ data class Promotions(
         val potentialProductPromotions: List<ProductPromotion>?,
         val potentialPromotions: List<Promotion>?,
         val appliedPromotions: List<Promotion>?,
-        val productPromotions: List<ProductPromotion> //This comes with product
+        val productPromotions: List<ProductPromotion>? //This comes with product
 ): Parcelable
