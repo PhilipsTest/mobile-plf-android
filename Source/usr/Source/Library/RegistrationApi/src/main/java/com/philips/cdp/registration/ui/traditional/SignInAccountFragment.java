@@ -446,12 +446,13 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
         mBtnSignInAccount.hideProgressIndicator();
         uiEnableState(true);
         RLog.e(TAG, "handleLogInFailed : Error Code :" + userRegistrationFailureInfo.getErrorCode());
-        if (userRegistrationFailureInfo.getErrorCode() == ErrorCodes.JANRAIN_WRONG_USERID_PASSWORD) {
+        if (userRegistrationFailureInfo.getErrorCode() == ErrorCodes.JANRAIN_INVALID_DATA_FOR_VALIDATION) {
+            updateErrorNotification(mContext.getApplicationContext().getString(R.string.USR_Janrain_LimitError_ErrorMsg), userRegistrationFailureInfo.getErrorCode());
+        }else if (userRegistrationFailureInfo.getErrorCode() == ErrorCodes.JANRAIN_WRONG_USERID_PASSWORD) {
             updateErrorNotification(mContext.getApplicationContext().getString(R.string.USR_Janrain_Invalid_Credentials), userRegistrationFailureInfo.getErrorCode());
         } else {
             updateErrorNotification(userRegistrationFailureInfo.getErrorDescription(), userRegistrationFailureInfo.getErrorCode());
         }
-
         // trackInvalidCredentials();
     }
 
@@ -821,7 +822,10 @@ public class SignInAccountFragment extends RegistrationBaseFragment implements O
                 hideForgotPasswordSpinner();
                 RLog.e(TAG, " onError serviceDiscovery : userreg.urx.verificationsmscode : " + error);
                 verificationSmsCodeURL = null;
-                mEtEmailInputValidation.setErrorMessage(new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR));
+                AppTagging.trackAction(AppTagingConstants.SEND_DATA, AppTagingConstants.TECHNICAL_ERROR,
+                        new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
+
+                mEtEmailInputValidation.setErrorMessage(new URError(mContext).getLocalizedError(ErrorType.NETWOK, ErrorCodes.NETWORK_ERROR_SERVICE_DISCOVERY));
             }
         }, null);
     }

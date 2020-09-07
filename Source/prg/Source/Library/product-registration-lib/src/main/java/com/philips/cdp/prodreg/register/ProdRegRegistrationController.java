@@ -211,7 +211,10 @@ public class ProdRegRegistrationController {
             public void onProdRegFailed(RegisteredProduct registeredProduct, UserWithProducts userWithProducts) {
                 registerControllerCallBacks.logEvents(TAG, "Product registration failed");
                 if (fragmentActivity != null && !fragmentActivity.isFinishing()) {
-                    ProdRegRegistrationController.this.registeredProduct = registeredProduct;
+                   // ProdRegRegistrationController.this.registeredProduct = registeredProduct;
+                    ProdRegRegistrationController.this.registeredProduct.setProdRegError(registeredProduct.getProdRegError());
+                    ProdRegRegistrationController.this.registeredProduct.setRegistrationState(registeredProduct.getRegistrationState());
+                    ProdRegRegistrationController.this.registeredProduct.setUserUUid(registeredProduct.getUserUUid());
                     registerControllerCallBacks.buttonClickable(true);
                     registerControllerCallBacks.dismissLoadingDialog();
                     if (registeredProduct.getProdRegError() != ProdRegError.PRODUCT_ALREADY_REGISTERED) {

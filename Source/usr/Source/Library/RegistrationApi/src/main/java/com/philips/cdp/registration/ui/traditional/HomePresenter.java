@@ -86,6 +86,7 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
                 .registerEventNotification(RegConstants.JANRAIN_INIT_SUCCESS, this);
         EventHelper.getInstance()
                 .registerEventNotification(RegConstants.JANRAIN_INIT_FAILURE, this);
+        EventHelper.getInstance().registerEventNotification(RegConstants.SD_FAILURE,this);
     }
 
 
@@ -96,6 +97,7 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
                 this);
         EventHelper.getInstance().unregisterEventNotification(RegConstants.JANRAIN_INIT_FAILURE,
                 this);
+        EventHelper.getInstance().unregisterEventNotification(RegConstants.SD_FAILURE,this);
     }
 
     @Override
@@ -434,6 +436,9 @@ public class HomePresenter implements NetworkStateListener, SocialLoginProviderH
             deligateFlow = FLOWDELIGATE.DEFAULT;
         } else if (RegConstants.JANRAIN_INIT_FAILURE.equals(event)) {
             homeContract.initFailed();
+            deligateFlow = FLOWDELIGATE.DEFAULT;
+        }  else if (RegConstants.SD_FAILURE.equals(event)) {
+            homeContract.localeServiceDiscoveryFailed();
             deligateFlow = FLOWDELIGATE.DEFAULT;
         }
     }

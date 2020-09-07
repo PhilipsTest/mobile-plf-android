@@ -14,20 +14,20 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.platform.ecs.microService.model.filter.ProductFilter
 
 
-abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableList<MECProductReview>) : RecyclerView.Adapter<MECProductCatalogAbstractViewHolder>(), Filterable {
+abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableList<MECProductReview>) : RecyclerView.Adapter<MECProductCatalogAbstractViewHolder>(),Filterable {
 
     val originalList = items
 
-    lateinit var emptyView: View
+    lateinit var emptyView:View
     var catalogView = CatalogView.LIST
+
 
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MECProductCatalogAbstractViewHolder
 
     override fun getItemCount(): Int {
-        return items.size
+     return  items.size
     }
 
     override fun onBindViewHolder(holder: MECProductCatalogAbstractViewHolder, position: Int) {
@@ -41,6 +41,7 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
         var filteredList: MutableList<MECProductReview> = mutableListOf()
 
         return object : Filter() {
+
 
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val searchString = constraint.toString()
@@ -64,9 +65,9 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 items = results?.values as MutableList<MECProductReview>
-                if (items.size == 0) {
+                if(items.size == 0){
                     emptyView.visibility = View.VISIBLE
-                } else {
+                }else{
                     emptyView.visibility = View.GONE
                 }
                 notifyDataSetChanged()
@@ -76,10 +77,10 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
     }
 
 
-    enum class CatalogView {
+    enum class CatalogView{
 
-        GRID,
-        LIST
+         GRID,
+         LIST
     }
 
 }

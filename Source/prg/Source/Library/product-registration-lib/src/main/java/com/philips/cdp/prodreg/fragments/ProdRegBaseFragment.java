@@ -72,6 +72,7 @@ abstract class ProdRegBaseFragment extends Fragment implements BackEventListener
     public void onDestroyView() {
         super.onDestroyView();
         hideKeyboard();
+        mActionbarUpdateListener = null;
     }
 
     @Override

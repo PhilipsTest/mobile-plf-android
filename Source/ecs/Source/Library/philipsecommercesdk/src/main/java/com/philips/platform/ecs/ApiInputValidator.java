@@ -40,7 +40,7 @@ import java.util.List;
             return getECSErrorWrapper(ECSErrorEnum.ECSLocaleNotFound);
         }
         if(isBaseURLNull()){
-            return getECSErrorWrapper(ECSErrorEnum.ECSBaseURLNotFound);
+            return getECSErrorWrapper(ECSErrorEnum.ECSSiteIdNotFound); // so now , even if base url is not there we are showing "Philips shop is not available for the selected country, only retailer mode is available" instead of "Base URL not found"
         }
         return null;
     }

@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -42,8 +43,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:padding="@dimen/border16_margin_left_right"
-                    android:text="@string/mec_filter"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/mec_filter_title"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                     android:textSize="14sp" />
 
