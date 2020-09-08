@@ -528,12 +528,16 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MECConstant.FILTER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (data?.extras?.containsKey(MECConstant.SELECTED_FILTERS)!!) {
-                mProductFilter = data.getParcelableExtra(MECConstant.SELECTED_FILTERS) as ProductFilter
-                binding.mecCatalogParentLayout.visibility = View.GONE
-                showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-                clearCatalogCache()
-                executeRequest()
+            if (data?.extras?.containsKey(MECConstant.SELECTED_FILTERS) == true) {
+                val modifiedProductFilter = data.getParcelableExtra(MECConstant.SELECTED_FILTERS) as ProductFilter
+
+                if(mProductFilter != modifiedProductFilter) { //check if actually filter is altered or not
+                    mProductFilter = modifiedProductFilter
+                    binding.mecCatalogParentLayout.visibility = View.GONE
+                    showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
+                    clearCatalogCache()
+                    executeRequest()
+                }
             }
         }
     }
