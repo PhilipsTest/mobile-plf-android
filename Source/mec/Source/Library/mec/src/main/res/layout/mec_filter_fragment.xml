@@ -21,24 +21,24 @@
         <RelativeLayout
             android:id="@+id/design_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="420dp"
+            android:layout_height="500dp"
             android:layout_gravity="bottom"
             android:gravity="bottom"
             android:scrollbars="vertical"
             android:visibility="visible"
-            app:behavior_peekHeight="420dp"
+            app:behavior_peekHeight="500dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
             <LinearLayout
-                android:id="@+id/lLayout"
+                android:id="@+id/mec_ll_sort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:background="?attr/uidContentSecondaryNeutralBackgroundColor">
 
                 <com.philips.platform.uid.view.widget.Label
-                    android:id="@+id/mec_online_retailers_lebel"
+                    android:id="@+id/mec_lebel_sort_title"
                     style="@style/mecCentralesansBookFont"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:paddingStart="16dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/mec_filter_title"
+                    android:text="@string/mec_sort_title"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                     android:textSize="14sp" />
 
@@ -54,10 +54,10 @@
 
 
             <LinearLayout
-                android:id="@+id/ll_Sort"
+                android:id="@+id/mec_ll_rg_Sort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lLayout"
+                android:layout_below="@+id/mec_ll_sort"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/border16_margin_left_right">
 
@@ -65,15 +65,6 @@
                     android:id="@+id/mec_radiogroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
-                    <com.philips.platform.uid.view.widget.RadioButton
-                        android:id="@+id/mec_filter_radio1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="-8dp"
-                        android:checked="@{productFilter.sortType.equals(ECSSortType.topRated)}"
-                        android:text="@string/mec_top_rated" />
-
 
                     <com.philips.platform.uid.view.widget.RadioButton
                         android:id="@+id/mec_filter_radio2"
@@ -107,21 +98,45 @@
                         android:layout_marginTop="-8dp"
                         android:checked="@{productFilter.sortType.equals(ECSSortType.discountPercentageDescending)}"
                         android:text="@string/mec_discount_price_descending" />
+
+                    <com.philips.platform.uid.view.widget.RadioButton
+                        android:id="@+id/mec_filter_radio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:checked="@{productFilter.sortType.equals(ECSSortType.topRated)}"
+                        android:text="@string/mec_top_rated" />
                 </RadioGroup>
             </LinearLayout>
 
-            <View
-                android:id="@+id/mec_divider1"
+
+            <LinearLayout
+                android:id="@+id/mec_ll_filter_title"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/ll_Sort"
-                android:background="?attr/uidSeparatorContentNormalBackgroundColor" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mec_ll_rg_Sort"
+                android:background="?attr/uidContentSecondaryNeutralBackgroundColor">
+
+                <com.philips.platform.uid.view.widget.Label
+                    android:id="@+id/mec_label_filter_title"
+                    style="@style/mecCentralesansBookFont"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/mec_filter_title"
+                    android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_Stock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/mec_divider1"
+                android:layout_below="@+id/mec_ll_filter_title"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/border16_margin_left_right">
 
@@ -164,14 +179,14 @@
 
             <LinearLayout
                 android:id="@+id/ll_button"
+                android:layout_below="@+id/mec_divider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
+                android:background="?attr/uidSeparatorContentNormalBackgroundColor"
                 android:weightSum="2">
 
 
