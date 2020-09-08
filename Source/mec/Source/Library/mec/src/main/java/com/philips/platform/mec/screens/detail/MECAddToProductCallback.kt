@@ -12,6 +12,7 @@ package com.philips.platform.mec.screens.detail
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -31,7 +32,7 @@ class MECAddToProductCallback(private val ecsProductDetailViewModel: EcsProductD
             MECutility.isAuthError(ecsError) -> {
                 ecsProductDetailViewModel.retryAPI(mECRequestType)
             }
-            ecsError.errorCode == ECSErrorEnum.ECSCartError.errorCode -> {
+            ecsError.errorCode == ECSErrorType.ECSPIL_NOT_FOUND_cartId.errorCode -> {
                 ecsProductDetailViewModel.createShoppingCart()
             }
             else -> {
