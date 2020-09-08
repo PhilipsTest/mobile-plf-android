@@ -97,7 +97,6 @@ public class RegistrationSettingsURL extends RegistrationSettings {
         jumpConfig.traditionalSignInType = Jump.TraditionalSignInType.EMAIL;
         jumpConfig.captureFlowVersion = EVAL_CAPTURE_FLOW_VERSION;
 
-
         initializePRXLinks(RegistrationConfiguration.getInstance().getRegistrationEnvironment());
 
 
@@ -249,7 +248,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
                     RLog.d(TAG, " onSuccess  : userreg.janrain.cdn :" +
                             serviceDiscoveyService.getConfigUrls());
-                    jumpConfig.downloadFlowUrl = serviceDiscoveyService.getConfigUrls();
+                    jumpConfig.captureFlowDomain = serviceDiscoveyService.getConfigUrls();
                 } else {
                     RLog.d(TAG, " onError  : userreg.janrain.cdn : not found");
                     ThreadUtils.postInMainThread(mContext, () -> EventHelper.getInstance().notifyEventOccurred(RegConstants.SD_FAILURE));
@@ -279,7 +278,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                 serviceDiscoveyService = resultMap.get("userreg.janrain.engage.v2");
                 if (serviceDiscoveyService != null && serviceDiscoveyService.getConfigUrls() != null) {
                     RLog.d(TAG, " onSuccess  : userreg.janrain.engage :" + serviceDiscoveyService.getConfigUrls());
-                    jumpConfig.engageAppUrl = serviceDiscoveyService.getConfigUrls().substring(8);
+                    jumpConfig.engageDomain = serviceDiscoveyService.getConfigUrls().substring(8);
 
                     mPreferredCountryCode = countryCode;
                     mPreferredLangCode = langCode;
