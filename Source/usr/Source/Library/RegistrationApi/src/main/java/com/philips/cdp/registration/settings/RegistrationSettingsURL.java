@@ -96,6 +96,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
         jumpConfig.captureTraditionalSignInFormName = "userInformationForm";
         jumpConfig.traditionalSignInType = Jump.TraditionalSignInType.EMAIL;
         jumpConfig.captureFlowVersion = EVAL_CAPTURE_FLOW_VERSION;
+        jumpConfig.engageResponseType = "token_profile";
+       // jumpConfig.engageWhitelistedDomain = "";
 
         initializePRXLinks(RegistrationConfiguration.getInstance().getRegistrationEnvironment());
 
@@ -190,6 +192,8 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                         jumpConfig.captureDomain = janrainURL;
                         jumpConfig.engageAppId = clientIDConfiguration.getEngageId(environment+"_"+countryId);
                         jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(environment+"_"+countryId);
+                        jumpConfig.engageResponseType = "token_profile";
+                        jumpConfig.engageWhitelistedDomain = "";
                     }else if(countryId.equalsIgnoreCase("RU")) {
                         jumpConfig.captureDomain = janrainURL;
                         jumpConfig.engageAppId = clientIDConfiguration.getEngageId(environment+"_"+countryId);
@@ -198,6 +202,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                         jumpConfig.captureDomain = janrainURL;
                         jumpConfig.engageAppId = clientIDConfiguration.getEngageId(environment);
                         jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(environment);
+                        jumpConfig.engageDomain = serviceDiscoveyService.getConfigUrls().substring(8);
                     }
                     RLog.d(TAG, " onSuccess  : userreg.janrain.api :" + urlLocal);
                     if (jumpConfig.engageAppId == null || jumpConfig.captureAppId == null) {
