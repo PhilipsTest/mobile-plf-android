@@ -2,6 +2,7 @@ package com.philips.cdp.registration.settings;
 
 import com.janrain.android.Jump;
 import com.janrain.android.JumpConfig;
+import com.philips.cdp.registration.R;
 import com.philips.cdp.registration.app.tagging.AppTagging;
 import com.philips.cdp.registration.app.tagging.AppTagingConstants;
 import com.philips.cdp.registration.configuration.ClientIDConfiguration;
@@ -97,6 +98,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
         jumpConfig.traditionalSignInType = Jump.TraditionalSignInType.EMAIL;
         jumpConfig.captureFlowVersion = EVAL_CAPTURE_FLOW_VERSION;
         jumpConfig.engageResponseType = "token_profile";
+        jumpConfig.configFile = R.raw.janrain_config;
        // jumpConfig.engageWhitelistedDomain = "";
 
         initializePRXLinks(RegistrationConfiguration.getInstance().getRegistrationEnvironment());
@@ -202,7 +204,7 @@ public class RegistrationSettingsURL extends RegistrationSettings {
                         jumpConfig.captureDomain = janrainURL;
                         jumpConfig.engageAppId = clientIDConfiguration.getEngageId(environment);
                         jumpConfig.captureAppId = clientIDConfiguration.getCaptureId(environment);
-                        jumpConfig.engageDomain = serviceDiscoveyService.getConfigUrls().substring(8);
+                       // jumpConfig.engageDomain = serviceDiscoveyService.getConfigUrls().substring(8);
                     }
                     RLog.d(TAG, " onSuccess  : userreg.janrain.api :" + urlLocal);
                     if (jumpConfig.engageAppId == null || jumpConfig.captureAppId == null) {
