@@ -332,7 +332,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             }
 
             adapter.emptyView = binding.mecEmptyResult
-            adapter.emptyView = binding.mecEmptyFilterResult
 
             mRootView = binding.root
 
