@@ -20,25 +20,28 @@ class MECFilterCatalogFragment : BottomSheetDialogFragment() {
         const val TAG: String = "MECFilterCatalogFragment"
     }
 
-    private var mProductFilter: ProductFilter? = null
     private lateinit var binding: MecFilterFragmentBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = MecFilterFragmentBinding.inflate(inflater, container, false)
-        mProductFilter = arguments?.getParcelable(MECConstant.SELECTED_FILTERS)
-        binding.productFilter = mProductFilter
+        val productFilter : ProductFilter? = arguments?.getParcelable(MECConstant.SELECTED_FILTERS)
+        binding.productFilter = productFilter
 
         binding.mecApplyButton.setOnClickListener {
 
-            if (binding.mecFilterCheckbox1.isChecked) mProductFilter?.stockLevelSet?.add(ECSStockLevel.InStock) else mProductFilter?.stockLevelSet?.remove(ECSStockLevel.InStock)
-            if (binding.mecFilterCheckbox2.isChecked) mProductFilter?.stockLevelSet?.add(ECSStockLevel.LowStock) else mProductFilter?.stockLevelSet?.remove(ECSStockLevel.LowStock)
-            if (binding.mecFilterCheckbox3.isChecked) mProductFilter?.stockLevelSet?.add(ECSStockLevel.OutOfStock) else mProductFilter?.stockLevelSet?.remove(ECSStockLevel.OutOfStock)
+            val stockLevelSet: MutableSet<ECSStockLevel> = mutableSetOf()
+            val sortType: ECSSortType? = null
+            val mProductFilter = ProductFilter(sortType, stockLevelSet as HashSet<ECSStockLevel>)
 
-            if (binding.mecFilterRadio1.isChecked) mProductFilter?.sortType = ECSSortType.topRated
-            if (binding.mecFilterRadio2.isChecked) mProductFilter?.sortType = ECSSortType.priceAscending
-            if (binding.mecFilterRadio3.isChecked) mProductFilter?.sortType = ECSSortType.priceDescending
-            if (binding.mecFilterRadio4.isChecked) mProductFilter?.sortType = ECSSortType.discountPercentageAscending
-            if (binding.mecFilterRadio5.isChecked) mProductFilter?.sortType = ECSSortType.discountPercentageDescending
+            if (binding.mecFilterCheckbox1.isChecked) mProductFilter.stockLevelSet?.add(ECSStockLevel.InStock) else mProductFilter.stockLevelSet?.remove(ECSStockLevel.InStock)
+            if (binding.mecFilterCheckbox2.isChecked) mProductFilter.stockLevelSet?.add(ECSStockLevel.LowStock) else mProductFilter.stockLevelSet?.remove(ECSStockLevel.LowStock)
+            if (binding.mecFilterCheckbox3.isChecked) mProductFilter.stockLevelSet?.add(ECSStockLevel.OutOfStock) else mProductFilter.stockLevelSet?.remove(ECSStockLevel.OutOfStock)
+
+            if (binding.mecFilterRadio1.isChecked) mProductFilter.sortType = ECSSortType.topRated
+            if (binding.mecFilterRadio2.isChecked) mProductFilter.sortType = ECSSortType.priceAscending
+            if (binding.mecFilterRadio3.isChecked) mProductFilter.sortType = ECSSortType.priceDescending
+            if (binding.mecFilterRadio4.isChecked) mProductFilter.sortType = ECSSortType.discountPercentageAscending
+            if (binding.mecFilterRadio5.isChecked) mProductFilter.sortType = ECSSortType.discountPercentageDescending
 
             val bundle = Bundle()
             bundle.putParcelable(MECConstant.SELECTED_FILTERS, mProductFilter)
