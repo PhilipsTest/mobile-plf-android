@@ -16,19 +16,11 @@ import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 import com.philips.platform.ecs.model.address.GetDeliveryModes;
 import com.philips.platform.ecs.store.ECSURLBuilder;
-import com.philips.platform.ecs.error.ECSErrorEnum;
-import com.philips.platform.ecs.error.ECSErrorWrapper;
-import com.philips.platform.ecs.error.ECSNetworkError;
-import com.philips.platform.ecs.integration.ECSCallback;
-import com.philips.platform.ecs.model.address.ECSDeliveryMode;
-import com.philips.platform.ecs.model.address.GetDeliveryModes;
-import com.philips.platform.ecs.store.ECSURLBuilder;
 
 import org.json.JSONObject;
 
+import java.util.Iterator;
 import java.util.List;
-
-import static com.philips.platform.ecs.error.ECSNetworkError.getErrorLocalizedErrorMessage;
 
 public class GetDeliveryModesRequest extends OAuthAppInfraAbstractRequest implements Response.Listener<JSONObject> {
 
@@ -52,10 +44,23 @@ public class GetDeliveryModesRequest extends OAuthAppInfraAbstractRequest implem
         }
 
         if(null == exception && null!=getDeliveryModes && null!=getDeliveryModes.getDeliveryModes()) {
-            ecsCallback.onResponse(getDeliveryModes.getDeliveryModes());
+            List<ECSDeliveryMode> deliveryModes = getDeliveryModes.getDeliveryModes();
+            //remove collection point delivery modes
+            removePickupPoints(deliveryModes);
+            ecsCallback.onResponse(deliveryModes);
         } else {
             ECSErrorWrapper ecsErrorWrapper = ECSNetworkError.getErrorLocalizedErrorMessage(ECSErrorEnum.ECSsomethingWentWrong,exception,response.toString());
             ecsCallback.onFailure(ecsErrorWrapper.getException(), ecsErrorWrapper.getEcsError());
+        }
+    }
+
+    public void removePickupPoints(List<ECSDeliveryMode> deliveryModes) {
+        Iterator<ECSDeliveryMode> iterator = deliveryModes.iterator();
+        while (iterator.hasNext()){
+            ECSDeliveryMode deliveryMode = iterator.next();
+            if(deliveryMode.isPickupPoint()){
+                iterator.remove();
+            }
         }
     }
 

@@ -21,6 +21,7 @@ public class DeliveryModeEntity implements Serializable{
     private DeliveryCostEntity deliveryCost;
     private String description;
     private String name;
+    private boolean pickupPoint;
 
     public String getCode() {
         return code;
@@ -44,5 +45,13 @@ public class DeliveryModeEntity implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isPickupPoint() {
+        return pickupPoint;
+    }
+
+    public void setPickupPoint(boolean pickupPoint) {
+        this.pickupPoint = pickupPoint;
     }
 }
