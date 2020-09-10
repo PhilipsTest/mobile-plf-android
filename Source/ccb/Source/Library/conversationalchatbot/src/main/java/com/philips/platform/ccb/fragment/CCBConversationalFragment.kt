@@ -12,7 +12,6 @@ package com.philips.platform.ccb.fragment
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +23,15 @@ import com.bumptech.glide.request.target.Target
 import com.google.gson.Gson
 import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.ccb.R.layout
+import com.philips.platform.ccb.analytics.CCBAnalytics
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.ccbConversationalFragment
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.closeChat
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.resetChat
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.sendData
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.setError
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.specialEvents
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.technicalError
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.timestamp
 import com.philips.platform.ccb.constant.CCBUrlBuilder
 import com.philips.platform.ccb.directline.CCBAzureConversationHandler
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
@@ -40,13 +48,19 @@ import com.philips.platform.ccb.util.CCBLog
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.AsyncDrawable
 import io.noties.markwon.image.glide.GlideImagesPlugin
-import kotlinx.android.synthetic.main.ccb_waiting_layout.view.*
 import kotlinx.android.synthetic.main.ccb_bot_response_layout.view.*
 import kotlinx.android.synthetic.main.ccb_conversation_fragment.view.*
 import kotlinx.android.synthetic.main.ccb_dynamic_button.view.*
 import kotlinx.android.synthetic.main.ccb_fragment.view.*
 import kotlinx.android.synthetic.main.ccb_user_response_layout.view.*
+import kotlinx.android.synthetic.main.ccb_waiting_layout.view.*
 import net.frakbot.jumpingbeans.JumpingBeans
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class CCBConversationalFragment : Fragment(), BotResponseListener {
 
@@ -62,6 +76,9 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private var postInProgress : Boolean = false
     private var onOpen : Boolean = true
     private var response :String = ""
+    private lateinit var botResponseTime :String
+    private lateinit var userResponseTime :String
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -85,8 +102,14 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         return rootView;
     }
 
+    override fun onStart() {
+        super.onStart()
+        CCBAnalytics.trackPage(ccbConversationalFragment)
+    }
+
     private fun initViewListener() {
         rootView.fbclosebutton.setOnClickListener {
+            CCBAnalytics.trackAction(sendData,specialEvents,closeChat)
             closeConversation()
             activity?.finish()
         }
@@ -94,6 +117,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         rootView.fbrestartbutton.setOnClickListener {
             rootView.ccb_actionbutton_view.removeAllViews()
             onOpen = true
+            CCBAnalytics.trackAction(sendData,specialEvents,resetChat)
             closeConversation()
             connectChatBot()
         }
@@ -175,6 +199,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                 CCBLog.d(TAG, "updateConversation success")
             }
             if (ccbError != null) {
+                CCBAnalytics.trackAction(setError, technicalError, "CCB:" + ccbError.errCode + ":"+ ccbError.errDesc)
                 CCBLog.d(TAG, "updateConversation failed")
             }
         }
@@ -254,6 +279,14 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
             view.user_response_text.text = text
             rootView.ccb_recentchat_view.addView(view)
             rootView.avatarIV.visibility = View.INVISIBLE
+            userResponseTime = simpleDateFormat.format(Date())
+            val dates = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val date1: Date = dates.parse(botResponseTime);
+            val date2: Date = dates.parse(userResponseTime);
+            val timeDifference: Long = Math.abs(date1.time - date2.time)
+            val differenceDates = timeDifference / (24 * 60 * 60 * 1000)
+            val difference = (differenceDates)
+            CCBAnalytics.trackAction(sendData,timestamp,difference.toString())
         }
     }
 
@@ -318,6 +351,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                         postMessage(button.title)
                     }
                     rootView.ccb_actionbutton_view.addView(view)
+                    botResponseTime = simpleDateFormat.format(Date())
                 }
             }
         }

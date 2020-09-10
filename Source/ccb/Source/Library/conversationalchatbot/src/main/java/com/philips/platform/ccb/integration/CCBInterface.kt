@@ -11,6 +11,7 @@ package com.philips.platform.ccb.integration
 
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.philips.platform.ccb.analytics.CCBAnalytics
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
 import com.philips.platform.ccb.directline.CCBSessionHandlerInterface
 import com.philips.platform.ccb.fragment.CCBConversationalFragment
@@ -30,6 +31,7 @@ class CCBInterface: UappInterface {
     override fun init(uappDependencies: UappDependencies, uappSettings: UappSettings) {
        context = uappSettings.context.applicationContext
         CCBSettingsManager.init(uappDependencies)
+        CCBAnalytics.initCCBAnalytics(((uappDependencies)))
     }
 
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
