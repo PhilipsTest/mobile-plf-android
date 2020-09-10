@@ -448,7 +448,7 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
             MECutility.showErrorDialog(binding.mecPaymentRecyclerView.context, fragmentManager!!, getString(R.string.mec_ok), getString(R.string.mec_address), R.string.mec_no_payment_error_message)
             return
         }
-        if (mECSShoppingCart.deliveryMode != null) {
+        if (mECSShoppingCart.deliveryMode != null && !mECSShoppingCart.deliveryMode.isPickupPoint) {
             bundle.putSerializable(MECConstant.KEY_ECS_SHOPPING_CART, mECSShoppingCart)
         } else {
             MECAnalytics.trackUserError(getString(R.string.mec_no_delivery_mode_error_message))
