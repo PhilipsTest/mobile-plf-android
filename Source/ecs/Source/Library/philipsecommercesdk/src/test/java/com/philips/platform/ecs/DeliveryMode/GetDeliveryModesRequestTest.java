@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.philips.platform.appinfra.AppInfra;
+import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.ecs.ECSServices;
 import com.philips.platform.ecs.MockECSServices;
 import com.philips.platform.ecs.MockInputValidator;
@@ -12,8 +15,7 @@ import com.philips.platform.ecs.TestUtil;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
-import com.philips.platform.appinfra.AppInfra;
-import com.philips.platform.appinfra.rest.RestInterface;
+import com.philips.platform.ecs.model.address.GetDeliveryModes;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +30,11 @@ import java.io.InputStream;
 import java.util.List;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(RobolectricTestRunner.class)
@@ -168,6 +174,17 @@ public class GetDeliveryModesRequestTest {
         }
     }
 
+    @Test
+    public void testToRemovePickupPointDeliveryModes() {
+        JSONObject jsonObject = getJsonObject("deliverymodes.json");
+        GetDeliveryModes getDeliveryModes = new Gson().fromJson(jsonObject.toString(),
+                    GetDeliveryModes.class);
+        List<ECSDeliveryMode> deliveryModes = getDeliveryModes.getDeliveryModes();
+        mockDeliveryModesRequest.removePickupPoints(deliveryModes);
+        int alteredSizeOfDeliveryModes = deliveryModes.size();
+        assertEquals(2,alteredSizeOfDeliveryModes);
+
+    }
 
     @Test
     public void assertResponseSuccessListenerNotNull() {
