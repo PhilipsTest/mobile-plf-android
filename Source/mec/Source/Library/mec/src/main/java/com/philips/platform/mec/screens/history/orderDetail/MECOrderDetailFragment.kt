@@ -87,8 +87,8 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         binding = MecOrderHistoryDetailBinding.inflate(inflater, container, false)
         binding.mecOrderHistoryService = mECOrderHistoryService
         mecOrderDetailViewModel = ViewModelProvider(this).get(MECOrderDetailViewModel::class.java)
-        mecOrderDetailViewModel.contactPhone.observe(viewLifecycleOwner, contactsObserver)
-        mecOrderDetailViewModel.mecError.observe(viewLifecycleOwner, this)
+        mecOrderDetailViewModel.contactPhone.observe(this, contactsObserver)
+        mecOrderDetailViewModel.mecError.observe(this, this)
         ecsOrders = arguments?.getSerializable(MECConstant.MEC_ORDERS) as ECSOrders?
         binding.ecsOrders = ecsOrders
         binding.cardInfo = ecsOrders?.orderDetail?.paymentInfo?.let { MECutility().constructCardDetails(it) }
