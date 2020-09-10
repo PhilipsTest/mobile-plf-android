@@ -77,7 +77,7 @@ ext.philipsdeps = [
         securedblibrary             : [group: 'com.philips.platform', name: strings.sdb.artifactName, version: platformversionsuffix, changing: true],
         themesettings               : [group: 'com.philips.platform', name: strings.tse.artifactName, version: platformversionsuffix, changing: true],
         uAppFwLib                   : [group: 'com.philips.platform', name: strings.ufw.artifactName, version: platformversionsuffix, changing: true],
-        uid                         : [group: 'com.philips.hsdp-cp', name: strings.uid.artifactName, version: '3.0.+', changing: true],
+        uid                         : [group: 'com.philips.hsdp-cp', name: strings.uid.artifactName, version: '3.0.1583861484', changing: true],
         pim                         : [group: 'com.philips.platform', name: strings.pim.artifactName, version: platformversionsuffix, changing: true],
         pimUApp                     : [group: 'com.philips.platform', name: strings.pimuapp.artifactName, version: platformversionsuffix, changing: true],
         UserRegistrationUApp        : [group: 'com.philips.platform', name: strings.usruapp.artifactName, version: platformversionsuffix, changing: true],
