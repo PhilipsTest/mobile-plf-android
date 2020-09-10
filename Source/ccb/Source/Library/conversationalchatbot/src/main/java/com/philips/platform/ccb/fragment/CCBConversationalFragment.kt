@@ -36,7 +36,6 @@ import com.philips.platform.ccb.model.CCBActions
 import com.philips.platform.ccb.model.CCBActivities
 import com.philips.platform.ccb.model.CCBMessage
 import com.philips.platform.ccb.model.CCBUser
-import com.philips.platform.ccb.util.CCBLog
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.AsyncDrawable
 import io.noties.markwon.image.glide.GlideImagesPlugin
@@ -152,15 +151,15 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         if(postInProgress.equals(false)) {
             message?.let { displayUserResponse(it) }
             waitForBotResponse()
-            CCBLog.d(TAG, "before postMessage : $message")
+            Log.d(TAG, "before postMessage : $message")
             postInProgress = true
             ccbAzureConversationHandler.postMessage(message) { conversation, _ ->
                 if (conversation != null) {
                     postInProgress = false
                     displayMessage(response)
-                    CCBLog.d(TAG, "postMessage success : $message")
+                    Log.d(TAG, "postMessage success : $message")
                 } else {
-                    CCBLog.d(TAG, "postMessage failed : $message")
+                    Log.d(TAG, "postMessage failed : $message")
                 }
             }
         }
@@ -172,10 +171,10 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         ccbAzureSessionHandler.updateConversation { success, ccbError ->
             if (success) {
                 onOpen = true
-                CCBLog.d(TAG, "updateConversation success")
+                Log.d(TAG, "updateConversation success")
             }
             if (ccbError != null) {
-                CCBLog.d(TAG, "updateConversation failed")
+                Log.d(TAG, "updateConversation failed")
             }
         }
     }
@@ -196,14 +195,14 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private fun showMessage(jsonResponse: String) {
         try {
             val botResponseData = Gson().fromJson(jsonResponse, CCBMessage::class.java)
-            CCBLog.d(TAG, "CCBConversational :->$botResponseData.toString()")
+            Log.d(TAG, "CCBConversational :->$botResponseData.toString()")
 
             val activity: CCBActivities = botResponseData?.activities?.get(0) ?: return
 
             if (botResponseData.watermark == null && activity.type.equals("message")) {
-                CCBLog.d(TAG, "watermark null")
+                Log.d(TAG, "watermark null")
             } else if (activity.text != null) {
-                CCBLog.d(TAG, "watermark not null")
+                Log.d(TAG, "watermark not null")
                 removeWaitingView {
                     handleBotResponse(activity)
                 }
@@ -216,14 +215,14 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private fun displayMessage(jsonResponse: String) {
         try {
             val botResponseData = Gson().fromJson(jsonResponse, CCBMessage::class.java)
-            CCBLog.d(TAG, "CCBConversational :->$botResponseData.toString()")
+            Log.d(TAG, "CCBConversational :->$botResponseData.toString()")
 
             val activity: CCBActivities = botResponseData?.activities?.get(0) ?: return
 
             if (botResponseData.watermark == null && activity.type.equals("message")) {
-                CCBLog.d(TAG, "watermark null")
+                Log.d(TAG, "watermark null")
             } else if (activity.text != null) {
-                CCBLog.d(TAG, "watermark not null")
+                Log.d(TAG, "watermark not null")
                 removeWaitingView {
                     handleBotResponse(activity)
                 }
@@ -240,7 +239,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
 
     private fun handleBotResponse(activity: CCBActivities) {
-        CCBLog.d(TAG, "handleBotResponse")
+        Log.d(TAG, "handleBotResponse")
 
         displayBotRespon(activity.text)
         if (activity.suggestedActions != null && activity.suggestedActions.actions.isNotEmpty()) {
@@ -314,7 +313,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                     button_view.setText(button.title)
                     button_view.setOnClickListener {
                         rootView.ccb_actionbutton_view.removeAllViews()
-                        CCBLog.d(TAG, "ButtonClick : ${button_view.text}")
+                        Log.d(TAG, "ButtonClick : ${button_view.text}")
                         postMessage(button.title)
                     }
                     rootView.ccb_actionbutton_view.addView(view)

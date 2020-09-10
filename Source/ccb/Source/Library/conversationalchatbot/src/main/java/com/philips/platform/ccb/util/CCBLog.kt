@@ -10,11 +10,15 @@
 package com.philips.platform.ccb.util
 
 import com.philips.platform.appinfra.logging.LoggingInterface
+import com.philips.platform.ccb.manager.CCBSettingsManager
 
 object CCBLog {
 
     var appInfraLoggingInterface: LoggingInterface? = null
 
+    fun init() {
+        appInfraLoggingInterface = CCBSettingsManager.mLoggingInterface
+    }
 
     fun d(tag: String?, message: String?) {
         appInfraLoggingInterface?.log(LoggingInterface.LogLevel.DEBUG, tag, message)

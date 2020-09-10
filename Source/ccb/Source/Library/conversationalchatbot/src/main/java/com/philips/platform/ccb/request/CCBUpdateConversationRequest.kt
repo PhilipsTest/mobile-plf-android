@@ -34,6 +34,7 @@ class CCBUpdateConversationRequest() : CCBRequestInterface {
     override fun getBody(): String? {
         val jsonObject = JSONObject()
         jsonObject.put("type","conversationUpdate")
+        jsonObject.put("locale","zh-CN")
         val  fromJson = JSONObject()
         fromJson.put("id","AUserOne")
         jsonObject.put("from",fromJson)
