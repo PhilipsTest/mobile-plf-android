@@ -182,16 +182,11 @@
     <string name="mec_clear" translatable="false">Clear</string>
     <string name="mec_empty_filter_message" translatable="false">We couldn\'t find any products with all the filters you’ve selected.</string>
     <string name="mec_clear_filter" translatable="false">Clear filter(s)</string>
-    <string name="mec_top_rated" translatable="false">Rating</string>
-    <string name="mec_price_ascending" translatable="false">Price (Low to High)</string>
-    <string name="mec_price_descending" translatable="false">Price (High to Low)</string>
-    <string name="mec_discount_price_ascending" translatable="false">Discount Price (Low to High)</string>
-    <string name="mec_discount_price_descending" translatable="false">Discount Price (High to Low)</string>
-
-    <!--unused Strings -->
-
-
-
+    <string name="mec_topRated" translatable="false">Rating</string>
+    <string name="mec_priceAscending" translatable="false">Price (Low to High)</string>
+    <string name="mec_priceDescending" translatable="false">Price (High to Low)</string>
+    <string name="mec_discountPriceAscending" translatable="false">Discount Price (Low to High)</string>
+    <string name="mec_discountPriceDescending" translatable="false">Discount Price (High to Low)</string>
 
 
 </resources>
