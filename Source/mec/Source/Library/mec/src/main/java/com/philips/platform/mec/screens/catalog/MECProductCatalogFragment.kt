@@ -191,9 +191,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
             ecsProductViewModel = ViewModelProviders.of(this).get(EcsProductViewModel::class.java)
 
-            ecsProductViewModel.ecsProductsList.observe(viewLifecycleOwner, productObserver)
-            ecsProductViewModel.ecsProductsReviewList.observe(viewLifecycleOwner, productReviewObserver)
-            ecsProductViewModel.mecError.observe(viewLifecycleOwner, this)
+            ecsProductViewModel.ecsProductsList.observe(this, productObserver)
+            ecsProductViewModel.ecsProductsReviewList.observe(this, productReviewObserver)
+            ecsProductViewModel.mecError.observe(this, this)
 
             val bundle = arguments
 
