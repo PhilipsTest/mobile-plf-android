@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Ellenőrizze internetkapcsolatát.</string>
   <string name="mec_checkout">Kijelentkezés</string>
   <string name="mec_choose_address_text">Szállítási cím kiválasztása az alábbi listából</string>
+  <string name="mec_clear">[hu]Clear</string>
+  <string name="mec_clear_filter">[hu]Clear filter(s)</string>
   <string name="mec_confirmation">Jóváhagyás</string>
   <string name="mec_confirmation_email_msg">Hamarosan megerősítő e-mailt kap a következő e-mail címre:</string>
   <string name="mec_contact_details">Kapcsolati adatok</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Kiszállítás</string>
   <string name="mec_delivery_method">Szállítási mód</string>
   <string name="mec_discount">árengedmény</string>
+  <string name="mec_discountPriceAscending">[hu]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[hu]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Bevásárlókosara jelenleg üres</string>
+  <string name="mec_empty_filter_message">[hu]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Amennyiben ezzel az alkalmazással adott le megrendelést, kérjük, ellenőrizze, hogy kapott-e visszaigazoló e-mailt a megrendelésről.</string>
   <string name="mec_enter_code">Ajándékkód megadása</string>
   <string name="mec_faq">GYIK</string>
   <string name="mec_features">Jellemzők</string>
   <string name="mec_fetching_payment">Fizetési adatok betöltése...</string>
+  <string name="mec_filter_title">[hu]Filters</string>
   <string name="mec_first_name">Keresztnév</string>
   <string name="mec_first_name_error">Érvényes keresztnevet adjon meg</string>
   <string name="mec_first_name_hint">Adja meg a keresztnevét</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Érvényes vezetéknevet adjon meg</string>
   <string name="mec_last_name_hint">Adja meg vezetéknevét</string>
   <string name="mec_loading">Betöltés...</string>
+  <string name="mec_low_stock">[hu]Low stock</string>
   <string name="mec_manage_address">Cím kezelése</string>
   <string name="mec_more_info">a további tudnivalókért</string>
   <string name="mec_mr">Úr</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Irányítószám</string>
   <string name="mec_postal_code_error">Érvényes irányítószámot adjon meg</string>
   <string name="mec_postal_code_hint">Adja meg az irányítószámot</string>
+  <string name="mec_priceAscending">[hu]Price (Low to High)</string>
+  <string name="mec_priceDescending">[hu]Price (High to Low)</string>
   <string name="mec_privacy">Adatvédelmi nyilatkozat</string>
   <string name="mec_product_detail_title"> Termékadatok</string>
   <string name="mec_product_title">Termékek</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Szállítási cím</string>
   <string name="mec_shipping_cost">Szállítási költség</string>
   <string name="mec_shopping_cart_title">Kosár</string>
+  <string name="mec_sort_title">[hu]Sort</string>
   <string name="mec_specs">Műszaki adatok</string>
   <string name="mec_state">Állam/Ország</string>
   <string name="mec_state_error">Válassza ki a régiót</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Ez több időt vehet igénybe. Kívánja folytatni?</string>
   <string name="mec_threshold_title">Elérte a kérés küszöbértékét</string>
   <string name="mec_time_out_error">Hálózati időtúllépés!</string>
+  <string name="mec_topRated">[hu]Rating</string>
   <string name="mec_town">Helység/Város</string>
   <string name="mec_town_error">Érvényes várost adjon meg</string>
   <string name="mec_town_hint">Adja meg a várost</string>

@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Перевірте з’єднання з Інтернетом.</string>
   <string name="mec_checkout">Оформлення замовлення</string>
   <string name="mec_choose_address_text">Виберіть адресу доставки зі списку нижче</string>
+  <string name="mec_clear">[uk]Clear</string>
+  <string name="mec_clear_filter">[uk]Clear filter(s)</string>
   <string name="mec_confirmation">Підтвердження</string>
   <string name="mec_confirmation_email_msg">Незабаром Ви отримаєте листа з підтвердженням за електронною адресою</string>
   <string name="mec_contact_details">Контактна інформація</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Доставка</string>
   <string name="mec_delivery_method">Спосіб доставки</string>
   <string name="mec_discount">знижка</string>
+  <string name="mec_discountPriceAscending">[uk]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[uk]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Кошик для покупок наразі порожній</string>
+  <string name="mec_empty_filter_message">[uk]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Якщо Ви розмістили своє замовлення за допомогою цього додатка, перевірте, чи Ви отримали електронного листа для підтвердження замовлення.</string>
   <string name="mec_enter_code">Додайте подарунковий код</string>
   <string name="mec_faq">Часті запитання</string>
   <string name="mec_features">Функції</string>
   <string name="mec_fetching_payment">Отримання реквізитів для оплати...</string>
+  <string name="mec_filter_title">[uk]Filters</string>
   <string name="mec_first_name">Ім\'я</string>
   <string name="mec_first_name_error">Введіть дійсне ім’я</string>
   <string name="mec_first_name_hint">Введіть ім’я</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Введіть дійсне прізвище</string>
   <string name="mec_last_name_hint">Введіть прізвище</string>
   <string name="mec_loading">Завантаження...</string>
+  <string name="mec_low_stock">[uk]Low stock</string>
   <string name="mec_manage_address">Керувати адресами</string>
   <string name="mec_more_info">для додаткової інформації</string>
   <string name="mec_mr">Пан</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Поштовий код</string>
   <string name="mec_postal_code_error">Введіть дійсний поштовий індекс</string>
   <string name="mec_postal_code_hint">Введіть поштовий індекс/код</string>
+  <string name="mec_priceAscending">[uk]Price (Low to High)</string>
+  <string name="mec_priceDescending">[uk]Price (High to Low)</string>
   <string name="mec_privacy">Повідомлення про конфіденційність</string>
   <string name="mec_product_detail_title"> Детальніше про виріб</string>
   <string name="mec_product_title">Вироби</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Адреса доставки</string>
   <string name="mec_shipping_cost">Вартість доставки</string>
   <string name="mec_shopping_cart_title">Кошик</string>
+  <string name="mec_sort_title">[uk]Sort</string>
   <string name="mec_specs">Специфікації</string>
   <string name="mec_state">Штат/область</string>
   <string name="mec_state_error">Виберіть регіон</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Це може зайняти довше часу. Бажаєте продовжити?</string>
   <string name="mec_threshold_title">Досягнено потрібного ліміту</string>
   <string name="mec_time_out_error">Час підключення до мережі вичерпано!</string>
+  <string name="mec_topRated">[uk]Rating</string>
   <string name="mec_town">Населений пункт/місто</string>
   <string name="mec_town_error">Введіть дійсний населений пункт</string>
   <string name="mec_town_hint">Введіть свій населений пункт чи місто</string>

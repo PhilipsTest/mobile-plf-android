@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Vui lòng kiểm tra Kết nối internet của bạn.</string>
   <string name="mec_checkout">Thanh toán</string>
   <string name="mec_choose_address_text">Chọn địa chỉ giao hàng từ danh sách dưới đây</string>
+  <string name="mec_clear">[vi]Clear</string>
+  <string name="mec_clear_filter">[vi]Clear filter(s)</string>
   <string name="mec_confirmation">Xác nhận</string>
   <string name="mec_confirmation_email_msg">Bạn sẽ sớm nhận được email xác nhận tại</string>
   <string name="mec_contact_details">Chi tiết liên hệ</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Giao hàng</string>
   <string name="mec_delivery_method">Phương thức giao hàng</string>
   <string name="mec_discount">chiết khấu</string>
+  <string name="mec_discountPriceAscending">[vi]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[vi]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Giỏ hàng của bạn hiện đang trống</string>
+  <string name="mec_empty_filter_message">[vi]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Nếu bạn đã đặt đơn hàng bằng ứng dụng này, vui lòng kiểm tra để đảm bảo bạn đã nhận được email xác nhận đơn hàng.</string>
   <string name="mec_enter_code">Nhập mã quà tặng</string>
   <string name="mec_faq">Câu hỏi thường gặp</string>
   <string name="mec_features">Đặc điểm</string>
   <string name="mec_fetching_payment">Đang truy xuất chi tiết thanh toán...</string>
+  <string name="mec_filter_title">[vi]Filters</string>
   <string name="mec_first_name">Tên</string>
   <string name="mec_first_name_error">Vui lòng nhập tên hợp lệ</string>
   <string name="mec_first_name_hint">Nhập tên</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Vui lòng nhập họ hợp lệ</string>
   <string name="mec_last_name_hint">Nhập họ</string>
   <string name="mec_loading">Đang tải...</string>
+  <string name="mec_low_stock">[vi]Low stock</string>
   <string name="mec_manage_address">Quản lý địa chỉ</string>
   <string name="mec_more_info">của chúng tôi để biết thêm thông tin</string>
   <string name="mec_mr">Ông</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Mã bưu tín</string>
   <string name="mec_postal_code_error">Vui lòng nhập mã zip hợp lệ</string>
   <string name="mec_postal_code_hint">Nhập mã ZIP/mã bưu tín</string>
+  <string name="mec_priceAscending">[vi]Price (Low to High)</string>
+  <string name="mec_priceDescending">[vi]Price (High to Low)</string>
   <string name="mec_privacy">Thông báo về quyền riêng tư</string>
   <string name="mec_product_detail_title"> Chi tiết sản phẩm</string>
   <string name="mec_product_title">Sản phẩm</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Địa chỉ gửi hàng</string>
   <string name="mec_shipping_cost">Phí vận chuyển</string>
   <string name="mec_shopping_cart_title">Giỏ hàng</string>
+  <string name="mec_sort_title">[vi]Sort</string>
   <string name="mec_specs">Quy cách</string>
   <string name="mec_state">Tỉnh</string>
   <string name="mec_state_error">Vui lòng chọn tỉnh</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Thao tác này có thể nhiều thời gian. Bạn có muốn tiếp tục không?</string>
   <string name="mec_threshold_title">Đã đạt ngưỡng yêu cầu</string>
   <string name="mec_time_out_error">Đã hết thời gian chờ mạng!</string>
+  <string name="mec_topRated">[vi]Rating</string>
   <string name="mec_town">Thị xã/Thành phố</string>
   <string name="mec_town_error">Vui lòng nhập thị xã hợp lệ</string>
   <string name="mec_town_hint">Nhập thị xã hoặc thành phố của bạn</string>

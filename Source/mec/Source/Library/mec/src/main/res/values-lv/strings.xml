@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Lūdzu, pārbaudiet savu interneta savienojumu.</string>
   <string name="mec_checkout">Norēķini</string>
   <string name="mec_choose_address_text">Izvēlieties piegādes adresi no saraksta</string>
+  <string name="mec_clear">[lv]Clear</string>
+  <string name="mec_clear_filter">[lv]Clear filter(s)</string>
   <string name="mec_confirmation">Apstiprinājums</string>
   <string name="mec_confirmation_email_msg">Pēc brīža jūs saņemsit apstiprinājuma e-pasta ziņojumu uz</string>
   <string name="mec_contact_details">Kontaktpersonas informācija</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Piegāde</string>
   <string name="mec_delivery_method">Piegādes veids</string>
   <string name="mec_discount">atlaide</string>
+  <string name="mec_discountPriceAscending">[lv]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[lv]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Jūsu iepirkumu grozs šobrīd ir tukšs</string>
+  <string name="mec_empty_filter_message">[lv]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Ja veicāt pasūtījumu, izmantojot šo lietotni, lūdzu, pārbaudiet, vai esat saņēmis e-pasta ziņu ar pasūtījuma apstiprinājumu.</string>
   <string name="mec_enter_code">Ievadīt dāvanu kodu</string>
   <string name="mec_faq">Bieži uzdotie jautājumi</string>
   <string name="mec_features">Funkcijas</string>
   <string name="mec_fetching_payment">Nolasa maksājuma informāciju...</string>
+  <string name="mec_filter_title">[lv]Filters</string>
   <string name="mec_first_name">Vārds</string>
   <string name="mec_first_name_error">Lūdzu, ievadiet derīgu vārdu</string>
   <string name="mec_first_name_hint">Ievadiet vārdu</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Lūdzu, ievadiet derīgu uzvārdu</string>
   <string name="mec_last_name_hint">Ievadiet uzvārdu</string>
   <string name="mec_loading">Notiek ielāde...</string>
+  <string name="mec_low_stock">[lv]Low stock</string>
   <string name="mec_manage_address">Pārvaldīt adreses</string>
   <string name="mec_more_info">lai iegūtu plašāku informāciju</string>
   <string name="mec_mr">Kgs</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Pasta indekss</string>
   <string name="mec_postal_code_error">Lūdzu, ievadiet derīgu pasta indeksu</string>
   <string name="mec_postal_code_hint">Ievadiet pasta indeksu</string>
+  <string name="mec_priceAscending">[lv]Price (Low to High)</string>
+  <string name="mec_priceDescending">[lv]Price (High to Low)</string>
   <string name="mec_privacy">Paziņojums par konfidencialitāti</string>
   <string name="mec_product_detail_title"> Informācija par produktu</string>
   <string name="mec_product_title">Izstrādājumi</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Nosūtīšanas adrese</string>
   <string name="mec_shipping_cost">Piegādes izmaksas</string>
   <string name="mec_shopping_cart_title">Grozs</string>
+  <string name="mec_sort_title">[lv]Sort</string>
   <string name="mec_specs">Specifikācijas</string>
   <string name="mec_state">Novads</string>
   <string name="mec_state_error">Lūdzu, atlasiet reģionu</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Tas var prasīt vairāk laika. Vai tiešām vēlaties turpināt?</string>
   <string name="mec_threshold_title">Sasniegta pieprasījumu sliekšņa vērtība</string>
   <string name="mec_time_out_error">Sasniegts tīkla taimauts!</string>
+  <string name="mec_topRated">[lv]Rating</string>
   <string name="mec_town">Pilsēta:</string>
   <string name="mec_town_error">Lūdzu, ievadiet derīgu pilsētas nosaukumu</string>
   <string name="mec_town_hint">Ievadiet pilsētas nosaukumu</string>

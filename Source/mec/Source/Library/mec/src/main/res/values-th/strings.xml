@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">โปรดตรวจสอบการเชื่อมต่ออินเตอร์เน็ตของคุณ</string>
   <string name="mec_checkout">ชำระสินค้า</string>
   <string name="mec_choose_address_text">เลือกที่อยู่สำหรับจัดส่งสินค้าจากรายการด้านล่าง</string>
+  <string name="mec_clear">[th]Clear</string>
+  <string name="mec_clear_filter">[th]Clear filter(s)</string>
   <string name="mec_confirmation">การยืนยัน</string>
   <string name="mec_confirmation_email_msg">คุณจะได้รับอีเมล์ยืนยันในไม่ช้าที่</string>
   <string name="mec_contact_details">รายละเอียดของผู้ติดต่อ</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">การจัดส่ง</string>
   <string name="mec_delivery_method">วิธีการจัดส่ง</string>
   <string name="mec_discount">ส่วนลด</string>
+  <string name="mec_discountPriceAscending">[th]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[th]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">ตะกร้าสินค้าของคุณว่างเปล่า</string>
+  <string name="mec_empty_filter_message">[th]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">หากคุณสั่งซื้อด้วยแอปพลิเคชันนี้ กรุณาตรวจสอบว่าคุณได้รับอีเมล์ยืนยันการสั่งซื้อ</string>
   <string name="mec_enter_code">ใส่รหัสของขวัญ</string>
   <string name="mec_faq">คำถามที่พบบ่อย</string>
   <string name="mec_features">คุณสมบัติ</string>
   <string name="mec_fetching_payment">กำลังดึงรายละเอียดการชำระเงิน...</string>
+  <string name="mec_filter_title">[th]Filters</string>
   <string name="mec_first_name">ชื่อ</string>
   <string name="mec_first_name_error">โปรดป้อนชื่อที่ถูกต้อง</string>
   <string name="mec_first_name_hint">ป้อนชื่อ</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">โปรดป้อนนามสกุลที่ถูกต้อง</string>
   <string name="mec_last_name_hint">ป้อนนามสกุล</string>
   <string name="mec_loading">กำลังโหลด..</string>
+  <string name="mec_low_stock">[th]Low stock</string>
   <string name="mec_manage_address">จัดการที่อยู่</string>
   <string name="mec_more_info">สำหรับข้อมูลเพิ่มเติม</string>
   <string name="mec_mr">นาย</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">รหัสไปรษณีย์</string>
   <string name="mec_postal_code_error">โปรดป้อนรหัสไปรษณีย์ที่ถูกต้อง</string>
   <string name="mec_postal_code_hint">ป้อนรหัสไปรษณีย์</string>
+  <string name="mec_priceAscending">[th]Price (Low to High)</string>
+  <string name="mec_priceDescending">[th]Price (High to Low)</string>
   <string name="mec_privacy">ประกาศเกี่ยวกับการคุ้มครองข้อมูลส่วนบุคคล</string>
   <string name="mec_product_detail_title"> รายละเอียดผลิตภัณฑ์</string>
   <string name="mec_product_title">ผลิตภัณฑ์</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">ที่อยู่สำหรับจัดส่งสินค้า</string>
   <string name="mec_shipping_cost">ค่าจัดส่ง</string>
   <string name="mec_shopping_cart_title">รถเข็น</string>
+  <string name="mec_sort_title">[th]Sort</string>
   <string name="mec_specs">ข้อมูลจำเพาะ</string>
   <string name="mec_state">รัฐ</string>
   <string name="mec_state_error">โปรดเลือกรัฐ</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">นี่อาจต้องใช้เวลามากขึ้น คุณต้องการดำเนินการต่อหรือไม่</string>
   <string name="mec_threshold_title">ถึงเกณฑ์การร้องขอแล้ว</string>
   <string name="mec_time_out_error">เครือข่ายหมดเวลา!</string>
+  <string name="mec_topRated">[th]Rating</string>
   <string name="mec_town">เมือง</string>
   <string name="mec_town_error">โปรดป้อนเมืองที่ถูกต้อง</string>
   <string name="mec_town_hint">ป้อนเมืองหรือเขตของคุณ</string>

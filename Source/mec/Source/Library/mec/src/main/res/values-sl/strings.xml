@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Preverite internetno povezavo.</string>
   <string name="mec_checkout">Zaključek naročila</string>
   <string name="mec_choose_address_text">Izberite naslov za dostavo s spodnjega seznama</string>
+  <string name="mec_clear">[sl]Clear</string>
+  <string name="mec_clear_filter">[sl]Clear filter(s)</string>
   <string name="mec_confirmation">Potrditev</string>
   <string name="mec_confirmation_email_msg">Kmalu boste prejeli potrditveno e-poštno sporočilo na naslov</string>
   <string name="mec_contact_details">Podrobnosti stika</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Dostava</string>
   <string name="mec_delivery_method">Način dostave</string>
   <string name="mec_discount">popust</string>
+  <string name="mec_discountPriceAscending">[sl]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[sl]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Vaša nakupovalna košarica je trenutno prazna</string>
+  <string name="mec_empty_filter_message">[sl]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Če ste oddali naročilo s to aplikacijo, preverite, ali ste prejeli e-poštno obvestilo o potrditvi naročila.</string>
   <string name="mec_enter_code">Vnesite darilno kodo</string>
   <string name="mec_faq">Pogosta vprašanja</string>
   <string name="mec_features">Značilnosti</string>
   <string name="mec_fetching_payment">Pridobivanje podatkov o plačilu ...</string>
+  <string name="mec_filter_title">[sl]Filters</string>
   <string name="mec_first_name">Ime</string>
   <string name="mec_first_name_error">Vnesite veljavno ime</string>
   <string name="mec_first_name_hint">Vnesite ime</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Vnesite veljaven priimek</string>
   <string name="mec_last_name_hint">Vnesite priimek</string>
   <string name="mec_loading">Nalaganje ...</string>
+  <string name="mec_low_stock">[sl]Low stock</string>
   <string name="mec_manage_address">Upravljanje naslova</string>
   <string name="mec_more_info">za dodatne inf.</string>
   <string name="mec_mr">G.</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Poštna številka</string>
   <string name="mec_postal_code_error">Vnesite veljavno poštno številko</string>
   <string name="mec_postal_code_hint">Vnesite poštno številko</string>
+  <string name="mec_priceAscending">[sl]Price (Low to High)</string>
+  <string name="mec_priceDescending">[sl]Price (High to Low)</string>
   <string name="mec_privacy">Obv. o zasebnosti</string>
   <string name="mec_product_detail_title"> Podrobnosti izdelka</string>
   <string name="mec_product_title">Izdelki</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Naslov za pošiljanje</string>
   <string name="mec_shipping_cost">Stroški pošiljke</string>
   <string name="mec_shopping_cart_title">Košarica</string>
+  <string name="mec_sort_title">[sl]Sort</string>
   <string name="mec_specs">Specifikacije</string>
   <string name="mec_state">Zvezna država</string>
   <string name="mec_state_error">Izberite državo</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">To lahko traja še nekaj časa. Želite nadaljevati?</string>
   <string name="mec_threshold_title">Dosežen je bil prag zahtev</string>
   <string name="mec_time_out_error">Dosežena je časovna omejitev omrežja.</string>
+  <string name="mec_topRated">[sl]Rating</string>
   <string name="mec_town">Mesto/kraj</string>
   <string name="mec_town_error">Vnesite veljavno mesto</string>
   <string name="mec_town_hint">Vnesite mesto ali kraj</string>

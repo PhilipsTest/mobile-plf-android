@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Verifică-ţi conexiunea la internet.</string>
   <string name="mec_checkout">Procesare plată</string>
   <string name="mec_choose_address_text">Alege adresa de expediere din lista de mai jos</string>
+  <string name="mec_clear">[ro]Clear</string>
+  <string name="mec_clear_filter">[ro]Clear filter(s)</string>
   <string name="mec_confirmation">Confirmare</string>
   <string name="mec_confirmation_email_msg">Vei primi în scurt timp un e-mail de confirmare la</string>
   <string name="mec_contact_details">Detalii de contact</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Livrare</string>
   <string name="mec_delivery_method">Metodă de livrare</string>
   <string name="mec_discount">reducere</string>
+  <string name="mec_discountPriceAscending">[ro]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[ro]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Coşul tău de cumpărături este gol momentan</string>
+  <string name="mec_empty_filter_message">[ro]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Dacă ai plasat comanda folosind această aplicaţie, verifică dacă ai primit un e-mail de confirmare a comenzii.</string>
   <string name="mec_enter_code">Introdu codul cadou</string>
   <string name="mec_faq">Întrebări</string>
   <string name="mec_features">Caracteristici</string>
   <string name="mec_fetching_payment">Se preiau detaliile plăţii...</string>
+  <string name="mec_filter_title">[ro]Filters</string>
   <string name="mec_first_name">Prenume</string>
   <string name="mec_first_name_error">Introdu un prenume valid</string>
   <string name="mec_first_name_hint">Introdu prenumele</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Introdu un nume valid</string>
   <string name="mec_last_name_hint">Introdu numele</string>
   <string name="mec_loading">Se încarcă...</string>
+  <string name="mec_low_stock">[ro]Low stock</string>
   <string name="mec_manage_address">Gestionare adresă</string>
   <string name="mec_more_info">pentru mai multe informaţii</string>
   <string name="mec_mr">Dl</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Cod poştal</string>
   <string name="mec_postal_code_error">Introdu un cod poştal valid</string>
   <string name="mec_postal_code_hint">Introdu codul poştal</string>
+  <string name="mec_priceAscending">[ro]Price (Low to High)</string>
+  <string name="mec_priceDescending">[ro]Price (High to Low)</string>
   <string name="mec_privacy">Notificarea de confidenţialitate</string>
   <string name="mec_product_detail_title"> Detalii produs</string>
   <string name="mec_product_title">Produse</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Adresă de livrare</string>
   <string name="mec_shipping_cost">Cost de expediere</string>
   <string name="mec_shopping_cart_title">Coş de cumpărături</string>
+  <string name="mec_sort_title">[ro]Sort</string>
   <string name="mec_specs">Specificaţii</string>
   <string name="mec_state">Stat</string>
   <string name="mec_state_error">Selectează un judeţ</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Aceasta poate dura mai mult timp. Doreşti să continui?</string>
   <string name="mec_threshold_title">Pragul de solicitare a fost atins</string>
   <string name="mec_time_out_error">A fost atins timpul de expirare a conexiunii la reţea!</string>
+  <string name="mec_topRated">[ro]Rating</string>
   <string name="mec_town">Localitate/Oraş</string>
   <string name="mec_town_error">Introdu un oraş valid</string>
   <string name="mec_town_hint">Introdu oraşul sau localitatea</string>

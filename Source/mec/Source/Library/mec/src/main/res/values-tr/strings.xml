@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Lütfen İnternet Bağlantınızı kontrol edin.</string>
   <string name="mec_checkout">Alışverişi bitir</string>
   <string name="mec_choose_address_text">Aşağıdaki listeden bir Teslimat Adresi seçin</string>
+  <string name="mec_clear">[tr]Clear</string>
+  <string name="mec_clear_filter">[tr]Clear filter(s)</string>
   <string name="mec_confirmation">Onay</string>
   <string name="mec_confirmation_email_msg">Kısa süre sonra şu adrese bir onay e-postası alacaksınız:</string>
   <string name="mec_contact_details">İletişim ayrıntıları</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Teslimat</string>
   <string name="mec_delivery_method">Teslimat Yöntemi</string>
   <string name="mec_discount">indirim</string>
+  <string name="mec_discountPriceAscending">[tr]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[tr]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Alışveriş sepetinizde ürün bulunmamaktadır</string>
+  <string name="mec_empty_filter_message">[tr]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Siparişinizi bu uygulama üzerinden verdiyseniz lütfen sipariş onay e-postası alıp almadığınızı kontrol edin.</string>
   <string name="mec_enter_code">Hediye kodu gir</string>
   <string name="mec_faq">Sıkça Sorulan Sorular</string>
   <string name="mec_features">Özellikler</string>
   <string name="mec_fetching_payment">Ödeme Ayrıntıları Alınıyor...</string>
+  <string name="mec_filter_title">[tr]Filters</string>
   <string name="mec_first_name">Adı</string>
   <string name="mec_first_name_error">Lütfen geçerli bir ad yazın</string>
   <string name="mec_first_name_hint">Adınızı girin</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Lütfen geçerli bir soyad yazın</string>
   <string name="mec_last_name_hint">Soyadınızı girin</string>
   <string name="mec_loading">Yükleniyor...</string>
+  <string name="mec_low_stock">[tr]Low stock</string>
   <string name="mec_manage_address">Adresi Yönet</string>
   <string name="mec_more_info">okuyun.</string>
   <string name="mec_mr">Bay</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Posta kodu</string>
   <string name="mec_postal_code_error">Lütfen geçerli bir Posta Kodu yazın</string>
   <string name="mec_postal_code_hint">Posta kodunu girin</string>
+  <string name="mec_priceAscending">[tr]Price (Low to High)</string>
+  <string name="mec_priceDescending">[tr]Price (High to Low)</string>
   <string name="mec_privacy">Gizlilik Bildirimimizi</string>
   <string name="mec_product_detail_title"> Ürün detayları</string>
   <string name="mec_product_title">Ürünler</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Teslimat adresi</string>
   <string name="mec_shipping_cost">Nakliye masrafı</string>
   <string name="mec_shopping_cart_title">Sepet</string>
+  <string name="mec_sort_title">[tr]Sort</string>
   <string name="mec_specs">Teknik Özellikler</string>
   <string name="mec_state">Eyalet</string>
   <string name="mec_state_error">Lütfen bir il seçin</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Bu biraz zaman alabilir. Devam etmek istiyor musunuz?</string>
   <string name="mec_threshold_title">Talep eşiğine erişildi</string>
   <string name="mec_time_out_error">Ağ zaman aşımına uğradı!</string>
+  <string name="mec_topRated">[tr]Rating</string>
   <string name="mec_town">Semt/Şehir</string>
   <string name="mec_town_error">Lütfen geçerli bir semt yazın</string>
   <string name="mec_town_hint">Semtinizi veya şehrinizi girin</string>

@@ -47,6 +47,8 @@
     <string name="mec_check_internet_connection">Please check your Internet Connection.</string>
     <string name="mec_checkout">Checkout</string>
     <string name="mec_choose_address_text">Choose Shipping Address from below list</string>
+    <string name="mec_clear">Clear</string>
+    <string name="mec_clear_filter">Clear filter(s)</string>
     <string name="mec_confirmation">Confirmation</string>
     <string name="mec_confirmation_email_msg">You will receive a confirmation e-mail shortly at</string>
     <string name="mec_contact_details">Contact details</string>
@@ -66,12 +68,16 @@
     <string name="mec_delivery">Delivery</string>
     <string name="mec_delivery_method">Delivery Method</string>
     <string name="mec_discount">discount</string>
+    <string name="mec_discountPriceAscending">Discount Price (Low to High)</string>
+    <string name="mec_discountPriceDescending">Discount Price (High to Low)</string>
     <string name="mec_empty_cart">Your shopping cart is currently empty.</string>
+    <string name="mec_empty_filter_message">We couldn\'t find any products with all the filters you’ve selected.</string>
     <string name="mec_empty_purchase_history">If you placed your order using this app, please check that you have received an order confirmation email.</string>
     <string name="mec_enter_code">Enter gift code</string>
     <string name="mec_faq">FAQ</string>
     <string name="mec_features">Features</string>
     <string name="mec_fetching_payment">Fetching Payment Details...</string>
+    <string name="mec_filter_title">Filters</string>
     <string name="mec_first_name">First name</string>
     <string name="mec_first_name_error">Please enter a valid first name</string>
     <string name="mec_first_name_hint">Enter first name</string>
@@ -87,6 +93,7 @@
     <string name="mec_last_name_error">Please enter a valid last name</string>
     <string name="mec_last_name_hint">Enter last name</string>
     <string name="mec_loading">Loading..</string>
+    <string name="mec_low_stock">Low stock</string>
     <string name="mec_manage_address">Manage Address</string>
     <string name="mec_more_info">for more info</string>
     <string name="mec_mr">Mr</string>
@@ -131,6 +138,8 @@
     <string name="mec_postal_code">Postal code</string>
     <string name="mec_postal_code_error">Please enter a valid Zip Code</string>
     <string name="mec_postal_code_hint">Enter ZIP/Postal code</string>
+    <string name="mec_priceAscending">Price (Low to High)</string>
+    <string name="mec_priceDescending">Price (High to Low)</string>
     <string name="mec_privacy">Privacy Notice</string>
     <string name="mec_product_detail_title">Product details</string>
     <string name="mec_product_title">Products</string>
@@ -148,6 +157,7 @@
     <string name="mec_shipping_address">Shipping address</string>
     <string name="mec_shipping_cost">Shipping cost</string>
     <string name="mec_shopping_cart_title">Cart</string>
+    <string name="mec_sort_title">Sort</string>
     <string name="mec_specs">Specs</string>
     <string name="mec_state">State</string>
     <string name="mec_state_error">Please select a state</string>
@@ -157,6 +167,7 @@
     <string name="mec_threshold_message">This might take more time. Do you wish to continue?</string>
     <string name="mec_threshold_title">Request threshold reached</string>
     <string name="mec_time_out_error">Network timeout reached!</string>
+    <string name="mec_topRated">Rating</string>
     <string name="mec_town">Town/City</string>
     <string name="mec_town_error">Please enter a valid town</string>
     <string name="mec_town_hint">Enter your town or city</string>
@@ -176,17 +187,7 @@
     <string name="mec_empty_space" translatable="false">&#160;</string>
     <string name="mec_colon" translatable="false">&#58;</string>
     <string name="mec_bazaarVoice_link" translatable="false">http://www.bazaarvoice.com/trustmark</string>
-    <string name="mec_filter_title" translatable="false">Filters</string>
-    <string name="mec_sort_title" translatable="false">Sort</string>
-    <string name="mec_low_stock" translatable="false">Low Stock</string>
-    <string name="mec_clear" translatable="false">Clear</string>
-    <string name="mec_empty_filter_message" translatable="false">We couldn\'t find any products with all the filters you’ve selected.</string>
-    <string name="mec_clear_filter" translatable="false">Clear filter(s)</string>
-    <string name="mec_topRated" translatable="false">Rating</string>
-    <string name="mec_priceAscending" translatable="false">Price (Low to High)</string>
-    <string name="mec_priceDescending" translatable="false">Price (High to Low)</string>
-    <string name="mec_discountPriceAscending" translatable="false">Discount Price (Low to High)</string>
-    <string name="mec_discountPriceDescending" translatable="false">Discount Price (High to Low)</string>
+
 
 
 </resources>
