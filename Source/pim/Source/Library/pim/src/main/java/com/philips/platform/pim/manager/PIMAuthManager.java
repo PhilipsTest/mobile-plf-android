@@ -89,6 +89,7 @@ public class PIMAuthManager {
         AuthorizationRequest authorizationRequest = authRequestBuilder
                 .setScope(getScopes())
                 .setAdditionalParameters(parameter)
+                .setPrompt(PIMSettingManager.getInstance().getPimLaunchFlow().pimLaunchFlow)
                 .build();
 
         return authorizationRequest;

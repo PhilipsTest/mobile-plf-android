@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
+    android:orientation="vertical"
     android:layout_margin="4dp">
 
     <TextView
         android:id="@+id/pim_txtview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
@@ -18,52 +19,122 @@
         android:textColor="@color/uidColorBlack"
         android:text="UDI Demo App" />
 
-    <Switch
-        android:id="@+id/enableMigrationSwitch"
-        android:layout_below="@id/pim_txtview"
-        android:text="Test Migration"
-        android:switchPadding="20dp"
-        android:layout_margin="5dp"
-        android:textSize="14sp"
-        android:textColor="@color/uidColorBlack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
 
-    <CheckBox
-        android:id="@+id/pim_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/enableMigrationSwitch"
-        android:layout_margin="5dp"
-        android:textSize="14dp"
-        android:checked="false"
-        android:paddingStart="30dp"
-        android:layoutDirection="rtl"
-        android:text="Enable Chuck"/>
+        <Switch
+            android:id="@+id/enableMigrationSwitch"
+            android:text="Test Migration"
+            android:switchPadding="20dp"
+            android:layout_margin="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/uidColorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
-    <Spinner
-        android:id="@+id/selectLibrary"
-        android:spinnerMode="dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pim_checkbox"
-        android:layout_marginLeft="5dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <CheckBox
+            android:id="@+id/pim_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:textSize="14dp"
+            android:checked="false"
+            android:paddingStart="30dp"
+            android:layoutDirection="rtl"
+            android:text="Enable Chuck"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:textColor="@color/uidColorBlack"
+            android:text="Login FLow"
+            android:textSize="14dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <Spinner
+            android:elevation="50dp"
+            android:id="@+id/spinner_LaunchFlow"
+            android:spinnerMode="dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinner_CountrySelection"
+            android:layout_marginLeft="30dp" />
+
+    </LinearLayout>
 
 
-    <Spinner
-        android:id="@+id/spinner_CountrySelection"
-        android:spinnerMode="dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/selectLibrary"
-        android:layout_marginLeft="5dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:textColor="@color/uidColorBlack"
+            android:text="Country Selection"
+            android:textSize="14dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <Spinner
+            android:elevation="20dp"
+            android:id="@+id/spinner_CountrySelection"
+            android:spinnerMode="dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selectLibrary"
+            android:layout_marginLeft="30dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:elevation="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:textColor="@color/uidColorBlack"
+            android:text="Registration Component"
+            android:textSize="14dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/selectLibrary"
+            android:spinnerMode="dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp" />
+
+    </LinearLayout>
 
     <com.philips.platform.uid.view.widget.Button
         android:id="@+id/launch"
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinner_CountrySelection"
-        android:layout_centerHorizontal="true"
         android:layout_margin="5dp"
         android:text="Launch Registration" />
 
@@ -74,4 +145,4 @@
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
-</RelativeLayout>
+</LinearLayout>

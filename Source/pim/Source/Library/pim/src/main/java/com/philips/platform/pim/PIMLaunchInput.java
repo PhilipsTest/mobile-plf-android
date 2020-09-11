@@ -21,6 +21,7 @@ public class PIMLaunchInput extends UappLaunchInput {
 
     private static final long serialVersionUID = 1355617433017768480L;
     private UserLoginListener userLoginListener;
+    private PIMLaunchFlow pimLaunchFlow;
 
     private HashMap<PIMParameterToLaunchEnum, Object> parameterToLaunch;
 
@@ -40,4 +41,11 @@ public class PIMLaunchInput extends UappLaunchInput {
         this.parameterToLaunch = parameterToLaunch;
     }
 
+    public void setPIMLaunchFlow(PIMLaunchFlow pimLaunchFlow) {
+        this.pimLaunchFlow = pimLaunchFlow;
+    }
+
+    public PIMLaunchFlow getPimLaunchFlow() {
+        return pimLaunchFlow;
+    }
 }

@@ -188,6 +188,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
     }
 
     private void launchAsFragment(FragmentLauncher uiLauncher, PIMLaunchInput pimLaunchInput) {
+        PIMSettingManager.getInstance().setPimLaunchFlow(pimLaunchInput.getPimLaunchFlow());
         PIMFragment pimFragment = new PIMFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(PIM_KEY_CONSENTS, pimLaunchInput.getParameterToLaunch());
@@ -210,6 +211,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
             intent.putExtra(PIM_KEY_ACTIVITY_THEME, uiLauncher.getUiKitTheme());
             intent.putExtra(PIM_KEY_CONSENTS, pimLaunchInput.getParameterToLaunch());
             PIMSettingManager.getInstance().setUserLoginInerface(this);
+            PIMSettingManager.getInstance().setPimLaunchFlow(pimLaunchInput.getPimLaunchFlow());
             uiLauncher.getActivityContext().startActivity(intent);
         }
     }

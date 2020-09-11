@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class PimDemoActivity extends UIDLangPackActivity {
 
-    private Spinner selectLibrary, spinnerCountrySelection;
+    private Spinner selectLibrary, spinnerCountrySelection,spinnerLaunchFLow;
     private CheckBox enableChuck;
     private Switch enableMigrationSwitch;
     private AppInfraInterface appInfraInterface;
@@ -52,6 +52,7 @@ public class PimDemoActivity extends UIDLangPackActivity {
         ininitalizeView();
         updateLibraryListData();
         updateCountryListData();
+        updateLaunchFlowData();
 
         mContext = getApplicationContext();
         appInfraInterface = ((PimDemoApplication) mContext).getAppInfra();
@@ -92,6 +93,7 @@ public class PimDemoActivity extends UIDLangPackActivity {
         enableChuck = findViewById(R.id.pim_checkbox);
         selectLibrary = findViewById(R.id.selectLibrary);
         spinnerCountrySelection = findViewById(R.id.spinner_CountrySelection);
+        spinnerLaunchFLow = findViewById(R.id.spinner_LaunchFlow);
         enableMigrationSwitch = findViewById(R.id.enableMigrationSwitch);
         enableMigrationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -110,7 +112,9 @@ public class PimDemoActivity extends UIDLangPackActivity {
             public void onClick(View v) {
                 Log.d(TAG, "launchUApp clicked : " + appInfraInterface.getServiceDiscovery().getHomeCountry());
                 saveChuckInSharedPrefs();
-                launchPIMDemoUapp(null);
+                Bundle bundle = new Bundle();
+                bundle.putString("LaunchFlow",spinnerLaunchFLow.getSelectedItem().toString());
+                launchPIMDemoUapp(bundle);
             }
         });
 
@@ -157,6 +161,25 @@ public class PimDemoActivity extends UIDLangPackActivity {
                     homeCountryCode = countrycode;
                     initPIMDemoUApp(countrycode);
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void updateLaunchFlowData(){
+        List<String> launchFlowList = new ArrayList<>();
+        launchFlowList.add("LOGIN");
+        launchFlowList.add("CREATE");
+        PIMSpinnerAdapter arrayAdapter = new PIMSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, launchFlowList);
+        spinnerLaunchFLow.setAdapter(arrayAdapter);
+        spinnerLaunchFLow.setSelection(0, false);
+        spinnerLaunchFLow.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "selected launch flow" + launchFlowList.get(position));
             }
 
             @Override
