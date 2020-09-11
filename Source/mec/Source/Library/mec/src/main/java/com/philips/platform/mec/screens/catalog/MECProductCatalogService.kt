@@ -34,4 +34,8 @@ class MECProductCatalogService {
         return filter.sortType == null && filter.stockLevelSet?.isEmpty() == true
     }
 
+    fun isSameDataClass(originalProductFilter: ProductFilter,modifiedProductFilter: ProductFilter) : Boolean{
+        return originalProductFilter == modifiedProductFilter
+    }
+
 }
