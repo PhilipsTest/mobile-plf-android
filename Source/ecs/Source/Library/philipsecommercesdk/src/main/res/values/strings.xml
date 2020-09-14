@@ -72,5 +72,7 @@
   <string name="ECSsessionCart">Please select your delivery address, delivery mode and payment method before submitting an order</string>
   <string name="ECSsomethingWentWrong">We have encountered technical glitch. Please try after some time</string>
   <string name="ECSunsupported_grant_type">We have encountered technical glitch (Unsupported grant type). Please re-login</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset" translatable="false"> Please provide valid offset </string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit" translatable="false"> "Please provide valid limit" </string>
 
 </resources>
