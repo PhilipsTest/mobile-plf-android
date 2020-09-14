@@ -10,22 +10,31 @@
 package com.philips.platform.ccb.fragment
 
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Browser
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.target.Target
 import com.google.gson.Gson
+import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.ccb.R.layout
 import com.philips.platform.ccb.analytics.CCBAnalytics
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.ccbConversationalFragment
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.closeChat
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.exitlinkname
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.resetChat
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.sendData
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.setError
@@ -45,7 +54,11 @@ import com.philips.platform.ccb.model.CCBActivities
 import com.philips.platform.ccb.model.CCBMessage
 import com.philips.platform.ccb.model.CCBUser
 import com.philips.platform.ccb.util.CCBLog
+import com.philips.platform.ccb.util.CCBUtils
+import io.noties.markwon.AbstractMarkwonPlugin
+import io.noties.markwon.LinkResolver
 import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonConfiguration
 import io.noties.markwon.image.AsyncDrawable
 import io.noties.markwon.image.glide.GlideImagesPlugin
 import kotlinx.android.synthetic.main.ccb_bot_response_layout.view.*
@@ -55,12 +68,7 @@ import kotlinx.android.synthetic.main.ccb_fragment.view.*
 import kotlinx.android.synthetic.main.ccb_user_response_layout.view.*
 import kotlinx.android.synthetic.main.ccb_waiting_layout.view.*
 import net.frakbot.jumpingbeans.JumpingBeans
-import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.util.*
+
 
 class CCBConversationalFragment : Fragment(), BotResponseListener {
 
@@ -72,13 +80,13 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     private lateinit var watingResponseView: View
     private lateinit var jumpingBeans: JumpingBeans
     private var mLoggingInterface: LoggingInterface? = null
+    private var mAppInfraInterface: AppInfraInterface? = null
     private var ccbDeviceUtility: CCBDeviceUtility? = null
     private var postInProgress : Boolean = false
     private var onOpen : Boolean = true
     private var response :String = ""
-    private lateinit var botResponseTime :String
-    private lateinit var userResponseTime :String
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    private var botResponseTime :Long = 0
+    private var userResponseTime :Long = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -94,6 +102,8 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         ccbWebSocketConnection.setBotResponseListener(this)
 
         mLoggingInterface = CCBSettingsManager.mLoggingInterface
+
+        mAppInfraInterface = CCBSettingsManager.mAppInfraInterface
 
         initViewListener()
 
@@ -238,6 +248,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         }
     }
 
+
     private fun displayMessage(jsonResponse: String) {
         try {
             val botResponseData = Gson().fromJson(jsonResponse, CCBMessage::class.java)
@@ -279,40 +290,66 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
             view.user_response_text.text = text
             rootView.ccb_recentchat_view.addView(view)
             rootView.avatarIV.visibility = View.INVISIBLE
-            userResponseTime = simpleDateFormat.format(Date())
-            val dates = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            val date1: Date = dates.parse(botResponseTime);
-            val date2: Date = dates.parse(userResponseTime);
-            val timeDifference: Long = Math.abs(date1.time - date2.time)
-            val differenceDates = timeDifference / (24 * 60 * 60 * 1000)
-            val difference = (differenceDates)
-            CCBAnalytics.trackAction(sendData,timestamp,difference.toString())
+            userResponseTime = System.currentTimeMillis()
+            val timeDifference: Long = Math.abs(userResponseTime - botResponseTime)
+            CCBAnalytics.trackAction(sendData,timestamp, timeDifference.toString())
         }
     }
 
     private fun displayBotRespon(msg: String) {
         this.activity?.runOnUiThread {
             val view = layoutInflater.inflate(layout.ccb_bot_response_layout, rootView.ccb_recentchat_view, false)
-
             context?.let {
-                val markwon = Markwon.builder(it).usePlugin(GlideImagesPlugin.create(object : GlideImagesPlugin.GlideStore {
-                    override fun cancel(target: Target<*>) {
-                        Glide.with(it).clear(target);
-                    }
+                val markwon = Markwon.builder(it)
+                        .usePlugin(object : AbstractMarkwonPlugin() {
+                            override fun configureConfiguration(@NonNull builder: MarkwonConfiguration.Builder) {
+                                // own instance of resolver, will be called for all links in your markdown
+                                builder.linkResolver(object : LinkResolver {
+                                    override fun resolve(view: View, link: String) {
+                                        val uri: Uri = Uri.parse(link)
+                                        val context: Context = view.context
+                                        val intent = Intent(Intent.ACTION_VIEW, uri)
+                                        intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.getPackageName())
+                                        try {
+                                            if(link.contains("philips")) {
+                                                tagPhilipsLink(link)
+                                            } else if(link.contains("youtube")){
+                                                CCBAnalytics.mAppTaggingInterface?.trackVideoStart("Tagging_trackVideoStart")
+                                                CCBAnalytics.trackAction(sendData,exitlinkname,link)
+                                            } else {
+                                                CCBAnalytics.trackAction(sendData,exitlinkname,link)
+                                            }
+                                            context.startActivity(intent)
+                                        } catch (e: ActivityNotFoundException) {
+                                            CCBLog.d("LinkResolver", "Actvity was not found for intent, " + intent.toString())
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                        .usePlugin(GlideImagesPlugin.create(object : GlideImagesPlugin.GlideStore {
+                            override fun cancel(target: Target<*>) {
+                                Glide.with(it).clear(target)
+                            }
 
-                    override fun load(drawable: AsyncDrawable): RequestBuilder<Drawable> {
-                        view.bot_response_imageview.visibility = View.VISIBLE
-                        val request = Glide.with(it).load(drawable.getDestination())
-                        return request
-                    }
-                }
-                )).build()
+                            override fun load(drawable: AsyncDrawable): RequestBuilder<Drawable> {
+                                view.bot_response_imageview.visibility = View.VISIBLE
+                                val request = Glide.with(it).load(drawable.getDestination())
+                                return request
+                            }
+                        }))
+                        .build()
 
                 markwon.setMarkdown(view.bot_response_text, msg)
             }
             rootView.ccb_recentchat_view.addView(view)
             rootView.avatarIV.visibility = View.VISIBLE
         }
+    }
+
+    private fun tagPhilipsLink(link: String) {
+        val tagUrl = CCBUtils.getPhilipsFormattedUrl(link)
+        CCBAnalytics.trackAction(sendData, exitlinkname, tagUrl.toString())
     }
 
     private fun waitForBotResponse() {
@@ -351,7 +388,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                         postMessage(button.title)
                     }
                     rootView.ccb_actionbutton_view.addView(view)
-                    botResponseTime = simpleDateFormat.format(Date())
+                    botResponseTime = System.currentTimeMillis()
                 }
             }
         }

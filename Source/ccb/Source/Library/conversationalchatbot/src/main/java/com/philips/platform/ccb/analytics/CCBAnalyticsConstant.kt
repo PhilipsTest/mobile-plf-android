@@ -5,8 +5,6 @@ object CCBAnalyticsConstant {
     val COMPONENT_NAME               = "ccb"
     val ccbConversationalFragment    = "CCBConversationalFragment"
     val sendData                     = "sendData"
-    val country                      = "country"
-    val productModel                 = "productModel"
     val question                     = "question"
     val answerMultiple               = "answerMultiple"
     val specialEvents                = "specialEvents"
@@ -17,5 +15,7 @@ object CCBAnalyticsConstant {
     val setError                     = "setError"
     val technicalError               = "technicalError"
     val timestamp                    = "timestamp"
+    val exitlinkname                 = "exitlinkname"
+    val exitlinkparameter            = "15_global_%s_%s-app_%s-app"
 
 }

@@ -11,16 +11,12 @@ class CCBAnalytics {
     companion object {
         private val TAG: String = CCBAnalytics::class.java.simpleName
 
-        val defaultLocale: String = "en_US"
         var mAppTaggingInterface: AppTaggingInterface? = null
-        var previousPageName = "uniquePageName";
-        var countryCode = ""
 
         @JvmStatic
         fun initCCBAnalytics(dependencies: UappDependencies) {
             try {
                 mAppTaggingInterface = dependencies.appInfra.tagging.createInstanceForComponent(CCBAnalyticsConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME)
-                countryCode = dependencies.appInfra.serviceDiscovery.homeCountry
             } catch (e: Exception) {
                 CCBLog.d(TAG, "Exception :" + e.message);
             }
