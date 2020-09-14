@@ -420,10 +420,10 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
 
         val deliveryMode = mECSShoppingCart?.data?.attributes?.deliveryMode
-
-        deliveryMode?.let {
+        val isCollectionPoint = deliveryMode?.collectionPoint
+        if(isCollectionPoint == false){
             bundle.putParcelable(MECConstant.KEY_ECS_SHOPPING_CART,mECSShoppingCart)
-        }?:run {
+        }else{
             MECAnalytics.trackUserError(getString(R.string.mec_no_delivery_mode_error_message))
             activity?.supportFragmentManager?.let { MECutility.showErrorDialog(binding.mecPaymentRecyclerView.context, it, getString(R.string.mec_ok), getString(R.string.mec_delivery_method), R.string.mec_no_delivery_mode_error_message) }
             return
