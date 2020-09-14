@@ -34,6 +34,7 @@ import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalyticServer.prx
 import com.philips.platform.mec.analytics.MECAnalyticServer.wtb
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotification
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotificationresponse
@@ -253,8 +254,8 @@ class MECutility {
 
         fun stockStatus(availability: String): String {
             return when (availability) {
-                "YES" -> "available"
-                "NO" -> "out of stock"
+                "YES" -> MECAnalyticsConstant.AVAILABLE
+                "NO" -> MECAnalyticsConstant.OUT_OF_STOCK
                 else -> ""
             }
         }
