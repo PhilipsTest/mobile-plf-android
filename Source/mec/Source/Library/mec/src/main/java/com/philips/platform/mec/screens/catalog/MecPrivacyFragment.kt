@@ -48,15 +48,17 @@ class MecPrivacyFragment : MecBaseFragment() {
         val group = inflater.inflate(R.layout.mec_web_fragment, container, false) as ViewGroup
         mProgressBar = group.findViewById(R.id.mec_progress_bar_container) as FrameLayout
         showProgressBar(mProgressBar)
-        mUrl = arguments!!.getString(MECConstant.MEC_PRIVACY_URL)
+        mUrl = arguments?.getString(MECConstant.MEC_PRIVACY_URL)
         initializeWebView(group)
         return group
     }
 
     override fun onResume() {
         super.onResume()
-        setTitleAndBackButtonVisibility(getString(R.string.mec_privacy), true)
-        mWebView!!.onResume()
+        setCartIconVisibility(false)
+        val title = arguments?.getString(MECConstant.MEC_PRIVACY_TITLE)
+        title?.let { setTitleAndBackButtonVisibility(it, true) }
+        mWebView?.onResume()
     }
 
     override fun onStop() {

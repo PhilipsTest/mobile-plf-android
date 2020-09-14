@@ -332,7 +332,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             }
 
             adapter.emptyView = binding.mecEmptyResult
-            adapter.emptyView = binding.mecEmptyFilterResult
 
             mRootView = binding.root
 
@@ -460,6 +459,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     private fun showPrivacyFragment() {
         val bundle = Bundle()
+        bundle.putString(MECConstant.MEC_PRIVACY_TITLE, getString(R.string.mec_privacy))
         bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getPrivacyUrl())
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle

@@ -52,6 +52,7 @@ object MECConstant {
     val MEC_PRODUCT = "mec_product"
     val MEC_KEY_RETAILERS = "mec_key_product"
     val MEC_PRODUCT_CTN = "mec_product_ctn"
+    val MEC_PRIVACY_TITLE = "MEC_PRIVACY_TITLE";
     val MEC_PRIVACY_URL = "MEC_PRIVACY_URL";
     val MEC_TRACK_ORDER_URL = "MEC_TRACK_ORDER_URL";
     val MEC_SHOPPING_CART = "MEC_SHOPPING_CART";
