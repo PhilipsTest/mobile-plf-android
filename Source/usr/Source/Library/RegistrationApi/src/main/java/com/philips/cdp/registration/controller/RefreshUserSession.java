@@ -141,7 +141,8 @@ public class RefreshUserSession implements RefreshLoginSessionHandler, JumpFlowD
     @Override
     public void onRefreshLoginSessionSuccess() {
         RLog.d(TAG, "onRefreshLoginSessionSuccess : is called");
-        if (RegistrationConfiguration.getInstance().isHsdpFlow()) {
+        final HsdpUser hsdpUser = new HsdpUser(mContext);
+        if (RegistrationConfiguration.getInstance().isHsdpFlow() && hsdpUser.isHsdpUserSignedIn()) {
             refreshHsdpAccessToken();
             RLog.d(TAG, "onRefreshLoginSessionSuccess : is HsdpFlow");
             return;
