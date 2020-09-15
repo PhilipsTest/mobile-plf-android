@@ -20,6 +20,7 @@ import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.address.ECSDeliveryMode
 import com.philips.platform.ecs.model.address.ECSUserProfile
+import com.philips.platform.ecs.model.payment.CardType
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.deliveryDetailPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -218,6 +219,9 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
         ecsBillingAddress?.let {// New user if user has created new billing address
             ecsPayment = com.philips.platform.ecs.model.payment.ECSPayment()
             ecsPayment.id = MECConstant.NEW_CARD_PAYMENT
+            val newCardType = CardType()
+            newCardType.name = getString(R.string.mec_new_card_text)
+            ecsPayment.cardType = newCardType
             ecsPayment.billingAddress = it
             val mecPayment = MECPayment(ecsPayment)
             MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.add(mecPayment)

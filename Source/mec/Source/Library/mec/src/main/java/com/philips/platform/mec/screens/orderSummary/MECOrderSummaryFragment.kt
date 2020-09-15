@@ -66,7 +66,7 @@ class MECOrderSummaryFragment : MecBaseFragment() {
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
     private lateinit var voucherList: MutableList<Voucher>
     private lateinit var paymentViewModel: PaymentViewModel
-    private lateinit var mECSOrderDetail : ECSOrderDetail
+    private lateinit var mECSOrderDetail: ECSOrderDetail
 
 
     override fun getFragmentTag(): String {
@@ -74,7 +74,7 @@ class MECOrderSummaryFragment : MecBaseFragment() {
     }
 
     private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
-        mECSOrderDetail=eCSOrderDetail
+        mECSOrderDetail = eCSOrderDetail
         MECLog.v("orderObserver ", "" + eCSOrderDetail.code)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
         paymentViewModel.makePayment(eCSOrderDetail, mecPayment.ecsPayment.billingAddress)
@@ -124,7 +124,7 @@ class MECOrderSummaryFragment : MecBaseFragment() {
         paymentViewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
         paymentViewModel.ecsOrderDetail.observe(this, orderObserver)
         paymentViewModel.eCSPaymentProvider.observe(this, makePaymentObserver)
-        paymentViewModel.mecError.observe(this,this)
+        paymentViewModel.mecError.observe(this, this)
 
 
         if (MECDataHolder.INSTANCE.getPrivacyUrl() != null && MECDataHolder.INSTANCE.getFaqUrl() != null && MECDataHolder.INSTANCE.getTermsUrl() != null) {
@@ -247,12 +247,15 @@ class MECOrderSummaryFragment : MecBaseFragment() {
         val bundle = Bundle()
         when (stringRes) {
             getString(R.string.mec_privacy) -> {
+                bundle.putString(MECConstant.MEC_PRIVACY_TITLE, getString(R.string.mec_privacy))
                 bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getPrivacyUrl())
             }
             getString(R.string.mec_faq) -> {
+                bundle.putString(MECConstant.MEC_PRIVACY_TITLE, getString(R.string.mec_faq))
                 bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getFaqUrl())
             }
             getString(R.string.mec_terms_conditions) -> {
+                bundle.putString(MECConstant.MEC_PRIVACY_TITLE, getString(R.string.mec_terms_conditions))
                 bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getTermsUrl())
             }
 
