@@ -22,6 +22,7 @@ class AssetModel : ResponseData {
      * @param success
      * The success
      */
+    @SerializedName("success")
     var isSuccess = false
 
     /**
