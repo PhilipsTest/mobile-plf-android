@@ -64,7 +64,7 @@ class ECSRetailerManagerTest {
         try {
             ecsRetailerManager.fetchRetailers(inValidCTN,ecsCallbackMock)
         }catch (e : ECSException){
-            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_productId.errorCode,e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_NOT_FOUND_productId.errorCode,e.errorCode)
         }
 
     }
