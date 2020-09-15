@@ -15,6 +15,7 @@ import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
+import com.philips.platform.appinfra.tagging.AnalyticsInterface;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.appinfra.timesync.TimeInterface;
 
@@ -25,6 +26,8 @@ import java.io.Serializable;
  * App Infra provides various utility services for the application such as Logging, Tagging, Service discovery etc..
  */
 public interface AppInfraInterface extends Serializable {
+
+
     /**
      * Gets secure storage.
      *
@@ -138,5 +141,7 @@ public interface AppInfraInterface extends Serializable {
      * @since 1804.0
      */
     Context getAppInfraContext();
+
+    AnalyticsInterface getAnalytics();
 
 }

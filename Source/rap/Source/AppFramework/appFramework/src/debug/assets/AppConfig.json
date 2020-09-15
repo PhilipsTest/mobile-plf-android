@@ -43,6 +43,10 @@
     "ApiKey":"Euqjw7YWRa5pc7c6jKliv1odg5vLUT2m465k7FJ8"
   },
   "appinfra": {
+    "analytics" : {
+      "GoogleAnalyticsEnabled": true,
+      "AdobeAnalyticsEnabled": true
+    },
     "appidentity.micrositeId": "77000",
     "appidentity.sector": "b2c",
     "appidentity.appState": "STAGING",

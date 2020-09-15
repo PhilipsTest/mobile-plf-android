@@ -31,6 +31,7 @@ import com.philips.platform.appinfra.securestorage.SecureStorage;
 import com.philips.platform.appinfra.securestorage.SecureStorageInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryManager;
+import com.philips.platform.appinfra.tagging.AnalyticsInterface;
 import com.philips.platform.appinfra.tagging.AppTagging;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.appinfra.timesync.TimeInterface;
@@ -51,6 +52,7 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
     private CloudLoggingInterface cloudLogger;
     private DeviceStoredConsentHandler deviceStoredConsentHandler;
     private AppTaggingInterface tagging;
+    private AnalyticsInterface analytics;
     private LoggingInterface appInfraLogger;
     private AppTaggingInterface appInfraTagging;
     private AppIdentityInterface appIdentity;
@@ -86,6 +88,15 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
     @Override
     public Context getAppInfraContext() {
         return appInfraContext;
+    }
+
+    @Override
+    public AnalyticsInterface getAnalytics() {
+        return analytics;
+    }
+
+    public void setAnalytics(AnalyticsInterface analyticsInterface){
+        analytics = analyticsInterface;
     }
 
     @Override
