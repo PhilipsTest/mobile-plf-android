@@ -28,11 +28,13 @@ class MECOrderSummaryServicesTest {
     fun testAddAppliedOrderPromotionsToCartSummaryList() {
 
         val promotionList : MutableList<Promotion> = mutableListOf()
-        val Promotion1 : Promotion = Promotion("1234","enabled","01/30/2020","summer promotion","new")
-        val Promotion2 : Promotion = Promotion("4321","enabled","01/30/2020","summer promotion","new")
+        val promotionDiscount1 = PromotionDiscount("USD","$ 10.00","BUY",10.0)
+        val promotionDiscount2 = PromotionDiscount("USD","$ 20.00","BUY",20.0)
+        val Promotion1 : Promotion = Promotion("1234","enabled","01/30/2020","summer promotion","new",promotionDiscount1)
+        val Promotion2 : Promotion = Promotion("4321","enabled","01/30/2020","summer promotion","new",promotionDiscount2)
         promotionList.add(Promotion1)
         promotionList.add(Promotion2)
-        val promotions = Promotions(null,null,null,promotionList.toList(),null)
+        val promotions = Promotions(null,null,null,promotionList.toList())
         val attributes : Attributes = Attributes(null,null,null,null,null,null,null,promotions,
                 null,null,null,null,null,null)
         val data : Data = Data(attributes,"1234","OLD")
@@ -43,16 +45,19 @@ class MECOrderSummaryServicesTest {
         assertEquals(2,cartSummaryList.size)
         assertEquals("1234",cartSummaryList[0].name)
         assertEquals("4321",cartSummaryList[1].name)
-        assertEquals("TO DO",cartSummaryList[0].price)
-        assertEquals("TO DO",cartSummaryList[1].price)
+        assertEquals("$ 10.00",cartSummaryList[0].price)
+        assertEquals("$ 20.00",cartSummaryList[1].price)
     }
 
     @Test
     fun testAddAppliedVoucherToCartSummaryList() {
         val price1 = Price("$","20.30",20.30)
         val price2 = Price("$","30.30",30.30)
-        val voucher1 = Voucher(true,"1234",price1,"grooming voucher","discount voucher")
-        val voucher2 = Voucher(true,"4321",price2,"skin care voucher","discount voucher")
+
+        val voucherDiscountPrice1 = Price("$","50.30",20.30)
+        val voucherDiscountPrice2 = Price("$","60.30",30.30)
+        val voucher1 = Voucher(true,"1234",price1,voucherDiscountPrice1,"grooming voucher","discount voucher")
+        val voucher2 = Voucher(true,"4321",price2,voucherDiscountPrice2,"skin care voucher","discount voucher")
 
         val voucherList = mutableListOf<Voucher>()
         voucherList.add(voucher1)

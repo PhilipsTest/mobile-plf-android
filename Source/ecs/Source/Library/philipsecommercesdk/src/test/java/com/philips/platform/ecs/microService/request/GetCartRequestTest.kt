@@ -176,10 +176,12 @@ class GetCartRequestTest {
             override fun onResponse(result: ECSShoppingCart) {
                 assertNotEquals(0,result.data?.attributes?.promotions?.appliedProductPromotions?.size)
                 assertNotEquals(0,result.data?.attributes?.promotions?.appliedPromotions?.size)
+                assertEquals("$ 10.00",result.data?.attributes?.promotions?.appliedPromotions?.get(0)?.promotionDiscount?.formattedValue)
 
                 assertEquals("ECS PIL Voucher Description",result.data?.attributes?.appliedVouchers?.get(0)?.name)
                 assertEquals("ECS PIL Voucher Promotion",result.data?.attributes?.appliedVouchers?.get(0)?.description)
                 assertEquals(10.0,result.data?.attributes?.appliedVouchers?.get(0)?.value?.value)
+                assertEquals("20.0 USD",result.data?.attributes?.appliedVouchers?.get(0)?.voucherDiscount?.formattedValue)
             }
 
             override fun onFailure(ecsError: ECSError) {

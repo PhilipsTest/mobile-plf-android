@@ -15,7 +15,7 @@ class MECOrderSummaryServices {
 
             for(promotion in appliedPromotions){
                 val name = promotion.code ?:""
-                val price = "TO DO"
+                val price = promotion.promotionDiscount?.formattedValue ?:""
                 cartSummaryList.add(MECCartSummary(name, price))
             }
         }

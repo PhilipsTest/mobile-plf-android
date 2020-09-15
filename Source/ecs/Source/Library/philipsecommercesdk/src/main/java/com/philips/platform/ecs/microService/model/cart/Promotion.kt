@@ -21,5 +21,6 @@ data class Promotion(
     val enabled: String?,
     val endDate: String?,
     val message: String?,
-    val type: String?
+    val type: String?,
+    val promotionDiscount:PromotionDiscount?
 ):Parcelable

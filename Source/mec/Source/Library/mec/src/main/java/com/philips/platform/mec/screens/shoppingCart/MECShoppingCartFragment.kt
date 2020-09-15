@@ -163,8 +163,7 @@ class MECShoppingCartFragment : MecBaseFragment(), AlertListener, ItemClickListe
         val appliedPromotions = shoppingCart.data?.attributes?.promotions?.appliedPromotions
         appliedPromotions?.forEach { appliedPromotion ->
             val name = appliedPromotion.code ?: ""
-            //TODO
-            val price = "TO DO"
+            val price = appliedPromotion.promotionDiscount?.formattedValue ?:""
             cartSummaryList.add(MECCartSummary(name, price))
         }
 
