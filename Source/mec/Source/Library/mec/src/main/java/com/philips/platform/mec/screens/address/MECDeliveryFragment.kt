@@ -424,8 +424,8 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
 
         val deliveryMode = mECSShoppingCart?.data?.attributes?.deliveryMode
-        val isCollectionPoint = deliveryMode?.collectionPoint
-        if(isCollectionPoint == false){
+        val isCollectionPoint = deliveryMode?.collectionPoint ?:false
+        if(!isCollectionPoint){
             bundle.putParcelable(MECConstant.KEY_ECS_SHOPPING_CART,mECSShoppingCart)
         }else{
             MECAnalytics.trackUserError(getString(R.string.mec_no_delivery_mode_error_message))

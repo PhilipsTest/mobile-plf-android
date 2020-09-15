@@ -56,13 +56,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/iap_margin_4dp">
-                <!-- TODO for PIL  -->
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_discountedPrecentage_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
-                    android:text='@{"TO DO" + @string/mec_empty_space + @string/mec_discount + @string/mec_empty_space + "|" + @string/mec_empty_space ?? ""}'
+                    android:text='@{voucher.voucherDiscount.formattedValue + @string/mec_empty_space + @string/mec_discount + @string/mec_empty_space + "|" + @string/mec_empty_space ?? ""}'
                     android:textSize="@dimen/iap_text_size_12" />
 
                 <com.philips.platform.uid.view.widget.Label
