@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
-  ~
-  ~  * All rights are reserved. Reproduction or dissemination
-  ~
-  ~  * in whole or in part is prohibited without the prior written
-  ~
-  ~  * consent of the copyright holder.
-  ~
-  ~  */
-  -->
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
+   - All rights are reserved. Reproduction or dissemination
+   - in whole or in part is prohibited without the prior written
+   - consent of the copyright holder. -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Lūdzu, norādiet app infra object</string>
@@ -35,7 +28,9 @@
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Radusies tehniska kļūme (nederīgs piekļuves marķieris). Lūdzu, veiciet Hybris Re-Auth</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Epasta adrese nav derīga. Lūdzu, pārbaudiet.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Izstrādājums nav ievietots grozā</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit">Please provide valid limit</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Lūdzu, iestatiet lokalizāciju</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset">Please provide valid offset</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[lv]Please provide valid CTN</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[lv]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Atlasītajā valstī nav pieejams Philips veikals, tajā ir pieejams tikai mazumtirgotāja režīms</string>

@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
-  ~
-  ~  * All rights are reserved. Reproduction or dissemination
-  ~
-  ~  * in whole or in part is prohibited without the prior written
-  ~
-  ~  * consent of the copyright holder.
-  ~
-  ~  */
-  -->
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
+   - All rights are reserved. Reproduction or dissemination
+   - in whole or in part is prohibited without the prior written
+   - consent of the copyright holder. -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Podaj obiekt infrastruktury aplikacji</string>
@@ -35,7 +28,9 @@
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Napotkaliśmy problem techniczny (nieprawidłowy token dostępu). Wykonaj ponowne uwierzytelnienie Hybris Re-Auth</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Nieprawidłowy adres e-mail. Sprawdź jego poprawność.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Produkt nie został dodany do koszyka</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit">Please provide valid limit</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Skonfiguruj ustawienia regionalne</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset">Please provide valid offset</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[pl]Please provide valid CTN</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[pl]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Sklep Philips nie jest dostępny dla wybranego kraju, dostępny jest jedynie tryb sprzedaży detalicznej</string>

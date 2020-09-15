@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
-  ~
-  ~  * All rights are reserved. Reproduction or dissemination
-  ~
-  ~  * in whole or in part is prohibited without the prior written
-  ~
-  ~  * consent of the copyright holder.
-  ~
-  ~  */
-  -->
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
+   - All rights are reserved. Reproduction or dissemination
+   - in whole or in part is prohibited without the prior written
+   - consent of the copyright holder. -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Pateikite programos infraobjektą</string>
@@ -35,7 +28,9 @@
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Susidūrėme su technine problema (neteisingas prieigos raktas). Atlikite „Hybris“ pakartotinį atpažinimą</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Neteisingas el. pašto adresas. Patikrinkite.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Gaminys neįdėtas į krepšelį</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit">Please provide valid limit</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Nustatykite vietą</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset">Please provide valid offset</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[lt]Please provide valid CTN</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[lt]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">„Philips“ parduotuvė neveikia pasirinktoje šalyje, veikia tik mažmeninė prekyba</string>

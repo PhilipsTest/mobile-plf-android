@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
-  ~
-  ~  * All rights are reserved. Reproduction or dissemination
-  ~
-  ~  * in whole or in part is prohibited without the prior written
-  ~
-  ~  * consent of the copyright holder.
-  ~
-  ~  */
-  -->
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
+   - All rights are reserved. Reproduction or dissemination
+   - in whole or in part is prohibited without the prior written
+   - consent of the copyright holder. -->
 
 <resources>
   <string name="ECSAppInfraNotFound">|Bitte geben Sie die App-Metrik für das Objekt an|</string>
@@ -35,7 +28,9 @@
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">|Nous avons rencontré un problème technique (Jeton d\'accès non valide). Veuillez procéder à une ré-authentification Hybris|</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">|Недопустимый адрес электронной почты. Проверьте введенные данные.|</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">|Das Produkt wurde nicht in den Warenkorb gelegt|</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit">|Please provide valid limit|</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">|Встановіть регіональні налаштування|</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset">|Please provide valid offset|</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">|[zh-TW]Please provide valid CTN|</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">|[zh-TW]Please provide a valid quantity|</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">|Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής|</string>

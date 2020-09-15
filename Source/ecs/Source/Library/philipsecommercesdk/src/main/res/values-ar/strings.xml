@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
-  ~
-  ~  * All rights are reserved. Reproduction or dissemination
-  ~
-  ~  * in whole or in part is prohibited without the prior written
-  ~
-  ~  * consent of the copyright holder.
-  ~
-  ~  */
-  -->
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
+   - All rights are reserved. Reproduction or dissemination
+   - in whole or in part is prohibited without the prior written
+   - consent of the copyright holder. -->
 
 <resources>
   <string name="ECSAppInfraNotFound">يُرجى توفير غرض هيكل التطبيق الأساسي</string>
@@ -35,7 +28,9 @@
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">لقد واجهَنا خلل فني (رمز الوصول غير صالح). يُرجى القيام بإعادة التحقق من Hybris</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">عنوان البريد الإلكتروني غير صالح. يرجى التحقق.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">لم تتم إضافة المنتج إلى عربة التسوق</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit">Please provide valid limit</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">يُرجى ضبط الموقع</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset">Please provide valid offset</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[ar]Please provide valid CTN</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[ar]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">إن متجر Philips غير متاح في البلد المحدد، غير مُتاح سوى وضع البائع فقط</string>
