@@ -17,7 +17,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Browser
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,9 +31,9 @@ import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.logging.LoggingInterface
 import com.philips.platform.ccb.R.layout
 import com.philips.platform.ccb.analytics.CCBAnalytics
-import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.ccbConversationalFragment
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.closeChat
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.exitlinkname
+import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.messageUI
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.resetChat
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.sendData
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.setError
@@ -45,6 +44,7 @@ import com.philips.platform.ccb.constant.CCBUrlBuilder
 import com.philips.platform.ccb.directline.CCBAzureConversationHandler
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
 import com.philips.platform.ccb.directline.CCBWebSocketConnection
+import com.philips.platform.ccb.errors.CCBError
 import com.philips.platform.ccb.integration.CCBDeviceUtility
 import com.philips.platform.ccb.listeners.BotResponseListener
 import com.philips.platform.ccb.manager.CCBManager
@@ -114,7 +114,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
     override fun onStart() {
         super.onStart()
-        CCBAnalytics.trackPage(ccbConversationalFragment)
+        CCBAnalytics.trackPage(messageUI)
     }
 
     private fun initViewListener() {
@@ -154,24 +154,24 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "ems", "")
         CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success, ccbError ->
             if (success) {
-                startConverssation()
+                startConversation()
             }
 
             if (ccbError != null) {
                 rootView.ccb_progressBar?.visibility = View.GONE
-                showToastOnError()
+                showToastOnError(CCBError(0,"Failed to connect to the bot"))
                 closeConversation()
             }
         }
     }
 
-    private fun startConverssation() {
+    private fun startConversation() {
         val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "", "")
         CCBManager.getCCBSessionHandlerInterface().startConversation(ccbUser) { ccbConversation, ccbError ->
             openWebSocket()
             if (ccbError != null) {
                 rootView.ccb_progressBar.visibility = View.GONE
-                showToastOnError()
+                showToastOnError(CCBError(0,"Azure key configuration not provided"))
                 closeConversation()
             }
         }
@@ -314,7 +314,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
                                             if(link.contains("philips")) {
                                                 tagPhilipsLink(link)
                                             } else if(link.contains("youtube")){
-                                                CCBAnalytics.mAppTaggingInterface?.trackVideoStart("Tagging_trackVideoStart")
+                                                CCBAnalytics.mAppTaggingInterface?.trackVideoStart(link)
                                                 CCBAnalytics.trackAction(sendData,exitlinkname,link)
                                             } else {
                                                 CCBAnalytics.trackAction(sendData,exitlinkname,link)
@@ -418,8 +418,9 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         }
     }
 
-    private fun showToastOnError() {
+    private fun showToastOnError(ccbError: CCBError) {
         activity?.runOnUiThread {
+            CCBAnalytics.trackAction(setError, technicalError, "CCB:" + ccbError.errCode + ":"+ ccbError.errDesc)
             Toast.makeText(context, "Failed to connect to the bot.", Toast.LENGTH_SHORT).show()
             disableProgressBar()
         }

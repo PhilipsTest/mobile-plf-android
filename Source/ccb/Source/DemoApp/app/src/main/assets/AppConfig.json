@@ -7,7 +7,6 @@
     "abtest.precache":["ReceiveMarketingOptIn"],
     "servicediscovery.platformMicrositeId": "70000",
     "servicediscovery.platformEnvironment": "Production",
-    "servicediscovery.countryMapping" : {"LU":"BE","MO":"HK","BY":"RU"},
     "logging.releaseConfig":{
       "fileName":"AppInfraLog",
       "numberOfFiles":5,

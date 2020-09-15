@@ -3,7 +3,7 @@ package com.philips.platform.ccb.analytics
 object CCBAnalyticsConstant {
 
     val COMPONENT_NAME               = "ccb"
-    val ccbConversationalFragment    = "CCBConversationalFragment"
+    val messageUI                    = "CCBMessageScreen"
     val sendData                     = "sendData"
     val question                     = "question"
     val answerMultiple               = "answerMultiple"
