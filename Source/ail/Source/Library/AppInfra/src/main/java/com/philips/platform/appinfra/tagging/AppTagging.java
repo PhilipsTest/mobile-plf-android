@@ -12,6 +12,7 @@ import com.adobe.mobile.Analytics;
 import com.adobe.mobile.Config;
 import com.adobe.mobile.Visitor;
 import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.appinfra.appconfiguration.AppConfigurationInterface;
 import com.philips.platform.appinfra.consentmanager.ConsentManagerInterface;
 import com.philips.platform.pif.chi.ConsentHandlerInterface;
 
@@ -33,6 +34,9 @@ public class AppTagging implements AppTaggingInterface {
     static final String CLICKSTREAM_CONSENT_TYPE = "AIL_ClickStream";
     private static String prevPage;
     private final AppInfraInterface mAppInfra;
+    private final AnalyticsInterface analytics;
+    private final Boolean isGoogleAnalyticsEnabled;
+    private final Boolean isAdobeAnalyticsEnabled;
     protected String mComponentID;
     protected String mComponentVersion;
     private transient AppTaggingHandler appTaggingHandle;
@@ -43,6 +47,10 @@ public class AppTagging implements AppTaggingInterface {
     public AppTagging(AppInfraInterface aAppInfra) {
         mAppInfra = aAppInfra;
         init(mAppInfra.getAppInfraContext());
+        analytics = aAppInfra.getAnalytics();
+        AppConfigurationInterface.AppConfigurationError configError = new AppConfigurationInterface.AppConfigurationError();
+        isGoogleAnalyticsEnabled = (Boolean) aAppInfra.getConfigInterface().getPropertyForKey("GoogleAnalyticsEnabled", "analytics", configError);
+        isAdobeAnalyticsEnabled = (Boolean) aAppInfra.getConfigInterface().getPropertyForKey("AdobeAnalyticsEnabled", "analytics", configError);
         // Class shall not presume appInfra to be completely initialized at this point.
         // At any call after the constructor, appInfra can be presumed to be complete.
     }
@@ -74,6 +82,8 @@ public class AppTagging implements AppTaggingInterface {
 
     @Override
     public AppTaggingInterface createInstanceForComponent(String componentId, String componentVersion) {
+       // if(isGoogleAnalyticsEnabled) return analytics.createInstanceForComponent(componentId,componentVersion);
+        if(isAdobeAnalyticsEnabled) return new AppTaggingWrapper(mAppInfra, componentId, componentVersion);
         return new AppTaggingWrapper(mAppInfra, componentId, componentVersion);
     }
 
@@ -120,22 +130,26 @@ public class AppTagging implements AppTaggingInterface {
 
     @Override
     public void trackPageWithInfo(String pageName, String key, String value) {
-        getAppTaggingHandler().trackWithInfo(pageName, key, value, true);
+        if(isGoogleAnalyticsEnabled) analytics.trackPageWithInfo(pageName,key,value);
+        if(isAdobeAnalyticsEnabled) getAppTaggingHandler().trackWithInfo(pageName, key, value, true);
     }
 
     @Override
     public void trackPageWithInfo(String pageName, Map<String, String> paramMap) {
-        getAppTaggingHandler().track(pageName, paramMap, true);
+        if(isGoogleAnalyticsEnabled) analytics.trackPageWithInfo(pageName,paramMap);
+        if(isAdobeAnalyticsEnabled) getAppTaggingHandler().track(pageName, paramMap, true);
     }
 
     @Override
     public void trackActionWithInfo(String pageName, String key, String value) {
-        getAppTaggingHandler().trackWithInfo(pageName, key, value, false);
+        if(isGoogleAnalyticsEnabled) analytics.trackActionWithInfo(pageName,key,value);
+        if(isAdobeAnalyticsEnabled) getAppTaggingHandler().trackWithInfo(pageName, key, value, false);
     }
 
     @Override
     public void trackActionWithInfo(String pageName, Map<String, String> paramMap) {
-        getAppTaggingHandler().track(pageName, paramMap, false);
+        if(isGoogleAnalyticsEnabled) analytics.trackActionWithInfo(pageName,paramMap);
+        if(isAdobeAnalyticsEnabled) getAppTaggingHandler().track(pageName, paramMap, false);
     }
 
     @Override
@@ -213,7 +227,7 @@ public class AppTagging implements AppTaggingInterface {
         trackActionWithInfo("socialShare", trackMap);
     }
 
-    void setComponentIdAndVersion(String mComponentID, String mComponentVersion) {
+    public void setComponentIdAndVersion(String mComponentID, String mComponentVersion) {
         getAppTaggingHandler().setComponentIdVersion(mComponentID, mComponentVersion);
     }
 

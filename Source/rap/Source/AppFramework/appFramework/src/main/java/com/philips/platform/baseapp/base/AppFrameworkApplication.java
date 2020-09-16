@@ -13,6 +13,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.philips.platform.appframework.BuildConfig;
 import com.philips.platform.appframework.R;
 import com.philips.platform.appframework.abtesting.AbTestingImpl;
+import com.philips.platform.appframework.googleanalytics.AnalyticsImplementor;
 import com.philips.platform.appframework.flowmanager.FlowManager;
 import com.philips.platform.appframework.flowmanager.base.BaseFlowManager;
 import com.philips.platform.appframework.flowmanager.listeners.FlowManagerListener;
@@ -270,9 +271,12 @@ public class AppFrameworkApplication extends Application {
         AbTestingImpl abTestingImpl = new AbTestingImpl();
         abTestingImpl.initFireBase(this);
         AppInfra.Builder builder = new AppInfra.Builder();
+
         builder.setAbTesting(abTestingImpl);
         appInfra = builder.build(getApplicationContext());
+
         abTestingImpl.initAbTesting(appInfra);
+        appInfra.setAnalytics(new AnalyticsImplementor());
         abTestingImpl.enableDeveloperMode(true);
         loggingInterface = appInfra.getLogging();
         RALog.init(appInfra);

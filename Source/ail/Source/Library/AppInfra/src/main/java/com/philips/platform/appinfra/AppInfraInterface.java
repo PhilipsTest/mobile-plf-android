@@ -78,6 +78,12 @@ public interface AppInfraInterface extends Serializable {
     AppTaggingInterface getTagging();
 
     /**
+     * Gets tagging.
+     *
+     * @return the tagging
+     */
+
+    /**
      * Gets time sync.
      *
      * @return the time sync
@@ -143,5 +149,7 @@ public interface AppInfraInterface extends Serializable {
     Context getAppInfraContext();
 
     AnalyticsInterface getAnalytics();
+
+    void  setAnalytics(AnalyticsInterface analytics);
 
 }

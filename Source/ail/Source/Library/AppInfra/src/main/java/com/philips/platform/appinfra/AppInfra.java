@@ -94,7 +94,7 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
     public AnalyticsInterface getAnalytics() {
         return analytics;
     }
-
+    @Override
     public void setAnalytics(AnalyticsInterface analyticsInterface){
         analytics = analyticsInterface;
     }
@@ -279,6 +279,7 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
         private CloudLoggingInterface cloudLogger;
         //   private LoggingInterface aiLogger; // app infra logger
         private AppTaggingInterface tagging;
+        private AnalyticsInterface analyticsInterface;
         private AppIdentityInterface appIdentity;
         private InternationalizationInterface local;
         private ServiceDiscoveryInterface mServiceDiscoveryInterface;
@@ -304,6 +305,7 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
             cloudLogger = null;
             //aiLogger = null;
             tagging = null;
+            analyticsInterface = null;
             appIdentity = null;
             local = null;
             mServiceDiscoveryInterface = null;

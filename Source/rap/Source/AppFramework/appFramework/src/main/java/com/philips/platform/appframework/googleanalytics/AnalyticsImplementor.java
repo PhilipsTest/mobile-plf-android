@@ -1,14 +1,14 @@
-package com.philips.platform.appframework.flowmanager;
+package com.philips.platform.appframework.googleanalytics;
 
 import com.philips.platform.appinfra.tagging.AnalyticsInterface;
 
 import java.util.Map;
 
-class AnalyticsImplementor implements AnalyticsInterface {
+public class AnalyticsImplementor implements AnalyticsInterface {
 
     @Override
     public AnalyticsInterface createInstanceForComponent(String componentId, String componentVersion) {
-        return null;
+         return new AnalyticsWrapper(componentId, componentVersion);
     }
 
     @Override
