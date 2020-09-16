@@ -306,7 +306,6 @@ dependencies {
     implementation deps.kotlin_stdlib_jdk7
     implementation deps.kotlin_test
     kapt deps.androidx.livedata_compiler
-    implementation deps.localbroadcastmanager
     //Kotlin test
     kaptAndroidTest deps.databinding_compiler
 }
