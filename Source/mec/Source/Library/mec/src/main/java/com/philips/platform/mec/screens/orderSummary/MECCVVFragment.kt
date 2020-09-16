@@ -16,7 +16,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.payment.ECSPayment
 import com.philips.platform.mec.R
@@ -34,21 +34,21 @@ import com.philips.platform.mec.screens.payment.MECPaymentConfirmationFragment
 import com.philips.platform.mec.utils.*
 import kotlinx.android.synthetic.main.mec_cvc_code_fragment.view.*
 
-class MECCVVFragment: BottomSheetDialogFragment() {
+class MECCVVFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: MecCvcCodeFragmentBinding
     private lateinit var paymentViewModel: PaymentViewModel
-    private lateinit var mEcsOrderDetail: ECSOrderDetail
-    private lateinit var mEcsShoppingCart: ECSShoppingCart
-    private  var containerID:Int=0
+    private var mEcsOrderDetail: ECSOrderDetail? = null
+    private var mEcsShoppingCart: ECSShoppingCart? = null
+    private var containerID: Int = 0
 
     companion object {
-        const val TAG:String="MECCVVFragment"
+        const val TAG: String = "MECCVVFragment"
     }
 
     private val orderDetailObserver: Observer<ECSOrderDetail> = Observer(fun(ecsOrderDetail: ECSOrderDetail) {
-        MECLog.d(javaClass.simpleName ,ecsOrderDetail.code)
-        mEcsOrderDetail=ecsOrderDetail
+        MECLog.d(javaClass.simpleName, ecsOrderDetail.code)
+        mEcsOrderDetail = ecsOrderDetail
         binding.root.mec_progress.visibility = View.GONE
         gotoPaymentConfirmationFragment()
     })
@@ -57,54 +57,53 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         var actionMap = HashMap<String, String>()
         actionMap.put(paymentType, old)
         actionMap.put(specialEvents, paymentFailure)
-        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap,mEcsShoppingCart.entries)
+        mEcsShoppingCart?.data?.attributes?.items?.let { MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it) }
         context?.let { MECutility.tagAndShowError(mecError, false, fragmentManager, it) }
         showErrorDialog()
         binding.root.mec_progress.visibility = View.GONE
     })
 
     private fun showErrorDialog() {
-        context?.let { fragmentManager?.let { it1 -> MECutility.showErrorDialog(it, it1,getString(R.string.mec_ok),getString(R.string.mec_payment),R.string.mec_payment_failed_message) } }
+        context?.let { fragmentManager?.let { it1 -> MECutility.showErrorDialog(it, it1, getString(R.string.mec_ok), getString(R.string.mec_payment), R.string.mec_payment_failed_message) } }
 
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = MecCvcCodeFragmentBinding.inflate(inflater,container,false)
-        binding.fragment=this
-        val bundle= arguments
-        val ecsPayment=bundle?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as ECSPayment
-        mEcsShoppingCart=bundle.getSerializable(MECConstant.MEC_SHOPPING_CART) as ECSShoppingCart
-        binding.paymentMethod=ecsPayment
+        binding = MecCvcCodeFragmentBinding.inflate(inflater, container, false)
+        binding.fragment = this
+        val bundle = arguments
+        val ecsPayment = bundle?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as ECSPayment
+        mEcsShoppingCart = bundle.getParcelable(MECConstant.MEC_SHOPPING_CART)
+        binding.paymentMethod = ecsPayment
 
-        containerID= bundle.getInt(MECConstant.MEC_FRAGMENT_CONTAINER_ID)
+        containerID = bundle.getInt(MECConstant.MEC_FRAGMENT_CONTAINER_ID)
 
-        paymentViewModel =  ViewModelProviders.of(this).get(PaymentViewModel::class.java)
-        paymentViewModel.ecsOrderDetail.observe(this,orderDetailObserver)
-        paymentViewModel.mecError.observe(this,errorObserver)
+        paymentViewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
+        paymentViewModel.ecsOrderDetail.observe(this, orderDetailObserver)
+        paymentViewModel.mecError.observe(this, errorObserver)
         MECAnalytics.trackPage(cvvPage)
         return binding.root
     }
 
-    fun onClickContinue(){
+    fun onClickContinue() {
 
-        val cvv=binding.root.mec_cvv_digits.text.toString()
-        if(cvv.trim().isNotEmpty()){
+        val cvv = binding.root.mec_cvv_digits.text.toString()
+        if (cvv.trim().isNotEmpty()) {
             binding.root.mec_progress.visibility = View.VISIBLE
             paymentViewModel.submitOrder(cvv)
-        }
-          else {
+        } else {
             binding.root.mec_cvv_digits.startAnimation(MECutility.getShakeAnimation())
-            this.context?.let { MECAnalytics.getDefaultString(it,R.string.mec_blank_cvv_error) }?.let { MECAnalytics.trackUserError(it) }
+            this.context?.let { MECAnalytics.getDefaultString(it, R.string.mec_blank_cvv_error) }?.let { MECAnalytics.trackUserError(it) }
         }
 
     }
 
-    private fun gotoPaymentConfirmationFragment(){
-        val mecPaymentConfirmationFragment : MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
+    private fun gotoPaymentConfirmationFragment() {
+        val mecPaymentConfirmationFragment: MECPaymentConfirmationFragment = MECPaymentConfirmationFragment()
         val bundle = Bundle()
         bundle.putParcelable(MECConstant.MEC_ORDER_DETAIL, mEcsOrderDetail)
         bundle.putBoolean(MECConstant.PAYMENT_SUCCESS_STATUS, java.lang.Boolean.TRUE)
-        bundle.putString(paymentType,old)
+        bundle.putString(paymentType, old)
         mecPaymentConfirmationFragment.arguments = bundle
         dismiss()
         replaceFragment(mecPaymentConfirmationFragment, true)
@@ -114,14 +113,14 @@ class MECCVVFragment: BottomSheetDialogFragment() {
         if (MECDataHolder.INSTANCE.actionbarUpdateListener == null || MECDataHolder.INSTANCE.mecCartUpdateListener == null)
             RuntimeException("ActionBarListner and MECListner cant be null")
         else {
-            if (null!=activity && !activity!!.isFinishing) {
+            if (activity?.isFinishing == false) {
 
-                val transaction = activity!!.supportFragmentManager.beginTransaction()
-                transaction.replace(containerID, newFragment, newFragment.getFragmentTag())
+                val transaction = activity?.supportFragmentManager?.beginTransaction()
+                transaction?.replace(containerID, newFragment, newFragment.getFragmentTag())
                 if (isReplaceWithBackStack) {
-                    transaction.addToBackStack(newFragment.getFragmentTag())
+                    transaction?.addToBackStack(newFragment.getFragmentTag())
                 }
-                transaction.commitAllowingStateLoss()
+                transaction?.commitAllowingStateLoss()
             }
         }
     }

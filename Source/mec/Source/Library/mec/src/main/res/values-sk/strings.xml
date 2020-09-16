@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Skontrolujte svoje pripojenie k internetu.</string>
   <string name="mec_checkout">Objednať</string>
   <string name="mec_choose_address_text">Vybrať adresu doručenia zo zoznamu nižšie</string>
+  <string name="mec_clear">[sk]Clear</string>
+  <string name="mec_clear_filter">[sk]Clear filter(s)</string>
   <string name="mec_confirmation">Potvrdenie</string>
   <string name="mec_confirmation_email_msg">Čoskoro dostanete e-mail s potvrdením na adresu</string>
   <string name="mec_contact_details">Kontaktné údaje</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Doručenie</string>
   <string name="mec_delivery_method">Spôsob doručenia</string>
   <string name="mec_discount">zľava</string>
+  <string name="mec_discountPriceAscending">[sk]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[sk]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Váš nákupný košík je momentálne prázdny</string>
+  <string name="mec_empty_filter_message">[sk]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Ak ste objednávku vykonali pomocou tejto aplikácie, skontrolujte, či ste dostali e-mail s potvrdením objednávky.</string>
   <string name="mec_enter_code">Zadať darčekový kód</string>
   <string name="mec_faq">Najčastejšie otázky</string>
   <string name="mec_features">Vlastnosti</string>
   <string name="mec_fetching_payment">Načítavajú sa podrobnosti o platbe...</string>
+  <string name="mec_filter_title">[sk]Filters</string>
   <string name="mec_first_name">Krstné meno</string>
   <string name="mec_first_name_error">Zadajte platné krstné meno</string>
   <string name="mec_first_name_hint">Zadajte krstné meno</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Zadajte platné priezvisko</string>
   <string name="mec_last_name_hint">Zadajte priezvisko</string>
   <string name="mec_loading">Načítava sa...</string>
+  <string name="mec_low_stock">[sk]Low stock</string>
   <string name="mec_manage_address">Spravovať adresu</string>
   <string name="mec_more_info">ďalšie informácie</string>
   <string name="mec_mr">Pán</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">PSČ</string>
   <string name="mec_postal_code_error">Zadajte platné PSČ</string>
   <string name="mec_postal_code_hint">Zadajte PSČ</string>
+  <string name="mec_priceAscending">[sk]Price (Low to High)</string>
+  <string name="mec_priceDescending">[sk]Price (High to Low)</string>
   <string name="mec_privacy">Vyhlásenie o ochrane osobných údajov</string>
   <string name="mec_product_detail_title"> Informácie o výrobku</string>
   <string name="mec_product_title">Výrobky</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Adresa doručenia</string>
   <string name="mec_shipping_cost">Prepravné náklady:</string>
   <string name="mec_shopping_cart_title">Košík</string>
+  <string name="mec_sort_title">[sk]Sort</string>
   <string name="mec_specs">Špecifikácie</string>
   <string name="mec_state">Štát</string>
   <string name="mec_state_error">Vyberte štát</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Môže to trvať dlhšie. Prajete si pokračovať?</string>
   <string name="mec_threshold_title">Bol dosiahnutý limit požiadavky</string>
   <string name="mec_time_out_error">Vypršal časový limit sieťového pripojenia!</string>
+  <string name="mec_topRated">[sk]Rating</string>
   <string name="mec_town">Mesto</string>
   <string name="mec_town_error">Zadajte platné mesto</string>
   <string name="mec_town_hint">Zadajte mesto</string>

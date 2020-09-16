@@ -11,7 +11,7 @@ package com.philips.platform.mec.screens.payment
 
 import com.philips.platform.mec.utils.MECConstant
 
-
+//TODO write test cases for this
 class MECPayments(val payments:MutableList<MECPayment>, var isPaymentDownloaded: Boolean ){
 
 

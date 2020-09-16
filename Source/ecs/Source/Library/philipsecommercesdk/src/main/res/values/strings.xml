@@ -29,7 +29,9 @@
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">We have encountered technical glitch (Invalid access token). Please do Hybris Re-Auth</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Invalid email address. Please check.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">The Product is not added in Cart</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit" translatable="false">Please provide valid limit</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Please set the locale</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset" translatable="false">Please provide valid offset</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">Please provide valid CTN</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Philips shop is not available for the selected country, only retailer mode is available</string>

@@ -77,7 +77,7 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_INTEGRATION_TIMEOUT(R.string.ECSsomethingWentWrong, 6012),
     ECSPIL_BAD_REQUEST(R.string.ECSsomethingWentWrong, 6013  ),
     ECSPIL_UNSUPPORTED_MEDIA_TYPE(R.string.ECSsomethingWentWrong, 6014  ),
-    ECSPIL_NOT_ACCEPTABLE_mimeType(R.string.ECSsomethingWentWrong, 6015  ), //   quantity > 0
+    ECSPIL_NOT_ACCEPTABLE_contentType(R.string.ECSsomethingWentWrong, 6015  ), //   quantity > 0
     ECSPIL_INVALID_QUANTITY(R.string.ECSPIL_INVALID_QUANTITY, 6016  ), //  quantity >= 0
     ECSPIL_INVALID_PARAMETER_VALUE_quantity(R.string.ECSPIL_INVALID_PARAMETER_VALUE_quantity, 6017  ),
     ECSPIL_NEGATIVE_QUANTITY(R.string.ECSCommerceCartModificationError, 6018  ),
@@ -89,7 +89,9 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
     ECSPIL_BAD_REQUEST_cartId(R.string.ECSCartError, 6024  ),
     ECSPIL_INVALID_AUTHORIZATION_accessToken(R.string.ECSInvalidTokenError, 6025  ),
 
-    ECSPIL_INVALID_PARAMETER_VALUE_Email(R.string.ECSPIL_INVALID_PARAMETER_VALUE_Email, 6026);
+    ECSPIL_INVALID_PARAMETER_VALUE_Email(R.string.ECSPIL_INVALID_PARAMETER_VALUE_Email, 6026),
+    ECSPIL_INVALID_PARAMETER_VALUE_offset( R.string.ECSPIL_INVALID_PARAMETER_VALUE_offset,6027),
+    ECSPIL_INVALID_PARAMETER_VALUE_limit( R.string.ECSPIL_INVALID_PARAMETER_VALUE_limit,6028);
 
 
 

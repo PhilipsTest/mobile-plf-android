@@ -13,6 +13,7 @@ import android.widget.ScrollView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.address.ECSDeliveryMode
 import com.philips.platform.ecs.util.ECSConfiguration
@@ -378,7 +379,7 @@ class AddressViewModel : CommonViewModel() {
     }
 
     fun setRegion(linearLayout: LinearLayout, mecRegions: MECRegions?, ecsAddress: ECSAddress) {
-        var state = linearLayout.et_state.text.toString()
+        val state = linearLayout.et_state.text.toString()
         ecsAddress.region = mecRegions?.getRegion(state)
     }
 
@@ -389,10 +390,10 @@ class AddressViewModel : CommonViewModel() {
         return shake
     }
 
-    fun tagCreateNewAddress(mECSShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart) {
+    fun tagCreateNewAddress(mECSShoppingCart: ECSShoppingCart) {
         val actionMap = HashMap<String, String>()
         actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.newShippingAddressAdded)
-        MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, mECSShoppingCart.entries)
+        mECSShoppingCart.data?.attributes?.items?.let { MECAnalytics.tagActionsWithOrderProductsInfo(actionMap, it) }
     }
 
 }

@@ -19,11 +19,10 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
 import com.philips.platform.ecs.microService.model.asset.Asset
 import com.philips.platform.ecs.microService.model.asset.Assets
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailerList
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
-
 import com.philips.platform.mec.R
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.screens.detail.MECProductDetailsFragment.Companion.tagOutOfStockActions
@@ -37,10 +36,11 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
 
     var ecsProduct = MutableLiveData<ECSProduct>()
 
-    lateinit var ecsProductAsParamter : ECSProduct
-    lateinit var  addToProductCallBack : ECSCallback<ECSShoppingCart, Exception>
+    lateinit var ecsProductAsParameterCtn : String
+
 
     val bulkRatingResponse= MutableLiveData<BulkRatingsResponse>()
+    var ecsShoppingCart = MutableLiveData<ECSShoppingCart>()
 
     val review = MutableLiveData<ReviewResponse>()
 
@@ -60,33 +60,26 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         ecsProductDetailRepository.fetchProductReview(ctn, pageNumber, pageSize)
     }
 
-    fun addProductToShoppingcart(ecsProduct: ECSProduct, addToProductCallback  : ECSCallback<ECSShoppingCart, Exception>){
-        ecsProductAsParamter=ecsProduct
-        addToProductCallBack=addToProductCallback
-        ecsProductDetailRepository.addTocart(ecsProductAsParamter)
+    fun addProductToShoppingcart(ctn: String){
+        ecsProductAsParameterCtn=ctn
+        ecsProductDetailRepository.addTocart(ecsProductAsParameterCtn)
     }
 
 
-    override fun authFailureCallback(error: Exception?, ecsError: ECSError?){
-        MECLog.v("Auth","refresh auth failed");
-        addToProductCallBack.onFailure(error,ecsError)
-    }
 
     fun retryAPI(mECRequestType : MECRequestType) {
-        var retryAPI = { addProductToShoppingcart(ecsProductAsParamter,addToProductCallBack) }
-        authAndCallAPIagain(retryAPI,authFailCallback)
+
+        lateinit  var APIcall: () -> Unit
+        when(mECRequestType) {
+            MECRequestType.MEC_ADD_PRODUCT_TO_SHOPPING_CART -> APIcall = { addProductToShoppingcart(ecsProductAsParameterCtn) }
+            MECRequestType.MEC_CREATE_SHOPPING_CART -> APIcall = { createShoppingCart() }
+        }
+
+        authAndCallAPIagain(APIcall,authFailCallback)
     }
 
     fun createShoppingCart() {
-        val createShoppingCartCallback=  object: ECSCallback<ECSShoppingCart, Exception> {
-            override fun onResponse(result: ECSShoppingCart?) {
-                addProductToShoppingcart(ecsProductAsParamter,addToProductCallBack)
-            }
-            override fun onFailure(error: Exception?, ecsError: ECSError?) {
-               // todo create cart must NOT fail
-            }
-        }
-        ecsProductDetailRepository.createCart(createShoppingCartCallback)
+        ecsProductDetailRepository.createCart(ecsProductAsParameterCtn)
     }
 
     fun getValueFor(type: String, review: Review): String {

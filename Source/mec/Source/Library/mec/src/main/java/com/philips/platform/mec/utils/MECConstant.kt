@@ -62,10 +62,8 @@ object MECConstant {
     val MEC_STORE_NAME = "MEC_STORE_NAME";
     val MEC_PAYMENT_METHOD = "MEC_PAYMENT_METHOD";
     val MEC_CLICK_LISTENER = "MEC_CLICK_LISTENER";
-    internal val IN_STOCK = "inStock"
-    internal val PIL_IN_STOCK = "IN_STOCK"
-    internal val LOW_STOCK = "lowStock"
-    internal val PIL_LOW_STOCK = "LOW_STOCK"
+    internal val PIL_IN_STOCK ="IN_STOCK"
+    internal val PIL_LOW_STOCK ="LOW_STOCK"
 
     //Theme
     val MEC_KEY_ACTIVITY_THEME = "mec_KEY_ACTIVITY_THEME"

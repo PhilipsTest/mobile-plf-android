@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Ελέγξτε τη σύνδεσή σας στο Internet.</string>
   <string name="mec_checkout">Ολοκλήρωση αγοράς</string>
   <string name="mec_choose_address_text">Επιλέξτε διεύθυνση αποστολής από την παρακάτω λίστα</string>
+  <string name="mec_clear">[el]Clear</string>
+  <string name="mec_clear_filter">[el]Clear filter(s)</string>
   <string name="mec_confirmation">Επιβεβαίωση</string>
   <string name="mec_confirmation_email_msg">Σύντομα θα λάβετε ένα email επιβεβαίωσης στη διεύθυνση</string>
   <string name="mec_contact_details">Στοιχεία επικοινωνίας</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Παράδοση</string>
   <string name="mec_delivery_method">Τρόπος παράδοσης</string>
   <string name="mec_discount">έκπτωση</string>
+  <string name="mec_discountPriceAscending">[el]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[el]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Το καλάθι αγορών είναι άδειο</string>
+  <string name="mec_empty_filter_message">[el]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Αν υποβάλατε την παραγγελία σας από αυτήν την εφαρμογή, βεβαιωθείτε ότι έχετε λάβει ένα email επιβεβαίωσης παραγγελίας.</string>
   <string name="mec_enter_code">Εισαγωγή κωδικού δώρου</string>
   <string name="mec_faq">τη σελίδα</string>
   <string name="mec_features">Χαρακτηριστικά</string>
   <string name="mec_fetching_payment">Γίνεται λήψη των στοιχείων πληρωμής...</string>
+  <string name="mec_filter_title">[el]Filters</string>
   <string name="mec_first_name">Όνομα</string>
   <string name="mec_first_name_error">Εισαγάγετε έγκυρο όνομα</string>
   <string name="mec_first_name_hint">Γράψτε το μικρό σας όνομα</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Εισαγάγετε έγκυρο επώνυμο</string>
   <string name="mec_last_name_hint">Εισαγάγετε το επώνυμό σας</string>
   <string name="mec_loading">Φόρτωση...</string>
+  <string name="mec_low_stock">[el]Low stock</string>
   <string name="mec_manage_address">Διαχείριση διεύθυνσης</string>
   <string name="mec_more_info">για περισσότερες πληροφορίες</string>
   <string name="mec_mr">Κος</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Ταχ. κώδικας</string>
   <string name="mec_postal_code_error">Εισαγάγετε έγκυρο ταχυδρομικό κώδικα</string>
   <string name="mec_postal_code_hint">Εισαγάγετε τον ταχυδρομικό κώδικα</string>
+  <string name="mec_priceAscending">[el]Price (Low to High)</string>
+  <string name="mec_priceDescending">[el]Price (High to Low)</string>
   <string name="mec_privacy">Δήλωση ιδιωτικού απορρήτου</string>
   <string name="mec_product_detail_title"> Λεπτομέρειες προϊόντος</string>
   <string name="mec_product_title">Προϊόντα</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Διεύθυνση αποστολής</string>
   <string name="mec_shipping_cost">Κόστος αποστολής</string>
   <string name="mec_shopping_cart_title">Καλάθι</string>
+  <string name="mec_sort_title">[el]Sort</string>
   <string name="mec_specs">Προδιαγραφές</string>
   <string name="mec_state">Πόλη</string>
   <string name="mec_state_error">Επιλέξτε νομό</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Αυτό ενδέχεται να διαρκέσει περισσότερη ώρα. Θέλετε να συνεχίσετε;</string>
   <string name="mec_threshold_title">Το όριο αιτήματος συμπληρώθηκε</string>
   <string name="mec_time_out_error">Το χρονικό όριο του δικτύου εξαντλήθηκε!</string>
+  <string name="mec_topRated">[el]Rating</string>
   <string name="mec_town">Πόλη</string>
   <string name="mec_town_error">Εισαγάγετε έγκυρη πόλη</string>
   <string name="mec_town_hint">Εισαγάγετε την πόλη σας</string>

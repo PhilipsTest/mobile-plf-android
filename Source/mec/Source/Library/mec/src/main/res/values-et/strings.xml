@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Kontrollige oma internetiühendust.</string>
   <string name="mec_checkout">Kassa</string>
   <string name="mec_choose_address_text">Valige tarneaadress allolevast loendist</string>
+  <string name="mec_clear">[et]Clear</string>
+  <string name="mec_clear_filter">[et]Clear filter(s)</string>
   <string name="mec_confirmation">Kinnitus</string>
   <string name="mec_confirmation_email_msg">Teile saadetakse peagi kinnitav e-kiri aadressile</string>
   <string name="mec_contact_details">Kontaktandmed</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Tarne</string>
   <string name="mec_delivery_method">Tarneviis</string>
   <string name="mec_discount">allahindlus</string>
+  <string name="mec_discountPriceAscending">[et]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[et]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Teie ostukorv on hetkel tühi</string>
+  <string name="mec_empty_filter_message">[et]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Kui esitasite tellimuse selle äpi kaudu, kontrollige, kas teile saadeti tellimust kinnitav e-kiri.</string>
   <string name="mec_enter_code">Sisestage kingikood</string>
   <string name="mec_faq">KKK-de</string>
   <string name="mec_features">Omadused</string>
   <string name="mec_fetching_payment">Makseandmete hankimine ...</string>
+  <string name="mec_filter_title">[et]Filters</string>
   <string name="mec_first_name">Eesnimi</string>
   <string name="mec_first_name_error">Sisestage õige eesnimi</string>
   <string name="mec_first_name_hint">Sisestage eesnimi</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Sisestage õige perekonnanimi</string>
   <string name="mec_last_name_hint">Sisestage perekonnanimi</string>
   <string name="mec_loading">Laadimine ...</string>
+  <string name="mec_low_stock">[et]Low stock</string>
   <string name="mec_manage_address">Hallake aadressi</string>
   <string name="mec_more_info">.</string>
   <string name="mec_mr">Hr</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Postiindeks</string>
   <string name="mec_postal_code_error">Sisestage õige sihtnumber</string>
   <string name="mec_postal_code_hint">Sisestage postiindeks/sihtnumber</string>
+  <string name="mec_priceAscending">[et]Price (Low to High)</string>
+  <string name="mec_priceDescending">[et]Price (High to Low)</string>
   <string name="mec_privacy">privaatsusavaldust</string>
   <string name="mec_product_detail_title"> Toote üksikasjad</string>
   <string name="mec_product_title">Tooted</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Tarneaadress</string>
   <string name="mec_shipping_cost">Transpordikulu</string>
   <string name="mec_shopping_cart_title">Ostukorv</string>
+  <string name="mec_sort_title">[et]Sort</string>
   <string name="mec_specs">Tehnilised omadused</string>
   <string name="mec_state">Osariik</string>
   <string name="mec_state_error">Valige maakond</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">See võtab rohkem aega. Kas soovite jätkata?</string>
   <string name="mec_threshold_title">Taotluse ajalõpp saavutatud</string>
   <string name="mec_time_out_error">Võrk aegus!</string>
+  <string name="mec_topRated">[et]Rating</string>
   <string name="mec_town">Asula/linn:</string>
   <string name="mec_town_error">Sisestage õige linna nimetus</string>
   <string name="mec_town_hint">Sisestage linn</string>

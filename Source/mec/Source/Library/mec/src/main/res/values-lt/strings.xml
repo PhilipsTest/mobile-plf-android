@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Patikrinkite savo interneto ryšį.</string>
   <string name="mec_checkout">Apmokėti</string>
   <string name="mec_choose_address_text">Pasirinkite pristatymo adresą žemiau esančiame sąraše</string>
+  <string name="mec_clear">[lt]Clear</string>
+  <string name="mec_clear_filter">[lt]Clear filter(s)</string>
   <string name="mec_confirmation">Patvirtinimas</string>
   <string name="mec_confirmation_email_msg">Netrukus gausite patvirtinimo el. laišką adresu</string>
   <string name="mec_contact_details">Kontaktinė informacija</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Pristatymas</string>
   <string name="mec_delivery_method">Pristatymo būdas</string>
   <string name="mec_discount">nuolaida</string>
+  <string name="mec_discountPriceAscending">[lt]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[lt]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Šiuo metu jūsų pirkinių krepšelis tuščias</string>
+  <string name="mec_empty_filter_message">[lt]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Jei pateikėte užsakymą per šią programą, patikrinkite, ar gavote užsakymo patvirtinimo el. laišką.</string>
   <string name="mec_enter_code">Įvesti dovanos kodą</string>
   <string name="mec_faq">DUK</string>
   <string name="mec_features">Savybės</string>
   <string name="mec_fetching_payment">Pateikiama apmokėjimo informacija...</string>
+  <string name="mec_filter_title">[lt]Filters</string>
   <string name="mec_first_name">Vardas</string>
   <string name="mec_first_name_error">Įveskite tikrą vardą</string>
   <string name="mec_first_name_hint">Įveskite vardą</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Įveskite tikrą pavardę</string>
   <string name="mec_last_name_hint">Įveskite pavardę</string>
   <string name="mec_loading">Įkeliama...</string>
+  <string name="mec_low_stock">[lt]Low stock</string>
   <string name="mec_manage_address">Tvarkyti adresą</string>
   <string name="mec_more_info">norėdami sužinoti daugiau informacijos</string>
   <string name="mec_mr">Ponas</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Pašto kodas</string>
   <string name="mec_postal_code_error">Įveskite tikrą ZIP kodą</string>
   <string name="mec_postal_code_hint">Įveskite ZIP / pašto kodą</string>
+  <string name="mec_priceAscending">[lt]Price (Low to High)</string>
+  <string name="mec_priceDescending">[lt]Price (High to Low)</string>
   <string name="mec_privacy">Privatumo pranešimas</string>
   <string name="mec_product_detail_title">Produkto Aprašymas</string>
   <string name="mec_product_title">Gaminiai</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Pristatymo adresas</string>
   <string name="mec_shipping_cost">Pristatymo kaina</string>
   <string name="mec_shopping_cart_title">Krepšelis</string>
+  <string name="mec_sort_title">[lt]Sort</string>
   <string name="mec_specs">Specifikacijos</string>
   <string name="mec_state">Valstija</string>
   <string name="mec_state_error">Pasirinkite valstybę</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Tai gali užtrukti. Ar norite tęsti?</string>
   <string name="mec_threshold_title">Pasiektas užklausų limitas</string>
   <string name="mec_time_out_error">Baigėsi tinklo veikimo laikas!</string>
+  <string name="mec_topRated">[lt]Rating</string>
   <string name="mec_town">Miestas</string>
   <string name="mec_town_error">Įveskite tikrą miestą</string>
   <string name="mec_town_hint">Įveskite miestą</string>

@@ -321,7 +321,7 @@ class ECSProductManagerTest {
         try {
             mECSProductManager.registerForProductAvailability("pabitrabapi1@gmail.com", " HX3245/00 ", ecsCallbackBooleanMock)
         }catch (e : ECSException){
-            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_productId.errorCode,e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_NOT_FOUND_productId.errorCode,e.errorCode)
         }
     }
 
@@ -331,7 +331,7 @@ class ECSProductManagerTest {
         try {
             mECSProductManager.registerForProductAvailability("pabitrabapi1@gmail.com", "", ecsCallbackBooleanMock)
         }catch (e : ECSException){
-            assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_productId.errorCode,e.errorCode)
+            assertEquals(ECSErrorType.ECSPIL_NOT_FOUND_productId.errorCode,e.errorCode)
         }
     }
 

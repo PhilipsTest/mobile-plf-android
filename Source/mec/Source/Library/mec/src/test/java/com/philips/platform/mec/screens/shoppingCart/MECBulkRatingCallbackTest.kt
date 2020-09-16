@@ -6,10 +6,7 @@ import com.bazaarvoice.bvandroidsdk.ConversationsException
 import com.bazaarvoice.bvandroidsdk.Error
 import com.bazaarvoice.bvandroidsdk.Statistics
 import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.model.cart.BasePriceEntity
-import com.philips.platform.ecs.model.cart.ECSEntries
-import com.philips.platform.ecs.model.products.ECSProduct
-import com.philips.platform.ecs.model.products.PriceEntity
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.utils.MECDataHolder
 import junit.framework.Assert.assertEquals
@@ -18,8 +15,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 
+@PrepareForTest(com.philips.platform.ecs.microService.ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class MECBulkRatingCallbackTest {
 
@@ -28,7 +27,9 @@ class MECBulkRatingCallbackTest {
     @Mock
     lateinit var ecsServices: ECSServices
 
-    lateinit var ecsProductsMock: MutableList<ECSEntries>
+    @Mock
+    lateinit var ecsMicroServicesMock : com.philips.platform.ecs.microService.ECSServices
+
 
     @Mock
     lateinit var ecsShoppingCartViewModelMock: EcsShoppingCartViewModel
@@ -47,22 +48,9 @@ class MECBulkRatingCallbackTest {
         val map = HashMap<String, String>()
         map.put("key1", "value1")
 
-        var eCSentry = ECSEntries()
-        var mECSProduct = ECSProduct()
-        mECSProduct.code = "ConsignmentCode123ABC"
-        var priceEntity = PriceEntity()
-        priceEntity.value = 12.9
-        mECSProduct.price = priceEntity
-
-        eCSentry.product = mECSProduct
-        eCSentry.quantity = 2
-
-        var basePriceEntity = BasePriceEntity()
-        basePriceEntity.value = 10.7
-        eCSentry.basePrice = basePriceEntity
-        var entries = ArrayList<ECSEntries>()
-        entries.add(eCSentry)
-
+        val ecsItem1= ECSItem(null,null,"1234",null,null,null,null,null,null)
+        val ecsItem2= ECSItem(null,null,"12345",null,null,null,null,null,null)
+        var  ecsEntriesList =  mutableListOf<ECSItem>()
         ///////
         var statisticsList: ArrayList<Statistics> = ArrayList<Statistics>()
         var st1= Statistics()
@@ -71,13 +59,13 @@ class MECBulkRatingCallbackTest {
         statisticsList.add(st1)
         statisticsList.add(st2)
        // statistics.productStatistics.productId
-
+        Mockito.`when`(ecsServices.microService).thenReturn(ecsMicroServicesMock)
         MECDataHolder.INSTANCE.eCSServices = ecsServices
         ecsShoppingCartViewModelMock.mecError=mecErrorMock
         //ecsShoppingCartViewModelMock.ecsProductsReviewList= mutableLiveData
         ecsShoppingCartViewModel=EcsShoppingCartViewModel()
       //  ecsShoppingCartViewModel.ecsServices = MECDataHolder.INSTANCE.eCSServices
-        mECBulkRatingCallback=MECBulkRatingCallback(entries,ecsShoppingCartViewModelMock)
+        mECBulkRatingCallback=MECBulkRatingCallback(ecsEntriesList,ecsShoppingCartViewModelMock)
        // mECBulkRatingCallback.res
 
     }

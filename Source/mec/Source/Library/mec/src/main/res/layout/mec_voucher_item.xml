@@ -13,7 +13,7 @@
 
         <variable
             name="voucher"
-            type="com.philips.platform.ecs.model.cart.AppliedVoucherEntity" />
+            type="com.philips.platform.ecs.microService.model.cart.Voucher" />
 
     </data>
 
@@ -48,20 +48,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
-                android:text='@{voucher.voucherCode ?? "" }'
+                android:text='@{voucher.id ?? "" }'
                 android:textSize="@dimen/iap_text_size_16sp" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/iap_margin_4dp">
-
                 <com.philips.platform.uid.view.widget.Label
                     android:id="@+id/mec_discountedPrecentage_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
-                    android:text='@{voucher.valueFormatted + @string/mec_empty_space + @string/mec_discount + @string/mec_empty_space + "|" + @string/mec_empty_space ?? ""}'
+                    android:text='@{voucher.voucherDiscount.formattedValue + @string/mec_empty_space + @string/mec_discount + @string/mec_empty_space + "|" + @string/mec_empty_space ?? ""}'
                     android:textSize="@dimen/iap_text_size_12" />
 
                 <com.philips.platform.uid.view.widget.Label
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="?attr/uidButtonSecondaryNormalTextColor"
-                    android:text='@{voucher.appliedValue.formattedValue?? ""}'
+                    android:text='@{voucher.value.formattedValue?? ""}'
                     android:textSize="@dimen/iap_text_size_12"
                      />
 

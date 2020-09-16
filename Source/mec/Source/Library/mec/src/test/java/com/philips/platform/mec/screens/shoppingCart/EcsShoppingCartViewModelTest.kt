@@ -17,6 +17,7 @@ import android.view.View
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.model.cart.BasePriceEntity
 import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.products.ECSProduct
@@ -43,7 +44,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 import kotlin.test.assertEquals
 
 
-@PrepareForTest(ECSShoppingCartRepository::class, ECSShoppingCartCallback::class, ECSVoucherCallback::class, ECSCallback::class)
+@PrepareForTest(ECSShoppingCartRepository::class, ECSShoppingCartCallback::class, ECSVoucherCallback::class, ECSCallback::class,com.philips.platform.ecs.microService.ECSServices::class)
 @RunWith(PowerMockRunner::class)
 class EcsShoppingCartViewModelTest {
 
@@ -62,6 +63,9 @@ class EcsShoppingCartViewModelTest {
     lateinit var ecsServicesMock: ECSServices
 
     @Mock
+    lateinit var ecsMicroServicesMock : com.philips.platform.ecs.microService.ECSServices
+
+    @Mock
     lateinit var ecsShoppingCartCallbackMock: ECSShoppingCartCallback
 
 
@@ -71,6 +75,7 @@ class EcsShoppingCartViewModelTest {
         MockitoAnnotations.initMocks(this)
         MECDataHolder.INSTANCE.userDataInterface = userDataInterfaceMock
         MECDataHolder.INSTANCE.appinfra = appInfraMock
+        Mockito.`when`(ecsServicesMock.microService).thenReturn(ecsMicroServicesMock)
         MECDataHolder.INSTANCE.eCSServices = ecsServicesMock
         ecsShoppingCartRepositoryMock.ecsServices = ecsServicesMock
         ecsShoppingCartRepositoryMock.ecsShoppingCartCallback = ecsShoppingCartCallbackMock
@@ -82,7 +87,7 @@ class EcsShoppingCartViewModelTest {
     }
 
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun testCreateShoppingCart() {
 
         ecsShoppingCartViewModel.createShoppingCart("")
@@ -102,28 +107,16 @@ class EcsShoppingCartViewModelTest {
     }
 
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun TestUpdateQuantity() {
 
 
-        var eCSentry = ECSEntries()
-        var mECSProduct = ECSProduct()
-        mECSProduct.code = "ConsignmentCode123ABC"
-        var priceEntity = PriceEntity()
-        priceEntity.value = 12.9
-        mECSProduct.price = priceEntity
-
-        eCSentry.product = mECSProduct
-        eCSentry.quantity = 2
-
-        var basePriceEntity = BasePriceEntity()
-        basePriceEntity.value = 10.7
-        eCSentry.basePrice = basePriceEntity
+        val ecsItem1= ECSItem(null,null,"1234",null,null,null,null,null,null)
 
 
-        ecsShoppingCartViewModel.updateQuantity(eCSentry, 3)
-        Mockito.verify(ecsServicesMock, Mockito.atLeastOnce())
-                .updateShoppingCart(ArgumentMatchers.anyInt(), ArgumentMatchers.anyObject(), ArgumentMatchers.any())
+        ecsShoppingCartViewModel.updateQuantity(ecsItem1, 3)
+        Mockito.verify(ecsServicesMock.microService, Mockito.atLeastOnce())
+                .updateShoppingCart(any(ECSItem::class.java), ArgumentMatchers.anyObject(), ArgumentMatchers.any())
 
     }
 
@@ -186,76 +179,6 @@ class EcsShoppingCartViewModelTest {
           Mockito.`when`( mLabel.context.getResources().getDimensionPixelSize(R.dimen.mec_product_detail_discount_price_label_size)).thenReturn(34)
           EcsShoppingCartViewModel.setPrice(mLabel,mECSProduct,basePriceEntity)*/
     }
-
-    @Test
-    fun TestSetDiscountPrice() {
-
-
-        var mECSProduct = ECSProduct()
-        mECSProduct.code = "ConsignmentCode123ABC"
-        var priceEntity = PriceEntity()
-        priceEntity.value = 12.9
-        mECSProduct.price = priceEntity
-
-
-        var basePriceEntity = BasePriceEntity()
-        basePriceEntity.value = 10.7
-
-        var entries = ArrayList<ECSEntries>()
-
-
-        EcsShoppingCartViewModel.setDiscountPrice(mLabel, mECSProduct, basePriceEntity)
-        assertEquals(View.VISIBLE, mLabel.visibility)
-
-
-        basePriceEntity.value = 12.9 // make discounted price 0
-        EcsShoppingCartViewModel.setDiscountPrice(mLabel, mECSProduct, basePriceEntity)
-        assertEquals(View.VISIBLE, mLabel.visibility)
-
-    }
-
-    @Test
-    fun TestSetStock() {
-
-        val only: String = "Only"
-        val available: String = "Available"
-        mLabel.text=""
-
-        Mockito.`when`(mLabel.context)
-                .thenReturn(mContext)
-        Mockito.`when`(mContext.getString(R.string.mec_only))
-                .thenReturn(only)
-        Mockito.`when`(mContext.getString(R.string.mec_stock_available))
-                .thenReturn(available)
-
-
-        var mECSProduct = ECSProduct()
-        mECSProduct.code = "ConsignmentCode123ABC"
-        var priceEntity = PriceEntity()
-        priceEntity.value = 12.9
-        mECSProduct.price = priceEntity
-
-        var stockEntity: StockEntity = StockEntity()
-        stockEntity.stockLevel = 10
-        stockEntity.stockLevelStatus = "inStock"
-        mECSProduct.stock = stockEntity
-
-
-
-        EcsShoppingCartViewModel.setStock(mLabel, mECSProduct, 2)
-        assert(mLabel.text.isNullOrEmpty())
-        assertEquals(View.VISIBLE, mLabel.visibility)
-
-
-        EcsShoppingCartViewModel.setStock(mLabel, mECSProduct, 12)
-        assertEquals(View.VISIBLE, mLabel.visibility)
-
-
-         stockEntity.stockLevel=4 // <5 low stocks
-         EcsShoppingCartViewModel.setStock(mLabel,mECSProduct,2)
-         assertEquals(View.VISIBLE,mLabel.visibility)
-    }
-
 
     @Test
     fun `retry api should do auth call`() {

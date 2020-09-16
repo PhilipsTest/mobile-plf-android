@@ -20,8 +20,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.region.ECSRegion
 import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.R
@@ -106,10 +106,8 @@ class CreateOrEditAddressFragment : MecBaseFragment() {
         val intent = Intent()
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.KEY_ECS_ADDRESSES,mAddressList as Serializable)
+        mECSShoppingCart?.let {  bundle.putParcelable(MECConstant.KEY_ECS_SHOPPING_CART, it)}
 
-        if(mECSShoppingCart!=null) {
-            bundle.putSerializable(MECConstant.KEY_ECS_SHOPPING_CART, mECSShoppingCart)
-        }
 
         intent.putExtra(MECConstant.BUNDLE_ADDRESSES,bundle)
         targetFragment?.onActivityResult(MECConstant.REQUEST_CODE_ADDRESSES, Activity.RESULT_OK,intent)

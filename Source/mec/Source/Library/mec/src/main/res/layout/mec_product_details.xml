@@ -17,6 +17,10 @@
             name="mecDataHolder"
             type="com.philips.platform.mec.utils.MECDataHolder" />
 
+        <variable
+            name="isHybris"
+            type="Boolean"/>
+
     </data>
 
    <LinearLayout
@@ -270,7 +274,7 @@
             fontPath="fonts/iconfont.ttf"
             android:text="@{@string/dls_listview + @string/mec_empty_space + @string/mec_buy_from_retailers}"
             android:textSize="16sp"
-            android:visibility="gone"
+            android:visibility="@{isHybris ? View.GONE : View.VISIBLE}"
             />
 
         <com.philips.platform.uid.view.widget.Button
@@ -288,7 +292,7 @@
             fontPath="fonts/iconfont.ttf"
             android:text="@{@string/dls_listview + @string/mec_empty_space + @string/mec_buy_from_retailers}"
             android:textSize="16sp"
-            android:visibility="gone"
+            android:visibility="@{isHybris ? View.VISIBLE : View.GONE}"
             />
 
         <com.philips.platform.uid.view.widget.Button

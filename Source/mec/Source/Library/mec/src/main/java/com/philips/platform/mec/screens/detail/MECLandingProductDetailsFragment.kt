@@ -59,7 +59,8 @@ class MECLandingProductDetailsFragment : MECProductDetailsFragment() {
     private fun fetchProductForRetailers() {
 
         try {
-            MECDataHolder.INSTANCE.eCSServices.microService.fetchProductSummaries(Arrays.asList(product.ctn), object : ECSCallback<ECSProducts, ECSError> {
+            val products = listOf(product?.ctn ?:"")
+            MECDataHolder.INSTANCE.eCSServices.microService.fetchProductSummaries(products, object : ECSCallback<ECSProducts, ECSError> {
 
                 override fun onResponse(result: ECSProducts) {
                     product = result.commerceProducts[0]
@@ -88,10 +89,10 @@ class MECLandingProductDetailsFragment : MECProductDetailsFragment() {
     private fun fetchProductForHybris() {
 
         try {
-            MECDataHolder.INSTANCE.eCSServices.microService.fetchProduct(product.ctn, object : ECSCallback<ECSProduct?, ECSError> {
+            MECDataHolder.INSTANCE.eCSServices.microService.fetchProduct(product?.ctn ?:"", object : ECSCallback<ECSProduct?, ECSError> {
 
                 override fun onResponse(result: ECSProduct?) {
-                    product = result!!
+                    product = result
                     callParentExecute()
                 }
 

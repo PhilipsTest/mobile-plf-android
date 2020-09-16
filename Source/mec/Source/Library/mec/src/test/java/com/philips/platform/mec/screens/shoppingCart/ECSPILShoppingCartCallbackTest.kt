@@ -16,8 +16,8 @@ import androidx.lifecycle.MutableLiveData
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.cart.ECSEntries
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -38,7 +38,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 
-@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartRepository::class, HybrisAuth::class,ECSEntries::class)
+@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartRepository::class, HybrisAuth::class,ECSEntries::class,ECSShoppingCart::class,com.philips.platform.ecs.microService.ECSServices::class,com.philips.platform.ecs.microService.error.ECSError::class)
 @RunWith(PowerMockRunner::class)
 class ECSPILShoppingCartCallbackTest {
 
@@ -60,7 +60,7 @@ class ECSPILShoppingCartCallbackTest {
     lateinit var errorMock: Exception
 
     @Mock
-    lateinit var ecsErrorMock: ECSError
+    lateinit var ecsErrorMock: com.philips.platform.ecs.microService.error.ECSError
 
     @Mock
     lateinit var  mecErrorMock : MutableLiveData<MecError>
@@ -78,6 +78,9 @@ class ECSPILShoppingCartCallbackTest {
     lateinit var ecsServicesMock: ECSServices
 
     @Mock
+    lateinit var ecsMicroServicesMock: com.philips.platform.ecs.microService.ECSServices
+
+    @Mock
     lateinit var refreshSessionListener : RefreshSessionListener
 
     @Mock
@@ -90,10 +93,10 @@ class ECSPILShoppingCartCallbackTest {
 
         ecsShoppingCartViewModelMock.ecsShoppingCart = ecsShoppingCartLiveDataMock
         ecsShoppingCartViewModelMock.mecError = mecErrorMock
-        ecsShoppingCartViewModelMock.createShoppingCartCallback = createCartCallback
 
         shoppingCartRepositoryMock.ecsServices = ecsServicesMock
         shoppingCartRepositoryMock.ecsShoppingCartViewModel = ecsShoppingCartViewModelMock
+        Mockito.`when`(ecsServicesMock.microService).thenReturn(ecsMicroServicesMock)
         MECDataHolder.INSTANCE.eCSServices = ecsServicesMock
 
         ecsShoppingCartViewModelMock.ecsShoppingCartRepository = shoppingCartRepositoryMock
@@ -126,16 +129,10 @@ class ECSPILShoppingCartCallbackTest {
     @Test
     fun onFailure() {
         //TODO check if the value is set properly or not
-        ecsShoppingCartCallback.onFailure(errorMock,ecsErrorMock)
+        ecsShoppingCartCallback.onFailure(ecsErrorMock)
         assertNotNull(ecsShoppingCartViewModelMock.mecError)
     }
 
-    @Test
-    fun shouldCreateCartIfFetchShoppingCartFailsWithErrorCode() {
-        Mockito.`when`(ecsErrorMock.errorcode) .thenReturn(5004)
-        ecsShoppingCartCallback.onFailure(errorMock,ecsErrorMock)
-        Mockito.verify(ecsServicesMock).createShoppingCart(createCartCallback)
-    }
 
     //TODO
 

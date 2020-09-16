@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Kontroller Internett-forbindelsen.</string>
   <string name="mec_checkout">Kasse</string>
   <string name="mec_choose_address_text">Velg leveringsadresse fra listen nedenfor</string>
+  <string name="mec_clear">[nb]Clear</string>
+  <string name="mec_clear_filter">[nb]Clear filter(s)</string>
   <string name="mec_confirmation">Bekreftelse</string>
   <string name="mec_confirmation_email_msg">Du vil motta en e-postbekreftelse om kort tid på</string>
   <string name="mec_contact_details">Kontaktinformasjon</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Levering</string>
   <string name="mec_delivery_method">Leveringsmetode</string>
   <string name="mec_discount">rabatt</string>
+  <string name="mec_discountPriceAscending">[nb]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[nb]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Handlevognen er tom</string>
+  <string name="mec_empty_filter_message">[nb]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Hvis du la inn bestillingen ved hjelp av denne appen, må du kontrollere at du har mottatt en e-post med bestillingsbekreftelse.</string>
   <string name="mec_enter_code">Skriv inn gavekode</string>
   <string name="mec_faq">Spørsmål og svar</string>
   <string name="mec_features">Egenskaper</string>
   <string name="mec_fetching_payment">Henter betalingsopplysninger ...</string>
+  <string name="mec_filter_title">[nb]Filters</string>
   <string name="mec_first_name">Fornavn</string>
   <string name="mec_first_name_error">Angi et gyldig fornavn</string>
   <string name="mec_first_name_hint">Angi fornavn</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Angi et gyldig etternavn</string>
   <string name="mec_last_name_hint">Angi etternavn</string>
   <string name="mec_loading">Laster inn..</string>
+  <string name="mec_low_stock">[nb]Low stock</string>
   <string name="mec_manage_address">Administrer adresse</string>
   <string name="mec_more_info">for å få mer info</string>
   <string name="mec_mr">Herr</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Postnummer</string>
   <string name="mec_postal_code_error">Angi et gyldig postnummer</string>
   <string name="mec_postal_code_hint">Angi postnummer</string>
+  <string name="mec_priceAscending">[nb]Price (Low to High)</string>
+  <string name="mec_priceDescending">[nb]Price (High to Low)</string>
   <string name="mec_privacy">Merknad om personvern</string>
   <string name="mec_product_detail_title"> Produktdetaljer</string>
   <string name="mec_product_title">Produkter</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Forsendelsesadresse</string>
   <string name="mec_shipping_cost">Fraktkostnader</string>
   <string name="mec_shopping_cart_title">Handlevogn</string>
+  <string name="mec_sort_title">[nb]Sort</string>
   <string name="mec_specs">Spesifikasjoner</string>
   <string name="mec_state">Sted</string>
   <string name="mec_state_error">Velg region</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Dette kan ta lengre tid. Ønsker du å fortsette?</string>
   <string name="mec_threshold_title">Terskelen for forespørsler er nådd</string>
   <string name="mec_time_out_error">Tidsavbrudd for nettverk!</string>
+  <string name="mec_topRated">[nb]Rating</string>
   <string name="mec_town">By/sted</string>
   <string name="mec_town_error">Angi et gyldig poststed</string>
   <string name="mec_town_hint">Angi by eller sted</string>

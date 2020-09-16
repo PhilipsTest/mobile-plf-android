@@ -10,10 +10,10 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingOptions
 import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest
 import com.bazaarvoice.bvandroidsdk.EqualityOperator
 import com.philips.platform.ecs.ECSServices
-import com.philips.platform.ecs.error.ECSError
-import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.model.cart.ECSEntries
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.callBack.ECSCallback
+import com.philips.platform.ecs.microService.error.ECSError
+import com.philips.platform.ecs.microService.model.cart.ECSItem
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.ecs.util.ECSConfiguration
 import com.philips.platform.mec.auth.HybrisAuth
@@ -27,13 +27,13 @@ class ECSShoppingCartRepository(var ecsShoppingCartViewModel: EcsShoppingCartVie
 {
     var ecsShoppingCartCallback= ECSShoppingCartCallback(ecsShoppingCartViewModel)
 
-    var authCallBack = object : ECSCallback<ECSOAuthData, Exception> {
+    var authCallBack = object : com.philips.platform.ecs.integration.ECSCallback<ECSOAuthData, Exception> {
 
         override fun onResponse(result: ECSOAuthData?) {
             fetchShoppingCart()
         }
 
-        override fun onFailure(error: Exception, ecsError: ECSError) {
+        override fun onFailure(error: Exception, ecsError: com.philips.platform.ecs.error.ECSError) {
             val mecError = MecError(error, ecsError,MECRequestType.MEC_HYBRIS_AUTH)
             ecsShoppingCartViewModel.mecError.value = mecError
         }
@@ -44,22 +44,22 @@ class ECSShoppingCartRepository(var ecsShoppingCartViewModel: EcsShoppingCartVie
          if(!MECutility.isExistingUser() || ECSConfiguration.INSTANCE.accessToken == null) {
              HybrisAuth.hybrisAuthentication(authCallBack)
          }else{
-             ecsServices.fetchShoppingCart(ecsShoppingCartCallback)
+             ecsServices.microService.fetchShoppingCart(ecsShoppingCartCallback)
          }
     }
 
-    fun updateShoppingCart(entries: ECSEntries, quantity: Int) {
+    fun updateShoppingCart(cartItem: ECSItem, quantity: Int) {
         ecsShoppingCartCallback.mECRequestType=MECRequestType.MEC_UPDATE_SHOPPING_CART
-        this.ecsServices.updateShoppingCart(quantity,entries,ecsShoppingCartCallback)
+        this.ecsServices.microService.updateShoppingCart(cartItem,quantity,ecsShoppingCartCallback)
     }
 
-    fun fetchProductReview(ecsEntries: MutableList<ECSEntries>, ecsShoppingCartViewModel: EcsShoppingCartViewModel ,bvClient: BVConversationsClient?){
+    fun fetchProductReview(ecsItems: MutableList<ECSItem>, ecsShoppingCartViewModel: EcsShoppingCartViewModel ,bvClient: BVConversationsClient?){
 
-        val mecConversationsDisplayCallback = MECBulkRatingCallback(ecsEntries, ecsShoppingCartViewModel)
+        val mecConversationsDisplayCallback = MECBulkRatingCallback(ecsItems, ecsShoppingCartViewModel)
         val ctnList: MutableList<String> = mutableListOf()
 
-        for(ecsEntry in ecsEntries){
-            ctnList.add(ecsEntry.product.code.replace("/","_"))
+        for(ecsItem in ecsItems){
+            ecsItem.ctn?.replace("/","_")?.let { ctnList.add(it) }
         }
         val request = MECConstant.KEY_BAZAAR_LOCALE?.let { BulkRatingsRequest.Builder(ctnList, BulkRatingOptions.StatsType.All).addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, MECDataHolder.INSTANCE.locale).addCustomDisplayParameter(it, MECDataHolder.INSTANCE.locale).build() }
         val prepareCall = bvClient!!.prepareCall(request)
@@ -75,8 +75,9 @@ class ECSShoppingCartRepository(var ecsShoppingCartViewModel: EcsShoppingCartVie
         ecsServices.removeVoucher(voucherCode,ecsVoucherCallback)
     }
 
-    fun createCart(createShoppingCartCallback: ECSCallback<ECSShoppingCart, Exception>){
-        ecsServices.createShoppingCart(createShoppingCartCallback)
+    fun createCart(ctn:String){
+        ecsShoppingCartCallback.mECRequestType=MECRequestType.MEC_CREATE_SHOPPING_CART
+        ecsServices.microService.createShoppingCart(ctn = ctn,ecsCallback = ecsShoppingCartCallback)
     }
 
 

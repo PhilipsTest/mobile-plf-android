@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
-  ~
-  ~  * All rights are reserved. Reproduction or dissemination
-  ~
-  ~  * in whole or in part is prohibited without the prior written
-  ~
-  ~  * consent of the copyright holder.
-  ~
-  ~  */
-  -->
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
+   - All rights are reserved. Reproduction or dissemination
+   - in whole or in part is prohibited without the prior written
+   - consent of the copyright holder. -->
 
 <resources>
   <string name="ECSAppInfraNotFound">Εισαγάγετε app infra object</string>
@@ -35,7 +28,9 @@
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">Αντιμετωπίσαμε τεχνικό πρόβλημα (μη έγκυρο διακριτικό πρόσβασης). Πραγματοποιήστε Hybris Re-Auth</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">Μη έγκυρη διεύθυνση email. Ελέγξτε.</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">Το προϊόν δεν προστέθηκε στο καλάθι</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit">Please provide valid limit</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">Επιλέξτε τοπικές ρυθμίσεις</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset">Please provide valid offset</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[el]Please provide valid CTN</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[el]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">Το κατάστημα της Philips δεν είναι διαθέσιμο για την επιλεγμένη χώρα, είναι διαθέσιμη μόνο η λειτουργία καταστήματος λιανικής</string>

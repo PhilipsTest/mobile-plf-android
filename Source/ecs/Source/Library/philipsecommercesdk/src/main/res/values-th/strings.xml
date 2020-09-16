@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ /* Copyright (c) Koninklijke Philips N.V., 2020
-  ~
-  ~  * All rights are reserved. Reproduction or dissemination
-  ~
-  ~  * in whole or in part is prohibited without the prior written
-  ~
-  ~  * consent of the copyright holder.
-  ~
-  ~  */
-  -->
+<!-- Copyright (c) Koninklijke Philips N.V., 2020
+   - All rights are reserved. Reproduction or dissemination
+   - in whole or in part is prohibited without the prior written
+   - consent of the copyright holder. -->
 
 <resources>
   <string name="ECSAppInfraNotFound">โปรดระบุวัตถุอินฟราเรดของแอป</string>
@@ -35,7 +28,9 @@
   <string name="ECSPIL_INVALID_AUTHORIZATION_accessToken">เราพบข้อผิดพลาดทางเทคนิค (โทเค็นการเข้าถึงไม่ถูกต้อง). โปรดทำการการยืนยันตัวตน Hybris ซ้ำ</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_Email">อีเมล์แอดเดรสไม่ถูกต้อง โปรดตรวจสอบ</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_itemId">ยังไม่ได้เพิ่มสินค้าลงในตะกร้า</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_limit">Please provide valid limit</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_locale">โปรดตั้งค่าสถานที่</string>
+  <string name="ECSPIL_INVALID_PARAMETER_VALUE_offset">Please provide valid offset</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_productId">[th]Please provide valid CTN</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_quantity">[th]Please provide a valid quantity</string>
   <string name="ECSPIL_INVALID_PARAMETER_VALUE_siteId">ร้านค้า Philips ไม่พร้อมให้บริการในประเทศที่เลือก มีเฉพาะโหมดร้านค้าปลีกเท่านั้น</string>

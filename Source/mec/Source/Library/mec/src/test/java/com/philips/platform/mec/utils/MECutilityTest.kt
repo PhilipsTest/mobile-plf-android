@@ -243,9 +243,9 @@ class MECutilityTest {
     @Test
     fun `Test IsStockAvailable()`(){
 
-        assertEquals(true ,mECutilityCompanion.isStockAvailable("inStock",5))
-        assertEquals(true ,mECutilityCompanion.isStockAvailable("lowStock",5))
-        assertEquals(false ,mECutilityCompanion.isStockAvailable("inStock",0))
+        assertEquals(true ,mECutilityCompanion.isStockAvailable("in_Stock",5))
+        assertEquals(true ,mECutilityCompanion.isStockAvailable("low_Stock",5))
+        assertEquals(false ,mECutilityCompanion.isStockAvailable("out_Stock",0))
         assertEquals(false ,mECutilityCompanion.isStockAvailable("lowStock",0))
         assertEquals(false ,mECutilityCompanion.isStockAvailable(null,5))
     }
@@ -263,27 +263,6 @@ class MECutilityTest {
         assertEquals(true ,mECutilityCompanion.isAuthError(error))
 
     }
-
-    @Test
-    fun `Test getQuantity()`(){
-
-        var ecsShoppingCart= ECSShoppingCart()
-        var eCSentry = ECSEntries()
-        var mECSProduct1 = ECSProduct()
-        mECSProduct1.code = "ConsignmentCode123ABC"
-        eCSentry.product = mECSProduct1
-        eCSentry.quantity = 2
-        var entries = ArrayList<ECSEntries>()
-        entries.add(eCSentry)
-        ecsShoppingCart.entries=entries
-
-        ecsShoppingCart.totalItems=2
-        assertEquals(2,mECutilityCompanion.getQuantity(ecsShoppingCart))
-
-        ecsShoppingCart.totalItems=3
-        assertEquals(2,mECutilityCompanion.getQuantity(ecsShoppingCart))
-    }
-
 
     @Test
     fun `Test findGivenAddressInAddressList()`(){

@@ -22,6 +22,7 @@ data class Voucher(
     val freeShipping: Boolean?,
     val id: String?,
     val value: Price?,
+    val voucherDiscount:Price?,
     val name: String?,
     val description: String?
 ):Parcelable

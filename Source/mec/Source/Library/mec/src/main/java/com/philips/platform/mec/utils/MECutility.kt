@@ -26,7 +26,6 @@ import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.error.ECSErrorEnum
 import com.philips.platform.ecs.microService.error.ECSErrorType
 import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.PaymentInfo
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticServer.bazaarVoice
@@ -35,6 +34,7 @@ import com.philips.platform.mec.analytics.MECAnalyticServer.other
 import com.philips.platform.mec.analytics.MECAnalyticServer.prx
 import com.philips.platform.mec.analytics.MECAnalyticServer.wtb
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.appError
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotification
 import com.philips.platform.mec.analytics.MECAnalyticsConstant.inappnotificationresponse
@@ -43,8 +43,6 @@ import com.philips.platform.mec.auth.HybrisAuth
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.screens.payment.MECPayment
-import com.philips.platform.mec.utils.MECConstant.IN_STOCK
-import com.philips.platform.mec.utils.MECConstant.LOW_STOCK
 import com.philips.platform.mec.utils.MECConstant.PIL_IN_STOCK
 import com.philips.platform.mec.utils.MECConstant.PIL_LOW_STOCK
 import com.philips.platform.uid.thememanager.UIDHelper
@@ -251,34 +249,35 @@ class MECutility {
                 return false
             }
 
-            return ((stockLevelStatus.equals(IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(PIL_IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(LOW_STOCK, ignoreCase = true) || stockLevelStatus.equals(PIL_LOW_STOCK, ignoreCase = true)) && stockLevel > 0)
+            return ((stockLevelStatus.equals(PIL_IN_STOCK, ignoreCase = true) || stockLevelStatus.equals(PIL_LOW_STOCK, ignoreCase = true)) && stockLevel > 0)
         }
 
         fun stockStatus(availability: String): String {
             return when (availability) {
-                "YES" -> "available"
-                "NO" -> "out of stock"
+                "YES" -> MECAnalyticsConstant.AVAILABLE
+                "NO" -> MECAnalyticsConstant.OUT_OF_STOCK
                 else -> ""
             }
-        }
-
-        fun getQuantity(carts: ECSShoppingCart): Int {
-            val totalItems = carts.totalItems
-            var quantity = 0
-            if (carts.entries != null) {
-                val entries = carts.entries
-                if (totalItems != 0 && null != entries) {
-                    for (i in entries.indices) {
-                        quantity += entries[i].quantity
-                    }
-                }
-            }
-            return quantity
         }
 
         fun isAuthError(ecsError: ECSError?): Boolean {
             var authError: Boolean = false
             with(ecsError?.errorcode) {
+                if (this == ECSErrorEnum.ECSInvalidTokenError.errorCode
+                        || this == ECSErrorEnum.ECSinvalid_grant.errorCode
+                        || this == ECSErrorEnum.ECSinvalid_client.errorCode
+                        || this == ECSErrorEnum.ECSOAuthDetailError.errorCode
+                        || this == ECSErrorEnum.ECSOAuthNotCalled.errorCode) {
+                    authError = true
+                }
+            }
+
+            return authError
+        }
+
+        fun isAuthError(ecsError: com.philips.platform.ecs.microService.error.ECSError?): Boolean {
+            var authError: Boolean = false
+            with(ecsError?.errorCode) {
                 if (this == ECSErrorEnum.ECSInvalidTokenError.errorCode
                         || this == ECSErrorEnum.ECSinvalid_grant.errorCode
                         || this == ECSErrorEnum.ECSinvalid_client.errorCode

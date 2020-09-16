@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">يرجى التحقق من اتصال الإنترنت لديك.</string>
   <string name="mec_checkout">الدفع عند المغادرة</string>
   <string name="mec_choose_address_text">اختيار عنوان الشحن من القائمة أدناه</string>
+  <string name="mec_clear">[ar]Clear</string>
+  <string name="mec_clear_filter">[ar]Clear filter(s)</string>
   <string name="mec_confirmation">تأكيد</string>
   <string name="mec_confirmation_email_msg">ستتلقى رسالة بريد إلكتروني للتأكيد  بعد فترة وجيزة على</string>
   <string name="mec_contact_details">تفاصيل جهة الاتصال</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">التسليم</string>
   <string name="mec_delivery_method">طريقة التسليم</string>
   <string name="mec_discount">الخصم</string>
+  <string name="mec_discountPriceAscending">[ar]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[ar]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">عربة التسوق فارغة حاليًا</string>
+  <string name="mec_empty_filter_message">[ar]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">إذا قدّمت طلبك مستخدمًا هذا التطبيق، فيرجى التحقق من أنك تلقيت بريدًا إلكترونيًا لتأكيد الطلب.</string>
   <string name="mec_enter_code">إدخال رمز هدية</string>
   <string name="mec_faq">الأسئلة الشائعة</string>
   <string name="mec_features">المميزات</string>
   <string name="mec_fetching_payment">يتم الآن إحضار تفاصيل الدفع...</string>
+  <string name="mec_filter_title">[ar]Filters</string>
   <string name="mec_first_name">الاسم الأول</string>
   <string name="mec_first_name_error">يُرجى إدخال اسم أول صالح</string>
   <string name="mec_first_name_hint">أدخِل الاسم الأول</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">يُرجى إدخال اسم عائلة صالح</string>
   <string name="mec_last_name_hint">أدخل اسم العائلة</string>
   <string name="mec_loading">جارٍ التحميل..</string>
+  <string name="mec_low_stock">[ar]Low stock</string>
   <string name="mec_manage_address">إدارة العنوان</string>
   <string name="mec_more_info">للحصول على مزيد من المعلومات</string>
   <string name="mec_mr">السيد</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">الرمز البريدي</string>
   <string name="mec_postal_code_error">يُرجى إدخال رمز بريدي صالح</string>
   <string name="mec_postal_code_hint">أدخل الرمز البريدي</string>
+  <string name="mec_priceAscending">[ar]Price (Low to High)</string>
+  <string name="mec_priceDescending">[ar]Price (High to Low)</string>
   <string name="mec_privacy">إشعار الخصوصية</string>
   <string name="mec_product_detail_title"> تفاصيل المنتج</string>
   <string name="mec_product_title">المنتجات</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">عنوان الشحن</string>
   <string name="mec_shipping_cost">كلفة الشحن</string>
   <string name="mec_shopping_cart_title">العربة</string>
+  <string name="mec_sort_title">[ar]Sort</string>
   <string name="mec_specs">المواصفات</string>
   <string name="mec_state">الولاية</string>
   <string name="mec_state_error">يرجى تحديد ولاية</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">قد يستغرق هذا وقتًا أطول. هل ترغب في المتابعة؟</string>
   <string name="mec_threshold_title">تم الوصول إلى الحد الأدنى من الطلبات</string>
   <string name="mec_time_out_error">انتهت مهلة الشبكة!</string>
+  <string name="mec_topRated">[ar]Rating</string>
   <string name="mec_town">البلدة/المدينة</string>
   <string name="mec_town_error">يُرجى إدخال بلدة صالحة</string>
   <string name="mec_town_hint">أدخل بلدتك أو مدينتك</string>

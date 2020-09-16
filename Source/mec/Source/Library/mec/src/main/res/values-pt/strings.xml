@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Verifique a sua ligação à Internet.</string>
   <string name="mec_checkout">Finalizar</string>
   <string name="mec_choose_address_text">Escolha o endereço de envio na lista abaixo</string>
+  <string name="mec_clear">[pt]Clear</string>
+  <string name="mec_clear_filter">[pt]Clear filter(s)</string>
   <string name="mec_confirmation">Confirmação</string>
   <string name="mec_confirmation_email_msg">Receberá uma mensagem de correio electrónico de confirmação em breve em</string>
   <string name="mec_contact_details">Detalhes de contacto</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Entrega</string>
   <string name="mec_delivery_method">Método de entrega</string>
   <string name="mec_discount">descontar</string>
+  <string name="mec_discountPriceAscending">[pt]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[pt]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Neste momento, o seu carrinho de compras está vazio</string>
+  <string name="mec_empty_filter_message">[pt]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Se efetuou a sua encomenda através desta aplicação, verifique se recebeu um e-mail de confirmação da encomenda.</string>
   <string name="mec_enter_code">Adicionar código de oferta</string>
   <string name="mec_faq">FAQ</string>
   <string name="mec_features">Caraterísticas</string>
   <string name="mec_fetching_payment">A obter detalhes de pagamento...</string>
+  <string name="mec_filter_title">[pt]Filters</string>
   <string name="mec_first_name">Nome</string>
   <string name="mec_first_name_error">Introduza um primeiro nome válido</string>
   <string name="mec_first_name_hint">Introduzir primeiro nome</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Introduza um apelido válido</string>
   <string name="mec_last_name_hint">Introduzir apelido</string>
   <string name="mec_loading">A carregar...</string>
+  <string name="mec_low_stock">[pt]Low stock</string>
   <string name="mec_manage_address">Gerir endereço</string>
   <string name="mec_more_info">para mais informações</string>
   <string name="mec_mr">Sr.</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Código postal</string>
   <string name="mec_postal_code_error">Introduza um código postal válido</string>
   <string name="mec_postal_code_hint">Introduzir código postal</string>
+  <string name="mec_priceAscending">[pt]Price (Low to High)</string>
+  <string name="mec_priceDescending">[pt]Price (High to Low)</string>
   <string name="mec_privacy">Política de privacidade</string>
   <string name="mec_product_detail_title">Detalhes do produto</string>
   <string name="mec_product_title">Produtos</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Morada de envio</string>
   <string name="mec_shipping_cost">Custo de envio</string>
   <string name="mec_shopping_cart_title">Carrinho</string>
+  <string name="mec_sort_title">[pt]Sort</string>
   <string name="mec_specs">Especificações</string>
   <string name="mec_state">Localidade</string>
   <string name="mec_state_error">Selecione uma região</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Isto pode demorar mais tempo. Pretende continuar?</string>
   <string name="mec_threshold_title">Limite de pedido atingido</string>
   <string name="mec_time_out_error">Tempo limite de rede atingido!</string>
+  <string name="mec_topRated">[pt]Rating</string>
   <string name="mec_town">Localidade/cidade</string>
   <string name="mec_town_error">Introduza uma localidade válida</string>
   <string name="mec_town_hint">Introduzir localidade ou cidade</string>

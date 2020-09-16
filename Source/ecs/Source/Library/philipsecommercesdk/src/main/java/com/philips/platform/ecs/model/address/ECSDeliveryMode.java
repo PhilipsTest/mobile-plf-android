@@ -20,6 +20,7 @@ public class ECSDeliveryMode implements Parcelable, Serializable {
     private DeliveryCost deliveryCost;
     private String description;
     private String name;
+    private boolean pickupPoint;
 
     public boolean isSelected() {
         return isSelected;
@@ -98,4 +99,11 @@ public class ECSDeliveryMode implements Parcelable, Serializable {
         return name;
     }
 
+    public boolean isPickupPoint() {
+        return pickupPoint;
+    }
+
+    public void setPickupPoint(boolean pickupPoint) {
+        this.pickupPoint = pickupPoint;
+    }
 }
