@@ -122,7 +122,6 @@ dependencies {
     androidTestImplementation deps.androidx.runner
     androidTestImplementation deps.androidx.rules
     androidTestImplementation deps.androidx.uiautomator
-    implementation deps.localbroadcastmanager
 
 }
 

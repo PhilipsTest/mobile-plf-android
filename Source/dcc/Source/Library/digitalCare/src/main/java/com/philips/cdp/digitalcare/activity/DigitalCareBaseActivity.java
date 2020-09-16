@@ -43,9 +43,6 @@ public abstract class DigitalCareBaseActivity extends UIDLangPackActivity implem
     protected DigitalCareConfigManager mDigitalCareConfigManager = null;
     private Toolbar toolbar;
 
-    public DigitalCareBaseActivity() {
-        //setLanguagePackNeeded(false);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

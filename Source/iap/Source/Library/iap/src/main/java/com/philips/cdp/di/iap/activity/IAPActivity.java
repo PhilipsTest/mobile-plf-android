@@ -58,9 +58,7 @@ public class IAPActivity extends UIDLangPackActivity implements ActionBarListene
     private FrameLayout mCartContainer;
     private String mTitle;
 
-    public IAPActivity(){
-        //setLanguagePackNeeded(false);
-    }
+
 
     @Override
     protected void attachBaseContext(Context newBase) {

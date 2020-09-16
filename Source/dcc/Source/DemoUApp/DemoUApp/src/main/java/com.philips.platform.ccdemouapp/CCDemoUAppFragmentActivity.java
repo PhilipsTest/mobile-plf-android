@@ -70,9 +70,6 @@ public class CCDemoUAppFragmentActivity extends UIDLangPackActivity implements V
         }
     };
 
-    public CCDemoUAppFragmentActivity() {
-        //setLanguagePackNeeded(false);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

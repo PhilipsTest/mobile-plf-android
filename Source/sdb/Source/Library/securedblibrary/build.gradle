@@ -87,6 +87,5 @@ tasks.withType(Test) {
     ignoreFailures = true
 }
 repositories {
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     mavenCentral()
 }

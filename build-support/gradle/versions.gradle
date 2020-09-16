@@ -20,8 +20,8 @@ ext.platformversionsuffix = baseplatformversion + ".+"
  * Android tools and environment versions
  */
 ext.versions = [
-        sdk                                 : 29,
-        target                              : 29,
+        sdk                                 : 30,
+        target                              : 30,
         minsdk                              : 23,
         buildtools                          : '29.0.2',
         jacoco                              : '0.8.0',
@@ -174,7 +174,7 @@ ext.deps = [
                 multidex             : 'androidx.multidex:multidex:2.0.1',
         ],
 
-        design                        : "com.google.android.material:material:1.0.0",
+        design                        : "com.google.android.material:material:1.2.0",
         volley                        : 'com.android.volley:volley:1.1.1',
         wechat                        : 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.4.0',
         assertj                       : 'com.squareup.assertj:assertj-android:1.2.0',
@@ -210,6 +210,5 @@ ext.deps = [
         okhttp3                       : 'com.squareup.okhttp3:okhttp:3.10.0',
         chuck_debug                   : 'com.readystatesoftware.chuck:library:1.1.0',
         chuck_release                 : 'com.readystatesoftware.chuck:library-no-op:1.1.0',
-        localbroadcastmanager         : 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 
 ]

@@ -20,7 +20,6 @@ buildscript {
             }
         }
         mavenCentral()
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     }
 
     dependencies {
@@ -33,7 +32,6 @@ buildscript {
         classpath builddeps.use_latest_versions
         classpath builddeps.ben_manes_versions
         classpath builddeps.kotlin_plugin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
