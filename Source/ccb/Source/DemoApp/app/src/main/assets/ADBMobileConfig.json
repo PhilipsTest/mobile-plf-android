@@ -6,7 +6,7 @@
   },
   "analytics": {
     "referrerTimeout": 5,
-    "rsids": "philipsmobileinapppurchasedev",
+    "rsids": "philipsmobileappsjanraindev",
     "server": "philips.112.2o7.net",
     "charset": "UTF-8",
     "ssl": true,
@@ -23,8 +23,5 @@
   },
   "audienceManager": {
     "server": ""
-  },
-  "marketingCloud" : {
-    "org": "7D976F3055DC96AB7F000101@AdobeOrg"
   }
 }
