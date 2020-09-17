@@ -20,8 +20,8 @@ ext.platformversionsuffix = baseplatformversion + ".+"
  * Android tools and environment versions
  */
 ext.versions = [
-        sdk                                 : 29,
-        target                              : 29,
+        sdk                                 : 30,
+        target                              : 30,
         minsdk                              : 23,
         buildtools                          : '29.0.2',
         jacoco                              : '0.8.0',
