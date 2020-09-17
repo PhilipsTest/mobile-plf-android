@@ -162,7 +162,7 @@ class WebBuyFromRetailersFragment : MecBaseFragment() {
 
         })
 
-        mWebView!!.loadUrl(mUrl)
+        mWebView!!.loadUrl(mUrl!!)
     }
 
     fun getPhilipsFormattedUrl(url: String): String {

@@ -161,11 +161,11 @@ open class MECProductDetailsFragment : MecBaseFragment() {
             ecsProductDetailViewModel = ViewModelProvider(this).get(EcsProductDetailViewModel::class.java)
 
             ecsRetailerViewModel = ViewModelProvider(this).get(ECSRetailerViewModel::class.java)
-            ecsRetailerViewModel.ecsRetailerList.observe(this, eCSRetailerListObserver)
-            ecsProductDetailViewModel.ecsProduct.observe(this, productObserver)
-            ecsProductDetailViewModel.ecsShoppingCart.observe(this, cartObserver)
-            ecsProductDetailViewModel.bulkRatingResponse.observe(this, ratingObserver)
-            ecsProductDetailViewModel.mecError.observe(this, this)
+            ecsRetailerViewModel.ecsRetailerList.observe(viewLifecycleOwner, eCSRetailerListObserver)
+            ecsProductDetailViewModel.ecsProduct.observe(viewLifecycleOwner, productObserver)
+            ecsProductDetailViewModel.ecsShoppingCart.observe(viewLifecycleOwner, cartObserver)
+            ecsProductDetailViewModel.bulkRatingResponse.observe(viewLifecycleOwner, ratingObserver)
+            ecsProductDetailViewModel.mecError.observe(viewLifecycleOwner, this)
 
             binding.indicator.viewPager = binding.pager
             product = arguments?.getParcelable(MECConstant.MEC_KEY_PRODUCT)
@@ -322,8 +322,8 @@ open class MECProductDetailsFragment : MecBaseFragment() {
         if (requestCode == MECConstant.RETAILER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
             if (data?.extras?.containsKey(MECConstant.SELECTED_RETAILER) == true) {
-                val ecsRetailer: ECSRetailer = data.getParcelableExtra(MECConstant.SELECTED_RETAILER) as ECSRetailer
-                param = ecsRetailer.xactparam ?:""
+                val ecsRetailer: ECSRetailer? = data.getParcelableExtra(MECConstant.SELECTED_RETAILER)
+                param = ecsRetailer!!.xactparam ?:""
                 val bundle = Bundle()
                 bundle.putString(MECConstant.MEC_BUY_URL, ecsProductDetailViewModel.uuidWithSupplierLink(ecsRetailer.buyURL ?:"", param))
                 bundle.putString(MECConstant.MEC_STORE_NAME, ecsRetailer.name)

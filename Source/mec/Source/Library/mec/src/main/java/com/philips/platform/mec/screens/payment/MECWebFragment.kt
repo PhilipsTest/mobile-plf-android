@@ -55,7 +55,7 @@ abstract class MECWebFragment : MecBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mWebView.loadUrl(mUrl)
+        mWebView.loadUrl(mUrl!!)
     }
 
     override fun onResume() {

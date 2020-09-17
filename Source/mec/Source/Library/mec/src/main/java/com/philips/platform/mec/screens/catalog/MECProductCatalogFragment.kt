@@ -227,9 +227,9 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             mECProductCatalogService = MECProductCatalogService()
             ecsProductViewModel = ViewModelProvider(this).get(EcsProductViewModel::class.java)
 
-            ecsProductViewModel.ecsPILProducts.observe(this, mProductObserver)
-            ecsProductViewModel.ecsPILProductsReviewList.observe(this, mProductReviewObserver)
-            ecsProductViewModel.mecError.observe(this, this)
+            ecsProductViewModel.ecsPILProducts.observe(viewLifecycleOwner, mProductObserver)
+            ecsProductViewModel.ecsPILProductsReviewList.observe(viewLifecycleOwner, mProductReviewObserver)
+            ecsProductViewModel.mecError.observe(viewLifecycleOwner, this)
 
             val bundle = arguments
 
@@ -529,10 +529,10 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MECConstant.FILTER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data?.extras?.containsKey(MECConstant.SELECTED_FILTERS) == true) {
-                val modifiedProductFilter = data.getParcelableExtra(MECConstant.SELECTED_FILTERS) as ProductFilter
+                val modifiedProductFilter : ProductFilter? = data.getParcelableExtra(MECConstant.SELECTED_FILTERS)
 
                 if(mProductFilter != modifiedProductFilter) { //check if actually filter is altered or not
-                    mProductFilter = modifiedProductFilter
+                    mProductFilter = modifiedProductFilter!!
                     binding.mecCatalogParentLayout.visibility = View.GONE
                     showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
                     clearCatalogCache()
