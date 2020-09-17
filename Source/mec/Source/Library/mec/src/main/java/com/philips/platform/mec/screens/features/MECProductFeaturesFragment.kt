@@ -35,17 +35,16 @@ class MECProductFeaturesFragment : MecBaseFragment() {
         return "MECProductFeaturesFragment"
     }
 
-    var mRecyclerView : RecyclerView? =null
-    var mFeaturesModel: FeaturesModel?=null
+    var mRecyclerView: RecyclerView? = null
+    var mFeaturesModel: FeaturesModel? = null
     private lateinit var binding: MecProductFeaturesFragmentBinding
     private lateinit var productFeaturesViewModel: ProductFeaturesViewModel
-    private lateinit var mECSProduct : ECSProduct
+    private lateinit var mECSProduct: ECSProduct
 
-    private val featuresObserver : Observer<FeaturesModel> = object : Observer<FeaturesModel> {
+    private val featuresObserver: Observer<FeaturesModel> = object : Observer<FeaturesModel> {
 
         override fun onChanged(featuresModel: FeaturesModel?) {
-            mFeaturesModel=featuresModel
-            if (mFeaturesModel?.data?.keyBenefitArea == null) return
+            mFeaturesModel = featuresModel
             setImageForFeatureItem(featuresModel)
             binding.featureModel = featuresModel
         }
@@ -53,20 +52,24 @@ class MECProductFeaturesFragment : MecBaseFragment() {
     }
 
     private fun setImageForFeatureItem(featuresModel: FeaturesModel?) {
-        for (keyBenefitAreaItem in featuresModel!!.data.keyBenefitArea) {
+        val keyBenefitArea = featuresModel?.data?.keyBenefitArea
+        keyBenefitArea?.let {
+            for (keyBenefitAreaItem in it) {
 
-            for (featureItem in keyBenefitAreaItem.feature) {
+                for (featureItem in keyBenefitAreaItem.feature) {
 
-                var singleAssetImageFromFeatureCode = featuresModel.data.getSingleAssetImageFromFeatureCode(featureItem.featureCode)
+                    var singleAssetImageFromFeatureCode = featuresModel.data.getSingleAssetImageFromFeatureCode(featureItem.featureCode)
 
-                if(singleAssetImageFromFeatureCode!=null){
-                    singleAssetImageFromFeatureCode = singleAssetImageFromFeatureCode + "?wid=" + 220 +
-                              "&hei=" + 220 + "&\$pnglarge$" + "&fit=fit,1"
+                    if (singleAssetImageFromFeatureCode != null) {
+                        singleAssetImageFromFeatureCode = singleAssetImageFromFeatureCode + "?wid=" + 220 +
+                                "&hei=" + 220 + "&\$pnglarge$" + "&fit=fit,1"
+                    }
+
+                    featureItem.setSingleFeatureImage(singleAssetImageFromFeatureCode)
                 }
-
-                featureItem.setSingleFeatureImage(singleAssetImageFromFeatureCode)
             }
         }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
