@@ -35,7 +35,7 @@ public class PRXProductAssetBuilderTest {
 
     @Test
     public void executeRequest() {
-      //  mPrxProductAssetBuilder.executeRequest(mProductAssetBuilder);
-      //  verify(mPrxProductAssetBuilder).executeRequest(mProductAssetBuilder);
+        mPrxProductAssetBuilder.executeRequest(mProductAssetBuilder);
+        verify(mPrxProductAssetBuilder).executeRequest(mProductAssetBuilder);
     }
 }
