@@ -11,6 +11,8 @@ package com.philips.platform.mec.analytics
 
 object MECAnalyticsConstant {
 
+    val OUT_OF_STOCK                 = "out of stock"
+    val AVAILABLE                    = "available"
     val COMPONENT_NAME               = "mec"
     val exceptionErrorCode           = "90000"
     val exitLinkNameKey              = "exitLinkName"

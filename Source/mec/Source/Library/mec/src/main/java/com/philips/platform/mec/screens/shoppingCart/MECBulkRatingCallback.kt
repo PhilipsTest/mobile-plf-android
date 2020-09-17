@@ -9,11 +9,11 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback
 import com.bazaarvoice.bvandroidsdk.ConversationsException
 import com.bazaarvoice.bvandroidsdk.Statistics
-import com.philips.platform.ecs.model.cart.ECSEntries
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.mec.common.MecError
 import java.text.DecimalFormat
 
-class MECBulkRatingCallback(private val ecsProducts: MutableList<ECSEntries>, private val ecsShoppingCartViewModel: EcsShoppingCartViewModel) : ConversationsDisplayCallback<BulkRatingsResponse> {
+class MECBulkRatingCallback(private val ecsProducts: MutableList<ECSItem>, private val ecsShoppingCartViewModel: EcsShoppingCartViewModel) : ConversationsDisplayCallback<BulkRatingsResponse> {
 
 
     override fun onSuccess(response: BulkRatingsResponse) {
@@ -33,7 +33,7 @@ class MECBulkRatingCallback(private val ecsProducts: MutableList<ECSEntries>, pr
     }
 
 
-    private fun createMECProductReviewObject(ecsProducts: MutableList<ECSEntries>, statisticsList: List<Statistics>) {
+    private fun createMECProductReviewObject(ecsProducts: MutableList<ECSItem>, statisticsList: List<Statistics>) {
 
         var mecProductReviewList :MutableList<MECCartProductReview> = mutableListOf()
 
@@ -41,10 +41,13 @@ class MECBulkRatingCallback(private val ecsProducts: MutableList<ECSEntries>, pr
 
             for(statistics in statisticsList){
 
-                if(ecsProduct.product.code isEqualsTo statistics.productStatistics.productId){
+                ecsProduct.ctn?.let {
+                    if(it.isEqualsTo (statistics.productStatistics.productId)){
 
-                    mecProductReviewList.add (MECCartProductReview(ecsProduct, DecimalFormat("#.#").format(statistics.productStatistics.reviewStatistics.averageOverallRating), " ("+statistics.productStatistics.reviewStatistics.totalReviewCount.toString()+ ")"))
+                        mecProductReviewList.add (MECCartProductReview(ecsProduct, DecimalFormat("#.#").format(statistics.productStatistics.reviewStatistics.averageOverallRating), " ("+statistics.productStatistics.reviewStatistics.totalReviewCount.toString()+ ")"))
+                    }
                 }
+
             }
         }
 

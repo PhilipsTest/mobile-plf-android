@@ -10,7 +10,7 @@
 
         <variable
             name="shoppingCart"
-            type="com.philips.platform.ecs.model.cart.ECSShoppingCart" />
+            type="com.philips.platform.ecs.microService.model.cart.ECSShoppingCart" />
 
         <variable
             name="ecsAddressShipping"
@@ -180,7 +180,7 @@
                             android:layout_marginTop="@dimen/border12_margin"
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="2dp"
-                            android:text='@{shoppingCart.deliveryMode.name }'
+                            android:text='@{shoppingCart.data.attributes.deliveryMode.name ??"" }'
                             android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                             android:textSize="@dimen/iap_text_size_16sp" />
 
@@ -193,7 +193,7 @@
                             android:layout_marginBottom="@dimen/border12_margin"
                             android:lines="1"
                             android:maxLines="2"
-                            android:text='@{ shoppingCart.deliveryMode.description!=null ?  shoppingCart.deliveryMode.deliveryCost.formattedValue + " | " + shoppingCart.deliveryMode.description  : shoppingCart.deliveryMode.deliveryCost.formattedValue }'
+                            android:text='@{ shoppingCart.data.attributes.deliveryMode.description!=null ?  shoppingCart.data.attributes.deliveryMode.deliveryCost.formattedValue + " | " + shoppingCart.data.attributes.deliveryMode.description  :  shoppingCart.data.attributes.deliveryMode.deliveryCost.formattedValue }'
                             android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                             android:textSize="@dimen/iap_text_size_12" />
 
@@ -264,7 +264,7 @@
                             android:paddingStart="@dimen/border16_margin_left_right"
                             android:paddingEnd="@dimen/border16_margin_left_right"
                             android:text="@string/mec_accepted_codes"
-                            android:visibility="@{shoppingCart.appliedVouchers.size() > 0 ? View.VISIBLE : View.GONE, default = gone}" />
+                            android:visibility="@{shoppingCart.data.attributes.appliedVouchers.size() > 0 ? View.VISIBLE : View.GONE, default = gone}" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/mec_accepted_code_recycler_view"
@@ -272,7 +272,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginBottom="3dp"
                             android:nestedScrollingEnabled="false"
-                            android:visibility="@{shoppingCart.appliedVouchers.size() > 0 ? View.VISIBLE : View.GONE, default = gone}"
+                            android:visibility="@{shoppingCart.data.attributes.appliedVouchers.size() > 0 ? View.VISIBLE : View.GONE, default = gone}"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                         <com.philips.platform.uid.view.widget.Label
@@ -328,7 +328,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
-                    android:text='@{@string/mec_cart_total + @string/mec_empty_space + "("+ shoppingCart.totalItems + @string/mec_empty_space + @string/mec_product_title + ")" ?? ""}'
+                    android:text='@{@string/mec_cart_total + @string/mec_empty_space + "("+ shoppingCart.data.attributes.deliveryUnits + @string/mec_empty_space + @string/mec_product_title + ")" ?? ""}'
                     android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                     android:textSize="@dimen/iap_text_size_16sp" />
 
@@ -337,7 +337,7 @@
                     style="@style/mecCentralesansBoldFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{shoppingCart.totalPriceWithTax.formattedValue ?? ""}'
+                    android:text='@{shoppingCart.data.attributes.pricing.total.formattedValue ?? ""}'
                     android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                     android:textSize="@dimen/iap_text_size_20sp" />
 
@@ -351,7 +351,7 @@
                 android:layout_above="@+id/mecPrivacy"
                 android:layout_marginStart="@dimen/iap_shopping_cart_btn_margin"
                 android:layout_marginEnd="@dimen/iap_shopping_cart_btn_margin"
-                android:text="@{String.format(@string/mec_cart_tax_message, shoppingCart.totalTax.formattedValue)}"
+                android:text="@{String.format(@string/mec_cart_tax_message, shoppingCart.data.attributes.pricing.tax.formattedValue)}"
                 android:textColor="?attr/uidContentItemTertiaryNormalTextColor"
                 android:textSize="@dimen/iap_text_size_12" />
 

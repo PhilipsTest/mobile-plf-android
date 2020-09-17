@@ -5,6 +5,6 @@
  */
 package com.philips.platform.mec.screens.shoppingCart
 
-import com.philips.platform.ecs.model.cart.ECSEntries
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 
-class MECCartProductReview(val entries: ECSEntries, val overallRating: String, val overallReview: String)
+class MECCartProductReview(val ecsItem: ECSItem, val overallRating: String, val overallReview: String)

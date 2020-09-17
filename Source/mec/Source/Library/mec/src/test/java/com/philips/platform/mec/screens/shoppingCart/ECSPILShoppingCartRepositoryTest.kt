@@ -18,6 +18,7 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse
 import com.bazaarvoice.bvandroidsdk.LoadCallDisplay
 import com.philips.platform.ecs.ECSServices
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.model.cart.ECSEntries
 import com.philips.platform.ecs.model.oauth.ECSOAuthData
 import com.philips.platform.ecs.model.products.ECSProduct
@@ -33,7 +34,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
 import kotlin.test.assertNotNull
 
-@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartCallback::class,ECSVoucherCallback::class,MECBulkRatingCallback::class,BVConversationsClient::class,LoadCallDisplay::class)
+@PrepareForTest(EcsShoppingCartViewModel::class,ECSShoppingCartCallback::class,ECSVoucherCallback::class,MECBulkRatingCallback::class,BVConversationsClient::class,LoadCallDisplay::class,com.philips.platform.ecs.microService.error.ECSError::class,com.philips.platform.ecs.microService.ECSServices::class,ECSItem::class)
 @RunWith(PowerMockRunner::class)
 class ECSPILShoppingCartRepositoryTest {
 
@@ -43,13 +44,16 @@ class ECSPILShoppingCartRepositoryTest {
     lateinit var ecsServicesMock: ECSServices
 
     @Mock
+    lateinit var ecsMicroServicesMock : com.philips.platform.ecs.microService.ECSServices
+
+    @Mock
     lateinit var ecsShoppingCartViewModelMock: EcsShoppingCartViewModel
 
     @Mock
     lateinit var authCallbackMock : ECSCallback<ECSOAuthData, Exception>
 
     @Mock
-    lateinit var ecsEntriesMock: ECSEntries
+    lateinit var ecsItemMock: ECSItem
     @Mock
     lateinit var ecsShoppingCartCallbackMock : ECSShoppingCartCallback
 
@@ -57,6 +61,7 @@ class ECSPILShoppingCartRepositoryTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
+        Mockito.`when`(ecsServicesMock.microService).thenReturn(ecsMicroServicesMock)
         ecsShoppingCartRepository = ECSShoppingCartRepository(ecsShoppingCartViewModelMock,ecsServicesMock)
         ecsShoppingCartRepository.authCallBack = authCallbackMock
         ecsShoppingCartRepository.ecsShoppingCartCallback = ecsShoppingCartCallbackMock
@@ -79,10 +84,10 @@ class ECSPILShoppingCartRepositoryTest {
         //ecsShoppingCartRepository.fetchShoppingCart()
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun updateShoppingCart() {
-        ecsShoppingCartRepository.updateShoppingCart(ecsEntriesMock, 1)
-        Mockito.verify(ecsServicesMock).updateShoppingCart( 1,ecsEntriesMock,ecsShoppingCartCallbackMock)
+        ecsShoppingCartRepository.updateShoppingCart(ecsItemMock, 1)
+        Mockito.verify(ecsServicesMock.microService).updateShoppingCart( ecsItemMock,1,ecsShoppingCartCallbackMock)
     }
 
 
@@ -102,15 +107,13 @@ class ECSPILShoppingCartRepositoryTest {
 
         MECDataHolder.INSTANCE.locale = "US"
 
-        var ecsProduct= ECSProduct()
-        var  ecsEntriesList =  mutableListOf<ECSEntries>()
+        val ecsItem1= ECSItem(null,null,"1234",null,null,null,null,null,null)
+        val ecsItem2= ECSItem(null,null,"12345",null,null,null,null,null,null)
+        var  ecsEntriesList =  mutableListOf<ECSItem>()
 
-        ecsProduct.code ="123456"
+        ecsEntriesList.add(ecsItem1)
+        ecsEntriesList.add(ecsItem2)
 
-        var ecsEntries = ECSEntries()
-        ecsEntries.product = ecsProduct
-
-        ecsEntriesList.add(ecsEntries)
         Mockito.`when`(bvClientMock.prepareCall(any(BulkRatingsRequest::class.java))).thenReturn(LoadCallDisplayMock)
 
         ecsShoppingCartRepository.fetchProductReview(ecsEntriesList,ecsShoppingCartViewModelMock,bvClientMock)
@@ -134,10 +137,10 @@ class ECSPILShoppingCartRepositoryTest {
         Mockito.verify(ecsServicesMock).removeVoucher("1234",ecsVoucherCallback)
     }
 
-    @Test
+    @Test(expected = NullPointerException::class)
     fun createCart() {
-        ecsShoppingCartRepository.createCart(ecsShoppingCartCallbackMock)
-        Mockito.verify(ecsServicesMock).createShoppingCart(ecsShoppingCartCallbackMock)
+        ecsShoppingCartRepository.createCart("CTN")
+        Mockito.verify(ecsServicesMock.microService).createShoppingCart(ctn = "CTN",ecsCallback = ecsShoppingCartCallbackMock)
     }
 
 

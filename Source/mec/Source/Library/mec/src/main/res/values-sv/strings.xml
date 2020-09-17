@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Kontrollera internetanslutningen.</string>
   <string name="mec_checkout">Till kassan</string>
   <string name="mec_choose_address_text">Välj Leveransadress i listan nedan</string>
+  <string name="mec_clear">[sv]Clear</string>
+  <string name="mec_clear_filter">[sv]Clear filter(s)</string>
   <string name="mec_confirmation">Bekräftelse</string>
   <string name="mec_confirmation_email_msg">Du får snart en bekräftelse via e-post på</string>
   <string name="mec_contact_details">Kontaktuppgifter</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Förlossning</string>
   <string name="mec_delivery_method">Leveransmetod</string>
   <string name="mec_discount">rabatt</string>
+  <string name="mec_discountPriceAscending">[sv]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[sv]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Din kundvagn är tom för närvarande</string>
+  <string name="mec_empty_filter_message">[sv]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Om du gjorde din beställning med hjälp av den här appen ska du kontrollera att du har fått en beställningsbekräftelse via e-post.</string>
   <string name="mec_enter_code">Ange presentkortskod</string>
   <string name="mec_faq">Vanliga frågor</string>
   <string name="mec_features">Funktioner</string>
   <string name="mec_fetching_payment">Hämtar betalningsdetaljer...</string>
+  <string name="mec_filter_title">[sv]Filters</string>
   <string name="mec_first_name">Förnamn</string>
   <string name="mec_first_name_error">Ange ett giltigt förnamn</string>
   <string name="mec_first_name_hint">Ange ditt förnamn</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Ange ett giltigt efternamn</string>
   <string name="mec_last_name_hint">Ange efternamn</string>
   <string name="mec_loading">Laddar ...</string>
+  <string name="mec_low_stock">[sv]Low stock</string>
   <string name="mec_manage_address">Hantera adress</string>
   <string name="mec_more_info">för mer info</string>
   <string name="mec_mr">Herr</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Postadress</string>
   <string name="mec_postal_code_error">Ange ett giltigt postnummer</string>
   <string name="mec_postal_code_hint">Ange postnummer</string>
+  <string name="mec_priceAscending">[sv]Price (Low to High)</string>
+  <string name="mec_priceDescending">[sv]Price (High to Low)</string>
   <string name="mec_privacy">Sekretessmeddelande</string>
   <string name="mec_product_detail_title">Produktinformation</string>
   <string name="mec_product_title">Produkter</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Leveransadress</string>
   <string name="mec_shipping_cost">Fraktkostnad</string>
   <string name="mec_shopping_cart_title">Kundvagn</string>
+  <string name="mec_sort_title">[sv]Sort</string>
   <string name="mec_specs">Specifikationer</string>
   <string name="mec_state">Delstat</string>
   <string name="mec_state_error">Välj ett län</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Det kan ta mer tid. Vill du fortsätta?</string>
   <string name="mec_threshold_title">Tröskelvärde för begäran uppnått</string>
   <string name="mec_time_out_error">Tidsgräns för nätverk har nåtts!</string>
+  <string name="mec_topRated">[sv]Rating</string>
   <string name="mec_town">Stad/ort</string>
   <string name="mec_town_error">Ange en giltig ort</string>
   <string name="mec_town_hint">Ange ort</string>

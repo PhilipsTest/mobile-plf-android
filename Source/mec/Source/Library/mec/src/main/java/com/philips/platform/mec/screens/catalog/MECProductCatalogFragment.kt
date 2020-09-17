@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.philips.platform.ecs.microService.model.filter.ECSSortType
 import com.philips.platform.ecs.microService.model.filter.ECSStockLevel
 import com.philips.platform.ecs.microService.model.filter.ProductFilter
 import com.philips.platform.ecs.microService.model.product.ECSProduct
@@ -332,7 +333,6 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             }
 
             adapter.emptyView = binding.mecEmptyResult
-            adapter.emptyView = binding.mecEmptyFilterResult
 
             mRootView = binding.root
 
@@ -340,7 +340,8 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
             totalProductsTobeSearched = categorizedCtns?.size ?: 0
 
             val stockLevelSet: MutableSet<ECSStockLevel> = mutableSetOf()
-            mProductFilter = ProductFilter(null, stockLevelSet as HashSet<ECSStockLevel>)
+            val sortType: ECSSortType? = null
+            mProductFilter = ProductFilter(sortType, stockLevelSet as HashSet<ECSStockLevel>)
 
             executeRequest()
             fetchShoppingCartData()
@@ -444,6 +445,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
                 binding.mecCatalogParentLayout.visibility = View.GONE
                 binding.mecFilter.setText(R.string.dls_filtersliders)
                 mProductFilter.stockLevelSet?.clear()
+                mProductFilter.sortType = null
                 clearCatalogCache()
                 executeRequest()
             }
@@ -460,6 +462,7 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
 
     private fun showPrivacyFragment() {
         val bundle = Bundle()
+        bundle.putString(MECConstant.MEC_PRIVACY_TITLE, getString(R.string.mec_privacy))
         bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getPrivacyUrl())
         val mecPrivacyFragment = MecPrivacyFragment()
         mecPrivacyFragment.arguments = bundle
@@ -525,12 +528,16 @@ open class MECProductCatalogFragment : MecBaseFragment(), Pagination, ItemClickL
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MECConstant.FILTER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (data?.extras?.containsKey(MECConstant.SELECTED_FILTERS)!!) {
-                mProductFilter = data.getParcelableExtra(MECConstant.SELECTED_FILTERS) as ProductFilter
-                binding.mecCatalogParentLayout.visibility = View.GONE
-                showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
-                clearCatalogCache()
-                executeRequest()
+            if (data?.extras?.containsKey(MECConstant.SELECTED_FILTERS) == true) {
+                val modifiedProductFilter = data.getParcelableExtra(MECConstant.SELECTED_FILTERS) as ProductFilter
+
+                if(mProductFilter != modifiedProductFilter) { //check if actually filter is altered or not
+                    mProductFilter = modifiedProductFilter
+                    binding.mecCatalogParentLayout.visibility = View.GONE
+                    showProgressBar(binding.mecCatalogProgress.mecProgressBarContainer)
+                    clearCatalogCache()
+                    executeRequest()
+                }
             }
         }
     }

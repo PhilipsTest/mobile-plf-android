@@ -1,0 +1,13 @@
+{
+   "errors":[
+      {
+         "id":"89e08557-25a6-41dc-9e3c-6907395c1357",
+         "status":"400",
+         "code":"INVALID_PARAMETER_VALUE",
+         "title":"Client error in API request",
+         "source":{
+            "parameter":"[offset]"
+         }
+      }
+   ]
+}

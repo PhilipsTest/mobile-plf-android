@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Tarkista Internet-yhteys.</string>
   <string name="mec_checkout">Kassa</string>
   <string name="mec_choose_address_text">Valitse toimitusosoite luettelosta</string>
+  <string name="mec_clear">[fi]Clear</string>
+  <string name="mec_clear_filter">[fi]Clear filter(s)</string>
   <string name="mec_confirmation">Vahvistus</string>
   <string name="mec_confirmation_email_msg">Saat hetken kuluttua vahvistusviestin sähköpostitse osoitteeseen</string>
   <string name="mec_contact_details">Yhteystiedot</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Toimitus</string>
   <string name="mec_delivery_method">Toimitustapa</string>
   <string name="mec_discount">alennus</string>
+  <string name="mec_discountPriceAscending">[fi]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[fi]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Ostoskorisi on tällä hetkellä tyhjä</string>
+  <string name="mec_empty_filter_message">[fi]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Jos teit tilauksen tässä sovelluksessa, tarkista onko sähköpostiisi tullut vahvistusviestiä.</string>
   <string name="mec_enter_code">Anna lahjakoodi</string>
   <string name="mec_faq">FAQ</string>
   <string name="mec_features">Ominaisuudet</string>
   <string name="mec_fetching_payment">Haetaan maksutietoja...</string>
+  <string name="mec_filter_title">[fi]Filters</string>
   <string name="mec_first_name">Etunimi</string>
   <string name="mec_first_name_error">Kirjoita kelvollinen etunimi</string>
   <string name="mec_first_name_hint">Kirjoita etunimi</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Kirjoita kelvollinen sukunimi</string>
   <string name="mec_last_name_hint">Kirjoita sukunimi</string>
   <string name="mec_loading">Ladataan..</string>
+  <string name="mec_low_stock">[fi]Low stock</string>
   <string name="mec_manage_address">Osoitteiden hallinta</string>
   <string name="mec_more_info">saadaksesi lisätietoja</string>
   <string name="mec_mr">Hra</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Postinumero</string>
   <string name="mec_postal_code_error">Kirjoita kelvollinen postinumero</string>
   <string name="mec_postal_code_hint">Kirjoita postinumero</string>
+  <string name="mec_priceAscending">[fi]Price (Low to High)</string>
+  <string name="mec_priceDescending">[fi]Price (High to Low)</string>
   <string name="mec_privacy">tietosuojalausunto</string>
   <string name="mec_product_detail_title"> Tuotteen tiedot</string>
   <string name="mec_product_title">Tuotteet</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Toimitusosoite</string>
   <string name="mec_shipping_cost">Toimituskulut</string>
   <string name="mec_shopping_cart_title">Ostoskori</string>
+  <string name="mec_sort_title">[fi]Sort</string>
   <string name="mec_specs">Tekniset tiedot</string>
   <string name="mec_state">Valtio</string>
   <string name="mec_state_error">Valitse osavaltio</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Tämä saattaa viedä enemmän aikaa. Haluatko jatkaa?</string>
   <string name="mec_threshold_title">Pyynnön kynnysarvo saavutettu</string>
   <string name="mec_time_out_error">Verkkoyhteys aikakatkaistiin!</string>
+  <string name="mec_topRated">[fi]Rating</string>
   <string name="mec_town">Postitoimipaikka</string>
   <string name="mec_town_error">Kirjoita kelvollinen paikkakunta</string>
   <string name="mec_town_hint">Kirjoita paikkakunta</string>

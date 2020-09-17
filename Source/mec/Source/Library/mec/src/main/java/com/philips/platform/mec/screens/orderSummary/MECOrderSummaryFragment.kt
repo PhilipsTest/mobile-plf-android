@@ -22,9 +22,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.cart.Voucher
 import com.philips.platform.ecs.model.address.ECSAddress
-import com.philips.platform.ecs.model.cart.AppliedVoucherEntity
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.ecs.model.payment.ECSPaymentProvider
 import com.philips.platform.mec.R
@@ -50,35 +50,31 @@ import com.philips.platform.mec.utils.MECLog
 /**
  * A simple [Fragment] subclass.
  */
-class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
+class MECOrderSummaryFragment : MecBaseFragment() {
     companion object {
         val TAG = "MECOrderSummaryFragment"
     }
 
     private lateinit var mecOrderSummaryService: MECOrderSummaryServices
     private lateinit var binding: MecOrderSummaryFragmentBinding
-    private lateinit var ecsShoppingCart: ECSShoppingCart
+    private  lateinit var ecsShoppingCart: ECSShoppingCart
     private lateinit var ecsAddress: ECSAddress
     private lateinit var mecPayment: MECPayment
     private var cartSummaryAdapter: MECCartSummaryAdapter? = null
     private var productsAdapter: MECOrderSummaryProductsAdapter? = null
     private var vouchersAdapter: MECOrderSummaryVouchersAdapter? = null
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
-    private lateinit var voucherList: MutableList<AppliedVoucherEntity>
+    private lateinit var voucherList: MutableList<Voucher>
     private lateinit var paymentViewModel: PaymentViewModel
-    private lateinit var mECSOrderDetail : ECSOrderDetail
+    private lateinit var mECSOrderDetail: ECSOrderDetail
 
-    override fun onItemClick(item: Any) {
-        //todo To change body of created functions use File | Settings | File Templates.
-
-    }
 
     override fun getFragmentTag(): String {
         return TAG
     }
 
     private val orderObserver: Observer<ECSOrderDetail> = Observer<ECSOrderDetail> { eCSOrderDetail ->
-        mECSOrderDetail=eCSOrderDetail
+        mECSOrderDetail = eCSOrderDetail
         MECLog.v("orderObserver ", "" + eCSOrderDetail.code)
         updateCount(0) // reset cart count to 0 as current shopping cart is deleted now as result of submit order API call
         paymentViewModel.makePayment(eCSOrderDetail, mecPayment.ecsPayment.billingAddress)
@@ -107,16 +103,16 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         binding.fragment = this
         binding.shoppingCart
         ecsAddress = arguments?.getSerializable(MECConstant.KEY_ECS_ADDRESS) as ECSAddress
-        ecsShoppingCart = arguments?.getSerializable(MECConstant.KEY_ECS_SHOPPING_CART) as ECSShoppingCart
+        ecsShoppingCart = arguments?.getParcelable<ECSShoppingCart>(MECConstant.KEY_ECS_SHOPPING_CART) as ECSShoppingCart
         mecPayment = arguments?.getSerializable(MECConstant.MEC_PAYMENT_METHOD) as MECPayment
         binding.ecsAddressShipping = ecsAddress
         binding.shoppingCart = ecsShoppingCart
         binding.mecPayment = mecPayment
         cartSummaryList = mutableListOf()
         voucherList = mutableListOf()
-        if (ecsShoppingCart.appliedVouchers.size > 0) {
-            ecsShoppingCart.appliedVouchers?.let { voucherList.addAll(it) }
-        }
+
+        val appliedVouchers = ecsShoppingCart.data?.attributes?.appliedVouchers
+        appliedVouchers?.let { voucherList.addAll(it) }
         cartSummaryList.clear()
         cartSummaryAdapter = MECCartSummaryAdapter(addCartSummaryList(ecsShoppingCart))
         productsAdapter = MECOrderSummaryProductsAdapter(ecsShoppingCart)
@@ -128,7 +124,7 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         paymentViewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
         paymentViewModel.ecsOrderDetail.observe(this, orderObserver)
         paymentViewModel.eCSPaymentProvider.observe(this, makePaymentObserver)
-        paymentViewModel.mecError.observe(this,this)
+        paymentViewModel.mecError.observe(this, this)
 
 
         if (MECDataHolder.INSTANCE.getPrivacyUrl() != null && MECDataHolder.INSTANCE.getFaqUrl() != null && MECDataHolder.INSTANCE.getTermsUrl() != null) {
@@ -180,21 +176,21 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         return !mecPayment.ecsPayment.id.equals(MECConstant.NEW_CARD_PAYMENT, true)
     }
 
-    fun showCVV() {
+    private fun showCVV() {
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.MEC_PAYMENT_METHOD, mecPayment.ecsPayment)
-        bundle.putSerializable(MECConstant.MEC_SHOPPING_CART, ecsShoppingCart)
+        bundle.putParcelable(MECConstant.MEC_SHOPPING_CART, ecsShoppingCart)
         bundle.putInt(MEC_FRAGMENT_CONTAINER_ID, id)
         val mecCvvBottomSheetFragment = MECCVVFragment()
 
         mecCvvBottomSheetFragment.arguments = bundle
         mecCvvBottomSheetFragment.setTargetFragment(this, MECConstant.PAYMENT_REQUEST_CODE)
-        fragmentManager?.let { mecCvvBottomSheetFragment.show(it, mecCvvBottomSheetFragment.tag) }
+        activity?.supportFragmentManager?.let { mecCvvBottomSheetFragment.show(it, mecCvvBottomSheetFragment.tag) }
 
     }
 
     fun onClickBackToShoppingCart() {
-        fragmentManager!!.popBackStack(MECShoppingCartFragment.TAG, 0)
+        activity?.supportFragmentManager?.popBackStack(MECShoppingCartFragment.TAG, 0)
     }
 
     private fun privacyTextView(view: TextView) {
@@ -251,12 +247,15 @@ class MECOrderSummaryFragment : MecBaseFragment(), ItemClickListener {
         val bundle = Bundle()
         when (stringRes) {
             getString(R.string.mec_privacy) -> {
+                bundle.putString(MECConstant.MEC_PRIVACY_TITLE, getString(R.string.mec_privacy))
                 bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getPrivacyUrl())
             }
             getString(R.string.mec_faq) -> {
+                bundle.putString(MECConstant.MEC_PRIVACY_TITLE, getString(R.string.mec_faq))
                 bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getFaqUrl())
             }
             getString(R.string.mec_terms_conditions) -> {
+                bundle.putString(MECConstant.MEC_PRIVACY_TITLE, getString(R.string.mec_terms_conditions))
                 bundle.putString(MECConstant.MEC_PRIVACY_URL, MECDataHolder.INSTANCE.getTermsUrl())
             }
 

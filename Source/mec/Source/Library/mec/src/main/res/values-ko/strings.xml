@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">인터넷 연결을 확인해 주십시오.</string>
   <string name="mec_checkout">계산</string>
   <string name="mec_choose_address_text">아래 목록에서 배송 주소를 선택하십시오.</string>
+  <string name="mec_clear">[ko]Clear</string>
+  <string name="mec_clear_filter">[ko]Clear filter(s)</string>
   <string name="mec_confirmation">확인</string>
   <string name="mec_confirmation_email_msg">다음으로 확인 이메일이 전송됩니다.</string>
   <string name="mec_contact_details">연락처 세부 정보</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">배송</string>
   <string name="mec_delivery_method">배송 방법</string>
   <string name="mec_discount">할인</string>
+  <string name="mec_discountPriceAscending">[ko]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[ko]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">현재 장바구니가 비어 있습니다.</string>
+  <string name="mec_empty_filter_message">[ko]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">이 앱으로 주문한 경우 주문 확인 이메일이 수신되었는지 확인하십시오.</string>
   <string name="mec_enter_code">기프트 코드 입력</string>
   <string name="mec_faq">FAQ</string>
   <string name="mec_features">특징</string>
   <string name="mec_fetching_payment">결제 세부 정보를 보내는 중...</string>
+  <string name="mec_filter_title">[ko]Filters</string>
   <string name="mec_first_name">이름</string>
   <string name="mec_first_name_error">유효한 이름을 입력하십시오.</string>
   <string name="mec_first_name_hint">이름 입력</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">유효한 성을 입력하십시오.</string>
   <string name="mec_last_name_hint">성 입력</string>
   <string name="mec_loading">로딩 중...</string>
+  <string name="mec_low_stock">[ko]Low stock</string>
   <string name="mec_manage_address">주소 관리</string>
   <string name="mec_more_info">참조</string>
   <string name="mec_mr">Mr</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">우편 번호</string>
   <string name="mec_postal_code_error">유효한 우편 번호를 입력하십시오.</string>
   <string name="mec_postal_code_hint">우편 번호 입력</string>
+  <string name="mec_priceAscending">[ko]Price (Low to High)</string>
+  <string name="mec_priceDescending">[ko]Price (High to Low)</string>
   <string name="mec_privacy">개인정보 보호정책</string>
   <string name="mec_product_detail_title"> 제품정보</string>
   <string name="mec_product_title">제품</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">배송 주소</string>
   <string name="mec_shipping_cost">배송료</string>
   <string name="mec_shopping_cart_title">장바구니</string>
+  <string name="mec_sort_title">[ko]Sort</string>
   <string name="mec_specs">사양</string>
   <string name="mec_state">시/도</string>
   <string name="mec_state_error">국가를 선택하십시오.</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">이 작업은 시간이 더 걸릴 수 있습니다. 계속하시겠습니까?</string>
   <string name="mec_threshold_title">요청 임계값 도달</string>
   <string name="mec_time_out_error">네트워크 시간 초과!</string>
+  <string name="mec_topRated">[ko]Rating</string>
   <string name="mec_town">구/군/시</string>
   <string name="mec_town_error">유효한 구/군/시를 입력하십시오.</string>
   <string name="mec_town_hint">구/군/시 입력</string>

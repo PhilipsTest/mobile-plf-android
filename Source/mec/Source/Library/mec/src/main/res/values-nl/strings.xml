@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">Controleer uw internetverbinding.</string>
   <string name="mec_checkout">Afrekenen</string>
   <string name="mec_choose_address_text">Kies een leveringsadres in de onderstaande lijst</string>
+  <string name="mec_clear">[nl]Clear</string>
+  <string name="mec_clear_filter">[nl]Clear filter(s)</string>
   <string name="mec_confirmation">Bevestiging</string>
   <string name="mec_confirmation_email_msg">U ontvangt binnenkort een bevestigingse-mail op</string>
   <string name="mec_contact_details">Contactgegevens</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">Levering</string>
   <string name="mec_delivery_method">Levermethode</string>
   <string name="mec_discount">korting</string>
+  <string name="mec_discountPriceAscending">[nl]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[nl]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">Uw winkelwagen is momenteel leeg</string>
+  <string name="mec_empty_filter_message">[nl]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">Als u uw bestelling hebt geplaatst via deze app, controleer dan of u een bevestigingsmail hebt ontvangen.</string>
   <string name="mec_enter_code">Voer cadeaucode in</string>
   <string name="mec_faq">pagina met</string>
   <string name="mec_features">Kenmerken</string>
   <string name="mec_fetching_payment">Betalingsgegevens ophalen...</string>
+  <string name="mec_filter_title">[nl]Filters</string>
   <string name="mec_first_name">Voornaam</string>
   <string name="mec_first_name_error">Voer een geldige voornaam in</string>
   <string name="mec_first_name_hint">Voornaam invoeren</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">Voer een geldige achternaam in</string>
   <string name="mec_last_name_hint">Achternaam invoeren</string>
   <string name="mec_loading">Bezig met laden..</string>
+  <string name="mec_low_stock">[nl]Low stock</string>
   <string name="mec_manage_address">Adres beheren</string>
   <string name="mec_more_info">voor meer info</string>
   <string name="mec_mr">Dhr.</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">Postcode</string>
   <string name="mec_postal_code_error">Voer een geldige postcode in</string>
   <string name="mec_postal_code_hint">Voer uw postcode in</string>
+  <string name="mec_priceAscending">[nl]Price (Low to High)</string>
+  <string name="mec_priceDescending">[nl]Price (High to Low)</string>
   <string name="mec_privacy">Privacyverklaring</string>
   <string name="mec_product_detail_title">Productgegevens</string>
   <string name="mec_product_title">Producten</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">Verzendadres</string>
   <string name="mec_shipping_cost">Verzendkosten</string>
   <string name="mec_shopping_cart_title">Winkelwagen</string>
+  <string name="mec_sort_title">[nl]Sort</string>
   <string name="mec_specs">Specificaties</string>
   <string name="mec_state">Provincie</string>
   <string name="mec_state_error">Selecteer een locatie</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">Dit kan langer duren. Wil je doorgaan?</string>
   <string name="mec_threshold_title">Verzoekdrempel bereikt</string>
   <string name="mec_time_out_error">Er is een netwerktime-out opgetreden.</string>
+  <string name="mec_topRated">[nl]Rating</string>
   <string name="mec_town">Plaats</string>
   <string name="mec_town_error">Voer een geldige stad in</string>
   <string name="mec_town_hint">Voer uw woonplaats in</string>

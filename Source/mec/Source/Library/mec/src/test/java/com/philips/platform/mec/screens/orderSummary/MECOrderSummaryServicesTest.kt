@@ -1,7 +1,8 @@
 package com.philips.platform.mec.screens.orderSummary
 
 import android.content.Context
-import com.philips.platform.ecs.model.cart.*
+import com.philips.platform.ecs.microService.model.cart.*
+import com.philips.platform.ecs.microService.model.common.Price
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import org.junit.Before
@@ -9,93 +10,93 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.atLeast
 import org.mockito.MockitoAnnotations
 import org.powermock.modules.junit4.PowerMockRunner
-import org.powermock.reflect.Whitebox
+import kotlin.test.assertEquals
 
 @RunWith(PowerMockRunner::class)
 class MECOrderSummaryServicesTest {
     private lateinit var mecOrderSummaryServices: MECOrderSummaryServices
 
-    @Mock
-    lateinit var mockContext: Context
-
-    @Mock
-    lateinit var mockEcsShoppingCart: com.philips.platform.ecs.model.cart.ECSShoppingCart
-
-    @Mock
-    lateinit var mockCartSummaryList: MutableList<MECCartSummary>
-
-    @Mock
-    lateinit var mockAppliedOrderPromotionEntity: com.philips.platform.ecs.model.cart.AppliedOrderPromotionEntity
-
-    @Mock
-    lateinit var promotionEntity: com.philips.platform.ecs.model.cart.PromotionEntity
-
-    @Mock
-    lateinit var promotionDiscount: com.philips.platform.ecs.model.cart.PromotionDiscount
-
-    @Mock
-    lateinit var appliedVoucherEntity: com.philips.platform.ecs.model.cart.AppliedVoucherEntity
-
-    @Mock
-    lateinit var deliveryCostEntity: com.philips.platform.ecs.model.cart.DeliveryCostEntity
-
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        Whitebox.setInternalState(promotionEntity, "name", "promotionEntity")
-        Whitebox.setInternalState(mockAppliedOrderPromotionEntity, "promotion", promotionEntity)
-        Whitebox.setInternalState(mockEcsShoppingCart, "appliedOrderPromotions", listOf(mockAppliedOrderPromotionEntity))
-        `when`(mockEcsShoppingCart.appliedOrderPromotions).thenReturn(listOf(mockAppliedOrderPromotionEntity))
-        `when`(mockAppliedOrderPromotionEntity.promotion).thenReturn(promotionEntity)
-        `when`(promotionEntity.name).thenReturn("promotionEntity")
-        `when`(promotionEntity.promotionDiscount).thenReturn(promotionDiscount)
-        `when`(promotionEntity.promotionDiscount.formattedValue).thenReturn("formattedValue")
-
-        Whitebox.setInternalState(appliedVoucherEntity, "name", "VoucherName")
-        `when`(appliedVoucherEntity.name).thenReturn("VoucherName")
-        Whitebox.setInternalState(mockEcsShoppingCart, "appliedVouchers", listOf(appliedVoucherEntity))
-        `when`(mockEcsShoppingCart.appliedVouchers).thenReturn(listOf(appliedVoucherEntity))
-
-        `when`(mockEcsShoppingCart.deliveryCost).thenReturn(deliveryCostEntity)
-
         mecOrderSummaryServices = MECOrderSummaryServices()
     }
 
     @Test
-    fun testAppliedOrderPromotionsToCartSummaryList_With_PromotionName() {
-        mecOrderSummaryServices.addAppliedOrderPromotionsToCartSummaryList(mockEcsShoppingCart, mockCartSummaryList)
-        Mockito.verify(mockEcsShoppingCart, atLeast(1)).appliedOrderPromotions
+    fun testAddAppliedOrderPromotionsToCartSummaryList() {
+
+        val promotionList : MutableList<Promotion> = mutableListOf()
+        val promotionDiscount1 = PromotionDiscount("USD","$ 10.00","BUY",10.0)
+        val promotionDiscount2 = PromotionDiscount("USD","$ 20.00","BUY",20.0)
+        val Promotion1 : Promotion = Promotion("1234","enabled","01/30/2020","summer promotion","new",promotionDiscount1)
+        val Promotion2 : Promotion = Promotion("4321","enabled","01/30/2020","summer promotion","new",promotionDiscount2)
+        promotionList.add(Promotion1)
+        promotionList.add(Promotion2)
+        val promotions = Promotions(null,null,null,promotionList.toList())
+        val attributes : Attributes = Attributes(null,null,null,null,null,null,null,promotions,
+                null,null,null,null,null,null)
+        val data : Data = Data(attributes,"1234","OLD")
+        val ecsShoppingCart: ECSShoppingCart = ECSShoppingCart(data)
+
+        val cartSummaryList: MutableList<MECCartSummary> = mutableListOf()
+        mecOrderSummaryServices.addAppliedOrderPromotionsToCartSummaryList(ecsShoppingCart,cartSummaryList)
+        assertEquals(2,cartSummaryList.size)
+        assertEquals("1234",cartSummaryList[0].name)
+        assertEquals("4321",cartSummaryList[1].name)
+        assertEquals("$ 10.00",cartSummaryList[0].price)
+        assertEquals("$ 20.00",cartSummaryList[1].price)
     }
 
     @Test
-    fun testAppliedOrderPromotionsToCartSummaryList_With_PromotionName_Null() {
-        `when`(promotionEntity.name).thenReturn(null)
-        mecOrderSummaryServices.addAppliedOrderPromotionsToCartSummaryList(mockEcsShoppingCart, mockCartSummaryList)
-        Mockito.verify(mockEcsShoppingCart, atLeast(1)).appliedOrderPromotions
+    fun testAddAppliedVoucherToCartSummaryList() {
+        val price1 = Price("$","20.30",20.30)
+        val price2 = Price("$","30.30",30.30)
+
+        val voucherDiscountPrice1 = Price("$","50.30",20.30)
+        val voucherDiscountPrice2 = Price("$","60.30",30.30)
+        val voucher1 = Voucher(true,"1234",price1,voucherDiscountPrice1,"grooming voucher","discount voucher")
+        val voucher2 = Voucher(true,"4321",price2,voucherDiscountPrice2,"skin care voucher","discount voucher")
+
+        val voucherList = mutableListOf<Voucher>()
+        voucherList.add(voucher1)
+        voucherList.add(voucher2)
+
+        val attributes : Attributes = Attributes(null,null,null,null,null,null,null,null,
+                null,null,null,voucherList,null,null)
+        val data : Data = Data(attributes,"1234","OLD")
+        val ecsShoppingCart: ECSShoppingCart = ECSShoppingCart(data)
+        val cartSummaryList: MutableList<MECCartSummary> = mutableListOf()
+        mecOrderSummaryServices.addAppliedVoucherToCartSummaryList(ecsShoppingCart,cartSummaryList)
+
+        assertEquals(2,cartSummaryList.size)
+        assertEquals("grooming voucher",cartSummaryList[0].name)
+        assertEquals("skin care voucher",cartSummaryList[1].name)
+        assertEquals("20.30",cartSummaryList[0].price)
+        assertEquals("30.30",cartSummaryList[1].price)
     }
 
-    @Test
-    fun testAppliedVoucherToCartSummaryList() {
-        mecOrderSummaryServices.addAppliedVoucherToCartSummaryList(mockEcsShoppingCart, mockCartSummaryList)
-        Mockito.verify(mockEcsShoppingCart, atLeast(1)).appliedVouchers
-    }
+    @Mock
+    lateinit var contextMock: Context
 
     @Test
-    fun testAppliedVoucherToCartSummaryList_With_VoucherNull() {
-        `when`(appliedVoucherEntity.name).thenReturn(null)
-        mecOrderSummaryServices.addAppliedVoucherToCartSummaryList(mockEcsShoppingCart, mockCartSummaryList)
-        Mockito.verify(mockEcsShoppingCart, atLeast(1)).appliedVouchers
-    }
+    fun testAddDeliveryCostToCartSummaryList() {
 
-    @Test
-    fun testDeliveryCostToCartSummaryList() {
-        `when`(deliveryCostEntity.formattedValue).thenReturn("deliveryCost")
-        `when`(mockContext.getString(R.string.mec_shipping_cost)).thenReturn("Delivery Cost")
-        mecOrderSummaryServices.addDeliveryCostToCartSummaryList(mockContext, mockEcsShoppingCart, mockCartSummaryList)
-        Mockito.verify(mockEcsShoppingCart, atLeast(1)).deliveryCost
+        Mockito.`when`(contextMock.getString(R.string.mec_shipping_cost)).thenReturn("Shipping cost")
+
+        val deliveryPrice = Price("$","20.30",20.30)
+
+        val pricing = Pricing (deliveryPrice,null,null,null,null,null,null,null,null,null,null)
+        val attributes : Attributes = Attributes(null,null,null,null,null,null,pricing,null,
+                null,null,null,null,null,null)
+        val data : Data = Data(attributes,"1234","OLD")
+        val ecsShoppingCart: ECSShoppingCart = ECSShoppingCart(data)
+        val cartSummaryList: MutableList<MECCartSummary> = mutableListOf()
+
+
+        mecOrderSummaryServices.addDeliveryCostToCartSummaryList(contextMock,ecsShoppingCart,cartSummaryList)
+        assertEquals("Shipping cost",cartSummaryList[0].name)
+        assertEquals("20.30",cartSummaryList[0].price)
     }
 }

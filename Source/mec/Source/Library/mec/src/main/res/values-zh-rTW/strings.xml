@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">請檢查您的網際網路連線。</string>
   <string name="mec_checkout">结账</string>
   <string name="mec_choose_address_text">從下方清單選擇運送地址</string>
+  <string name="mec_clear">[zh-TW]Clear</string>
+  <string name="mec_clear_filter">[zh-TW]Clear filter(s)</string>
   <string name="mec_confirmation">确认</string>
   <string name="mec_confirmation_email_msg">您将很快收到确认电子邮件</string>
   <string name="mec_contact_details">聯絡詳細資料</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">配送</string>
   <string name="mec_delivery_method">配送方式</string>
   <string name="mec_discount">折扣</string>
+  <string name="mec_discountPriceAscending">[zh-TW]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[zh-TW]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">您的购物车当前已清空</string>
+  <string name="mec_empty_filter_message">[zh-TW]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">若您使用此應用程式下訂單，請確認您有收到訂單確認電子郵件。</string>
   <string name="mec_enter_code">輸入禮品代碼</string>
   <string name="mec_faq">常見問答集</string>
   <string name="mec_features">功能</string>
   <string name="mec_fetching_payment">正在擷取付款詳細資料...</string>
+  <string name="mec_filter_title">[zh-TW]Filters</string>
   <string name="mec_first_name">名字</string>
   <string name="mec_first_name_error">请输入有效名字</string>
   <string name="mec_first_name_hint">输入名字</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">请输入有效姓氏</string>
   <string name="mec_last_name_hint">输入姓氏</string>
   <string name="mec_loading">正在載入...</string>
+  <string name="mec_low_stock">[zh-TW]Low stock</string>
   <string name="mec_manage_address">管理地址</string>
   <string name="mec_more_info">瞭解更多資訊</string>
   <string name="mec_mr">先生</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">邮政编码</string>
   <string name="mec_postal_code_error">请输入有效邮政编码</string>
   <string name="mec_postal_code_hint">输入邮政编码</string>
+  <string name="mec_priceAscending">[zh-TW]Price (Low to High)</string>
+  <string name="mec_priceDescending">[zh-TW]Price (High to Low)</string>
   <string name="mec_privacy">隱私權聲明</string>
   <string name="mec_product_detail_title"> 產品資訊</string>
   <string name="mec_product_title">产品</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">发货地址</string>
   <string name="mec_shipping_cost">運費</string>
   <string name="mec_shopping_cart_title">購物車</string>
+  <string name="mec_sort_title">[zh-TW]Sort</string>
   <string name="mec_specs">規格</string>
   <string name="mec_state">省/州</string>
   <string name="mec_state_error">請選擇州</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">這可能需要更多時間。是否要繼續？</string>
   <string name="mec_threshold_title">已達要求閾值</string>
   <string name="mec_time_out_error">網路逾時！</string>
+  <string name="mec_topRated">[zh-TW]Rating</string>
   <string name="mec_town">镇/城市</string>
   <string name="mec_town_error">请输入有效城镇</string>
   <string name="mec_town_hint">输入您所在的城镇或城市</string>

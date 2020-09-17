@@ -80,6 +80,7 @@ dependencies {
     testImplementation deps.json
     testImplementation deps.junit
     testImplementation deps.opengl
+    testImplementation deps.mockito
     testImplementation deps.powermock_api_mockito
     testImplementation deps.powermock_classloading_xstream
     testImplementation deps.powermock_core

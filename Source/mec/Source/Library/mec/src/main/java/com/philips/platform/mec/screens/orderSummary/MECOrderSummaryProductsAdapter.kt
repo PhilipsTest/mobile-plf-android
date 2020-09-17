@@ -13,7 +13,7 @@ package com.philips.platform.mec.screens.orderSummary
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.mec.databinding.MecOrderSummaryCartItemsBinding
 
 
@@ -24,13 +24,13 @@ class MECOrderSummaryProductsAdapter(private val mecCart: ECSShoppingCart) : Rec
     }
 
     override fun getItemCount(): Int {
-        return mecCart.entries.size
+        return mecCart.data?.attributes?.items?.size ?:0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val cartSummary = mecCart.entries[position]
+        val cartSummary = mecCart.data?.attributes?.items?.get(position)
         val viewHolder = holder as MECOrderSummaryViewHolder
-        viewHolder.bind(cartSummary)
+        cartSummary?.let { viewHolder.bind(it) }
     }
 
 }

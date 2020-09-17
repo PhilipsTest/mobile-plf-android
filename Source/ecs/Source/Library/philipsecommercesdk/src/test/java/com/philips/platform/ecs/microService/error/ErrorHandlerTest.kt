@@ -226,6 +226,29 @@ class ErrorHandlerTest {
         errorHandler.setPILECSError(hybrisError,ecsDefaultError)
         assertEquals(ECSErrorType.ECSPIL_BAD_REQUEST.errorCode,ecsDefaultError.errorCode)
     }
+
+    @Test
+    fun `test ecs Error of invaalid limit for product search `() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILInvalidLimit.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_limit.errorCode,ecsDefaultError.errorCode)
+    }
+
+    @Test
+    fun `test ecs Error of invaalid offset for product search `() {
+        //volleyHandler.setPILECSError()
+        val errorString =   ClassLoader.getSystemResource("pil/fetchProductPILInvalidOffSet.json").readText()
+        val jsonObject = JSONObject(errorString)
+        val hybrisError = jsonObject.getData(HybrisError::class.java)
+        var ecsDefaultError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
+        errorHandler.setPILECSError(hybrisError,ecsDefaultError)
+        assertEquals(ECSErrorType.ECSPIL_INVALID_PARAMETER_VALUE_offset.errorCode,ecsDefaultError.errorCode)
+    }
+
     //Product search related test cases ======
 
 
@@ -276,7 +299,7 @@ class ErrorHandlerTest {
         val hybrisError = jsonObject.getData(HybrisError::class.java)
         var PilError = ECSError(ECSErrorType.ECSsomethingWentWrong.getLocalizedErrorString(), ECSErrorType.ECSsomethingWentWrong.errorCode, ECSErrorType.ECSsomethingWentWrong)
         errorHandler.setPILECSError(hybrisError,PilError)
-        assertEquals(ECSErrorType.ECSPIL_NOT_ACCEPTABLE_mimeType.errorCode, PilError.errorCode)
+        assertEquals(ECSErrorType.ECSPIL_NOT_ACCEPTABLE_contentType.errorCode, PilError.errorCode)
     }
 
     @Test

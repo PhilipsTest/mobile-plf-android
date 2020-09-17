@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">インターネット接続を確認してください。</string>
   <string name="mec_checkout">精算</string>
   <string name="mec_choose_address_text">下のリストから配送先住所を選択</string>
+  <string name="mec_clear">[ja]Clear</string>
+  <string name="mec_clear_filter">[ja]Clear filter(s)</string>
   <string name="mec_confirmation">確認</string>
   <string name="mec_confirmation_email_msg">次のアドレス宛にまもなく確認メールが送信されます：</string>
   <string name="mec_contact_details">連絡先詳細</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">配送</string>
   <string name="mec_delivery_method">配送方法</string>
   <string name="mec_discount">割引</string>
+  <string name="mec_discountPriceAscending">[ja]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[ja]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">ショッピングカートは現在空です</string>
+  <string name="mec_empty_filter_message">[ja]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">このアプリを使用して注文された場合は、ご注文の確認メールを受信しているかどうかご確認ください。</string>
   <string name="mec_enter_code">ギフトコードを入力</string>
   <string name="mec_faq">よく寄せられる質問（FAQ）</string>
   <string name="mec_features">機能</string>
   <string name="mec_fetching_payment">支払詳細の取得中...</string>
+  <string name="mec_filter_title">[ja]Filters</string>
   <string name="mec_first_name">名前（名）</string>
   <string name="mec_first_name_error">有効な名前（名）を入力してください</string>
   <string name="mec_first_name_hint">名前（名）を入力</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">有効な名前（姓）を入力してください</string>
   <string name="mec_last_name_hint">名前を入力</string>
   <string name="mec_loading">ロード中...</string>
+  <string name="mec_low_stock">[ja]Low stock</string>
   <string name="mec_manage_address">住所を管理</string>
   <string name="mec_more_info">をお読みください</string>
   <string name="mec_mr">Mr</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">郵便番号</string>
   <string name="mec_postal_code_error">有効な郵便番号を入力してください</string>
   <string name="mec_postal_code_hint">郵便番号を入力</string>
+  <string name="mec_priceAscending">[ja]Price (Low to High)</string>
+  <string name="mec_priceDescending">[ja]Price (High to Low)</string>
   <string name="mec_privacy">プライバシーに関する通知</string>
   <string name="mec_product_detail_title"> 製品詳細</string>
   <string name="mec_product_title">製品</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">配送先住所</string>
   <string name="mec_shipping_cost">送料</string>
   <string name="mec_shopping_cart_title">カート</string>
+  <string name="mec_sort_title">[ja]Sort</string>
   <string name="mec_specs">仕様</string>
   <string name="mec_state">状況</string>
   <string name="mec_state_error">都道府県を選択してください</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">時間がかかる場合があります。続行しますか？</string>
   <string name="mec_threshold_title">リクエストの閾値に達しました</string>
   <string name="mec_time_out_error">ネットワークがタイムアウトしました。</string>
+  <string name="mec_topRated">[ja]Rating</string>
   <string name="mec_town">市区町村</string>
   <string name="mec_town_error">有効な市区町村を入力してください</string>
   <string name="mec_town_hint">市区町村を入力</string>

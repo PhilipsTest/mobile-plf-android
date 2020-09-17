@@ -48,6 +48,8 @@
   <string name="mec_check_internet_connection">בדוק את חיבור האינטרנט שלך.</string>
   <string name="mec_checkout">מעבר לקופה</string>
   <string name="mec_choose_address_text">בחר כתובת למשלוח מתוך הרשימה הבאה</string>
+  <string name="mec_clear">[he]Clear</string>
+  <string name="mec_clear_filter">[he]Clear filter(s)</string>
   <string name="mec_confirmation">אישור</string>
   <string name="mec_confirmation_email_msg">תקבל בקרוב דוא\"ל אישור בכתובת</string>
   <string name="mec_contact_details">פרטים ליצירת קשר</string>
@@ -67,12 +69,16 @@
   <string name="mec_delivery">משלוח</string>
   <string name="mec_delivery_method">אמצעי משלוח</string>
   <string name="mec_discount">הנחה</string>
+  <string name="mec_discountPriceAscending">[he]Discount Price (Low to High)</string>
+  <string name="mec_discountPriceDescending">[he]Discount Price (High to Low)</string>
   <string name="mec_empty_cart">עגלת הקניות שלך ריקה כרגע</string>
+  <string name="mec_empty_filter_message">[he]We couldn\'t find any products with all the filters you’ve selected.</string>
   <string name="mec_empty_purchase_history">אם ביצעת את ההזמנה דרך יישום אחר, ודא שקיבלת אישור הזמנה בדוא״ל.</string>
   <string name="mec_enter_code">הזן קוד שובר שי</string>
   <string name="mec_faq">השאלות הנפוצות</string>
   <string name="mec_features">מאפיינים</string>
   <string name="mec_fetching_payment">מביא פרטי תשלום...</string>
+  <string name="mec_filter_title">[he]Filters</string>
   <string name="mec_first_name">שם פרטי</string>
   <string name="mec_first_name_error">הזן שם פרטי תקף</string>
   <string name="mec_first_name_hint">הזן שם פרטי</string>
@@ -88,6 +94,7 @@
   <string name="mec_last_name_error">הזן שם משפחה תקף</string>
   <string name="mec_last_name_hint">הזן שם משפחה</string>
   <string name="mec_loading">טוען...</string>
+  <string name="mec_low_stock">[he]Low stock</string>
   <string name="mec_manage_address">נהל כתובת</string>
   <string name="mec_more_info">מידע נוסף</string>
   <string name="mec_mr">מר</string>
@@ -132,6 +139,8 @@
   <string name="mec_postal_code">מיקוד</string>
   <string name="mec_postal_code_error">הזן מיקוד תקף</string>
   <string name="mec_postal_code_hint">הזן מיקוד</string>
+  <string name="mec_priceAscending">[he]Price (Low to High)</string>
+  <string name="mec_priceDescending">[he]Price (High to Low)</string>
   <string name="mec_privacy">הודעת הפרטיות</string>
   <string name="mec_product_detail_title"> פרטי המוצר</string>
   <string name="mec_product_title">מוצרים</string>
@@ -149,6 +158,7 @@
   <string name="mec_shipping_address">כתובת למשלוח</string>
   <string name="mec_shipping_cost">עלויות שילוח</string>
   <string name="mec_shopping_cart_title">עגלה</string>
+  <string name="mec_sort_title">[he]Sort</string>
   <string name="mec_specs">מפרטים</string>
   <string name="mec_state">מדינה</string>
   <string name="mec_state_error">בחר מדינה</string>
@@ -158,6 +168,7 @@
   <string name="mec_threshold_message">נדרש זמן נוסף לביצוע הפעולה. האם להמשיך?</string>
   <string name="mec_threshold_title">סף בקשה הושג</string>
   <string name="mec_time_out_error">הזמן הקצוב של הרשת הסתיים!</string>
+  <string name="mec_topRated">[he]Rating</string>
   <string name="mec_town">עיר / יישוב</string>
   <string name="mec_town_error">הזן עיר תקפה</string>
   <string name="mec_town_hint">הזן את עיר מגוריך</string>
