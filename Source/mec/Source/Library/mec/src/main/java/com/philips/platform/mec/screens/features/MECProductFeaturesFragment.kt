@@ -45,6 +45,7 @@ class MECProductFeaturesFragment : MecBaseFragment() {
 
         override fun onChanged(featuresModel: FeaturesModel?) {
             mFeaturesModel=featuresModel
+            if (mFeaturesModel?.data?.keyBenefitArea == null) return
             setImageForFeatureItem(featuresModel)
             binding.featureModel = featuresModel
         }
