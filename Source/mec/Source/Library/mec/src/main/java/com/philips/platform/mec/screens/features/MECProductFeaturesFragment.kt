@@ -35,16 +35,16 @@ class MECProductFeaturesFragment : MecBaseFragment() {
         return "MECProductFeaturesFragment"
     }
 
-    var mRecyclerView : RecyclerView? =null
-    var mFeaturesModel: FeaturesModel?=null
+    var mRecyclerView: RecyclerView? = null
+    var mFeaturesModel: FeaturesModel? = null
     private lateinit var binding: MecProductFeaturesFragmentBinding
     private lateinit var productFeaturesViewModel: ProductFeaturesViewModel
-    private lateinit var mECSProduct : ECSProduct
+    private lateinit var mECSProduct: ECSProduct
 
-    private val featuresObserver : Observer<FeaturesModel> = object : Observer<FeaturesModel> {
+    private val featuresObserver: Observer<FeaturesModel> = object : Observer<FeaturesModel> {
 
         override fun onChanged(featuresModel: FeaturesModel?) {
-            mFeaturesModel=featuresModel
+            mFeaturesModel = featuresModel
             setImageForFeatureItem(featuresModel)
             binding.featureModel = featuresModel
         }
@@ -52,20 +52,24 @@ class MECProductFeaturesFragment : MecBaseFragment() {
     }
 
     private fun setImageForFeatureItem(featuresModel: FeaturesModel?) {
-        for (keyBenefitAreaItem in featuresModel!!.data.keyBenefitArea) {
+        val keyBenefitArea = featuresModel?.data?.keyBenefitArea
+        keyBenefitArea?.let {
+            for (keyBenefitAreaItem in it) {
 
-            for (featureItem in keyBenefitAreaItem.feature) {
+                for (featureItem in keyBenefitAreaItem.feature) {
 
-                var singleAssetImageFromFeatureCode = featuresModel.data.getSingleAssetImageFromFeatureCode(featureItem.featureCode)
+                    var singleAssetImageFromFeatureCode = featuresModel.data.getSingleAssetImageFromFeatureCode(featureItem.featureCode)
 
-                if(singleAssetImageFromFeatureCode!=null){
-                    singleAssetImageFromFeatureCode = singleAssetImageFromFeatureCode + "?wid=" + 220 +
-                              "&hei=" + 220 + "&\$pnglarge$" + "&fit=fit,1"
+                    if (singleAssetImageFromFeatureCode != null) {
+                        singleAssetImageFromFeatureCode = singleAssetImageFromFeatureCode + "?wid=" + 220 +
+                                "&hei=" + 220 + "&\$pnglarge$" + "&fit=fit,1"
+                    }
+
+                    featureItem.setSingleFeatureImage(singleAssetImageFromFeatureCode)
                 }
-
-                featureItem.setSingleFeatureImage(singleAssetImageFromFeatureCode)
             }
         }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -84,16 +88,16 @@ class MECProductFeaturesFragment : MecBaseFragment() {
 
         productFeaturesViewModel = ViewModelProviders.of(this).get(ProductFeaturesViewModel::class.java)
 
-        productFeaturesViewModel.mecError.observe(this,this)
-        productFeaturesViewModel.features.observe(this,featuresObserver)
+        productFeaturesViewModel.mecError.observe(this, this)
+        productFeaturesViewModel.features.observe(this, featuresObserver)
 
         val bundle = arguments
-        val productCtn = bundle!!.getString(MECConstant.MEC_PRODUCT_CTN,"INVALID")
-        mECSProduct =bundle!!.getParcelable<ECSProduct>(MEC_PRODUCT)!!
+        val productCtn = bundle!!.getString(MECConstant.MEC_PRODUCT_CTN, "INVALID")
+        mECSProduct = bundle!!.getParcelable<ECSProduct>(MEC_PRODUCT)!!
 
-        if(null==mFeaturesModel) {
+        if (null == mFeaturesModel) {
             context?.let { productFeaturesViewModel.fetchProductFeatures(it, productCtn) }
-        }else{
+        } else {
             setImageForFeatureItem(mFeaturesModel)
             binding.featureModel = mFeaturesModel
         }

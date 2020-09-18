@@ -21,15 +21,15 @@ class ProductFeatureParentRecyclerAdapter (private val featuresModel:FeaturesMod
 
         val inflater = LayoutInflater.from(parent.context)
         val binding = MecFeaturesItemParentBinding.inflate(inflater)
-        return ProductFeatureParentViewHolder(binding,featuresModel)
+        return ProductFeatureParentViewHolder(binding, featuresModel)
     }
 
 
     override fun getItemCount(): Int {
-        return featuresModel.data.keyBenefitArea.size
+        return featuresModel.data?.keyBenefitArea?.size ?: 0
     }
 
-    override fun onBindViewHolder(viewHolder : ProductFeatureParentViewHolder, position: Int) {
-        viewHolder.bind(featuresModel.data.keyBenefitArea[position])
+    override fun onBindViewHolder(viewHolder: ProductFeatureParentViewHolder, position: Int) {
+        featuresModel.data?.keyBenefitArea?.get(position)?.let { viewHolder.bind(it) }
     }
 }
