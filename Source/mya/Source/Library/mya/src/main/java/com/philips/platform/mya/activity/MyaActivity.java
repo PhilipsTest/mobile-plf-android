@@ -23,14 +23,14 @@ import com.philips.platform.uappframework.listener.ActionBarListener;
 import com.philips.platform.uappframework.listener.BackEventListener;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDLangPackActivity;
+import com.philips.platform.uid.utils.UIDActivity;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 import static com.philips.platform.mya.launcher.MyaInterface.USER_PLUGIN;
 
 
-public class MyaActivity extends UIDLangPackActivity {
+public class MyaActivity extends UIDActivity {
 
     private TextView mTitle;
     private ImageView leftImageView;

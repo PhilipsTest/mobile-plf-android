@@ -26,17 +26,13 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDLangPackActivity;
-import com.philips.platform.uid.utils.UIDLangPackActivity;
+import com.philips.platform.uid.utils.UIDActivity;
+import com.philips.platform.uid.utils.UIDActivity;
 
-public class ThemeSelectionActivity extends UIDLangPackActivity {
+public class ThemeSelectionActivity extends UIDActivity {
     private Toolbar toolbar;
     ThemeSettingsFragment fragment;
     protected SharedPreferences defaultSharedPreferences;
-
-    public ThemeSelectionActivity (){
-        setLanguagePackNeeded(false);
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

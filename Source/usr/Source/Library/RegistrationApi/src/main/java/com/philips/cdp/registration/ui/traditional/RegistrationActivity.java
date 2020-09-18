@@ -41,12 +41,12 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDLangPackActivity;
+import com.philips.platform.uid.utils.UIDActivity;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 
-public class RegistrationActivity extends UIDLangPackActivity implements
+public class RegistrationActivity extends UIDActivity implements
         ActionBarListener {
 
     private static final long serialVersionUID = -7156429613507082769L;

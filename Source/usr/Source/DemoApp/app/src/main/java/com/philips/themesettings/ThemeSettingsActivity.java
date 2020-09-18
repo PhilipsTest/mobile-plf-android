@@ -16,7 +16,7 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDLangPackActivity;
+import com.philips.platform.uid.utils.UIDActivity;
 import com.philips.platform.uid.utils.UIDLocaleHelper;
 import com.philips.platform.urdemo.URDemoActivity;
 import com.philips.platform.urdemo.URDemoApplication;
@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-public class ThemeSettingsActivity extends UIDLangPackActivity {
+public class ThemeSettingsActivity extends UIDActivity {
 
     static final String THEMESETTINGS_ACTIVITY_RESTART = "THEMESETTINGS_ACTIVITY_RESTART";
 

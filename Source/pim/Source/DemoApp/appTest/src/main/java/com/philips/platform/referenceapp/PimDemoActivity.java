@@ -10,7 +10,7 @@ import android.widget.Spinner;
 
 import com.philips.platform.appinfra.AppInfraInterface;
 import com.philips.platform.uappframework.launcher.ActivityLauncher;
-import com.philips.platform.uid.utils.UIDLangPackActivity;
+import com.philips.platform.uid.utils.UIDActivity;
 import com.philips.platform.uid.view.widget.Button;
 import com.pim.demouapp.PIMDemoUAppActivity;
 import com.pim.demouapp.PIMDemoUAppDependencies;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class PimDemoActivity extends UIDLangPackActivity {
+public class PimDemoActivity extends UIDActivity {
 
     private PIMDemoUAppInterface uAppInterface;
     private Spinner spinnerCountrySelection;

@@ -30,14 +30,14 @@ import com.philips.platform.uappframework.listener.ActionBarListener;
 import com.philips.platform.uid.thememanager.AccentRange;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDLangPackActivity;
+import com.philips.platform.uid.utils.UIDActivity;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 /**
  * Created by 310166779 on 3/21/2017.
  */
-public class CCDemoUAppFragmentActivity extends UIDLangPackActivity implements View.OnClickListener,
+public class CCDemoUAppFragmentActivity extends UIDActivity implements View.OnClickListener,
         CcListener {
     private static final String TAG = CCDemoUAppFragmentActivity.class.getSimpleName();
     private ImageView mActionBarMenuIcon = null;
@@ -69,10 +69,6 @@ public class CCDemoUAppFragmentActivity extends UIDLangPackActivity implements V
 
         }
     };
-
-    public CCDemoUAppFragmentActivity() {
-        setLanguagePackNeeded(false);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

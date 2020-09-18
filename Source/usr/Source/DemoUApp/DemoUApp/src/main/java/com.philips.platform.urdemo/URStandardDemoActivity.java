@@ -65,7 +65,7 @@ import com.philips.platform.uid.thememanager.ContentColor;
 import com.philips.platform.uid.thememanager.NavigationColor;
 import com.philips.platform.uid.thememanager.ThemeConfiguration;
 import com.philips.platform.uid.thememanager.UIDHelper;
-import com.philips.platform.uid.utils.UIDLangPackActivity;
+import com.philips.platform.uid.utils.UIDActivity;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.Switch;
 import com.philips.platform.urdemolibrary.R;
@@ -78,7 +78,7 @@ import java.util.GregorianCalendar;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class URStandardDemoActivity extends UIDLangPackActivity implements OnClickListener,
+public class URStandardDemoActivity extends UIDActivity implements OnClickListener,
         UserRegistrationUIEventListener, UserRegistrationListener, RefreshLoginSessionHandler, HSDPAuthenticationListener {
 
     private static final String USR_PERSONAL_CONSENT = "USR_PERSONAL_CONSENT";
