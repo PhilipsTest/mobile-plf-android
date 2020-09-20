@@ -185,7 +185,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/mec_no_product_available"
-            android:textSize="@dimen/iap_product_ctn_12"
+            android:textSize="@dimen/iap_text_size_16sp"
             android:visibility="gone" />
 
         <include
