@@ -71,7 +71,7 @@ public class CCDemoUAppFragmentActivity extends UIDLangPackActivity implements V
     };
 
     public CCDemoUAppFragmentActivity() {
-        setLanguagePackNeeded(false);
+       // setLanguagePackNeeded(false);
     }
 
     @Override

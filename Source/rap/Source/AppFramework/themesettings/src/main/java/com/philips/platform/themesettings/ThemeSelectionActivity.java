@@ -35,7 +35,7 @@ public class ThemeSelectionActivity extends UIDLangPackActivity {
     protected SharedPreferences defaultSharedPreferences;
 
     public ThemeSelectionActivity (){
-        setLanguagePackNeeded(false);
+      //  setLanguagePackNeeded(false);
     }
 
     @Override

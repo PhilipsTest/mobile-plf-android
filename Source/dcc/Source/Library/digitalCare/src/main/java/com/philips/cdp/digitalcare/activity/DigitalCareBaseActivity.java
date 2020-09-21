@@ -44,7 +44,7 @@ public abstract class DigitalCareBaseActivity extends UIDLangPackActivity implem
     private Toolbar toolbar;
 
     public DigitalCareBaseActivity() {
-        setLanguagePackNeeded(false);
+        //setLanguagePackNeeded(false);
     }
 
     @Override

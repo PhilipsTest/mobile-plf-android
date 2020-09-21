@@ -59,7 +59,7 @@ public class IAPActivity extends UIDLangPackActivity implements ActionBarListene
     private String mTitle;
 
     public IAPActivity(){
-        setLanguagePackNeeded(false);
+        //setLanguagePackNeeded(false);
     }
 
     @Override
