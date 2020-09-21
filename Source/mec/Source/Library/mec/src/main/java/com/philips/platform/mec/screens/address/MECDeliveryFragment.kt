@@ -371,9 +371,11 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
         if (mecError?.mECRequestType == MECRequestType.MEC_FETCH_PAYMENT_DETAILS) {
             binding.mecPaymentProgressBar.visibility = View.GONE
+            super.processError(mecError, false)
             showPaymentCardList() // even for error inflate the Add Payment view
+        }else{
+            super.processError(mecError, showDialog)
         }
-        super.processError(mecError, showDialog)
     }
 
     private fun checkDeliveryAddressSet() {
