@@ -35,6 +35,7 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
+import org.robolectric.annotation.Config
 
 @PrepareForTest(Context::class,MECManager::class)
 @RunWith(PowerMockRunner::class)

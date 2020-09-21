@@ -41,6 +41,7 @@ import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
+import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +58,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(RobolectricTestRunner.class)
 @PowerMockIgnore({"org.powermock.*", "org.mockito.*", "org.robolectric.*", "android.*", "androidx.*", "com.sun.org.apache.xerces.internal.jaxp.*"})
 @PrepareForTest({PIMSettingManager.class, PIMInitState.class, PIMLoginManager.class})
+@Config(sdk = 30)
 public class PIMFragmentTest extends TestCase {
 
     @Rule
