@@ -59,6 +59,8 @@ import kotlinx.android.synthetic.main.mec_product_details.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 /**
  * A simple [Fragment] subclass.
@@ -382,7 +384,8 @@ open class MECProductDetailsFragment : MecBaseFragment() {
                 val ecsRetailer: ECSRetailer = data.getSerializableExtra(MECConstant.SELECTED_RETAILER) as ECSRetailer
                 param = ecsRetailer.xactparam
                 val bundle = Bundle()
-                bundle.putString(MECConstant.MEC_BUY_URL, ecsProductDetailViewModel.uuidWithSupplierLink(ecsRetailer.buyURL, param))
+                val uuid = UUID.randomUUID().toString()
+                bundle.putString(MECConstant.MEC_BUY_URL, ecsProductDetailViewModel.getFormattedRetailerURL(ecsRetailer.buyURL, param,uuid))
                 bundle.putString(MECConstant.MEC_STORE_NAME, ecsRetailer.name)
                 bundle.putBoolean(MECConstant.MEC_IS_PHILIPS_SHOP, ecsProductDetailViewModel.isPhilipsShop(ecsRetailer))
 
