@@ -13,6 +13,7 @@ import com.philips.platform.mec.R
 
 object MECConstant {
 
+    const val UPDATE_CART_DROP_DOWN_LIMIT = 20
     const val MEC_DETAIL_NOT_AVAILABLE = "MEC_DETAIL_NOT_AVAILABLE"
     const val MEC_ORDERS: String = "MEC_ORDERS"
     const val NEW_CARD_PAYMENT = "NEW_CARD_PAYMENT"
