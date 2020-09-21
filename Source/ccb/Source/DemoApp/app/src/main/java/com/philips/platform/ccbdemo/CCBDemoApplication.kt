@@ -13,7 +13,7 @@ import android.app.Application
 import android.content.Context
 import com.philips.platform.appinfra.AppInfra
 import com.philips.platform.appinfra.AppInfraInterface
-import com.philips.platform.uid.thememanager.UIDHelper
+import com.philips.platform.uid.thememanager.*
 
 class CCBDemoApplication  : Application() {
 
@@ -21,7 +21,9 @@ class CCBDemoApplication  : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        UIDHelper.injectCalligraphyFonts()
+        theme.applyStyle(R.style.Theme_DLS_Blue_UltraLight, true)
+        UIDHelper.init(ThemeConfiguration(this, ContentColor.ULTRA_LIGHT, NavigationColor.BRIGHT, AccentRange.ORANGE))
         appInfraInterface = AppInfra.Builder().build(this)
     }
 

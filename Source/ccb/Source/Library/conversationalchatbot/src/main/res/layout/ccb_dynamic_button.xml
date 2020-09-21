@@ -5,10 +5,8 @@
     android:layout_margin="10dp"
     android:orientation="vertical">
 
-    <Button
+    <com.philips.platform.uid.view.widget.Button
         android:id="@+id/ccb_dynamic_button"
-        android:background="@drawable/button_background"
-        android:textColor="#0C70A1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
