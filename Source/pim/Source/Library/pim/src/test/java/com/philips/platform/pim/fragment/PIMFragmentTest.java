@@ -58,7 +58,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(RobolectricTestRunner.class)
 @PowerMockIgnore({"org.powermock.*", "org.mockito.*", "org.robolectric.*", "android.*", "androidx.*", "com.sun.org.apache.xerces.internal.jaxp.*"})
 @PrepareForTest({PIMSettingManager.class, PIMInitState.class, PIMLoginManager.class})
-@Config(sdk = 30)
+@Config(sdk = 29)
 public class PIMFragmentTest extends TestCase {
 
     @Rule

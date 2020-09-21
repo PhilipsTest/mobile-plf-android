@@ -12,11 +12,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 30)
 public class AppInfraTaggingUtilTest {
 
     private AppInfraTaggingUtil appInfraTaggingUtil;
