@@ -22,11 +22,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
+import com.philips.platform.ecs.microService.model.cart.ECSItem
 import com.philips.platform.ecs.model.orders.ECSOrderHistory
 import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderHistory
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MECRequestType
 import com.philips.platform.mec.common.MecError
@@ -224,11 +226,16 @@ class MECOrderHistoryFragment : MecBaseFragment(),ItemClickListener {
     }
 
     override fun onItemClick(item: Any) {
-
         val ecsOrders = item as ECSOrders
         val fragment = MECOrderDetailFragment()
         val bundle = Bundle()
         bundle.putSerializable(MECConstant.MEC_ORDERS,ecsOrders)
+
+        val actionMap = HashMap<String, String>()
+        actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.orderClick)
+        actionMap.put(MECAnalyticsConstant.transationID, ecsOrders.code)
+        MECAnalytics.tagActionsWithOrderProductsInfoForECSEntries(actionMap, item.orderDetail.entries)
+
         fragment.arguments = bundle
         replaceFragment(fragment,fragment.getFragmentTag(),true)
     }

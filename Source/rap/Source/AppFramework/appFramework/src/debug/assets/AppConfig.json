@@ -122,7 +122,8 @@
         "dsc",
         "dcc/prx",
         "iap/prx",
-        "prg/prx"
+        "prg/prx",
+        "MEC"
       ]
     }
   },

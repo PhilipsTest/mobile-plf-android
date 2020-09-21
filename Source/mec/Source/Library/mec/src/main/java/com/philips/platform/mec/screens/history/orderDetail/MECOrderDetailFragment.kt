@@ -28,6 +28,7 @@ import com.philips.platform.ecs.model.orders.ECSOrders
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.orderDetail
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.common.ItemClickListener
 import com.philips.platform.mec.common.MecError
 import com.philips.platform.mec.databinding.MecOrderHistoryDetailBinding
@@ -37,6 +38,7 @@ import com.philips.platform.mec.screens.shoppingCart.MECCartSummary
 import com.philips.platform.mec.screens.shoppingCart.MECCartSummaryAdapter
 import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE
+import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_DETAIL
 import com.philips.platform.mec.utils.MECConstant.MEC_ORDER_NUMBER
 import com.philips.platform.mec.utils.MECutility
 
@@ -53,7 +55,7 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     private lateinit var cartSummaryList: MutableList<MECCartSummary>
     private lateinit var voucherList: MutableList<AppliedVoucherEntity>
     private var mECOrderHistoryService = MECOrderHistoryService()
-    private var mContactphone:ContactPhone?=null
+    private var mContactphone: ContactPhone? = null
 
 
     override fun getFragmentTag(): String {
@@ -61,13 +63,19 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     }
 
     private val contactsObserver: Observer<ContactPhone> = Observer { contactPhone ->
-        mContactphone= contactPhone
+        mContactphone = contactPhone
         binding.contactPhone = contactPhone
         dismissProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
-        binding.mecOrderHistoryDetailCallBtn.setOnClickListener { callPhone(contactPhone.phoneNumber) }
+        binding.mecOrderHistoryDetailCallBtn.setOnClickListener {
+            val actionMap = HashMap<String, String>()
+            actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.callCustomerCare)
+            ecsOrders?.code?.let { it -> actionMap.put(MECAnalyticsConstant.transationID, it) }
+            ecsOrders?.orderDetail?.entries?.let { it1 -> MECAnalytics.tagActionsWithOrderProductsInfoForECSEntries(actionMap, it1) }
+            callPhone(contactPhone.phoneNumber)
+        }
     }
 
-    private fun  updateUI(){
+    private fun updateUI() {
 
         cartSummaryList.clear()
         priceAdapter = ecsOrders?.orderDetail?.let { addCartSummaryList(it) }?.let { MECCartSummaryAdapter(it) }
@@ -98,9 +106,12 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
         updateUI()
         val subCategory = mecOrderDetailService.getProductSubcategory(ecsOrders?.orderDetail)
 
-        context?.let { subCategory?.let { it1 ->
-            showProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
-            mecOrderDetailViewModel.fetchContacts(it, it1) } }
+        context?.let {
+            subCategory?.let { it1 ->
+                showProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
+                mecOrderDetailViewModel.fetchContacts(it, it1)
+            }
+        }
 
         binding.mecOrderHistoryCancelOrderBtn.setOnClickListener { onCancelOrder() }
         return binding.root
@@ -127,14 +138,19 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     }
 
     fun onCancelOrder() {
-        var mECCancelOrderFragment : MECCancelOrderFragment = MECCancelOrderFragment()
+        var mECCancelOrderFragment: MECCancelOrderFragment = MECCancelOrderFragment()
         var arguments: Bundle = Bundle()
-        arguments.putString(MEC_ORDER_NUMBER,  binding.ecsOrders?.code)
-        if( mContactphone!=null ) {
+        arguments.putParcelable(MEC_ORDER_DETAIL, binding.ecsOrders?.orderDetail)
+        if (mContactphone != null) {
             arguments.putSerializable(MEC_ORDER_CUSTOMER_CARE_PHONE, mContactphone)
         }
+        val actionMap = HashMap<String, String>()
+        actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.cancelOrder)
+        binding.ecsOrders?.code?.let { actionMap.put(MECAnalyticsConstant.transationID, it) }
+        binding.ecsOrders?.orderDetail?.entries?.let { MECAnalytics.tagActionsWithOrderProductsInfoForECSEntries(actionMap, it) }
+
         mECCancelOrderFragment.arguments = arguments
-        replaceFragment(mECCancelOrderFragment,mECCancelOrderFragment.getFragmentTag(),true)
+        replaceFragment(mECCancelOrderFragment, mECCancelOrderFragment.getFragmentTag(), true)
     }
 
     fun showTrackUrlFragment(url: String) {
@@ -156,14 +172,17 @@ class MECOrderDetailFragment : MecBaseFragment(), ItemClickListener {
     }
 
 
-
     override fun processError(mecError: MecError?, showDialog: Boolean) {
         super.processError(mecError, showDialog)
         dismissProgressBar(binding.mecOrderHistoryDetailProgress.mecProgressBarContainer)
     }
 
     override fun onItemClick(item: Any) {
-       showTrackUrlFragment(item as String)
+        val actionMap = HashMap<String, String>()
+        actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.trackOrder)
+        ecsOrders?.code?.let { actionMap.put(MECAnalyticsConstant.transationID, it) }
+        ecsOrders?.orderDetail?.entries?.let { MECAnalytics.tagActionsWithOrderProductsInfoForECSEntries(actionMap, it) }
+        showTrackUrlFragment(item as String)
     }
 
 

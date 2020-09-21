@@ -61,4 +61,8 @@ object MECAnalyticsConstant {
     val voucherCodeRedeemed          = "voucherCodeRedeemed"
     val inappnotification            = "inappnotification"
     val inappnotificationresponse    = "inappnotificationresponse"
+    val trackOrder                   = "trackOrder"
+    val callCustomerCare             = "callCustomerCare"
+    val cancelOrder                  = "cancelOrder"
+    val orderClick                   = "orderClick"
 }

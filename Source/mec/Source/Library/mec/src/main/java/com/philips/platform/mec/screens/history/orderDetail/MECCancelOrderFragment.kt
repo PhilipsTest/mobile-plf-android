@@ -10,9 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.philips.cdp.prxclient.datamodels.cdls.ContactPhone
+import com.philips.platform.ecs.model.orders.ECSOrderDetail
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.cancelOrder
 import com.philips.platform.mec.analytics.MECAnalytics
+import com.philips.platform.mec.analytics.MECAnalyticsConstant
 import com.philips.platform.mec.databinding.MecCancelOrderFragmentBinding
 import com.philips.platform.mec.screens.MecBaseFragment
 import com.philips.platform.mec.utils.MECConstant
@@ -33,25 +35,32 @@ class MECCancelOrderFragment : MecBaseFragment() {
 
         val arguments = arguments
 
-        var orderNumber: String? = arguments?.getString(MECConstant.MEC_ORDER_NUMBER)
-        binding.orderNumber =  orderNumber
+        var orderDetail: ECSOrderDetail? = arguments?.getParcelable(MECConstant.MEC_ORDER_DETAIL)
+        binding.orderNumber = orderDetail?.code
 
         var contactPhone: ContactPhone? = null
         if (arguments != null && arguments.containsKey(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE)) {
-            contactPhone = arguments?.getSerializable(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE) as ContactPhone
+            contactPhone = arguments.getSerializable(MECConstant.MEC_ORDER_CUSTOMER_CARE_PHONE) as ContactPhone
         }
 
         binding.contactPhone = contactPhone
-        binding.mecCancelOrderCallBtn.setOnClickListener { callPhone(binding.contactPhone!!.phoneNumber) }
-        
-        val yourRefText : String= String.format(getString(R.string.mec_cancel_order_dls_for_your_ref_sg),"")
+        binding.mecCancelOrderCallBtn.setOnClickListener {
+            val actionMap = HashMap<String, String>()
+            actionMap.put(MECAnalyticsConstant.specialEvents, MECAnalyticsConstant.callCustomerCare)
+            orderDetail?.code?.let { it -> actionMap.put(MECAnalyticsConstant.transationID, it) }
+            orderDetail?.entries?.let { it1 -> MECAnalytics.tagActionsWithOrderProductsInfoForECSEntries(actionMap, it1) }
+
+            callPhone(binding.contactPhone!!.phoneNumber)
+        }
+
+        val yourRefText: String = String.format(getString(R.string.mec_cancel_order_dls_for_your_ref_sg), "")
         val boldSpanned: Spanned
         boldSpanned = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml("$yourRefText  <b>$orderNumber</b>", Html.FROM_HTML_MODE_LEGACY)
+            Html.fromHtml("$yourRefText  <b>$binding.orderNumber</b>", Html.FROM_HTML_MODE_LEGACY)
         } else {
-            Html.fromHtml("$yourRefText  <b>$orderNumber</b>")
+            Html.fromHtml("$yourRefText  <b>$binding.orderNumber</b>")
         }
-        binding.mecCancelOrderRef.text=boldSpanned
+        binding.mecCancelOrderRef.text = boldSpanned
 
         return binding.root
     }
