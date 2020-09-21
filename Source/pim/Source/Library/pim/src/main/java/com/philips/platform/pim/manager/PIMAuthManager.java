@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
+import com.philips.platform.pim.PIMLaunchFlow;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
 import com.philips.platform.pim.errors.PIMErrorEnums;
 import com.philips.platform.pim.listeners.PIMAuthServiceConfigListener;
@@ -86,10 +87,15 @@ public class PIMAuthManager {
                         ResponseTypeValues.CODE,
                         Uri.parse(pimOidcConfigration.getRedirectUrl()));
 
-        AuthorizationRequest authorizationRequest = authRequestBuilder
+        authRequestBuilder
                 .setScope(getScopes())
-                .setAdditionalParameters(parameter)
-                .setPrompt(PIMSettingManager.getInstance().getPimLaunchFlow().pimLaunchFlow)
+                .setAdditionalParameters(parameter);
+
+        PIMLaunchFlow launchFlow = PIMSettingManager.getInstance().getPimLaunchFlow();
+        if(launchFlow != null && launchFlow != PIMLaunchFlow.NO_PROMPT)
+            authRequestBuilder.setPrompt(launchFlow.pimLaunchFlow);
+
+        AuthorizationRequest authorizationRequest = authRequestBuilder
                 .build();
 
         return authorizationRequest;

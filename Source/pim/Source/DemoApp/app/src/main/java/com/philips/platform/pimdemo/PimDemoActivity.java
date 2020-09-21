@@ -52,7 +52,7 @@ public class PimDemoActivity extends UIDLangPackActivity {
         ininitalizeView();
         updateLibraryListData();
         updateCountryListData();
-        updateLaunchFlowData();
+        initLaunchFlowData();
 
         mContext = getApplicationContext();
         appInfraInterface = ((PimDemoApplication) mContext).getAppInfra();
@@ -76,10 +76,12 @@ public class PimDemoActivity extends UIDLangPackActivity {
             enableMigrationSwitch.setEnabled(false);
             enableChuck.setEnabled(false);
             spinnerCountrySelection.setEnabled(false);
+            spinnerLaunchFLow.setEnabled(false);
         } else {
             enableMigrationSwitch.setEnabled(true);
             enableChuck.setEnabled(true);
             spinnerCountrySelection.setEnabled(true);
+            spinnerLaunchFLow.setEnabled(true);
         }
 
         if (enableMigrationSwitch.isChecked())
@@ -169,10 +171,11 @@ public class PimDemoActivity extends UIDLangPackActivity {
         });
     }
 
-    private void updateLaunchFlowData(){
+    private void initLaunchFlowData(){
         List<String> launchFlowList = new ArrayList<>();
-        launchFlowList.add("LOGIN");
-        launchFlowList.add("CREATE");
+        launchFlowList.add("noPrompt");
+        launchFlowList.add("login");
+        launchFlowList.add("create");
         PIMSpinnerAdapter arrayAdapter = new PIMSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, launchFlowList);
         spinnerLaunchFLow.setAdapter(arrayAdapter);
         spinnerLaunchFLow.setSelection(0, false);

@@ -475,10 +475,11 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         launchInput.setParameterToLaunch(parameter);
         String launchFlow = getIntent().getStringExtra("LaunchFlow");
         Log.i(TAG,"Launch FLow : "+launchFlow);
-        if(launchFlow.equals(PIMLaunchFlow.CREATE.toString()))
-            launchInput.setPIMLaunchFlow(PIMLaunchFlow.CREATE);
-        else
+        if(launchFlow.equalsIgnoreCase(PIMLaunchFlow.LOGIN.pimLaunchFlow))
             launchInput.setPIMLaunchFlow(PIMLaunchFlow.LOGIN);
+        else if(launchFlow.equalsIgnoreCase(PIMLaunchFlow.CREATE.pimLaunchFlow))
+            launchInput.setPIMLaunchFlow(PIMLaunchFlow.CREATE);
+
         mUSRUDIHelper.launchUDIAsFragment(fragmentLauncher, launchInput);
     }
 

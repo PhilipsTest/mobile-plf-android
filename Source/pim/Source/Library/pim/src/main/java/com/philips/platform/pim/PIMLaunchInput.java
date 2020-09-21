@@ -46,6 +46,10 @@ public class PIMLaunchInput extends UappLaunchInput {
     }
 
     public PIMLaunchFlow getPimLaunchFlow() {
+        if (pimLaunchFlow == null)
+            return PIMLaunchFlow.NO_PROMPT;
+
         return pimLaunchFlow;
+
     }
 }

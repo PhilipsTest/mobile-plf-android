@@ -112,8 +112,6 @@ public class PIMSettingManager {
 
 
     public PIMLaunchFlow getPimLaunchFlow() {
-        if(pimLaunchFlow == null)
-            return PIMLaunchFlow.LOGIN;
         return pimLaunchFlow;
     }
 
