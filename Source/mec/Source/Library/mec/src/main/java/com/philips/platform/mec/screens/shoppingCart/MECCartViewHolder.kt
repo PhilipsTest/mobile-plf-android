@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.ImageLoader
 import com.philips.platform.mec.databinding.MecShoppingCartItemsBinding
 import com.philips.platform.mec.networkEssentials.NetworkImageLoader
-import com.philips.platform.mec.utils.MECConstant
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uid.view.widget.UIPicker
 
@@ -63,10 +62,10 @@ class MECCartViewHolder(val binding: MecShoppingCartItemsBinding, var mecShoppin
     private fun bindCountView(view: View, cartSummary: MECCartProductReview) {
         if (cartSummary.entries.product.stock.stockLevel > 1) {
             view.setOnClickListener { v ->
-                var stockLevel = cartSummary.entries.product.stock.stockLevel
-                if (stockLevel > MECConstant.UPDATE_CART_DROP_DOWN_LIMIT) {
-                stockLevel = MECConstant.UPDATE_CART_DROP_DOWN_LIMIT
-            }
+                val stockLevel = cartSummary.entries.product.stock.stockLevel
+                /*if (stockLevel > 50) {
+                stockLevel = 50
+            }*/
 
                 val countPopUp = MecCountDropDown(v, v.context, stockLevel, cartSummary.entries.quantity
                         , object : MecCountDropDown.CountUpdateListener {
