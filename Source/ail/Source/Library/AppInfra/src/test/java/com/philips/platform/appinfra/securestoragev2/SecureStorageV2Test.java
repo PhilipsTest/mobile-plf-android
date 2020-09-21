@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.stubbing.Answer;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,6 +49,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
  * Created by abhishek on 1/24/18.
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = 29)
 public class SecureStorageV2Test {
 
     @Mock
