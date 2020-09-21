@@ -332,12 +332,6 @@ public class CCDemoUAppActivity extends FragmentActivity implements View.OnClick
                 appInfraInterface.getServiceDiscovery().getHomeCountry(new ServiceDiscoveryInterface.OnGetHomeCountryListener() {
                     @Override
                     public void onSuccess(String s, SOURCE source) {
-                        if (s.equals("CN")) {
-                            ccLaunchInput.setLiveChatUrl("http://ph-china.livecom.cn/webapp/index.html?app_openid=ph_6idvd4fj&token=PhilipsTest");
-                        } else {
-                            ccLaunchInput.setLiveChatUrl(null);
-                        }
-
                         if (!(ctnList.length == 0))
                             ccInterface.launch(activityLauncher, ccLaunchInput);
                         else
