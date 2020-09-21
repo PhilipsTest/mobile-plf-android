@@ -139,7 +139,6 @@ ext.deps = [
         kotlinx_coroutines_android    : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8',
         leakcanary                    : 'com.squareup.leakcanary:leakcanary-android:1.6.3',
         leakcanary_no_op              : 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3',
-        okhttp                        : 'com.squareup.okhttp:okhttp:2.7.5',
         ormlite                       : [
                 android: "com.j256.ormlite:ormlite-android:5.1",
                 core   : "com.j256.ormlite:ormlite-core:5.1"
