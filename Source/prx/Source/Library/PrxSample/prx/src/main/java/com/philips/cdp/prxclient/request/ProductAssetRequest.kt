@@ -35,7 +35,7 @@ class ProductAssetRequest : PrxRequest {
     }
 
     override fun getResponseData(jsonObject: JSONObject?): ResponseData? {
-        return jsonObject?.getData(AssetModel::class.java)//AssetModel().parseJsonResponseData(jsonObject)
+        return AssetModel().parseJsonResponseData(jsonObject)
     }
 
     companion object {
