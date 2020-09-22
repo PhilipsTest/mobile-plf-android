@@ -2,6 +2,7 @@ package com.philips.cdp.prxclient.request
 
 import com.philips.cdp.prxclient.PrxConstants
 import com.philips.cdp.prxclient.datamodels.assets.AssetModel
+import com.philips.cdp.prxclient.datamodels.getData
 import com.philips.cdp.prxclient.response.ResponseData
 import org.json.JSONObject
 
@@ -34,7 +35,7 @@ class ProductAssetRequest : PrxRequest {
     }
 
     override fun getResponseData(jsonObject: JSONObject?): ResponseData? {
-        return AssetModel().parseJsonResponseData(jsonObject)
+        return jsonObject?.getData(AssetModel::class.java)//AssetModel().parseJsonResponseData(jsonObject)
     }
 
     companion object {

@@ -324,7 +324,7 @@ public class PrxWrapper {
 
             @Override
             public void onResponseError(PrxError error) {
-                DigiCareLogger.e(TAG, "Summary Error Response : " + error.getStatusCode() + "discription " + error.getDescription());
+                DigiCareLogger.e(TAG, "Summary Error Response : " + error);
                 mConfigManager.setViewProductDetailsData(mProductDetailsObject);
                 if (mSummaryCallback != null) {
                     mSummaryCallback.onResponseReceived(null);
@@ -360,23 +360,23 @@ public class PrxWrapper {
                                 String assetResource = assetObject.getAsset();
                                 String assetExtension = assetObject.getExtension();
 
-                                if (assetResource == null) return;
+                                if(assetResource == null) return;
 
                                 if (isEquals(assetType, PRX_ASSETS_USERMANUAL_DFU_PDF))
                                     dfuManual = assetResource;
 
                                 if (isEquals(assetType, PRX_ASSETS_USERMANUAL_QSG_PDF))
-                                    qsgManual = assetResource;
+                                        qsgManual = assetResource;
 
-                                if (isEquals(assetDescription, PRX_ASSETS_USERMANUAL_PDF) && (mProductDetailsObject.getManualLink() == null))
-                                    usermanual = assetResource;
+                                if (isEquals(assetDescription,PRX_ASSETS_USERMANUAL_PDF) && (mProductDetailsObject.getManualLink() == null))
+                                        usermanual = assetResource;
                                 if (isEquals(assetExtension, PRX_ASSETS_VIDEO_URL))
-                                    mVideoList.add(assetResource);
+                                        mVideoList.add(assetResource);
 
                             }
 
-                            if (dfuManual != null) {
-                                viewProductDetailsData.setDfuLink(dfuManual);
+                            if(dfuManual != null) {
+                              viewProductDetailsData.setDfuLink(dfuManual);
                             }
                             if (qsgManual != null) {
                                 viewProductDetailsData.setManualLink(qsgManual);
