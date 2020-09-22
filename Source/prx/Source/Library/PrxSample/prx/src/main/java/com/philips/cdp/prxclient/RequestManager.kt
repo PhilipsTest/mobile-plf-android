@@ -60,7 +60,7 @@ class RequestManager {
     }
 
     private val libVersion: String?
-        private get() {
+        get() {
             var mAppVersion: String? = null
             try {
                 mAppVersion = BuildConfig.VERSION_NAME

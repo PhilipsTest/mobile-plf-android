@@ -87,14 +87,12 @@ class NetworkWrapper(private val mPrxDependencies: PRXDependencies?) {
         if (request != null) {
             if (mPrxDependencies?.appInfra?.restClient != null) {
                 try {
-                    mPrxLogging?.let {
-                        it.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_NETWORK_WRAPPER, " Request url - " + request.url
-                                + " request headers - " + request.headers + " request type - " + request.method)
-                    }
+                    mPrxLogging?.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_NETWORK_WRAPPER, " Request url - " + request.url
+                            + " request headers - " + request.headers + " request type - " + request.method)
                } catch (authFailureError: AuthFailureError) {
                     authFailureError.printStackTrace()
                 }
-                mPrxDependencies.appInfra!!.restClient.requestQueue.add(request)
+                mPrxDependencies.appInfra.restClient.requestQueue.add(request)
             } else {
                 mPrxLogging!!.log(LoggingInterface.LogLevel.ERROR, PrxConstants.PRX_NETWORK_WRAPPER, "Couldn't initialise REST Client")
             }

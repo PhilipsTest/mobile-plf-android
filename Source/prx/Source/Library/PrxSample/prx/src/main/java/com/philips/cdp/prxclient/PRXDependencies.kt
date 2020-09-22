@@ -15,7 +15,7 @@ class PRXDependencies
  * @param appInfra App Infra Interface
  * @param parentTLA Parent Three Letter Acronym
  * @since 1.0.0
- */(val context: Context, private val mAppInfraInterface: AppInfraInterface?, private val mParentTLA: String?) {
+ */(val context: Context, mAppInfraInterface: AppInfraInterface?, mParentTLA: String?) {
     var mAppInfraLogging: LoggingInterface? = null
 
     /**

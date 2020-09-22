@@ -4,7 +4,6 @@
  */
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 apply from: project.rootDir.absolutePath + '/build-support/gradle/cdpscm.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/projectnames.gradle'
@@ -48,13 +47,8 @@ dependencies {
     implementation deps.joda_time
     testImplementation deps.junit
     testImplementation deps.robolectric
-    implementation deps.kotlin_core_ktx
-    implementation deps.kotlin_stdlib_jdk7
 }
 
 tasks.withType(Test) {
     ignoreFailures = true
-}
-repositories {
-    mavenCentral()
 }

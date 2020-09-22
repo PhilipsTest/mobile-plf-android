@@ -7,7 +7,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
 apply from: project.rootDir.absolutePath + '/build-support/gradle/cdpscm.gradle'
 apply from: project.rootDir.absolutePath + '/build-support/gradle/projectnames.gradle'
 //apply from: project.rootDir.absolutePath + '/build-support/gradle/taskscc.gradle'
@@ -41,10 +40,6 @@ android {
     compileSdkVersion versions.sdk
     buildToolsVersion versions.buildtools
 
-    androidExtensions {
-        experimental = true
-    }
-
     defaultConfig {
         versionCode 1
         versionName version + "(" + commitHash+ ")"
@@ -71,6 +66,7 @@ dependencies {
     implementation deps.androidx.annotations
     implementation deps.gson
     implementation deps.volley
+    implementation deps.kotlin_stdlib_jdk7
 
     if (useprojectdependencies) {
         project.logger.lifecycle('prx: Picking the dependencies from the code')
@@ -88,13 +84,9 @@ dependencies {
     androidTestImplementation deps.junit
     androidTestImplementation deps.mockito_android
     androidTestImplementation deps.androidx.runner
-    implementation deps.kotlin_core_ktx
-    implementation deps.kotlin_stdlib_jdk7
+
 }
 
 tasks.withType(Test) {
     ignoreFailures = true
-}
-repositories {
-    mavenCentral()
 }
