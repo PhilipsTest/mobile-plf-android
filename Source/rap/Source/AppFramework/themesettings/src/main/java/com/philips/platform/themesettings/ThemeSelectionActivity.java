@@ -34,7 +34,9 @@ public class ThemeSelectionActivity extends UIDLangPackActivity {
     ThemeSettingsFragment fragment;
     protected SharedPreferences defaultSharedPreferences;
 
-
+    public ThemeSelectionActivity (){
+        setLanguagePackNeeded(false);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

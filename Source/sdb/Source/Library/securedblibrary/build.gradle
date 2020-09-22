@@ -78,12 +78,8 @@ dependencies {
 
     androidTestImplementation deps.androidx.runner
     androidTestImplementation deps.mockito_android
-
 }
 
 tasks.withType(Test) {
     ignoreFailures = true
-}
-repositories {
-    mavenCentral()
 }

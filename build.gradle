@@ -4,7 +4,6 @@
  */
 buildscript {
     apply from: projectDir.absolutePath + '/build-support/gradle/versions.gradle'
-    ext.kotlin_version = ext.versions.kotlinversion
 
     repositories {
         maven { url repos.ietsnapshot }

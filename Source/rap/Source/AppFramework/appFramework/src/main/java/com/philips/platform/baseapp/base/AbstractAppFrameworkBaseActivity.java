@@ -58,7 +58,9 @@ public abstract class AbstractAppFrameworkBaseActivity extends  UIDLangPackActiv
 
     public abstract int getContainerId();
 
-
+    public AbstractAppFrameworkBaseActivity(){
+        setLanguagePackNeeded(false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
