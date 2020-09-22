@@ -120,6 +120,10 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
         return new PIMDataImplementation(context, PIMSettingManager.getInstance().getPimUserManager());
     }
 
+    public void instantiateWithGuestUser(){
+
+    }
+
     /**
      * To migrate user from USR to PIM
      *

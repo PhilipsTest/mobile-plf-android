@@ -63,6 +63,10 @@ class USRUDIHelper {
         pimInterface.init(urDependancies, urSettings);
     }
 
+    void launchUDIAsGuestUser(){
+        pimInterface.instantiateWithGuestUser();
+    }
+
     void launchUDIAsFragment(FragmentLauncher fragmentLauncher, PIMLaunchInput launchInput) {
         pimInterface.launch(fragmentLauncher, launchInput);
     }

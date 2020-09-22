@@ -33,10 +33,17 @@
                 android:layout_margin="5dp" />
 
             <com.philips.platform.uid.view.widget.Button
+                android:id="@+id/btn_guest_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="2dp"
+                android:text="Guest User Login" />
+
+            <com.philips.platform.uid.view.widget.Button
                 android:id="@+id/btn_login_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/spinner_CountrySelection"
                 android:layout_centerInParent="true"
                 android:layout_margin="2dp"
                 android:visibility="gone"

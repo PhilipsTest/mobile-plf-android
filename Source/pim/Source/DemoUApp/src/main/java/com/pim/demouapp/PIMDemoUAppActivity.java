@@ -85,7 +85,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     public static final String KEY_ACTIVITY_THEME = "KEY_ACTIVITY_THEME";
 
     private Button btnLaunchAsActivity, btnLaunchAsFragment, btnLogout, btn_ECS, btn_MCS, btnRefreshSession, btnISOIDCToken, btnMigrator, btnGetUserDetail,
-            btn_RefetchUserDetails, btn_RegistrationPR, btn_IAP, btnUpdateMarketingOptin;
+            btn_RefetchUserDetails, btn_RegistrationPR, btn_IAP, btnUpdateMarketingOptin,btnGuestUser;
     private Switch aSwitch, abTestingSwitch, marketingOptedSwitch;
     private UserDataInterface userDataInterface;
     private Context mContext;
@@ -122,6 +122,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             mUSRUDIHelper.setLoginListener(this);
         userDataInterface = USRUDIHelper.getInstance().getUserDataInterface();
         
+        btnGetUserDetail = findViewById(R.id.btn_guest_user);
         btnGetUserDetail = findViewById(R.id.btn_GetUserDetail);
         btnGetUserDetail.setOnClickListener(this);
         btnLaunchAsActivity = findViewById(R.id.btn_login_activity);
@@ -249,7 +250,9 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (!isNetworkConnected()) return;
 
-        if (v == btnLaunchAsFragment) {
+        if(v == btnGuestUser) {
+            mUSRUDIHelper.launchUDIAsGuestUser();
+        }else if (v == btnLaunchAsFragment) {
             if (registrationLib == RegistrationLib.USR) {
                 launchUSR();
             } else {
