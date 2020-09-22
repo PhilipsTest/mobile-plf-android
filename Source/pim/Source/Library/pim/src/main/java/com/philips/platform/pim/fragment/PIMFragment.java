@@ -1,8 +1,12 @@
 package com.philips.platform.pim.fragment;
 
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.browser.customtabs.CustomTabsServiceConnection;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +114,7 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
     }
 
     private void launch() {
+        //instantiateWithGuestUser();
         if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
             mLoggingInterface.log(DEBUG, TAG, "OIDC Login skipped, as user is already logged in");
             downloadUserProfileUrlFromSD();
@@ -116,6 +122,29 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
             pimLoginProgreassBar.setVisibility(View.VISIBLE);
             launchLoginPage();
         }
+    }
+
+    private void instantiateWithGuestUser(){
+        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+        customTabsIntent.launchUrl(mContext, Uri.parse("http://www.google.com"));
+
+        String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";  // Change when in stable
+
+        CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
+
+            @Override
+            public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+                Log.i(TAG,"SHASHI : onCustomTabsServiceConnected");
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                Log.i(TAG,"SHASHI onServiceDisconnected: ");
+            }
+        };
+        boolean ok = CustomTabsClient.bindCustomTabsService(mContext, CUSTOM_TAB_PACKAGE_NAME, connection);
+        Log.i(TAG,"SHASHI ok: "+ok);
+
     }
 
     /**

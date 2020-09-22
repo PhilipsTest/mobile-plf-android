@@ -7,12 +7,19 @@
 package com.philips.platform.pim;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsCallback;
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.browser.customtabs.CustomTabsServiceConnection;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -121,6 +128,25 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
     }
 
     public void instantiateWithGuestUser(){
+        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+        customTabsIntent.launchUrl(context, Uri.parse("http://www.google.com"));
+
+        String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";  // Change when in stable
+
+        CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
+
+            @Override
+            public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+                Log.i(TAG,"SHASHI : onCustomTabsServiceConnected");
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                Log.i(TAG,"SHASHI onServiceDisconnected: ");
+            }
+        };
+        boolean ok = CustomTabsClient.bindCustomTabsService(context, CUSTOM_TAB_PACKAGE_NAME, connection);
+        Log.i(TAG,"SHASHI ok: "+ok);
 
     }
 
