@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Browser
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ import com.bumptech.glide.request.target.Target
 import com.google.gson.Gson
 import com.philips.platform.appinfra.AppInfraInterface
 import com.philips.platform.appinfra.logging.LoggingInterface
+import com.philips.platform.ccb.R
 import com.philips.platform.ccb.R.layout
 import com.philips.platform.ccb.analytics.CCBAnalytics
 import com.philips.platform.ccb.analytics.CCBAnalyticsConstant.closeChat
@@ -55,6 +57,7 @@ import com.philips.platform.ccb.model.CCBMessage
 import com.philips.platform.ccb.model.CCBUser
 import com.philips.platform.ccb.util.CCBLog
 import com.philips.platform.ccb.util.CCBUtils
+import com.philips.platform.uappframework.listener.BackEventListener
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.LinkResolver
 import io.noties.markwon.Markwon
@@ -117,6 +120,15 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         CCBAnalytics.trackPage(messageUI)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setTitleAndBackButtonVisibility(R.string.ccb_title, true)
+    }
+
+     fun setTitleAndBackButtonVisibility(resourceId: Int, isVisible: Boolean) {
+        CCBSettingsManager.actionbarUpdateListener?.updateActionBar(resourceId, isVisible)
+    }
+
     private fun initViewListener() {
         rootView.fbclosebutton.setOnClickListener {
             CCBAnalytics.trackAction(sendData,specialEvents,closeChat)
@@ -151,18 +163,17 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     }
 
     private fun connectChatBot() {
-        val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "ems", "")
-        CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success, ccbError ->
-            if (success) {
-                startConversation()
+            val ccbUser = CCBUser(CCBUrlBuilder.HIDDEN_KNOCK, "ems", "")
+            CCBManager.getCCBSessionHandlerInterface().authenticateUser(ccbUser) { success, ccbError ->
+                if (success) {
+                    startConversation()
+                }
+                if (ccbError != null) {
+                    rootView.ccb_progressBar?.visibility = View.GONE
+                    showToastOnError(CCBError(0, "Failed to connect to the bot"))
+                    closeConversation()
+                }
             }
-
-            if (ccbError != null) {
-                rootView.ccb_progressBar?.visibility = View.GONE
-                showToastOnError(CCBError(0,"Failed to connect to the bot"))
-                closeConversation()
-            }
-        }
     }
 
     private fun startConversation() {
@@ -191,7 +202,7 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
             ccbAzureConversationHandler.postMessage(message) { conversation, _ ->
                 if (conversation != null) {
                     postInProgress = false
-                    displayMessage(response)
+                        displayMessage(response)
                     CCBLog.d(TAG, "postMessage success : $message")
                 } else {
                     CCBLog.d(TAG, "postMessage failed : $message")
@@ -219,11 +230,12 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
     }
 
     override fun onMessageReceived(jsonResponse: String) {
-        if(onOpen) {
+             if(onOpen) {
             showMessage(jsonResponse)
         } else if(postInProgress && !onOpen) {
             response = jsonResponse
-        } else {
+        }
+        else {
             showMessage(jsonResponse)
         }
     }
@@ -232,7 +244,6 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
         try {
             val botResponseData = Gson().fromJson(jsonResponse, CCBMessage::class.java)
             CCBLog.d(TAG, "CCBConversational :->$botResponseData.toString()")
-
             val activity: CCBActivities = botResponseData?.activities?.get(0) ?: return
 
             if (botResponseData.watermark == null && activity.type.equals("message")) {
@@ -277,7 +288,6 @@ class CCBConversationalFragment : Fragment(), BotResponseListener {
 
     private fun handleBotResponse(activity: CCBActivities) {
         CCBLog.d(TAG, "handleBotResponse")
-
         displayBotRespon(activity.text)
         if (activity.suggestedActions != null && activity.suggestedActions.actions.isNotEmpty()) {
             updateActionUI(activity.text, buttons = activity.suggestedActions.actions)

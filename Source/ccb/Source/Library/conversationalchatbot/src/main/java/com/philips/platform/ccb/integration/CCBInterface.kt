@@ -15,7 +15,6 @@ import com.philips.platform.ccb.analytics.CCBAnalytics
 import com.philips.platform.ccb.directline.CCBAzureSessionHandler
 import com.philips.platform.ccb.directline.CCBSessionHandlerInterface
 import com.philips.platform.ccb.fragment.CCBConversationalFragment
-import com.philips.platform.ccb.fragment.CCBFragment
 import com.philips.platform.ccb.manager.CCBSettingsManager
 import com.philips.platform.uappframework.UappInterface
 import com.philips.platform.uappframework.launcher.FragmentLauncher
@@ -37,6 +36,7 @@ class CCBInterface: UappInterface {
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
         if (uiLauncher is FragmentLauncher) {
             CCBSettingsManager.ccbDeviceCapabilityInterface = (uappLaunchInput as CCBLaunchInput).ccbDeviceCapabilityInterface
+            CCBSettingsManager.actionbarUpdateListener(uiLauncher.actionbarListener)
             val ccbFragment = CCBConversationalFragment()
             addFragment(uiLauncher, ccbFragment)
         }
