@@ -138,11 +138,6 @@ public class CCDemoUAppFragmentActivity extends UIDLangPackActivity implements V
                 mAppInfraInterface.getServiceDiscovery().getHomeCountry(new ServiceDiscoveryInterface.OnGetHomeCountryListener() {
                     @Override
                     public void onSuccess(String s, SOURCE source) {
-                        if (s.equals("CN")) {
-                            ccLaunchInput.setLiveChatUrl("http://ph-china.livecom.cn/webapp/index.html?app_openid=ph_6idvd4fj&token=PhilipsTest");
-                        } else {
-                            ccLaunchInput.setLiveChatUrl(null);
-                        }
                         ccInterface.launch(launcher, ccLaunchInput);
                     }
 

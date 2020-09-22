@@ -129,13 +129,6 @@ public class SupportFragmentState extends BaseState implements CcListener {
         ccLaunchInput.setProductModelSelectionType(productsSelection);
         ccLaunchInput.setConsumerCareListener(this);
 
-
-
-
-        if(getApplicationContext().isChinaFlow()) {
-            ccLaunchInput.setLiveChatUrl("https://ph-china.livecom.cn/webapp/index.html?app_openid=ph_6idvd4fj&token=PhilipsTest");
-        }
-
         ccInterface.launch(fragmentLauncher, ccLaunchInput);
     }
 

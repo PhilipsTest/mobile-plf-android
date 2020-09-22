@@ -106,7 +106,7 @@ dependencies {
     implementation deps.javax_annotation
     implementation deps.libphonenumber
     implementation deps.androidx.multidex
-    implementation deps.okhttp
+    implementation deps.okhttp3
     implementation deps.rxbinding
     implementation deps.rxjava2
     implementation deps.androidx.appcompat
