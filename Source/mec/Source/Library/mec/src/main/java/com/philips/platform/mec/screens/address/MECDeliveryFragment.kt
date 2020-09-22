@@ -20,6 +20,7 @@ import com.philips.platform.ecs.model.address.ECSAddress
 import com.philips.platform.ecs.model.address.ECSDeliveryMode
 import com.philips.platform.ecs.model.address.ECSUserProfile
 import com.philips.platform.ecs.model.cart.ECSShoppingCart
+import com.philips.platform.ecs.model.payment.CardType
 import com.philips.platform.mec.R
 import com.philips.platform.mec.analytics.MECAnalyticPageNames.deliveryDetailPage
 import com.philips.platform.mec.analytics.MECAnalytics
@@ -220,6 +221,9 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
                 ecsPayment = com.philips.platform.ecs.model.payment.ECSPayment()
                 ecsPayment.id = MECConstant.NEW_CARD_PAYMENT
+                val newCardType = CardType()
+                newCardType.name = getString(R.string.mec_new_card_text)
+                ecsPayment.cardType = newCardType
                 ecsPayment.billingAddress = ecsBillingAddress
                 val mecPayment = MECPayment(ecsPayment)
                 MECDataHolder.INSTANCE.PAYMENT_HOLDER.payments.add(mecPayment)
@@ -367,9 +371,11 @@ class MECDeliveryFragment : MecBaseFragment(), ItemClickListener {
 
         if (mecError?.mECRequestType == MECRequestType.MEC_FETCH_PAYMENT_DETAILS) {
             binding.mecPaymentProgressBar.visibility = View.GONE
+            super.processError(mecError, false)
             showPaymentCardList() // even for error inflate the Add Payment view
+        }else{
+            super.processError(mecError, showDialog)
         }
-        super.processError(mecError, showDialog)
     }
 
     private fun checkDeliveryAddressSet() {

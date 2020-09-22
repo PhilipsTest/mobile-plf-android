@@ -84,4 +84,12 @@ abstract class MECProductCatalogBaseAbstractAdapter(private var items: MutableLi
          LIST
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
 }

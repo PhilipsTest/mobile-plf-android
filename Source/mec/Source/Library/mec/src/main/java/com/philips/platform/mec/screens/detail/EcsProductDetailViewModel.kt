@@ -27,6 +27,7 @@ import com.philips.platform.mec.utils.MECDataHolder
 import com.philips.platform.mec.utils.MECLog
 import com.philips.platform.mec.utils.MECutility
 import com.philips.platform.uid.view.widget.Label
+import java.net.URL
 import java.util.*
 
 class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewModel() {
@@ -144,13 +145,33 @@ class EcsProductDetailViewModel : com.philips.platform.mec.common.CommonViewMode
         return ecsRetailers
     }
 
-    fun uuidWithSupplierLink(buyURL: String ,param :String): String {
+    fun getFormattedRetailerURL(buyURL: String, param :String, uuid :String): String {
+
+        val url : URL = URL(buyURL)
+        val query = url.query
+        val isQueryParameterAlreadyExist = query?.length ?:0 !=0
 
         val propositionId = MECDataHolder.INSTANCE.propositionId
 
-        val supplierLinkWithUUID = "$buyURL&wtbSource=mobile_$propositionId&$param="
+        val queryList : MutableList<String> = mutableListOf()
+        val propositionIDQuery = "wtbSource=mobile_$propositionId"
 
-        return supplierLinkWithUUID + UUID.randomUUID().toString()
+
+        val uuidQuery = "$param=$uuid"
+        if(propositionId.trim().isNotEmpty())queryList.add(propositionIDQuery)
+        queryList.add(uuidQuery)
+
+        var mecQueryString = ""
+        for (i in 0 until queryList.size) {
+            if(i==0 && !isQueryParameterAlreadyExist){
+                mecQueryString = mecQueryString+"?"+ queryList[i]
+            }else{
+                mecQueryString = mecQueryString+"&"+ queryList[i]
+            }
+
+        }
+
+        return buyURL + mecQueryString
     }
 
     fun isPhilipsShop(retailer: com.philips.platform.ecs.model.retailers.ECSRetailer): Boolean {
