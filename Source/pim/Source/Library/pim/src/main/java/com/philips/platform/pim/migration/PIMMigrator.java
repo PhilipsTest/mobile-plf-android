@@ -37,7 +37,9 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
     }
 
     public void migrateUSRToPIM() {
+        mLoggingInterface.log(DEBUG, TAG, "migrateUSRToPIM called");
         if (usrTokenManager.isUSRUserAvailable()) {
+            mLoggingInterface.log(DEBUG, TAG, "migrateUSRToPIM isUSRUserAvailable : "+usrTokenManager.isUSRUserAvailable());
             usrTokenManager.fetchRefreshedAccessToken(this);
         } else {
             mLoggingInterface.log(DEBUG, TAG, "USR user is not available so assertion not required");

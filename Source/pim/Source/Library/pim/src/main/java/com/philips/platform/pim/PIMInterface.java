@@ -126,30 +126,37 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
      * @param userMigrationListener listener for migration
      */
     public void migrateJanrainUserToPIM(UserMigrationListener userMigrationListener) {
+        PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "migrateJanrainUserToPIM called : "+isMigrationInProgress);
         final PIMUserManager pimUserManager = PIMSettingManager.getInstance().getPimUserManager();
         if (pimUserManager == null) {
+            PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "pimUserManager null : "+isMigrationInProgress);
             userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
             return;
         }
         if (pimUserManager.getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
+            PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "USER_LOGGED_IN : "+isMigrationInProgress);
             userMigrationListener.onUserMigrationSuccess();
             return;
         }
         this.userMigrationListener = userMigrationListener;
         if(isMigrationInProgress){
-            PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Migration is already in progress!!");
+            PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "Migration is already in progress!! : "+isMigrationInProgress);
             return;
         }
 
         MutableLiveData<PIMInitState> pimInitLiveData = PIMSettingManager.getInstance().getPimInitLiveData();
+        PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "After pimInitLiveData : "+isMigrationInProgress);
+
         pimInitLiveData.observeForever(new Observer<PIMInitState>() {
             @Override
             public void onChanged(@Nullable PIMInitState pimInitState) {
                 if (pimInitState == PIMInitState.INIT_SUCCESS) {
+                    PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "PIMInterface migrate init success : "+isMigrationInProgress);
                     pimInitLiveData.removeObserver(this);
                     isMigrationInProgress = true;
                     pimMigrator.migrateUSRToPIM();
                 } else if (pimInitState == PIMInitState.INIT_FAILED) {
+                    PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "PIMInterface migrate init failed : "+isMigrationInProgress);
                     isMigrationInProgress = false;
                     pimInitLiveData.removeObserver(this);
                     userMigrationListener.onUserMigrationFailed(new Error(PIMErrorEnums.MIGRATION_FAILED.errorCode, PIMErrorEnums.getLocalisedErrorDesc(context, PIMErrorEnums.MIGRATION_FAILED.errorCode)));
@@ -167,16 +174,20 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
         public void onChanged(@Nullable PIMInitState pimInitState) {
             PIMSecureStorageHelper pimSecureStorageHelper = new PIMSecureStorageHelper(PIMSettingManager.getInstance().getAppInfraInterface());
             if (pimInitState == PIMInitState.INIT_SUCCESS) {
+                PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "PIMInterface main init success : "+isMigrationInProgress);
                 if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
                     PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "User is already logged in");
                 } else if (pimSecureStorageHelper.getAuthorizationResponse() != null) {
                     loginRedirectToClosedApp();
                 } else if (pimMigrator.isMigrationRequired()) {
+                    PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "before silent migration called : "+isMigrationInProgress);
                     isMigrationInProgress = true;
                     pimMigrator.migrateUSRToPIM();
+                    PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "onUserMigrationFailed : "+isMigrationInProgress);
                 }
                 PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
             } else if (pimInitState == PIMInitState.INIT_FAILED) {
+                PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "after silent migration called : "+isMigrationInProgress);
                 PIMSettingManager.getInstance().getPimInitLiveData().removeObserver(observer);
             }
         }
@@ -216,6 +227,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
 
     @Override
     public void onUserMigrationSuccess() {
+        PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "onUserMigrationSuccess called : "+isMigrationInProgress);
         isMigrationInProgress = false;
         if (userMigrationListener != null)
             userMigrationListener.onUserMigrationSuccess();
@@ -223,6 +235,7 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
 
     @Override
     public void onUserMigrationFailed(Error error) {
+        PIMSettingManager.getInstance().getLoggingInterface().log(DEBUG, TAG, "onUserMigrationFailed : "+isMigrationInProgress);
         isMigrationInProgress = false;
         if (userMigrationListener != null)
             userMigrationListener.onUserMigrationFailed(error);
