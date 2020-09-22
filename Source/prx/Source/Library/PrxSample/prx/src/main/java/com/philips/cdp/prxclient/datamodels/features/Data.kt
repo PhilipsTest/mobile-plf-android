@@ -1,12 +1,12 @@
 package com.philips.cdp.prxclient.datamodels.features
 
-import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-class Data : Serializable {
+@Parcelize
+data class Data(var keyBenefitArea: List<KeyBenefitAreaItem?>? = null, var code: List<CodeItem>? = null, var featureHighlight: List<FeatureHighlightItem>? = null) : Parcelable {
     companion object {
-        private const val serialVersionUID = 6960659089260274640L
         var videoExtensionList: List<*>? = null
         var videoExtensions = arrayOf("WEBM", "MPG", "MP2", "MPEG", "MPE", "MPV", "OGG", "MP4", "M4P", "M4V", "AVI", "WMV", "MOV", "QT", "FLV", "SWF", "AVCHD")
 
@@ -15,14 +15,7 @@ class Data : Serializable {
         }
     }
 
-    @SerializedName("keyBenefitArea")
-    var keyBenefitArea: List<KeyBenefitAreaItem?>? = null
 
-    @SerializedName("code")
-    var code: List<CodeItem>? = null
-
-    @SerializedName("featureHighlight")
-    var featureHighlight: List<FeatureHighlightItem>? = null
     fun getSingleAssetImageFromFeatureCode(featureCode: String?): String? {
         if (code == null) return null
         for (codeItem in code!!) {

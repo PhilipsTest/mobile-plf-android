@@ -8,10 +8,9 @@ import java.util.*
 /**
  * Description :
  * Project : PRX Common Component.
- * Created by naveen@philips.com on 02-Nov-15.
  */
 
 @Parcelize
-data class Price (var productPrice: String? = null, var displayPriceType: String? = null ,var displayPrice: String? = null,
-                  var currencyCode: String? = null, var formattedPrice: String? = null, var formattedDisplayPrice: String? = null,
-                  var additionalProperties:@RawValue Map<String, Any> = HashMap()):Parcelable
+data class Price(var productPrice: String? = null, var displayPriceType: String? = null, var displayPrice: String? = null,
+                 var currencyCode: String? = null, var formattedPrice: String? = null, var formattedDisplayPrice: String? = null,
+                 var additionalProperties: @RawValue Map<String, Any> = HashMap()) : Parcelable

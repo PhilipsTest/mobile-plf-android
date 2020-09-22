@@ -1,8 +1,8 @@
 package com.philips.cdp.prxclient.network
 
 import com.android.volley.*
-import com.android.volley.toolbox.HttpHeaderParser
-import com.android.volley.toolbox.HttpHeaderParser.*
+import com.android.volley.toolbox.HttpHeaderParser.parseCacheHeaders
+import com.android.volley.toolbox.HttpHeaderParser.parseCharset
 import com.philips.cdp.prxclient.PRXDependencies
 import com.philips.cdp.prxclient.PrxConstants
 import com.philips.cdp.prxclient.error.PrxError
@@ -66,7 +66,7 @@ class NetworkWrapper(private val mPrxDependencies: PRXDependencies?) {
                 override fun parseNetworkResponse(response: NetworkResponse): Response<JSONObject?>? {
                     return try {
                         var headers = Charset.forName(parseCharset(response.headers))
-                        val jsonString = String(response.data,headers)
+                        val jsonString = String(response.data, headers)
                         var result: JSONObject? = null
                         if (jsonString.length > 0) result = JSONObject(jsonString)
                         Response.success(result,
@@ -89,7 +89,7 @@ class NetworkWrapper(private val mPrxDependencies: PRXDependencies?) {
                 try {
                     mPrxLogging?.log(LoggingInterface.LogLevel.DEBUG, PrxConstants.PRX_NETWORK_WRAPPER, " Request url - " + request.url
                             + " request headers - " + request.headers + " request type - " + request.method)
-               } catch (authFailureError: AuthFailureError) {
+                } catch (authFailureError: AuthFailureError) {
                     authFailureError.printStackTrace()
                 }
                 mPrxDependencies.appInfra.restClient.requestQueue.add(request)

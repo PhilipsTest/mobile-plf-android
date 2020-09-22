@@ -11,9 +11,13 @@
  */
 package com.philips.cdp.prxclient.datamodels.cdls
 
-class Data {
-    var phone: List<ContactPhone>? = null
-    val chat: List<ChatData>? = null
-    val email: List<EmailData>? = null
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Data(var phone: List<ContactPhone>? = null,
+                val chat: List<ChatData>? = null,
+                val email: List<EmailData>? = null) : Parcelable {
+
 
 }

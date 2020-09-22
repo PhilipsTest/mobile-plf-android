@@ -14,7 +14,7 @@ package com.philips.cdp.prxclient.datamodels.cdls
 import java.io.Serializable
 
 class ContactPhone(
-    var phoneNumber: String? = null,
-    var openingHoursWeekdays: String? = null,
-    var openingHoursSaturday: String? = null
+        var phoneNumber: String? = null,
+        var openingHoursWeekdays: String? = null,
+        var openingHoursSaturday: String? = null
 ) : Serializable

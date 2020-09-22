@@ -11,9 +11,11 @@
  */
 package com.philips.cdp.prxclient.datamodels.cdls
 
-class ChatData {
-    var openingHoursWeekdays: String? = null
-    var openingHoursSaturday: String? = null
-    var content: String? = null
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-}
+@Parcelize
+data class ChatData(
+        var openingHoursWeekdays: String? = null,
+        var openingHoursSaturday: String? = null,
+        var content: String? = null) : Parcelable

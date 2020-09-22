@@ -8,7 +8,6 @@ import java.util.*
 /**
  * Description :
  * Project : PRX Common Component.
- * Created by naveen@philips.com on 02-Nov-15.
  */
 @Parcelize
 data class Data(var locale: String? = null, var ctn: String? = null, var dtn: String? = null, var leafletUrl: String? = null,
@@ -21,6 +20,5 @@ data class Data(var locale: String? = null, var ctn: String? = null, var dtn: St
                 var keyAwards: List<String> = ArrayList(), var wow: String? = null, var subWOW: String? = null,
                 var marketingTextHeader: String? = null, var careSop: String? = null, var filterKeys: List<String> = ArrayList(),
                 var subcategory: String? = null,
-                var additionalProperties:@RawValue Map<String, Any> = HashMap()
-
+                var additionalProperties: @RawValue Map<String, Any> = HashMap()
 ) : Parcelable
