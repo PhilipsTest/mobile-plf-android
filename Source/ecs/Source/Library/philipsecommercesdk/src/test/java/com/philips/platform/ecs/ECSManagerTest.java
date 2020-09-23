@@ -4,18 +4,17 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.philips.platform.appinfra.AppInfraInterface;
+import com.philips.platform.appinfra.rest.TokenProviderInterface;
+import com.philips.platform.appinfra.rest.request.JsonObjectRequest;
+import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 import com.philips.platform.ecs.Cart.MockGetECSShoppingCartsRequest;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.model.cart.ECSShoppingCart;
 import com.philips.platform.ecs.model.products.ECSProduct;
 import com.philips.platform.ecs.network.NetworkController;
-import com.philips.platform.ecs.prx.serviceDiscovery.ServiceDiscoveryRequest;
 import com.philips.platform.ecs.request.APPInfraRequest;
-import com.philips.platform.appinfra.AppInfraInterface;
-import com.philips.platform.appinfra.rest.TokenProviderInterface;
-import com.philips.platform.appinfra.rest.request.JsonObjectRequest;
-import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -44,10 +43,6 @@ public class ECSManagerTest {
 
     @Mock
     private ServiceDiscoveryInterface serviceDiscoveryMock;
-
-    @Mock
-    private ServiceDiscoveryRequest serviceDiscoveryRequest;
-
 
     private NetworkController networkControllerMock;
 
@@ -116,36 +111,27 @@ public class ECSManagerTest {
     Log logMock;
 
 
-
-
-
-
     @Before
     public void setUp() throws Exception {
-       networkControllerMock= new NetworkController(appInfraRequest);
+        networkControllerMock = new NetworkController(appInfraRequest);
         ecsManager = new ECSManager();
         product = new ECSProduct();
         product.setCode("abcd");
         //when(networkControllerMock.getAppInfraJSONObject(any(APPInfraRequest.class))).thenReturn(jsonObjectRequest);
 
-      // when(getECSShoppingCartsRequest.executeRequest()).then(mockGetECSShoppingCartsRequest.executeRequest());
+        // when(getECSShoppingCartsRequest.executeRequest()).then(mockGetECSShoppingCartsRequest.executeRequest());
 
 
-
-   // when(appInfra.getServiceDiscovery()).thenReturn(serviceDiscoveryMock);
+        // when(appInfra.getServiceDiscovery()).thenReturn(serviceDiscoveryMock);
         //.when(serviceDiscoveryRequest.OnUrlReceived()).thenReturn();
-
-
 
 
     }
 
 
-
-
     @Test
     public void getECSShoppingCartTest() {
-        ECSCallback ecsCallback =  new ECSCallback<ECSShoppingCart, Exception>() {
+        ECSCallback ecsCallback = new ECSCallback<ECSShoppingCart, Exception>() {
             @Override
             public void onResponse(ECSShoppingCart result) {
                 Log.v("tag", "");
@@ -157,9 +143,9 @@ public class ECSManagerTest {
             }
         };
 
-        mockGetECSShoppingCartsRequest = new MockGetECSShoppingCartsRequest("ShoppingCartSuccess.json",(ecsCallback));
+        mockGetECSShoppingCartsRequest = new MockGetECSShoppingCartsRequest("ShoppingCartSuccess.json", (ecsCallback));
         ECSManager mocECSManager = org.mockito.Mockito.mock(ECSManager.class, CALLS_REAL_METHODS);
-        when(mocECSManager.getShoppingCartsRequestObject(any( ECSCallback.class))).thenReturn(mockGetECSShoppingCartsRequest);
+        when(mocECSManager.getShoppingCartsRequestObject(any(ECSCallback.class))).thenReturn(mockGetECSShoppingCartsRequest);
 
         try {
             mocECSManager.getECSShoppingCart(ecsCallback);

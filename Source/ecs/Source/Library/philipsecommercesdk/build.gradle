@@ -118,9 +118,11 @@ dependencies {
         project.logger.lifecycle('philipsecommercesdk: Picking the dependencies from the code')
         implementation project(strings.ail.projectName)
         implementation project(strings.pif.projectName)
+        implementation project(strings.prx.projectName)
     } else {
         project.logger.lifecycle('philipsecommercesdk: Picking the dependencies from the artifactory')
         implementation philipsdeps.AppInfra
+        implementation philipsdeps.prx
     }
     // Tests
     testImplementation deps.junit

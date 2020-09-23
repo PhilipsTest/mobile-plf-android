@@ -5,12 +5,18 @@
  */
 package com.philips.platform.ecs;
 
+import com.philips.cdp.prxclient.PrxConstants;
+import com.philips.cdp.prxclient.request.ProductAssetRequest;
+import com.philips.cdp.prxclient.request.ProductDisclaimerRequest;
+import com.philips.cdp.prxclient.request.ProductSummaryListRequest;
+import com.philips.cdp.prxclient.request.PrxRequest;
 import com.philips.platform.ecs.error.ECSError;
 import com.philips.platform.ecs.error.ECSErrorEnum;
 import com.philips.platform.ecs.error.ECSErrorWrapper;
 import com.philips.platform.ecs.integration.ECSCallback;
 import com.philips.platform.ecs.integration.ECSOAuthProvider;
 import com.philips.platform.ecs.integration.GrantType;
+import com.philips.platform.ecs.microService.util.ECSDataHolder;
 import com.philips.platform.ecs.model.address.ECSAddress;
 import com.philips.platform.ecs.model.address.ECSDeliveryMode;
 import com.philips.platform.ecs.model.address.ECSUserProfile;
@@ -32,10 +38,6 @@ import com.philips.platform.ecs.model.retailers.ECSRetailerList;
 import com.philips.platform.ecs.model.summary.Data;
 import com.philips.platform.ecs.model.summary.ECSProductSummary;
 import com.philips.platform.ecs.model.voucher.ECSVoucher;
-import com.philips.platform.ecs.prx.serviceDiscovery.AssetServiceDiscoveryRequest;
-import com.philips.platform.ecs.prx.serviceDiscovery.DisclaimerServiceDiscoveryRequest;
-import com.philips.platform.ecs.prx.serviceDiscovery.ProductSummaryListServiceDiscoveryRequest;
-import com.philips.platform.ecs.prx.serviceDiscovery.ServiceDiscoveryRequest;
 import com.philips.platform.ecs.request.AddProductToECSShoppingCartRequest;
 import com.philips.platform.ecs.request.CreateAddressRequest;
 import com.philips.platform.ecs.request.CreateECSShoppingCartRequest;
@@ -67,6 +69,8 @@ import com.philips.platform.ecs.request.SubmitOrderRequest;
 import com.philips.platform.ecs.request.UpdateAddressRequest;
 import com.philips.platform.ecs.request.UpdateECSShoppingCartQuantityRequest;
 import com.philips.platform.ecs.util.ECSConfiguration;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -201,7 +205,7 @@ class ECSManager {
 
             @Override
             public void run() {
-                new AssetServiceDiscoveryRequest(product.getCode()).getRequestUrlFromAppInfra(new ServiceDiscoveryRequest.OnUrlReceived() {
+                new ProductAssetRequest(product.getCode(), PrxConstants.Sector.B2C, PrxConstants.Catalog.CONSUMER, null).getRequestUrlFromAppInfra(ECSDataHolder.INSTANCE.getAppInfra(), new PrxRequest.OnUrlReceived() {
                     @Override
                     public void onSuccess(String url) {
                         getProductAsset(url, new ECSCallback<Assets, Exception>() {
@@ -238,7 +242,7 @@ class ECSManager {
 
             @Override
             public void run() {
-                new DisclaimerServiceDiscoveryRequest(product.getCode()).getRequestUrlFromAppInfra(new ServiceDiscoveryRequest.OnUrlReceived() {
+                new ProductDisclaimerRequest(product.getCode(), PrxConstants.Sector.B2C, PrxConstants.Catalog.CONSUMER, null).getRequestUrlFromAppInfra(ECSDataHolder.INSTANCE.getAppInfra(), new PrxRequest.OnUrlReceived() {
                     @Override
                     public void onSuccess(String url) {
                         getProductDisclaimer(url, new ECSCallback<Disclaimers, Exception>() {
@@ -309,17 +313,16 @@ class ECSManager {
     }
 
     private void getProductSummary(ECSProducts result, ECSCallback<ECSProducts, Exception> ecsCallback, ArrayList<String> ctns) {
-        //Call PRX here
-        ProductSummaryListServiceDiscoveryRequest productSummaryListServiceDiscoveryRequest = prepareProductSummaryListRequest(ctns);
-        productSummaryListServiceDiscoveryRequest.getRequestUrlFromAppInfra(new ServiceDiscoveryRequest.OnUrlReceived() {
+//        //Call PRX here
+        ProductSummaryListRequest productSummaryListServiceDiscoveryRequest = prepareProductSummaryListRequest(ctns);
+        productSummaryListServiceDiscoveryRequest.getRequestUrlFromAppInfra(ECSDataHolder.INSTANCE.getAppInfra(), new PrxRequest.OnUrlReceived() {
             @Override
-            public void onSuccess(String url) {
+            public void onSuccess(@Nullable String url) {
                 getProductSummary(url, new ECSCallback<ECSProductSummary, Exception>() {
                     @Override
                     public void onResponse(ECSProductSummary ecsProductSummary) {
                         updateProductsWithSummary(result, ecsProductSummary);
                         ecsCallback.onResponse(result);
-
                     }
 
                     @Override
@@ -330,7 +333,7 @@ class ECSManager {
             }
 
             @Override
-            public void onError(ERRORVALUES errorvalues, String s) {
+            public void onError(ERRORVALUES error, String message) {
 
             }
         });
@@ -368,8 +371,8 @@ class ECSManager {
     }
 
 
-    private ProductSummaryListServiceDiscoveryRequest prepareProductSummaryListRequest(List<String> ctns) {
-        return new ProductSummaryListServiceDiscoveryRequest(ctns);
+    private ProductSummaryListRequest prepareProductSummaryListRequest(List<String> ctns) {
+        return new ProductSummaryListRequest(ctns, PrxConstants.Sector.B2C, PrxConstants.Catalog.CONSUMER, null);
 
     }
 
@@ -708,13 +711,11 @@ class ECSManager {
                     productsFromDirectEntry.add(entries.getProduct());
                     ctns.add(entries.getProduct().getCode());
                 }
-                ProductSummaryListServiceDiscoveryRequest productSummaryListServiceDiscoveryRequest = prepareProductSummaryListRequest(ctns);
 
-                //get PRX summary URL
-                productSummaryListServiceDiscoveryRequest.getRequestUrlFromAppInfra(new ServiceDiscoveryRequest.OnUrlReceived() {
+                ProductSummaryListRequest productSummaryListRequest = new ProductSummaryListRequest(ctns, PrxConstants.Sector.B2C, PrxConstants.Catalog.CONSUMER, null);
+                productSummaryListRequest.getRequestUrlFromAppInfra(ECSDataHolder.INSTANCE.getAppInfra(), new PrxRequest.OnUrlReceived() {
                     @Override
-                    public void onSuccess(String url) {
-
+                    public void onSuccess(@Nullable String url) {
                         getProductSummary(url, new ECSCallback<ECSProductSummary, Exception>() {
                             @Override
                             public void onResponse(ECSProductSummary ecsProductSummary) {
@@ -731,8 +732,8 @@ class ECSManager {
                     }
 
                     @Override
-                    public void onError(ERRORVALUES errorvalues, String s) {
-                        ecsCallback.onFailure(new Exception(errorvalues.name()), new ECSError(ECSErrorEnum.ECSUnknownIdentifierError.getErrorCode(),s));
+                    public void onError(ERRORVALUES error, String message) {
+                        ecsCallback.onFailure(new Exception(error.name()), new ECSError(ECSErrorEnum.ECSUnknownIdentifierError.getErrorCode(), message));
                     }
                 });
             }
@@ -785,7 +786,6 @@ class ECSManager {
             }
         });
     }
-
 
 
     public void refreshAuth(ECSOAuthProvider oAuthInput, ECSCallback<ECSOAuthData, Exception> ecsListener) {
