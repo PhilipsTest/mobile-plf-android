@@ -13,7 +13,7 @@ import java.util.Map;
 public interface AnalyticsInterface extends Serializable {
 
     void trackPage(String pageName);
-    void trackEventWithInfo(String pageName, Map<String, String> paramDict);
+    void trackEventWithInfo(String eventName, Map<String, String> paramMap);
 
 }
 
