@@ -2,7 +2,6 @@
  * ProductImageInteface interface used for attaching and dettaching the product
  * image in contactUs support.
  *
- * @author naveen@philips.com
  * @since 11/feb/2015
  *
  *  Copyright (c) 2016 Philips. All rights reserved.

@@ -154,7 +154,7 @@ class DataBindingUtility {
             var unit =""
 
             if(csItemItem.unitOfMeasure!=null){
-                unit = csItemItem.unitOfMeasure.unitOfMeasureSymbol
+                unit = csItemItem.unitOfMeasure?.unitOfMeasureSymbol!!
             }
 
             val disclaimerStringBuilder = StringBuilder()

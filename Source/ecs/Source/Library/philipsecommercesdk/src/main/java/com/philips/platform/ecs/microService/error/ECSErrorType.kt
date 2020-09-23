@@ -103,7 +103,7 @@ enum class ECSErrorType(var resourceID: Int, var errorCode: Int) {
         try {
             localizedError = ECSDataHolder.appInfra?.appInfraContext?.resources?.getString(resourceID)+""
         } catch (e: Exception) {
-            Log.e("RES_NOT_FOUND", e.message)
+            Log.e("RES_NOT_FOUND", e.message!!)
         }
         return localizedError
     }

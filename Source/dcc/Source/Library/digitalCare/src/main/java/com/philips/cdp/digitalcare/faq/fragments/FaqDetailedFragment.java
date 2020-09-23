@@ -2,7 +2,6 @@
  * FAQ Detailed Screen renders the FAQ QUESTION & Answer Webpage with the required data.
  * Some of the response content will be hided dynamically after the response data renders completly
  *
- * @author naveen@philips.com
  * @Created 13-Apr-16.
  * <p/>
  * Copyright (c) 2016 Philips. All rights reserved.

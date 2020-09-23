@@ -1,7 +1,6 @@
 /**
  * FaceBook Feature in the INAPP Webpage as a configurable data.
  *
- * @author naveen@philips.com
  * <p/>
  * Copyright (c) 2016 Philips. All rights reserved.
  */

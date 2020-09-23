@@ -56,17 +56,21 @@ class MECProductFeaturesFragment : MecBaseFragment() {
         keyBenefitArea?.let {
             for (keyBenefitAreaItem in it) {
 
-                for (featureItem in keyBenefitAreaItem.feature) {
+                val featureItems = keyBenefitAreaItem?.feature
+                featureItems?.let {
+                    for (featureItem in featureItems) {
 
-                    var singleAssetImageFromFeatureCode = featuresModel.data.getSingleAssetImageFromFeatureCode(featureItem.featureCode)
+                        var singleAssetImageFromFeatureCode = featuresModel.data?.getSingleAssetImageFromFeatureCode(featureItem.featureCode)
 
-                    if (singleAssetImageFromFeatureCode != null) {
-                        singleAssetImageFromFeatureCode = singleAssetImageFromFeatureCode + "?wid=" + 220 +
-                                "&hei=" + 220 + "&\$pnglarge$" + "&fit=fit,1"
+                        if (singleAssetImageFromFeatureCode != null) {
+                            singleAssetImageFromFeatureCode = singleAssetImageFromFeatureCode + "?wid=" + 220 +
+                                    "&hei=" + 220 + "&\$pnglarge$" + "&fit=fit,1"
+                        }
+
+                        featureItem.singleFeatureImage = singleAssetImageFromFeatureCode
                     }
-
-                    featureItem.setSingleFeatureImage(singleAssetImageFromFeatureCode)
                 }
+
             }
         }
 

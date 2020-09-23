@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Description :
  * Project : PRX Common Component.
- * Created by naveen@philips.com on 09-Nov-15.
  */
 public class ProductSummaryRequestTest {
 

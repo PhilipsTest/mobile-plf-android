@@ -1,5 +1,4 @@
 /**
- * @author naveen@philips.com on 12-Apr-16.
  * <p>
  * Copyright (c) 2016 Philips. All rights reserved.
  */

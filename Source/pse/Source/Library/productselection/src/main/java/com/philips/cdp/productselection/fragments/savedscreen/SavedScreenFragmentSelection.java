@@ -31,7 +31,6 @@ import java.util.List;
  * redirecting control the \
  * product information displaying screen.
  * <p>
- * Created by naveen@philips.com on 03-Feb-16.
  */
 public class SavedScreenFragmentSelection extends ProductSelectionBaseFragment implements View.OnClickListener {
 

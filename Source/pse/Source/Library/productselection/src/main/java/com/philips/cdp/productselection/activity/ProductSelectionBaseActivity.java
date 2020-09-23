@@ -25,8 +25,6 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 /**
  * ProductSelectionBaseActivity is the main container class which can contain Digital Care fragments.
  *
- * @author : Ritesh.jha@philips.com
- *         naveen@philips.com
  * @since : 20 Jan 2016
  */
 public abstract class ProductSelectionBaseActivity extends UIDLangPackActivity {

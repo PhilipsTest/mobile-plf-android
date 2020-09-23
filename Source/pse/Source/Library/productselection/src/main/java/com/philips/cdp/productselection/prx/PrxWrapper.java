@@ -31,7 +31,6 @@ import java.util.List;
  * This is the wrapper Class , which holds responsibility to hit the PRX component by getting the relevant input's from the
  * COniguration file of the MultiProduct Module.
  * <p/>
- * Created by naveen@philips.com on 01-Feb-16.
  */
 public class PrxWrapper {
 

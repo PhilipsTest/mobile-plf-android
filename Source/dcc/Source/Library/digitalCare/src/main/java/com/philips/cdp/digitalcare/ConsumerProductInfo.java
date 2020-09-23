@@ -3,7 +3,6 @@
  * the user selection
  * with respect to the locale.
  *
- * @author naveen@philips.com
  * <p/>
  * Copyright (c) 2016 Philips. All rights reserved.
  */

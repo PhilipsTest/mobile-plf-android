@@ -1,5 +1,4 @@
 /**
- * @author naveen@philips.com
  * <p>
  * <p> NetworkListener Callback method used to to listen network changes across the DigitalCare
  * component fragments </p>

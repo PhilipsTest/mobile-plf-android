@@ -17,7 +17,6 @@ import java.util.List;
 /**
  * Description :
  * Project : PRX Common Component.
- * Created by naveen@philips.com on 02-Nov-15.
  */
 
 

@@ -8,7 +8,6 @@ package com.philips.platform.ecs.model.summary;
 /**
  * Description :
  * Project : PRX Common Component.
- * Created by naveen@philips.com on 02-Nov-15.
  */
 
 import com.google.gson.annotations.Expose;
