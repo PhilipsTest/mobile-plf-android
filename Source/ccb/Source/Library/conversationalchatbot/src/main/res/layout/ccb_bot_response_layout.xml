@@ -6,7 +6,7 @@
     android:layout_marginStart="70dp"
     android:layout_marginEnd="15dp"
     android:layout_marginBottom="15dp"
-    android:background="#FFFEFF"
+    android:background="@color/uid_level_white"
     android:elevation="5dp"
     android:orientation="vertical">
 
@@ -20,7 +20,7 @@
         android:gravity="left"
         android:linksClickable="true"
         android:minWidth="80dp"
-        android:textColor="#151615" />
+        android:textColor="?attr/uidContentItemPrimaryNormalTextColor" />
 
     <ImageView
         android:id="@+id/bot_response_imageview"

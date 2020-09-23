@@ -13,7 +13,7 @@
     <com.philips.platform.uid.view.widget.Label
         android:id="@+id/user_response_text"
         android:layout_width="wrap_content"
-        android:textColor="#151615"
+        android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
