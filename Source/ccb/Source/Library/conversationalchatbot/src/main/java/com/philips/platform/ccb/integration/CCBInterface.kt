@@ -36,18 +36,24 @@ class CCBInterface: UappInterface {
     override fun launch(uiLauncher: UiLauncher, uappLaunchInput: UappLaunchInput) {
         if (uiLauncher is FragmentLauncher) {
             CCBSettingsManager.ccbDeviceCapabilityInterface = (uappLaunchInput as CCBLaunchInput).ccbDeviceCapabilityInterface
-            CCBSettingsManager.actionbarUpdateListener(uiLauncher.actionbarListener)
+            if(uiLauncher.actionbarListener!=null){
+                CCBSettingsManager.actionbarUpdateListener(uiLauncher.actionbarListener)
+            }
             val ccbFragment = CCBConversationalFragment()
             addFragment(uiLauncher, ccbFragment)
         }
     }
 
     private fun addFragment(uiLauncher: FragmentLauncher, fragment: Fragment) {
-        uiLauncher.fragmentActivity.supportFragmentManager
-                .beginTransaction()
-                .replace(uiLauncher.parentContainerResourceID, fragment, fragment.tag)
-                .addToBackStack(fragment.javaClass.simpleName)
-                .commit()
+        if (CCBSettingsManager.actionbarUpdateListener == null)
+            RuntimeException("ActionBarListener cannot be null")
+        else {
+            uiLauncher.fragmentActivity.supportFragmentManager
+                    .beginTransaction()
+                    .replace(uiLauncher.parentContainerResourceID, fragment, fragment.tag)
+                    .addToBackStack(fragment.javaClass.simpleName)
+                    .commit()
+        }
     }
 
     fun getccbSessionHandlerInterface(): CCBSessionHandlerInterface {
