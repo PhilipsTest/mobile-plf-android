@@ -127,29 +127,6 @@ public class PIMInterface implements UappInterface, UserMigrationListener,PIMLog
         return new PIMDataImplementation(context, PIMSettingManager.getInstance().getPimUserManager());
     }
 
-    public void instantiateWithGuestUser(){
-        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-        customTabsIntent.launchUrl(context, Uri.parse("http://www.google.com"));
-
-        String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";  // Change when in stable
-
-        CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
-
-            @Override
-            public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
-                Log.i(TAG,"SHASHI : onCustomTabsServiceConnected");
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                Log.i(TAG,"SHASHI onServiceDisconnected: ");
-            }
-        };
-        boolean ok = CustomTabsClient.bindCustomTabsService(context, CUSTOM_TAB_PACKAGE_NAME, connection);
-        Log.i(TAG,"SHASHI ok: "+ok);
-
-    }
-
     /**
      * To migrate user from USR to PIM
      *

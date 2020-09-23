@@ -228,6 +228,11 @@ public class UserDataProvider extends User implements UserDataInterface {
                 updateMarketingEmailStatus(updateUserDetailsHandler, receiveMarketingEmail);
     }
 
+    @Override
+    public void instantiateWithGuestUser() {
+
+    }
+
     @NonNull
     protected RefreshUserHandler getRefetchHandler(final RefetchUserDetailsListener userDetailsListener) {
         RLog.d(TAG, "getRefetchHandler");

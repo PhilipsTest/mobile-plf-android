@@ -1,9 +1,10 @@
 package com.philips.platform.pim;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
+import androidx.browser.customtabs.CustomTabsIntent;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
@@ -18,13 +19,8 @@ import com.philips.platform.pif.DataInterface.USR.listeners.RefetchUserDetailsLi
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
 import com.philips.platform.pif.DataInterface.USR.listeners.UserDataListener;
-import com.philips.platform.pim.errors.PIMErrorEnums;
-import com.philips.platform.pim.manager.PIMConfigManager;
-import com.philips.platform.pim.manager.PIMSettingManager;
 import com.philips.platform.pim.manager.PIMUserManager;
-import com.philips.platform.pim.migration.PIMMigrator;
 import com.philips.platform.pim.models.PIMOIDCUserProfile;
-import com.philips.platform.pim.utilities.PIMInitState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -185,6 +181,15 @@ public class PIMDataImplementation implements UserDataInterface {
 
         pimUserManager.updateMarketingOptIn(updateUserDetailsHandler, receiveMarketingEmail);
 
+    }
+
+    @Override
+    public void instantiateWithGuestUser() {
+        String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
+        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+        customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        customTabsIntent.intent.setPackage(CUSTOM_TAB_PACKAGE_NAME);
+        customTabsIntent.launchUrl(mContext, Uri.parse("http://www.google.com"));
     }
 
     @Override

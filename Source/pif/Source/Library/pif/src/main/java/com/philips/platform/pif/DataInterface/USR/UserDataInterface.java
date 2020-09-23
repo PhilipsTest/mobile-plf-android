@@ -124,6 +124,11 @@ public interface UserDataInterface extends Serializable {
                 final boolean receiveMarketingEmail);
 
         /**
+         * Instantiate component as Guest User
+         */
+        void instantiateWithGuestUser();
+
+        /**
          * Register UserDataListener for logout,refreshSession and refechUserDeatils
          *
          * @param userDataListener listener

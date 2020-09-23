@@ -122,7 +122,8 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             mUSRUDIHelper.setLoginListener(this);
         userDataInterface = USRUDIHelper.getInstance().getUserDataInterface();
         
-        btnGetUserDetail = findViewById(R.id.btn_guest_user);
+        btnGuestUser = findViewById(R.id.btn_guest_user);
+        btnGuestUser.setOnClickListener(this);
         btnGetUserDetail = findViewById(R.id.btn_GetUserDetail);
         btnGetUserDetail.setOnClickListener(this);
         btnLaunchAsActivity = findViewById(R.id.btn_login_activity);
@@ -251,7 +252,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         if (!isNetworkConnected()) return;
 
         if(v == btnGuestUser) {
-            mUSRUDIHelper.launchUDIAsGuestUser();
+            userDataInterface.instantiateWithGuestUser();
         }else if (v == btnLaunchAsFragment) {
             if (registrationLib == RegistrationLib.USR) {
                 launchUSR();

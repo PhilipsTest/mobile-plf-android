@@ -114,7 +114,6 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
     }
 
     private void launch() {
-        //instantiateWithGuestUser();
         if (PIMSettingManager.getInstance().getPimUserManager().getUserLoggedInState() == UserLoggedInState.USER_LOGGED_IN) {
             mLoggingInterface.log(DEBUG, TAG, "OIDC Login skipped, as user is already logged in");
             downloadUserProfileUrlFromSD();
@@ -122,29 +121,6 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
             pimLoginProgreassBar.setVisibility(View.VISIBLE);
             launchLoginPage();
         }
-    }
-
-    private void instantiateWithGuestUser(){
-        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-        customTabsIntent.launchUrl(mContext, Uri.parse("http://www.google.com"));
-
-        String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";  // Change when in stable
-
-        CustomTabsServiceConnection connection = new CustomTabsServiceConnection() {
-
-            @Override
-            public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
-                Log.i(TAG,"SHASHI : onCustomTabsServiceConnected");
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                Log.i(TAG,"SHASHI onServiceDisconnected: ");
-            }
-        };
-        boolean ok = CustomTabsClient.bindCustomTabsService(mContext, CUSTOM_TAB_PACKAGE_NAME, connection);
-        Log.i(TAG,"SHASHI ok: "+ok);
-
     }
 
     /**
