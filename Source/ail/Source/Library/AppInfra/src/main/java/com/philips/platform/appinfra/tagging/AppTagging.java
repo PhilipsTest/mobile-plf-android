@@ -82,8 +82,6 @@ public class AppTagging implements AppTaggingInterface {
 
     @Override
     public AppTaggingInterface createInstanceForComponent(String componentId, String componentVersion) {
-       // if(isGoogleAnalyticsEnabled) return analytics.createInstanceForComponent(componentId,componentVersion);
-        if(isAdobeAnalyticsEnabled) return new AppTaggingWrapper(mAppInfra, componentId, componentVersion);
         return new AppTaggingWrapper(mAppInfra, componentId, componentVersion);
     }
 
@@ -136,13 +134,11 @@ public class AppTagging implements AppTaggingInterface {
 
     @Override
     public void trackPageWithInfo(String pageName, Map<String, String> paramMap) {
-        if(isGoogleAnalyticsEnabled) analytics.trackPageWithInfo(pageName,paramMap);
         if(isAdobeAnalyticsEnabled) getAppTaggingHandler().track(pageName, paramMap, true);
     }
 
     @Override
     public void trackActionWithInfo(String pageName, String key, String value) {
-        if(isGoogleAnalyticsEnabled) analytics.trackActionWithInfo(pageName,key,value);
         if(isAdobeAnalyticsEnabled) getAppTaggingHandler().trackWithInfo(pageName, key, value, false);
     }
 
