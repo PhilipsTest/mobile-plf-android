@@ -33,8 +33,8 @@ public class AppTagging implements AppTaggingInterface {
     static final String AIL_PRIVACY_CONSENT = "ailPrivacyConsentForSensitiveData";
     static final String CLICKSTREAM_CONSENT_TYPE = "AIL_ClickStream";
     private static String prevPage;
-    private final AppInfraInterface mAppInfra;
-    private final Boolean isAdobeAnalyticsEnabled;
+    private AppInfraInterface mAppInfra;
+    private boolean isAdobeAnalyticsEnabled ;
     protected String mComponentID;
     protected String mComponentVersion;
     private transient AppTaggingHandler appTaggingHandle;
@@ -46,7 +46,8 @@ public class AppTagging implements AppTaggingInterface {
         mAppInfra = aAppInfra;
         init(mAppInfra.getAppInfraContext());
         AppConfigurationInterface.AppConfigurationError configError = new AppConfigurationInterface.AppConfigurationError();
-        isAdobeAnalyticsEnabled = (Boolean) aAppInfra.getConfigInterface().getPropertyForKey("AdobeAnalyticsEnabled", "analytics", configError);
+        Object propertyForKey = aAppInfra.getConfigInterface().getPropertyForKey("AdobeAnalyticsEnabled", "analytics", configError);
+        if(propertyForKey!=null) isAdobeAnalyticsEnabled = (Boolean) propertyForKey;
         // Class shall not presume appInfra to be completely initialized at this point.
         // At any call after the constructor, appInfra can be presumed to be complete.
     }

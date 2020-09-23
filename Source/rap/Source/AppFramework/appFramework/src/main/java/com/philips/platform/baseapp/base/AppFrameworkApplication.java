@@ -280,9 +280,9 @@ public class AppFrameworkApplication extends Application {
         AppInfra.Builder builder = new AppInfra.Builder();
 
         builder.setAbTesting(abTestingImpl);
-        builder.setAnalytics(new AnalyticsImplementor());
+       // builder.setAnalytics(new AnalyticsImplementor());
         appInfra = builder.build(getApplicationContext());
-
+        appInfra.setAnalytics(new AnalyticsImplementor());
         abTestingImpl.initAbTesting(appInfra);
         abTestingImpl.enableDeveloperMode(true);
         loggingInterface = appInfra.getLogging();
