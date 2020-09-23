@@ -152,6 +152,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         btn_MCS.setOnClickListener(this);
         btnUpdateMarketingOptin.setOnClickListener(this);
 
+        migrateUser();
         aSwitch.setChecked(appInfraInterface.getTagging().getPrivacyConsent() == AppTaggingInterface.PrivacyStatus.OPTIN);
         aSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -331,6 +332,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
                 mUSRUDIHelper.migrateJanrainUserToPIM(new UserMigrationListener() {
                     @Override
                     public void onUserMigrationSuccess() {
+                        Log.d(TAG, "onUserMigrationSuccess" );
                         updateUIOnUserLoggedIn();
                         cancelProgressDialog();
                         showToast("User migrated succesfully");
@@ -338,6 +340,7 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onUserMigrationFailed(Error error) {
+                        Log.d(TAG, "onUserMigrationFailed" );
                         cancelProgressDialog();
                         showToast("user migration failed error code = " + error.getErrCode() + " error message : " + error.getErrDesc());
                     }
@@ -423,6 +426,25 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
             }, marketingOptedSwitch.isChecked());
         }
 
+    }
+
+    private void migrateUser(){
+        mUSRUDIHelper.migrateJanrainUserToPIM(new UserMigrationListener() {
+            @Override
+            public void onUserMigrationSuccess() {
+                Log.d(TAG, "onUserMigrationSuccess" );
+                updateUIOnUserLoggedIn();
+                cancelProgressDialog();
+                showToast("User migrated succesfully");
+            }
+
+            @Override
+            public void onUserMigrationFailed(Error error) {
+                Log.d(TAG, "onUserMigrationSuccess" );
+                cancelProgressDialog();
+                showToast("user migration failed error code = " + error.getErrCode() + " error message : " + error.getErrDesc());
+            }
+        });
     }
 
     private void launchECS() {
