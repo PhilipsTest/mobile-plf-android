@@ -34,8 +34,6 @@ public class AppTagging implements AppTaggingInterface {
     static final String CLICKSTREAM_CONSENT_TYPE = "AIL_ClickStream";
     private static String prevPage;
     private final AppInfraInterface mAppInfra;
-    private final AnalyticsInterface analytics;
-    private final Boolean isGoogleAnalyticsEnabled;
     private final Boolean isAdobeAnalyticsEnabled;
     protected String mComponentID;
     protected String mComponentVersion;
@@ -47,9 +45,7 @@ public class AppTagging implements AppTaggingInterface {
     public AppTagging(AppInfraInterface aAppInfra) {
         mAppInfra = aAppInfra;
         init(mAppInfra.getAppInfraContext());
-        analytics = aAppInfra.getAnalytics();
         AppConfigurationInterface.AppConfigurationError configError = new AppConfigurationInterface.AppConfigurationError();
-        isGoogleAnalyticsEnabled = (Boolean) aAppInfra.getConfigInterface().getPropertyForKey("GoogleAnalyticsEnabled", "analytics", configError);
         isAdobeAnalyticsEnabled = (Boolean) aAppInfra.getConfigInterface().getPropertyForKey("AdobeAnalyticsEnabled", "analytics", configError);
         // Class shall not presume appInfra to be completely initialized at this point.
         // At any call after the constructor, appInfra can be presumed to be complete.
@@ -128,7 +124,6 @@ public class AppTagging implements AppTaggingInterface {
 
     @Override
     public void trackPageWithInfo(String pageName, String key, String value) {
-        if(isGoogleAnalyticsEnabled) analytics.trackPageWithInfo(pageName,key,value);
         if(isAdobeAnalyticsEnabled) getAppTaggingHandler().trackWithInfo(pageName, key, value, true);
     }
 
@@ -144,7 +139,6 @@ public class AppTagging implements AppTaggingInterface {
 
     @Override
     public void trackActionWithInfo(String pageName, Map<String, String> paramMap) {
-        if(isGoogleAnalyticsEnabled) analytics.trackActionWithInfo(pageName,paramMap);
         if(isAdobeAnalyticsEnabled) getAppTaggingHandler().track(pageName, paramMap, false);
     }
 

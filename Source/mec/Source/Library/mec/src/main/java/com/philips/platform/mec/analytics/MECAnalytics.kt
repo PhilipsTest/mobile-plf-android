@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.annotation.NonNull
 import com.philips.platform.appinfra.BuildConfig
+import com.philips.platform.appinfra.tagging.AnalyticsInterface
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.ecs.model.cart.BasePriceEntity
 import com.philips.platform.ecs.model.cart.ECSEntries
@@ -53,6 +54,7 @@ class MECAnalytics {
 
         val defaultLocale: String = "en_US"
         var mAppTaggingInterface: AppTaggingInterface? = null
+        var mAnalyticsInterface: AnalyticsInterface? = null
         var previousPageName = "uniquePageName";
         var countryCode = ""
         var currencyCode = ""
@@ -61,6 +63,7 @@ class MECAnalytics {
         fun initMECAnalytics(dependencies: MECDependencies) {
             try {
                 mAppTaggingInterface = dependencies.appInfra.tagging.createInstanceForComponent(MECAnalyticsConstant.COMPONENT_NAME, BuildConfig.VERSION_NAME)
+                mAnalyticsInterface = dependencies.appInfra.analytics
                 countryCode = dependencies.appInfra.serviceDiscovery.homeCountry
             } catch (e: Exception) {
                 MECLog.d(TAG, "Exception :" + e.message);
@@ -77,6 +80,7 @@ class MECAnalytics {
                     mAppTaggingInterface!!.trackPageWithInfo(currentPage, addCountryAndCurrency(map))
                 }
             }
+            mAnalyticsInterface?.trackPage(currentPage)
         }
 
 
@@ -87,6 +91,7 @@ class MECAnalytics {
                 MECLog.v(TAG, "trackMtlutipleAction ")
                 mAppTaggingInterface!!.trackActionWithInfo(state, addCountryAndCurrency(map))
             }
+            mAnalyticsInterface?.trackEventWithInfo(state,map)
         }
 
 
@@ -191,7 +196,7 @@ class MECAnalytics {
                 for (product in mutableProductIterator) {
                     productListString += "," + getProductInfo(product)
                 }
-                productListString = productListString.substring(1, productListString.length )
+                productListString = productListString.substring(1, productListString.length)
                 MECLog.v(TAG, "prodList : $productListString")
                 map.put(mecProducts, productListString)
             }
@@ -206,13 +211,13 @@ class MECAnalytics {
         * */
         @JvmStatic
         fun tagProductList(productList: MutableList<ECSProduct>, listOrGrid: String) {
-            val map = getProductListAndGridMap( productList, listOrGrid)
+            val map = getProductListAndGridMap(productList, listOrGrid)
             if(map.size>0) {
                 trackMultipleActions(sendData, map)
             }
         }
 
-        internal fun getProductListAndGridMap( productList: MutableList<ECSProduct>, listOrGrid: String): HashMap<String, String> {
+        internal fun getProductListAndGridMap(productList: MutableList<ECSProduct>, listOrGrid: String): HashMap<String, String> {
             val map = HashMap<String, String>()
             if (productList != null && productList.size > 0) {
                 map.put(productListLayout, listOrGrid)
@@ -225,7 +230,7 @@ class MECAnalytics {
                         break
                     }
                 }
-                productListString = productListString.substring(1, productListString.length )
+                productListString = productListString.substring(1, productListString.length)
                 MECLog.v("MEC_LOG", "prodList : $productListString")
                 map.put(mecProducts, productListString);
             }
@@ -238,13 +243,13 @@ class MECAnalytics {
        * */
         @JvmStatic
         fun tagActionsWithOrderProductsInfo(actionMap: Map<String, String>, entryList: List<ECSEntries>) {
-            val productsMap = getOrderProductInfoMap( actionMap ,entryList)
+            val productsMap = getOrderProductInfoMap(actionMap, entryList)
             if(productsMap.size>0) { //
                 trackMultipleActions(sendData, productsMap)
             }
         }
 
-        internal fun getOrderProductInfoMap( actionMap: Map<String, String>, entryList: List<ECSEntries>): HashMap<String, String> {
+        internal fun getOrderProductInfoMap(actionMap: Map<String, String>, entryList: List<ECSEntries>): HashMap<String, String> {
             val productsMap = HashMap<String, String>()
             if (entryList != null && entryList.size > 0) { //Entries
                 val mutableEntryIterator = entryList.iterator()
@@ -277,11 +282,11 @@ class MECAnalytics {
         * changedQuantity : qty added or removed
         * */
         @JvmStatic
-        fun getProductInfoWithChangedQuantity(product: ECSProduct,basePriceEntity: BasePriceEntity, changedQuantity: Int): String {
+        fun getProductInfoWithChangedQuantity(product: ECSProduct, basePriceEntity: BasePriceEntity, changedQuantity: Int): String {
             var productDetail: String = MECDataHolder.INSTANCE.rootCategory ?:""
             productDetail += ";" + product.code
             productDetail += ";" + changedQuantity //changed Quantity e.g. 2 product added OR 3 product deleted
-            var totalPrice: Double =getProductPrice(product,basePriceEntity)*changedQuantity.toDouble() // unit Price * quantity
+            var totalPrice: Double =getProductPrice(product, basePriceEntity)*changedQuantity.toDouble() // unit Price * quantity
             totalPrice = Math.round(totalPrice * 100.0) / 100.0 // round off to 2 decimal
             productDetail += ";" + totalPrice
             return productDetail
@@ -290,7 +295,7 @@ class MECAnalytics {
         /*
         * This method return product unit price (discounted if any)
         * */
-        fun getProductPrice(product: ECSProduct,basePriceEntity: BasePriceEntity):Double{
+        fun getProductPrice(product: ECSProduct, basePriceEntity: BasePriceEntity):Double{
          var  productPrice :Double = (if (product.price.value != null) product.price.value else 0.0)
             if(null!=basePriceEntity && null!=basePriceEntity.value ){
                 productPrice=basePriceEntity.value
@@ -331,14 +336,14 @@ class MECAnalytics {
         * This method will tag a successful purchase order details
         * */
         @JvmStatic
-        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew :String) {
-            var orderMap = getPurchaseOrderMap( mECSOrderDetail,paymentTypeOldOrNew)
+        fun tagPurchaseOrder(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew: String) {
+            var orderMap = getPurchaseOrderMap(mECSOrderDetail, paymentTypeOldOrNew)
             if(orderMap.size>=4) {
                 tagActionsWithOrderProductsInfo(orderMap, mECSOrderDetail.entries)
             }
         }
 
-        internal fun getPurchaseOrderMap( mECSOrderDetail: ECSOrderDetail,paymentTypeOldOrNew: String): HashMap<String, String> {
+        internal fun getPurchaseOrderMap(mECSOrderDetail: ECSOrderDetail, paymentTypeOldOrNew: String): HashMap<String, String> {
             var orderMap = HashMap<String, String>()
             orderMap.put(specialEvents, purchase)
             orderMap.put(paymentType, paymentTypeOldOrNew)

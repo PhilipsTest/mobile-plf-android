@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public interface AnalyticsInterface extends Serializable {
 
-    void trackPageWithInfo(String pageName, String key, String value);
-    void trackActionWithInfo(String pageName, Map<String, String> paramDict);
+    void trackPage(String pageName);
+    void trackEventWithInfo(String pageName, Map<String, String> paramDict);
 
 }
 

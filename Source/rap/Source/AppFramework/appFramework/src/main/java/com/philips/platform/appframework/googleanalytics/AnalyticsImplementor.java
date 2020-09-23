@@ -1,6 +1,7 @@
 package com.philips.platform.appframework.googleanalytics;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.philips.platform.appinfra.tagging.AnalyticsInterface;
@@ -12,13 +13,15 @@ public class AnalyticsImplementor implements AnalyticsInterface {
 
 
     @Override
-    public void trackPageWithInfo(String pageName, String key, String value) {
+    public void trackPage(String pageName) {
         FirebaseAnalytics firebaseAnalytics = AppFrameworkApplication.getFirebaseAnalytics();
-        //firebaseAnalytics.setCurrentScreen(pageName);
+        Bundle bundle = new Bundle();
+        firebaseAnalytics.logEvent(pageName,bundle);
+        Log.d("Pabitra","track page");
     }
 
     @Override
-    public void trackActionWithInfo(String pageName, Map<String, String> paramMap) {
+    public void trackEventWithInfo(String eventName, Map<String, String> paramMap) {
         Bundle bundle = new Bundle();
         FirebaseAnalytics firebaseAnalytics = AppFrameworkApplication.getFirebaseAnalytics();
        /* bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "12345");
@@ -27,6 +30,8 @@ public class AnalyticsImplementor implements AnalyticsInterface {
         for (Map.Entry<String, String> entry : paramMap.entrySet()) {
             bundle.putString(entry.getKey(),entry.getValue());
         }
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        eventName = FirebaseAnalytics.Event.SELECT_CONTENT;
+        firebaseAnalytics.logEvent(eventName, bundle);
+        Log.d("Pabitra","track event");
     }
 }
