@@ -15,6 +15,7 @@ import com.philips.platform.appinfra.rest.RestInterface
 import com.philips.platform.appinfra.tagging.AppTaggingInterface
 import com.philips.platform.ccb.BuildConfig
 import com.philips.platform.ccb.integration.CCBDeviceCapabilityInterface
+import com.philips.platform.uappframework.listener.ActionBarListener
 import com.philips.platform.uappframework.uappinput.UappDependencies
 
 object CCBSettingsManager {
@@ -24,6 +25,7 @@ object CCBSettingsManager {
     lateinit var mLoggingInterface: LoggingInterface
     lateinit var mTaggingInterface: AppTaggingInterface
     lateinit var mRestInterface: RestInterface
+    var actionbarUpdateListener: ActionBarListener? = null
 
     var ccbDeviceCapabilityInterface: CCBDeviceCapabilityInterface? = null
 
@@ -32,6 +34,10 @@ object CCBSettingsManager {
         mLoggingInterface = mAppInfraInterface.logging.createInstanceForComponent(COMPONENT_TAGS_ID, BuildConfig.VERSION_NAME)
         mTaggingInterface = mAppInfraInterface.tagging.createInstanceForComponent(COMPONENT_TAGS_ID, BuildConfig.VERSION_NAME)
         mRestInterface = mAppInfraInterface.restClient
+    }
+
+    fun actionbarUpdateListener(mActionbarUpdateListener: ActionBarListener) {
+        actionbarUpdateListener = mActionbarUpdateListener
     }
 
 }

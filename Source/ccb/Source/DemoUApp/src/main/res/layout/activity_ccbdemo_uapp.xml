@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_container"
+<RelativeLayout android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/uid_level_white"
+xmlns:android="http://schemas.android.com/apk/res/android">
+
+<include
+    android:id="@+id/app_actionbar"
+    layout="@layout/ccb_action_bar" />
+
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/uid_level_white"
-    tools:context="com.ccb.demouapp.CCBDemoUAppActivity">
-
+    android:layout_below="@+id/app_actionbar"
+    android:id="@+id/fragment_container">
 
 </FrameLayout>
+</RelativeLayout>
