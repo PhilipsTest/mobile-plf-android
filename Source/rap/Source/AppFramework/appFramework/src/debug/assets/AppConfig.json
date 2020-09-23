@@ -44,7 +44,6 @@
   },
   "appinfra": {
     "analytics" : {
-      "GoogleAnalyticsEnabled": true,
       "AdobeAnalyticsEnabled": true
     },
     "appidentity.micrositeId": "77000",
