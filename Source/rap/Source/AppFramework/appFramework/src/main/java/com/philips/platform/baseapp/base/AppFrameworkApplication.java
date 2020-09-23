@@ -53,6 +53,12 @@ public class AppFrameworkApplication extends Application {
     public static LoggingInterface loggingInterface;
     protected FlowManager targetFlowManager;
     private UserRegistrationState userRegistrationState;
+
+    public static FirebaseAnalytics getFirebaseAnalytics() {
+        return firebaseAnalytics;
+    }
+
+    private static FirebaseAnalytics firebaseAnalytics;
     private IAPState iapState;
 
     private ProductRegistrationState productRegistrationState;
@@ -105,6 +111,7 @@ public class AppFrameworkApplication extends Application {
             //Facebook stetho library is used for browsing database using chrome developer tool.
             Stetho.initializeWithDefaults(this);
         }
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
     }
 
     /**
@@ -273,10 +280,10 @@ public class AppFrameworkApplication extends Application {
         AppInfra.Builder builder = new AppInfra.Builder();
 
         builder.setAbTesting(abTestingImpl);
+        builder.setAnalytics(new AnalyticsImplementor());
         appInfra = builder.build(getApplicationContext());
 
         abTestingImpl.initAbTesting(appInfra);
-        appInfra.setAnalytics(new AnalyticsImplementor());
         abTestingImpl.enableDeveloperMode(true);
         loggingInterface = appInfra.getLogging();
         RALog.init(appInfra);

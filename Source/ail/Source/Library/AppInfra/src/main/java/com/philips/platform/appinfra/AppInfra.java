@@ -397,6 +397,11 @@ public class AppInfra implements AppInfraInterface, ComponentVersionInfo, Serial
             return this;
         }
 
+        public Builder setAnalytics(AnalyticsInterface analytics) {
+            analyticsInterface = analytics;
+            return this;
+        }
+
 
         /**
          * Sets Builder time sync overriding the default implementation.
