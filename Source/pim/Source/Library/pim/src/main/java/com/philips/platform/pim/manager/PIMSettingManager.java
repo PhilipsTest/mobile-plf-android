@@ -8,6 +8,7 @@ import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.appinfra.rest.RestInterface;
 import com.philips.platform.appinfra.tagging.AppTaggingInterface;
 import com.philips.platform.pim.BuildConfig;
+import com.philips.platform.pim.PIMLaunchFlow;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
 import com.philips.platform.pim.listeners.PIMLoginListener;
 import com.philips.platform.pim.utilities.PIMInitState;
@@ -31,6 +32,7 @@ public class PIMSettingManager {
     private String locale;
     private MutableLiveData<PIMInitState> pimInitLiveData;
     private PIMLoginListener pimUserLoginListener;
+    private PIMLaunchFlow pimLaunchFlow;
 
     private PIMSettingManager() {
     }
@@ -106,5 +108,14 @@ public class PIMSettingManager {
 
     public PIMLoginListener getPimUserLoginListener() {
         return pimUserLoginListener;
+    }
+
+
+    public PIMLaunchFlow getPimLaunchFlow() {
+        return pimLaunchFlow;
+    }
+
+    public void setPimLaunchFlow(PIMLaunchFlow pimLaunchFlow) {
+        this.pimLaunchFlow = pimLaunchFlow;
     }
 }

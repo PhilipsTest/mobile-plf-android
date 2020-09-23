@@ -53,6 +53,7 @@ import com.philips.platform.pif.DataInterface.USR.listeners.LogoutSessionListene
 import com.philips.platform.pif.DataInterface.USR.listeners.RefetchUserDetailsListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.RefreshSessionListener;
 import com.philips.platform.pif.DataInterface.USR.listeners.UpdateUserDetailsHandler;
+import com.philips.platform.pim.PIMLaunchFlow;
 import com.philips.platform.pim.PIMLaunchInput;
 import com.philips.platform.pim.PIMParameterToLaunchEnum;
 import com.philips.platform.pim.UDIRedirectReceiverActivity;
@@ -472,6 +473,13 @@ public class PIMDemoUAppActivity extends AppCompatActivity implements View.OnCli
         HashMap<PIMParameterToLaunchEnum, Object> parameter = new HashMap<>();
         parameter.put(PIMParameterToLaunchEnum.PIM_AB_TESTING_CONSENT, isABTestingStatus);
         launchInput.setParameterToLaunch(parameter);
+        String launchFlow = getIntent().getStringExtra("LaunchFlow");
+        Log.i(TAG,"Launch FLow : "+launchFlow);
+        if(launchFlow.equalsIgnoreCase(PIMLaunchFlow.LOGIN.pimLaunchFlow))
+            launchInput.setPIMLaunchFlow(PIMLaunchFlow.LOGIN);
+        else if(launchFlow.equalsIgnoreCase(PIMLaunchFlow.CREATE.pimLaunchFlow))
+            launchInput.setPIMLaunchFlow(PIMLaunchFlow.CREATE);
+
         mUSRUDIHelper.launchUDIAsFragment(fragmentLauncher, launchInput);
     }
 

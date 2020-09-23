@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.google.gson.JsonObject;
 import com.philips.platform.appinfra.logging.LoggingInterface;
 import com.philips.platform.pif.DataInterface.USR.enums.Error;
+import com.philips.platform.pim.PIMLaunchFlow;
 import com.philips.platform.pim.R;
 import com.philips.platform.pim.configration.PIMOIDCConfigration;
 import com.philips.platform.pim.errors.PIMErrorEnums;
@@ -99,6 +100,7 @@ public class PIMAuthManagerTest extends TestCase {
     @Captor
     private ArgumentCaptor<AuthState.AuthStateAction> captorAuthStateAction;
 
+    private PIMSettingManager mockPimSettingManager;
     private String baseurl = "https://stg.api.accounts.philips.com/c2a48310-9715-3beb-895e-000000000000/login";
 
     public void setUp() throws Exception {
@@ -112,7 +114,7 @@ public class PIMAuthManagerTest extends TestCase {
         mockStatic(Uri.class);
 
         mockUri = mock(Uri.class);
-        PIMSettingManager mockPimSettingManager = mock(PIMSettingManager.class);
+        mockPimSettingManager = mock(PIMSettingManager.class);
         mockAuthorizationServiceConfiguration = mock(AuthorizationServiceConfiguration.class);
 
         when(PIMSettingManager.getInstance()).thenReturn(mockPimSettingManager);
@@ -309,6 +311,26 @@ public class PIMAuthManagerTest extends TestCase {
         when(TextUtils.isEmpty(null)).thenReturn(true);
 
         pimAuthManager.extractResponseData(authResponse,authorizationRequest);
+    }
+
+    @Test
+    public void testCreateAUthorizationRequestWithPrompt(){
+        String authResponse = "com.philips.apps.94e28300-565d-4110-8919-42dc4f817393://oauthredirect?code=2qcS7-xDXlkbbCEV&state=NXKhU1Ygk72QmG7SMwQznQ";
+        when(mockAuthorizationServiceConfiguration.toJson()).thenReturn(mock(JSONObject.class));
+        when(mockPimoidcConfigration.getClientId()).thenReturn("94e28300-565d-4110-8919-42dc4f817393");
+        when(mockPimoidcConfigration.getRedirectUrl()).thenReturn("com.philips.apps.94e28300-565d-4110-8919-42dc4f817393://oauthredirect");
+
+        when(mockPimSettingManager.getPimLaunchFlow()).thenReturn(PIMLaunchFlow.CREATE);
+        AuthorizationRequest authorizationRequest = pimAuthManager.createAuthorizationRequest(PIMSettingManager.getInstance().getPimOidcConfigration(), new HashMap<>());
+        assertEquals(authorizationRequest.prompt,PIMLaunchFlow.CREATE.pimLaunchFlow);
+
+        when(mockPimSettingManager.getPimLaunchFlow()).thenReturn(PIMLaunchFlow.LOGIN);
+        AuthorizationRequest authorizationRequestLogin = pimAuthManager.createAuthorizationRequest(PIMSettingManager.getInstance().getPimOidcConfigration(), new HashMap<>());
+        assertEquals(authorizationRequestLogin.prompt,PIMLaunchFlow.LOGIN.pimLaunchFlow);
+
+        when(mockPimSettingManager.getPimLaunchFlow()).thenReturn(PIMLaunchFlow.NO_PROMPT);
+        AuthorizationRequest authorizationRequestNoPrompt = pimAuthManager.createAuthorizationRequest(PIMSettingManager.getInstance().getPimOidcConfigration(), new HashMap<>());
+        assertNull(authorizationRequestNoPrompt.prompt);
     }
 
     @After
