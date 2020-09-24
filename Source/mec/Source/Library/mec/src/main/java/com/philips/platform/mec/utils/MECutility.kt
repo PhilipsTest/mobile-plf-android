@@ -424,7 +424,8 @@ class MECutility {
     fun constructShippingAddressDisplayField(ecsAddress: ECSAddress): String {
 
         var formattedAddress = ""
-        val regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name else ecsAddress.region?.isocodeShort
+        var regionDisplayName = if (ecsAddress.region?.name != null) ecsAddress.region?.name ?:"" else ecsAddress.region?.isocodeShort ?:""
+        if(regionDisplayName.trim().isNotEmpty())  regionDisplayName += " "
         val countryDisplayName = if (ecsAddress.country?.name != null) ecsAddress.country?.name else ecsAddress.country?.isocode
         val countryName = countryDisplayName ?: ""
         var houseNumber = ecsAddress.houseNumber ?: ""
@@ -432,9 +433,11 @@ class MECutility {
         val line1 = ecsAddress.line1 ?: ""
         val line2 = ecsAddress.line2 ?: ""
         val town = ecsAddress.town ?: ""
-        val postalCode = ecsAddress.postalCode ?: ""
+        var postalCode = ecsAddress.postalCode ?: ""
+        if (postalCode.isNotEmpty()) postalCode += ", "
+
         formattedAddress = (houseNumber) + (line1.validateStr()) + (line2.validateStr()) + (town.validateStr())
-        formattedAddress = formattedAddress + (regionDisplayName.validateStr()) + (postalCode.validateStr()) + countryName
+        formattedAddress = formattedAddress + (regionDisplayName) + (postalCode) + countryName
 
         return formattedAddress
     }

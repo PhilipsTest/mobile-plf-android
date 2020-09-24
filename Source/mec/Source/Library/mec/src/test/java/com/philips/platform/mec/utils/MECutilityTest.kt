@@ -61,8 +61,36 @@ class MECutilityTest {
 
         val expectedString = "White Field,\n" +
                 "Patel layout,\n" +
-                "US,\n" +
-                "USA"
+                "US USA"
+        val constructShippingAddressDisplayField = mECutility.constructShippingAddressDisplayField(ecsAddress)
+
+        assertEquals(expectedString, constructShippingAddressDisplayField)
+    }
+
+    @Test
+    fun `should construct address as expected when pincode and house number are there`() {
+        val ecsAddress = ECSAddress()
+        ecsAddress.houseNumber = "24"
+        val region = Region()
+        region.isocodeShort = "US"
+
+        val country = Country()
+        country.isocode = "USA"
+
+        ecsAddress.region = region
+        ecsAddress.country = country
+
+        ecsAddress.firstName = "pabitra"
+        ecsAddress.lastName = "sahoo"
+
+        ecsAddress.line1 = "White Field"
+        ecsAddress.line2 = "Patel layout"
+
+        ecsAddress.postalCode = "20003"
+
+        val expectedString = "24, White Field,\n" +
+                "Patel layout,\n" +
+                "US 20003, USA"
         val constructShippingAddressDisplayField = mECutility.constructShippingAddressDisplayField(ecsAddress)
 
         assertEquals(expectedString, constructShippingAddressDisplayField)

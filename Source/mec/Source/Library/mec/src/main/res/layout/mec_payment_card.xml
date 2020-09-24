@@ -107,7 +107,7 @@
                     android:layout_marginStart="@dimen/border16_margin_left_right"
                     android:layout_marginTop="@dimen/border8_margin"
                     android:layout_marginEnd="@dimen/border16_margin_left_right"
-                    android:layout_marginBottom="@dimen/border8_margin"
+                    android:layout_marginBottom="@dimen/iap_margin_10dp"
                     android:text="@{'*'+@string/mec_new_payment_disclaimer}"
                     android:textColor="?attr/uidContentItemPrimaryNormalTextColor"
                     android:textSize="8sp" />
