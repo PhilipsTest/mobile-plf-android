@@ -25,7 +25,7 @@ class ProductFeaturesRepository  {
         var productFeaturesRequest  = ProductFeaturesRequest(ctn,null)
         productFeaturesRequest.sector = PrxConstants.Sector.B2C;
         productFeaturesRequest.catalog = PrxConstants.Catalog.CONSUMER;
-        productFeaturesRequest.requestTimeOut = com.philips.platform.ecs.constants.NetworkConstants.DEFAULT_TIMEOUT_MS
+        productFeaturesRequest.requestTimeOut = NetworkConstants.DEFAULT_TIMEOUT_MS
 
         val mRequestManager = RequestManager()
         val prxDependencies = PRXDependencies(context, MECDataHolder.INSTANCE.appinfra, MECConstant.COMPONENT_NAME)

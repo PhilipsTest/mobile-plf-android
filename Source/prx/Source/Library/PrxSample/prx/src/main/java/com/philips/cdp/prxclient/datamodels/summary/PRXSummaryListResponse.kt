@@ -12,7 +12,7 @@ import java.util.*
  * Created by philips on 2/28/19.
  */
 @Parcelize
-data class PRXSummaryListResponse(@SerializedName("success") var isSuccess: Boolean? = null, var data: ArrayList<Summary>? = null) : Parcelable, ResponseData() {
+data class PRXSummaryListResponse(@SerializedName("success") var isSuccess: Boolean? = null,val invalidCtns: List<String>? = null, var data: ArrayList<Summary>? = null, val failureReason:String? = null) : Parcelable, ResponseData() {
     override fun parseJsonResponseData(response: JSONObject?): ResponseData? {
         return if (response != null) {
             Gson().fromJson(response.toString(), PRXSummaryListResponse::class.java)
