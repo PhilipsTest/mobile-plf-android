@@ -14,16 +14,16 @@ package com.philips.platform.ecs.microService.model.product
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.philips.platform.ecs.microService.model.asset.Assets
-import com.philips.platform.ecs.microService.model.disclaimer.Disclaimers
-import com.philips.platform.ecs.microService.model.summary.Summary
+import com.philips.cdp.prxclient.datamodels.Disclaimer.Disclaimers
 import kotlinx.android.parcel.Parcelize
+import com.philips.cdp.prxclient.datamodels.assets.Assets
+import com.philips.cdp.prxclient.datamodels.summary.Summary
 
 @Parcelize
-data class ECSProduct(var attributes: Attributes? = null,@SerializedName("id") var ctn: String, var type: String? =null) : Parcelable{
+data class ECSProduct(var attributes: Attributes? = null, @SerializedName("id") var ctn: String, var type: String? = null) : Parcelable {
 
-    var summary: Summary? =null
-    var assets: Assets?=null
-    var disclaimers: Disclaimers?=null
+    var summary: Summary? = null
+    var assets: Assets? = null
+    var disclaimers: Disclaimers? = null
 
 }

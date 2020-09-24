@@ -12,10 +12,10 @@
 package com.philips.platform.ecs.microService.request
 
 import com.philips.cdp.prxclient.PrxConstants
+import com.philips.cdp.prxclient.datamodels.Disclaimer.DisclaimerModel
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
-import com.philips.platform.ecs.microService.model.disclaimer.DisclaimerModel
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject

@@ -26,7 +26,7 @@ import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponse;
 import com.philips.cdp.prodreg.model.metadata.ProductMetadataResponseData;
 import com.philips.cdp.prodreg.model.summary.ProductSummaryResponse;
 import com.philips.cdp.prodreg.util.ProdRegUtil;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class ProdRegRegistrationController {
 
         void isValidSerialNumber(boolean validSerialNumber);
 
-        void setSummaryView(Data summaryData);
+        void setSummaryView(Summary summaryData);
 
         void setProductView(RegisteredProduct registeredProduct);
 
@@ -112,7 +112,7 @@ public class ProdRegRegistrationController {
             registeredProducts = (ArrayList<RegisteredProduct>) bundle.getSerializable(ProdRegConstants.MUL_PROD_REG_CONSTANT);
             registeredProduct = (RegisteredProduct) bundle.getSerializable(ProdRegConstants.PROD_REG_PRODUCT);
             productMetadataResponseData = (ProductMetadataResponseData) bundle.getSerializable(ProdRegConstants.PROD_REG_PRODUCT_METADATA);
-            final Data summaryData = (Data) bundle.getParcelable(ProdRegConstants.PROD_REG_PRODUCT_SUMMARY);
+            final Summary summaryData = (Summary) bundle.getParcelable(ProdRegConstants.PROD_REG_PRODUCT_SUMMARY);
             updateSummaryView(summaryData);
             updateProductView();
             registerControllerCallBacks.updateProductCache();
@@ -121,7 +121,7 @@ public class ProdRegRegistrationController {
         }
     }
 
-    private void updateSummaryView(final Data summaryData) {
+    private void updateSummaryView(final Summary summaryData) {
         registerControllerCallBacks.setSummaryView(summaryData);
     }
 
@@ -174,7 +174,7 @@ public class ProdRegRegistrationController {
                 getRegisteredProduct().setPurchaseDate(purchaseDate);
             getRegisteredProduct().setSerialNumber(serialNumber);
 
-            UserWithProducts userWithProducts = new UserWithProducts(fragmentActivity,getProdRegListener(),PRUiHelper.getInstance().getUserDataInstance());
+            UserWithProducts userWithProducts = new UserWithProducts(fragmentActivity, getProdRegListener(), PRUiHelper.getInstance().getUserDataInstance());
             userWithProducts.registerProduct(getRegisteredProduct());
         } else {
             registerControllerCallBacks.hideProgress();
@@ -212,7 +212,7 @@ public class ProdRegRegistrationController {
             public void onProdRegFailed(RegisteredProduct registeredProduct, UserWithProducts userWithProducts) {
                 registerControllerCallBacks.logEvents(TAG, "Product registration failed");
                 if (fragmentActivity != null && !fragmentActivity.isFinishing()) {
-                   // ProdRegRegistrationController.this.registeredProduct = registeredProduct;
+                    // ProdRegRegistrationController.this.registeredProduct = registeredProduct;
                     ProdRegRegistrationController.this.registeredProduct.setProdRegError(registeredProduct.getProdRegError());
                     ProdRegRegistrationController.this.registeredProduct.setRegistrationState(registeredProduct.getRegistrationState());
                     ProdRegRegistrationController.this.registeredProduct.setUserUUid(registeredProduct.getUserUUid());

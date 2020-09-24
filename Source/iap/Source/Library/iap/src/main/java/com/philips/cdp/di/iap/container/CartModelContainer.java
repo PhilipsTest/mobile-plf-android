@@ -9,8 +9,7 @@ import com.philips.cdp.di.iap.products.ProductCatalogData;
 import com.philips.cdp.di.iap.response.State.RegionsList;
 import com.philips.cdp.di.iap.response.addresses.DeliveryModes;
 import com.philips.cdp.prxclient.datamodels.Disclaimer.DisclaimerModel;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
-import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.platform.appinfra.AppInfraInterface;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class CartModelContainer {
     private RegionsList mRegionList;
 
     private HashMap<String, ProductCatalogData> mProductList;
-    private ArrayList<Data> mPRXSummaryObjects;
+    private ArrayList<Summary> mPRXSummaryObjects;
     private HashMap<String, ArrayList<String>> mPRXAssetObjects;
     private HashMap<String, DisclaimerModel> mPRXDisclaimerObjects;
 
@@ -47,7 +46,7 @@ public class CartModelContainer {
     private String voucherCode;
 
     public void clearProductList() {
-        if(mProductList!=null) mProductList.clear();
+        if (mProductList != null) mProductList.clear();
     }
 
     private CartModelContainer() {
@@ -158,8 +157,8 @@ public class CartModelContainer {
 
     //PRX Summary
     public boolean isPRXSummaryPresent(String ctn) {
-        if(mPRXSummaryObjects == null || mPRXSummaryObjects.size()==0) return false;
-        for (Data data : mPRXSummaryObjects) {
+        if (mPRXSummaryObjects == null || mPRXSummaryObjects.size() == 0) return false;
+        for (Summary data : mPRXSummaryObjects) {
             if (data.getCtn().equalsIgnoreCase(ctn)) {
                 return true;
             }
@@ -167,8 +166,8 @@ public class CartModelContainer {
         return false;
     }
 
-    public Data getProductSummary(String ctn) {
-        for (Data data : mPRXSummaryObjects) {
+    public Summary getProductSummary(String ctn) {
+        for (Summary data : mPRXSummaryObjects) {
             if (data.getCtn().equalsIgnoreCase(ctn)) {
                 return data;
             }
@@ -180,11 +179,11 @@ public class CartModelContainer {
         mPRXDisclaimerObjects.put(ctn, model);
     }
 
-    public ArrayList<Data> getPRXSummaryList() {
+    public ArrayList<Summary> getPRXSummaryList() {
         return mPRXSummaryObjects;
     }
 
-    public void setPRXSummaryList(ArrayList<Data> data){
+    public void setPRXSummaryList(ArrayList<Summary> data) {
         mPRXSummaryObjects = data;
     }
 

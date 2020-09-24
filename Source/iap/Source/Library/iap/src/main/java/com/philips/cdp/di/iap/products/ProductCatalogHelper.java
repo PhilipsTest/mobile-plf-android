@@ -16,7 +16,7 @@ import com.philips.cdp.di.iap.response.products.PaginationEntity;
 import com.philips.cdp.di.iap.response.products.Products;
 import com.philips.cdp.di.iap.response.products.ProductsEntity;
 import com.philips.cdp.di.iap.utils.IAPConstant;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +55,7 @@ public class ProductCatalogHelper {
     @SuppressWarnings("unchecked")
     public boolean processPRXResponse(final Message msg, Products productData, IAPListener listener) {
         if (msg.obj instanceof HashMap) {
-            HashMap<String, Data> prxModel = (HashMap<String, Data>) msg.obj;
+            HashMap<String, Summary> prxModel = (HashMap<String, Summary>) msg.obj;
             if (checkForEmptyCart(prxModel))
                 return true;
 
@@ -72,7 +72,7 @@ public class ProductCatalogHelper {
     }
 
     private ArrayList<ProductCatalogData> mergeHybrisAndPRX(Products productData,
-                                                            HashMap<String, Data> prxModel) {
+                                                            HashMap<String, Summary> prxModel) {
         List<ProductsEntity> entries = productData.getProducts();
         ArrayList<ProductCatalogData> products = new ArrayList<>();
         String ctn;
@@ -80,7 +80,7 @@ public class ProductCatalogHelper {
             for (ProductsEntity entry : entries) {
                 ctn = entry.getCode();
                 ProductCatalogData productItem = new ProductCatalogData();
-                Data data;
+                Summary data;
                 if (prxModel.containsKey(ctn)) {
                     data = prxModel.get(ctn);
                 } else if (CartModelContainer.getInstance().isPRXSummaryPresent(ctn)) {
@@ -118,7 +118,7 @@ public class ProductCatalogHelper {
         EventHelper.getInstance().notifyEventOccurred(IAPConstant.EMPTY_CART_FRAGMENT_REPLACED);
     }
 
-    private boolean checkForEmptyCart(final HashMap<String, Data> prxModel) {
+    private boolean checkForEmptyCart(final HashMap<String, Summary> prxModel) {
         if (prxModel == null || prxModel.size() == 0) {
             notifyEmptyCartFragment();
             return true;

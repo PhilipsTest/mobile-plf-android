@@ -50,7 +50,7 @@ import com.philips.cdp.digitalcare.view.ProgressAlertDialog;
 import com.philips.cdp.productselection.ProductModelSelectionHelper;
 import com.philips.cdp.productselection.listeners.ProductSelectionListener;
 import com.philips.cdp.productselection.productselectiontype.ProductModelSelectionType;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.cdp.prxclient.datamodels.support.SupportModel;
 import com.philips.platform.appinfra.servicediscovery.ServiceDiscoveryInterface;
@@ -549,7 +549,7 @@ public class SupportHomeFragment extends DigitalCareBaseFragment implements PrxS
     }
 
     private void setDataToModels(SummaryModel productSummaryModel) {
-        Data summaryData = productSummaryModel.getData();
+        Summary summaryData = productSummaryModel.getData();
         List<String> filterKeys = summaryData.getFilterKeys();
         String productGroup = null;
         String productCategory = null;

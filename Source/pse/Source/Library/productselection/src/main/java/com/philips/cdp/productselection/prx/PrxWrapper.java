@@ -10,8 +10,8 @@ import com.philips.cdp.prxclient.PrxConstants.Catalog;
 import com.philips.cdp.prxclient.PrxConstants.Sector;
 import com.philips.cdp.prxclient.RequestManager;
 import com.philips.cdp.prxclient.datamodels.assets.AssetModel;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
 import com.philips.cdp.prxclient.datamodels.summary.PRXSummaryListResponse;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.cdp.prxclient.error.PrxError;
 import com.philips.cdp.prxclient.request.ProductAssetRequest;
@@ -165,7 +165,7 @@ public class PrxWrapper {
         List<String> responseCtns = new ArrayList<>();
 
         if (summaryListResponse.isSuccess()) {
-            for (Data data : summaryListResponse.getData()) {
+            for (Summary data : summaryListResponse.getData()) {
                 SummaryModel summaryModel = new SummaryModel();
                 summaryModel.setData(data);
                 summaryModels.add(summaryModel);

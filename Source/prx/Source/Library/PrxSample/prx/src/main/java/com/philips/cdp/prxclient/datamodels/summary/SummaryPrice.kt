@@ -10,13 +10,17 @@
  *
  */
 
-package com.philips.platform.ecs.microService.model.summary
+package com.philips.cdp.prxclient.datamodels.summary
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ReviewStatistics(
-    val averageOverallRating: Double,
-    val totalReviewCount: Int
+data class SummaryPrice(
+    val currencyCode: String?,
+    val displayPrice: String?,
+    val displayPriceType: String?,
+    val formattedDisplayPrice: String?,
+    val formattedPrice: String?,
+    val productPrice: String?
 ):Parcelable

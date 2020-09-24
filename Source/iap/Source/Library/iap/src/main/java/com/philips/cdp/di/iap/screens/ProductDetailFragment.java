@@ -59,7 +59,7 @@ import com.philips.cdp.di.iap.utils.Utility;
 import com.philips.cdp.di.iap.view.CountDropDown;
 import com.philips.cdp.prxclient.datamodels.Disclaimer.Disclaimer;
 import com.philips.cdp.prxclient.datamodels.Disclaimer.DisclaimerModel;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.platform.uid.view.widget.DotNavigationIndicator;
 import com.philips.platform.uid.view.widget.Label;
 import com.philips.platform.uid.view.widget.ProgressBarButton;
@@ -82,7 +82,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
     private static final long serialVersionUID = 1923024120624495257L;
     private Context mContext;
     private Bundle mBundle;
-    private Data mProductSummary;
+    private Summary mProductSummary;
     private ShoppingCartAPI mShoppingCartAPI;
     private ProductDetailEntity mProductDetail;
     private ImageAdapter mImageAdapter;
@@ -286,9 +286,9 @@ public class ProductDetailFragment extends InAppBaseFragment implements
             final PRXSummaryListExecutor builder = new PRXSummaryListExecutor(mContext, ctnList, this);
             builder.preparePRXDataRequest();
         } else {
-            final ArrayList<Data> prxAssetObjects = CartModelContainer.getInstance().getPRXSummaryList();
+            final ArrayList<Summary> prxAssetObjects = CartModelContainer.getInstance().getPRXSummaryList();
 
-            for (Data data : prxAssetObjects) {
+            for (Summary data : prxAssetObjects) {
                 populateData(data);
             }
 
@@ -571,7 +571,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
 
     private void showDisclaimer(DisclaimerModel disclaimerModel) {
         try {
-            final List<Disclaimer> disclaimerList = disclaimerModel.getData().getDisclaimers().getDisclaimer();
+            final List<Disclaimer> disclaimerList = disclaimerModel.getData().getDisclaimers().getDisclaimerList();
             mProductDisclaimer.setVisibility(View.VISIBLE);
             if (null != disclaimerList && disclaimerList.size() > 0) {
                 final StringBuilder disclaimerStringBuilder = new StringBuilder();
@@ -593,7 +593,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
     @SuppressWarnings("unchecked")
     @Override
     public void onModelDataLoadFinished(Message msg) {
-        final HashMap<String, Data> msgObj = (HashMap<String, Data>) msg.obj;
+        final HashMap<String, Summary> msgObj = (HashMap<String, Summary>) msg.obj;
         mProductSummary = msgObj.get(mCTNValue);
         populateData(mProductSummary);
         if (mBuyFromRetailers.isActivated()) {
@@ -639,7 +639,7 @@ public class ProductDetailFragment extends InAppBaseFragment implements
         }
     }
 
-    private void populateData(Data data) {
+    private void populateData(Summary data) {
         String actualPrice = null;
         String discountedPrice = null;
         String stockLevelStatus = null;

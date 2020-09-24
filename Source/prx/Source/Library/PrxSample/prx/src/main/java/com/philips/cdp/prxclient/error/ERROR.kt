@@ -9,10 +9,16 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.model.asset
+
+package com.philips.cdp.prxclient.error
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class AssetModel(val success :Boolean = false,val data: Data?):Parcelable
+data class ERROR(
+    val errorCode: String?,
+    val errorMessage: String?,
+    val more_info: String?,
+    val statusCode: Int?
+):Parcelable

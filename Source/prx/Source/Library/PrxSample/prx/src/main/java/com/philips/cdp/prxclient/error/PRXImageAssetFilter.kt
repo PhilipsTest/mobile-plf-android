@@ -9,10 +9,9 @@
  *
  *
  */
-package com.philips.platform.ecs.microService.prx
+package com.philips.cdp.prxclient.error
 
-import com.philips.platform.ecs.microService.model.asset.Asset
-import java.util.*
+import com.philips.cdp.prxclient.datamodels.assets.Asset
 
 class PRXImageAssetFilter {
     fun getValidPRXAssets(assets: List<Asset>): List<Asset> {

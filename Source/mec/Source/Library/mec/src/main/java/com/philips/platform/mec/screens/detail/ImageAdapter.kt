@@ -13,7 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import com.philips.platform.ecs.microService.model.asset.Asset
+import com.philips.cdp.prxclient.datamodels.assets.Asset
 
 import com.philips.platform.mec.databinding.MecImagePagerItemBinding
 

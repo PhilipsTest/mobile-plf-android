@@ -13,6 +13,7 @@
 package com.philips.platform.ecs.microService.model.summary
 
 import android.os.Parcelable
+import com.philips.cdp.prxclient.datamodels.summary.Summary
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

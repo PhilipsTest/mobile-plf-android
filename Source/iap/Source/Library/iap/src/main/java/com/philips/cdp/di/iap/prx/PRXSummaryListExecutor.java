@@ -16,8 +16,8 @@ import com.philips.cdp.di.iap.session.NetworkConstants;
 import com.philips.cdp.prxclient.PRXDependencies;
 import com.philips.cdp.prxclient.PrxConstants;
 import com.philips.cdp.prxclient.RequestManager;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
 import com.philips.cdp.prxclient.datamodels.summary.PRXSummaryListResponse;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.cdp.prxclient.error.PrxError;
 import com.philips.cdp.prxclient.request.ProductSummaryListRequest;
 import com.philips.cdp.prxclient.response.ResponseData;
@@ -32,7 +32,7 @@ public class PRXSummaryListExecutor {
     Context mContext;
     ArrayList<String> mCtns;
     AbstractModel.DataLoadListener mDataLoadListener;
-    private HashMap<String, Data> mPRXSummaryData;
+    private HashMap<String, Summary> mPRXSummaryData;
 
     public PRXSummaryListExecutor(Context context, ArrayList<String> ctns, AbstractModel.DataLoadListener listener) {
         mContext = context;
@@ -79,7 +79,7 @@ public class PRXSummaryListExecutor {
 
             if (prxSummaryListResponse.getData() != null && !prxSummaryListResponse.getData().isEmpty()) {
 
-                for (Data data : prxSummaryListResponse.getData())
+                for (Summary data : prxSummaryListResponse.getData())
                     mPRXSummaryData.put(data.getCtn(), data);
             }
         }

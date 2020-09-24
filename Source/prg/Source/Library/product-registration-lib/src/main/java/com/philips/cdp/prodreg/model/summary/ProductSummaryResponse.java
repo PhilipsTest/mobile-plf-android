@@ -1,12 +1,12 @@
 /* Copyright (c) Koninklijke Philips N.V., 2016
-* All rights are reserved. Reproduction or dissemination
+ * All rights are reserved. Reproduction or dissemination
  * in whole or in part is prohibited without the prior written
  * consent of the copyright holder.
-*/
+ */
 package com.philips.cdp.prodreg.model.summary;
 
 import com.google.gson.Gson;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.cdp.prxclient.response.ResponseData;
 
 import org.json.JSONObject;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class ProductSummaryResponse extends ResponseData {
 
     private boolean success;
-    private Data data;
+    private Summary data;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -37,14 +37,14 @@ public class ProductSummaryResponse extends ResponseData {
     /**
      * @return The data
      */
-    public Data getData() {
+    public Summary getData() {
         return data;
     }
 
     /**
      * @param data The data
      */
-    public void setData(Data data) {
+    public void setData(Summary data) {
         this.data = data;
     }
 
@@ -59,8 +59,8 @@ public class ProductSummaryResponse extends ResponseData {
     @Override
     public ResponseData parseJsonResponseData(final JSONObject response) {
         ProductSummaryResponse productSummaryResponse = null;
-        if(response!=null)
-         productSummaryResponse = new Gson().fromJson(response.toString(), ProductSummaryResponse.class);
+        if (response != null)
+            productSummaryResponse = new Gson().fromJson(response.toString(), ProductSummaryResponse.class);
         return productSummaryResponse;
     }
 }

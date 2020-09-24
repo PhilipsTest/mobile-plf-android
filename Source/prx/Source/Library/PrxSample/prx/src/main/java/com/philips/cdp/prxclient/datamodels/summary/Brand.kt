@@ -7,6 +7,5 @@ import kotlinx.android.parcel.Parcelize
  * Description :
  * Project : PRX Common Component.
  */
-
 @Parcelize
-class Brand(var brandLogo: String? = null) : Parcelable
+data class Brand(val partnerBrandType: String?, val partnerLogo: String?, val brandLogo: String?) : Parcelable

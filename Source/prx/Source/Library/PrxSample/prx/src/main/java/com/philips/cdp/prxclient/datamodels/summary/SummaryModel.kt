@@ -13,7 +13,7 @@ import org.json.JSONObject
  * Project : PRX Common Component.
  */
 @Parcelize
-data class SummaryModel(@SerializedName("success") var isSuccess: Boolean? = null, var data: Data? = null) : Parcelable, ResponseData() {
+data class SummaryModel(@SerializedName("success") var isSuccess: Boolean? = null, var data: Summary? = null) : Parcelable, ResponseData() {
 
     override fun parseJsonResponseData(response: JSONObject?): ResponseData? {
         var responseData: ResponseData? = null

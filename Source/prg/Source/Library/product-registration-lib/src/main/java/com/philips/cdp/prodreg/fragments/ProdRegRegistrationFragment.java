@@ -7,10 +7,6 @@ package com.philips.cdp.prodreg.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -22,6 +18,11 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.philips.cdp.prodreg.constants.AnalyticsConstants;
@@ -42,7 +43,7 @@ import com.philips.cdp.prodreg.tagging.ProdRegTagging;
 import com.philips.cdp.prodreg.util.ProdRegUtil;
 import com.philips.cdp.prodreg.util.ProgressAlertDialog;
 import com.philips.cdp.product_registration_lib.R;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.platform.uid.text.utils.UIDClickableSpan;
 import com.philips.platform.uid.thememanager.UIDHelper;
 import com.philips.platform.uid.utils.DialogConstants;
@@ -194,7 +195,7 @@ public class ProdRegRegistrationFragment extends ProdRegBaseFragment implements 
     @Override
     public void onResume() {
         Fragment f = this.getActivity().getSupportFragmentManager().findFragmentById(getId());
-        if(!(f instanceof ProdRegRegistrationFragment)){
+        if (!(f instanceof ProdRegRegistrationFragment)) {
             getActivity().getWindow().setSoftInputMode(
                     WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }
@@ -472,7 +473,7 @@ public class ProdRegRegistrationFragment extends ProdRegBaseFragment implements 
     String imageURL;
 
     @Override
-    public void setSummaryView(final Data summaryData) {
+    public void setSummaryView(final Summary summaryData) {
         try {
             if (summaryData != null && isVisible()) {
                 final String productTitle = summaryData.getProductTitle();

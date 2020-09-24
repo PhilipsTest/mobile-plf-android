@@ -39,7 +39,7 @@ import com.philips.cdp.di.iap.utils.IAPConstant;
 import com.philips.cdp.di.iap.utils.IAPLog;
 import com.philips.cdp.di.iap.utils.ModelConstants;
 import com.philips.cdp.di.iap.utils.Utility;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -377,7 +377,7 @@ public class ShoppingCartPresenter extends AbstractShoppingCartPresenter
     }
 
     public ArrayList<ShoppingCartData> getShoppingCartDatas(CartsEntity cartsEntity, List<EntriesEntity> entries) {
-        final ArrayList<Data> list =  CartModelContainer.getInstance().getPRXSummaryList();
+        final ArrayList<Summary> list =  CartModelContainer.getInstance().getPRXSummaryList();
         final ArrayList<ShoppingCartData> products = new ArrayList<>();
         String ctn;
         for (EntriesEntity entry : entries) {
@@ -385,7 +385,7 @@ public class ShoppingCartPresenter extends AbstractShoppingCartPresenter
             applyPromotion(cartsEntity);
             final ShoppingCartData cartItem = new ShoppingCartData(entry, cartsEntity.getDeliveryMode());
             cartItem.setVatInclusive(cartsEntity.isNet());
-            Data data;
+            Summary data;
             if (CartModelContainer.getInstance().isPRXSummaryPresent(ctn)) {
                 data = CartModelContainer.getInstance().getProductSummary(ctn);
             } else {

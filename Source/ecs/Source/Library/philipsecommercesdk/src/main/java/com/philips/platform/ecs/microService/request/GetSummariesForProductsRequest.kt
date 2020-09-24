@@ -12,13 +12,13 @@
 package com.philips.platform.ecs.microService.request
 
 import com.philips.cdp.prxclient.PrxConstants
+import com.philips.cdp.prxclient.datamodels.summary.Summary
 import com.philips.platform.ecs.microService.callBack.ECSCallback
 import com.philips.platform.ecs.microService.constant.ECSConstants
 import com.philips.platform.ecs.microService.error.ECSError
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.product.ECSProducts
 import com.philips.platform.ecs.microService.model.summary.ECSProductSummary
-import com.philips.platform.ecs.microService.model.summary.Summary
 import com.philips.platform.ecs.microService.util.getData
 import org.json.JSONObject
 import kotlin.collections.HashMap
@@ -34,7 +34,7 @@ class GetSummariesForProductsRequest(val ecsProducts:List<ECSProduct>, private v
     }
 
     override fun onResponse(response: JSONObject) {
-        val ecsProductSummary = response.getData(ECSProductSummary::class.java)
+        val ecsProductSummary = response.getData(com.philips.platform.ecs.microService.model.summary.ECSProductSummary::class.java)
         if(ecsProductSummary?.success == true) {
             updateProductsWithSummary(ecsProducts, ecsProductSummary)
             ecsCallback.onResponse(ECSProducts(ecsProducts))

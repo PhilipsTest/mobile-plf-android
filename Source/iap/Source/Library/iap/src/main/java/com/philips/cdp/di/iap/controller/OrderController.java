@@ -22,7 +22,7 @@ import com.philips.cdp.di.iap.session.HybrisDelegate;
 import com.philips.cdp.di.iap.session.RequestCode;
 import com.philips.cdp.di.iap.store.StoreListener;
 import com.philips.cdp.di.iap.utils.ModelConstants;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,7 +124,7 @@ public class OrderController implements AbstractModel.DataLoadListener {
                 for (Entries entry : entries) {
                     ctn = entry.getProduct().getCode();
                     ProductData productItem = new ProductData(entry);
-                    Data data;
+                    Summary data;
                     if (CartModelContainer.getInstance().isPRXSummaryPresent(ctn)) {
                         data = CartModelContainer.getInstance().getProductSummary(ctn);
                     } else {
@@ -138,7 +138,7 @@ public class OrderController implements AbstractModel.DataLoadListener {
         return products;
     }
 
-    public void setProductData(ArrayList<ProductData> products, OrderDetail detail, Entries entry, ProductData productItem, Data data) {
+    public void setProductData(ArrayList<ProductData> products, OrderDetail detail, Entries entry, ProductData productItem, Summary data) {
         productItem.setImageURL(data.getImageURL());
         productItem.setProductTitle(data.getProductTitle());
         productItem.setQuantity(entry.getQuantity());

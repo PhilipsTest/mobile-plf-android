@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.NetworkImageView
+import com.philips.cdp.prxclient.datamodels.assets.Asset
 import com.philips.cdp.prxclient.datamodels.features.FeatureItem
 import com.philips.cdp.prxclient.datamodels.features.FeaturesModel
 import com.philips.cdp.prxclient.datamodels.specification.CsItemItem
 import com.philips.cdp.prxclient.datamodels.specification.SpecificationModel
-import com.philips.platform.ecs.microService.model.asset.Asset
 import com.philips.platform.mec.R
 import com.philips.platform.mec.screens.detail.ImageAdapter
 import com.philips.platform.mec.screens.features.ProductFeatureChildRecyclerAdapter

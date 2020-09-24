@@ -5,7 +5,7 @@
 
         <variable
             name="asset"
-            type="com.philips.platform.ecs.microService.model.asset.Asset" />
+            type="com.philips.cdp.prxclient.datamodels.assets.Asset" />
     </data>
 
     <LinearLayout

@@ -8,26 +8,20 @@ package com.philips.cdp.productselection.fragments.listfragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.philips.cdp.productselection.R;
 import com.philips.cdp.productselection.prx.VolleyWrapper;
 import com.philips.cdp.productselection.utils.ProductSelectionLogger;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 
 import java.util.ArrayList;
@@ -78,16 +72,16 @@ public class ListViewWithOptions extends BaseAdapter implements Filterable {
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
         ListViewOptionViewHolder listViewOptionViewHolder;
-        if ( convertView == null) {
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.fragment_listscreen_adaper_view, null);
             listViewOptionViewHolder = new ListViewOptionViewHolder(convertView);
-            convertView.setTag(R.string.view_holder,listViewOptionViewHolder);
+            convertView.setTag(R.string.view_holder, listViewOptionViewHolder);
 
         }
-        listViewOptionViewHolder = (ListViewOptionViewHolder)convertView.getTag(R.string.view_holder);
+        listViewOptionViewHolder = (ListViewOptionViewHolder) convertView.getTag(R.string.view_holder);
         SummaryModel summaryModel = getItem(position);
 
-        Data data = summaryModel.getData();
+        Summary data = summaryModel.getData();
 
         String imagepath = data.getImageURL();
         int imageWidth = (int) (85 * Resources.getSystem().getDisplayMetrics().density);
@@ -99,7 +93,7 @@ public class ListViewWithOptions extends BaseAdapter implements Filterable {
         ProductSelectionLogger.d(TAG, "Image URL's of the listed Products : " + imagepath);
 
 
-        listViewOptionViewHolder.networkImageView.setImageUrl(imagepath,imageLoader);
+        listViewOptionViewHolder.networkImageView.setImageUrl(imagepath, imageLoader);
         listViewOptionViewHolder.tvProductName.setText(data.getProductTitle());
         listViewOptionViewHolder.tvCtn.setText(data.getCtn());
         convertView.setTag(position);
@@ -109,17 +103,18 @@ public class ListViewWithOptions extends BaseAdapter implements Filterable {
     }
 
 
-    public SummaryModel getData(){
+    public SummaryModel getData() {
         return mData;
     }
 
-    private void setData(SummaryModel data){
+    private void setData(SummaryModel data) {
         mData = data;
     }
 
     private class CustomFilter extends Filter {
 
         private String constraintStr;
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             constraintStr = constraint.toString();
@@ -128,13 +123,13 @@ public class ListViewWithOptions extends BaseAdapter implements Filterable {
                 ArrayList<SummaryModel> filteredResultModelSet = new ArrayList<SummaryModel>();
                 for (int i = 0; i < mOriginalSet.size(); i++) {
                     SummaryModel summaryModel = mOriginalSet.get(i);
-                    Data data = summaryModel.getData();
+                    Summary data = summaryModel.getData();
                     SummaryModel filteredResultModel = new SummaryModel();
                     filteredResultModel.setData(data);
                     String productMachTitle = data.getProductTitle().toUpperCase();
                     String productMachCtn = data.getCtn().toUpperCase();
                     if (productMachTitle.contains(constraint.toString().toUpperCase()) ||
-                            productMachCtn.contains(constraint.toString().toUpperCase())){
+                            productMachCtn.contains(constraint.toString().toUpperCase())) {
                         filteredResultModel.getData().setCtn(data.getCtn());
                         filteredResultModel.getData().setProductTitle(data.getProductTitle());
                         filteredResultModel.getData().setImageURL(data.getImageURL());
@@ -156,7 +151,7 @@ public class ListViewWithOptions extends BaseAdapter implements Filterable {
         @Override
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
-            if (results.count != 0){
+            if (results.count != 0) {
                 mProductsList = (ArrayList<SummaryModel>) results.values;
             }
             notifyDataSetChanged();
@@ -171,11 +166,12 @@ public class ListViewWithOptions extends BaseAdapter implements Filterable {
         return mCustomFilter;
     }
 
-    private static class ListViewOptionViewHolder{
+    private static class ListViewOptionViewHolder {
 
         View view;
         NetworkImageView networkImageView;
-        TextView tvProductName,tvCtn;
+        TextView tvProductName, tvCtn;
+
         public ListViewOptionViewHolder(View view) {
             this.view = view;
             networkImageView = (NetworkImageView) view.findViewById(R.id.image);

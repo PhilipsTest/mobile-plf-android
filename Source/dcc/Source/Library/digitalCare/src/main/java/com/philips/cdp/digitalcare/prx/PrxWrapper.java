@@ -29,7 +29,7 @@ import com.philips.cdp.prxclient.RequestManager;
 import com.philips.cdp.prxclient.datamodels.assets.Asset;
 import com.philips.cdp.prxclient.datamodels.assets.AssetModel;
 import com.philips.cdp.prxclient.datamodels.assets.Assets;
-import com.philips.cdp.prxclient.datamodels.summary.Data;
+import com.philips.cdp.prxclient.datamodels.summary.Summary;
 import com.philips.cdp.prxclient.datamodels.summary.SummaryModel;
 import com.philips.cdp.prxclient.datamodels.support.SupportModel;
 import com.philips.cdp.prxclient.error.PrxError;
@@ -107,7 +107,7 @@ public class PrxWrapper {
                      @Override
                      public void run() {
 
-                         final Data data = summaryModel.getData();
+                         final Summary data = summaryModel.getData();
                          if (data != null) {
                              mProductDetailsObject.setProductName(data.getProductTitle());
                              mProductDetailsObject.setCtnName(data.getCtn());
@@ -301,7 +301,7 @@ public class PrxWrapper {
                     mSummaryModel = (SummaryModel) responseData;
                     DigiCareLogger.d(TAG, "Summary Data Received ? " + mSummaryModel.isSuccess());
                     if (mSummaryModel.isSuccess()) {
-                        final Data data = mSummaryModel.getData();
+                        final Summary data = mSummaryModel.getData();
                         if (data != null) {
                             mProductDetailsObject.setProductName(data.getProductTitle());
                             mProductDetailsObject.setCtnName(data.getCtn());

@@ -15,10 +15,10 @@ import com.bazaarvoice.bvandroidsdk.ContextDataValue
 import com.bazaarvoice.bvandroidsdk.Review
 import com.bazaarvoice.bvandroidsdk.ReviewResponse
 import com.google.gson.internal.LinkedTreeMap
+import com.philips.cdp.prxclient.datamodels.assets.Asset
+import com.philips.cdp.prxclient.datamodels.assets.Assets
 import com.philips.platform.ecs.error.ECSError
 import com.philips.platform.ecs.integration.ECSCallback
-import com.philips.platform.ecs.microService.model.asset.Asset
-import com.philips.platform.ecs.microService.model.asset.Assets
 import com.philips.platform.ecs.microService.model.cart.ECSShoppingCart
 import com.philips.platform.ecs.microService.model.product.ECSProduct
 import com.philips.platform.ecs.microService.model.retailer.ECSRetailer
