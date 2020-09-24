@@ -43,7 +43,6 @@ public class PIMMigrator implements RefreshUSRTokenListener, PIMUserMigrationLis
         setMigrationsStatus(true);
         mLoggingInterface.log(DEBUG, TAG, "migrateUSRToPIM called");
         if (usrTokenManager.isUSRUserAvailable()) {
-            mLoggingInterface.log(DEBUG, TAG, "migrateUSRToPIM isUSRUserAvailable : "+usrTokenManager.isUSRUserAvailable());
             usrTokenManager.fetchRefreshedAccessToken(this);
         } else {
             setMigrationsStatus(false);

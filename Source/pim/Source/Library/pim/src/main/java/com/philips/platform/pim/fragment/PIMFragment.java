@@ -207,35 +207,40 @@ public class PIMFragment extends Fragment implements PIMLoginListener, Observer<
         if (isTokenReqInProcess)
             return;
 
-        if (requestCode == 100 && resultCode == RESULT_OK ) {
-            if(pimLoginManager.isAuthorizationSuccess(data)) {
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            if (pimLoginManager != null && pimLoginManager.isAuthorizationSuccess(data)) {
                 isTokenReqInProcess = true;
                 pimLoginManager.exchangeAuthorizationCode(data);
-            } else{
+            } else {
                 Error error = new Error(PIMErrorCodes.AUTH_REQUEST_OTHERS, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorCodes.AUTH_REQUEST_OTHERS));
-                mUserLoginListener.onLoginFailed(error);
+                if (mUserLoginListener != null)
+                    mUserLoginListener.onLoginFailed(error);
             }
         } else if (requestCode == 100 && resultCode == RESULT_CANCELED) {
             disableProgressBar();
             Error error = new Error(PIMErrorCodes.USER_CANCELED_AUTH_FLOW, PIMErrorEnums.getLocalisedErrorDesc(mContext, PIMErrorCodes.USER_CANCELED_AUTH_FLOW));
-            mUserLoginListener.onLoginFailed(error);
+            if (mUserLoginListener != null)
+                mUserLoginListener.onLoginFailed(error);
         } else {
             disableProgressBar();
         }
     }
 
     private void enablProgressBar() {
-        pimLoginProgreassBar.setVisibility(View.VISIBLE);
+        if (pimLoginProgreassBar != null)
+            pimLoginProgreassBar.setVisibility(View.VISIBLE);
     }
 
     private void disableProgressBar() {
-        pimLoginProgreassBar.setVisibility(View.GONE);
+        if (pimLoginProgreassBar != null)
+            pimLoginProgreassBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mLoggingInterface.log(DEBUG, TAG, "onDestroy Called");
+        if (mLoggingInterface != null)
+            mLoggingInterface.log(DEBUG, TAG, "onDestroy Called");
         if (liveData != null)
             liveData.removeObserver(this::onChanged);
     }
