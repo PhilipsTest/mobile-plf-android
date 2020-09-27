@@ -1,0 +1,49 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ feature/GitHub_Actions ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v2
+    #- name: set up JDK 1.8
+    #  uses: actions/setup-java@v1
+    #  with:
+    #    java-version: 1.8
+    #- name: Build with Gradle
+    #  run: ./gradlew build
+    - name: Build with Gradle
+      run: ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
+            :AppInfra:testReleaseUnitTest \
+            :uAppFwLib:testReleaseUnitTest \
+            :registrationApi:testReleaseUnitTest \
+            :product-registration-lib:testReleaseUnitTest \
+            :iap:testReleaseUnitTest \
+            :digitalCareUApp:testRelease \
+            :digitalCare:testRelease \
+            :mya:testReleaseUnitTest \
+            :pif:testReleaseUnitTest \
+            :pim:testReleaseUnitTest \
+            :conversationalChatBot:testReleaseUnitTest \
+            :philipsecommercesdk:testReleaseUnitTest \
+            :mec:testReleaseUnitTest \
+            :pimApp:testReleaseUnitTest \
+            :referenceApp:testReleaseUnitTest
+            
+            archiveArtifacts 'Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk'
+            archiveArtifacts 'Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk'
+            
+
+    - name: Publish To Artifactory
+      run: ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
+            apkname=`xargs < apkname.txt`
+            ./gradlew -Dorg.gradle.parallel=false reportAllProjectDependencies | gzip -9 > ./allProjects.gradledependencies.gz
+            curl -L -u readerwriter:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT "apkname/.apk/.gradledependencies.gz" -T ./allProjects.gradledependencies.gz
+
