@@ -13,7 +13,6 @@ jobs:
 
     steps:
     - run: |
-          ls
           rm -r ./*
           ls
     - uses: actions/checkout@v2
