@@ -12,7 +12,8 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    #- run: |
+    - run: |
+          pwd
      #     rm -r ./*
       #    ls
     - uses: actions/checkout@v2
