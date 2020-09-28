@@ -37,8 +37,8 @@ jobs:
             :pimApp:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest
             
-            archiveArtifacts 'Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk'
-            archiveArtifacts 'Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk'
+            #archiveArtifacts 'Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk'
+            #archiveArtifacts 'Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk'
             
 
     - name: Publish To Artifactory
