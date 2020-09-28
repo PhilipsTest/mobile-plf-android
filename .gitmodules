@@ -7,3 +7,8 @@
 	path = plf-common
 	url = ssh://tfsemea1.ta.philips.com:22/tfs/TPC_Region24/CDP2/_git/plf-common
 	branch = develop
+
+[submodule "mobile-plf-common"]
+	path = plf-common
+	url = ssh://tfsemea1.ta.philips.com:22/tfs/TPC_Region24/CDP2/_git/plf-common
+	branch = develop
