@@ -15,6 +15,7 @@ jobs:
     - run: |
           ls
           rm -r ./*
+          ls
     - uses: actions/checkout@v2
   
     - name: Build with Gradle
