@@ -13,10 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        ref: feature/GitHub_Actions
-        clean: true
-        submodules: false
+  
     - name: Build with Gradle
       run: ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
             :AppInfra:testReleaseUnitTest \
