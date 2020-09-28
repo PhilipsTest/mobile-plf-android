@@ -12,9 +12,9 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - run: |
-          rm -r ./*
-          ls
+    #- run: |
+     #     rm -r ./*
+      #    ls
     - uses: actions/checkout@v2
   
     - name: Build with Gradle
