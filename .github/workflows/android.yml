@@ -34,11 +34,8 @@ jobs:
             :mec:testReleaseUnitTest \
             :pimApp:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest
-            
             #archiveArtifacts 'Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk'
             #archiveArtifacts 'Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk'
-            
-
     - name: Publish To Artifactory
       run: ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
             apkname=`xargs < apkname.txt`
