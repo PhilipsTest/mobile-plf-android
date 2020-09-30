@@ -19,22 +19,22 @@ jobs:
     - uses: actions/checkout@v2
   
     - name: Build with Gradle
-      run: ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
-            :AppInfra:testReleaseUnitTest \
-            :uAppFwLib:testReleaseUnitTest \
-            :registrationApi:testReleaseUnitTest \
-            :product-registration-lib:testReleaseUnitTest \
-            :iap:testReleaseUnitTest \
-            :digitalCareUApp:testRelease \
-            :digitalCare:testRelease \
-            :mya:testReleaseUnitTest \
-            :pif:testReleaseUnitTest \
-            :pim:testReleaseUnitTest \
-            :conversationalChatBot:testReleaseUnitTest \
-            :philipsecommercesdk:testReleaseUnitTest \
-            :mec:testReleaseUnitTest \
-            :pimApp:testReleaseUnitTest \
-            :referenceApp:testReleaseUnitTest
+      run: ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease:referenceApp
+            #:AppInfra:testReleaseUnitTest \
+            #:uAppFwLib:testReleaseUnitTest \
+            #:registrationApi:testReleaseUnitTest \
+            #:product-registration-lib:testReleaseUnitTest \
+            #:iap:testReleaseUnitTest \
+            #:digitalCareUApp:testRelease \
+            #:digitalCare:testRelease \
+            #:mya:testReleaseUnitTest \
+            #:pif:testReleaseUnitTest \
+            #:pim:testReleaseUnitTest \
+            #:conversationalChatBot:testReleaseUnitTest \
+            #:philipsecommercesdk:testReleaseUnitTest \
+            #:mec:testReleaseUnitTest \
+            #:pimApp:testReleaseUnitTest \
+            #:referenceApp:testReleaseUnitTest
             #archiveArtifacts 'Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk'
             #archiveArtifacts 'Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk'
     - name: Publish To Artifactory
