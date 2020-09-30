@@ -17,9 +17,11 @@ jobs:
      #     rm -r ./*
       #    ls
     - uses: actions/checkout@v2
+        clean:true
   
     - name: Build with Gradle
       run: |
+          cd /Users/philips/StudioProjects/mobile-plf-android/
           pwd
           ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease:referenceApp
             #:AppInfra:testReleaseUnitTest \
