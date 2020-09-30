@@ -19,6 +19,7 @@ jobs:
       #    ls
     - uses: actions/checkout@v2
       with:
+        fetch-depth: 0
         clean: true
         submodules: true
         lfs: true
