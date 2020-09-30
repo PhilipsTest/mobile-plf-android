@@ -17,6 +17,9 @@ jobs:
      #     rm -r ./*
       #    ls
     - uses: actions/checkout@v2
+      with:
+        clean: true
+        submodules: true
   
     - name: Build & Test with Gradle
       run: |
