@@ -20,6 +20,7 @@ jobs:
       with:
         clean: true
         submodules: true
+        lfs: true
   
     - name: Build & Test with Gradle
       run: |
