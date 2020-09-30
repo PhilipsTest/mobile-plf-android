@@ -23,24 +23,24 @@ jobs:
   
     - name: Build & Test with Gradle
       run: |
-          cd /Users/philips/StudioProjects/mobile-plf-android/
+          #cd /Users/philips/StudioProjects/mobile-plf-android/
           pwd
           ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease:referenceApp:testReleaseUnitTest \
-            #:AppInfra:testReleaseUnitTest \
-            #:uAppFwLib:testReleaseUnitTest \
-            #:registrationApi:testReleaseUnitTest \
-            #:product-registration-lib:testReleaseUnitTest \
-            #:iap:testReleaseUnitTest \
-            #:digitalCareUApp:testRelease \
-            #:digitalCare:testRelease \
-            #:mya:testReleaseUnitTest \
-            #:pif:testReleaseUnitTest \
-            #:pim:testReleaseUnitTest \
-            #:conversationalChatBot:testReleaseUnitTest \
-            #:philipsecommercesdk:testReleaseUnitTest \
-            #:mec:testReleaseUnitTest \
-            #:pimApp:testReleaseUnitTest \
-            #:referenceApp:testReleaseUnitTest
+            :AppInfra:testReleaseUnitTest \
+            :uAppFwLib:testReleaseUnitTest \
+            :registrationApi:testReleaseUnitTest \
+            :product-registration-lib:testReleaseUnitTest \
+            :iap:testReleaseUnitTest \
+            :digitalCareUApp:testRelease \
+            :digitalCare:testRelease \
+            :mya:testReleaseUnitTest \
+            :pif:testReleaseUnitTest \
+            :pim:testReleaseUnitTest \
+            :conversationalChatBot:testReleaseUnitTest \
+            :philipsecommercesdk:testReleaseUnitTest \
+            :mec:testReleaseUnitTest \
+            :pimApp:testReleaseUnitTest \
+            :referenceApp:testReleaseUnitTest
     - name: Upload APK
       uses: actions/upload-artifact@v1
       with:
