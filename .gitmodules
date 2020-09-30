@@ -1,3 +1,8 @@
 [submodule "mobile-plf-common"]
 	path = mobile-plf-common
 	url = ssh://tfsemea1.ta.philips.com:22/tfs/TPC_Region02/Innersource/_git/mobile-plf-common
+
+[submodule "Source/usr/Documents/Internal/Localization"]
+	path = Source/usr/Documents/Internal/Localization
+	url = ssh://tfsemea1.ta.philips.com:22/tfs/TPC_Region24/CDP2/_git/usr-other-user-registration-localization
+	branch = develop
