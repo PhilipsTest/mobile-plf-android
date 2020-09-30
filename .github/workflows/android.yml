@@ -19,7 +19,9 @@ jobs:
     - uses: actions/checkout@v2
   
     - name: Build with Gradle
-      run: ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease:referenceApp
+      run: |
+          pwd
+          ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease:referenceApp
             #:AppInfra:testReleaseUnitTest \
             #:uAppFwLib:testReleaseUnitTest \
             #:registrationApi:testReleaseUnitTest \
