@@ -22,24 +22,24 @@ jobs:
       run: |
           cd /Users/philips/StudioProjects/mobile-plf-android/
           pwd
-          ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease:referenceApp
-            #:AppInfra:testReleaseUnitTest \
-            #:uAppFwLib:testReleaseUnitTest \
-            #:registrationApi:testReleaseUnitTest \
-            #:product-registration-lib:testReleaseUnitTest \
-            #:iap:testReleaseUnitTest \
-            #:digitalCareUApp:testRelease \
-            #:digitalCare:testRelease \
-            #:mya:testReleaseUnitTest \
-            #:pif:testReleaseUnitTest \
-            #:pim:testReleaseUnitTest \
-            #:conversationalChatBot:testReleaseUnitTest \
-            #:philipsecommercesdk:testReleaseUnitTest \
-            #:mec:testReleaseUnitTest \
-            #:pimApp:testReleaseUnitTest \
-            #:referenceApp:testReleaseUnitTest
-            #archiveArtifacts 'Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk'
-            #archiveArtifacts 'Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk'
+          ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
+            :AppInfra:testReleaseUnitTest \
+            :uAppFwLib:testReleaseUnitTest \
+            :registrationApi:testReleaseUnitTest \
+            :product-registration-lib:testReleaseUnitTest \
+            :iap:testReleaseUnitTest \
+            :digitalCareUApp:testRelease \
+            :digitalCare:testRelease \
+            :mya:testReleaseUnitTest \
+            :pif:testReleaseUnitTest \
+            :pim:testReleaseUnitTest \
+            :conversationalChatBot:testReleaseUnitTest \
+            :philipsecommercesdk:testReleaseUnitTest \
+            :mec:testReleaseUnitTest \
+            :pimApp:testReleaseUnitTest \
+            :referenceApp:testReleaseUnitTest
+            archiveArtifacts 'Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk'
+            archiveArtifacts 'Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk'
     - name: Publish To Artifactory
       run: ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
             apkname=`xargs < apkname.txt`
