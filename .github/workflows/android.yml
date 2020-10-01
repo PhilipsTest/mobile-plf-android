@@ -13,10 +13,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - run: |
-          pwd
-     #     rm -r ./*
-      #    ls
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
@@ -26,7 +22,6 @@ jobs:
   
     - name: Build & Test with Gradle
       run: |
-          #cd /Users/philips/StudioProjects/mobile-plf-android/
           pwd
           ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease:referenceApp:testReleaseUnitTest \
             :AppInfra:testReleaseUnitTest \
