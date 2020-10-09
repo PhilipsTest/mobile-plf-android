@@ -16,25 +16,30 @@ jobs:
         clean: true
         submodules: true
         lfs: true
-  
+
     - name: Build & Test with Gradle
       run: |
-        ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease:referenceApp:testReleaseUnitTest \
-          :AppInfra:testReleaseUnitTest \
-          :uAppFwLib:testReleaseUnitTest \
-          :registrationApi:testReleaseUnitTest \
-          :product-registration-lib:testReleaseUnitTest \
-          :iap:testReleaseUnitTest \
-          :digitalCareUApp:testRelease \
-          :digitalCare:testRelease \
-          :mya:testReleaseUnitTest \
-          :pif:testReleaseUnitTest \
-          :pim:testReleaseUnitTest \
-          :conversationalChatBot:testReleaseUnitTest \
-          :philipsecommercesdk:testReleaseUnitTest \
-          :mec:testReleaseUnitTest \
-          :pimApp:testReleaseUnitTest \
-          :referenceApp:testReleaseUnitTest
+        ./gradlew clean 
+    
+    - name: Build & Test with Gradle
+      run: |
+        ./gradlew --refresh-dependencies --full-stacktrace assembleRelease:referenceApp:testReleaseUnitTest \
+        :AppInfra:testReleaseUnitTest \
+        :uAppFwLib:testReleaseUnitTest \
+        :registrationApi:testReleaseUnitTest \
+        :product-registration-lib:testReleaseUnitTest \
+        :iap:testReleaseUnitTest \
+        :digitalCareUApp:testRelease \
+        :digitalCare:testRelease \
+        :mya:testReleaseUnitTest \
+        :pif:testReleaseUnitTest \
+        :pim:testReleaseUnitTest \
+        :conversationalChatBot:testReleaseUnitTest \
+        :philipsecommercesdk:testReleaseUnitTest \
+        :mec:testReleaseUnitTest \
+        :pimApp:testReleaseUnitTest \
+        :referenceApp:testReleaseUnitTest
+    
     - name: Upload APK
       uses: actions/upload-artifact@v1
       with:
