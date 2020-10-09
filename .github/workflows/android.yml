@@ -23,20 +23,20 @@ jobs:
     
     - name: Build & Test with Gradle
       run: |
-        ./gradlew --full-stacktrace assembleRelease referenceApp:testReleaseUnitTest
+        ./gradlew --full-stacktrace assembleRelease referenceApp:testReleaseUnitTest AppInfra:testReleaseUnitTest uAppFwLib:testReleaseUnitTest registrationApi:testReleaseUnitTest
 
     
     - name: Upload APK
       uses: actions/upload-artifact@v1
       with:
         name: app
-        path: Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
-              Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
+        path: | 
+          ${{github.workspace}}/**/*.apk
             
-    - name: Publish To Artifactory
-      run: |
-          ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
-            apkname=`xargs < apkname.txt`
-          ./gradlew -Dorg.gradle.parallel=false reportAllProjectDependencies | gzip -9 > ./allProjects.gradledependencies.gz
-            curl -L -u readerwriter:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT "apkname/.apk/.gradledependencies.gz" -T ./allProjects.gradledependencies.gz
+    # - name: Publish To Artifactory
+    #   run: |
+    #       ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs 
+    #         apkname=`xargs < apkname.txt`
+    #       ./gradlew -Dorg.gradle.parallel=false reportAllProjectDependencies | gzip -9 > ./allProjects.gradledependencies.gz
+    #         curl -L -u readerwriter:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT "apkname/.apk/.gradledependencies.gz" -T ./allProjects.gradledependencies.gz
 
