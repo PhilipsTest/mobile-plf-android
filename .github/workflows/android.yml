@@ -23,7 +23,7 @@ jobs:
     
     - name: Build & Test with Gradle
       run: |
-        ./gradlew --full-stacktrace assembleRelease referenceApp:testReleaseUnitTest AppInfra:testReleaseUnitTest uAppFwLib:testReleaseUnitTest registrationApi:testReleaseUnitTest
+        ./gradlew --full-stacktrace assembleRelease referenceApp:testReleaseUnitTest AppInfra:testReleaseUnitTest uAppFwLib:testReleaseUnitTest registrationApi:testReleaseUnitTest product-registration-lib:testReleaseUnitTest iap:testReleaseUnitTest digitalCareUApp:testRelease digitalCare:testRelease mya:testReleaseUnitTest pif:testReleaseUnitTest pim:testReleaseUnitTest conversationalChatBot:testReleaseUnitTest philipsecommercesdk:testReleaseUnitTest mec:testReleaseUnitTest pimApp:testReleaseUnitTest referenceApp:testReleaseUnitTest
 
     
     - name: Upload APK
@@ -31,7 +31,7 @@ jobs:
       with:
         name: app
         path: | 
-          ${{github.workspace}}/**/*.apk
+          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
             
     # - name: Publish To Artifactory
     #   run: |
