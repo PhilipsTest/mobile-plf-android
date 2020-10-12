@@ -14,3 +14,9 @@ jobs:
     - name: path to apk folder
       run: |
         ls ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release
+    
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: sample
+        path: ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release
