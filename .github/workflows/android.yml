@@ -46,12 +46,13 @@ jobs:
             :referenceApp:testReleaseUnitTest
 
     - name: Upload APK
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2.2.0
       with:
         name: APK's for ReferenceApp & PIMDemoApp
         path: |
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
           ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
+    
             
     #- name: Publish To Artifactory
      # run: |
