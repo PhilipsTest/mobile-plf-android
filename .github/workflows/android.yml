@@ -2,7 +2,7 @@ name: Android CI
 
 on:
   push:
-    branches: [ akshay-test ]
+    branches: [ akshay-test1 ]
 
 jobs:
   build:
