@@ -7,7 +7,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v2
@@ -25,7 +25,12 @@ jobs:
       run: |
         ./gradlew --full-stacktrace assembleRelease referenceApp:testReleaseUnitTest AppInfra:testReleaseUnitTest uAppFwLib:testReleaseUnitTest registrationApi:testReleaseUnitTest product-registration-lib:testReleaseUnitTest iap:testReleaseUnitTest digitalCareUApp:testRelease digitalCare:testRelease mya:testReleaseUnitTest pif:testReleaseUnitTest pim:testReleaseUnitTest conversationalChatBot:testReleaseUnitTest philipsecommercesdk:testReleaseUnitTest mec:testReleaseUnitTest pimApp:testReleaseUnitTest referenceApp:testReleaseUnitTest
 
-    
+    - name: path to apk folder
+      run: |
+        pwd
+        echo ${{github.workspace}}
+        ls ${{github.workspace}}
+     
     - name: Upload APK
       uses: actions/upload-artifact@v1
       with:
