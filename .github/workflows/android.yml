@@ -6,6 +6,8 @@ on:
     branches: [ feature/GitHub_Actions ]
   pull_request:
     branches: [ develop ]
+  schedule:
+  - cron:  '*/15 * * * 1-5'
 
 jobs:
   build:
@@ -43,12 +45,13 @@ jobs:
             :pimApp:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest
 
-    #- name: Upload APK
-     # uses: actions/upload-artifact@v1
-      #with:
-       # name: app
-        #path: Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
-         #     Source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
+    - name: Upload APK
+      uses: actions/upload-artifact@v1
+      with:
+        name: APK's for ReferenceApp & PIMDemoApp
+        path: |
+          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
+          ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
             
     #- name: Publish To Artifactory
      # run: |
