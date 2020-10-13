@@ -55,7 +55,7 @@ jobs:
     
     
     - name: Publish To Artifactory
-      if: contains(github.ref, "release/*")        
+      if: contains(github.ref, 'release/*')        
       run: |
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
 
