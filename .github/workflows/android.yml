@@ -3,11 +3,12 @@ name: Android CI
 on:
   workflow_dispatch:
   push:
-    branches: [ master, develop, feature/*, release/*]
+    branches: ['*']
   pull_request:
     branches: [ develop ]
   
   #Set your workflow to run every day of the week from Monday to Friday at 16:00 UTC(9:30 PM)
+  if: contains(github.ref, 'develop*''release/platform_*')
   schedule:
   - cron:  0 16 * * 1-5
 
