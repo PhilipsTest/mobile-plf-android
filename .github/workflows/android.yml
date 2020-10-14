@@ -3,12 +3,13 @@ name: Android CI
 on:
   workflow_dispatch:
   push:
-    branches:
-      - '*' 
+    branches: [ master, develop, feature/*, release/*]
   pull_request:
     branches: [ develop ]
+  
+  #Set your workflow to run every day of the week from Monday to Friday at 16:00 UTC(9:30 PM)
   schedule:
-  - cron:  '*/15 * * * 1-5'
+  - cron:  0 16 * * 1-5
 
 jobs:
   build:
@@ -60,9 +61,4 @@ jobs:
       run: |
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
 
-    - name: Super-Linter
-      uses: github/super-linter@v3.13.0
-      env:
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: feature/GitHub_Actions
     
