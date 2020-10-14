@@ -3,9 +3,9 @@ name: Android CI
 on:
   workflow_dispatch:
   push:
-    branches: ['*']
+    branches: [ feature/GitHub_Actions ]
   pull_request:
-    branches: ['*']
+    branches: [ develop ]
   schedule:
   - cron:  '*/15 * * * 1-5'
 
