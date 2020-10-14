@@ -3,7 +3,7 @@ name: Android CI
 on:
   workflow_dispatch:
   push:
-    branches: [ '*' ]
+    branches: [ master develop feature/* release/* ]
   pull_request:
     branches: [ develop ]
   
