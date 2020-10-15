@@ -4,8 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       PSRA:
-        description: 'Trigger this only for PSRA builds'
+        description: 'PSRA builds'
         required: false
+        default: false
          
     
   push:
@@ -20,7 +21,6 @@ on:
 
 jobs:
   build:
-    if: ${{github.event.inputs.PSRA}}==true
     runs-on: self-hosted
 
     steps:
@@ -67,5 +67,24 @@ jobs:
       if: contains(github.ref, 'develop*''release/platform_*')        
       run: |
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
+  
+  PSRA:
+    if: ${{github.event.inputs.PSRA}}==true
+    runs-on: self-hosted
+    
+    steps:
+    - name: PSRA
+      run: |
+          ./gradlew referenceApp:assemblePsraRelease
+          ./gradlew pimApp:assemblePsraRelease
+    
+    - name: Upload APK
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: APK's for ReferenceApp & PIMDemoApp
+        path: |
+          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/psraRelease/referenceApp-psraRelease.apk
+          ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
+    
 
     
