@@ -2,6 +2,12 @@ name: Android CI
 
 on:
   workflow_dispatch:
+    inputs:
+      PSRA:
+        description: 'Trigger this only for PSRA builds'
+        required: false
+         
+    
   push:
     branches:
       - '**'
@@ -14,7 +20,7 @@ on:
 
 jobs:
   build:
-
+    if: ${{github.event.inputs.PSRA}}==true
     runs-on: self-hosted
 
     steps:
