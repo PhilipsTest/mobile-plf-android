@@ -13,7 +13,7 @@ on:
     branches:
       - '**'
   pull_request:
-    branches: [ akshay-test ]
+    branches: [ Test_PR ]
   
   #Set your workflow to run every day of the week from Monday to Friday at 16:00 UTC(9:30 PM)
   schedule:
