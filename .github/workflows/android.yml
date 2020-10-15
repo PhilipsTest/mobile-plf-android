@@ -5,7 +5,7 @@ on:
     inputs:
       PSRA:
         description: 'PSRA builds'
-        required: true
+        required: false
         default: false
          
     
@@ -20,54 +20,6 @@ on:
   - cron:  0 16 * * 1-5
 
 jobs:
-  build:
-    runs-on: self-hosted
-
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-        clean: true
-        submodules: true
-        lfs: true
-  
-    - name: Build & Test with Gradle
-      run: |
-          #!/bin/bash -l
-          set -e
-          /bin/chmod -R 755 .
-          pwd
-          ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
-            :AppInfra:testReleaseUnitTest \
-            :uAppFwLib:testReleaseUnitTest \
-            :registrationApi:testReleaseUnitTest \
-            :product-registration-lib:testReleaseUnitTest \
-            :iap:testReleaseUnitTest \
-            :digitalCareUApp:testRelease \
-            :digitalCare:testRelease \
-            :mya:testReleaseUnitTest \
-            :pif:testReleaseUnitTest \
-            :pim:testReleaseUnitTest \
-            :conversationalChatBot:testReleaseUnitTest \
-            :philipsecommercesdk:testReleaseUnitTest \
-            :mec:testReleaseUnitTest \
-            :pimApp:testReleaseUnitTest \
-            :referenceApp:testReleaseUnitTest
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v2.2.0
-      with:
-        name: APK's for ReferenceApp & PIMDemoApp
-        path: |
-          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
-          ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
-    
-    #publish to artifactory only for master,develop and release/platform_*
-    - name: Publish To Artifactory
-      if: contains(github.ref, 'develop*''release/platform_*')        
-      run: |
-          ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
-  
   PSRA:
     if: ${{github.event.inputs.PSRA}}==true
     runs-on: self-hosted
