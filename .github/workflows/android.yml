@@ -21,7 +21,7 @@ on:
 
 jobs:
   PSRA:
-    if: ${{github.event.inputs.PSRA}}==true
+    if: ${{github.event.inputs.PSRA}} == 'true'
     runs-on: self-hosted
     
     steps:
