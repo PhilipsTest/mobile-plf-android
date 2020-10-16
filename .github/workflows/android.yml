@@ -4,11 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       PSRA:
-        description: 'PSRA builds'
-        required: true
+        description: 'Build with PSRA'
+        required: false
+        default: false
+      LeakCanary:
+        description: 'Build with LeakCanary'
+        required: false
         default: false
          
-    
+#Test the push  
   push:
     branches:
       - '**'
@@ -20,7 +24,7 @@ on:
   - cron:  0 16 * * 1-5
 
 jobs:
-  build:
+  Build:
     runs-on: self-hosted
 
     steps:
@@ -53,7 +57,7 @@ jobs:
             :mec:testReleaseUnitTest \
             :pimApp:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest
-
+    
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
       with:
@@ -68,12 +72,12 @@ jobs:
       run: |
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
   
-  PSRA:
-    if: ${{github.event.inputs.PSRA}}==true
+  PSRA-Build:
+    if: github.event.inputs.PSRA == true
     runs-on: self-hosted
     
     steps:
-    - name: PSRA
+    - name: PSRABuildTest
       run: |
           ./gradlew referenceApp:assemblePsraRelease
           ./gradlew pimApp:assemblePsraRelease
@@ -85,6 +89,16 @@ jobs:
         path: |
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/psraRelease/referenceApp-psraRelease.apk
           ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
+   
+  LeakCanary-Build:
+    if: github.event.inputs.LeakCanary == true
+    runs-on: self-hosted
+    
+    steps:
+    - name: LeakCanaryBuildTest
+      run: |
+           ./gradlew referenceApp:assembleLeakCanary
+           ./gradlew pimApp:assembleLeakCanary
     
 
     
