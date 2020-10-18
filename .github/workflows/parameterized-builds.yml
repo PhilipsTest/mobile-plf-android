@@ -5,20 +5,20 @@ on:
     inputs:
       PSRA:
         description: 'PSRA builds Test'
-        required: false
+        required: true
         default: false
       LeakCanary:
         description: 'LeakCanary builds Test'
         required: false
         default: false
           
-#Set your workflow to run every day of the week from Monday to Friday at 16:00 UTC(9:30 PM)
+#Set your workflow to run every day of the week at 18:00 UTC(11:30 PM)
   schedule:  
-  - cron:  0 18 * * 1-5
+  - cron:  0 18 * * 0-6
   
 jobs:
   PSRA-Build:
-    if: ${{github.event.inputs.PSRA}}==true
+    if: github.event.inputs.PSRA==true
     runs-on: self-hosted
     
     steps:
@@ -36,7 +36,7 @@ jobs:
           ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/psraRelease/pimApp-psraRelease.apk
 
   LeakCanary-Build:
-    if: ${{github.event.inputs.LeakCanary}}==true
+    if: github.event.inputs.LeakCanary==true
     runs-on: self-hosted
     
     steps:
