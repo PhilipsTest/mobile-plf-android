@@ -72,7 +72,7 @@ jobs:
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
   
   PSRA-Build:
-    if: github.event.inputs.PSRA == true
+    if: github.event.inputs.PSRA == true || github.event_name == 'schedule'
     runs-on: self-hosted
     
     steps:
