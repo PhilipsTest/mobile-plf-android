@@ -24,7 +24,7 @@ on:
   
   #Set your workflow to run every day of the week at 17:00 UTC(10:30 PM)
   schedule:
-  - cron:  0 2 * * 0-6
+  - cron:  0 8 * * 0-6
 
 jobs:
   Build:
