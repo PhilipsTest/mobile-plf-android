@@ -108,6 +108,9 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: HP-Fortify-Build
-      run: ./fortify.sh
+      shell: bash
+      run: |
+          chmod a+rwx
+          ./fortify.sh
 
     
