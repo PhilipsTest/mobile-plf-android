@@ -11,6 +11,10 @@ on:
         description: 'Build with LeakCanary'
         required: false
         default: false
+      HPFortify:
+        description: 'HP-Fortify'
+        required: false
+        default: false
            
   push:
     branches:
@@ -20,7 +24,7 @@ on:
   
   #Set your workflow to run every day of the week at 17:00 UTC(10:30 PM)
   schedule:
-  - cron:  0 17 * * 0-6
+  - cron:  0 8 * * 0-6
 
 jobs:
   Build:
@@ -72,7 +76,7 @@ jobs:
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
   
   PSRA-Build:
-    if: github.event.inputs.PSRA == true
+    if: github.event.inputs.PSRA == true || github.event_name == 'schedule'
     runs-on: self-hosted
     
     steps:
@@ -98,6 +102,12 @@ jobs:
       run: |
            ./gradlew referenceApp:assembleLeakCanary
            ./gradlew pimApp:assembleLeakCanary
-    
+ 
+  HPFortify-Build:
+    if: github.event.inputs.HPFortify == true || github.event_name == 'schedule'
+    runs-on: self-hosted
+    steps:
+    - name: HP-Fortify-Build
+      run: ./fortify.sh
 
     
