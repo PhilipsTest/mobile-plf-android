@@ -14,6 +14,7 @@ on:
       HPFortify:
         description: 'HP-Fortify'
         required: false
+        default: false
       JavaDocs:
         description: 'Java-Docs'
         required: false
@@ -56,19 +57,38 @@ jobs:
     #publish to artifactory only for master,develop and release/platform_*
     - name: Publish To Artifactory
       if: contains(github.ref, 'master''develop*''release/platform_*')        
+      shell: bash
       run: |
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
   
-    #- name: Jacoco Reports
-     # shell: bash
-      #run: |
-       #    ./gradlew test
-        #   ./gradlew jacocoTestReport
-           
-  PSRA-Build:
-    if: github.event.inputs.PSRA == true || github.event_name == 'schedule'
-    runs-on: self-hosted
+    - name: Jacoco Reports
+      shell: bash
+      run: |
+           ./gradlew test
+           ./gradlew jacocoTestReport
     
+    - name: Lint
+      shell: bash
+      run: |
+           ./gradlew  \
+            :AppInfra:lint \
+            :securedblibrary:lint \
+            :pim:lint \
+            :conversationalChatBot:lint \
+            :registrationApi:lint \
+            :productselection:lint \
+            :product-registration-lib:lint \
+            :iap:lint \
+            :digitalCare:lint \
+            :mya:lint \
+            :pif:lint \
+            :themesettings:lintRelease
+            #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
+            
+  PSRA-Build:
+    if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
+    needs: Build
+    runs-on: self-hosted
     steps:
     - name: PSRABuildTest
       run: |
@@ -78,15 +98,14 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
       with:
-        name: APK's for ReferenceApp & PIMDemoApp
+        name: PSRA APK's for ReferenceApp & PIMDemoApp
         path: |
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/psraRelease/referenceApp-psraRelease.apk
           ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
    
   LeakCanary-Build:
-    if: github.event.inputs.LeakCanary == true
+    if: github.event.inputs.LeakCanary == 'true'
     runs-on: self-hosted
-    
     steps:
     - name: LeakCanaryBuildTest
       run: |
@@ -94,14 +113,16 @@ jobs:
            ./gradlew pimApp:assembleLeakCanary
  
   HPFortify-Build:
-    if: github.event.inputs.HPFortify == 'true'
+    if: github.event.inputs.HPFortify == 'true' || github.event_name == 'schedule'
     runs-on: self-hosted
     steps:
     - name: HP-Fortify-Build
+      shell: bash
       run: ./fortify.sh
   
   JAVA-Docs:
-    if: github.event.inputs.JavaDocs == true
+    if: github.event.inputs.JavaDocs == 'true'
+    needs: Build
     runs-on: self-hosted
     steps:
     - name: GenerateJavaDocs
