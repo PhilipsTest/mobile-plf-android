@@ -95,7 +95,7 @@ jobs:
            ./gradlew pimApp:assembleLeakCanary
  
   HPFortify-Build:
-    if: github.event.inputs.HPFortify == true || github.event_name == 'schedule'
+    if: github.event.inputs.HPFortify == true
     runs-on: self-hosted
     steps:
     - name: HP-Fortify-Build
