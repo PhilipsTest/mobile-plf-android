@@ -14,7 +14,6 @@ on:
       HPFortify:
         description: 'HP-Fortify'
         required: false
-        default: false
       JavaDocs:
         description: 'Java-Docs'
         required: false
