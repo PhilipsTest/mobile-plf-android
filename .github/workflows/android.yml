@@ -13,7 +13,7 @@ on:
         default: false
       HPFortify:
         description: 'HP-Fortify'
-        required: true
+        required: false
         default: false
       JavaDocs:
         description: 'Java-Docs'
@@ -44,26 +44,7 @@ jobs:
   
     - name: Build & Test with Gradle
       run: |
-          #!/bin/bash -l
-          set -e
-          /bin/chmod -R 755 .
-          pwd
-          ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
-            :AppInfra:testReleaseUnitTest \
-            :uAppFwLib:testReleaseUnitTest \
-            :registrationApi:testReleaseUnitTest \
-            :product-registration-lib:testReleaseUnitTest \
-            :iap:testReleaseUnitTest \
-            :digitalCareUApp:testRelease \
-            :digitalCare:testRelease \
-            :mya:testReleaseUnitTest \
-            :pif:testReleaseUnitTest \
-            :pim:testReleaseUnitTest \
-            :conversationalChatBot:testReleaseUnitTest \
-            :philipsecommercesdk:testReleaseUnitTest \
-            :mec:testReleaseUnitTest \
-            :pimApp:testReleaseUnitTest \
-            :referenceApp:testReleaseUnitTest
+           echo 'Running' 
     
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
@@ -79,11 +60,11 @@ jobs:
       run: |
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
   
-    - name: Jacoco Reports
-      shell: bash
-      run: |
-           ./gradlew test
-           ./gradlew jacocoTestReport
+    #- name: Jacoco Reports
+     # shell: bash
+      #run: |
+       #    ./gradlew test
+        #   ./gradlew jacocoTestReport
            
   PSRA-Build:
     if: github.event.inputs.PSRA == true || github.event_name == 'schedule'
