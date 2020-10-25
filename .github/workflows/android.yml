@@ -15,6 +15,10 @@ on:
         description: 'HP-Fortify'
         required: false
         default: false
+      JavaDocs:
+        description: 'Java-Docs'
+        required: false
+        default: false
            
   push:
     branches:
@@ -24,14 +28,14 @@ on:
   
   #Set your workflow to run every day of the week at 17:00 UTC(10:30 PM)
   schedule:
-  - cron:  0 8 * * 0-6
+  - cron:  0 17 * * 0-6
 
 jobs:
   Build:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.3
       with:
         fetch-depth: 0
         clean: true
@@ -40,26 +44,7 @@ jobs:
   
     - name: Build & Test with Gradle
       run: |
-          #!/bin/bash -l
-          set -e
-          /bin/chmod -R 755 .
-          pwd
-          ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
-            :AppInfra:testReleaseUnitTest \
-            :uAppFwLib:testReleaseUnitTest \
-            :registrationApi:testReleaseUnitTest \
-            :product-registration-lib:testReleaseUnitTest \
-            :iap:testReleaseUnitTest \
-            :digitalCareUApp:testRelease \
-            :digitalCare:testRelease \
-            :mya:testReleaseUnitTest \
-            :pif:testReleaseUnitTest \
-            :pim:testReleaseUnitTest \
-            :conversationalChatBot:testReleaseUnitTest \
-            :philipsecommercesdk:testReleaseUnitTest \
-            :mec:testReleaseUnitTest \
-            :pimApp:testReleaseUnitTest \
-            :referenceApp:testReleaseUnitTest
+           echo 'Running' 
     
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
@@ -71,14 +56,39 @@ jobs:
     
     #publish to artifactory only for master,develop and release/platform_*
     - name: Publish To Artifactory
-      if: contains(github.ref, 'develop*''release/platform_*')        
+      if: contains(github.ref, 'master''develop*''release/platform_*')        
+      shell: bash
       run: |
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
   
-  PSRA-Build:
-    if: github.event.inputs.PSRA == true || github.event_name == 'schedule'
-    runs-on: self-hosted
+    - name: Jacoco Reports
+      shell: bash
+      run: |
+           ./gradlew test
+           ./gradlew jacocoTestReport
     
+    - name: Lint
+      shell: bash
+      run: |
+           ./gradlew  \
+            :AppInfra:lint \
+            :securedblibrary:lint \
+            :pim:lint \
+            :conversationalChatBot:lint \
+            :registrationApi:lint \
+            :productselection:lint \
+            :product-registration-lib:lint \
+            :iap:lint \
+            :digitalCare:lint \
+            :mya:lint \
+            :pif:lint \
+            :themesettings:lintRelease
+            #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
+            
+  PSRA-Build:
+    if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
+    needs: Build
+    runs-on: self-hosted
     steps:
     - name: PSRABuildTest
       run: |
@@ -88,15 +98,14 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
       with:
-        name: APK's for ReferenceApp & PIMDemoApp
+        name: PSRA APK's for ReferenceApp & PIMDemoApp
         path: |
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/psraRelease/referenceApp-psraRelease.apk
           ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
    
   LeakCanary-Build:
-    if: github.event.inputs.LeakCanary == true
+    if: github.event.inputs.LeakCanary == 'true'
     runs-on: self-hosted
-    
     steps:
     - name: LeakCanaryBuildTest
       run: |
@@ -104,7 +113,7 @@ jobs:
            ./gradlew pimApp:assembleLeakCanary
  
   HPFortify-Build:
-    if: github.event.inputs.HPFortify == true || github.event_name == 'schedule'
+    if: github.event.inputs.HPFortify == 'true' || github.event_name == 'schedule'
     runs-on: self-hosted
     steps:
     - name: HP-Fortify-Build
@@ -112,5 +121,27 @@ jobs:
       run: |
           chmod a+rwx
           ./fortify.sh
+  
+  JAVA-Docs:
+    if: github.event.inputs.JavaDocs == 'true'
+    needs: Build
+    runs-on: self-hosted
+    steps:
+    - name: GenerateJavaDocs
+      shell: bash
+      run: |
+           ./gradlew :AppInfra:generateJavadocPublicApi \
+           :securedblibrary:generateJavadocPublicApi \
+           :registrationApi:generateJavadocPublicApi \
+           :pim:generateJavadocPublicApi \
+           :conversationalChatBot:generateJavadocPublicApi \
+           :productselection:generateJavadocPublicApi \
+           :pif:generateJavadocPublicApi \
+           :digitalCare:generateJavadocPublicApi \
+           :iap:generateJavadocPublicApi \
+           :product-registration-lib:generateJavadocPublicApi \
+           :philipsecommercesdk:generateJavadocPublicApi \
+           :referenceApp:generateJavadocPublicApi \ 
+
 
     
