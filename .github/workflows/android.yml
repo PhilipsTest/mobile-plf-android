@@ -95,6 +95,18 @@ jobs:
           ./gradlew referenceApp:assemblePsraRelease
           ./gradlew pimApp:assemblePsraRelease
     
+    #print referenceApp artifactory path
+    #fetch apk name from apkname.txt file which is generated in reference app's build.gradle
+    #flushing psra apk to specified path
+    - name: Publish PSRA apk
+      shell: bash
+      run: |
+           ./gradlew :referenceApp:printArtifactoryApkPath
+           apkname=`xargs < apkname.txt`
+           PSRA_APK_NAME=${apkname/.apk/_PSRA.apk}
+           curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT ${PSRA_APK_NAME} -T Source/rap/Source/AppFramework/appFramework/build/outputs/apk/psraRelease/referenceApp-psraRelease.apk
+           curl -L -u 320049003:AP4ZB7JSmiC4pZmeKfKTGLsFvV9 -X PUT ${PSRA_APK_NAME} -T Source/pim/Source/DemoApp/app/build/outputs/apk/psraRelease/pimApp-psraRelease.apk
+    
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
       with:
