@@ -118,7 +118,9 @@ jobs:
     steps:
     - name: HP-Fortify-Build
       shell: bash
-      run: ./fortify.sh
+      run: |
+          chmod a+rwx
+          ./fortify.sh
   
   JAVA-Docs:
     if: github.event.inputs.JavaDocs == 'true'
@@ -140,5 +142,6 @@ jobs:
            :product-registration-lib:generateJavadocPublicApi \
            :philipsecommercesdk:generateJavadocPublicApi \
            :referenceApp:generateJavadocPublicApi \ 
+
 
     
