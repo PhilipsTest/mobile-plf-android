@@ -4,11 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       PSRA:
-        description: 'PSRA builds Test'
-        required: true
+        description: 'PSRA'
+        required: false
         default: false
       LeakCanary:
-        description: 'LeakCanary builds Test'
+        description: 'LeakCanary'
+        required: false
+        default: false
+      HPFortify:
+        description: 'HP-Fortify'
+        required: false
+        default: false
+      JavaDocs:
+        description: 'Java-Docs'
         required: false
         default: false
           
@@ -18,11 +26,11 @@ on:
   
 jobs:
   PSRA-Build:
-    if: github.event.inputs.PSRA==true
+    if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
     runs-on: self-hosted
-    
     steps:
     - name: PSRA build for RAP
+      shell: bash
       run: |
           ./gradlew referenceApp:assemblePsraRelease
           ./gradlew pimApp:assemblePsraRelease
@@ -30,17 +38,48 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
       with:
-        name: APK's for ReferenceApp & PIMDemoApp
+        name: PSRA APK's for ReferenceApp & PIMDemoApp
         path: |
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/psraRelease/referenceApp-psraRelease.apk
           ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/psraRelease/pimApp-psraRelease.apk
 
   LeakCanary-Build:
-    if: github.event.inputs.LeakCanary==true
+    if: github.event.inputs.LeakCanary == 'true'
     runs-on: self-hosted
-    
     steps:
     - name: LeakCanaryBuild
+      shell: bash
       run: |
            ./gradlew referenceApp:assembleLeakCanary
            ./gradlew pimApp:assembleLeakCanary
+  
+  HPFortify-Build:
+    if: github.event.inputs.HPFortify == 'true' || github.event_name == 'schedule'
+    runs-on: self-hosted
+    steps:
+    - name: HP-Fortify-Build
+      shell: bash
+      run: |
+          chmod a+rwx
+          ./fortify.sh
+  
+  JAVA-Docs:
+    if: github.event.inputs.JavaDocs == 'true'
+    #needs: Build
+    runs-on: self-hosted
+    steps:
+    - name: GenerateJavaDocs
+      shell: bash
+      run: |
+           ./gradlew :AppInfra:generateJavadocPublicApi \
+           :securedblibrary:generateJavadocPublicApi \
+           :registrationApi:generateJavadocPublicApi \
+           :pim:generateJavadocPublicApi \
+           :conversationalChatBot:generateJavadocPublicApi \
+           :productselection:generateJavadocPublicApi \
+           :pif:generateJavadocPublicApi \
+           :digitalCare:generateJavadocPublicApi \
+           :iap:generateJavadocPublicApi \
+           :product-registration-lib:generateJavadocPublicApi \
+           :philipsecommercesdk:generateJavadocPublicApi \
+           :referenceApp:generateJavadocPublicApi \
