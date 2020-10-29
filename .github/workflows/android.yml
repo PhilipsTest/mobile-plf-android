@@ -59,7 +59,7 @@ jobs:
       if: 
         contains('
           refs/heads/master
-          refs/heads/develop*
+          refs/heads/develop
           refs/heads/release/platform_*
           ', github.ref)
       #if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop*' || github.ref == 'refs/heads/release/platform_*'
