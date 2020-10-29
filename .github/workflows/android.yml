@@ -56,7 +56,7 @@ jobs:
     
     #publish to artifactory only for master,develop and release/platform_*
     - name: Publish To Artifactory
-      if: contains(github.ref,'feature/GitHub_Actions')        
+      if: contains(github.ref,'master''develop''feature/GitHub_Actions''release/platf_*')        
       shell: bash
       run: |
           ./gradlew --full-stacktrace saveResDep saveAllResolvedDependenciesGradleFormat zipDocuments artifactoryPublish :referenceApp:printArtifactoryApkPath :AppInfra:zipcClogs :securedblibrary:zipcClogs :pim:zipcClogs :conversationalChatBot:zipcClogs :registrationApi:zipcClogs :productselection:zipcClogs :digitalCareUApp:zipcClogs :digitalCare:zipcClogs :pimApp:zipcClogs
