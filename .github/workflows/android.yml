@@ -62,7 +62,7 @@ jobs:
          # refs/heads/develop
           #refs/heads/release/platform_*
           #', github.ref)
-      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/release/platform_*'
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/release/platform_'
       #if: contains(github.ref,'master') || contains(github.ref,'develop') || contains(github.ref,'release/platform_')        
       shell: bash
       run: |
