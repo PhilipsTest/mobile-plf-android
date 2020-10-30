@@ -26,9 +26,9 @@ on:
   pull_request:
     branches: [ feature/GitHub_Actions ]
   
-  #Set your workflow to run every day of the week at 17:00 UTC(10:30 PM)
+  #Set your workflow to run every day of the week at 21:00 UTC(2:30 AM)
   schedule:
-  - cron:  0 17 * * 0-6
+  - cron:  0 21 * * 0-6
 
 jobs:
   Build:
@@ -131,7 +131,7 @@ jobs:
     - name: HP-Fortify-Build
       shell: bash
       run: |
-          chmod a+rwx
+          chmod -R 755 .
           ./fortify.sh
   
   JAVA-Docs:
