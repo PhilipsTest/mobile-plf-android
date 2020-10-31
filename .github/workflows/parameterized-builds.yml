@@ -26,7 +26,7 @@ on:
   
 jobs:
   PSRA-Build:
-    if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
+    if: github.event.inputs.PSRA == 'true' #|| github.event_name == 'schedule'
     runs-on: self-hosted
     
     steps:
@@ -103,7 +103,7 @@ jobs:
            :referenceApp:generateJavadocPublicApi \
    
   HPFortify-Build:
-    if: github.event.inputs.HPFortify == 'true' || github.event_name == 'schedule'
+    if: github.event.inputs.HPFortify == 'true' #|| github.event_name == 'schedule'
     runs-on: self-hosted
     
     steps:
