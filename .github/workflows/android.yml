@@ -86,7 +86,7 @@ jobs:
             #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
             
   PSRA-Build:
-    if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
+    if: github.event.inputs.PSRA == 'true' #|| github.event_name == 'schedule'
     needs: Build
     runs-on: self-hosted
     steps:
@@ -125,7 +125,7 @@ jobs:
            ./gradlew pimApp:assembleLeakCanary
  
   HPFortify-Build:
-    if: github.event.inputs.HPFortify == 'true' || github.event_name == 'schedule'
+    if: github.event.inputs.HPFortify == 'true' #|| github.event_name == 'schedule'
     runs-on: self-hosted
     steps:
     - name: HP-Fortify-Build
