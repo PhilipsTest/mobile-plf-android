@@ -23,8 +23,8 @@ on:
   push:
     branches:
       - '**'
-  pull_request:
-    branches: [ feature/GitHub_Actions ]
+  #pull_request:
+   # branches: [ feature/GitHub_Actions ]
   
   #Set your workflow to run every day of the week at 17:00 UTC(10:30 PM)
   schedule:
