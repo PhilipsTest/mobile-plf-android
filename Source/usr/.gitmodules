@@ -1,4 +1,0 @@
-[submodule "Documents/Internal/Localization"]
-	path = Documents/Internal/Localization
-	url = ssh://tfsemea1.ta.philips.com:22/tfs/TPC_Region24/CDP2/_git/usr-other-user-registration-localization
-	branch = develop
