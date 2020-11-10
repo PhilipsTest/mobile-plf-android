@@ -63,7 +63,7 @@ jobs:
          # refs/heads/develop*
           #refs/heads/release/platform_
           #', github.ref)
-      if: startsWith(github.ref, 'master') || startsWith(github.ref, 'develop') || startsWith(github.ref, 'release/platform_')
+      if: startsWith(github.ref, 'master') == true || startsWith(github.ref, 'develop') == true || startsWith(github.ref, 'release/platform_') == true
       #if: contains(github.ref,'master') || contains(github.ref,'develop') || contains(github.ref,'release/platform_')        
       shell: bash
       run: |
