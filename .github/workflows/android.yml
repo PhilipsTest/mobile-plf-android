@@ -80,7 +80,7 @@ jobs:
       shell: bash
       run: |
            ./gradlew  \
-            :AppInfra:lint
+            :AppInfra:lint \
             :securedblibrary:lint \
             :pim:lint \
             :conversationalChatBot:lint \
