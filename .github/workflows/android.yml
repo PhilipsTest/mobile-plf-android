@@ -97,7 +97,7 @@ jobs:
     - uses: yutailang0119/action-android-lint@v1.0.2
       with:
         xml_path: |
-                  Source/ail/Source/Library/AppInfra/build/reports/lint-results.xml
+                  ${{github.workspace}}Source/ail/Source/Library/AppInfra/build/reports/lint-results.xml
                   ${{github.workspace}}/Source/sdb/Source/Library/securedblibrary/build/reports/lint-results.xml
                   ${{github.workspace}}/Source/pim/Source/Library/pim/build/reports/lint-results.xml
                   ${{github.workspace}}/Source/ccb/Source/Library/conversationalchatbot/build/reports/lint-results.xml
