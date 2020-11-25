@@ -99,19 +99,37 @@ jobs:
      # with:
       #  xml_path: ${{github.workspace}}/Source<copied file path>
    
-    - name: App Center Deploy
-      uses: wzieba/AppCenter-Github-Action@v1.3.1
+    #- name: App Center Deploy
+     # uses: wzieba/AppCenter-Github-Action@v1.3.1
+      #with:
+       # appName: PhilipsTest/mobile-plf-android
+        #token: ef3e10e34d02bc58a2f754a425ad8f4c8196f222
+        ## Distribution group
+        #group: QA
+        ## Artefact to upload (.apk or .ipa)
+        #file: ${{github.workspace}}/**/**.apk
+        ## Release notes visible on release page
+        #releaseNotes: R1
+        ## If true, send an email notification to the distribution group
+        #notifyTesters: true
+    
+    - name: App Center Distribute
+  # You may pin to the exact commit or the version.
+  # uses: devussy/AppCenter-Distribute-Github-Action@15b2bfc756f26bc5125e761b229bdb8005926760
+      uses: devussy/AppCenter-Distribute-Github-Action@v1.0.2
       with:
-        appName: PhilipsTest/mobile-plf-android
+    # App name followed by username e.g. devussy/Sample-App
+        app: PhilipsTest/mobile-plf-android
+    # Upload token - you can get one from appcenter.ms/settings
         token: ef3e10e34d02bc58a2f754a425ad8f4c8196f222
-        # Distribution group
+    # Distribution group
         group: QA
-        # Artefact to upload (.apk or .ipa)
+    # Artifact to upload (.apk or .ipa)
         file: ${{github.workspace}}/**/**.apk
-        # Release notes visible on release page
-        releaseNotes: R1
-        # If true, send an email notification to the distribution group
-        notifyTesters: true              
+    # Release notes visible on release page
+        releaseNotes: R.Test
+    # Flag to determine whether notify testers of this release or not (true/false)
+        silent: true
             
   PSRA-Build:
     if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
