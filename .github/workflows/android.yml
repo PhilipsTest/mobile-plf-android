@@ -90,7 +90,7 @@ jobs:
             :iap:lint \
             :digitalCare:lint \
             :mya:lint \
-            :mec:lint
+            :mec:lint \
             :pif:lint \
             :themesettings:lintRelease
             #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
