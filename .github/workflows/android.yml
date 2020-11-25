@@ -95,7 +95,7 @@ jobs:
             #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
     - uses: yutailang0119/action-android-lint@v1.0.2
       with:
-        xml_path: ${{github.workspace}}/**/lint-results*.xml
+        xml_path: ${{github.workspace}}/\**/lint-results\*.xml
             
   PSRA-Build:
     if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
