@@ -97,7 +97,20 @@ jobs:
     - uses: yutailang0119/action-android-lint@v1.0.2
       with:
         xml_path: |
-                  '${{github.workspace}}/**/lint-results.xml'
+                  ${{github.workspace}}/Source/ail/Source/Library/AppInfra/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/sdb/Source/Library/securedblibrary/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/pim/Source/Library/pim/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/ccb/Source/Library/conversationalchatbot/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/usr/Source/Library/RegistrationApi/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/pse/Source/Library/productselection/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/prg/Source/Library/product-registration-lib/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/iap/Source/Library/iap/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/dcc/Source/Library/digitalCare/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/mya/Source/Library/mya/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/mec/Source/Library/mec/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/pif/Source/Library/pif/build/reports/lint-results.xml
+                  ${{github.workspace}}/Source/rap/Source/AppFramework/themesettings/build/reports/lint-results-release.xml
+                  ${{github.workspace}}/Source/mec/Source/Library/mec/build/reports/lint-results.xml
             
   PSRA-Build:
     if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
