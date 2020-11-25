@@ -84,7 +84,7 @@ jobs:
             #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
     - uses: MeilCli/android-lint-statistics@v1
       with:
-          lint_xml_file_path: '{{github.workspace}}/**/lint**.xml'
+          lint_xml_file_path: '{{github.workspace}}/Source/ail/Source/Library/AppInfra/build/reports/lint-results.xml'
    # - uses: yutailang0119/action-android-lint@v1.0.2
     #  with:
      #   xml_path: |
