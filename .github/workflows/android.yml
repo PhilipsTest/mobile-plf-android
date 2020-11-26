@@ -48,15 +48,30 @@ jobs:
   
     - name: Build & Test with Gradle
       run: |
-           echo 'Running' 
+           echo 'Running'
+           ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
+            :AppInfra:testReleaseUnitTest \
+            :uAppFwLib:testReleaseUnitTest \
+            :registrationApi:testReleaseUnitTest \
+            :product-registration-lib:testReleaseUnitTest \
+            :iap:testReleaseUnitTest \
+            :digitalCareUApp:testRelease \
+            :digitalCare:testRelease \
+            :mya:testReleaseUnitTest \
+            :pif:testReleaseUnitTest \
+            :pim:testReleaseUnitTest \
+            :conversationalChatBot:testReleaseUnitTest \
+            :philipsecommercesdk:testReleaseUnitTest \
+            :mec:testReleaseUnitTest \
+            :pimApp:testReleaseUnitTest \
+            :referenceApp:testReleaseUnitTest
     
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
       with:
         name: APK's for ReferenceApp & PIMDemoApp
        #${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
-        path: |
-              '${{github.workspace}}/**/*.apk'
+        path: '${{github.workspace}}/**/*.apk'
           
     
     #publish to artifactory only for master,develop and release/platform_*
