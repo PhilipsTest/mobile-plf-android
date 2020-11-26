@@ -3,6 +3,10 @@ name: Android CI
 on:
   workflow_dispatch:
     inputs:
+      App Center:
+        description: 'App Center Deploy'
+        required: false
+        default: true
       PSRA:
         description: 'Build with PSRA'
         required: false
@@ -50,9 +54,10 @@ jobs:
       uses: actions/upload-artifact@v2.2.0
       with:
         name: APK's for ReferenceApp & PIMDemoApp
+       #${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
         path: |
-          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
-          ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
+              '${{github.workspace}}/**/*.apk'
+          
     
     #publish to artifactory only for master,develop and release/platform_*
     - name: Publish To Artifactory
@@ -94,7 +99,7 @@ jobs:
             :pif:lint \
             :themesettings:lintRelease
             #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
-           cp -R ${{github.workspace}}/Source/**/lint*.xml ${{github.workspace}}/Source/lint-results
+           cp -R '${{github.workspace}}/Source/**/lint*.xml' ${{github.workspace}}/Source/lint-results
            file ${{github.workspace}}/Source/lint-results
     
     #- uses: yutailang0119/action-android-lint@v1.0.2
@@ -109,7 +114,7 @@ jobs:
         ## Distribution group
         #group: QA
         ## Artefact to upload (.apk or .ipa)
-        #file: ${{github.workspace}}/**/**.apk
+        #file: '${{github.workspace}}/**/*.apk'
         ## Release notes visible on release page
         #releaseNotes: R1
         ## If true, send an email notification to the distribution group
@@ -127,12 +132,37 @@ jobs:
     ## Distribution group
       #  group: QA
     ## Artifact to upload (.apk or .ipa)
-      #  file: ${{github.workspace}}/**/**.apk
+      #  file: '${{github.workspace}}/**/*.apk'
     ## Release notes visible on release page
       #  releaseNotes: R.Test
     ## Flag to determine whether notify testers of this release or not (true/false)
       #  silent: true
             
+  App Center:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.0.6
+        with:
+              # Artifact name
+         name: APK's for ReferenceApp & PIMDemoApp
+              # Destination path
+         path: '${{github.workspace}}/APK'
+      - name: App Center Deploy
+        uses: wzieba/AppCenter-Github-Action@v1.3.1
+        with:
+         appName: PhilipsTest/mobile-plf-android
+         token: ef3e10e34d02bc58a2f754a425ad8f4c8196f222
+        # Distribution group
+         group: QA
+        # Artefact to upload (.apk or .ipa)
+         file: '${{github.workspace}}/APK'
+        # Release notes visible on release page
+         releaseNotes: R1
+        # If true, send an email notification to the distribution group
+         notifyTesters: true
+         
   PSRA-Build:
     if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
     needs: Build
