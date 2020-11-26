@@ -164,6 +164,7 @@ jobs:
          name: APK's for ReferenceApp & PIMDemoApp
               # Destination path
          path: '${{github.workspace}}/APK'
+      
       - name: App Center Deploy
         uses: wzieba/AppCenter-Github-Action@v1.3.1
         with:
@@ -172,7 +173,7 @@ jobs:
         # Distribution group
          group: QA
         # Artefact to upload (.apk or .ipa)
-         file: '${{github.workspace}}/APK'
+         file: '${{github.workspace}}/**/*.apk'
         # Release notes visible on release page
          releaseNotes: R1
         # If true, send an email notification to the distribution group
