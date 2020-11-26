@@ -98,6 +98,8 @@ jobs:
     
     - name: Lint
       shell: bash
+      #cp -R '${{github.workspace}}/Source/**/lint*.xml' ${{github.workspace}}/Source/lint-results
+      #file ${{github.workspace}}/Source/lint-results
       run: |
            ./gradlew  \
             :AppInfra:lint \
@@ -114,8 +116,6 @@ jobs:
             :pif:lint \
             :themesettings:lintRelease
             #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
-           cp -R '${{github.workspace}}/Source/**/lint*.xml' ${{github.workspace}}/Source/lint-results
-           file ${{github.workspace}}/Source/lint-results
     
     #- uses: yutailang0119/action-android-lint@v1.0.2
      # with:
