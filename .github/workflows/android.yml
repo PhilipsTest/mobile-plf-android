@@ -164,6 +164,10 @@ jobs:
          name: APK's for ReferenceApp & PIMDemoApp
               # Destination path
          path: '${{github.workspace}}/APK'
+         run: |
+              pwd
+              ls ${{github.workspace}}
+              ls ${{github.workspace}}/APK
       
       - name: App Center Deploy
         uses: wzieba/AppCenter-Github-Action@v1.3.1
