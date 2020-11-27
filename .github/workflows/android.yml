@@ -157,31 +157,31 @@ jobs:
     needs: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v2.0.6
-        with:
-              # Artifact name
-         name: APK's for ReferenceApp & PIMDemoApp
-              # Destination path
-         path: '${{github.workspace}}/APK'
-         run: |
-              pwd
-              ls ${{github.workspace}}
-              ls ${{github.workspace}}/APK
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2.0.6
+      with:
+        name: APK's for ReferenceApp & PIMDemoApp
+        path: '${{github.workspace}}/APK'
+    
+    - name: List Artifacts
+      run: |
+        pwd
+        ls ${{github.workspace}}
+        ls ${{github.workspace}}/APK
       
-      - name: App Center Deploy
-        uses: wzieba/AppCenter-Github-Action@v1.3.1
-        with:
-         appName: PhilipsTest/mobile-plf-android
-         token: ef3e10e34d02bc58a2f754a425ad8f4c8196f222
-        # Distribution group
-         group: QA
-        # Artefact to upload (.apk or .ipa)
-         file: ${{github.workspace}}/APK/*.apk
-        # Release notes visible on release page
-         releaseNotes: R1
-        # If true, send an email notification to the distribution group
-         notifyTesters: true
+    - name: App Center Deploy
+      uses: wzieba/AppCenter-Github-Action@v1.3.1
+      with:
+        appName: PhilipsTest/mobile-plf-android
+        token: ef3e10e34d02bc58a2f754a425ad8f4c8196f222
+      # Distribution group
+        group: QA
+      # Artefact to upload (.apk or .ipa)
+        file: ${{github.workspace}}/APK/*.apk
+      # Release notes visible on release page
+        releaseNotes: R1
+      # If true, send an email notification to the distribution group
+        notifyTesters: true
          
   PSRA-Build:
     if: github.event.inputs.PSRA == 'true' || github.event_name == 'schedule'
