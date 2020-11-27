@@ -177,7 +177,7 @@ jobs:
       # Distribution group
         group: QA
       # Artefact to upload (.apk or .ipa)
-        file: ${{github.workspace}}/APK/*.apk
+        file: ${{github.workspace}}/APK/**/*.apk
       # Release notes visible on release page
         releaseNotes: R1
       # If true, send an email notification to the distribution group
