@@ -19,6 +19,10 @@ on:
         description: 'HP-Fortify'
         required: false
         default: false
+      TiCS:
+        description: 'TiCS'
+        required: false
+        default: false
           
 #Set your workflow to run every day of the week at 23:00 UTC(4:30 AM)
   schedule:  
@@ -119,3 +123,25 @@ jobs:
       run: |
           chmod -R 755 .
           ./fortify.sh
+ 
+  TiCS-Build:
+    if: github.event.inputs.HPFortify == 'true' #|| github.event_name == 'schedule'
+    runs-on: self-hosted
+    
+    steps:
+    - uses: actions/checkout@v2.3.3
+      with:
+        fetch-depth: 0
+        clean: true
+        submodules: true
+        lfs: true
+    
+    - name: Run TiCS
+      shell: bash
+      run: |
+           #!/bin/bash -l
+           set -e
+           chmod +x run_tics_iet_mobile.sh
+           dos2unix run_tics_iet_mobile.sh
+           ./run_tics_iet_mobile.sh
+          
