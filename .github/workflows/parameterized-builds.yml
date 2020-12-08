@@ -125,7 +125,7 @@ jobs:
           ./fortify.sh
  
   TiCS-Build:
-    if: github.event.inputs.HPFortify == 'true' #|| github.event_name == 'schedule'
+    if: github.event.inputs.TiCS == 'true' #|| github.event_name == 'schedule'
     runs-on: self-hosted
     
     steps:
