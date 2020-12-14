@@ -62,18 +62,18 @@ jobs:
             :pimApp:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest 
     
-    - name: Upload APK
+    - name: Upload APK and dependencies.lock
       uses: actions/upload-artifact@v2.2.0
       with:
-        name: APK's for ReferenceApp & PIMDemoApp
+        name: APK's and dependencies.lock
         path: |
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
           ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
-          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/*dependencies*.lock
+          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/'*dependencies*.lock'
     
     #publish to artifactory only for master,develop and release/platform_*
     - name: Publish To Artifactory
-      if: startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/release/platform_')
+      if: startsWith(github.ref, 'refs/heads/master') || startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/release/platform_') && github.event.inputs.Publish-Artifactory == 'true'
       #if: contains(github.ref,'master') || contains(github.ref,'develop') || contains(github.ref,'release/platform_')        
       shell: bash
       run: |
