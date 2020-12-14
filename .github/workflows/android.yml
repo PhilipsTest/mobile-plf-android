@@ -44,7 +44,23 @@ jobs:
   
     - name: Build & Test with Gradle
       run: |
-           echo 'Running' 
+           echo 'Running'
+           ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
+            :AppInfra:testReleaseUnitTest \
+            :uAppFwLib:testReleaseUnitTest \
+            :registrationApi:testReleaseUnitTest \
+            :product-registration-lib:testReleaseUnitTest \
+            :iap:testReleaseUnitTest \
+            :digitalCareUApp:testRelease \
+            :digitalCare:testRelease \
+            :mya:testReleaseUnitTest \
+            :pif:testReleaseUnitTest \
+            :pim:testReleaseUnitTest \
+            :conversationalChatBot:testReleaseUnitTest \
+            :philipsecommercesdk:testReleaseUnitTest \
+            :mec:testReleaseUnitTest \
+            :pimApp:testReleaseUnitTest \
+            :referenceApp:testReleaseUnitTest 
     
     - name: Upload APK
       uses: actions/upload-artifact@v2.2.0
@@ -53,6 +69,7 @@ jobs:
         path: |
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
           ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
+          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/*dependencies*.lock
     
     #publish to artifactory only for master,develop and release/platform_*
     - name: Publish To Artifactory
