@@ -180,3 +180,4 @@ Review PR's
 3. Make sure changelog is created at the end of the sprint. Good practice is to keep an eye for all PR's merged into dev daily. Here we mark changelog for easier tracking.
 4. Update Readme if necessary. (Dillinger.io is a nice online markdown document editor)
 5. Present demo of all the features finished in the sprint.
+6. Link the Work Items in the PRs
