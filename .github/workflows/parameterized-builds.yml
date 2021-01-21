@@ -19,6 +19,10 @@ on:
         description: 'HP-Fortify'
         required: false
         default: false
+      BlackDuck:
+        description: 'Blackduck'
+        required: false
+        default: false
           
 #Set your workflow to run every day of the week at 23:00 UTC(4:30 AM)
   schedule:  
