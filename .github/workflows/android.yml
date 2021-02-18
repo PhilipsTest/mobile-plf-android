@@ -66,9 +66,10 @@ jobs:
       uses: actions/upload-artifact@v2.2.0
       with:
         name: APK's and dependencies.lock
+        #${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
+          #${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
         path: |
-          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
-          ${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
+          ${{github.workspace}}/**/*.apk
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/'*dependencies*.lock'
     
     #publish to artifactory only for master,develop and release/platform_*
