@@ -54,9 +54,9 @@ jobs:
         name: APK's and dependencies.lock
         #${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
           #${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
-          #${{github.workspace}}/**/*.apk
         path: |
           ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/*dependencies*.lock
+          ${{github.workspace}}/**/*.apk
     
     #publish to artifactory only for master,develop and release/platform_*
     #- name: Publish To Artifactory
@@ -72,22 +72,22 @@ jobs:
        #    ./gradlew test
         #   ./gradlew jacocoTestReport
     
-    - name: Lint
-      shell: bash
-      run: |
-           ./gradlew  \
-            :AppInfra:lint \
-            :securedblibrary:lint \
-            :pim:lint \
-            :conversationalChatBot:lint \
-            :registrationApi:lint \
-            :productselection:lint \
-            :product-registration-lib:lint \
-            :iap:lint \
-            :digitalCare:lint \
-            :mya:lint \
-            :pif:lint \
-            :themesettings:lintRelease
+    #- name: Lint
+     # shell: bash
+      #run: |
+       #    ./gradlew  \
+        #    :AppInfra:lint \
+         #   :securedblibrary:lint \
+          #  :pim:lint \
+           # :conversationalChatBot:lint \
+            #:registrationApi:lint \
+            #:productselection:lint \
+            #:product-registration-lib:lint \
+            #:iap:lint \
+            #:digitalCare:lint \
+            #:mya:lint \
+            #:pif:lint \
+            #:themesettings:lintRelease
             #prx:lint and rap:lintRelease are not working and we are keeping it as known issues
             
   PSRA-Build:
