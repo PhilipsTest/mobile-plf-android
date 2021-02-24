@@ -46,20 +46,6 @@ jobs:
       run: |
            echo 'Running'
            ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
-            :AppInfra:testReleaseUnitTest \
-            :uAppFwLib:testReleaseUnitTest \
-            :registrationApi:testReleaseUnitTest \
-            :product-registration-lib:testReleaseUnitTest \
-            :iap:testReleaseUnitTest \
-            :digitalCareUApp:testRelease \
-            :digitalCare:testRelease \
-            :mya:testReleaseUnitTest \
-            :pif:testReleaseUnitTest \
-            :pim:testReleaseUnitTest \
-            :conversationalChatBot:testReleaseUnitTest \
-            :philipsecommercesdk:testReleaseUnitTest \
-            :mec:testReleaseUnitTest \
-            :pimApp:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest 
     
     - name: Upload APK and dependencies.lock
