@@ -46,6 +46,20 @@ jobs:
       run: |
            echo 'Running'
            ./gradlew --refresh-dependencies --full-stacktrace clean assembleRelease \
+            :AppInfra:testReleaseUnitTest \
+            :uAppFwLib:testReleaseUnitTest \
+            :registrationApi:testReleaseUnitTest \
+            :product-registration-lib:testReleaseUnitTest \
+            :iap:testReleaseUnitTest \
+            :digitalCareUApp:testRelease \
+            :digitalCare:testRelease \
+            :mya:testReleaseUnitTest \
+            :pif:testReleaseUnitTest \
+            :pim:testReleaseUnitTest \
+            :conversationalChatBot:testReleaseUnitTest \
+            :philipsecommercesdk:testReleaseUnitTest \
+            :mec:testReleaseUnitTest \
+            :pimApp:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest 
     
     - name: Upload APK and dependencies.lock
@@ -58,7 +72,7 @@ jobs:
           #${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
           #${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
         path: |
-          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/**.lock
+          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/*dependencies*.lock
           
           
     
