@@ -58,7 +58,7 @@ jobs:
           #${{github.workspace}}/source/pim/Source/DemoApp/app/build/outputs/apk/release/*.apk
           #${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/build/outputs/apk/release/*.apk
         path: |
-          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/*.lock
+          ${{github.workspace}}/Source/rap/Source/AppFramework/appFramework/**.lock
           
           
     
