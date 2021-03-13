@@ -42,6 +42,11 @@ jobs:
         #submodules: true
         #lfs: true
   
+    - name: Better Wait Action
+      uses: whatnick/wait-action@v0.1.2
+      with:
+        max-wait-time: 120
+        
     - name: Build & Test with Gradle
       run: |
            echo 'Running'
