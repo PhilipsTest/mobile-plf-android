@@ -42,10 +42,10 @@ jobs:
         #submodules: true
         #lfs: true
   
-    - name: Better Wait Action
-      uses: whatnick/wait-action@v0.1.2
+    - name: Sleep Action
+      uses: juliangruber/sleep-action@v1.0.1
       with:
-        time: '120s'
+        time: 120s
         
     - name: Build & Test with Gradle
       run: |
