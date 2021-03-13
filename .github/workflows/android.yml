@@ -45,7 +45,7 @@ jobs:
     - name: Better Wait Action
       uses: whatnick/wait-action@v0.1.2
       with:
-        max-wait-time: 120
+        time: '120s'
         
     - name: Build & Test with Gradle
       run: |
