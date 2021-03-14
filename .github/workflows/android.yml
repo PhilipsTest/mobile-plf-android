@@ -35,18 +35,13 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    #- uses: actions/checkout@v2.3.3
-     # with:
-      #  fetch-depth: 0
-       # clean: true
-        #submodules: true
-        #lfs: true
-  
-    - name: Sleep Action
-      uses: juliangruber/sleep-action@v1.0.1
+    - uses: actions/checkout@v2.3.3
       with:
-        time: 120s
-        
+        fetch-depth: 0
+        clean: true
+        submodules: true
+        lfs: true
+      
     - name: Build & Test with Gradle
       run: |
            echo 'Running'
@@ -67,6 +62,11 @@ jobs:
             :pimApp:testReleaseUnitTest \
             :referenceApp:testReleaseUnitTest 
     
+    - name: Sleep Action
+      uses: juliangruber/sleep-action@v1.0.1
+      with:
+        time: 120s
+        
     - name: Upload APK and dependencies.lock
       uses: actions/upload-artifact@v2.2.0
       with:
